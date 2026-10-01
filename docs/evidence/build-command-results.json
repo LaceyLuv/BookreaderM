@@ -1,0 +1,56 @@
+[
+  {
+    "command": [
+      "./scripts/doctor.sh"
+    ],
+    "exit": 78,
+    "log": "docs/evidence/doctor.log"
+  },
+  {
+    "command": [
+      "./scripts/ci-check.sh"
+    ],
+    "exit": 78,
+    "log": "docs/evidence/ci-check.log"
+  },
+  {
+    "command": [
+      "./gradlew",
+      "--version"
+    ],
+    "exit": 1,
+    "log": "docs/evidence/gradle-version.log"
+  },
+  {
+    "command": [
+      "./gradlew",
+      "--no-daemon",
+      "--console=plain",
+      "projects"
+    ],
+    "exit": 1,
+    "log": "docs/evidence/projects.log"
+  },
+  {
+    "command": [
+      "./gradlew",
+      "--no-daemon",
+      "--console=plain",
+      ":androidApp:tasks",
+      "--all"
+    ],
+    "exit": 1,
+    "log": "docs/evidence/android-tasks.log"
+  },
+  {
+    "command": [
+      "./gradlew",
+      "--no-daemon",
+      "--console=plain",
+      ":shared:tasks",
+      "--all"
+    ],
+    "exit": 1,
+    "log": "docs/evidence/shared-tasks.log"
+  }
+]

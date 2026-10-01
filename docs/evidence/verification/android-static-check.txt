@@ -1,0 +1,37 @@
+2026-10-01 Android source XML/static check
+Working directory: /workspace/bookreader-mobile
+Exact executed command:
+python3 - <<'PY'
+from pathlib import Path
+from xml.etree import ElementTree as ET
+root = Path('androidApp/src/main')
+paths = [root / 'AndroidManifest.xml', *sorted((root / 'res').rglob('*.xml'))]
+for path in paths:
+    ET.parse(path)
+manifest = ET.parse(root / 'AndroidManifest.xml').getroot()
+assert not manifest.findall('uses-permission')
+ns = '{http://schemas.android.com/apk/res/android}'
+application = manifest.find('application')
+assert application is not None and application.get(ns + 'allowBackup') == 'false'
+for path in (root / 'res/xml/backup_rules.xml', root / 'res/xml/data_extraction_rules.xml'):
+    rules = ET.parse(path).getroot()
+    parents = [rules] if rules.tag == 'full-backup-content' else list(rules)
+    for parent in parents:
+        exclusions = {(entry.get('domain'), entry.get('path')) for entry in parent.findall('exclude')}
+        assert {('file', '.'), ('database', '.'), ('sharedpref', '.')} <= exclusions
+print(f'PASS: parsed {len(paths)} Android XML files; no requested permissions; backup exclusions present')
+PY
+
+Exit code: 0
+Output:
+PASS: parsed 5 Android XML files; no requested permissions; backup exclusions present
+
+Scope: XML syntax and declared manifest/backup rules only.
+NOT_RUN: Android resource compilation/lint/runtime, cloud/D2D/OEM backup behavior.
+The platform Theme.Material.Light.NoActionBar parent predates minSdk26; Android tool validation pending.
+
+Rerun after adaptive launcher icon resources:
+Same Python source as exact command above.
+Exit code: 0
+Output:
+PASS: parsed 9 Android XML files; no requested permissions; backup exclusions present

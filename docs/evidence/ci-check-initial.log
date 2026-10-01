@@ -1,0 +1,15 @@
+COMMAND ./scripts/ci-check.sh
+COMMAND ./scripts/doctor.sh
+BookReader Mobile M00 environment doctor
+openjdk version "21.0.12.1" 2026-08-18
+OpenJDK Runtime Environment (build 21.0.12.1+1-1-deb13u1-Debian)
+OpenJDK 64-Bit Server VM (build 21.0.12.1+1-1-deb13u1-Debian, mixed mode, sharing)
+BLOCKED_ENV javac is missing; a JRE alone cannot build this project.
+PASS Authentic Gradle 8.13 wrapper JAR checksum
+BLOCKED_ENV Set ANDROID_HOME to an installed Android SDK.
+NOT_RUN Android instrumentation: adb/device unavailable.
+NOT_RUN Dependency resolution/build: doctor is only an environment check.
+BLOCKED_ENV Install JDK 17 and the pinned SDK; then run ci-check.
+FAIL doctor exit=78
+
+EXIT 78

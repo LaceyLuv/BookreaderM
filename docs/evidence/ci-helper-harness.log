@@ -1,0 +1,33 @@
+COMMAND python3 docs/evidence/ci-helper-harness.py
+[
+  {
+    "case": "success",
+    "expected": 0,
+    "actual": 0,
+    "stdout": "COMMAND bash -c printf\\ data\\;\\ exit\\ 0\ndataPASS case exit=0\nACTUAL_EXIT=0\n",
+    "stderr": ""
+  },
+  {
+    "case": "failure",
+    "expected": 7,
+    "actual": 7,
+    "stdout": "COMMAND bash -c printf\\ data\\;\\ exit\\ 7\ndataFAIL case command_exit=7 log_exit=0\nACTUAL_EXIT=7\n",
+    "stderr": ""
+  },
+  {
+    "case": "blocked",
+    "expected": 78,
+    "actual": 78,
+    "stdout": "COMMAND bash -c printf\\ data\\;\\ exit\\ 78\ndataBLOCKED_ENV case command_exit=78 log_exit=0\nACTUAL_EXIT=78\n",
+    "stderr": ""
+  },
+  {
+    "case": "log-failure",
+    "expected": 1,
+    "actual": 1,
+    "stdout": "COMMAND bash -c printf\\ data\\;\\ exit\\ 0\ndataFAIL case command_exit=0 log_exit=1\nACTUAL_EXIT=1\n",
+    "stderr": "tee: /tmp/bookreader-ci-helper-ckw6vqwl/log-failure/case.log: No space left on device\n"
+  }
+]
+PASS four shell logger cases; version catalog TOML parse
+EXIT 0

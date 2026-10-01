@@ -1,0 +1,46 @@
+당신은 이 저장소의 BookReader Mobile 구현 담당자다. 계획만 다시 쓰지 말고 이번 작업의 실제 코드와 테스트를 구현하라.
+
+먼저 현재 저장소의 루트·상위 AGENTS.md·브랜치·git status·기존 프로젝트 구조를 확인하라. 사용자 미커밋 변경과 기존 PC BookReader 코드를 보존하라.
+
+입력 문서:
+1. docs/BookReader_Mobile_v1_1_Implementation_Plan.md
+2. docs/TASKS.md
+3. AGENTS.template.md 또는 이미 존재하는 AGENTS.md
+
+문서가 위 경로에 없으면 실제 제공된 첨부/작업 디렉터리에서 찾아 해당 docs 경로에 보존하라. 실제 내용을 읽지 않은 문서를 읽었다고 가정하지 마라. 원문 BookReader_Mobile_v1_Plan.md는 이력용이며 개정 계획과 충돌하면 개정 계획의 명시적 변경을 따른다.
+
+기본 위치는 독립 모바일 저장소다. 기존 PC 저장소라면 mobile/ 아래에 격리하고, 기존 PC 코드·설정·CI 파일을 변경하지 마라. 모바일 전용 새 CI workflow가 필요하면 범위를 모바일 경로로 제한하고 그 추가를 보고하라. 위 docs 경로는 선택한 모바일 루트를 기준으로 해석하라.
+
+이번 작업은 docs/TASKS.md의 M00 — bootstrap-mobile-foundation만 수행한다.
+- Android Jetpack Compose 앱 + KMP core + Room KMP 기반을 실제로 만든다.
+- 안정적인 JDK/Gradle/AGP/Kotlin/Compose/KSP/Room/SQLite/SDK 조합을 공식 문서와 실제 dependency resolve/build로 확인하고 정확한 버전을 고정한다.
+- 실제 실행 가능한 서재/검색/설정 3탭, Loading/Empty/Error 구분, 최소 테마를 만든다.
+- Book/ReadingProgress/locator envelope 및 repository 경계를 구현한다.
+- 실제 Room DB 생성·삽입·조회 smoke, schema export, locator 직렬화 테스트를 만든다.
+- Gradle wrapper, scripts/doctor.sh, scripts/ci-check.sh, 기본 CI, DEPENDENCIES.md/TESTING.md/WORKLOG.md를 만든다.
+- AGENTS.template.md는 기존 지침을 대체하지 말고 관련 규칙을 적절한 범위의 AGENTS.md에 병합한다.
+
+제품의 고정 조건:
+- Android 우선, PC 코드를 포팅하지 않는다.
+- 새 프로세스의 일반 앱 실행은 서재다. 마지막 책은 하단 이어읽기 바로 진입한다.
+- 원본 URI가 아니라 앱 내부 관리 복사본을 사용한다.
+- 정식 위치는 version/revision이 있는 포맷별 locator다. page number를 저장 기준으로 쓰지 않는다.
+- 전체 서재 JSON overwrite, 조회 실패 후 0% 저장, destructive migration을 금지한다.
+- EPUB는 검증된 Readium Android 어댑터 경로를 기본으로 하되 M01에서 호환성·locator·보안을 실제 검증한다.
+- iOS UI 공유/계정/동기화/AI/통계로 이번 범위를 넓히지 않는다.
+
+M00에서는 TXT 본문 렌더러, EPUB 제품 기능, Comic Reader를 구현하지 마라.
+완성처럼 보이는 빈 구현, TODO 반환값, 가짜 DB/테스트만으로 완료 처리하지 마라.
+Gradle task는 현재 plugin이 실제 제공하는 목록을 확인하여 선택하고, ci-check에 Android assemble/lint/unit 및 shared tests를 연결하라.
+테스트 삭제·skip·ignoreFailures·실패 무시로 녹색 CI를 만들지 마라.
+
+환경에 SDK/JDK/네트워크/에뮬레이터가 없으면 가능한 작업을 수행하고 필요한 실행 검증을 BLOCKED_ENV/NOT_RUN으로 분리하라. 성공 결과나 실행 로그를 꾸며내지 마라. 기능·보안 요구를 낮추는 우회 대신 재현 가능한 차단 사유와 해결 조건을 남겨라.
+불필요한 확인 질문으로 멈추지 말고 문서의 기본값을 사용하되, 되돌리기 어려운 범위·보안·데이터 정책 변경은 임의 수행하지 마라.
+사용자 요청 없이 원격 push/merge/스토어 배포를 하지 마라.
+
+마지막에는 다음을 보고하라.
+1. 실제 구현한 사용자 경로와 변경 파일.
+2. 고정한 의존성/구조 및 원문 대비 선택한 정책.
+3. 각 실행 명령·exit code·PASS/FAIL/NOT_RUN/BLOCKED_ENV·로그/산출물 경로.
+4. 해결하지 못한 위험과 실제로 하지 않은 검증.
+5. TASKS.md의 M00 상태와 다음 M01의 정확한 착수 조건.
