@@ -1,4 +1,5 @@
-# BookReader Mobile
+# BookreaderM
+북리더 모바일
 
 Android 우선 로컬 전자책 리더의 **M00 기반 구현**이다. 기준 문서는
 [개정 계획서](docs/BookReader_Mobile_v1_1_Implementation_Plan.md)와 [작업표](docs/TASKS.md)다.
