@@ -15,7 +15,10 @@ fi
 if command -v javac >/dev/null 2>&1; then
   compiler_version="$(javac -version 2>&1)"
   printf '%s\n' "$compiler_version"
-  if [[ "$compiler_version" == javac\ 17.* ]]; then
+  # Java may print inherited JAVA_TOOL_OPTIONS before its version line.
+  # Read the compiler line while preserving those options and diagnostics.
+  compiler_release="$(printf '%s\n' "$compiler_version" | awk '$1 == "javac" { print $2 }')"
+  if [[ "$compiler_release" == 17.* ]]; then
     pass 'JDK 17 compiler available'
   else
     block 'Active javac must be JDK 17; set JAVA_HOME and PATH.'
