@@ -18,6 +18,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.bookreader.mobile.MainActivity
 import org.bookreader.mobile.database.createAndroidDatabase
+import org.bookreader.mobile.database.BookReaderDatabase
 import org.bookreader.mobile.importing.TestSenderActivity
 import org.bookreader.mobile.locator.TxtLocator
 import org.bookreader.mobile.model.Book
@@ -30,6 +31,8 @@ import org.bookreader.mobile.ui.AppViewModel
 import org.bookreader.mobile.ui.AndroidBookManagement
 import org.bookreader.mobile.importing.DeleteResult
 import org.junit.Assert.*
+import org.junit.Before
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
@@ -39,15 +42,26 @@ class TxtReaderHostProcessTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val target get() = instrumentation.targetContext
     private val proof get() = File(target.filesDir, "txt-host-committed.properties")
+    private lateinit var observerDatabase: BookReaderDatabase
+
+    @Before fun openFixtureObserver() {
+        observerDatabase = createAndroidDatabase(target)
+        // Force this stage's observer open before reader actions and durable-commit polling.
+        runBlocking { withContext(Dispatchers.IO) { observerDatabase.bookDao().listBooks() } }
+    }
+
+    @After fun closeFixtureObserver() {
+        try { compose.activityRule.scenario.close() }
+        finally { if (::observerDatabase.isInitialized) observerDatabase.close() }
+    }
 
     @Test fun prepareDurableReader() {
         val initialIds = runBlocking { withContext(Dispatchers.IO) {
-            val database = createAndroidDatabase(target)
-            try { when (val library = RoomBookRepository(database).loadBooks()) {
+            when (val library = RoomBookRepository(observerDatabase).loadBooks()) {
                 is LibraryState.Content -> library.books.map { it.id }.toSet()
                 LibraryState.Empty -> emptySet()
                 else -> error("Fixture library read failed")
-            } } finally { database.close() }
+            }
         } }
         instrumentation.context.startActivity(Intent().apply {
             component = ComponentName(instrumentation.context, TestSenderActivity::class.java)
@@ -112,13 +126,11 @@ class TxtReaderHostProcessTest {
     private fun saved(book: Book) = saved(book.id, requireNotNull(book.currentRevision))
     private fun saved(bookId: String, revision: String): ReadingProgress? = runBlocking {
         withContext(Dispatchers.IO) {
-            val database = createAndroidDatabase(target)
-            try { when (val read = RoomProgressRepository(database).loadProgress(bookId, revision)) {
+            when (val read = RoomProgressRepository(observerDatabase).loadProgress(bookId, revision)) {
                 is ProgressReadResult.Found -> read.progress
                 ProgressReadResult.Missing -> null
-                is ProgressReadResult.Error -> error("Fixture progress read failed: ${read.code}")
-            } }
-            finally { database.close() }
+                is ProgressReadResult.Error -> fixtureProgressReadFailed(observerDatabase, bookId, revision, read)
+            }
         }
     }
     private fun offset(progress: ReadingProgress) = (progress.locator as TxtLocator).payload.utf16Offset

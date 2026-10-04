@@ -21,6 +21,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.bookreader.mobile.MainActivity
 import org.bookreader.mobile.database.createAndroidDatabase
+import org.bookreader.mobile.database.BookReaderDatabase
 import org.bookreader.mobile.importing.TestSenderActivity
 import org.bookreader.mobile.locator.TxtLocator
 import org.bookreader.mobile.model.Book
@@ -43,19 +44,27 @@ class TxtReaderFlowTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val target get() = instrumentation.targetContext
-    private var initialIds: Set<String> = emptySet()
+    private var initialIds: Set<String>? = null
+    private lateinit var observerDatabase: BookReaderDatabase
 
-    @Before fun preserveExistingBooks() { initialIds = books().map { it.id }.toSet() }
+    @Before fun preserveExistingBooks() {
+        observerDatabase = createAndroidDatabase(target)
+        // Open the fixture observer before reader actions, rather than opening a Room pool per poll.
+        initialIds = books().map { it.id }.toSet()
+    }
     @After fun cleanOnlyNewFixtureBooks() {
-        compose.activityRule.scenario.close()
-        books().filter { it.id !in initialIds && it.originalDisplayName.startsWith("../../reader-") }.forEach { book ->
-            runBlocking { withContext(Dispatchers.IO) {
-                assertEquals(DeleteResult.Deleted, AndroidBookManagement(target).delete(book.id))
-            } }
-            val key = MessageDigest.getInstance("SHA-256").digest(requireNotNull(book.currentRevision).toByteArray())
-                .joinToString("") { "%02x".format(it) }
-            File(target.cacheDir, "txt").listFiles()?.filter { it.name.startsWith(key) }?.forEach { it.delete() }
-        }
+        try {
+            compose.activityRule.scenario.close()
+            val preservedIds = initialIds ?: return
+            books().filter { it.id !in preservedIds && it.originalDisplayName.startsWith("../../reader-") }.forEach { book ->
+                runBlocking { withContext(Dispatchers.IO) {
+                    assertEquals(DeleteResult.Deleted, AndroidBookManagement(target).delete(book.id))
+                } }
+                val key = MessageDigest.getInstance("SHA-256").digest(requireNotNull(book.currentRevision).toByteArray())
+                    .joinToString("") { "%02x".format(it) }
+                File(target.cacheDir, "txt").listFiles()?.filter { it.name.startsWith(key) }?.forEach { it.delete() }
+            }
+        } finally { if (::observerDatabase.isInitialized) observerDatabase.close() }
     }
 
     @Test fun measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation() {
@@ -153,25 +162,23 @@ class TxtReaderFlowTest {
 
     private fun saved(book: Book): ReadingProgress? = runBlocking {
         withContext(Dispatchers.IO) {
-            val database = createAndroidDatabase(target)
-            try { when (val read = RoomProgressRepository(database).loadProgress(book.id, requireNotNull(book.currentRevision))) {
+            val revision = requireNotNull(book.currentRevision)
+            when (val read = RoomProgressRepository(observerDatabase).loadProgress(book.id, revision)) {
                 is ProgressReadResult.Found -> read.progress
                 ProgressReadResult.Missing -> null
-                is ProgressReadResult.Error -> error("Fixture progress read failed: ${read.code}")
-            } }
-            finally { database.close() }
+                is ProgressReadResult.Error -> fixtureProgressReadFailed(observerDatabase, book.id, revision, read)
+            }
         }
     }
 
     private fun offset(progress: ReadingProgress): Long = (progress.locator as TxtLocator).payload.utf16Offset
 
     private fun books(): List<Book> = runBlocking { withContext(Dispatchers.IO) {
-        val database = createAndroidDatabase(target)
-        try { when (val library = RoomBookRepository(database).loadBooks()) {
+        when (val library = RoomBookRepository(observerDatabase).loadBooks()) {
             is LibraryState.Content -> library.books
             LibraryState.Empty -> emptyList()
             else -> error("Fixture library read failed")
-        } } finally { database.close() }
+        }
     } }
 
     private fun sendFixture(id: String) {
