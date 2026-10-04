@@ -29,11 +29,17 @@ import org.junit.After
 import org.bookreader.mobile.ui.AndroidBookManagement
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestName
+import androidx.lifecycle.ViewModelProvider
+import org.bookreader.mobile.ui.AppViewModel
+import org.bookreader.mobile.ui.ImportUiState
+import org.bookreader.mobile.reader.TxtReaderPhase
 import java.io.File
 
 /** Exercises real Android provider streams, Activity result grants, exported intents and Room. */
 class ManagedImportAndroidTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule val testName = TestName()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val target get() = instrumentation.targetContext
 
@@ -132,6 +138,11 @@ class ManagedImportAndroidTest {
         compose.onNodeWithText("실제 문서 제공자에서 가져온 TXT입니다.", substring = true).assertIsDisplayed()
         captureFixtureScreenshot("m03-reader")
         assertTrue(books().any { it.originalDisplayName == "../../utf8.txt" })
+        assertEquals(Intent.ACTION_MAIN, compose.activity.intent.action)
+        assertEquals(androidx.lifecycle.Lifecycle.State.RESUMED, compose.activityRule.scenario.state)
+        compose.activityRule.scenario.recreate()
+        waitFor("reader_ready")
+        compose.onNodeWithText("실제 문서 제공자에서 가져온 TXT입니다.", substring = true).assertIsDisplayed()
     }
 
     @Test fun externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit() {
@@ -176,6 +187,8 @@ class ManagedImportAndroidTest {
                 compose.onNodeWithTag("add_txt").performClick()
                 waitFor("import_error")
                 assertEquals(original, books().map { it.id })
+                assertEquals(if (fixture == "binary") ImportErrorCode.UNSUPPORTED_FORMAT else ImportErrorCode.TOO_LARGE,
+                    (currentAppState()?.importing as? ImportUiState.Error)?.code)
                 compose.onNodeWithText("닫기").performClick()
             } finally { instrumentation.removeMonitor(monitor) }
         }
@@ -213,6 +226,29 @@ class ManagedImportAndroidTest {
         } finally { instrumentation.removeMonitor(monitor) }
     }
 
+    @Test fun managedPromotionRefusesExistingTargetAndRenamesPrivateStaging() = runBlocking {
+        withContext(Dispatchers.IO) {
+            val files = AndroidManagedImportFiles(target)
+            val stage = "imports/${java.util.UUID.randomUUID()}.part"
+            val final = "books/${java.util.UUID.randomUUID()}/original"
+            val root = File(target.filesDir, "managed")
+            val stagedFile = File(root, stage).apply { parentFile!!.mkdirs(); writeText("new fixture") }
+            val finalFile = File(root, final).apply { parentFile!!.mkdirs(); writeText("existing fixture") }
+            try {
+                try {
+                    files.promote(stage, final)
+                    error("Promotion replaced an existing private copy")
+                } catch (failure: ImportFailure) { assertEquals(ImportErrorCode.FILE_IO, failure.code) }
+                assertEquals("new fixture", stagedFile.readText())
+                assertEquals("existing fixture", finalFile.readText())
+                files.remove(final)
+                files.promote(stage, final)
+                assertTrue(!stagedFile.exists())
+                assertEquals("new fixture", finalFile.readText())
+            } finally { files.remove(stage); files.remove(final) }
+        }
+    }
+
     @Test fun ownUidProviderIsRejectedBeforeAnyQuery() = runBlocking {
         val uri = Uri.parse("content://org.bookreader.mobile.private-test/private.txt")
         target.grantUriPermission(target.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -232,6 +268,7 @@ class ManagedImportAndroidTest {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         })
         waitFor("import_error")
+        assertEquals(ImportErrorCode.PERMISSION_DENIED, (currentAppState()?.importing as? ImportUiState.Error)?.code)
         assertEquals(initial, books().map { it.id })
         listOf("file:///sdcard/book.txt", "https://example.org/book.txt").forEach {
             assertEquals(DocumentIntentResult.Rejected, DocumentIntents.parseExternal(Intent(Intent.ACTION_VIEW, Uri.parse(it))))
@@ -257,8 +294,74 @@ class ManagedImportAndroidTest {
 
     private fun document(id: String): Uri = DocumentsContract.buildDocumentUri("org.bookreader.mobile.tests.documents", id)
     private fun waitFor(tag: String) {
-        compose.waitUntil(20_000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-        compose.onNodeWithTag(tag).assertIsDisplayed()
+        try {
+            compose.waitUntil(20_000) {
+                val found = compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                if (!found) {
+                    val state = currentAppState()
+                    val failure = state?.importing as? ImportUiState.Error
+                    if (tag != "import_error" && failure != null) {
+                        throw AssertionError("Expected $tag but import failed: code=${failure.code}, phase=${failure.phase}")
+                    }
+                    if (tag != "reader_error" && state?.reader?.state?.value?.phase == TxtReaderPhase.ERROR) {
+                        throw AssertionError("Expected $tag but reader entered ERROR")
+                    }
+                }
+                found
+            }
+            compose.onNodeWithTag(tag).assertIsDisplayed()
+        } catch (failure: Throwable) {
+            val diagnostic = appDiagnostic()
+            captureFailureDiagnostics(tag, diagnostic)
+            throw AssertionError("Expected $tag; $diagnostic", failure)
+        }
+    }
+
+    private fun currentAppState(): org.bookreader.mobile.ui.AppUiState? {
+        var state: org.bookreader.mobile.ui.AppUiState? = null
+        runCatching { compose.activityRule.scenario.onActivity {
+            state = ViewModelProvider(it)[AppViewModel::class.java].state.value
+        } }
+        return state
+    }
+
+    private fun appDiagnostic(): String {
+        val state = currentAppState()
+        val error = state?.importing as? ImportUiState.Error
+        val working = state?.importing as? ImportUiState.Working
+        val lifecycle = runCatching { compose.activityRule.scenario.state }.getOrNull()
+        return "lifecycle=$lifecycle, import=${state?.importing?.javaClass?.simpleName}, " +
+            "errorCode=${error?.code}, phase=${error?.phase ?: working?.progress?.phase}, " +
+            "library=${state?.library?.javaClass?.simpleName}, readerPhase=${state?.reader?.state?.value?.phase}"
+    }
+
+    private fun captureFailureDiagnostics(expectedTag: String, diagnostic: String) {
+        val args = InstrumentationRegistry.getArguments()
+        if (args.getString("captureFixtureScreenshots") != "true" || originalIds.isNotEmpty()) return
+        val directory = args.getString("additionalTestOutputDir")?.let(::File) ?: return
+        runCatching {
+            check(directory.isDirectory || directory.mkdirs())
+            val name = testName.methodName
+            File(directory, "$name-state.txt").writeText("expected=$expectedTag\n$diagnostic\n")
+            // Record structure only: no URI, document name, accessibility text, or book body.
+            val pending = java.util.ArrayDeque<AccessibilityNodeInfo>()
+            instrumentation.uiAutomation.rootInActiveWindow?.let(pending::add)
+            val structure = StringBuilder()
+            var count = 0
+            while (pending.isNotEmpty() && count++ < 1000) {
+                val node = pending.removeFirst()
+                structure.append(node.packageName).append('|').append(node.className).append('|')
+                    .append(node.viewIdResourceName).append("|clickable=").append(node.isClickable).append('\n')
+                for (child in 0 until node.childCount) node.getChild(child)?.let(pending::addLast)
+            }
+            File(directory, "$name-ui-structure.txt").writeText(structure.toString())
+            val bitmap = instrumentation.uiAutomation.takeScreenshot()
+            if (bitmap != null) try {
+                java.io.FileOutputStream(File(directory, "$name-failure.png")).use {
+                    check(bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it))
+                }
+            } finally { bitmap.recycle() }
+        }
     }
     private fun books() = runBlocking {
         withContext(Dispatchers.IO) {

@@ -14,6 +14,8 @@ The UTF BOM fixtures encode this exact source (escapes denote code points, not l
 
 `cp949-extension.txt` contains `CP949: 갂\r\n`; U+AC02 has the CP949 bytes `81 41`, which a strict EUC-KR decoder must reject. `euc-kr-common.txt` contains `EUC-KR: 한글 각\r\n`. BOM-less UTF-16 fixtures contain `ASCII and 한글\r\n` and require explicit selection. `invalid-utf8.txt` ends with the incomplete sequence `F0 9F 98`; `binary-masked.txt` starts with the ZIP header `50 4B 03 04`.
 
+The actual Android ICU EUC-KR alias accepted the CP949 extension in the first device run, unlike the host JDK. The app therefore enforces standard EUC-KR bytes (ASCII or pairs with both bytes A1–FE) independently of the vendor mapping before REPORT decoding. Lead-byte state spans reads; dangling EOF is rejected. The original Android distinction assertion remains unchanged and the fixed implementation must pass it. This establishes app-enforced strict EUC-KR, not native ICU table rejection.
+
 `AndroidTxtEncodingTest.androidCp949ExtensionFixtureIsDistinctFromEucKr` constructs the exact CP949 fixture bytes and tests Android's actual charset implementation. Host-JDK tests cannot establish Android charset support.
 
 The supported TXT policy rejects recognized binary file headers, NUL, DEL, and C0 controls other than TAB, LF, CR, vertical tab and form feed. It preserves the accepted whitespace controls. A `.txt` name does not bypass these checks. This policy is a bounded format check, not an exhaustive classifier for every binary file.

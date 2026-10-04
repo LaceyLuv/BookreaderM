@@ -25,9 +25,19 @@ public final class TestAssetProvider extends ContentProvider {
         cursor.addRow(new Object[] { "segment.txt", TEXT.getBytes(StandardCharsets.UTF_8).length });
         return cursor;
     }
+    // ContentResolver's read-only typed-open defaults to ContentProvider's TWO-argument method.
+    @Override public AssetFileDescriptor openAssetFile(Uri uri, String mode)
+        throws java.io.FileNotFoundException {
+        return fixtureAsset(mode, null);
+    }
     @Override public AssetFileDescriptor openAssetFile(Uri uri, String mode, CancellationSignal signal)
         throws java.io.FileNotFoundException {
+        return fixtureAsset(mode, signal);
+    }
+    private AssetFileDescriptor fixtureAsset(String mode, CancellationSignal signal)
+        throws java.io.FileNotFoundException {
         if (!"r".equals(mode)) throw new IllegalArgumentException("Read-only fixture");
+        if (signal != null) signal.throwIfCanceled();
         byte[] prefix = { 0x50, 0x4b, 0x03, 0x04 };
         byte[] body = TEXT.getBytes(StandardCharsets.UTF_8);
         File file = new File(getContext().getCacheDir(), "segment-fixture");

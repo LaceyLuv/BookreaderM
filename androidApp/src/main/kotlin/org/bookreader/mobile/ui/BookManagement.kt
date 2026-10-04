@@ -21,5 +21,9 @@ sealed interface ImportUiState {
     data class Working(val progress: ImportProgress? = null) : ImportUiState
     data class SelectEncoding(val jobId: String, val origin: org.bookreader.mobile.importing.DocumentOrigin, val previews: List<org.bookreader.mobile.encoding.TxtEncodingPreview> = emptyList()) : ImportUiState
     data class Complete(val result: ImportResult.Success) : ImportUiState
-    data class Error(val message: String) : ImportUiState
+    data class Error(
+        val message: String,
+        val code: org.bookreader.mobile.importing.ImportErrorCode? = null,
+        val phase: org.bookreader.mobile.importing.ImportPhase? = null,
+    ) : ImportUiState
 }

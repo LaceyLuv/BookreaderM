@@ -199,7 +199,7 @@ class AppViewModel(
                 mutableState.update { it.copy(importing = ImportUiState.Error("가져오기를 취소했습니다. 원본과 기존 서재는 유지됩니다.")) }
                 throw cancelled
             } catch (failure: ImportFailure) {
-                mutableState.update { it.copy(importing = ImportUiState.Error(importErrorMessage(failure.code))) }
+                mutableState.update { it.copy(importing = ImportUiState.Error(importErrorMessage(failure.code), failure.code, (it.importing as? ImportUiState.Working)?.progress?.phase)) }
             } catch (_: Exception) {
                 mutableState.update { it.copy(importing = ImportUiState.Error(importErrorMessage(ImportErrorCode.DATABASE_UNAVAILABLE))) }
             }
@@ -210,7 +210,7 @@ class AppViewModel(
         val previews = if (result is ImportResult.EncodingRequired) withContext(ioDispatcher) { management?.preview(result.stagingPath).orEmpty() } else emptyList()
         mutableState.update { it.copy(importing = when (result) {
             is ImportResult.Success -> if (origin == DocumentOrigin.VIEW) ImportUiState.Idle else ImportUiState.Complete(result)
-            is ImportResult.Failure -> ImportUiState.Error(importErrorMessage(result.code))
+            is ImportResult.Failure -> ImportUiState.Error(importErrorMessage(result.code), result.code, (it.importing as? ImportUiState.Working)?.progress?.phase)
             is ImportResult.EncodingRequired -> ImportUiState.SelectEncoding(result.jobId, origin, previews)
         }) }
         if (result is ImportResult.Success) {

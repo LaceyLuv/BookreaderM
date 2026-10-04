@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        setIntent(intent)
+        // Consume this explicit request once; retained navigation owns warm restoration.
         handleDocument(DocumentIntents.parseExternal(intent))
     }
 

@@ -25,6 +25,8 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.security.MessageDigest
+import java.nio.file.Files
+import java.nio.file.LinkOption
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import org.bookreader.mobile.encoding.TxtDecoder
@@ -205,10 +207,16 @@ class AndroidManagedImportFiles(private val context: Context) : ManagedImportFil
         val target = owned(finalRelativePath)
         mapIo {
             check(target.parentFile!!.mkdirs() || target.parentFile!!.isDirectory)
-            // link is atomic and fails if target exists. A crash before unlink is recoverable.
-            Os.link(source.path, target.path)
+            // All coordinator calls hold its process-wide managedOperations mutex. Paths are private
+            // UUID-owned files, and no external provider can write this tree. Default Files.move
+            // refuses an existing target; Android libcore then uses rename on this same filesystem.
+            // Do not request ATOMIC_MOVE: its API permits replacing an existing destination.
+            if (!Files.isRegularFile(source.toPath(), LinkOption.NOFOLLOW_LINKS) ||
+                Files.exists(target.toPath(), LinkOption.NOFOLLOW_LINKS) ||
+                Os.stat(source.path).st_dev != Os.stat(target.parentFile!!.path).st_dev
+            ) throw ImportFailure(ImportErrorCode.FILE_IO)
+            Files.move(source.toPath(), target.toPath())
             syncDirectory(target.parentFile!!)
-            if (!source.delete()) throw ImportFailure(ImportErrorCode.FILE_IO)
             syncDirectory(source.parentFile!!)
         }
     }
