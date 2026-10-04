@@ -14,6 +14,8 @@ import org.bookreader.mobile.model.ReadingProgress
 
 class RoomBookRepository(private val database: BookReaderDatabase) : BookRepository {
     override suspend fun loadBooks(): LibraryState {
+        // Room may return without suspending, so reject an already-cancelled caller explicitly.
+        currentCoroutineContext().ensureActive()
         val records = try {
             database.bookDao().listBooks()
         } catch (cancelled: CancellationException) {
@@ -37,6 +39,7 @@ class RoomProgressRepository(
     private val codec: LocatorCodec = LocatorCodec(),
 ) : ProgressRepository {
     override suspend fun loadProgress(bookId: String, contentRevision: String): ProgressReadResult {
+        currentCoroutineContext().ensureActive()
         val record = try {
             database.progressDao().findProgress(bookId, contentRevision)
         } catch (cancelled: CancellationException) {
