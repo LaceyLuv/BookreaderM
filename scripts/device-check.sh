@@ -75,7 +75,8 @@ if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
     "-Pandroid.testInstrumentationRunnerArguments.additionalTestOutputDir=$fixture_output")
 fi
 run_logged connected-tests ./gradlew --no-daemon --console=plain --stacktrace \
-  --rerun-tasks "${test_arguments[@]}" :androidApp:connectedDebugAndroidTest
+  --rerun-tasks -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true \
+  "${test_arguments[@]}" :androidApp:connectedDebugAndroidTest
 run_logged verified-test-results python3 scripts/check-test-results.py \
   android-device androidApp/build/outputs/androidTest-results/connected
 # The excluded class is mandatory here: both exact methods execute around an
