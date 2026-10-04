@@ -1,0 +1,100 @@
+URL: https://developer.android.com/jetpack/androidx/releases/room
+Fetched: 2026-10-03T23:55:38.457783+00:00
+HTTP status: 200
+Original SHA256: ba5e8f5ddbe99d1bab92307b9f15f86a6cb89b8d18a8c70388f606af19088341
+
+
+Version 2.8.3
+October 22, 2025
+androidx.room:room-*:2.8.3
+is released. Version 2.8.3 contains
+these commits
+.
+Bug Fixes
+Fix a performance issue with the Room SQLite Wrapper that was causing excessive JNI calls and significant performance degradation when iterating over a Cursor.
+Version 2.8.2
+October 08, 2025
+androidx.room:room-*:2.8.2
+is released. Version 2.8.2 contains
+these commits
+.
+Bug Fixes
+Fix a deadlock that could occur when re-
+
+[...]
+
+Version 2.8.0
+September 10, 2025
+androidx.room:room-*:2.8.0
+is released. Version 2.8.0 contains
+these commits
+.
+Important changes since 2.7.0:
+Added a new artifact
+androidx.room:room-sqlite-wrapper
+which contains APIs to get a
+SupportSQLiteDatabase
+wrapper from a
+RoomDatabase
+with a configured
+SQLiteDriver
+. To get the wrapper use the new extension function
+RoomDatabase.getSupportWrapper()
+. This is a compatibility artifact to maintain usages of
+SupportSQLiteDatabase
+, usually obtained from
+roomDatabase.openHelper.writableDatabase
+, even if the Room database is configured with a
+SQLiteDriver
+. This wrapper is useful for incremental migration of codebases who wish to adopt SQLiteDriver APIs but have extensive usages of the SupportSQLite APIs yet they want to take advantage of the
+BundledSQLiteDriver
+. Checkout the
+migration guide
+for more information.
+Added support for KMP targets Watch OS and Tv OS.
+Updated the library’s Android minSDK from API 21 to API 23
+Version 2.8.0-rc02
+August 27, 2025
+androidx.room:room-*:2.8.0-rc02
+is released. Version 2.8.0-rc02 contains
+these commits
+.
+API Changes
+Update the minSDK from API 21 to API 23 (
+Ibdfca
+,
+b/380448311
+,
+b/435705964
+,
+b/435705223
+)
+Update the minimum Android Gr
+
+[...]
+
+Kotlin 2.0 and KSP2:
+Room now targets Kotlin language 2.0 and will require projects to also compile with Kotlin 2.0 and equivalent or higher language version. Support for KSP2 is also added and is recommended when using Room with Kotlin 2.0 or higher.
+Version 2.7.0-rc03
+March 26, 2025
+androidx.room:room-*:2.7.0-rc03
+is released. Version 2.7.0-rc03 contains
+these commits
+.
+Bug Fixes
+No longer throw
+InterruptedException
+when a thread is interrupted during the execution of  Room blocking APIs, incl
+
+[...]
+
+Setting a
+schemaDirectory
+is required when using the Room Gradle Plugin. This
+will configure the Room compiler and the various compile tasks and its backends
+(javac, KAPT, KSP) to output schema files into flavored folders, for example
+schemas/flavorOneDebug/com.package.MyDatabase/1.json
+. These files should be
+checked into the repository to be used for validation and auto-migrations.
+Some options cannot be configured in all versions of the Room Gradle Plugin,
+even though they are supported by th

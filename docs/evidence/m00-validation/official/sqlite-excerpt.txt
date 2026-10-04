@@ -1,0 +1,68 @@
+URL: https://developer.android.com/jetpack/androidx/releases/sqlite
+Fetched: 2026-10-03T23:55:38.457783+00:00
+HTTP status: 200
+Original SHA256: 583b2886cbe03a8da0ffa62c0eed9b70768cc6d8d8981e86bfef094af37c5cec
+
+
+Version 2.6.1
+September 24, 2025
+androidx.sqlite:sqlite-*:2.6.1
+is released. Version 2.6.1 contains
+these commits
+.
+Bug Fixes
+Fixed R8 rule for native functions to allow proper obfuscation (
+b/442489402
+).
+Fix a NPE that could happen when using the support API
+getBeginTransactionMethod
+on a concurrent scenario. (
+b/444049518
+).
+Reduce the JNI/native dependencies of bundled-sqlite to increase compatibility when loading the library. (
+b/442489402
+).
+Fix an issue with the
+AndroidSQLiteDriver
+that would disable the multiple connections pool even if the journal was set to WAL mode (
+b/444286035
+).
+Version 2.6.0
+September 10, 2025
+androidx.sqlite:sqlite-*:2.6.0
+is released. Version 2.6.0 contains
+these commits
+.
+Important changes since 2.5.0:
+Support loading SQLite extensions by adding the
+addExtension
+function to
+BundledSQLiteDriver
+, which can be used to register extensions that SQLite shoul
+
+[...]
+
+Version 2.6.0
+September 10, 2025
+androidx.sqlite:sqlite-*:2.6.0
+is released. Version 2.6.0 contains
+these commits
+.
+Important changes since 2.5.0:
+Support loading SQLite extensions by adding the
+addExtension
+function to
+BundledSQLiteDriver
+, which can be used to register extensions that SQLite should dynamically load for connections opened with that particular driver.
+Added support for KMP targets Watch OS and Tv OS.
+Updated the library’s Android minSDK from API 21 to API 23.
+Version 2.6.0-rc02
+August 27, 2025
+androidx.sqlite:sqlite-*:2.6.0-rc02
+is released. Version 2.6.0-rc02 contains
+these commits
+.
+API Changes
+Update the minSDK from API 21 to API 23 (
+Ibdfca
+

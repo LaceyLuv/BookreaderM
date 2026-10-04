@@ -1,0 +1,45 @@
+{
+  "scope": "earlier source diagnostic; final bd1ba033 run must be checked separately",
+  "run_id": 37163324713,
+  "head_sha": "4abc4bb94fc843fcc843bfeffcdc43164704d7df",
+  "run_conclusion": "success",
+  "artifact_id": 11288119359,
+  "artifact_sha256": "8f7447b53ffd4ead86f57411217b0b92bf94847ede2c174cb1e89e31787409a8",
+  "xml_reports": [
+    "connected-tests.xml"
+  ],
+  "tests": [
+    {
+      "class": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "invalidStoredThemeReportsErrorAndPreservesOriginal",
+      "seconds": "0.013"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "selectedThemePersistsAcrossStoreInstances",
+      "seconds": "0.001"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "loadingEmptyAndErrorAreDistinctAndErrorHasRetry",
+      "seconds": "3.183"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "threeTabsMetadataSearchAndThemeSelectionWork",
+      "seconds": "5.652"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.MainActivityLaunchTest",
+      "method": "launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab",
+      "seconds": "2.035"
+    }
+  ],
+  "result": "PASS",
+  "process_death": "NOT_RUN",
+  "physical_device_performance": "NOT_RUN",
+  "artifact_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/37163324713/artifacts/11288119359",
+  "full_extracted_artifact_local": "build/device-ci-artifacts/37163324713",
+  "full_job_log_local": "build/device-ci-artifacts/37163324713/job-111321114348.log",
+  "full_job_log_sha256": "401f6464068e9dffc08e7c22d7307be0c927825a92ed63618fff559b9d9f818b"
+}

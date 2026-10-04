@@ -1,0 +1,99 @@
+2026-10-04T00:02:54.0497237Z COMMAND ./scripts/doctor.sh
+2026-10-04T00:02:54.2081566Z PASS JDK 17 compiler available
+2026-10-04T00:02:54.2102341Z PASS Authentic Gradle 8.13 wrapper JAR checksum
+2026-10-04T00:02:54.2103200Z PASS SDK component platforms/android-36/android.jar
+2026-10-04T00:02:54.2103851Z PASS SDK component build-tools/35.0.0/aapt2
+2026-10-04T00:02:54.2104409Z PASS SDK component platform-tools/adb
+2026-10-04T00:02:54.2105103Z PASS adb available; connected-device checks remain separate.
+2026-10-04T00:02:54.2117307Z PASS doctor exit=0
+2026-10-04T00:02:54.2118567Z COMMAND ./gradlew --version
+2026-10-04T00:02:56.9899995Z PASS gradle-version exit=0
+2026-10-04T00:02:56.9902048Z COMMAND ./gradlew --no-daemon --console=plain projects
+2026-10-04T00:03:53.9313662Z BUILD SUCCESSFUL in 56s
+2026-10-04T00:03:54.0523916Z PASS projects exit=0
+2026-10-04T00:03:54.0524723Z COMMAND ./gradlew --no-daemon --console=plain :androidApp:tasks --all
+2026-10-04T00:04:10.0346342Z BUILD SUCCESSFUL in 15s
+2026-10-04T00:04:10.1396280Z PASS android-tasks exit=0
+2026-10-04T00:04:10.1398380Z COMMAND ./gradlew --no-daemon --console=plain :shared:tasks --all
+2026-10-04T00:04:20.7254690Z BUILD SUCCESSFUL in 10s
+2026-10-04T00:04:20.7762404Z PASS shared-tasks exit=0
+2026-10-04T00:04:20.7782133Z PASS discovered androidApp:assembleDebug
+2026-10-04T00:04:20.7799853Z PASS discovered androidApp:lintDebug
+2026-10-04T00:04:20.7817023Z PASS discovered androidApp:testDebugUnitTest
+2026-10-04T00:04:20.7836871Z PASS discovered androidApp:assembleDebugAndroidTest
+2026-10-04T00:04:20.7854140Z PASS discovered shared:jvmTest
+2026-10-04T00:04:20.7859109Z COMMAND ./gradlew --no-daemon --console=plain --stacktrace :androidApp:assembleDebug :androidApp:lintDebug :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest :shared:jvmTest
+2026-10-04T00:04:48.5527424Z > Task :shared:preDebugAndroidTestBuild UP-TO-DATE
+2026-10-04T00:04:48.5557359Z > Task :shared:generateDebugAndroidTestResValues
+2026-10-04T00:04:48.5587243Z > Task :shared:preDebugUnitTestBuild UP-TO-DATE
+2026-10-04T00:04:53.2447641Z > Task :shared:kspDebugKotlinAndroid
+2026-10-04T00:04:53.6441769Z > Task :shared:kspKotlinJvm
+2026-10-04T00:05:36.8507123Z > Task :androidApp:preDebugAndroidTestBuild SKIPPED
+2026-10-04T00:05:36.8537692Z > Task :androidApp:generateDebugAndroidTestResValues
+2026-10-04T00:05:36.8568634Z > Task :androidApp:preDebugUnitTestBuild UP-TO-DATE
+2026-10-04T00:05:36.8569430Z > Task :androidApp:javaPreCompileDebugUnitTest
+2026-10-04T00:05:43.3508037Z > Task :androidApp:checkDebugAndroidTestAarMetadata
+2026-10-04T00:05:43.4467731Z > Task :androidApp:mapDebugAndroidTestSourceSetPaths
+2026-10-04T00:05:43.5467648Z > Task :androidApp:generateDebugAndroidTestResources
+2026-10-04T00:05:44.3447696Z > Task :androidApp:mergeDebugAndroidTestResources
+2026-10-04T00:05:44.3487714Z > Task :androidApp:processDebugAndroidTestManifest
+2026-10-04T00:05:44.4498110Z > Task :androidApp:javaPreCompileDebugAndroidTest
+2026-10-04T00:05:44.4527512Z > Task :androidApp:mergeDebugAndroidTestShaders
+2026-10-04T00:05:44.4587467Z > Task :androidApp:compileDebugAndroidTestShaders NO-SOURCE
+2026-10-04T00:05:44.4617641Z > Task :androidApp:generateDebugAndroidTestAssets UP-TO-DATE
+2026-10-04T00:05:44.5498725Z > Task :androidApp:mergeDebugAndroidTestAssets
+2026-10-04T00:05:44.5528914Z > Task :androidApp:compressDebugAndroidTestAssets
+2026-10-04T00:05:44.5557473Z > Task :androidApp:desugarDebugAndroidTestFileDependencies
+2026-10-04T00:05:45.0457795Z > Task :androidApp:processDebugAndroidTestResources
+2026-10-04T00:05:45.1507833Z > Task :androidApp:checkDebugAndroidTestDuplicateClasses
+2026-10-04T00:05:45.1517830Z > Task :androidApp:mergeDebugAndroidTestJniLibFolders
+2026-10-04T00:05:54.7467726Z > Task :androidApp:mergeDebugAndroidTestNativeLibs NO-SOURCE
+2026-10-04T00:05:54.7468945Z > Task :androidApp:stripDebugAndroidTestDebugSymbols NO-SOURCE
+2026-10-04T00:05:54.7537687Z > Task :androidApp:validateSigningDebugAndroidTest
+2026-10-04T00:05:54.7617439Z > Task :androidApp:writeDebugAndroidTestSigningConfigVersions
+2026-10-04T00:05:55.4447735Z > Task :androidApp:mergeExtDexDebugAndroidTest
+2026-10-04T00:05:57.2767390Z > Task :shared:kspTestKotlinJvm SKIPPED
+2026-10-04T00:06:00.4440511Z > Task :androidApp:mergeLibDexDebugAndroidTest
+2026-10-04T00:06:09.7447833Z > Task :androidApp:compileDebugAndroidTestKotlin
+2026-10-04T00:06:09.7467573Z > Task :androidApp:compileDebugUnitTestKotlin
+2026-10-04T00:06:10.1467758Z > Task :shared:generateDebugAndroidTestLintModel
+2026-10-04T00:06:10.7449017Z > Task :shared:generateDebugUnitTestLintModel
+2026-10-04T00:06:11.2448058Z > Task :androidApp:generateDebugAndroidTestLintModel
+2026-10-04T00:06:12.0487476Z > Task :androidApp:assembleDebug
+2026-10-04T00:06:12.3459591Z > Task :androidApp:generateDebugUnitTestLintModel
+2026-10-04T00:06:18.0441536Z > Task :shared:lintAnalyzeDebugAndroidTest
+2026-10-04T00:06:18.0442591Z > Task :shared:lintAnalyzeDebugUnitTest
+2026-10-04T00:06:18.1463344Z > Task :androidApp:compileDebugUnitTestJavaWithJavac NO-SOURCE
+2026-10-04T00:06:18.1464545Z > Task :androidApp:processDebugUnitTestJavaRes
+2026-10-04T00:06:23.1467747Z > Task :androidApp:testDebugUnitTest
+2026-10-04T00:06:23.1487932Z > Task :androidApp:compileDebugAndroidTestJavaWithJavac NO-SOURCE
+2026-10-04T00:06:23.3487877Z > Task :androidApp:dexBuilderDebugAndroidTest
+2026-10-04T00:06:23.4451285Z > Task :androidApp:mergeDebugAndroidTestGlobalSynthetics
+2026-10-04T00:06:23.4477728Z > Task :androidApp:processDebugAndroidTestJavaRes
+2026-10-04T00:06:23.7457625Z > Task :androidApp:mergeDebugAndroidTestJavaResource
+2026-10-04T00:06:23.7487414Z > Task :androidApp:mergeProjectDexDebugAndroidTest
+2026-10-04T00:06:23.9439812Z > Task :androidApp:packageDebugAndroidTest
+2026-10-04T00:06:23.9468048Z > Task :androidApp:createDebugAndroidTestApkListingFileRedirect
+2026-10-04T00:06:23.9487168Z > Task :androidApp:assembleDebugAndroidTest
+2026-10-04T00:06:27.3440451Z > Task :androidApp:lintAnalyzeDebugAndroidTest
+2026-10-04T00:06:27.3467642Z > Task :shared:jvmTestProcessResources NO-SOURCE
+2026-10-04T00:06:27.3521289Z > Task :shared:processJvmTestResources SKIPPED
+2026-10-04T00:06:27.5477600Z > Task :shared:compileTestKotlinJvm
+2026-10-04T00:06:27.5507318Z > Task :shared:compileJvmTestJava NO-SOURCE
+2026-10-04T00:06:27.5567204Z > Task :shared:jvmTestClasses
+2026-10-04T00:06:28.6440109Z > Task :androidApp:lintAnalyzeDebugUnitTest
+2026-10-04T00:06:29.4486242Z > Task :shared:jvmTest FAILED
+2026-10-04T00:06:29.4517911Z RoomDatabaseSmokeTest[jvm] > callerCancellationIsNotConvertedToDatabaseError[jvm] FAILED
+2026-10-04T00:06:29.4537652Z     java.lang.AssertionError at Assert.java:89
+2026-10-04T00:06:29.4538731Z         Caused by: java.lang.AssertionError at RoomDatabaseSmokeTest.kt:228
+2026-10-04T00:06:29.4545560Z 19 tests completed, 1 failed
+2026-10-04T00:06:38.5526240Z * What went wrong:
+2026-10-04T00:06:38.5527101Z Execution failed for task ':shared:jvmTest'.
+2026-10-04T00:06:38.5636059Z org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':shared:jvmTest'.
+2026-10-04T00:06:38.6191396Z BUILD FAILED in 2m 17s
+2026-10-04T00:06:38.9630143Z FAIL build-and-tests command_exit=1 log_exit=0
+2026-10-04T00:06:40.4536674Z SHA256 digest of uploaded artifact zip is 2c0ca26b707ac416bac47bdfe5625570c13e12459cce967817a072869a2e7cec
+2026-10-04T00:06:40.4537430Z Finalizing artifact upload
+2026-10-04T00:06:40.6795091Z Artifact mobile-m00-evidence.zip successfully finalized. Artifact ID 11288751479
+2026-10-04T00:06:40.6796929Z Artifact mobile-m00-evidence has been successfully uploaded! Final size is 14780263 bytes. Artifact ID is 11288751479
+2026-10-04T00:06:40.6803429Z Artifact download URL: https://github.com/LaceyLuv/BookreaderM/actions/runs/37163680043/artifacts/11288751479

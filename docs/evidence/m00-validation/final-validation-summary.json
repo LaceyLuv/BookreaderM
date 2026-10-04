@@ -1,0 +1,77 @@
+{
+  "finished_at": "2026-10-04T00:11:15.630494+00:00",
+  "source_commit": "3f04b8ba53d23846a454ee744c5e1fc33bea45e3",
+  "command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=docs/evidence/m00-validation/ci ./scripts/ci-check.sh",
+  "exit_code": 0,
+  "tests": [
+    {
+      "module": "androidApp",
+      "task": "testDebugUnitTest",
+      "counts": {
+        "tests": 10,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      "reports": "docs/evidence/m00-validation/final-reports/androidApp"
+    },
+    {
+      "module": "shared",
+      "task": "jvmTest",
+      "counts": {
+        "tests": 19,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      "reports": "docs/evidence/m00-validation/final-reports/shared"
+    }
+  ],
+  "shared_test_fresh_execution": true,
+  "lint": {
+    "severity_counts": {
+      "Hint": 20
+    },
+    "issue_counts": {
+      "AndroidGradlePluginVersion": 3,
+      "GradleDependency": 9,
+      "NewerVersionAvailable": 8
+    },
+    "report": "docs/evidence/m00-validation/final-reports/lint-results-debug.xml"
+  },
+  "artifacts": [
+    {
+      "path": "androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+      "bytes": 17085394,
+      "sha256": "c9188f03cb9f242af9b1a05a1b0ac284091b4d63872114aa420afec8ee36e737"
+    },
+    {
+      "path": "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk",
+      "bytes": 1081831,
+      "sha256": "3510eeec0bc1b4f3dd6d8e6d19dd12f9cd633c3fa8056d07ceec6f93c8a50b14"
+    },
+    {
+      "path": "shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/1.json",
+      "bytes": 7755,
+      "sha256": "b8dec17c6478c78fb6e77484643a7fbf29f903afa88cf1cfe458fd8ef17b3700"
+    }
+  ],
+  "schema_equals_committed": true,
+  "instrumentation_execution": "NOT_RUN by local ci-check; separate device workflow",
+  "remote_build": {
+    "run_id": 37164061596,
+    "job_id": 111323265037,
+    "conclusion": "success",
+    "run_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/37164061596",
+    "artifact_inspection": "docs/evidence/m00-validation/build-37164061596/artifact-inspection.json",
+    "test_totals": {
+      "tests": 29,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    "lint_severity_counts": {
+      "Hint": 20
+    }
+  }
+}

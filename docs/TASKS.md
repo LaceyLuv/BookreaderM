@@ -18,7 +18,7 @@
 
 | ID | 작업 | 상태 | 증거 |
 |---|---|---|---|
-| M00 | bootstrap-mobile-foundation | BLOCKED | [WORKLOG](WORKLOG.md) — 코드 작성, 필수 실행 검증 BLOCKED_ENV |
+| M00 | bootstrap-mobile-foundation | DONE | [WORKLOG](WORKLOG.md) — 실제 build/lint/unit/shared/schema 및 API36 5-case PASS |
 | M01 | epub-and-encoding-feasibility | TODO | 없음 |
 | M02 | managed-import-and-library | TODO | 없음 |
 | M03 | txt-scroll-progress-and-continue-bar | TODO | 없음 |
@@ -62,7 +62,8 @@ CI는 가능한 자동 검사와 실제 Android 기기/에뮬레이터 검증의
 
 # M00 — `bootstrap-mobile-foundation`
 
-**상태:** BLOCKED  
+**상태:** DONE
+
 **선행 조건:** 없음
 
 ## 구현 범위
@@ -72,11 +73,11 @@ CI는 가능한 자동 검사와 실제 Android 기기/에뮬레이터 검증의
 TXT 본문/EPUB 전체/Comic/AI/동기화/iosApp/사용하지 않는 모듈. 기존 PC 앱 코드 변경.
 
 ## 완료 조건
-- [ ] 모든 Gradle/plugin/library 버전이 고정되고 wrapper가 생성되어 있다.
-- [ ] 실제 Android assemble, Android unit test, shared test, lint의 명령/결과가 기록되어 있다.
-- [ ] Room smoke는 fake repository가 아니라 실제 Room/SQLite 생성·쓰기·읽기를 포함한다.
-- [ ] Library는 빈 DB와 조회 오류를 구분하고 3탭이 작동한다.
-- [ ] DEPENDENCIES/TESTING/WORKLOG와 다음 M01 입력이 만들어져 있다.
+- [x] 모든 Gradle/plugin/library 버전이 고정되고 wrapper가 생성되어 있다.
+- [x] 실제 Android assemble, Android unit test, shared test, lint의 명령/결과가 기록되어 있다.
+- [x] Room smoke는 fake repository가 아니라 실제 Room/SQLite 생성·쓰기·읽기를 포함한다.
+- [x] Library는 빈 DB와 조회 오류를 구분하고 3탭이 작동한다.
+- [x] DEPENDENCIES/TESTING/WORKLOG와 다음 M01 입력이 만들어져 있다.
 
 ## 산출물
 docs/DEPENDENCIES.md, docs/TESTING.md, docs/WORKLOG.md, ADR-0001/0006, APK/테스트 로그 경로
@@ -85,6 +86,16 @@ docs/DEPENDENCIES.md, docs/TESTING.md, docs/WORKLOG.md, ADR-0001/0006, APK/테�
 SDK/JDK/네트워크/에뮬레이터가 없으면 가능한 작성·정적 검사는 수행하고, 해당 실행 검증은 BLOCKED_ENV로 남긴다. 환경 부재를 숨기려고 빌드를 생략하는 CI를 만들지 않는다.
 
 **2026-10-01 실행 현황:** 3탭/모델/repository/실제 Room 테스트/고정 버전과 공식 wrapper/스크립트/CI/문서를 작성했다. `doctor`·`ci-check` exit 78, Gradle 정보·task 목록 조회 4명령 exit 1이다. JDK compiler·Android SDK·adb 부재와 Gradle 다운로드 socket 차단으로 실제 task 목록·resolve/build/test/lint/schema를 확인하지 못했다. 필수 실행은 `NOT_RUN`(원인 `BLOCKED_ENV`)이며 APK·테스트 보고서·생성 schema는 없다. 완료 체크는 유지한다. 정확한 명령·로그·M01 gate는 [WORKLOG](WORKLOG.md), [TESTING](TESTING.md), `docs/evidence/build-command-results.json`에 있다. M01은 M00 필수 검증 해소 후 별도 착수한다.
+
+
+**2026-10-04 최종 실행 현황:** source `3f04b8ba53d23846a454ee744c5e1fc33bea45e3`에서
+`ci-check` exit 0, 실제 Android assemble/test APK compile/lint/unit 10 cases/shared 19 cases 및
+Room KSP schema export가 PASS다. Lint의 활성 informational upgrade 안내 20건은 보존하며
+그 외 warning/error는 fatal이다. 같은 source의 API36 emulator에서 필수 UI/설정/launcher
+5 cases도 실제 PASS, failure/error/skipped 0이다. 정확한 명령·원격 run·XML·APK/schema hash는
+[TESTING](TESTING.md), [WORKLOG](WORKLOG.md), `evidence/m00-validation/`을 따른다.
+10월 1일 BLOCKED_ENV와 수정 전 실패는 이력이다. M01은 TODO이며 다음 별도 작업의 입력만 마련했다.
+M00 결과는 Reader/import/이어읽기/process-death/Readium/실기기 성능 PASS가 아니다.
 
 
 # M01 — `epub-and-encoding-feasibility`

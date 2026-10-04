@@ -1,0 +1,55 @@
+{
+  "scope": "source 3f04b8ba actual M00 instrumentation on GitHub KVM emulator",
+  "run_id": 37164061580,
+  "job_id": 111323264829,
+  "head_sha": "3f04b8ba53d23846a454ee744c5e1fc33bea45e3",
+  "run_conclusion": "success",
+  "job_conclusion": "success",
+  "source_working_tree": "clean",
+  "artifact_id": 11288477752,
+  "artifact_sha256": "e0d71f42b88815e061a09e23805450bed5b804972fec03f11ec6161e810f2f20",
+  "artifact_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/37164061580/artifacts/11288477752",
+  "xml_reports": [
+    "connected-tests.xml"
+  ],
+  "device": {
+    "api": 36,
+    "abi": "x86_64",
+    "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "emulator_version": "37.1.11.0",
+    "emulator_build": "15917651"
+  },
+  "tests": [
+    {
+      "class": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "invalidStoredThemeReportsErrorAndPreservesOriginal",
+      "seconds": "0.014"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "selectedThemePersistsAcrossStoreInstances",
+      "seconds": "0.0"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "loadingEmptyAndErrorAreDistinctAndErrorHasRetry",
+      "seconds": "2.889"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "threeTabsMetadataSearchAndThemeSelectionWork",
+      "seconds": "4.847"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.MainActivityLaunchTest",
+      "method": "launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab",
+      "seconds": "2.131"
+    }
+  ],
+  "result": "PASS",
+  "process_death": "NOT_RUN",
+  "physical_device_performance": "NOT_RUN",
+  "full_extracted_artifact_local": "build/device-ci-artifacts/37164061580",
+  "full_job_log_local": "build/device-ci-artifacts/37164061580/job-111323264829.log",
+  "full_job_log_sha256": "200a1cb9719335fb27c4f5ad2b41a8e1134afb11a5ae84a8df0a84e5bb98fa2a"
+}

@@ -1,0 +1,10 @@
+PASS workflow inputs exist in pinned official action.yml
+PASS verifier contract: all mandatory, exit=0
+PASS verifier contract: missing mandatory, exit=1
+PASS verifier contract: skipped, exit=1
+PASS verifier contract: failure, exit=1
+PASS verifier contract: error, exit=1
+PASS verifier contract: zero cases, exit=1
+PASS verifier contract: missing report, exit=1
+Synthetic verifier checks validate script behavior only; NOT instrumentation execution evidence.
+BLOCKED_ENV local /dev/kvm absent; remote KVM emulator execution required.

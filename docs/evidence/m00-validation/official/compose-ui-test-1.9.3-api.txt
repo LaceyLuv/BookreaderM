@@ -1,0 +1,59 @@
+Official URL: https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-test-android/1.9.3/ui-test-android-1.9.3-sources.jar
+Source JAR SHA-256: 2f769997bfaffc2bffc23082aeb17808137a954e9bf87f6441ba8e71c6b4dae5
+Entry: commonMain/androidx/compose/ui/test/SemanticsNodeInteraction.kt
+Scope: member assertion excerpt; no test execution claim
+
+es matching.
+     *
+     * @throws AssertionError if 0 or multiple nodes found.
+     */
+    fun fetchSemanticsNode(errorMessageOnFail: String? = null): SemanticsNode {
+        return fetchOneOrThrow(errorMessageOnFail)
+    }
+
+    /**
+     * Asserts that no item was found or that the item is no longer in the hierarchy.
+     *
+     * This will synchronize with the UI and fetch all the nodes again to ensure it has latest data.
+     *
+     * @throws [AssertionError] if the assert fails.
+     */
+    fun assertDoesNotExist() {
+        val result =
+            fetchSemanticsNodes(
+                atLeastOneRootRequired = false,
+                errorMessageOnFail = "Failed: assertDoesNotExist.",
+            )
+        if (result.selectedNodes.isNotEmpty()) {
+            throw AssertionError(
+                buildErrorMessageForCountMismatch(
+                    errorMessage = "Failed: assertDoesNotExist.",
+                    selector = selector,
+                    foundNodes = result.selectedNodes,
+                    expectedCount = 0,
+                )
+            )
+        }
+    }
+
+    /**
+     * Asserts that the component was found and is part of the component tree.
+     *
+     * This will synchronize with the UI and fetch all the nodes again to ensure it has latest data.
+     * If you are using [fetchSemanticsNode] you don't need to call this. In fact you would just
+     * introduce additional overhead.
+     *
+     * @param errorMessageOnFail Error message prefix to be added to the message in case this
+     *   asserts fails. This is typically used by operations that rely on this assert. Example
+     *   prefix could be: "Failed to perform doOnClick.".
+     * @throws [AssertionError] if the assert fails.
+     */
+    fun assertExists(errorMessageOnFail: String? = null): SemanticsNodeInteraction {
+        fetchOneOrThrow(errorMessageOnFail)
+        return this
+    }
+
+    /**
+     * Asserts that the component was found and it is deactivated.
+     *
+     * For example, th

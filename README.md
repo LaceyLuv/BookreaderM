@@ -11,11 +11,12 @@ Android UI는 Jetpack Compose, 공유 모델·locator·DB·repository는 KMP `sh
 공유 영역에는 Android UI API나 Readium 클래스를 넣지 않는다. DB는 Room KMP와 bundled SQLite다.
 일반적인 새 프로세스의 첫 화면은 서재다.
 
-현재 M00는 **BLOCKED**다. 코드와 테스트를 작성했으나 이 환경은 Java 21 JRE만 있고
-JDK compiler·Android SDK·adb가 없으며 Gradle 배포 다운로드가 차단된다.
-`doctor`와 `ci-check`는 exit 78, Gradle 정보·task 조회 시도는 exit 1이었다.
-APK·실제 테스트 보고서·Room export schema는 생성되지 않았다.
-[검증 기록](docs/WORKLOG.md)의 `BLOCKED_ENV`와 소스/XML 정적 검사의 `PASS`를 구분한다.
+M00는 **DONE**이다(2026-10-04). 고정 툴체인의 실제 assemble/lint/Android unit/shared tests와 Room schema 검사가
+`PASS`다. Android unit 10 cases와 shared 19 cases는 failure/error/skipped 없이 통과했다.
+Lint는 error/warning 없이 고정 버전의 update 안내 20건을 informational로 기록한다.
+수정 후 최신 source의 API36 에뮬레이터에서 필수 UI/설정/launcher 5 cases도 실제 통과했다.
+10월 1일 환경 차단과 수정 전 실패 로그는 이력으로 보존한다.
+현재 증거와 미실행 범위는 [검증 기록](docs/WORKLOG.md), [TESTING](docs/TESTING.md)을 따른다.
 
 구현한 화면 경로는 새 앱 프로세스 → Room 서재 조회 → `Loading / Empty / Content / Error`,
 검색 탭의 제목·작가·원본 파일명 부분 문자열 필터, 설정 탭의 시스템/밝게/어둡게 테마다.
@@ -33,10 +34,11 @@ iOS·AI·동기화·계정·통계는 이번 작업 범위 밖이다.
 환경과 의존성은 [DEPENDENCIES](docs/DEPENDENCIES.md), 검증 분리는
 [TESTING](docs/TESTING.md), 아키텍처 선택은 [ADR-0001](docs/adr/0001-android-first-and-kmp-boundary.md)를 따른다.
 
-정확히 고정한 안정 버전 후보는 Gradle 8.13, AGP 8.11.1, Kotlin/Compose compiler 2.2.20,
+정확히 고정한 버전은 Gradle 8.13, AGP 8.11.1, Kotlin/Compose compiler 2.2.20,
 KSP 2.2.20-2.0.3, Room 2.8.3, SQLite 2.6.1, Compose BOM 2025.10.00,
 JDK 17, minSdk 26/compile·targetSdk 36, build-tools 35.0.0이다.
-실제 resolve/build 호환성은 아직 검증되지 않았다. 공식 근거·선택 이유·조회 제한은 DEPENDENCIES와 ADR-0006에 기록한다.
+현재 환경에서 plugin resolve/task discovery/build/test와 API36 기기 테스트가 통과했다. 정확한 증거는
+DEPENDENCIES·TESTING·ADR-0006에 별도로 기록한다.
 
 JDK/SDK 및 dependency 네트워크를 준비한 뒤 모바일 루트에서 실행한다.
 

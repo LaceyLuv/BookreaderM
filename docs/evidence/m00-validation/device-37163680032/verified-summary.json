@@ -1,0 +1,55 @@
+{
+  "scope": "source bd1ba033 actual instrumentation on GitHub KVM emulator; final source approval requires matching build/device runs after subsequent fixes",
+  "run_id": 37163680032,
+  "job_id": 111322149363,
+  "head_sha": "bd1ba0332e292029bd09677bb0db9ddbe29dfd43",
+  "run_conclusion": "success",
+  "job_conclusion": "success",
+  "source_working_tree": "clean",
+  "artifact_id": 11288124680,
+  "artifact_sha256": "29cd9d405e953e1d86f6182f4324aadcad80a88908bc3ff0d6a955446e974301",
+  "artifact_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/37163680032/artifacts/11288124680",
+  "xml_reports": [
+    "connected-tests.xml"
+  ],
+  "device": {
+    "api": 36,
+    "abi": "x86_64",
+    "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "emulator_version": "37.1.11.0",
+    "emulator_build": "15917651"
+  },
+  "tests": [
+    {
+      "class": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "invalidStoredThemeReportsErrorAndPreservesOriginal",
+      "seconds": "0.008"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "selectedThemePersistsAcrossStoreInstances",
+      "seconds": "0.001"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "loadingEmptyAndErrorAreDistinctAndErrorHasRetry",
+      "seconds": "1.991"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "threeTabsMetadataSearchAndThemeSelectionWork",
+      "seconds": "2.726"
+    },
+    {
+      "class": "org.bookreader.mobile.ui.MainActivityLaunchTest",
+      "method": "launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab",
+      "seconds": "1.458"
+    }
+  ],
+  "result": "PASS",
+  "process_death": "NOT_RUN",
+  "physical_device_performance": "NOT_RUN",
+  "full_extracted_artifact_local": "build/device-ci-artifacts/37163680032",
+  "full_job_log_local": "build/device-ci-artifacts/37163680032/job-111322149363.log",
+  "full_job_log_sha256": "52c10fe758c6a87a9aff46be2c58cc370c85c7aa18b2db4f41dee444b6e79425"
+}

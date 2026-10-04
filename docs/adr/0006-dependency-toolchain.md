@@ -1,7 +1,8 @@
 # ADR-0006 — Android/KMP toolchain and Room candidate
 
-상태: **구현 선택 기록; 전체 조합 승인 BLOCKED_ENV**  
-날짜: 2026-10-01 / 작업: M00
+상태: **2026-10-04 M00 고정 조합 build/test 및 API36 기기 실행 PASS**
+
+날짜: 2026-10-01 / 갱신: 2026-10-04 / 작업: M00
 
 ## 선택
 
@@ -35,15 +36,17 @@ Readium은 M01에서 Android Navigator adapter에 고정한다. M00에 미사용
 
 - PASS: authentic Gradle wrapper/JAR release checksum 일치, Kotlin 공식 compatibility range 확인,
   shell syntax/TOML parse, ci helper가 command failure와 evidence log write failure를 실제 전파함.
-- BLOCKED_ENV: JRE만 존재하고 JDK/SDK/device가 없으며 sandbox network socket이 차단된다.
-  Wrapper version/projects/module task discovery 명령이 각각 exit1; doctor/ci-check exit78.
-- NOT_RUN: resolved dependency graph, Kotlin/KSP compilation, generated DB schema,
-  Android APK assemble/lint/unit/shared real DB test와 instrumentation.
-- 공식 Room/SQLite/Compose/AGP artifact/version API 대조가 완료되지 않은 부분을
-  [DEPENDENCIES](../DEPENDENCIES.md)에서 별도로 명시한다.
+- PASS(2026-10-03): JDK/SDK 환경 및 실제 Gradle version/projects/Android/shared task discovery.
+- PASS(2026-10-04, source `3f04b8ba`): 실제 graph·Kotlin/KSP compile·Room schema export·assemble/lint/unit/shared DB tests.
+  Android unit 10/shared 19 cases, failure/error/skipped 0; lint의 활성 informational upgrade 안내 20건은 보고서에 유지한다.
+- PASS: Android instrumentation APK compile 및 같은 source의 실제 API36 emulator 필수 UI/설정/launcher 5 cases.
+- BLOCKED_ENV(2026-10-01 이력): JRE만 존재하고 JDK/SDK/device가 없었으며 wrapper socket이 차단됨.
+  당시 Wrapper discovery exit1과 doctor/ci-check exit78 로그는 덮어쓰지 않는다.
+- 공식 문서·artifact·실제 실행의 각 확인 범위는 [DEPENDENCIES](../DEPENDENCIES.md)에 구분한다.
 
-M00를 DONE으로 올리려면 JDK/SDK/허용된 저장소 접속 후 ci-check 전체 성공과 실제 DB/locator
-report가 필요하다. Room schema를 손으로 쓰거나 fake DB/skip/ignoreFailures로 차단을 우회하지 않는다.
+M00의 ci-check·실제 DB/locator·schema 및 Android UI 필수 gate가 통과했다.
+Room schema를 손으로 쓰거나 fake DB/skip/ignoreFailures로 차단을 우회하지 않았다.
+Reader/import/process-death·Readium·실기기 성능 및 최종 ABI/16KB 검증은 후속 범위다.
 
 ## 변경 영향
 

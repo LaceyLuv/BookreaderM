@@ -1,0 +1,77 @@
+URL: https://developer.android.com/kotlin/multiplatform/room
+Fetched: 2026-10-03T23:55:38.457783+00:00
+HTTP status: 200
+Original SHA256: 9b9426625050555508eab71b36c4bb4a9b8eba965085fa4fdb037c8bab4b9316
+Scope: current dynamic guide uses Room 3 examples; exact Room 2.8.3 API evidence is separately retained in room-2.8.3-api-sources.json.
+
+
+RoomDatabaseConstructor<AppDatabase>
+{
+override
+fun
+initialize
+():
+AppDatabase
+}
+When you declare an
+expect
+object with the
+RoomDatabaseConstructor
+interface, the Room compiler generates the
+actual
+implementations. Android Studio might issue the following warning, which you can
+suppress with
+@Suppress("KotlinNoActualForExpect")
+:
+Expected object 'AppDatabaseConstructor' has no actual declaration in module`
+Next, either define a new
+DAO interface
+or move an existing one to
+commonMain
+:
+// shared/src/commonMain/kotlin/TodoDao.kt
+@Dao
+interface
+TodoDao
+{
+@Insert
+suspend
+fun
+insert
+(
+item
+:
+TodoEn
+
+[...]
+
+BundledSQLiteDriver
+())
+.
+setQueryCoroutineContext
+(
+Dispatchers
+.
+IO
+)
+.
+build
+()
+}
+Select a SQLite driver
+The previous code snippet calls the
+setDriver
+builder function to define what
+SQLite driver the Room database should use. These drivers differ based on the
+target platform. The previous code snippets use the
+BundledSQLiteDriver
+.
+It's the recommended driver that includes SQLite compiled from source, which
+provides the most consistent and up-to-date version of SQLite across all
+platforms.
+If you want to use the OS-provided SQLite, use the
+setDriver
+API in the
+platform-specific source sets that specify a platform-specific driver. See
+Driver implementations
+for descriptions of available d

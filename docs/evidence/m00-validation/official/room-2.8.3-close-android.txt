@@ -1,0 +1,18 @@
+Artifact: room-runtime-android-2.8.3-sources.jar
+Entry: androidMain/androidx/room/RoomDatabase.android.kt
+
+fun close() {
+        closeBarrier.close()
+    }
+
+    private fun onClosed() {
+        coroutineScope.cancel()
+        invalidationTracker.stop()
+        connectionManager.close()
+    }
+
+    /** True if the calling thread is the main thread. */
+    internal val isMainThread: Boolean
+        get() = Looper.getMainLooper().thread === Thread.currentThread()
+
+    /** Asserts that we are not on the mai

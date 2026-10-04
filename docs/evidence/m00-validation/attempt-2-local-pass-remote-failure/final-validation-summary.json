@@ -1,0 +1,60 @@
+{
+  "finished_at": "2026-10-04T00:03:38.227885+00:00",
+  "source_commit": "bd1ba0332e292029bd09677bb0db9ddbe29dfd43",
+  "command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=docs/evidence/m00-validation/ci ./scripts/ci-check.sh",
+  "exit_code": 0,
+  "tests": [
+    {
+      "module": "androidApp",
+      "task": "testDebugUnitTest",
+      "counts": {
+        "tests": 10,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      "reports": "docs/evidence/m00-validation/final-reports/androidApp"
+    },
+    {
+      "module": "shared",
+      "task": "jvmTest",
+      "counts": {
+        "tests": 19,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      "reports": "docs/evidence/m00-validation/final-reports/shared"
+    }
+  ],
+  "lint": {
+    "severity_counts": {
+      "Hint": 20
+    },
+    "issue_counts": {
+      "AndroidGradlePluginVersion": 3,
+      "GradleDependency": 9,
+      "NewerVersionAvailable": 8
+    },
+    "report": "docs/evidence/m00-validation/final-reports/lint-results-debug.xml"
+  },
+  "artifacts": [
+    {
+      "path": "androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+      "bytes": 17085394,
+      "sha256": "40745c2586979c7285c3e4ba87d45eaa21002d836d2995624cc02bbf8b1983f6"
+    },
+    {
+      "path": "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk",
+      "bytes": 1081831,
+      "sha256": "3510eeec0bc1b4f3dd6d8e6d19dd12f9cd633c3fa8056d07ceec6f93c8a50b14"
+    },
+    {
+      "path": "shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/1.json",
+      "bytes": 7755,
+      "sha256": "b8dec17c6478c78fb6e77484643a7fbf29f903afa88cf1cfe458fd8ef17b3700"
+    }
+  ],
+  "schema_equals_committed": true,
+  "instrumentation_execution": "NOT_RUN by local ci-check; separate device workflow"
+}

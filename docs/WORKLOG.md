@@ -165,3 +165,207 @@ README add/add 충돌은 원격 제목·설명을 맨 위에 보존하고 로컬
 M00 소스·테스트·설정·원문 문서를 변경하지 않았으며 원격 초기 commit 이력을 보존한다.
 게시할 기본 브랜치에 맞추어 로컬 임시 브랜치 이름을 `main`으로 바꾸고 일반 push를 준비한다.
 이 기록 시점에는 push 성공이나 GitHub Actions 통과를 주장하지 않는다. M00 `BLOCKED` 판정은 유지한다.
+
+## 2026-10-03 — M00 필수 실행 검증 재개
+
+기준 source는 `0a3802e`이며 작업 디렉터리는 `/workspace/bookreader-mobile`이다.
+10월 1일의 차단/원격 게시 준비 기록은 당시 이력으로 보존한다.
+이번 작업도 M00에 한정하며 원문 계획서·template·reference와 TASKS M01 이후 bytes를 보존한다.
+
+JDK 17·Android SDK 36/build-tools 35.0.0을 설치한 뒤 실제 doctor·Gradle version/projects 및
+Android/shared task discovery가 exit 0으로 통과했다. 명령별 로그와 결과는
+`docs/evidence/m00-validation/ci/`에 있다. catalog/plugin/library pin을 변경하지 않았다.
+KSP plugin 조회의 일시 실패는 공식 Maven POM·HTTP 및 repository 재조회로 진단했으며
+버전 부재로 판정하지 않았다. 전체 build/test/schema 및 resolved graph 결과는 확인 중이다.
+
+10월 1일 원격 기본 CI run `36805008404`의 실제 로그를 10월 3일 재확인해 SDK 설정 성공과 debug APK packaging을 확인했다.
+이후 `:androidApp:compileDebugAndroidTestKotlin`은
+`BookReaderScreenTest.kt:4:33 Unresolved reference assertDoesNotExist`로 실패했다.
+공식 Compose API에서 이 assertion은 `SemanticsNodeInteraction` member임을 확인하고
+잘못된 extension import 한 줄을 제거했다. 테스트 case/assertion 삭제·skip 없이 재검증한다.
+원격 실패 excerpt는 `docs/evidence/m00-validation/ci-36805008404-failure-excerpt.log`에 보존했다.
+수정 소스·기기 workflow·doctor/SDK pin은 `4abc4bb94fc843fcc843bfeffcdc43164704d7df`로 게시됐다.
+`gh --log-failed`의 Azure 403/빈 결과는 성공 증거로 취급하지 않고 connector의 실제 로그를 확인했다.
+
+기기 검증은 `scripts/device-check.sh`와 별도 GitHub KVM API36 x86_64 workflow로 실행한다.
+신규 XML에서 5개 필수 case의 실행과 failure/error/skipped 부재를 확인해야 UI `PASS`다.
+현재 로컬 기기 환경 차단은 `docs/evidence/device-local-blocker/results.txt`에 기록한다.
+전체 자동 검사와 실제 instrumentation 결과 확인 전까지 M00 `DONE`을 주장하지 않는다.
+M01 Readium/encoding probe나 M02 제품 구현에는 착수하지 않았다.
+
+### 첫 로컬 전체 실행 — FAIL 보존
+
+첫 전체 실행은 아래 명령으로 exit 1이었다. 세션용 환경 파일은 저장소 밖 설치 경로다.
+
+```bash
+source /workspace/toolchains/mobile-env.sh
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m00-validation/ci ./scripts/ci-check.sh \
+  > docs/evidence/m00-validation/ci-check.log 2>&1
+```
+
+Android unit XML은 10 cases,
+shared XML은 18 cases 중 1 failure를 기록했다. 실제 실패는
+`RoomDatabaseSmokeTest.unavailableDatabaseReadIsErrorAndPreservesDiskRecord`의 닫힌 DB 조회에서
+`JobCancellationException`이 전달된 것이다. 실패 XML과 명령 로그는
+`docs/evidence/m00-validation/attempt-1-shared-failure/`에 보존했다.
+Debug 앱·instrumentation APK compile과 KSP schema export는 실행됐지만 lint 완료 보고서는 없었다.
+실패 원인 수정 후 전체 검사를 재실행하며 첫 실패를 PASS로 덮어쓰지 않는다.
+
+닫힌 DB 실패는 Room의 자체 query scope 취소와 호출자 코루틴 취소를 구분하여 수정한다.
+repository의 세 CancellationException 처리에서 호출자 `currentCoroutineContext().ensureActive()`를
+먼저 검사하므로 실제 호출자 취소는 전파되고, 호출자가 살아 있으면 `DATABASE_UNAVAILABLE` 오류다.
+기존 닫힌 DB·reopen·기록 보존 assertion을 유지하며 실제 DB의 호출자 취소 회귀 case를 추가했다.
+추가 case를 포함한 최종 shared 실행 건수는 재실행 XML에서 확인한다.
+
+### Lint 실행 — FAIL 보존
+
+이후 실제 `:androidApp:lintDebug`는 exit 1, 23 errors였다.
+20건은 고정 의존성의 새 버전 알림(`AndroidGradlePluginVersion` 3건,
+`GradleDependency` 9건, `NewerVersionAvailable` 8건)이고,
+3건은 `ObsoleteSdkInt`·`MonochromeLauncherIcon`·`UseKtx` 소스/리소스 진단이다.
+실제 실패 로그·HTML/XML은 `docs/evidence/m00-validation/attempt-1-lint-failure/`에 보존한다.
+소스 진단을 수정하고 고정 버전 알림의 처리 범위를 검토한 뒤 lint 전체를 재실행한다.
+
+### 소스 수정 후 shared 회귀 — PASS
+
+`./gradlew --no-daemon --console=plain :shared:jvmTest` 재실행은 exit 0이었다.
+`docs/evidence/m00-validation/shared-regression.log`와 실제 XML에서 Room DB 12,
+locator 6, book model 1, 합계 19 cases의 failure/error/skipped가 모두 0임을 확인했다.
+최초 18 cases는 유지했고 실제 호출자 cancellation 회귀 1개를 추가했다.
+전체 ci-check/lint와 기기 실행의 최종 결과는 별도로 확인한다.
+
+소스 lint 진단은 minSdk26에 불필요한 launcher icon `-v26` qualifier 제거 및 monochrome 추가로 처리한다.
+`AndroidStores.write`의 직접 SharedPreferences `commit()`은 저장 실패 Boolean을 확인해야 하므로 유지한다.
+Unit을 반환하는 KTX edit로 바꾸어 실패 신호를 잃지 않도록 이 함수에만 `UseKtx`를 억제하며
+다른 lint 경고의 기본 실패 정책은 유지한다. 이 선택은 저장 성공을 가장하지 않는 계약에 따른다.
+
+### 고정 버전 알림의 lint 정책
+
+읽기 전용 Astra 검토 후 `AndroidGradlePluginVersion`, `GradleDependency`,
+`NewerVersionAvailable` 세 upgrade-only 진단만 활성화된 `informational`로 분류한다.
+선택한 stable pin은 공식 호환표와 실제 graph로 검증하며 최신 버전 알림만으로 자동 변경하지 않는다.
+알림을 삭제·disable하지 않고 최종 보고서의 실제 건수와 내용을 남긴다.
+그 외 lint warning/error는 기존 fatal 정책을 유지한다. 따라서 최종 exit 0도 '발견 사항 0건'을 의미하지 않는다.
+
+수정 전 source `4abc4bb94fc843fcc843bfeffcdc43164704d7df`의 기본 GitHub CI run
+`37163324747`도 실제 connector 로그에서 같은 shared 닫힌 DB case의 실패를 확인했다.
+이 실행은 shared 18 cases 중 1 failure이며 로컬 수정 후 19 cases 결과와 구분한다.
+같은 source의 device run `37163324713`은 진행 중이며 실제 XML/로그 확인 전 PASS로 기록하지 않는다.
+
+로컬 `./scripts/device-check.sh`를 adb 설치 후 재실행했다.
+source/doctor/adb-version/attached-devices 명령은 exit 0이었지만 authorized device 목록은 비어 있어
+최종 exit 78 (`BLOCKED_ENV`)이었다. `docs/evidence/device-local-blocker/resumed/`의 실제 로그를 따른다.
+로컬 `/dev/kvm` 부재와 별개로 원격 device workflow의 SDK/KVM 준비 성공을 확인했으며 실제 UI 결과는 대기한다.
+
+## 2026-10-04 — 최종 로컬 전체 검증 PASS
+
+이 절은 `bd1ba033` 실행 당시의 이력이며 아래 로그·보고서·summary는
+`docs/evidence/m00-validation/attempt-2-local-pass-remote-failure/`에 분리 보존했다.
+현재 `3f04b8ba` 최종 결과와 구분한다.
+
+전체 ci-check는 source `bd1ba0332e292029bd09677bb0db9ddbe29dfd43`에서 위와 같은
+`BOOKREADER_EVIDENCE_DIR` 명령으로 exit 0이었다.
+`docs/evidence/m00-validation/attempt-2-local-pass-remote-failure/ci/results.txt`는 doctor/version/projects/두 모듈 task discovery와
+build-and-tests 모두 `PASS`를 기록한다. APK assemble/test APK compile·lint·Android unit/shared tests·schema 검사가 포함된다.
+
+`docs/evidence/m00-validation/attempt-2-local-pass-remote-failure/reports/`의 실제 XML을 확인했다. Android unit은 10 cases, shared는 19 cases
+(Room DB 12/locator 6/book model 1)이며 failure/error/skipped 모두 0이다.
+Shared 최종 task는 수정 후 실제 19 cases가 실행된 isolated regression 결과를 up-to-date로 재사용했고
+Android unit은 최종 전체 실행에서 다시 수행됐다. 로그의 up-to-date 표기와 실제 XML을 함께 남긴다.
+Lint는 error/warning 0, 활성 informational upgrade 안내 20건(3/9/8)이다.
+이는 finding 0건이나 의존성 최신 버전 채택을 의미하지 않는다.
+
+Room KSP가 생성한 `shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/1.json`은
+version1, books/reading_progress 두 테이블 및 FK를 포함하며 committed schema와 동일하다.
+Debug 앱 APK는 17,085,394 bytes, Android test APK는 1,081,831 bytes다.
+정확 SHA-256/경로·schema hash는 `docs/evidence/m00-validation/attempt-2-local-pass-remote-failure/final-validation-summary.json`에 있다.
+APK와 unit/lint HTML은 generated build 경로이며 Git에는 작은 XML/summary/로그 증거와 schema를 보존한다.
+
+최신 source의 원격 build run `37163680043`, device run `37163680032`는 확인 중이다.
+이전 source `4abc4bb`의 device run `37163324713`에서 5 cases PASS가 관찰됐지만
+최신 source의 승인 증거로 대체하지 않는다. 최신 5-case 결과 전 M00 DONE은 보류한다.
+
+### 다음 작업 M01의 현재 입력과 범위
+
+M01 상태는 `TODO`이며 구현에 착수하지 않았다. 다음 명시적 M01 작업의 입력은 다음과 같다.
+
+1. 검증 source `3f04b8ba`의 androidApp/shared 경계와 정확 pin 툴체인,
+   M00 CI·19 shared/10 Android unit·최종 5 instrumentation 결과 및 generated Room v1 schema.
+   최신 기기/원격 CI gate가 통과한 M00를 완료 상태로 전달한다.
+2. Readium stable Android Navigator 후보 3.4.0의 실제 release·라이선스·SDK/compiler 요구/API 확인.
+   M00 graph에는 Readium이 없으므로 이 후보가 현재 조합에서 검증됐다고 가정하지 않는다.
+3. 필요한 `epubAndroid` adapter와 격리 debug/test probe만 추가하고 ADR-0005에 exact pin과 host 형태를 기록한다.
+   Readium payload는 common domain에 노출하지 않으며 locator 전체 round-trip/재사용·복원을 검사한다.
+4. 재배포 가능한 EPUB2/3·이미지/CSS/목차/locator 및 publication script/외부 URL fixture.
+   trusted engine script는 동작하면서 비신뢰 publication script와 외부 요청을 차단할 수 있는지 실제 관찰한다.
+   exact restore와 chapter fallback을 구분하고 없는 보안 API를 만들지 않는다.
+5. Android strict decoder의 UTF BOM/CP949 확장/EUC-KR/BOM 없는 UTF-16 fixture와 수동 선택 probe.
+   실제 Android 실행 결과를 남기며 JVM charset 지원만으로 대상 Android PASS를 주장하지 않는다.
+
+M00의 cold-launch/3탭/상태/테마 case는 Reader/import/이어읽기나 host-driven process-death 증거가 아니다.
+그 제품 경로와 지속 writer/종료 검증은 M02–M04에서 별도로 구현한다.
+
+### 동일 source의 원격 결과 — UI PASS / 기본 CI FAIL
+
+Source `bd1ba033`의 실제 device run `37163680032`는 success, 필수 UI/설정/launcher 5 cases PASS다.
+반면 기본 CI run `37163680043`은 shared 19 cases 중
+`callerCancellationIsNotConvertedToDatabaseError` 1 failure를 기록했다.
+로컬에서 통과한 신규 호출자 cancellation 회귀가 원격 스케줄링에서 실패한 환경 차이를 조사한다.
+실제 실패를 숨기거나 회귀 test를 약화하지 않고 호출자 cancellation 전달 경로를 수정한다.
+기존 `final-validation-summary.json`의 로컬 PASS는 해당 실행의 유효한 결과이며
+원격 실패를 대체하지 않는다. 수정 후 새 source에서 전체 CI와 기기 UI를 모두 다시 검증한다.
+최종 M00 DONE은 이 회귀 해소 전 보류한다.
+
+호출자 cancellation의 원격 실패는 Room DAO의 synchronous fast path가 사전에 취소된 호출자에게
+suspend 없이 값을 반환할 수 있어 catch 경로에 진입하지 않은 데서 발생했다.
+두 public repository read 함수의 첫 문장에 `currentCoroutineContext().ensureActive()`를 추가하여
+DAO 호출 전에 사전 취소를 전파한다. 기존 catch·닫힌 DB/reopen/data 보존·호출자 취소 assertion은 유지한다.
+수정 결과는 새 source의 실제 19-case/전체 CI와 기기 실행으로 확인한다.
+
+### 호출자 entry guard 수정 후 새 source 로컬 PASS
+
+Source `3f04b8ba53d23846a454ee744c5e1fc33bea45e3`에서 전체 ci-check를 같은 명령으로 다시 실행해
+exit 0을 확인했다. 이번 shared JVM task는 실제 새로 실행됐고 Android unit도 재실행됐다.
+최종 XML은 shared19/Android10 cases, failure/error/skipped 모두 0이다.
+Lint는 20 informational Hint, warning/error 0이며 generated schema는 committed v1과 동일하다.
+현재 `final-validation-summary.json`/`final-reports/`는 이 source의 새 결과이고
+앞선 bd1ba 로컬 PASS·원격 FAIL 이력은 `attempt-2-local-pass-remote-failure/`에 분리 보존한다.
+새 Debug APK SHA-256은 `c9188f03cb9f242af9b1a05a1b0ac284091b4d63872114aa420afec8ee36e737`이다.
+새 source의 remote build `37164061596`와 device `37164061580` 결과는 확인 중이다.
+
+같은 source `3f04b8ba`의 원격 기본 CI
+[37164061596](https://github.com/LaceyLuv/BookreaderM/actions/runs/37164061596)도
+2026-10-04 00:13:57 UTC에 success로 완료됐다. 로컬과 원격의 전체 실행 성공을 각각 확인했다.
+실제 원격 report/log와 artifact metadata는 `docs/evidence/m00-validation/build-37164061596/`에 보존한다.
+Device `37164061580`의 최종 필수 XML 검증만 대기한다.
+
+최종 원격 build artifact `11288751988`의 다운로드 digest와 실제 29-case XML을 확인했다.
+로컬과 동일하게 Android10/shared19, failure/error/skipped 0 및 lint 20 Hint이고 exported schema도 byte 동일하다.
+실제 CI Debug APK는 16,629,841 bytes, `build/deliverables/m00-3f04b8b/androidApp-debug.apk`,
+SHA-256 `716739c3471b4a21d689396e30b2f850b0bd393abc7ed2681506ec91a8edee82`다.
+[artifact 링크](https://github.com/LaceyLuv/BookreaderM/actions/runs/37164061596/artifacts/11288751988)와
+`build-37164061596/artifact-inspection.json`에 원격 bytes/hash를 보존했다.
+로컬 APK `c9188f03...`와 원격 APK hash를 분리 기록하고 동일 바이트 빌드 재현성은 검증 완료하지 않는다.
+
+## 2026-10-04 — M00 DONE 및 인계
+
+Source `3f04b8ba53d23846a454ee744c5e1fc33bea45e3`의 실제 API36 Google APIs x86_64 device run
+[37164061580](https://github.com/LaceyLuv/BookreaderM/actions/runs/37164061580)이 성공했다.
+Downloaded actual instrumentation XML에서 필수 5 cases 모두 실행됐고 failure/error/skipped가 없음을 확인했다.
+기기 fingerprint/API/ABI·원격 run/job/artifact metadata·실제 XML·필수 명령 결과와 발췌/hash는
+`docs/evidence/m00-validation/device-37164061580/` 및 `verified-summary.json`에 보존한다.
+원본 전체 job log는 Git에서 제외된 `build/device-ci-artifacts/37164061580/job-111323264829.log`에
+바이트 그대로 보존하며 이 파일의 SHA-256을 `verified-summary.json`에 기록한다.
+원격 전체 로그는 위 GitHub run의 job 화면에서도 확인할 수 있다.
+3탭·검색·테마, Loading/Empty/Error와 retry, 실제 SharedPreferences 정상/손상 설정,
+서재 cold launch와 Activity recreation의 최소 사용자 경로를 검사했다.
+
+로컬 fullci exit0·Android unit10/shared19·실제 DB/schema·lint 및 같은 source의 기기5cases가 충족되어
+TASKS의 M00만 `DONE`과 완료 체크로 갱신했다. 20 informational 버전 안내는 보고서에 남아 있다.
+최신 소스의 원격 기본 CI는 [37164061596](https://github.com/LaceyLuv/BookreaderM/actions/runs/37164061596)이며
+최종 원격 결과도 success이며 로컬 결과와 실제 원격 XML/log를 각각 보존한다.
+문서/evidence 후속 commit은 검증한 앱/테스트/build source를 바꾸지 않는다.
+첨부 원문/template/reference와 TASKS M01 이후 bytes는 보존했다.
+M01은 TODO이며 위 입력을 사용할 다음 별도 작업이다.
+Host-driven process-death·Reader 위치 복원/이어읽기·Readium 보안/호환성·Android CP949·실기기 성능·
+OEM backup·migration upgrade·native ABI/16KB는 이번 M00 결과로 검증 완료하지 않는다.

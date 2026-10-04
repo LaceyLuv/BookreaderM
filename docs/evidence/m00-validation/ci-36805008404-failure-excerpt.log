@@ -1,0 +1,42 @@
+Source: GitHub Actions run 36805008404, job 110187275371, source commit 0a3802e2be1f08e4dd451581ce8ccb8a7d28adee
+Retrieved via github_fetch_workflow_job_logs on 2026-10-03. Excerpt only; full remote run remains linked.
+https://github.com/LaceyLuv/BookreaderM/actions/runs/36805008404
+
+2026-10-01T02:19:31.3829251Z > Task :shared:bundleDebugLocalLintAar
+2026-10-01T02:19:32.3843206Z 
+2026-10-01T02:19:32.3873854Z > Task :androidApp:compileDebugAndroidTestKotlin FAILED
+2026-10-01T02:19:32.3905010Z e: file:///home/runner/work/BookreaderM/BookreaderM/androidApp/src/androidTest/kotlin/org/bookreader/mobile/ui/BookReaderScreenTest.kt:4:33 Unresolved reference 'assertDoesNotExist'.
+2026-10-01T02:19:33.8793288Z 
+2026-10-01T02:19:33.8793993Z > Task :androidApp:compileDebugUnitTestKotlin
+2026-10-01T02:19:33.8794815Z > Task :androidApp:generateDebugAndroidTestLintModel
+2026-10-01T02:19:33.9823995Z > Task :androidApp:packageDebug
+2026-10-01T02:19:33.9834134Z > Task :androidApp:createDebugApkListingFileRedirect
+2026-10-01T02:19:33.9864755Z 
+2026-10-01T02:19:33.9895059Z FAILURE: Build failed with an exception.
+2026-10-01T02:19:33.9927853Z 
+2026-10-01T02:19:33.9928319Z * What went wrong:
+2026-10-01T02:19:33.9929421Z Execution failed for task ':androidApp:compileDebugAndroidTestKotlin'.
+2026-10-01T02:19:33.9933370Z > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+2026-10-01T02:19:33.9969488Z    > Compilation error. See log for more details
+2026-10-01T02:19:33.9993100Z 
+2026-10-01T02:19:34.0003563Z * Try:
+2026-10-01T02:19:34.0004854Z > Run with --info or --debug option to get more log output.
+2026-10-01T02:19:34.0005830Z > Run with --scan to get full insights.
+2026-10-01T02:19:34.0006687Z > Get more help at https://help.gradle.org.
+2026-10-01T02:19:34.0007247Z 
+2026-10-01T02:19:34.0008330Z * Exception is:
+2026-10-01T02:19:34.0009711Z org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':androidApp:compileDebugAndroidTestKotlin'.
+2026-10-01T02:19:34.0011911Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:130)
+2026-10-01T02:19:34.0013884Z 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:293)
+2026-10-01T02:19:34.0015661Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:128)
+2026-10-01T02:19:34.0017851Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:116)
+2026-10-01T02:19:34.0020205Z 	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:40)
+2026-10-01T02:19:34.0284392Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+2026-10-01T02:19:34.0285734Z 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+2026-10-01T02:19:34.0287183Z Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Compilation error. See log for more details
+2026-10-01T02:19:34.0288676Z 	at org.jetbrains.kotlin.gradle.tasks.TasksUtilsKt.throwExceptionIfCompilationFailed(tasksUtils.kt:21)
+2026-10-01T02:19:34.0290314Z 	at org.jetbrains.kotlin.compilerRunner.GradleKotlinCompilerWork.run(GradleKotlinCompilerWork.kt:119)
+2026-10-01T02:19:34.0292157Z 	at org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction.execute(GradleCompilerRunnerWithWorkers.kt:74)
+2026-10-01T02:19:34.0294211Z 	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:63)
+2026-10-01T02:19:34.0295798Z 	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:66)
+

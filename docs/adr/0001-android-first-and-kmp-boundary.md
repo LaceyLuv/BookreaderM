@@ -1,7 +1,7 @@
 # ADR-0001 — Android 우선과 KMP 경계
 
 - 날짜: 2026-10-01
-- 상태: 제품·아키텍처 계약 채택, M00 필수 실행 검증 BLOCKED_ENV
+- 상태: 제품·아키텍처 계약 채택, 2026-10-04 M00 필수 build/test 및 API36 UI 실행 PASS
 - 기준: 개정 계획서 §7/§8/§30/§43, TASKS M00
 
 ## 선택
@@ -43,7 +43,9 @@ Android API가 commonMain에 유입되거나 UI가 DAO를 직접 호출하는 �
 
 ## 검증 결과
 
-`BLOCKED_ENV`: Gradle 배포 다운로드 차단 및 JDK compiler·Android SDK·adb 부재로
-실제 task 목록/assemble/lint/unit/shared/Room smoke를 확인하지 못했다.
-Android XML·권한/백업 제외 선언 정적 검사 `PASS`는 런타임·OEM 동작이나 실제 DB 실행을 증명하지 않는다.
-명령·exit code·로그와 다음 gate는 [WORKLOG](../WORKLOG.md)에 있다.
+2026-10-04 source `3f04b8ba`에서 실제 assemble/lint/Android unit/shared/Room smoke/schema `PASS`다.
+Android unit 10/shared 19 cases의 failure/error/skipped는 모두 0이다.
+같은 source의 API36 실제 instrumentation 5 cases도 PASS이며 실패/error/skipped는 없다.
+10월 1일 `BLOCKED_ENV`와 수정 전 실패는 WORKLOG 이력으로 보존한다.
+Android XML·권한/백업 제외 선언 정적 검사 `PASS`는 OS/OEM 백업 동작을 증명하지 않는다.
+명령·exit code·로그와 다음 gate는 [WORKLOG](../WORKLOG.md), [TESTING](../TESTING.md)에 있다.

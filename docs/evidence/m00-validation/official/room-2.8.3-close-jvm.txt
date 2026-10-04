@@ -1,0 +1,18 @@
+Artifact: room-runtime-jvm-2.8.3-sources.jar
+Entry: jvmNativeMain/androidx/room/RoomDatabase.jvmNative.kt
+
+fun close() {
+        closeBarrier.close()
+    }
+
+    private fun onClosed() {
+        coroutineScope.cancel()
+        invalidationTracker.stop()
+        connectionManager.close()
+    }
+
+    /**
+     * Use a connection to perform database operations.
+     *
+     * This function is for internal access to the pool, it is an unconfined coroutine function to
+     * be used by Room generated code paths
