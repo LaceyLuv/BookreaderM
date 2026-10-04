@@ -130,7 +130,9 @@ class TxtReaderHostProcessTest {
         return requireNotNull(result)
     }
     private fun waitFor(tag: String) {
-        compose.waitUntil(30_000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(30_000) {
+            compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        }
         compose.onNodeWithTag(tag).assertIsDisplayed()
     }
 }

@@ -63,6 +63,39 @@ class TxtDecoderTest {
         assertEquals("한글 각\n", decode(ByteArrayInputStream(common), TxtEncoding.EUC_KR).second)
     }
 
+    @Test fun eucKrGrammarCarriesPairedBytesAndRejectsCp949ExtensionRangesAtExactOffsets() {
+        // The lead byte is at position 15, so its trail arrives after the 16-byte BOM/header prefix.
+        val ascii = "a".repeat(15).toByteArray()
+        val korean = "한글 각\r\n".toByteArray(TxtEncoding.EUC_KR.charset())
+        val canonical = StringBuilder()
+        val valid = TxtDecoder.decode(
+            ShortReads(ascii + korean), TxtEncoding.EUC_KR,
+            TxtDecodeLimits(ioBufferBytes = 4, textChunkUtf16Units = 2),
+        ) { canonical.append(it) }
+        assertEquals("a".repeat(15) + "한글 각\n", canonical.toString())
+        assertEquals(canonical.length.toLong(), valid.canonicalUtf16Length)
+
+        for (invalid in listOf(
+            byteArrayOf(0x81.toByte(), 0x41), // CP949 extension lead
+            byteArrayOf(0xa1.toByte(), 0x41), // CP949 extension trail
+            byteArrayOf(0xa1.toByte()), // dangling EUC-KR lead
+            byteArrayOf(0x80.toByte()), byteArrayOf(0xff.toByte()),
+            byteArrayOf(0x8e.toByte(), 0xa1.toByte()), // EUC-JP SS2 is not EUC-KR
+        )) {
+            val failure = expectFailure(TxtDecodeFailure.MALFORMED_INPUT) {
+                TxtDecoder.validate(ShortReads(ascii + invalid), TxtEncoding.EUC_KR,
+                    TxtDecodeLimits(ioBufferBytes = 4))
+            }
+            assertEquals(15L, failure.byteOffset)
+        }
+        // A prefix cut between a valid lead/trail does not invent a replacement or claim EOF.
+        val preview = TxtDecoder.probe(ByteArrayInputStream(ascii + korean), maxPreviewSourceBytes = 16)
+            .previews.single { it.encoding == TxtEncoding.EUC_KR }
+        assertEquals("a".repeat(15), preview.text)
+        assertEquals(null, preview.failure)
+        assertFalse(preview.completeSource)
+    }
+
     @Test fun bomlessUtf16RequiresAnExplicitChoice() {
         for (encoding in listOf(TxtEncoding.UTF16LE, TxtEncoding.UTF16BE)) {
             val source = "A한글\r\n😀".toByteArray(encoding.charset())

@@ -113,6 +113,10 @@ object TxtDecoder {
             throw TxtDecodingException(TxtDecodeFailure.BOM_MISMATCH, 0)
         }
         val encoding = requestedEncoding ?: bom ?: TxtEncoding.UTF8
+        // Android ICU may expose CP949's wider byte table under the EUC-KR alias.
+        // Enforce EUC-KR's ASCII / KS X 1001 byte grammar independently of vendor aliases.
+        val eucKrBytes = if (encoding == TxtEncoding.EUC_KR) StrictEucKrBytes() else null
+        eucKrBytes?.accept(prefix, 0, prefixSize, 0)
         val decoder = encoding.charset().newDecoder()
             .onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT)
@@ -125,6 +129,7 @@ object TxtDecoder {
         var eof = prefixSize < prefix.size
         while (true) {
             guard.check()
+            if (eof && completeInput) eucKrBytes?.finish()
             bytes.flip()
             while (true) {
                 guard.check()
@@ -151,10 +156,12 @@ object TxtDecoder {
             if (count == -1) {
                 eof = true
             } else {
+                val sourceOffset = byteCount
                 byteCount += count
                 if (byteCount > limits.maxSourceBytes) {
                     throw TxtDecodingException(TxtDecodeFailure.SOURCE_TOO_LARGE)
                 }
+                eucKrBytes?.accept(bytes.array(), bytes.position(), count, sourceOffset)
                 bytes.position(bytes.position() + count)
             }
         }
@@ -172,6 +179,33 @@ object TxtDecoder {
         canonical.finish(completeInput)
         guard.check()
         return TxtValidation(encoding, byteCount, canonical.length)
+    }
+
+    /** Standard EUC-KR excludes CP949 extension lead/trail ranges and EUC-JP SS2/SS3. */
+    private class StrictEucKrBytes {
+        private var leadOffset: Long? = null
+
+        fun accept(bytes: ByteArray, start: Int, count: Int, sourceOffset: Long) {
+            for (index in 0 until count) {
+                val byte = bytes[start + index].toInt() and 0xff
+                val lead = leadOffset
+                if (lead != null) {
+                    if (byte !in 0xa1..0xfe) {
+                        throw TxtDecodingException(TxtDecodeFailure.MALFORMED_INPUT, lead)
+                    }
+                    leadOffset = null
+                } else if (byte >= 0x80) {
+                    if (byte !in 0xa1..0xfe) {
+                        throw TxtDecodingException(TxtDecodeFailure.MALFORMED_INPUT, sourceOffset + index)
+                    }
+                    leadOffset = sourceOffset + index
+                }
+            }
+        }
+
+        fun finish() {
+            leadOffset?.let { throw TxtDecodingException(TxtDecodeFailure.MALFORMED_INPUT, it) }
+        }
     }
 
     private class CanonicalChunks(

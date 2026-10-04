@@ -257,7 +257,7 @@ class ManagedImportAndroidTest {
 
     private fun document(id: String): Uri = DocumentsContract.buildDocumentUri("org.bookreader.mobile.tests.documents", id)
     private fun waitFor(tag: String) {
-        compose.waitUntil(20_000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(20_000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
         compose.onNodeWithTag(tag).assertIsDisplayed()
     }
     private fun books() = runBlocking {
