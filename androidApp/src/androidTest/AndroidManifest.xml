@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity android:name="org.bookreader.mobile.importing.TestSenderActivity" android:exported="true" />
+        <activity android:name="org.bookreader.mobile.importing.TestPickerActivity" android:exported="true" />
+        <provider
+            android:name="org.bookreader.mobile.importing.TestDocumentsProvider"
+            android:authorities="org.bookreader.mobile.tests.documents"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
+            android:exported="true"
+            android:grantUriPermissions="true">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+        <provider android:name="org.bookreader.mobile.importing.TestAssetProvider"
+            android:authorities="org.bookreader.mobile.tests.assets"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
+            android:exported="true" android:grantUriPermissions="true" />
+    </application>
+</manifest>

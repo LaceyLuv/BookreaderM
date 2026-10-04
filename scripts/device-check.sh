@@ -62,36 +62,38 @@ for report in reports.rglob('TEST-*.xml'):
     removed += 1
 print(f'Removed {removed} old generated connected-test XML reports')
 PY
+host_class=org.bookreader.mobile.reader.TxtReaderHostProcessTest
+fixture_output=/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence
+test_arguments=("-Pandroid.testInstrumentationRunnerArguments.notClass=$host_class")
+if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
+  run_logged fixture-output-directory adb shell mkdir -p "$fixture_output"
+  # Only generated fixture screenshots are removed; no app/library data is cleared.
+  run_logged clear-old-fixture-screenshots adb shell rm -f \
+    "$fixture_output/m02-library.png" "$fixture_output/m03-reader.png" \
+    "$fixture_output/txt-reader-generated-scroll.png" "$fixture_output/txt-reader-generated-host.png"
+  test_arguments+=("-Pandroid.testInstrumentationRunnerArguments.captureFixtureScreenshots=true"
+    "-Pandroid.testInstrumentationRunnerArguments.additionalTestOutputDir=$fixture_output")
+fi
 run_logged connected-tests ./gradlew --no-daemon --console=plain --stacktrace \
-  --rerun-tasks :androidApp:connectedDebugAndroidTest
-run_logged verified-test-results python3 - <<'PY'
+  --rerun-tasks "${test_arguments[@]}" :androidApp:connectedDebugAndroidTest
+run_logged verified-test-results python3 scripts/check-test-results.py \
+  android-device androidApp/build/outputs/androidTest-results/connected
+# The excluded class is mandatory here: both exact methods execute around an
+# external adb force-stop, independent of JUnit method ordering.
+run_logged host-process-tests python3 scripts/reader-process-check.py "$evidence_dir/reader-host-process"
+run_logged verified-host-results python3 scripts/check-test-results.py \
+  android-host "$evidence_dir/reader-host-process"
+if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
+  run_logged fixture-screenshots adb pull "$fixture_output" "$evidence_dir/fixture-screenshots"
+  run_logged verified-fixture-screenshots python3 - "$evidence_dir/fixture-screenshots" <<'PY'
 from pathlib import Path
-import xml.etree.ElementTree as ET
-
-expected = {
-    ('org.bookreader.mobile.ui.BookReaderScreenTest', 'threeTabsMetadataSearchAndThemeSelectionWork'),
-    ('org.bookreader.mobile.ui.BookReaderScreenTest', 'loadingEmptyAndErrorAreDistinctAndErrorHasRetry'),
-    ('org.bookreader.mobile.ui.AndroidThemeStoreTest', 'selectedThemePersistsAcrossStoreInstances'),
-    ('org.bookreader.mobile.ui.AndroidThemeStoreTest', 'invalidStoredThemeReportsErrorAndPreservesOriginal'),
-    ('org.bookreader.mobile.ui.MainActivityLaunchTest', 'launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab'),
-}
-reports = sorted(Path('androidApp/build/outputs/androidTest-results/connected').rglob('TEST-*.xml'))
-if not reports:
-    raise SystemExit('FAIL no connected instrumentation XML reports')
-passed = set()
-count = 0
-for report in reports:
-    for case in ET.parse(report).getroot().iter('testcase'):
-        count += 1
-        identity = (case.attrib.get('classname', ''), case.attrib.get('name', ''))
-        if any(case.find(status) is not None for status in ('failure', 'error', 'skipped')):
-            raise SystemExit(f'FAIL unsuccessful or skipped instrumentation test: {identity}')
-        passed.add(identity)
-missing = expected - passed
-if missing:
-    raise SystemExit(f'FAIL mandatory M00 device tests were not executed: {sorted(missing)}')
-print(f'PASS {count} actual instrumentation tests; all {len(expected)} mandatory M00 cases executed')
-for classname, name in sorted(passed):
-    print(f'PASS {classname}.{name}')
+import sys
+root = Path(sys.argv[1])
+for name in ('m02-library.png', 'm03-reader.png', 'txt-reader-generated-scroll.png', 'txt-reader-generated-host.png'):
+    matches = list(root.rglob(name))
+    if len(matches) != 1 or matches[0].read_bytes()[:8] != b'\x89PNG\r\n\x1a\n':
+        raise SystemExit(f'FAIL missing or invalid generated-fixture screenshot: {name}')
+    print(f'PASS actual generated-fixture screenshot {name}, bytes={matches[0].stat().st_size}')
 PY
-printf 'NOT_RUN host-driven process death and physical-device performance; outside M00 device suite\n' | tee -a "$evidence_dir/results.txt"
+fi
+printf 'NOT_RUN physical-device performance; emulator execution does not establish physical performance\n' | tee -a "$evidence_dir/results.txt"

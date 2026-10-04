@@ -25,10 +25,52 @@ fun androidLibrarySessionFactory(context: Context): LibrarySessionFactory {
     return LibrarySessionFactory {
         val database = createAndroidDatabase(appContext)
         try {
-            LibrarySession(RoomBookRepository(database), database::close)
+            LibrarySession(RoomBookRepository(database), database::close).apply {
+                progressRepository = org.bookreader.mobile.repository.RoomProgressRepository(database)
+            }
         } catch (failure: Exception) {
             database.close()
             throw failure
         }
     }
+}
+
+
+fun androidReaderFactory(context: Context): (org.bookreader.mobile.model.Book, kotlinx.coroutines.CoroutineScope) -> org.bookreader.mobile.reader.TxtReaderController {
+    val app = context.applicationContext
+    val progressAccess = AndroidReaderProgressAccess(app)
+    return { book, scope ->
+        progressAccess.register(book)
+        org.bookreader.mobile.reader.TxtReaderController(book,
+            java.io.File(java.io.File(app.filesDir, "managed"), book.managedRelativePath),
+            java.io.File(app.cacheDir, "txt"), progressAccess, scope)
+    }
+}
+
+private class AndroidReaderProgressAccess(private val context: Context) : org.bookreader.mobile.reader.ReaderProgressAccess {
+    private val mutex = kotlinx.coroutines.sync.Mutex()
+    private val books = java.util.concurrent.ConcurrentHashMap<Pair<String, String>, org.bookreader.mobile.model.Book>()
+    fun register(book: org.bookreader.mobile.model.Book) { books[book.id to requireNotNull(book.currentRevision)] = book }
+    private suspend fun <T> database(action: suspend (org.bookreader.mobile.database.BookReaderDatabase) -> T): T =
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            mutex.lock()
+            try {
+                val db = createAndroidDatabase(context)
+                try { action(db) } finally { db.close() }
+            } finally { mutex.unlock() }
+        }
+    override suspend fun load(bookId: String, revision: String) = database {
+        org.bookreader.mobile.repository.RoomProgressRepository(it).loadProgress(bookId, revision)
+    }
+    override suspend fun startReadySession(bookId: String, revision: String, restoredLocator: org.bookreader.mobile.locator.ContentLocator?) = database {
+        // The controller calls this only after the original's full SHA/size and actual layout restoration.
+        books[bookId to revision]?.let { book ->
+            it.bookDao().restoreVerifiedAvailability(bookId, revision, book.sourceSha256, book.sourceByteSize, System.currentTimeMillis())
+        }
+        org.bookreader.mobile.repository.RoomProgressWriter(it, System::currentTimeMillis).startReadySession(bookId, revision, restoredLocator)
+    }
+    override suspend fun save(event: org.bookreader.mobile.repository.ProgressWriteEvent) = database {
+        org.bookreader.mobile.repository.RoomProgressWriter(it, System::currentTimeMillis).save(event)
+    }
+    override suspend fun flush() { mutex.lock(); mutex.unlock() }
 }

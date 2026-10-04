@@ -1,12 +1,14 @@
-name: BookReader Mobile M00 Device Tests
+name: BookReader Mobile Device Tests
 on:
   push:
     paths:
       - 'androidApp/**'
       - 'shared/**'
+      - 'fixtures/**'
       - 'gradle/**'
       - '*.gradle.kts'
       - 'gradle.properties'
+      - 'lint.xml'
       - 'gradlew*'
       - 'scripts/**'
       - '.github/workflows/mobile-device-tests.yml'
@@ -14,9 +16,11 @@ on:
     paths:
       - 'androidApp/**'
       - 'shared/**'
+      - 'fixtures/**'
       - 'gradle/**'
       - '*.gradle.kts'
       - 'gradle.properties'
+      - 'lint.xml'
       - 'gradlew*'
       - 'scripts/**'
       - '.github/workflows/mobile-device-tests.yml'
@@ -48,6 +52,8 @@ jobs:
           test -r /dev/kvm && test -w /dev/kvm
       - name: Run actual Android instrumentation on API 36
         uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
+        env:
+          BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS: 'true'
         with:
           api-level: 36
           target: google_apis
@@ -66,7 +72,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: mobile-m00-device-evidence
+          name: mobile-device-evidence
           if-no-files-found: error
           path: |
             build/device-evidence/

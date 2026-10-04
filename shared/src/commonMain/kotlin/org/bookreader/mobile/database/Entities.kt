@@ -64,3 +64,26 @@ data class ReadingProgressEntity(
     val writerSequence: Long,
     val updatedAt: Long,
 )
+
+@Entity(tableName = "import_jobs")
+data class ImportJobEntity(
+    @PrimaryKey val id: String,
+    val proposedBookId: String,
+    val stagingPath: String,
+    val finalRelativePath: String,
+    val state: String,
+    val displayName: String,
+    val createdAt: Long,
+    val updatedAt: Long,
+    val sourceUri: String? = null,
+    val expectedBytes: Long? = null,
+    val bytesCopied: Long = 0,
+    val sourceSha256: String? = null,
+    val encodingId: String? = null,
+    val normalizationVersion: Int? = null,
+    val committedBookId: String? = null,
+    val failureCode: String? = null,
+)
+
+@Entity(tableName = "app_metadata")
+data class AppMetadataEntity(@PrimaryKey val key: String, val value: Long)

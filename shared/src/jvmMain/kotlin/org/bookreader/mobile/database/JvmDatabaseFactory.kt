@@ -9,5 +9,6 @@ import kotlinx.coroutines.Dispatchers
 fun createJvmDatabase(databasePath: Path): BookReaderDatabase =
     Room.databaseBuilder<BookReaderDatabase>(name = databasePath.toAbsolutePath().toString())
         .setDriver(BundledSQLiteDriver())
+        .addMigrations(MIGRATION_1_2)
         .setQueryCoroutineContext(Dispatchers.IO)
         .build()

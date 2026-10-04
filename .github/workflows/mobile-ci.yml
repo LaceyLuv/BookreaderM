@@ -1,9 +1,10 @@
-name: BookReader Mobile M00
+name: BookReader Mobile Checks
 on:
   push:
     paths:
       - 'androidApp/**'
       - 'shared/**'
+      - 'fixtures/**'
       - 'gradle/**'
       - '*.gradle.kts'
       - 'gradle.properties'
@@ -15,6 +16,7 @@ on:
     paths:
       - 'androidApp/**'
       - 'shared/**'
+      - 'fixtures/**'
       - 'gradle/**'
       - '*.gradle.kts'
       - 'gradle.properties'
@@ -47,7 +49,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: mobile-m00-evidence
+          name: mobile-build-evidence
           if-no-files-found: error
           path: |
             build/ci-evidence/

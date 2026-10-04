@@ -45,14 +45,43 @@ for task in assembleDebug lintDebug testDebugUnitTest assembleDebugAndroidTest; 
   require_task androidApp "$task" "$evidence_dir/android-tasks.log"
 done
 require_task shared jvmTest "$evidence_dir/shared-tasks.log"
+run_logged clear-old-test-results python3 - <<'PY'
+from pathlib import Path
+
+# Only generated XML is removed. Missing declared test outputs make Gradle
+# execute tests again; stale reports must not satisfy mandatory-case checks.
+removed = 0
+for folder in ('androidApp/build/test-results/testDebugUnitTest', 'shared/build/test-results/jvmTest'):
+    for report in Path(folder).glob('TEST-*.xml'):
+        report.unlink()
+        removed += 1
+print(f'Removed {removed} old generated unit/shared XML reports')
+PY
 run_logged build-and-tests ./gradlew --no-daemon --console=plain --stacktrace \
   :androidApp:assembleDebug :androidApp:lintDebug \
   :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest :shared:jvmTest
+run_logged android-unit-results python3 scripts/check-test-results.py \
+  android-unit androidApp/build/test-results/testDebugUnitTest
+run_logged shared-test-results python3 scripts/check-test-results.py \
+  shared-jvm shared/build/test-results/jvmTest
 
 # Schema content must be produced by Room KSP, never hand-created to pass.
-if [[ ! -d shared/schemas ]] || ! find shared/schemas -name '*.json' -type f -print -quit | grep -q .; then
-  printf 'FAIL Room schema export missing after successful KSP build\n' >&2
-  exit 66
-fi
-printf 'PASS Room schema export exists\n'
+run_logged room-schema python3 - <<'PY'
+from pathlib import Path
+import json
+import re
+
+source = Path('shared/src/commonMain/kotlin/org/bookreader/mobile/database/BookReaderDatabase.kt').read_text()
+version_match = re.search(r'\bversion\s*=\s*(\d+)\b', source)
+if version_match is None:
+    raise SystemExit('FAIL explicit current Room database version was not found')
+version = int(version_match.group(1))
+schema = Path(f'shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/{version}.json')
+if not schema.is_file():
+    raise SystemExit(f'FAIL current Room schema export is missing: {schema}')
+database = json.loads(schema.read_text())['database']
+if database['version'] != version or not database['identityHash'] or not database['entities']:
+    raise SystemExit(f'FAIL exported Room schema does not describe database version {version}')
+print(f'PASS current Room schema version {version}: {schema}')
+PY
 printf 'NOT_RUN Android instrumentation requires connectedDebugAndroidTest on a device.\n'
