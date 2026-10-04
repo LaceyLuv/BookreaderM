@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- Keep upgrade notices visible for dependency maintenance. M00 pins a
+         verified stable toolchain; available newer versions are not defects in
+         that combination. Every other warning remains fatal in the app build. -->
+    <issue id="AndroidGradlePluginVersion" severity="informational" />
+    <issue id="GradleDependency" severity="informational" />
+    <issue id="NewerVersionAvailable" severity="informational" />
+</lint>

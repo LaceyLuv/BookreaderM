@@ -1,5 +1,6 @@
 package org.bookreader.mobile.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import org.bookreader.mobile.database.createAndroidDatabase
@@ -12,6 +13,8 @@ class AndroidThemeStore(private val preferences: SharedPreferences) : ThemeStore
             ?: error("Unsupported stored theme")
     }
 
+    // KTX edit returns Unit; the commit Boolean is required to report failed durable writes.
+    @SuppressLint("UseKtx")
     override fun write(mode: ThemeMode): Result<Unit> = runCatching {
         check(preferences.edit().putString("app_theme", mode.name).commit())
     }

@@ -3,6 +3,13 @@ package org.bookreader.mobile.database
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.Comparator
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.bookreader.mobile.locator.LocatorCodec
 import org.bookreader.mobile.locator.ComicLocator
@@ -152,6 +159,34 @@ class RoomDatabaseSmokeTest {
         val reopened = createJvmDatabase(path)
         try { assertEquals(progress, reopened.progressDao().findProgress("book-1", "revision-1")) }
         finally { reopened.close() }
+    }
+
+    @Test
+    fun callerCancellationIsNotConvertedToDatabaseError() = withDatabase { _, database ->
+        database.bookDao().insertBook(fixtureBook())
+        val progress = fixtureProgress()
+        database.progressDao().insertProgress(progress)
+        // Cancel after the child has started so the repository call is actually entered.
+        suspend fun assertCancellationPropagates(read: suspend () -> Any) = coroutineScope {
+            var returnedNormally = false
+            var cancellationPropagated = false
+            val caller = launch(start = CoroutineStart.UNDISPATCHED) {
+                currentCoroutineContext().cancel()
+                try {
+                    read()
+                    returnedNormally = true
+                } catch (_: CancellationException) {
+                    cancellationPropagated = true
+                }
+            }
+            caller.join()
+            assertTrue(cancellationPropagated)
+            assertTrue(!returnedNormally)
+            currentCoroutineContext().ensureActive()
+        }
+        assertCancellationPropagates { RoomBookRepository(database).loadBooks() }
+        assertCancellationPropagates { RoomProgressRepository(database).loadProgress("book-1", "revision-1") }
+        assertEquals(progress, database.progressDao().findProgress("book-1", "revision-1"))
     }
 
     @Test

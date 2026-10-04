@@ -1,6 +1,8 @@
 package org.bookreader.mobile.repository
 
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import org.bookreader.mobile.database.BookReaderDatabase
 import org.bookreader.mobile.locator.ComicLocator
 import org.bookreader.mobile.locator.ContentLocator
@@ -15,7 +17,9 @@ class RoomBookRepository(private val database: BookReaderDatabase) : BookReposit
         val records = try {
             database.bookDao().listBooks()
         } catch (cancelled: CancellationException) {
-            throw cancelled
+            // Room closes its own query scope. Only an active caller can report that as DB failure.
+            currentCoroutineContext().ensureActive()
+            return LibraryState.Error(LibraryErrorCode.DATABASE_UNAVAILABLE)
         } catch (_: Exception) {
             return LibraryState.Error(LibraryErrorCode.DATABASE_UNAVAILABLE)
         }
@@ -36,7 +40,8 @@ class RoomProgressRepository(
         val record = try {
             database.progressDao().findProgress(bookId, contentRevision)
         } catch (cancelled: CancellationException) {
-            throw cancelled
+            currentCoroutineContext().ensureActive()
+            return ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE)
         } catch (_: Exception) {
             return ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE)
         } ?: return ProgressReadResult.Missing
@@ -44,7 +49,8 @@ class RoomProgressRepository(
         val bookFormat = try {
             database.bookDao().findBook(bookId)?.format
         } catch (cancelled: CancellationException) {
-            throw cancelled
+            currentCoroutineContext().ensureActive()
+            return ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE)
         } catch (_: Exception) {
             return ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE)
         }
