@@ -1,0 +1,106 @@
+{
+  "run_id": 37171679446,
+  "name": "BookReader Mobile Checks",
+  "source_commit": "cfe17f0b9d2efbc39d6817c5e9b1470539587e09",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-10-04T02:38:32Z",
+  "updated_at": "2026-10-04T02:43:36Z",
+  "html_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/37171679446",
+  "event": "push",
+  "path": ".github/workflows/mobile-ci.yml",
+  "jobs": [
+    {
+      "id": 111345713297,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 37171679446,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Install pinned Android SDK",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Validate environment and run mandatory checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Upload APK, test reports and command evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Post Run actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11291598205,
+      "name": "mobile-build-evidence",
+      "size_in_bytes": 15128596,
+      "url": "https://api.github.com/repos/LaceyLuv/BookreaderM/actions/artifacts/11291598205",
+      "archive_download_url": "https://api.github.com/repos/LaceyLuv/BookreaderM/actions/artifacts/11291598205/zip",
+      "expired": false,
+      "created_at": "2026-10-04T02:43:33Z",
+      "expires_at": "2027-01-02T02:38:33Z",
+      "updated_at": "2026-10-04T02:43:33Z",
+      "digest": "sha256:b1a0d00695eaa70a78d6853342de1185a0eadcbbf413b926e347397b0b83e99d",
+      "workflow_run": {
+        "id": 37171679446,
+        "repository_id": 1398925325,
+        "head_repository_id": 1398925325,
+        "head_branch": "main",
+        "head_sha": "cfe17f0b9d2efbc39d6817c5e9b1470539587e09"
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "source_commit": "2be610af8b7f4030ba4e0fa5b0833bbbf0d84aaf",
+  "run_id": 37879616525,
+  "artifact_id": 11593803652,
+  "archive_sha256": "bac11f14e2581d8cc1181753e89e364b58c7f4882fa9a84adc7a9509a542ba45",
+  "archive_size_bytes": 15157795,
+  "workflow_conclusion": "success",
+  "test_suites": {
+    "android-unit": {
+      "tests": 41,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 45,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "Hint": 20
+  },
+  "schemas_match_local": {
+    "1": true,
+    "2": true
+  },
+  "apks": {
+    "androidApp/build/outputs/apk/debug/androidApp-debug.apk": {
+      "sha256": "00941a5d21ba9cd7a86c45cddf18a42bda5b422bbf6c7e94c867439273b8df06",
+      "size_bytes": 16876040,
+      "apksigner": {
+        "exit_code": 0,
+        "output": "Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts\nSigner #1 certificate DN: C=US, O=Android, CN=Android Debug\nSigner #1 certificate SHA-256 digest: 980adc346f1c476d4a98ef096b0782bbe153871296fb17d7b94f94ff6fee70d5\nSigner #1 certificate SHA-1 digest: ddaa2a85b779e73dd2ac914ae6a5a4621674e3b3\nSigner #1 certificate MD5 digest: 6a2d2437d506813f6f1574ccd6fcb64b\n"
+      },
+      "aapt": {
+        "exit_code": 0,
+        "output": "package: name='org.bookreader.mobile' versionCode='2' versionName='0.2.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'\nsdkVersion:'26'\ntargetSdkVersion:'36'\nuses-permission: name='org.bookreader.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'\napplication-label:'BookReader Mobile'\napplication-label-af:'BookReader Mobile'\napplication-label-am:'BookReader Mobile'\napplication-label-ar:'BookReader Mobile'\napplication-label-as:'BookReader Mobile'\napplication-label-az:'BookReader Mobile'\napplication-label-be:'BookReader Mobile'\napplication-label-bg:'BookReader Mobile'\napplication-label-bn:'BookReader Mobile'\napplication-label-bs:'BookReader Mobile'\napplication-label-ca:'BookReader Mobile'\napplication-label-cs:'BookReader Mobile'\napplication-label-da:'BookReader Mobile'\napplication-label-de:'BookReader Mobile'\napplication-label-el:'BookReader Mobile'\napplication-label-en-AU:'BookReader Mobile'\napplication-label-en-CA:'BookReader Mobile'\napplication-label-en-GB:'BookReader Mobile'\napplication-label-en-IN:'BookReader Mobile'\napplication-label-en-XC:'BookReader Mobile'\napplication-label-es:'BookReader Mobile'\napplication-label-es-US:'BookReader Mobile'\napplication-label-et:'BookReader Mobile'\napplication-label-eu:'BookReader Mobile'\napplication-label-fa:'BookReader Mobile'\napplication-label-fi:'BookReader Mobile'\napplication-label-fr:'BookReader Mobile'\napplication-label-fr-CA:'BookReader Mobile'\napplication-label-gl:'BookReader Mobile'\napplication-label-gu:'BookReader Mobile'\napplication-label-hi:'BookReader Mobile'\napplication-label-hr:'BookReader Mobile'\napplication-label-hu:'BookReader Mobile'\napplication-label-hy:'BookReader Mobile'\napplication-label-in:'BookReader Mobile'\napplication-label-is:'BookReader Mobile'\napplication-label-it:'BookReader Mobile'\napplication-label-iw:'BookReader Mobile'\napplication-label-ja:'BookReader Mobile'\napplication-label-ka:'BookReader Mobile'\napplication-label-kk:'BookReader Mobile'\napplication-label-km:'BookReader Mobile'\napplication-label-kn:'BookReader Mobile'\napplication-label-ko:'BookReader Mobile'\napplication-label-ky:'BookReader Mobile'\napplication-label-lo:'BookReader Mobile'\napplication-label-lt:'BookReader Mobile'\napplication-label-lv:'BookReader Mobile'\napplication-label-mk:'BookReader Mobile'\napplication-label-ml:'BookReader Mobile'\napplication-label-mn:'BookReader Mobile'\napplication-label-mr:'BookReader Mobile'\napplication-label-ms:'BookReader Mobile'\napplication-label-my:'BookReader Mobile'\napplication-label-nb:'BookReader Mobile'\napplication-label-ne:'BookReader Mobile'\napplication-label-nl:'BookReader Mobile'\napplication-label-or:'BookReader Mobile'\napplication-label-pa:'BookReader Mobile'\napplication-label-pl:'BookReader Mobile'\napplication-label-pt:'BookReader Mobile'\napplication-label-pt-BR:'BookReader Mobile'\napplication-label-pt-PT:'BookReader Mobile'\napplication-label-ro:'BookReader Mobile'\napplication-label-ru:'BookReader Mobile'\napplication-label-si:'BookReader Mobile'\napplication-label-sk:'BookReader Mobile'\napplication-label-sl:'BookReader Mobile'\napplication-label-sq:'BookReader Mobile'\napplication-label-sr:'BookReader Mobile'\napplication-label-sr-Latn:'BookReader Mobile'\napplication-label-sv:'BookReader Mobile'\napplication-label-sw:'BookReader Mobile'\napplication-label-ta:'BookReader Mobile'\napplication-label-te:'BookReader Mobile'\napplication-label-th:'BookReader Mobile'\napplication-label-tl:'BookReader Mobile'\napplication-label-tr:'BookReader Mobile'\napplication-label-uk:'BookReader Mobile'\napplication-label-ur:'BookReader Mobile'\napplication-label-uz:'BookReader Mobile'\napplication-label-vi:'BookReader Mobile'\napplication-label-zh-CN:'BookReader Mobile'\napplication-label-zh-HK:'BookReader Mobile'\napplication-label-zh-TW:'BookReader Mobile'\napplication-label-zu:'BookReader Mobile'\napplication-icon-160:'res/mipmap-anydpi-v33/ic_launcher.xml'\napplication-icon-240:'res/mipmap-anydpi-v33/ic_launcher.xml'\napplication-icon-320:'res/mipmap-anydpi-v33/ic_launcher.xml'\napplication-icon-65534:'res/mipmap-anydpi-v33/ic_launcher.xml'\napplication: label='BookReader Mobile' icon='res/mipmap-anydpi-v33/ic_launcher.xml'\napplication-debuggable\nlaunchable-activity: name='org.bookreader.mobile.MainActivity'  label='' icon=''\nfeature-group: label=''\n  uses-feature: name='android.hardware.faketouch'\n  uses-implied-feature: name='android.hardware.faketouch' reason='default feature for all apps'\nmain\nother-activities\nother-receivers\nother-services\nsupports-screens: 'small' 'normal' 'large' 'xlarge'\nsupports-any-density: 'true'\nlocales: '--_--' 'af' 'am' 'ar' 'as' 'az' 'be' 'bg' 'bn' 'bs' 'ca' 'cs' 'da' 'de' 'el' 'en-AU' 'en-CA' 'en-GB' 'en-IN' 'en-XC' 'es' 'es-US' 'et' 'eu' 'fa' 'fi' 'fr' 'fr-CA' 'gl' 'gu' 'hi' 'hr' 'hu' 'hy' 'in' 'is' 'it' 'iw' 'ja' 'ka' 'kk' 'km' 'kn' 'ko' 'ky' 'lo' 'lt' 'lv' 'mk' 'ml' 'mn' 'mr' 'ms' 'my' 'nb' 'ne' 'nl' 'or' 'pa' 'pl' 'pt' 'pt-BR' 'pt-PT' 'ro' 'ru' 'si' 'sk' 'sl' 'sq' 'sr' 'sr-Latn' 'sv' 'sw' 'ta' 'te' 'th' 'tl' 'tr' 'uk' 'ur' 'uz' 'vi' 'zh-CN' 'zh-HK' 'zh-TW' 'zu'\ndensities: '160' '240' '320' '65534'\nnative-code: 'arm64-v8a' 'armeabi-v7a' 'x86' 'x86_64'\n"
+      }
+    },
+    "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk": {
+      "sha256": "2b60b2753c6bfffbf28a70ed419f4ab22711c8e1857268a151a0923d11d70297",
+      "size_bytes": 1165121,
+      "apksigner": {
+        "exit_code": 0,
+        "output": "Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts\nSigner #1 certificate DN: C=US, O=Android, CN=Android Debug\nSigner #1 certificate SHA-256 digest: 980adc346f1c476d4a98ef096b0782bbe153871296fb17d7b94f94ff6fee70d5\nSigner #1 certificate SHA-1 digest: ddaa2a85b779e73dd2ac914ae6a5a4621674e3b3\nSigner #1 certificate MD5 digest: 6a2d2437d506813f6f1574ccd6fcb64b\n"
+      },
+      "aapt": {
+        "exit_code": 0,
+        "output": "package: name='org.bookreader.mobile.test' versionCode='' versionName='' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'\nsdkVersion:'26'\ntargetSdkVersion:'36'\nuses-permission: name='android.permission.REORDER_TASKS'\napplication: label='' icon=''\napplication-debuggable\nuses-library:'android.test.runner'\nfeature-group: label=''\n  uses-feature: name='android.hardware.faketouch'\n  uses-implied-feature: name='android.hardware.faketouch' reason='default feature for all apps'\nprovides-component:'document-provider'\nother-activities\nsupports-screens: 'small' 'normal' 'large' 'xlarge'\nsupports-any-density: 'true'\nlocales: '--_--' 'af' 'am' 'ar' 'as' 'az' 'be' 'bg' 'bn' 'bs' 'ca' 'cs' 'da' 'de' 'el' 'en-AU' 'en-CA' 'en-GB' 'en-IN' 'en-XC' 'es' 'es-US' 'et' 'eu' 'fa' 'fi' 'fr' 'fr-CA' 'gl' 'gu' 'hi' 'hr' 'hu' 'hy' 'in' 'is' 'it' 'iw' 'ja' 'ka' 'kk' 'km' 'kn' 'ko' 'ky' 'lo' 'lt' 'lv' 'mk' 'ml' 'mn' 'mr' 'ms' 'my' 'nb' 'ne' 'nl' 'or' 'pa' 'pl' 'pt' 'pt-BR' 'pt-PT' 'ro' 'ru' 'si' 'sk' 'sl' 'sq' 'sr' 'sr-Latn' 'sv' 'sw' 'ta' 'te' 'th' 'tl' 'tr' 'uk' 'ur' 'uz' 'vi' 'zh-CN' 'zh-HK' 'zh-TW' 'zu'\ndensities: '160' '240' '320'\n"
+      }
+    }
+  },
+  "status": "PASS"
+}

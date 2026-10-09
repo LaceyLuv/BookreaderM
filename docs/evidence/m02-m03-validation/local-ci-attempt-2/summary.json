@@ -1,0 +1,32 @@
+{
+  "exit_code": 0,
+  "status": "PASS",
+  "verification_scope": "intermediate; reader early-decoder-error SHA correctness fix changed during execution, requires final rerun",
+  "source_drift_from_start": [
+    "androidApp/src/main/kotlin/org/bookreader/mobile/reader/TxtCanonicalCache.kt",
+    "androidApp/src/test/kotlin/org/bookreader/mobile/reader/TxtReaderControllerTest.kt"
+  ],
+  "test_suites": {
+    "android-unit": {
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 43,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "totals": {
+      "Hint": 20
+    }
+  },
+  "apk_sha256": {
+    "androidApp/build/outputs/apk/debug/androidApp-debug.apk": "3899a2ec91da2e70cac088c13260382194f70061010fc31e05cbb42fae50cb94",
+    "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk": "8fcb30f2b3e1ec225458c7d8a9f43361f06a40aae6cac2527ed911ea68d37f54"
+  }
+}

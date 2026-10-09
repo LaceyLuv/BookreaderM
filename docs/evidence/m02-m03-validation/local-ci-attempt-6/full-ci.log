@@ -1,0 +1,1037 @@
+COMMAND ./scripts/doctor.sh
+BookReader Mobile M00 environment doctor
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+openjdk version "17.0.16" 2025-07-15
+OpenJDK Runtime Environment Temurin-17.0.16+8 (build 17.0.16+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.16+8 (build 17.0.16+8, mixed mode, sharing)
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+javac 17.0.16
+PASS JDK 17 compiler available
+PASS Authentic Gradle 8.13 wrapper JAR checksum
+PASS SDK component platforms/android-36/android.jar
+PASS SDK component build-tools/35.0.0/aapt2
+PASS SDK component platform-tools/adb
+PASS adb available; connected-device checks remain separate.
+NOT_RUN Dependency resolution/build: doctor is only an environment check.
+PASS doctor exit=0
+COMMAND ./gradlew --version
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+
+------------------------------------------------------------
+Gradle 8.13
+------------------------------------------------------------
+
+Build time:    2025-02-25 09:22:14 UTC
+Revision:      073314332697ba45c16c0a0ce1891fa6794179ff
+
+Kotlin:        2.0.21
+Groovy:        3.0.22
+Ant:           Apache Ant(TM) version 1.10.15 compiled on August 25 2024
+Launcher JVM:  17.0.16 (Eclipse Adoptium 17.0.16+8)
+Daemon JVM:    /workspace/toolchains/jdk-17.0.16+8 (no JDK specified, using current Java home)
+OS:            Linux 6.18.44 amd64
+
+PASS gradle-version exit=0
+COMMAND ./gradlew --no-daemon --console=plain projects
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Task :projects
+
+Projects:
+
+------------------------------------------------------------
+Root project 'BookReaderMobile'
+------------------------------------------------------------
+
+Root project 'BookReaderMobile'
++--- Project ':androidApp'
+\--- Project ':shared'
+
+To see a list of the tasks of a project, run gradlew <project-path>:tasks
+For example, try running gradlew :androidApp:tasks
+
+BUILD SUCCESSFUL in 28s
+1 actionable task: 1 executed
+PASS projects exit=0
+COMMAND ./gradlew --no-daemon --console=plain :androidApp:tasks --all
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Task :androidApp:tasks
+
+------------------------------------------------------------
+Tasks runnable from project ':androidApp'
+------------------------------------------------------------
+
+Android tasks
+-------------
+androidDependencies - Displays the Android dependencies of the project.
+signingReport - Displays the signing info for the base and test modules
+sourceSets - Prints out all the source sets defined in this project.
+
+Build tasks
+-----------
+assemble - Assemble main outputs for all the variants.
+assembleAndroidTest - Assembles all the Test applications.
+assembleUnitTest - Assembles all the unit test applications.
+build - Assembles and tests this project.
+buildDependents - Assembles and tests this project and all projects that depend on it.
+buildKotlinToolingMetadata - Build metadata json file containing information about the used Kotlin tooling
+buildNeeded - Assembles and tests this project and all projects it depends on.
+bundle - Assemble bundles for all the variants.
+clean - Deletes the build directory.
+compileDebugAndroidTestSources
+compileDebugSources
+compileDebugUnitTestSources
+compileReleaseSources
+compileReleaseUnitTestSources
+
+Help tasks
+----------
+artifactTransforms - Displays the Artifact Transforms that can be executed in project ':androidApp'.
+buildEnvironment - Displays all buildscript dependencies declared in project ':androidApp'.
+dependencies - Displays all dependencies declared in project ':androidApp'.
+dependencyInsight - Displays the insight into a specific dependency in project ':androidApp'.
+help - Displays a help message.
+javaToolchains - Displays the detected java toolchains.
+kotlinDslAccessorsReport - Prints the Kotlin code for accessing the currently available project extensions and conventions.
+outgoingVariants - Displays the outgoing variants of project ':androidApp'.
+projects - Displays the sub-projects of project ':androidApp'.
+properties - Displays the properties of project ':androidApp'.
+resolvableConfigurations - Displays the configurations that can be resolved in project ':androidApp'.
+tasks - Displays the tasks runnable from project ':androidApp'.
+
+Install tasks
+-------------
+installDebug - Installs the Debug build.
+installDebugAndroidTest - Installs the android (on device) tests for the Debug build.
+uninstallAll - Uninstall all applications.
+uninstallDebug - Uninstalls the Debug build.
+uninstallDebugAndroidTest - Uninstalls the android (on device) tests for the Debug build.
+uninstallRelease - Uninstalls the Release build.
+
+Signing tasks
+-------------
+generatePgpKeys - Generates a new PGP keypair.
+
+Usage: 
+gradlew generatePgpKeys --name "Jane Doe <janedoe@example.com>" --password YOUR_PASSWORD
+uploadPublicPgpKey - Uploads the public PGP key to a keyserver
+
+Validation tasks
+----------------
+checkSigningConfiguration - Checks that a signing configuration is set up correctly.
+
+Verification tasks
+------------------
+check - Runs all checks.
+checkJetifier - Checks whether Jetifier is needed for the current project
+checkKotlinGradlePluginConfigurationErrors - Checks that Kotlin Gradle Plugin hasn't reported project configuration errors, failing otherwise. This task always runs before compileKotlin* or similar tasks.
+connectedAndroidTest - Installs and runs instrumentation tests for all flavors on connected devices.
+connectedCheck - Runs all device checks on currently connected devices.
+connectedDebugAndroidTest - Installs and runs the tests for debug on connected devices.
+deviceAndroidTest - Installs and runs instrumentation tests using all Device Providers.
+deviceCheck - Runs all device checks using Device Providers and Test Servers.
+lint - Runs lint on the default variant.
+lintDebug - Print text output from the corresponding lint report task
+lintFix - Runs lint on the default variant and applies any safe suggestions to the source code.
+lintRelease - Print text output from the corresponding lint report task
+lintVitalRelease - Print text output from the corresponding lint report task
+test - Run unit tests for all variants.
+testDebugUnitTest - Run unit tests for the debug build.
+testReleaseUnitTest - Run unit tests for the release build.
+updateLintBaseline - Updates the lint baseline using the default variant.
+
+Other tasks
+-----------
+analyzeDebugAndroidTestDependencies
+analyzeDebugDependencies
+analyzeDebugUnitTestDependencies
+analyzeReleaseDependencies
+analyzeReleaseUnitTestDependencies
+asarToCompatSplitsForDebug
+asarToCompatSplitsForRelease
+assembleDebug - Assembles main output for variant debug
+assembleDebugAndroidTest - Assembles main output for variant debugAndroidTest
+assembleDebugUnitTest - Assembles main output for variant debugUnitTest
+assembleRelease - Assembles main output for variant release
+assembleReleaseUnitTest - Assembles main output for variant releaseUnitTest
+buildDebugPreBundle
+buildReleasePreBundle
+bundleDebug - Assembles bundle for variant debug
+bundleDebugClassesToCompileJar
+bundleDebugClassesToRuntimeJar
+bundleDebugResources
+bundleRelease - Assembles bundle for variant release
+bundleReleaseClassesToCompileJar
+bundleReleaseClassesToRuntimeJar
+bundleReleaseResources
+checkDebugAarMetadata
+checkDebugAndroidTestAarMetadata
+checkDebugAndroidTestDuplicateClasses
+checkDebugDuplicateClasses
+checkDebugManifest
+checkLegacyAbi
+checkReleaseAarMetadata
+checkReleaseDuplicateClasses
+checkReleaseManifest
+collectReleaseDependencies
+compileDebugAndroidTestJavaWithJavac
+compileDebugAndroidTestKotlin - Compiles the debugAndroidTest kotlin.
+compileDebugAndroidTestShaders
+compileDebugArtProfile
+compileDebugJavaWithJavac
+compileDebugKotlin - Compiles the debug kotlin.
+compileDebugShaders
+compileDebugUnitTestJavaWithJavac
+compileDebugUnitTestKotlin - Compiles the debugUnitTest kotlin.
+compileLint
+compileLintChecks
+compileReleaseArtProfile
+compileReleaseJavaWithJavac
+compileReleaseKotlin - Compiles the release kotlin.
+compileReleaseShaders
+compileReleaseUnitTestJavaWithJavac
+compileReleaseUnitTestKotlin - Compiles the releaseUnitTest kotlin.
+components - Displays the components produced by project ':androidApp'. [deprecated]
+compressDebugAndroidTestAssets
+compressDebugAssets
+compressReleaseAssets
+configureReleaseDependencies
+consumeConfigAttr
+createDebugAndroidTestApkListingFileRedirect
+createDebugApkListingFileRedirect
+createDebugApksFromBundleListingFileRedirect
+createDebugBundleListingFileRedirect
+createDebugCompatibleScreenManifests
+createMockableJar
+createReleaseApkListingFileRedirect
+createReleaseApksFromBundleListingFileRedirect
+createReleaseBundleListingFileRedirect
+createReleaseCompatibleScreenManifests
+dependentComponents - Displays the dependent components of components in project ':androidApp'. [deprecated]
+desugarDebugAndroidTestFileDependencies
+desugarDebugFileDependencies
+desugarReleaseFileDependencies
+dexBuilderDebug
+dexBuilderDebugAndroidTest
+dexBuilderRelease
+dumpLegacyAbi
+extractApksForDebug
+extractApksForRelease
+extractApksFromBundleForDebug
+extractApksFromBundleForRelease
+extractDebugNativeDebugMetadata
+extractDebugNativeSymbolTables
+extractDeepLinksDebug
+extractDeepLinksRelease
+extractProguardFiles
+extractReleaseNativeDebugMetadata
+extractReleaseNativeSymbolTables
+extractReleaseVersionControlInfo
+generateDebugAndroidTestAssets
+generateDebugAndroidTestLintModel
+generateDebugAndroidTestResources
+generateDebugAndroidTestResValues
+generateDebugAndroidTestSources
+generateDebugAssets
+generateDebugFeatureMetadata
+generateDebugFeatureTransitiveDeps
+generateDebugLintModel
+generateDebugLintReportModel
+generateDebugManifestClass
+generateDebugResources
+generateDebugResValues
+generateDebugSources
+generateDebugUnitTestAssets
+generateDebugUnitTestLintModel
+generateDebugUnitTestResources
+generateDebugUnitTestSources
+generateReleaseAssets
+generateReleaseFeatureMetadata
+generateReleaseFeatureTransitiveDeps
+generateReleaseLintModel
+generateReleaseLintReportModel
+generateReleaseLintVitalReportModel
+generateReleaseManifestClass
+generateReleaseResources
+generateReleaseResValues
+generateReleaseSources
+generateReleaseUnitTestAssets
+generateReleaseUnitTestLintModel
+generateReleaseUnitTestResources
+generateReleaseUnitTestSources
+javaPreCompileDebug
+javaPreCompileDebugAndroidTest
+javaPreCompileDebugUnitTest
+javaPreCompileRelease
+javaPreCompileReleaseUnitTest
+lintAnalyzeDebug - Run lint analysis on the debug component
+lintAnalyzeDebugAndroidTest - Run lint analysis on the debugAndroidTest component
+lintAnalyzeDebugUnitTest - Run lint analysis on the debugUnitTest component
+lintAnalyzeRelease - Run lint analysis on the release component
+lintAnalyzeReleaseUnitTest - Run lint analysis on the releaseUnitTest component
+lintFixDebug - Fix lint on the debug variant
+lintFixRelease - Fix lint on the release variant
+lintReportDebug - Run lint on the debug variant
+lintReportRelease - Run lint on the release variant
+lintVitalAnalyzeRelease - Run lint analysis with only the fatal issues enabled 
+lintVitalReportRelease - Run lint with only the fatal issues enabled on the release variant
+makeApkFromBundleForDebug
+makeApkFromBundleForRelease
+mapDebugAndroidTestSourceSetPaths
+mapDebugSourceSetPaths
+mapReleaseSourceSetPaths
+mergeDebugAndroidTestAssets
+mergeDebugAndroidTestGeneratedProguardFiles
+mergeDebugAndroidTestGlobalSynthetics
+mergeDebugAndroidTestJavaResource
+mergeDebugAndroidTestJniLibFolders
+mergeDebugAndroidTestNativeLibs
+mergeDebugAndroidTestResources
+mergeDebugAndroidTestShaders
+mergeDebugArtProfile
+mergeDebugAssets
+mergeDebugGeneratedProguardFiles
+mergeDebugGlobalSynthetics
+mergeDebugJavaResource
+mergeDebugJniLibFolders
+mergeDebugNativeDebugMetadata
+mergeDebugNativeLibs
+mergeDebugResources
+mergeDebugShaders
+mergeDebugStartupProfile
+mergeDexRelease
+mergeExtDexDebug
+mergeExtDexDebugAndroidTest
+mergeExtDexRelease
+mergeLibDexDebug
+mergeLibDexDebugAndroidTest
+mergeProjectDexDebug
+mergeProjectDexDebugAndroidTest
+mergeReleaseArtProfile
+mergeReleaseAssets
+mergeReleaseGeneratedProguardFiles
+mergeReleaseGlobalSynthetics
+mergeReleaseJavaResource
+mergeReleaseJniLibFolders
+mergeReleaseNativeDebugMetadata
+mergeReleaseNativeLibs
+mergeReleaseResources
+mergeReleaseShaders
+mergeReleaseStartupProfile
+model - Displays the configuration model of project ':androidApp'. [deprecated]
+optimizeReleaseResources
+packageDebug
+packageDebugAndroidTest
+packageDebugBundle
+packageDebugResources
+packageDebugUniversalApk
+packageRelease
+packageReleaseBundle
+packageReleaseResources
+packageReleaseUniversalApk
+parseDebugIntegrityConfig
+parseDebugLocalResources
+parseReleaseIntegrityConfig
+parseReleaseLocalResources
+preBuild
+preDebugAndroidTestBuild
+preDebugBuild
+preDebugUnitTestBuild
+prepareLintJarForPublish
+preReleaseBuild
+preReleaseUnitTestBuild
+processApplicationManifestDebugForBundle
+processApplicationManifestReleaseForBundle
+processDebugAndroidTestJavaRes
+processDebugAndroidTestManifest
+processDebugAndroidTestResources
+processDebugJavaRes
+processDebugMainManifest
+processDebugManifest
+processDebugManifestForPackage
+processDebugResources
+processDebugUnitTestJavaRes
+processManifestDebugForFeature
+processManifestReleaseForFeature
+processReleaseJavaRes
+processReleaseMainManifest
+processReleaseManifest
+processReleaseManifestForPackage
+processReleaseResources
+processReleaseUnitTestJavaRes
+produceDebugBundleIdeListingFile
+produceReleaseBundleIdeListingFile
+resolveConfigAttr
+sdkReleaseDependencyData
+signDebugBundle
+signingConfigWriterDebug
+signingConfigWriterDebugAndroidTest
+signingConfigWriterRelease
+signReleaseBundle
+stripDebugAndroidTestDebugSymbols
+stripDebugDebugSymbols
+stripReleaseDebugSymbols
+updateLegacyAbi
+updateLintBaselineDebug - Update the lint baseline using the debug variant
+updateLintBaselineRelease - Update the lint baseline using the release variant
+validateSigningDebug
+validateSigningDebugAndroidTest
+writeDebugAndroidTestSigningConfigVersions
+writeDebugApplicationId
+writeDebugAppMetadata
+writeDebugModuleMetadata
+writeDebugSigningConfigVersions
+writeReleaseApplicationId
+writeReleaseAppMetadata
+writeReleaseModuleMetadata
+writeReleaseSigningConfigVersions
+zipApksForDebug
+zipApksForRelease
+
+Rules
+-----
+Pattern: clean<TaskName>: Cleans the output files of a task.
+Pattern: build<ConfigurationName>: Assembles the artifacts of a configuration.
+
+BUILD SUCCESSFUL in 27s
+1 actionable task: 1 executed
+PASS android-tasks exit=0
+COMMAND ./gradlew --no-daemon --console=plain :shared:tasks --all
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Task :shared:tasks
+
+------------------------------------------------------------
+Tasks runnable from project ':shared'
+------------------------------------------------------------
+
+Android tasks
+-------------
+androidDependencies - Displays the Android dependencies of the project.
+signingReport - Displays the signing info for the base and test modules
+sourceSets - Prints out all the source sets defined in this project.
+
+Build tasks
+-----------
+allMetadataJar - Assembles a jar archive containing the metadata for all Kotlin source sets.
+androidDebugSourcesJar - Assembles a jar archive containing the sources of target 'androidDebug'.
+androidReleaseSourcesJar - Assembles a jar archive containing the sources of target 'androidRelease'.
+assemble - Assemble main outputs for all the variants.
+assembleAndroidTest - Assembles all the Test applications.
+assembleUnitTest - Assembles all the unit test applications.
+build - Assembles and tests this project.
+buildDependents - Assembles and tests this project and all projects that depend on it.
+buildKotlinToolingMetadata - Build metadata json file containing information about the used Kotlin tooling
+buildNeeded - Assembles and tests this project and all projects it depends on.
+clean - Deletes the build directory.
+cleanAllTests - Deletes all the test results.
+compileDebugAndroidTestSources
+compileDebugSources
+compileDebugUnitTestSources
+compileReleaseSources
+compileReleaseUnitTestSources
+extractDebugAnnotations - Extracts Android annotations for the debug variant into the archive file
+extractReleaseAnnotations - Extracts Android annotations for the release variant into the archive file
+jvmJar - Assembles an archive containing the main classes.
+jvmMainClasses - Assembles outputs for compilation 'main' of target 'jvm'
+jvmSourcesJar - Assembles a jar archive containing the sources of target 'jvm'.
+jvmTestClasses - Assembles outputs for compilation 'test' of target 'jvm'
+metadataCommonMainClasses - Assembles outputs for compilation 'commonMain' of target 'metadata'
+metadataMainClasses - Assembles outputs for compilation 'main' of target 'metadata'
+metadataSourcesJar - Assembles a jar archive containing the sources of target 'metadata'.
+sourcesJar - Assembles a jar archive containing the sources of target 'kotlin'.
+
+Help tasks
+----------
+artifactTransforms - Displays the Artifact Transforms that can be executed in project ':shared'.
+buildEnvironment - Displays all buildscript dependencies declared in project ':shared'.
+dependencies - Displays all dependencies declared in project ':shared'.
+dependencyInsight - Displays the insight into a specific dependency in project ':shared'.
+help - Displays a help message.
+javaToolchains - Displays the detected java toolchains.
+kotlinDslAccessorsReport - Prints the Kotlin code for accessing the currently available project extensions and conventions.
+outgoingVariants - Displays the outgoing variants of project ':shared'.
+projects - Displays the sub-projects of project ':shared'.
+properties - Displays the properties of project ':shared'.
+resolvableConfigurations - Displays the configurations that can be resolved in project ':shared'.
+tasks - Displays the tasks runnable from project ':shared'.
+
+Ide tasks
+---------
+resolveIdeDependencies - Debugging/Diagnosing task that will resolve dependencies for the IDE
+
+Install tasks
+-------------
+installDebugAndroidTest - Installs the android (on device) tests for the Debug build.
+uninstallAll - Uninstall all applications.
+uninstallDebugAndroidTest - Uninstalls the android (on device) tests for the Debug build.
+
+Run tasks
+---------
+jvmRun - Jvm Run task for target 'jvm' and compilation 'main'. This task can act as carrier for the IDE to execute jvm based code
+
+Signing tasks
+-------------
+generatePgpKeys - Generates a new PGP keypair.
+
+Usage: 
+gradlew generatePgpKeys --name "Jane Doe <janedoe@example.com>" --password YOUR_PASSWORD
+uploadPublicPgpKey - Uploads the public PGP key to a keyserver
+
+Validation tasks
+----------------
+checkSigningConfiguration - Checks that a signing configuration is set up correctly.
+
+Verification tasks
+------------------
+allTests - Runs the tests for all targets and create aggregated report
+check - Runs all checks.
+checkJetifier - Checks whether Jetifier is needed for the current project
+checkKotlinGradlePluginConfigurationErrors - Checks that Kotlin Gradle Plugin hasn't reported project configuration errors, failing otherwise. This task always runs before compileKotlin* or similar tasks.
+connectedAndroidTest - Installs and runs instrumentation tests for all flavors on connected devices.
+connectedCheck - Runs all device checks on currently connected devices.
+connectedDebugAndroidTest - Installs and runs the tests for debug on connected devices.
+deviceAndroidTest - Installs and runs instrumentation tests using all Device Providers.
+deviceCheck - Runs all device checks using Device Providers and Test Servers.
+jvmTest - Runs the tests of the test test run.
+lint - Runs lint on the default variant.
+lintDebug - Print text output from the corresponding lint report task
+lintFix - Runs lint on the default variant and applies any safe suggestions to the source code.
+lintRelease - Print text output from the corresponding lint report task
+test - Run unit tests for all variants.
+testDebugUnitTest - Run unit tests for the debug build.
+testReleaseUnitTest - Run unit tests for the release build.
+updateLintBaseline - Updates the lint baseline using the default variant.
+
+Other tasks
+-----------
+analyzeDebugAndroidTestDependencies
+analyzeDebugDependencies
+analyzeDebugUnitTestDependencies
+analyzeReleaseDependencies
+analyzeReleaseUnitTestDependencies
+assembleDebug - Assembles main output for variant debug
+assembleDebugAndroidTest - Assembles main output for variant debugAndroidTest
+assembleDebugUnitTest - Assembles main output for variant debugUnitTest
+assembleRelease - Assembles main output for variant release
+assembleReleaseUnitTest - Assembles main output for variant releaseUnitTest
+bundleDebugAar - Assembles a bundle containing the library in debug.
+bundleDebugLocalLintAar - Assembles a bundle containing the library in debug.
+bundleLibCompileToJarDebug
+bundleLibCompileToJarRelease
+bundleLibRuntimeToDirDebug
+bundleLibRuntimeToDirRelease
+bundleLibRuntimeToJarDebug
+bundleLibRuntimeToJarRelease
+bundleReleaseAar - Assembles a bundle containing the library in release.
+bundleReleaseLocalLintAar - Assembles a bundle containing the library in release.
+checkDebugAndroidTestAarMetadata
+checkDebugAndroidTestDuplicateClasses
+checkDebugManifest
+checkLegacyAbi
+checkReleaseManifest
+compileCommonMainKotlinMetadata - Compiles the kotlin sources in compilation 'commonMain' in target 'metadata' to Metadata.
+compileDebugAndroidTestJavaWithJavac
+compileDebugAndroidTestKotlinAndroid - Compiles the debugAndroidTest kotlin.
+compileDebugAndroidTestShaders
+compileDebugJavaWithJavac
+compileDebugKotlinAndroid - Compiles the debug kotlin.
+compileDebugLibraryResources
+compileDebugShaders
+compileDebugUnitTestJavaWithJavac
+compileDebugUnitTestKotlinAndroid - Compiles the debugUnitTest kotlin.
+compileJvmMainJava - Compiles jvm main Java source.
+compileJvmTestJava - Compiles jvm test Java source.
+compileKotlinJvm - Compiles the compilation 'main' in target 'jvm'.
+compileKotlinMetadata - Compiles the kotlin sources in compilation 'main' in target 'metadata' to Metadata.
+compileLint
+compileLintChecks
+compileReleaseJavaWithJavac
+compileReleaseKotlinAndroid - Compiles the release kotlin.
+compileReleaseLibraryResources
+compileReleaseShaders
+compileReleaseUnitTestJavaWithJavac
+compileReleaseUnitTestKotlinAndroid - Compiles the releaseUnitTest kotlin.
+compileTestKotlinJvm - Compiles the compilation 'test' in target 'jvm'.
+components - Displays the components produced by project ':shared'. [deprecated]
+compressDebugAndroidTestAssets
+consumeConfigAttr
+copyDebugJniLibsProjectAndLocalJars
+copyDebugJniLibsProjectOnly
+copyReleaseJniLibsProjectAndLocalJars
+copyReleaseJniLibsProjectOnly
+copyRoomSchemas
+copyRoomSchemasToAndroidTestAssetsDebugAndroidTest
+createDebugAndroidTestApkListingFileRedirect
+createFullJarDebug
+createFullJarRelease
+createMockableJar
+debugAssetsCopyForAGP
+dependentComponents - Displays the dependent components of components in project ':shared'. [deprecated]
+desugarDebugAndroidTestFileDependencies
+dexBuilderDebugAndroidTest
+dumpLegacyAbi
+exportCommonSourceSetsMetadataLocationsForMetadataApiElements
+exportDebugConsumerProguardFiles
+exportReleaseConsumerProguardFiles
+exportRootPublicationCoordinatesForMetadataApiElements
+exportTargetPublicationCoordinatesForDebugApiElements
+exportTargetPublicationCoordinatesForDebugRuntimeElements
+exportTargetPublicationCoordinatesForJvmApiElements
+exportTargetPublicationCoordinatesForJvmRuntimeElements
+exportTargetPublicationCoordinatesForReleaseApiElements
+exportTargetPublicationCoordinatesForReleaseRuntimeElements
+extractDebugSupportedLocales
+extractDeepLinksDebug
+extractDeepLinksForAarDebug
+extractDeepLinksForAarRelease
+extractDeepLinksRelease
+extractProguardFiles
+extractReleaseSupportedLocales
+generateDebugAndroidTestAssets
+generateDebugAndroidTestLintModel
+generateDebugAndroidTestResources
+generateDebugAndroidTestResValues
+generateDebugAndroidTestSources
+generateDebugAssets
+generateDebugExternalPublicTxt
+generateDebugLintModel
+generateDebugLintReportModel
+generateDebugLintVitalModel
+generateDebugResources
+generateDebugResValues
+generateDebugRFile
+generateDebugSources
+generateDebugUnitTestAssets
+generateDebugUnitTestLintModel
+generateDebugUnitTestResources
+generateDebugUnitTestSources
+generateDebugUnitTestStubRFile
+generateProjectStructureMetadata - Generates serialized project structure metadata of the current project (for tooling)
+generateReleaseAssets
+generateReleaseExternalPublicTxt
+generateReleaseLintModel
+generateReleaseLintReportModel
+generateReleaseLintVitalModel
+generateReleaseResources
+generateReleaseResValues
+generateReleaseRFile
+generateReleaseSources
+generateReleaseUnitTestAssets
+generateReleaseUnitTestLintModel
+generateReleaseUnitTestResources
+generateReleaseUnitTestSources
+generateReleaseUnitTestStubRFile
+javaPreCompileDebug
+javaPreCompileDebugAndroidTest
+javaPreCompileDebugUnitTest
+javaPreCompileRelease
+javaPreCompileReleaseUnitTest
+jvmProcessResources - Processes file collection.
+jvmTestProcessResources - Processes file collection.
+kmpPartiallyResolvedDependenciesChecker
+kspCommonMainKotlinMetadata
+kspDebugAndroidTestKotlinAndroid
+kspDebugKotlinAndroid
+kspDebugUnitTestKotlinAndroid
+kspKotlinJvm
+kspReleaseKotlinAndroid
+kspReleaseUnitTestKotlinAndroid
+kspTestKotlinJvm
+lintAnalyzeDebug - Run lint analysis on the debug component
+lintAnalyzeDebugAndroidTest - Run lint analysis on the debugAndroidTest component
+lintAnalyzeDebugUnitTest - Run lint analysis on the debugUnitTest component
+lintAnalyzeRelease - Run lint analysis on the release component
+lintAnalyzeReleaseUnitTest - Run lint analysis on the releaseUnitTest component
+lintFixDebug - Fix lint on the debug variant
+lintFixRelease - Fix lint on the release variant
+lintReportDebug - Run lint on the debug variant
+lintReportRelease - Run lint on the release variant
+lintVitalAnalyzeDebug - Run lint analysis with only the fatal issues enabled on the debug variant
+lintVitalAnalyzeRelease - Run lint analysis with only the fatal issues enabled on the release variant
+mapDebugAndroidTestSourceSetPaths
+mapDebugSourceSetPaths
+mapReleaseSourceSetPaths
+mergeDebugAndroidTestAssets
+mergeDebugAndroidTestGeneratedProguardFiles
+mergeDebugAndroidTestGlobalSynthetics
+mergeDebugAndroidTestJavaResource
+mergeDebugAndroidTestJniLibFolders
+mergeDebugAndroidTestNativeLibs
+mergeDebugAndroidTestResources
+mergeDebugAndroidTestShaders
+mergeDebugAssets
+mergeDebugConsumerProguardFiles
+mergeDebugGeneratedProguardFiles
+mergeDebugJavaResource
+mergeDebugJniLibFolders
+mergeDebugNativeLibs
+mergeDebugResources
+mergeDebugShaders
+mergeExtDexDebugAndroidTest
+mergeLibDexDebugAndroidTest
+mergeProjectDexDebugAndroidTest
+mergeReleaseAssets
+mergeReleaseConsumerProguardFiles
+mergeReleaseGeneratedProguardFiles
+mergeReleaseJavaResource
+mergeReleaseJniLibFolders
+mergeReleaseNativeLibs
+mergeReleaseResources
+mergeReleaseShaders
+metadataCommonMainProcessResources - Processes file collection.
+metadataProcessResources - Processes file collection.
+model - Displays the configuration model of project ':shared'. [deprecated]
+packageDebugAndroidTest
+packageDebugRenderscript
+packageDebugResources
+packageReleaseRenderscript
+packageReleaseResources
+parseDebugLocalResources
+parseReleaseLocalResources
+preBuild
+preDebugAndroidTestBuild
+preDebugBuild
+preDebugUnitTestBuild
+prepareDebugArtProfile
+prepareKotlinIdeaImport - Umbrella for all tasks required to run before IDEA/Gradle import
+prepareLintJarForPublish
+prepareReleaseArtProfile
+preReleaseBuild
+preReleaseUnitTestBuild
+processDebugAndroidTestJavaRes
+processDebugAndroidTestManifest
+processDebugAndroidTestResources
+processDebugJavaRes
+processDebugManifest
+processDebugUnitTestJavaRes
+processJvmMainResources - Processes jvm main resources.
+processJvmTestResources - Processes jvm test resources.
+processReleaseJavaRes
+processReleaseManifest
+processReleaseUnitTestJavaRes
+releaseAssetsCopyForAGP
+resolveConfigAttr
+setupLldbScript - Generate lldbinit file with imported konan_lldb.py script
+signingConfigWriterDebugAndroidTest
+stripDebugAndroidTestDebugSymbols
+stripDebugDebugSymbols
+stripReleaseDebugSymbols
+syncDebugLibJars
+syncReleaseLibJars
+transformCommonMainDependenciesMetadata - Generates serialized dependencies metadata for compilation 'commonMain' (for tooling)
+transformDependenciesMetadata
+updateLegacyAbi
+updateLintBaselineDebug - Update the lint baseline using the debug variant
+updateLintBaselineRelease - Update the lint baseline using the release variant
+validateSigningDebugAndroidTest
+verifyReleaseResources
+writeDebugAarMetadata
+writeDebugAndroidTestSigningConfigVersions
+writeDebugLintModelMetadata
+writeReleaseAarMetadata
+writeReleaseLintModelMetadata
+
+Rules
+-----
+Pattern: clean<TaskName>: Cleans the output files of a task.
+Pattern: build<ConfigurationName>: Assembles the artifacts of a configuration.
+
+BUILD SUCCESSFUL in 24s
+1 actionable task: 1 executed
+PASS shared-tasks exit=0
+PASS discovered androidApp:assembleDebug
+PASS discovered androidApp:lintDebug
+PASS discovered androidApp:testDebugUnitTest
+PASS discovered androidApp:assembleDebugAndroidTest
+PASS discovered shared:jvmTest
+COMMAND python3 -
+Removed 11 old generated unit/shared XML reports
+PASS clear-old-test-results exit=0
+COMMAND ./gradlew --no-daemon --console=plain --stacktrace :androidApp:assembleDebug :androidApp:lintDebug :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest :shared:jvmTest
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :androidApp:preBuild UP-TO-DATE
+> Task :shared:preBuild UP-TO-DATE
+> Task :androidApp:preDebugBuild UP-TO-DATE
+> Task :shared:preDebugBuild UP-TO-DATE
+> Task :androidApp:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :androidApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:writeDebugAarMetadata UP-TO-DATE
+> Task :androidApp:generateDebugResValues UP-TO-DATE
+> Task :shared:generateDebugResValues UP-TO-DATE
+> Task :shared:generateDebugResources UP-TO-DATE
+> Task :shared:packageDebugResources UP-TO-DATE
+> Task :shared:extractDeepLinksDebug UP-TO-DATE
+> Task :shared:processDebugManifest UP-TO-DATE
+> Task :shared:compileDebugLibraryResources UP-TO-DATE
+> Task :shared:parseDebugLocalResources UP-TO-DATE
+> Task :shared:generateDebugRFile UP-TO-DATE
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :androidApp:checkDebugAarMetadata UP-TO-DATE
+> Task :androidApp:mapDebugSourceSetPaths UP-TO-DATE
+> Task :androidApp:generateDebugResources UP-TO-DATE
+> Task :androidApp:mergeDebugResources UP-TO-DATE
+> Task :androidApp:packageDebugResources UP-TO-DATE
+> Task :androidApp:parseDebugLocalResources UP-TO-DATE
+> Task :androidApp:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :androidApp:extractDeepLinksDebug UP-TO-DATE
+> Task :shared:javaPreCompileDebug UP-TO-DATE
+> Task :androidApp:processDebugMainManifest UP-TO-DATE
+> Task :androidApp:processDebugManifest UP-TO-DATE
+> Task :androidApp:processDebugManifestForPackage UP-TO-DATE
+> Task :shared:mergeDebugShaders UP-TO-DATE
+> Task :shared:compileDebugShaders NO-SOURCE
+> Task :shared:debugAssetsCopyForAGP NO-SOURCE
+> Task :shared:generateDebugAssets UP-TO-DATE
+> Task :shared:mergeDebugAssets UP-TO-DATE
+> Task :shared:mergeDebugJniLibFolders UP-TO-DATE
+> Task :shared:mergeDebugNativeLibs NO-SOURCE
+> Task :shared:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :shared:stripDebugDebugSymbols NO-SOURCE
+> Task :shared:copyDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :shared:extractDeepLinksForAarDebug UP-TO-DATE
+> Task :shared:prepareDebugArtProfile UP-TO-DATE
+> Task :shared:prepareLintJarForPublish UP-TO-DATE
+> Task :shared:writeDebugLintModelMetadata UP-TO-DATE
+> Task :shared:extractProguardFiles UP-TO-DATE
+> Task :shared:preDebugAndroidTestBuild UP-TO-DATE
+> Task :shared:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :shared:preDebugUnitTestBuild UP-TO-DATE
+> Task :androidApp:processDebugResources UP-TO-DATE
+> Task :androidApp:javaPreCompileDebug UP-TO-DATE
+> Task :androidApp:mergeDebugShaders UP-TO-DATE
+> Task :androidApp:compileDebugShaders NO-SOURCE
+> Task :androidApp:generateDebugAssets UP-TO-DATE
+> Task :androidApp:mergeDebugAssets UP-TO-DATE
+> Task :androidApp:compressDebugAssets UP-TO-DATE
+> Task :androidApp:desugarDebugFileDependencies UP-TO-DATE
+> Task :androidApp:checkDebugDuplicateClasses UP-TO-DATE
+> Task :androidApp:mergeExtDexDebug UP-TO-DATE
+> Task :androidApp:mergeDebugJniLibFolders UP-TO-DATE
+> Task :androidApp:mergeDebugNativeLibs UP-TO-DATE
+> Task :androidApp:stripDebugDebugSymbols UP-TO-DATE
+> Task :androidApp:validateSigningDebug UP-TO-DATE
+> Task :androidApp:writeDebugAppMetadata UP-TO-DATE
+> Task :androidApp:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :androidApp:preDebugAndroidTestBuild SKIPPED
+> Task :androidApp:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :androidApp:extractProguardFiles UP-TO-DATE
+> Task :androidApp:preDebugUnitTestBuild UP-TO-DATE
+> Task :androidApp:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :androidApp:checkDebugAndroidTestAarMetadata UP-TO-DATE
+> Task :androidApp:mapDebugAndroidTestSourceSetPaths UP-TO-DATE
+> Task :androidApp:generateDebugAndroidTestResources UP-TO-DATE
+> Task :androidApp:mergeDebugAndroidTestResources UP-TO-DATE
+> Task :androidApp:processDebugAndroidTestManifest UP-TO-DATE
+> Task :androidApp:processDebugAndroidTestResources UP-TO-DATE
+> Task :androidApp:javaPreCompileDebugAndroidTest UP-TO-DATE
+> Task :androidApp:mergeDebugAndroidTestShaders UP-TO-DATE
+> Task :androidApp:compileDebugAndroidTestShaders NO-SOURCE
+> Task :androidApp:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :androidApp:mergeDebugAndroidTestAssets UP-TO-DATE
+> Task :androidApp:compressDebugAndroidTestAssets UP-TO-DATE
+> Task :androidApp:desugarDebugAndroidTestFileDependencies UP-TO-DATE
+> Task :androidApp:checkDebugAndroidTestDuplicateClasses UP-TO-DATE
+> Task :androidApp:mergeExtDexDebugAndroidTest UP-TO-DATE
+> Task :androidApp:mergeDebugAndroidTestJniLibFolders UP-TO-DATE
+> Task :androidApp:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :androidApp:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :androidApp:validateSigningDebugAndroidTest UP-TO-DATE
+> Task :androidApp:writeDebugAndroidTestSigningConfigVersions UP-TO-DATE
+> Task :shared:kspKotlinJvm
+> Task :shared:kspDebugKotlinAndroid
+> Task :shared:jvmProcessResources NO-SOURCE
+> Task :shared:processJvmMainResources SKIPPED
+> Task :shared:compileKotlinJvm
+> Task :shared:compileDebugKotlinAndroid
+
+> Task :shared:compileKotlinJvm
+w: file:///workspace/bookreader-mobile/shared/build/generated/ksp/jvm/jvmMain/kotlin/org/bookreader/mobile/database/BookReaderDatabaseConstructor.kt:5:8 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///workspace/bookreader-mobile/shared/src/commonMain/kotlin/org/bookreader/mobile/database/BookReaderDatabase.kt:55:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileJvmMainJava NO-SOURCE
+> Task :shared:jvmMainClasses
+> Task :shared:kspTestKotlinJvm SKIPPED
+
+> Task :shared:compileDebugKotlinAndroid
+w: file:///workspace/bookreader-mobile/shared/build/generated/ksp/android/androidDebug/kotlin/org/bookreader/mobile/database/BookReaderDatabaseConstructor.kt:5:8 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///workspace/bookreader-mobile/shared/src/commonMain/kotlin/org/bookreader/mobile/database/BookReaderDatabase.kt:55:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:jvmJar
+> Task :shared:compileDebugJavaWithJavac NO-SOURCE
+> Task :shared:copyRoomSchemas NO-SOURCE
+> Task :shared:bundleLibCompileToJarDebug
+> Task :shared:bundleLibRuntimeToJarDebug
+> Task :shared:processDebugJavaRes
+> Task :shared:bundleLibRuntimeToDirDebug
+> Task :shared:extractDebugAnnotations
+> Task :shared:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :shared:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :shared:createFullJarDebug
+> Task :shared:generateDebugLintModel
+> Task :shared:mergeDebugJavaResource
+> Task :shared:syncDebugLibJars
+> Task :shared:bundleDebugLocalLintAar
+> Task :shared:generateDebugAndroidTestLintModel
+> Task :shared:generateDebugUnitTestLintModel
+> Task :androidApp:compileDebugKotlin
+> Task :shared:lintAnalyzeDebug
+> Task :shared:lintAnalyzeDebugAndroidTest
+> Task :androidApp:compileDebugJavaWithJavac NO-SOURCE
+> Task :shared:lintAnalyzeDebugUnitTest
+> Task :shared:jvmTestProcessResources NO-SOURCE
+> Task :shared:processJvmTestResources SKIPPED
+> Task :androidApp:dexBuilderDebug
+> Task :androidApp:mergeDebugGlobalSynthetics UP-TO-DATE
+> Task :androidApp:processDebugJavaRes UP-TO-DATE
+> Task :androidApp:mergeDebugJavaResource
+> Task :androidApp:bundleDebugClassesToCompileJar
+> Task :androidApp:mergeProjectDexDebug
+> Task :androidApp:generateDebugAndroidTestLintModel
+> Task :androidApp:generateDebugLintReportModel
+> Task :androidApp:generateDebugUnitTestLintModel
+> Task :androidApp:mergeLibDexDebug
+> Task :androidApp:packageDebug
+> Task :androidApp:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :androidApp:assembleDebug
+> Task :androidApp:bundleDebugClassesToRuntimeJar
+> Task :shared:compileTestKotlinJvm
+> Task :androidApp:compileDebugUnitTestKotlin
+> Task :androidApp:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :androidApp:processDebugUnitTestJavaRes UP-TO-DATE
+
+> Task :androidApp:testDebugUnitTest
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+
+> Task :shared:compileJvmTestJava NO-SOURCE
+> Task :shared:jvmTestClasses
+> Task :androidApp:lintAnalyzeDebugAndroidTest
+> Task :androidApp:lintAnalyzeDebugUnitTest
+> Task :androidApp:compileDebugAndroidTestKotlin
+
+> Task :shared:jvmTest
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts
+
+> Task :androidApp:compileDebugAndroidTestJavaWithJavac UP-TO-DATE
+> Task :androidApp:dexBuilderDebugAndroidTest
+> Task :androidApp:mergeDebugAndroidTestGlobalSynthetics UP-TO-DATE
+> Task :androidApp:processDebugAndroidTestJavaRes
+> Task :androidApp:mergeLibDexDebugAndroidTest UP-TO-DATE
+> Task :androidApp:mergeDebugAndroidTestJavaResource
+> Task :androidApp:mergeProjectDexDebugAndroidTest
+> Task :androidApp:packageDebugAndroidTest
+> Task :androidApp:createDebugAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :androidApp:assembleDebugAndroidTest
+> Task :androidApp:lintAnalyzeDebug
+> Task :androidApp:lintReportDebug
+> Task :androidApp:lintDebug
+
+BUILD SUCCESSFUL in 3m 39s
+123 actionable tasks: 47 executed, 76 up-to-date
+PASS build-and-tests exit=0
+COMMAND python3 scripts/check-test-results.py android-unit androidApp/build/test-results/testDebugUnitTest
+PASS 41 actual android-unit tests; all 41 mandatory cases executed
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.binaryMaskedAsTxtIsRejectedButCommonTextControlsArePreserved
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.bomDetectionSurvivesOneByteReadsAndPreservesInteriorBomAndWhitespace
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.bomlessUtf16RequiresAnExplicitChoice
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.cancellationAndBudgetFailuresPropagateWithoutClosingCallerOwnedStream
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.completeValidationFindsAnErrorAfterAValidPreview
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.cp949ExtensionIsNotEucKrAndNeverSelectedAutomatically
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.encodingIdsAndEmptyTextContractAreStable
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.eucKrGrammarCarriesPairedBytesAndRejectsCp949ExtensionRangesAtExactOffsets
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.explicitMismatchedBomAndUtf32AreRejected
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.malformedUtf8AndTruncatedUtf16NeverUseReplacementCharacters
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.normalizationIsIndependentOfByteAndTextChunkBoundaries
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.previewWithholdsACutOffMultibyteCharacterAndNeverSplitsASurrogate
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.sourceLimitUsesActualBytesAndReadsAtMostOneByteBeyondLimit
+PASS org.bookreader.mobile.encoding.TxtDecoderTest.validationDoesNotAccumulateTheBodyAndHandlesZeroLengthReadResults
+PASS org.bookreader.mobile.reader.TxtCanonicalCacheTest.cancellationLeavesOriginalAndNoCompletionMarker
+PASS org.bookreader.mobile.reader.TxtCanonicalCacheTest.canonicalFragmentsCoverCrLfAndSurrogatesWithoutGaps
+PASS org.bookreader.mobile.reader.TxtCanonicalCacheTest.fiveMiBParagraphHasBoundedFragmentsAndCacheLossRebuildsOriginal
+PASS org.bookreader.mobile.reader.TxtCanonicalCacheTest.sameLengthSourceMutationAndCacheMutationFailClosed
+PASS org.bookreader.mobile.reader.TxtReaderControllerTest.activationFailureReportsDatabaseStageAndNeverAllowsSave
+PASS org.bookreader.mobile.reader.TxtReaderControllerTest.continuousMovementSamplesAndBackwardFinalAnchorIsCommitted
+PASS org.bookreader.mobile.reader.TxtReaderControllerTest.emptyTxtShowsExplicitErrorWithoutCreatingReadHistory
+PASS org.bookreader.mobile.reader.TxtReaderControllerTest.outOfRangeAndLateSourceCorruptionPreservePreviousProgress
+PASS org.bookreader.mobile.reader.TxtReaderControllerTest.progressReadFailureNeverActivatesOrOverwritesRecord
+PASS org.bookreader.mobile.reader.TxtReaderControllerTest.readyRequiresSuccessfulProgressReadAndMeasuredRestoration
+PASS org.bookreader.mobile.reader.TxtReaderControllerTest.saveFailureReportsExactStageAndSuccessfulRetryClearsDiagnostic
+PASS org.bookreader.mobile.reader.TxtReaderControllerTest.thrownLoadFailureKeepsBoundedCauseTypesAndNeverIncludesMessages
+PASS org.bookreader.mobile.ui.AppViewModelTest.cancelEncodingDatabaseFailureKeepsPendingJobAndShowsErrorWithoutCrashing
+PASS org.bookreader.mobile.ui.AppViewModelTest.clearingViewModelCancelsQueryAndClosesOwnedDatabase
+PASS org.bookreader.mobile.ui.AppViewModelTest.databaseOpenFailureCanRetryWithoutCrash
+PASS org.bookreader.mobile.ui.AppViewModelTest.deleteDatabaseFailurePreservesLibraryAndShowsError
+PASS org.bookreader.mobile.ui.AppViewModelTest.deleteMarksBeforeStoppingReaderAndRejectsAlreadyQueuedReopen
+PASS org.bookreader.mobile.ui.AppViewModelTest.failedThemeCommitPreservesPreviousDisplayAndReportsError
+PASS org.bookreader.mobile.ui.AppViewModelTest.failedThemeReadUsesDisplayDefaultWithoutWritingUntilUserSelects
+PASS org.bookreader.mobile.ui.AppViewModelTest.invalidRecordErrorFromRepositoryIsPreserved
+PASS org.bookreader.mobile.ui.AppViewModelTest.newModelStartsAtLibraryAndLoadingUntilQueryCompletes
+PASS org.bookreader.mobile.ui.AppViewModelTest.readFailureRemainsErrorAndRetryCanLoadEmpty
+PASS org.bookreader.mobile.ui.AppViewModelTest.readerFactoryFailureShowsRecoverableErrorAndKeepsLibrary
+PASS org.bookreader.mobile.ui.AppViewModelTest.recoveredEncodingChoiceResumesPrivateJobAndRefreshesLibraryAfterCommit
+PASS org.bookreader.mobile.ui.AppViewModelTest.tabsAndQueryPersistWithinModelButNewModelStartsInLibrary
+PASS org.bookreader.mobile.ui.LibrarySearchTest.searchesTitleAuthorAndOriginalNameIgnoringCase
+PASS org.bookreader.mobile.ui.LibrarySearchTest.wildcardCharactersAreLiteralAndEmptyQueryShowsAll
+PASS android-unit-results exit=0
+COMMAND python3 scripts/check-test-results.py shared-jvm shared/build/test-results/jvmTest
+PASS 45 actual shared-jvm tests; all 45 mandatory cases executed
+PASS org.bookreader.mobile.database.MigrationTest.exportedVersionOneMigratesWithoutLosingBooksOrProgress
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.callerCancellationIsNotConvertedToDatabaseError
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.corruptProgressReadKeepsOriginalCommittedRecord
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.createsInsertsQueriesAndReopensRealDatabase
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.duplicateBookInsertAbortsWithoutReplacingBookOrProgress
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.foreignKeyRejectsOrphanProgressAndCascadesExplicitDeletion
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.invalidStoredBookIsErrorRatherThanEmptyLibrary
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.locatorFormatMustMatchItsBook
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.metadataMismatchNeverReturnsAUsablePosition
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.newestLibraryOrderUsesStableIdWhenAdditionTimesMatch
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.revisionRecordsAndUnknownPercentRemainDistinctFromMissing
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.unavailableDatabaseReadIsErrorAndPreservesDiskRecord
+PASS org.bookreader.mobile.database.RoomDatabaseSmokeTest.unsupportedLocatorReadKeepsOriginalCommittedRecord
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.actualUnknownLengthOverLimitStopsCopyWithoutCommitting
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.cancellationDuringCopyKeepsPreviouslyCommittedBookAndCleansStage
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.cancellationDuringEncodingResumeNeverCommitsOnRecovery
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.cancelledEncodingChoiceRemovesOnlyItsStaging
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.changedExistingCopyIsNeverSilentlyOverwrittenByIdenticalReimport
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.classifiedFailuresAndUnknownSizeKeepCommittedData
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.corruptedJournalCannotDeleteAnotherBooksReferencedFile
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.deathWithActualPartialStagingBytesRecoversWithoutTouchingExistingProgress
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.deletingInvalidatesWriterBeforeFileRemovalAndRecoveryNeverResurrects
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.durableCopyDoesNotDependOnSourceAndDuplicateKeepsProgress
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.encodingChoiceResumesPrivateStagingAfterTemporarySourceDisappears
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.failedPostCommitCleanupStillReportsSuccessAndRecoveryRetries
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.interruptedCheckpointsRecoverIdempotentlyAndPreserveExistingBook
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.midStreamDiskAndPermissionFailuresCleanOnlyNewPartialBytes
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.missingIdenticalCopyRelinksWithoutChangingInterpretationOrProgress
+PASS org.bookreader.mobile.importing.ImportCoordinatorTest.readyRowWithDefinitelyAbsentCopyRelinksIdempotentlyAndKeepsProgress
+PASS org.bookreader.mobile.locator.LocatorCodecTest.changedRevisionIsNotCollapsedIntoSameAnchor
+PASS org.bookreader.mobile.locator.LocatorCodecTest.comicIdentityIsEntryKeyAndAnchorNotImageHint
+PASS org.bookreader.mobile.locator.LocatorCodecTest.epubRoundTripPreservesCompleteSdkLocatorIncludingExtensionFields
+PASS org.bookreader.mobile.locator.LocatorCodecTest.malformedAndInvalidCoordinatesNeverBecomeZeroLocator
+PASS org.bookreader.mobile.locator.LocatorCodecTest.txtRoundTripKeepsLongUtf16AnchorAndRevision
+PASS org.bookreader.mobile.locator.LocatorCodecTest.unknownVersionAndTypeRemainUnsupported
+PASS org.bookreader.mobile.model.BookModelTest.managedPathCannotBeSourceUriAbsolutePathOrTraversal
+PASS org.bookreader.mobile.repository.DatabaseFailureDiagnosticTest.causeSnapshotIsBoundedAndExcludesMessages
+PASS org.bookreader.mobile.repository.RoomProgressWriterTest.changedRestoreRevisionOrDeletingBookRejectsWithoutMutation
+PASS org.bookreader.mobile.repository.RoomProgressWriterTest.closedDatabaseReportsOriginalStagesWithoutChangingFailureResults
+PASS org.bookreader.mobile.repository.RoomProgressWriterTest.corruptAndUnsupportedRecordsDoNotChangeEpochOrReadOrder
+PASS org.bookreader.mobile.repository.RoomProgressWriterTest.existingProgressCannotStartWithNullOrDifferentRestoredLocator
+PASS org.bookreader.mobile.repository.RoomProgressWriterTest.fixedBookEventsStaySeparateAndDeletedBookIsNeverRecreated
+PASS org.bookreader.mobile.repository.RoomProgressWriterTest.missingProgressCannotAcceptInventedRestoreAndReadyOnlyMarksActualRead
+PASS org.bookreader.mobile.repository.RoomProgressWriterTest.saveUsesSequenceNotMaximumOffsetAndRejectsOldSession
+PASS org.bookreader.mobile.repository.RoomProgressWriterTest.verifiedAvailabilityRestoreCannotReviveDeletingOrChangedRevisionAndPreservesProgress
+PASS shared-test-results exit=0
+COMMAND python3 -
+PASS current Room schema version 2: shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/2.json
+PASS room-schema exit=0
+NOT_RUN Android instrumentation requires connectedDebugAndroidTest on a device.

@@ -1,0 +1,143 @@
+{
+  "status": "PASS",
+  "old_pid": "5624",
+  "cold_launcher_pid": "5671",
+  "claim": "durably acknowledged TXT anchor survives external force-stop; cold library Continue restores it",
+  "limitation": "verification instrumentation may start another target process; this does not prove uncommitted scroll durability",
+  "commands": [
+    {
+      "label": "prepareDurableReader",
+      "argv": [
+        "adb",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "class",
+        "org.bookreader.mobile.reader.TxtReaderHostProcessTest#prepareDurableReader",
+        "-e",
+        "captureFixtureScreenshots",
+        "true",
+        "-e",
+        "additionalTestOutputDir",
+        "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence",
+        "org.bookreader.mobile.test/androidx.test.runner.AndroidJUnitRunner"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "committed-fixture-proof",
+      "argv": [
+        "adb",
+        "shell",
+        "run-as",
+        "org.bookreader.mobile",
+        "cat",
+        "files/txt-host-committed.properties"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "live-launch-before-stop",
+      "argv": [
+        "adb",
+        "shell",
+        "am",
+        "start",
+        "-W",
+        "-n",
+        "org.bookreader.mobile/.MainActivity"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "live-pid-before-stop",
+      "argv": [
+        "adb",
+        "shell",
+        "pidof",
+        "org.bookreader.mobile"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "external-force-stop",
+      "argv": [
+        "adb",
+        "shell",
+        "am",
+        "force-stop",
+        "org.bookreader.mobile"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "pid-after-force-stop",
+      "argv": [
+        "adb",
+        "shell",
+        "sh",
+        "-c",
+        "'if pidof org.bookreader.mobile; then exit 1; else echo absent; fi'"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "cold-launch",
+      "argv": [
+        "adb",
+        "shell",
+        "am",
+        "start",
+        "-W",
+        "-n",
+        "org.bookreader.mobile/.MainActivity"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "cold-pid",
+      "argv": [
+        "adb",
+        "shell",
+        "pidof",
+        "org.bookreader.mobile"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "verifyColdLibraryContinue",
+      "argv": [
+        "adb",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "class",
+        "org.bookreader.mobile.reader.TxtReaderHostProcessTest#verifyColdLibraryContinue",
+        "-e",
+        "captureFixtureScreenshots",
+        "true",
+        "-e",
+        "additionalTestOutputDir",
+        "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence",
+        "org.bookreader.mobile.test/androidx.test.runner.AndroidJUnitRunner"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "cases": [
+    [
+      "org.bookreader.mobile.reader.TxtReaderHostProcessTest",
+      "prepareDurableReader"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderHostProcessTest",
+      "verifyColdLibraryContinue"
+    ]
+  ]
+}

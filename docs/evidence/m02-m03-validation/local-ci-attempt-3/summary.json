@@ -1,0 +1,41 @@
+{
+  "exit_code": 0,
+  "status": "PASS",
+  "verification_scope": "frozen source candidate; all recorded source/config/fixture fingerprints unchanged through actual full CI",
+  "source_fingerprint_sha256": "13a7a332f8f01f2f6b4ba1d32c4cbe74e765262f5d8ef98b84c4f266d3365f4d",
+  "source_drift_from_start": [],
+  "test_suites": {
+    "android-unit": {
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 43,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "totals": {
+      "Hint": 20
+    },
+    "policy": "three pinned-version update detector notices remain enabled as Hint; all other checks warningsAsErrors and abortOnError"
+  },
+  "schemas": {
+    "shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/1.json": {
+      "sha256": "b8dec17c6478c78fb6e77484643a7fbf29f903afa88cf1cfe458fd8ef17b3700",
+      "identityHash": "21e21d2bef2cb0078f0b0e8b0fff0510"
+    },
+    "shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/2.json": {
+      "sha256": "c9b1cd2e69cea3c433cb6cb4994ae9430e1d0b6c2129df55255b4b03772094d7",
+      "identityHash": "de3676c7e80842bd6a30e6bc245f5a38"
+    }
+  },
+  "apk_sha256": {
+    "androidApp/build/outputs/apk/debug/androidApp-debug.apk": "c35e01f01d08b44747c389d40665f799bd1f15ff70bff899f3cee945ed155720",
+    "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk": "8fcb30f2b3e1ec225458c7d8a9f43361f06a40aae6cac2527ed911ea68d37f54"
+  }
+}

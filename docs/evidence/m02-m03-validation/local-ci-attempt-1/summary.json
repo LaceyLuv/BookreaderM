@@ -1,0 +1,54 @@
+{
+  "exit_code": 1,
+  "status": "FAIL",
+  "reason": "lint UsableSpace and UseKtx",
+  "verification_scope": "intermediate working-tree build; reviewed delete-order correction still pending",
+  "test_suites": {
+    "android-unit": {
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 43,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "totals": {
+      "Error": 2,
+      "Hint": 20
+    },
+    "errors": [
+      {
+        "id": "UsableSpace",
+        "message": "Consider also using `StorageManager#getAllocatableBytes` and `allocateBytes` which will consider clearable cached data",
+        "locations": [
+          {
+            "file": "/workspace/bookreader-mobile/androidApp/src/main/kotlin/org/bookreader/mobile/reader/TxtCanonicalCache.kt",
+            "line": "94",
+            "column": "27"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "message": "Use the KTX extension function `String.toUri` instead?",
+        "locations": [
+          {
+            "file": "/workspace/bookreader-mobile/androidApp/src/main/kotlin/org/bookreader/mobile/importing/AndroidManagedImportFiles.kt",
+            "line": "78",
+            "column": "19"
+          }
+        ]
+      }
+    ]
+  },
+  "apk_sha256": {
+    "androidApp/build/outputs/apk/debug/androidApp-debug.apk": "51aff6c155de8b84c32fae3fe1d927ab3dd77d11615aef36fe46cc5face083e7",
+    "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk": "657f915173bc418dd292b182bc25ad95ff72e44a8a64fb60a089074a820f8bd8"
+  }
+}

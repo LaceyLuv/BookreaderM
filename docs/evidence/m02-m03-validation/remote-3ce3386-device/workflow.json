@@ -1,0 +1,112 @@
+{
+  "run_id": 37172491508,
+  "name": "BookReader Mobile Device Tests",
+  "source_commit": "3ce33868503bac2dd0ecd3829a7bf1a77d562f90",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "failure",
+  "created_at": "2026-10-04T02:54:49Z",
+  "updated_at": "2026-10-04T03:02:12Z",
+  "html_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/37172491508",
+  "event": "push",
+  "path": ".github/workflows/mobile-device-tests.yml",
+  "jobs": [
+    {
+      "id": 111348135908,
+      "name": "instrumentation",
+      "status": "completed",
+      "conclusion": "failure",
+      "run_id": 37172491508,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Install compile SDK and build tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Enable KVM and require acceleration",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run actual Android instrumentation on API 36",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 7
+        },
+        {
+          "name": "Upload device identity, commands and instrumentation reports",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Post Run actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11291478443,
+      "name": "mobile-device-evidence",
+      "size_in_bytes": 234524,
+      "url": "https://api.github.com/repos/LaceyLuv/BookreaderM/actions/artifacts/11291478443",
+      "archive_download_url": "https://api.github.com/repos/LaceyLuv/BookreaderM/actions/artifacts/11291478443/zip",
+      "expired": false,
+      "created_at": "2026-10-04T03:02:09Z",
+      "expires_at": "2027-01-02T02:54:50Z",
+      "updated_at": "2026-10-04T03:02:09Z",
+      "digest": "sha256:9b60b25356e89c7e13a42aa9d76bb0f07d2c5986c24b28a0fdd455b1960a298e",
+      "workflow_run": {
+        "id": 37172491508,
+        "repository_id": 1398925325,
+        "head_repository_id": 1398925325,
+        "head_branch": "main",
+        "head_sha": "3ce33868503bac2dd0ecd3829a7bf1a77d562f90"
+      }
+    }
+  ]
+}

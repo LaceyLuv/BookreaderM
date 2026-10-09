@@ -1,0 +1,44 @@
+Source: /workspace/bookreader-remote-m02-m03/cfe17f0-device/extracted/androidApp/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-org.bookreader.mobile.reader.TxtReaderFlowTest-measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation.txt
+
+1: 10-04 02:45:28.313  5112  5125 I TestRunner: started: measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation(org.bookreader.mobile.reader.TxtReaderFlowTest)
+2: 10-04 02:45:28.318  5112  5125 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@7e6bfaa]
+11: 10-04 02:45:28.400   521   521 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+12: 10-04 02:45:28.432  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: PRE_ON_CREATE
+13: 10-04 02:45:28.432  5112  5112 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+14: 10-04 02:45:28.436  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: CREATED
+15: 10-04 02:45:28.436  5112  5112 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@ae80b05
+16: 10-04 02:45:28.437  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: STARTED
+17: 10-04 02:45:28.437  5112  5112 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@ae80b05
+18: 10-04 02:45:28.437  5112  5112 D AutofillManager: Fill dialog is enabled:false, hints=[]
+19: 10-04 02:45:28.438  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: RESUMED
+20: 10-04 02:45:28.438  5112  5112 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@ae80b05
+81: 10-04 02:45:29.155   588  2528 W IPCThreadState: Sending oneway calls to frozen process.
+82: 10-04 02:45:29.159  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: PAUSED
+83: 10-04 02:45:29.160  5112  5112 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@ae80b05
+88: 10-04 02:45:29.242  5210  5210 W HWUI    : Image decoding logging dropped!
+89: 10-04 02:45:29.294  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: RESUMED
+90: 10-04 02:45:29.294  5112  5112 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@ae80b05
+157: 10-04 02:45:31.032   521   577 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+158: 10-04 02:45:31.042  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: PAUSED
+159: 10-04 02:45:31.042  5112  5112 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@ae80b05
+208: 10-04 02:45:31.355   647   677 W IPCThreadState: Sending oneway calls to frozen process.
+209: 10-04 02:45:31.356  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: STOPPED
+210: 10-04 02:45:31.356  5112  5112 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@ae80b05
+257: 10-04 02:45:31.437  5112  5112 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@a1296ac
+258: 10-04 02:45:31.445  5112  5112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ae80b05 in: DESTROYED
+259: 10-04 02:45:31.445  5112  5112 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+268: 10-04 02:45:31.736  5112  5125 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@7e6bfaa]
+269: 10-04 02:45:31.746  5112  5125 E TestRunner: failed: measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation(org.bookreader.mobile.reader.TxtReaderFlowTest)
+270: 10-04 02:45:31.747  5112  5125 E TestRunner: ----- begin exception -----
+271: 10-04 02:45:31.747  5112  5125 E TestRunner: java.lang.IllegalStateException: Fixture progress read failed: DATABASE_UNAVAILABLE
+272: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at org.bookreader.mobile.reader.TxtReaderFlowTest$saved$1$1.invokeSuspend(TxtReaderFlowTest.kt:160)
+273: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+274: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+275: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+276: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+277: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+278: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+279: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+280: 10-04 02:45:31.747  5112  5125 E TestRunner: 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+281: 10-04 02:45:31.747  5112  5125 E TestRunner: ----- end exception -----
+282: 10-04 02:45:31.748  5112  5125 I TestRunner: finished: measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation(org.bookreader.mobile.reader.TxtReaderFlowTest)

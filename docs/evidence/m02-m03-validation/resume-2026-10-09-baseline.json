@@ -1,0 +1,40 @@
+{
+  "recorded_utc": "2026-10-09T03:19:23.374518+00:00",
+  "head": "3ce33868503bac2dd0ecd3829a7bf1a77d562f90",
+  "origin_main_verified_by_root": "3ce33868503bac2dd0ecd3829a7bf1a77d562f90",
+  "latest_build": {
+    "run_id": 37172491541,
+    "status": "PASS",
+    "android_unit_cases": 38,
+    "shared_jvm_cases": 43
+  },
+  "latest_device": {
+    "run_id": 37172491508,
+    "status": "FAIL",
+    "native_connected": {
+      "tests": 24,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failing_identity": "org.bookreader.mobile.importing.ManagedImportAndroidTest.externalViewReceivesTemporaryGrantAndOpensActualReader",
+    "diagnosis": "Reader ERROR before first READY, actual cause absent from previous phase-only diagnostics; both TxtReaderFlow tests PASS",
+    "host": "NOT_RUN ordinary mandatory gate failed",
+    "fixture_screenshots": "NOT_COLLECTED mandatory pull not reached"
+  },
+  "environment": {
+    "doctor_exit_code": 0,
+    "jdk": "Temurin 17.0.16+8",
+    "sdk_api": 36,
+    "build_tools": "35.0.0",
+    "gradle_wrapper": "8.13 checksum verified by doctor; Gradle not run yet",
+    "local_adb_attached_device_count": 0,
+    "gh_read_access": "PASS actual run and job metadata read",
+    "connector_read_access": "PASS actual artifact metadata and job log read",
+    "network_policy": "unrestricted state unknown; no enforcement claim",
+    "proxy_tls": "preserved inherited options and /workspace/toolchains/cacerts",
+    "previous_evidence": "October 4 histories retained"
+  },
+  "preserved_working_tree": "Existing docs/evidence and ManagedImportAndroidTest diagnostic changes retained; no clean/reset",
+  "gradle_execution": "NOT_RUN pending source freeze"
+}

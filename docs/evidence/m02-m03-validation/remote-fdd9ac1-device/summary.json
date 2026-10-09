@@ -1,0 +1,157 @@
+{
+  "source_commit": "fdd9ac15182af4e4c1a21a814c5d9c2aa3393808",
+  "run_id": 37167947545,
+  "job_id": 111334760258,
+  "artifact_id": 11290028973,
+  "status": "FAIL",
+  "actual_native_connected": {
+    "tests": 23,
+    "failures": 14,
+    "errors": 0,
+    "skipped": 0
+  },
+  "cases": [
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidBomAndBoundaryNormalizationAreCanonical",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidStrictDecodeRejectsLateIncompleteCharacters",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidCp949ExtensionFixtureIsDistinctFromEucKr",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "systemDocumentsPickerSelectsTxtFromRealProvider",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "assetSegmentImportHonorsOffsetAndDeclaredLength",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "ownUidProviderIsRejectedBeforeAnyQuery",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "unknownSizeSourceEnforcesActualStreamingByteLimit",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "stalledProviderCopyCancelsAndRemovesPrivateStaging",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "manualEncodingUsesStagingAfterSourceGrantIsRevoked",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "externalViewReceivesTemporaryGrantAndOpensActualReader",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "emptyTxtReportsNoContentWithoutCreatingReadingProgress",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderBoundaryTest",
+      "method": "eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "method": "missingManagedCopyShowsRetryAndPreservesCommittedProgress",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "method": "measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation",
+      "status": "FAIL",
+      "failure": {}
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "invalidStoredThemeReportsErrorAndPreservesOriginal",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "selectedThemePersistsAcrossStoreInstances",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "loadingEmptyAndErrorAreDistinctAndErrorHasRetry",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "threeTabsMetadataSearchAndThemeSelectionWork",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.MainActivityLaunchTest",
+      "method": "launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab",
+      "status": "PASS",
+      "failure": null
+    }
+  ],
+  "host": "NOT_RUN ordinary connected failure stopped mandatory script",
+  "screenshots": "NOT_COLLECTED ordinary failure stopped post-test fixture pull",
+  "archive_sha256": "52ead89d818314e5df1b015b7363afb70924b16954c65309d16c6401539ce3bc",
+  "archive_size_bytes": 301027
+}

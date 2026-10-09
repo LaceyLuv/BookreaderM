@@ -1,0 +1,94 @@
+{
+  "url": "https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/8.11.1/gradle-8.11.1-sources.jar",
+  "http_status": 200,
+  "sha256": "65bc5d04cc52655664894e196f274da781091602a219126b67fd13bd2621ddd6",
+  "bytes": 3810095,
+  "local_original": "/workspace/bookreader-official-doc-originals/gradle-8.11.1-sources.jar",
+  "excerpts": [
+    {
+      "source_entry": "com/android/build/gradle/internal/testing/utp/UtpConfigFactory.kt",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "ecutor.\n     *\n     * @param uninstallIncompatibleApks uninstalls APKs on the device when an installation failure\n     * occurs due to incompatible APKs such as INSTALL_FAILED_UPDATE_INCOMPATIBLE,\n     * INCONSISTENT_CERTIFICATES, etc.\n     * @param additionalTestOutputDir an additional test output directory on host machine, or null\n     *     when disabled.\n     */\n    fun createRunnerConfigProtoForLocalDevice(\n        device: DeviceConnector,\n        testData: StaticTestData,\n        targetApkConfigBundle: TargetApkConfigBundle,\n        additionalInstallOptions: Iterable<String>,\n        helperApks: Iterable<File>,\n        uninstallIncompatibleApks: Boolean,\n        utpDependencies: UtpDependencies,\n        versionedSdkLoader: SdkComponentsBuildService.VersionedSdkLoader,\n        outputD"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/testing/utp/UtpTestRunner.kt",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "rivacySandboxSdkInstallBundle,\n            helperApks: MutableSet<File>,\n            timeoutInMs: Int,\n            installOptions: MutableCollection<String>,\n            resultsDir: File,\n            additionalTestOutputEnabled: Boolean,\n            additionalTestOutputDir: File?,\n            coverageDir: File,\n            logger: ILogger): MutableList<TestResult> {\n\n        val runnerConfigs = apksForDevice.filter { (device, apks) ->\n            !versionedSdkLoader.adbHelper.get().isManagedDevice(\n                device.getSerialNumber(), logger)\n        }.map { (deviceConnector, apks) ->\n            val utpOutputDir = File(resultsDir, deviceConnector.name).apply {\n                if (!exists()) {\n                    mkdirs()\n                }\n            }\n            val runnerConfig: ("
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/testing/utp/AdditionalTestOutputUtils.kt",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "getApiLevel() < ADDITIONAL_TEST_OUTPUT_MIN_API_LEVEL) {\n        logger.warn(\"additionalTestOutput is not supported on devices running API level < 16\")\n        return null\n    }\n\n    val userSpecifiedDir = testData.instrumentationRunnerArguments.get(\"additionalTestOutputDir\")\n    if (userSpecifiedDir != null) {\n        return userSpecifiedDir\n    }\n\n    if (device.getApiLevel() >= 29) {\n        // sdcard/Android/media/<package_name> is the only special-cased storage dir, which\n        // allows separate shell processes and instrumented tests to both have read/write access\n        // without needing to apply external legacy storage flags (which were removed in API 30)\n        // or --no-isolated-storage.\n        return \"/sdcard/Android/media/${testData.instrumentationTargetPackageId}/additio"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/testing/utp/ManagedDeviceTestRunner.kt",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "nerConfigs, projectPath, variantName, resultsDir, logger ->\n        runUtpTestSuiteAndWait(\n            runnerConfigs, workerExecutor, projectPath, variantName, resultsDir, logger,\n            null, utpDependencies)\n    },\n) {\n\n    /**\n     * @param additionalTestOutputDir output directory for additional test output, or null if disabled\n     * @param dependencyApks are the private sandbox SDK APKs\n     */\n    fun runTests(\n        managedDevice: Device,\n        runId: String,\n        outputDirectory: File,\n        coverageOutputDirectory: File,\n        additionalTestOutputDir: File?,\n        projectPath: String,\n        variantName: String,\n        testData: StaticTestData,\n        additionalInstallOptions: List<String>,\n        helperApks: Set<File>,\n        logger: Logger,\n        depend"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/testing/BaseTestRunner.java",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "onNull List<? extends DeviceConnector> deviceList,\n            int timeoutInMs,\n            @NonNull Collection<String> installOptions,\n            @NonNull File resultsDir,\n            boolean additionalTestOutputEnabled,\n            @Nullable File additionalTestOutputDir,\n            @NonNull File coverageDir,\n            @NonNull ILogger logger)\n            throws TestException {\n\n        int totalDevices = deviceList.size();\n        int unauthorizedDevices = 0;\n        Map<DeviceConnector, ImmutableList<File>> apksForDevice = new HashMap<>();\n        Map<DeviceConnector, List<List<Path>>> dependencyApkMap = new HashMap<>();\n        for (DeviceConnector device : deviceList) {\n            if (device.getState() != IDevice.DeviceState.UNAUTHORIZED) {\n                if (InstallUtils.checkD"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/testing/SimpleTestRunnable.java",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "nal String projectName;\n    @NonNull private final DeviceConnector device;\n    @NonNull private final String flavorName;\n    @NonNull private final StaticTestData testData;\n    @NonNull private final File resultsDir;\n    @Nullable private final File additionalTestOutputDir;\n    @NonNull private final File coverageDir;\n    @NonNull private final List<File> testedApks;\n    @NonNull private final Collection<String> installOptions;\n    @NonNull private final ILogger logger;\n    @NonNull private final Set<File> dependencyApks;\n    @NonNull private final Set<File> helperApks;\n    @NonNull private final BaseTestRunner.TestResult testResult;\n\n    private final int timeoutInMs;\n    private final boolean additionalTestOutputEnabled;\n\n    @Inject\n    public SimpleTestRunnable(SimpleTestParams params)"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/testing/TestRunData.kt",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "lass TestRunData(\n\n    override val variantName: String,\n\n    override val testRunId: String,\n\n    override val deviceName: String,\n\n    override val outputDirectory: Directory,\n\n    override val coverageOutputDirectory: Directory,\n\n    override val additionalTestOutputDir: Directory?,\n\n    override val additionalInstallOptions: List<String>,\n\n    override val helperApks: Set<File>,\n\n    override val projectPath: String,\n\n    override val testData: StaticTestData\n): com.android.build.api.instrumentation.manageddevice.TestRunData, Serializable\n"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/testing/TestRunner.java",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "{\n\n    /**\n     * Returns true if the tests succeeded.\n     *\n     * @param timeoutInMs time out in milliseconds\n     * @param installOptions parameters passed to the pm install command.\n     * @param additionalTestOutputEnabled `true` if file from [additionalTestOutputDir] should be\n     *     copied to host after the test completes.\n     * @param additionalTestOutputDir output dir for additional instrumented device test data\n     * @return true if the test succeed\n     */\n    boolean runTests(\n            @NonNull String projectName,\n            @NonNull String variantName,\n            @NonNull StaticTestData testData,\n            @NonNull Set<File> dependencyApks,\n            @NonNull Set<File> helperApks,\n            @NonNull List<? extends DeviceConnector> deviceList,\n            int "
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/tasks/ManagedDeviceInstrumentationTestTask.kt",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "           }\n\n        val resultsOutDir = resultsDir.get().asFile\n        FileUtils.cleanOutputDir(resultsOutDir)\n\n        val codeCoverageOutDir = getCoverageDirectory().get().asFile\n        FileUtils.cleanOutputDir(codeCoverageOutDir)\n\n        val additionalTestOutputDir = if (getAdditionalTestOutputEnabled().get()) {\n            getAdditionalTestOutputDir().get().getAsFile().also {\n                FileUtils.cleanOutputDir(it)\n            }\n        } else {\n            null\n        }\n\n        val utpRunProfileManager = UtpRunProfileManager()\n\n        val success = if (!testsFound()) {\n            logger.info(\"No tests found, nothing to do.\")\n            true\n        } else {\n            val runner = testRunnerFactory.createTestRunner(\n                workerExecutor,\n                testR"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/tasks/ManagedDeviceInstrumentationTestTask.kt",
+      "needle": "ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT",
+      "excerpt": "ion(coverageOutputDir.absolutePath)\n                .on(InternalArtifactType.MANAGED_DEVICE_CODE_COVERAGE)\n\n            val isAdditionalAndroidTestOutputEnabled = creationConfig\n                .services\n                .projectOptions[BooleanOption.ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT]\n            if (isAdditionalAndroidTestOutputEnabled) {\n                creationConfig\n                    .artifacts\n                    .setInitialProvider(\n                        taskProvider,\n                        ManagedDeviceInstrumentationTestTask::getAdditionalTestOutputDir)\n                    .atLocation(additionalTestOutputDir.absolutePath)\n                    .on(InternalArtifactType.MANAGED_DEVICE_ANDROID_TEST_ADDITIONAL_OUTPUT)\n            }\n\n            maybeCreateUtpConfigurations(creati"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/tasks/ManagedDeviceTestTask.kt",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "onApks(buddyApks.files) { message: String ->\n            throw InvalidUserDataException(message)\n        }\n\n        FileUtils.cleanOutputDir(resultsDir.get().asFile)\n\n        FileUtils.cleanOutputDir(getCoverageDirectory().get().asFile)\n\n        val additionalTestOutputDir = if (getAdditionalTestOutputEnabled().get()) {\n            getAdditionalTestOutputDir().get().also {\n                FileUtils.cleanOutputDir(it.asFile)\n            }\n        } else {\n            null\n        }\n\n        workerExecutor.noIsolation().submit(ManagedDeviceTestRunnable::class.java) { params ->\n            val testRunTaskAction = objectFactory.newInstance(testAction.get())\n                as DeviceTestRunTaskAction<DeviceTestRunInput>\n\n            params.initializeWith(projectPath, path, analyticsService)\n   "
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/tasks/ManagedDeviceTestTask.kt",
+      "needle": "ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT",
+      "excerpt": "ion(coverageOutputDir.absolutePath)\n                .on(InternalArtifactType.MANAGED_DEVICE_CODE_COVERAGE)\n\n            val isAdditionalAndroidTestOutputEnabled = creationConfig\n                .services\n                .projectOptions[BooleanOption.ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT]\n            if (isAdditionalAndroidTestOutputEnabled) {\n                creationConfig\n                    .artifacts\n                    .setInitialProvider(\n                        taskProvider,\n                        ManagedDeviceTestTask::getAdditionalTestOutputDir)\n                    .atLocation(additionalTestOutputDir.absolutePath)\n                    .on(InternalArtifactType.MANAGED_DEVICE_ANDROID_TEST_ADDITIONAL_OUTPUT)\n            }\n        }\n\n        override fun configure(task: ManagedDeviceTe"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.java",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "           dependencies);\n    }\n\n    static void run(\n            DeviceProviderFactory deviceProviderFactory,\n            Set<File> buddyApkFiles,\n            File resultsOutputDir,\n            Boolean useAdditionalTargetOutputDir,\n            File additionalTestOutputDirFiles,\n            File coverageDir,\n            TestRunnerFactory testRunnerFactory,\n            File reportDir,\n            Boolean enableCoverage,\n            AnalyticsService analyticsService,\n            boolean ignoreFailures,\n            Logger logger,\n            TestData testData,\n            List<String> targetSerials,\n            String projectPath,\n            List<String> installOptions,\n            boolean testsFound,\n            WorkerExecutor workerExecutor,\n            Set<File> privacySandboxSdkApkFiles,"
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.java",
+      "needle": "ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT",
+      "excerpt": "(taskProvider);\n\n            boolean isAdditionalAndroidTestOutputEnabled =\n                    creationConfig\n                            .getServices()\n                            .getProjectOptions()\n                            .get(BooleanOption.ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT);\n\n            if (type == Type.INTERNAL_CONNECTED_DEVICE_PROVIDER) {\n                if (isAdditionalAndroidTestOutputEnabled) {\n                    creationConfig\n                            .getArtifacts()\n                            .setInitialProvider(\n                                    taskProvider,\n                                    DeviceProviderInstrumentTestTask::getAdditionalTestOutputDir)\n                            .withName(deviceProviderName)\n                            .on(\n               "
+    },
+    {
+      "source_entry": "com/android/build/gradle/internal/TaskManager.kt",
+      "needle": "additionalTestOutputDir",
+      "excerpt": "        val resultsDir =\n            File(resultsRootDir, \"${BuilderConstants.MANAGED_DEVICE}/$buildTarget/$flavorDir\")\n        val reportDir =\n            File(reportRootDir, \"${BuilderConstants.MANAGED_DEVICE}/$buildTarget/$flavorDir\")\n        val additionalTestOutputDir = File(additionalOutputRootDir, \"$buildTarget/$flavorDir\")\n        val coverageOutputDir = File(coverageOutputRootDir, \"$buildTarget/$flavorDir\")\n\n        val deviceToProvider = mutableMapOf<String, TaskProvider<out Task>>()\n\n        for (managedDevice in managedDevices) {\n            val registration = globalConfig.managedDeviceRegistry.get(managedDevice.javaClass)\n\n            val deviceResults = File(resultsDir, managedDevice.name)\n            val deviceReports = File(reportDir, managedDevice.name)\n            val dev"
+    },
+    {
+      "source_entry": "com/android/build/gradle/options/BooleanOption.kt",
+      "needle": "ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT",
+      "excerpt": "NG(\"android.experimental.testOptions.managedDevices.includeInMergedReport\", false, FeatureStage.Experimental),\n\n    /** When set R classes are treated as compilation classpath in libraries, rather than runtime classpath, with values set to 0. */\n    ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT(\"android.enableAdditionalTestOutput\", true, FeatureStage.Experimental),\n\n    ENABLE_APP_COMPILE_TIME_R_CLASS(\n        \"android.enableAppCompileTimeRClass\",\n        false,\n        FeatureStage.Experimental,\n        FutureStage(\n            true,\n            FeatureStage.SoftlyEnforced(VERSION_10_0),\n            AgpVersion.parse(\"9.0.0\")\n        )\n    ),\n    ENABLE_EXTRACT_ANNOTATIONS(\"android.enableExtractAnnotations\", true, FeatureStage.Experimental),\n\n    // Marked as stable to avoid reporting deprecation "
+    },
+    {
+      "source_entry": "com/android/build/gradle/options/BooleanOption.kt",
+      "needle": "enableAdditionalTestOutput",
+      "excerpt": "ices.includeInMergedReport\", false, FeatureStage.Experimental),\n\n    /** When set R classes are treated as compilation classpath in libraries, rather than runtime classpath, with values set to 0. */\n    ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT(\"android.enableAdditionalTestOutput\", true, FeatureStage.Experimental),\n\n    ENABLE_APP_COMPILE_TIME_R_CLASS(\n        \"android.enableAppCompileTimeRClass\",\n        false,\n        FeatureStage.Experimental,\n        FutureStage(\n            true,\n            FeatureStage.SoftlyEnforced(VERSION_10_0),\n            AgpVersion.parse(\"9.0.0\")\n        )\n    ),\n    ENABLE_EXTRACT_ANNOTATIONS(\"android.enableExtractAnnotations\", true, FeatureStage.Experimental),\n\n    // Marked as stable to avoid reporting deprecation twice.\n    CONVERT_NON_NAMESPACED_DEPENDENCIES("
+    }
+  ]
+}

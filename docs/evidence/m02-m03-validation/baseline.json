@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-10-04T00:30:01.429644+00:00",
+  "baseline_commit": "c5d04b2301d08bc25c791f91e68a802a4309212b",
+  "initial_working_tree_observed": "clean before source owners began changes",
+  "baseline_application_version": "0.1.0 (versionCode1)",
+  "baseline_db_schema_version": 1,
+  "baseline_schema_sha256": "b8dec17c6478c78fb6e77484643a7fbf29f903afa88cf1cfe458fd8ef17b3700",
+  "previous_verified_code_commit": "3f04b8ba53d23846a454ee744c5e1fc33bea45e3",
+  "previous_verified_ci_run": 37164061596,
+  "previous_verified_device_run": 37164061580,
+  "baseline_tests_reexecuted_in_this_phase": false,
+  "planned_scope": "M02 managed TXT import and M03 reader/progress/continue vertical slice; M01 encoding probe only; no Readium or EPUB module",
+  "toolchain_env": "/workspace/toolchains/mobile-env.sh",
+  "network_policy": "unrestricted/enforced; inherited proxy/TLS preserved",
+  "planned_verification": [
+    {
+      "level": "shared-jvm-real-db",
+      "scope": "M00 regressions, schema1->2 migration data preservation, import journal/recovery, progress session/revision safety"
+    },
+    {
+      "level": "android-unit",
+      "scope": "M00 UI state regressions, import cancellation/limits, strict encoding and bounded streaming normalization, reader state contracts"
+    },
+    {
+      "level": "android-instrumentation",
+      "scope": "M00 five required cases, actual DocumentsProvider/SAF, external VIEW/SEND, TXT reader/continue/canonical position, Android charset probes"
+    },
+    {
+      "level": "host-driven-process",
+      "scope": "External adb force-stop and relaunch; cold library first, continue restores last committed locator; activity recreate does not substitute"
+    },
+    {
+      "level": "physical-device-performance",
+      "scope": "NOT_RUN unless physical device becomes available; emulator correctness does not establish physical performance"
+    }
+  ]
+}

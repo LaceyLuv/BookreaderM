@@ -1,0 +1,321 @@
+{
+  "source_commit": "2be610af8b7f4030ba4e0fa5b0833bbbf0d84aaf",
+  "run_id": 37879616383,
+  "artifact_id": 11593602844,
+  "archive_sha256": "889c25b6517c0ea7c82f7717a90df092c560bf34f70780642cb0990b1f2a639a",
+  "archive_size_bytes": 884803,
+  "workflow_conclusion": "success",
+  "actual_native_connected": {
+    "tests": 25,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "cases": [
+    {
+      "classname": "org.bookreader.mobile.database.AndroidDatabaseOwnerTest",
+      "method": "concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidBomAndBoundaryNormalizationAreCanonical",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidStrictDecodeRejectsLateIncompleteCharacters",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidCp949ExtensionFixtureIsDistinctFromEucKr",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "systemDocumentsPickerSelectsTxtFromRealProvider",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "managedPromotionRefusesExistingTargetAndRenamesPrivateStaging",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "assetSegmentImportHonorsOffsetAndDeclaredLength",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "ownUidProviderIsRejectedBeforeAnyQuery",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "unknownSizeSourceEnforcesActualStreamingByteLimit",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "stalledProviderCopyCancelsAndRemovesPrivateStaging",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "manualEncodingUsesStagingAfterSourceGrantIsRevoked",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "externalViewReceivesTemporaryGrantAndOpensActualReader",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "emptyTxtReportsNoContentWithoutCreatingReadingProgress",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderBoundaryTest",
+      "method": "eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "method": "missingManagedCopyShowsRetryAndPreservesCommittedProgress",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "method": "measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "invalidStoredThemeReportsErrorAndPreservesOriginal",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "selectedThemePersistsAcrossStoreInstances",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "loadingEmptyAndErrorAreDistinctAndErrorHasRetry",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "threeTabsMetadataSearchAndThemeSelectionWork",
+      "status": "PASS"
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.MainActivityLaunchTest",
+      "method": "launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab",
+      "status": "PASS"
+    }
+  ],
+  "host": {
+    "status": "PASS",
+    "old_pid": "5624",
+    "cold_launcher_pid": "5671",
+    "claim": "durably acknowledged TXT anchor survives external force-stop; cold library Continue restores it",
+    "limitation": "verification instrumentation may start another target process; this does not prove uncommitted scroll durability",
+    "commands": [
+      {
+        "label": "prepareDurableReader",
+        "argv": [
+          "adb",
+          "shell",
+          "am",
+          "instrument",
+          "-w",
+          "-r",
+          "-e",
+          "class",
+          "org.bookreader.mobile.reader.TxtReaderHostProcessTest#prepareDurableReader",
+          "-e",
+          "captureFixtureScreenshots",
+          "true",
+          "-e",
+          "additionalTestOutputDir",
+          "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence",
+          "org.bookreader.mobile.test/androidx.test.runner.AndroidJUnitRunner"
+        ],
+        "exit_code": 0
+      },
+      {
+        "label": "committed-fixture-proof",
+        "argv": [
+          "adb",
+          "shell",
+          "run-as",
+          "org.bookreader.mobile",
+          "cat",
+          "files/txt-host-committed.properties"
+        ],
+        "exit_code": 0
+      },
+      {
+        "label": "live-launch-before-stop",
+        "argv": [
+          "adb",
+          "shell",
+          "am",
+          "start",
+          "-W",
+          "-n",
+          "org.bookreader.mobile/.MainActivity"
+        ],
+        "exit_code": 0
+      },
+      {
+        "label": "live-pid-before-stop",
+        "argv": [
+          "adb",
+          "shell",
+          "pidof",
+          "org.bookreader.mobile"
+        ],
+        "exit_code": 0
+      },
+      {
+        "label": "external-force-stop",
+        "argv": [
+          "adb",
+          "shell",
+          "am",
+          "force-stop",
+          "org.bookreader.mobile"
+        ],
+        "exit_code": 0
+      },
+      {
+        "label": "pid-after-force-stop",
+        "argv": [
+          "adb",
+          "shell",
+          "sh",
+          "-c",
+          "'if pidof org.bookreader.mobile; then exit 1; else echo absent; fi'"
+        ],
+        "exit_code": 0
+      },
+      {
+        "label": "cold-launch",
+        "argv": [
+          "adb",
+          "shell",
+          "am",
+          "start",
+          "-W",
+          "-n",
+          "org.bookreader.mobile/.MainActivity"
+        ],
+        "exit_code": 0
+      },
+      {
+        "label": "cold-pid",
+        "argv": [
+          "adb",
+          "shell",
+          "pidof",
+          "org.bookreader.mobile"
+        ],
+        "exit_code": 0
+      },
+      {
+        "label": "verifyColdLibraryContinue",
+        "argv": [
+          "adb",
+          "shell",
+          "am",
+          "instrument",
+          "-w",
+          "-r",
+          "-e",
+          "class",
+          "org.bookreader.mobile.reader.TxtReaderHostProcessTest#verifyColdLibraryContinue",
+          "-e",
+          "captureFixtureScreenshots",
+          "true",
+          "-e",
+          "additionalTestOutputDir",
+          "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence",
+          "org.bookreader.mobile.test/androidx.test.runner.AndroidJUnitRunner"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "cases": [
+      [
+        "org.bookreader.mobile.reader.TxtReaderHostProcessTest",
+        "prepareDurableReader"
+      ],
+      [
+        "org.bookreader.mobile.reader.TxtReaderHostProcessTest",
+        "verifyColdLibraryContinue"
+      ]
+    ]
+  },
+  "host_manifest_exit_code": 0,
+  "fixture_screenshots": {
+    "m02-library.png": {
+      "sha256": "648d63254574c0fc99ebbcea0ccc5bb4e0e38e0077786209465f47d1df820c43",
+      "size_bytes": 49824,
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG",
+      "decode_validation": "PASS"
+    },
+    "m03-reader.png": {
+      "sha256": "3e8177ec3c4f0b1d7ae010e96967642952b5b09f5c5b7517f3225b196d5beaf3",
+      "size_bytes": 38285,
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG",
+      "decode_validation": "PASS"
+    },
+    "txt-reader-generated-scroll.png": {
+      "sha256": "e4946df40b2a4caddb983516e169c4daff8bb6fcf535ebf14d1b43ab3348aa76",
+      "size_bytes": 296841,
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG",
+      "decode_validation": "PASS"
+    },
+    "txt-reader-generated-host.png": {
+      "sha256": "4709c0ce7b1e6726c2078ee9f937add44e93d91f7fb6fd0d467300ecc048876f",
+      "size_bytes": 293199,
+      "width": 1080,
+      "height": 1920,
+      "format": "PNG",
+      "decode_validation": "PASS"
+    }
+  },
+  "status": "PASS",
+  "independent_host_raw_stage_verification": "PASS both exact instrumentation identities start/pass/finish"
+}

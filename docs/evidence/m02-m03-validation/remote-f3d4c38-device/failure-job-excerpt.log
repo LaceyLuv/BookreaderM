@@ -1,0 +1,189 @@
+2026-10-04T01:56:53.2919303Z 
+2026-10-04T01:56:53.3162799Z ##[group]Run test -c /dev/kvm
+2026-10-04T01:56:53.3163186Z [36;1mtest -c /dev/kvm[0m
+2026-10-04T01:56:53.3163733Z [36;1mecho 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules[0m
+2026-10-04T01:56:53.3164309Z [36;1msudo udevadm control --reload-rules[0m
+2026-10-04T01:56:53.3164639Z [36;1msudo udevadm trigger --name-match=kvm[0m
+2026-10-04T01:56:53.3164952Z [36;1msudo udevadm settle --timeout=30[0m
+2026-10-04T01:56:53.3165226Z [36;1mid[0m
+2026-10-04T01:56:53.3165432Z [36;1mls -l /dev/kvm[0m
+2026-10-04T01:56:53.3162799Z ##[group]Run test -c /dev/kvm
+2026-10-04T01:56:53.3163186Z [36;1mtest -c /dev/kvm[0m
+2026-10-04T01:56:53.3163733Z [36;1mecho 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules[0m
+2026-10-04T01:56:53.3164309Z [36;1msudo udevadm control --reload-rules[0m
+2026-10-04T01:56:53.3164639Z [36;1msudo udevadm trigger --name-match=kvm[0m
+2026-10-04T01:56:53.3164952Z [36;1msudo udevadm settle --timeout=30[0m
+2026-10-04T01:56:53.3165226Z [36;1mid[0m
+2026-10-04T01:56:53.3165432Z [36;1mls -l /dev/kvm[0m
+2026-10-04T01:56:53.3165711Z [36;1mtest -r /dev/kvm && test -w /dev/kvm[0m
+2026-10-04T01:56:53.3395927Z KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"
+2026-10-04T01:56:53.3856839Z uid=1001(runner) gid=1001(runner) groups=1001(runner),4(adm),100(users),118(docker),999(systemd-journal)
+2026-10-04T01:56:53.3872849Z crw-rw-rw- 1 root kvm 10, 232 Oct  4 01:56 /dev/kvm
+2026-10-04T01:56:53.3954703Z ##[group]Run reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed
+2026-10-04T01:56:53.3955218Z with:
+2026-10-04T01:56:53.3955428Z   api-level: 36
+2026-10-04T01:56:53.3955646Z   target: google_apis
+2026-10-04T01:56:53.3955867Z   arch: x86_64
+2026-10-04T01:56:53.3956072Z   profile: pixel_2
+2026-10-04T01:56:53.3856839Z uid=1001(runner) gid=1001(runner) groups=1001(runner),4(adm),100(users),118(docker),999(systemd-journal)
+2026-10-04T01:56:53.3872849Z crw-rw-rw- 1 root kvm 10, 232 Oct  4 01:56 /dev/kvm
+2026-10-04T01:56:53.3954703Z ##[group]Run reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed
+2026-10-04T01:56:53.3955218Z with:
+2026-10-04T01:56:53.3955428Z   api-level: 36
+2026-10-04T01:56:53.3955646Z   target: google_apis
+2026-10-04T01:56:53.3955867Z   arch: x86_64
+2026-10-04T01:56:53.3956072Z   profile: pixel_2
+2026-10-04T01:56:53.3956285Z   ram-size: 2048M
+2026-10-04T02:03:41.0681533Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:03:41.0693240Z Starting 23 tests on emulator-5554 - 16
+2026-10-04T02:03:51.0682195Z 
+2026-10-04T02:03:51.0711534Z emulator-5554 - 16 Tests 3/23 completed. (0 skipped) (0 failed)
+2026-10-04T02:04:07.4664198Z 
+2026-10-04T02:04:07.4738503Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:04:07.4760745Z 
+2026-10-04T02:04:07.4793321Z org.bookreader.mobile.importing.ManagedImportAndroidTest > systemDocumentsPickerSelectsTxtFromRealProvider[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:04:07.4821417Z 	androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+2026-10-04T02:04:07.4760745Z 
+2026-10-04T02:04:07.4793321Z org.bookreader.mobile.importing.ManagedImportAndroidTest > systemDocumentsPickerSelectsTxtFromRealProvider[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:04:07.4821417Z 	androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+2026-10-04T02:04:07.4851363Z 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+2026-10-04T02:04:11.0650090Z 
+2026-10-04T02:04:11.0651140Z emulator-5554 - 16 Tests 4/23 completed. (0 skipped) (1 failed)
+2026-10-04T02:04:29.9661380Z 
+2026-10-04T02:04:29.9672072Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:04:29.9672806Z 
+2026-10-04T02:04:29.9672806Z 
+2026-10-04T02:04:29.9692010Z org.bookreader.mobile.importing.ManagedImportAndroidTest > assetSegmentImportHonorsOffsetAndDeclaredLength[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:04:29.9694493Z 	androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+2026-10-04T02:04:29.9696788Z 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+2026-10-04T02:04:31.0687182Z 
+2026-10-04T02:04:31.0711305Z emulator-5554 - 16 Tests 5/23 completed. (0 skipped) (2 failed)
+2026-10-04T02:04:41.0650661Z emulator-5554 - 16 Tests 6/23 completed. (0 skipped) (2 failed)
+2026-10-04T02:04:53.1661622Z 
+2026-10-04T02:04:53.1686991Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:04:53.1741056Z 
+2026-10-04T02:04:53.1803410Z org.bookreader.mobile.importing.ManagedImportAndroidTest > unknownSizeSourceEnforcesActualStreamingByteLimit[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:04:53.1861515Z 	androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+2026-10-04T02:04:53.1892839Z 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+2026-10-04T02:05:01.0650008Z 
+2026-10-04T02:05:01.0653116Z emulator-5554 - 16 Tests 7/23 completed. (0 skipped) (3 failed)
+2026-10-04T02:05:14.8680776Z 
+2026-10-04T02:05:14.8703449Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:05:14.8750567Z 
+2026-10-04T02:05:14.8750567Z 
+2026-10-04T02:05:14.8752668Z org.bookreader.mobile.importing.ManagedImportAndroidTest > safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:05:14.8755384Z 	androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+2026-10-04T02:05:14.8757187Z 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+2026-10-04T02:05:21.0650530Z 
+2026-10-04T02:05:21.0651435Z emulator-5554 - 16 Tests 8/23 completed. (0 skipped) (4 failed)
+2026-10-04T02:07:06.4686689Z 
+2026-10-04T02:07:06.4707854Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:07:06.4708697Z 
+2026-10-04T02:07:06.4708697Z 
+2026-10-04T02:07:06.4710995Z org.bookreader.mobile.importing.ManagedImportAndroidTest > externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:07:06.4713696Z 	java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+2026-10-04T02:07:06.4715698Z 	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+2026-10-04T02:07:11.0649835Z 
+2026-10-04T02:07:11.0650929Z emulator-5554 - 16 Tests 10/23 completed. (0 skipped) (5 failed)
+2026-10-04T02:08:39.6713229Z 
+2026-10-04T02:08:39.6743060Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:08:39.6770564Z 
+2026-10-04T02:08:39.6770564Z 
+2026-10-04T02:08:39.6795972Z org.bookreader.mobile.importing.ManagedImportAndroidTest > ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:08:39.6821631Z 	java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+2026-10-04T02:08:39.6842542Z 	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+2026-10-04T02:08:41.0688482Z 
+2026-10-04T02:08:41.0721537Z emulator-5554 - 16 Tests 11/23 completed. (0 skipped) (6 failed)
+2026-10-04T02:09:01.7688497Z 
+2026-10-04T02:09:01.7713263Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:09:01.7739440Z 
+2026-10-04T02:09:01.7739440Z 
+2026-10-04T02:09:01.7763141Z org.bookreader.mobile.importing.ManagedImportAndroidTest > manualEncodingUsesStagingAfterSourceGrantIsRevoked[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:09:01.7782687Z 	androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+2026-10-04T02:09:01.7797397Z 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+2026-10-04T02:09:11.0649786Z 
+2026-10-04T02:09:11.0652778Z emulator-5554 - 16 Tests 12/23 completed. (0 skipped) (7 failed)
+2026-10-04T02:10:52.9680719Z 
+2026-10-04T02:10:52.9761547Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:10:52.9781801Z 
+2026-10-04T02:10:52.9781801Z 
+2026-10-04T02:10:52.9792649Z org.bookreader.mobile.importing.ManagedImportAndroidTest > externalViewReceivesTemporaryGrantAndOpensActualReader[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:10:52.9821523Z 	java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+2026-10-04T02:10:52.9842432Z 	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+2026-10-04T02:11:01.0650858Z 
+2026-10-04T02:11:01.0651796Z emulator-5554 - 16 Tests 14/23 completed. (0 skipped) (8 failed)
+2026-10-04T02:11:16.8700798Z 
+2026-10-04T02:11:16.8752536Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:11:16.8763742Z 
+2026-10-04T02:11:16.8763742Z 
+2026-10-04T02:11:16.8813159Z org.bookreader.mobile.importing.ManagedImportAndroidTest > emptyTxtReportsNoContentWithoutCreatingReadingProgress[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:11:16.8841174Z 	androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+2026-10-04T02:11:16.8861559Z 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+2026-10-04T02:11:21.0653003Z 
+2026-10-04T02:11:21.0653885Z emulator-5554 - 16 Tests 16/23 completed. (0 skipped) (9 failed)
+2026-10-04T02:13:19.5696421Z 
+2026-10-04T02:13:19.5723819Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:13:19.5750839Z 
+2026-10-04T02:13:19.5750839Z 
+2026-10-04T02:13:19.5779971Z org.bookreader.mobile.reader.TxtReaderFlowTest > missingManagedCopyShowsRetryAndPreservesCommittedProgress[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:13:19.5782691Z 	java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+2026-10-04T02:13:19.5784418Z 	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+2026-10-04T02:13:21.0650926Z 
+2026-10-04T02:13:21.0651826Z emulator-5554 - 16 Tests 17/23 completed. (0 skipped) (10 failed)
+2026-10-04T02:15:20.3680400Z 
+2026-10-04T02:15:20.3731235Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:15:20.3761864Z 
+2026-10-04T02:15:20.3761864Z 
+2026-10-04T02:15:20.3822968Z org.bookreader.mobile.reader.TxtReaderFlowTest > measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:15:20.3825553Z 	java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+2026-10-04T02:15:20.3902043Z 	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+2026-10-04T02:15:21.0649852Z 
+2026-10-04T02:15:21.0681572Z emulator-5554 - 16 Tests 20/23 completed. (0 skipped) (11 failed)
+2026-10-04T02:15:29.9652865Z Finished 23 tests on emulator-5554 - 16
+2026-10-04T02:15:29.9661395Z 
+2026-10-04T02:15:29.9663444Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:15:21.0681572Z emulator-5554 - 16 Tests 20/23 completed. (0 skipped) (11 failed)
+2026-10-04T02:15:29.9652865Z Finished 23 tests on emulator-5554 - 16
+2026-10-04T02:15:29.9661395Z 
+2026-10-04T02:15:29.9663444Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:15:29.9693200Z Tests on emulator-5554 - 16 failed: There was 11 failure(s).
+2026-10-04T02:15:30.7726059Z 
+2026-10-04T02:15:30.7734373Z > Task :androidApp:connectedDebugAndroidTest FAILED
+2026-10-04T02:15:30.7755180Z 
+2026-10-04T02:15:30.7757454Z FAILURE: Build failed with an exception.
+2026-10-04T02:15:29.9663444Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:15:29.9693200Z Tests on emulator-5554 - 16 failed: There was 11 failure(s).
+2026-10-04T02:15:30.7726059Z 
+2026-10-04T02:15:30.7734373Z > Task :androidApp:connectedDebugAndroidTest FAILED
+2026-10-04T02:15:30.7755180Z 
+2026-10-04T02:15:30.7757454Z FAILURE: Build failed with an exception.
+2026-10-04T02:15:30.7757885Z 
+2026-10-04T02:15:30.7768564Z * What went wrong:
+2026-10-04T02:15:30.7770453Z Execution failed for task ':androidApp:connectedDebugAndroidTest'.
+2026-10-04T02:15:30.7726059Z 
+2026-10-04T02:15:30.7734373Z > Task :androidApp:connectedDebugAndroidTest FAILED
+2026-10-04T02:15:30.7755180Z 
+2026-10-04T02:15:30.7757454Z FAILURE: Build failed with an exception.
+2026-10-04T02:15:30.7757885Z 
+2026-10-04T02:15:30.7768564Z * What went wrong:
+2026-10-04T02:15:30.7770453Z Execution failed for task ':androidApp:connectedDebugAndroidTest'.
+2026-10-04T02:15:30.7772329Z > There were failing tests. See the report at: file:///home/runner/work/BookreaderM/BookreaderM/androidApp/build/reports/androidTests/connected/debug/index.html
+2026-10-04T02:15:30.7773469Z 
+2026-10-04T02:15:30.7755180Z 
+2026-10-04T02:15:30.7757454Z FAILURE: Build failed with an exception.
+2026-10-04T02:15:30.7757885Z 
+2026-10-04T02:15:30.7768564Z * What went wrong:
+2026-10-04T02:15:30.7770453Z Execution failed for task ':androidApp:connectedDebugAndroidTest'.
+2026-10-04T02:15:30.7772329Z > There were failing tests. See the report at: file:///home/runner/work/BookreaderM/BookreaderM/androidApp/build/reports/androidTests/connected/debug/index.html
+2026-10-04T02:15:30.7773469Z 
+2026-10-04T02:15:30.7773713Z * Try:
+2026-10-04T02:15:30.7774405Z > Run with --info or --debug option to get more log output.
+2026-10-04T02:15:30.8130374Z 
+2026-10-04T02:15:30.8130600Z BUILD FAILED in 14m 49s
+2026-10-04T02:15:30.8131081Z 85 actionable tasks: 85 executed
+2026-10-04T02:15:31.2432083Z FAIL connected-tests command_exit=1 log_exit=0
+2026-10-04T02:15:31.2467897Z ##[error]The process '/usr/bin/sh' failed with exit code 1
+2026-10-04T02:15:31.2478555Z ##[group]Terminate Emulator
+2026-10-04T02:15:31.2483960Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 emu kill
+2026-10-04T02:15:31.2518966Z OK: killing emulator, bye bye
+2026-10-04T02:15:31.2519685Z OK

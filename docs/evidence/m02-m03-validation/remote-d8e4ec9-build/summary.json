@@ -1,0 +1,54 @@
+{
+  "source_commit": "d8e4ec9cc048491bbefddc2695bd90abc7b3a04d",
+  "run_id": 37168536585,
+  "artifact_id": 11290667893,
+  "status": "PASS",
+  "archive_sha256": "18f3f2dc35b0ae02baff140e0bbbc08a38ac2834081c66ea9566a64d2c25a464",
+  "archive_size_bytes": 15122925,
+  "tests": {
+    "android-unit": {
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "mandatory": 37
+    },
+    "shared-jvm": {
+      "tests": 43,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "mandatory": 43
+    }
+  },
+  "apks": {
+    "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk": {
+      "path_outside_git": "/workspace/bookreader-remote-m02-m03/d8e4ec9-build/androidApp-debug-androidTest.apk",
+      "sha256": "66d3d9a3d2cb0f03b3f5e3337f931951d9487fc8427bd0f10713b76aa2091fc3",
+      "size_bytes": 1139079,
+      "signature_verify_exit_code": 0,
+      "public_certificate_output": "Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts\nSigner #1 certificate DN: C=US, O=Android, CN=Android Debug\nSigner #1 certificate SHA-256 digest: e641dd00ce7b1c9a822c919ab7d7aefcb94512645e670e3605a54ed2412868b6\nSigner #1 certificate SHA-1 digest: b41afe48221d78d250f23a1cc6a5443478bfb369\nSigner #1 certificate MD5 digest: 16ab3aa00063b30f4eda9caf1748d3fa\n"
+    },
+    "androidApp/build/outputs/apk/debug/androidApp-debug.apk": {
+      "path_outside_git": "/workspace/bookreader-remote-m02-m03/d8e4ec9-build/androidApp-debug.apk",
+      "sha256": "daa9c45796206d973d15cd09d0b973b8a3f1f5bcb649ff64ee878252938bd351",
+      "size_bytes": 16859656,
+      "signature_verify_exit_code": 0,
+      "public_certificate_output": "Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts\nSigner #1 certificate DN: C=US, O=Android, CN=Android Debug\nSigner #1 certificate SHA-256 digest: e641dd00ce7b1c9a822c919ab7d7aefcb94512645e670e3605a54ed2412868b6\nSigner #1 certificate SHA-1 digest: b41afe48221d78d250f23a1cc6a5443478bfb369\nSigner #1 certificate MD5 digest: 16ab3aa00063b30f4eda9caf1748d3fa\n"
+    }
+  },
+  "schemas": {
+    "shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/1.json": {
+      "sha256": "b8dec17c6478c78fb6e77484643a7fbf29f903afa88cf1cfe458fd8ef17b3700",
+      "matches_local_export": true
+    },
+    "shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/2.json": {
+      "sha256": "c9b1cd2e69cea3c433cb6cb4994ae9430e1d0b6c2129df55255b4b03772094d7",
+      "matches_local_export": true
+    }
+  },
+  "verification_manifest": "immutable same-source git d8e4ec9:scripts/required-tests.json",
+  "lint": {
+    "Hint": 20
+  }
+}

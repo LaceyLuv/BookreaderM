@@ -1,0 +1,168 @@
+{
+  "source_commit": "3ce33868503bac2dd0ecd3829a7bf1a77d562f90",
+  "app_source_commit": "cfe17f0b9d2efbc39d6817c5e9b1470539587e09",
+  "run_id": 37172491508,
+  "job_id": 111348135908,
+  "artifact_id": 11291478443,
+  "status": "FAIL",
+  "archive_sha256": "9b60b25356e89c7e13a42aa9d76bb0f07d2c5986c24b28a0fdd455b1960a298e",
+  "archive_size_bytes": 234524,
+  "cases": [
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidBomAndBoundaryNormalizationAreCanonical",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidStrictDecodeRejectsLateIncompleteCharacters",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidCp949ExtensionFixtureIsDistinctFromEucKr",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "systemDocumentsPickerSelectsTxtFromRealProvider",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "managedPromotionRefusesExistingTargetAndRenamesPrivateStaging",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "assetSegmentImportHonorsOffsetAndDeclaredLength",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "ownUidProviderIsRejectedBeforeAnyQuery",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "unknownSizeSourceEnforcesActualStreamingByteLimit",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "stalledProviderCopyCancelsAndRemovesPrivateStaging",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "manualEncodingUsesStagingAfterSourceGrantIsRevoked",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "externalViewReceivesTemporaryGrantAndOpensActualReader",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "java.lang.AssertionError: Expected reader_ready; lifecycle=RESUMED, import=Idle, errorCode=null, phase=null, library=Content, readerPhase=ERROR\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:316)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.externalViewReceivesTemporaryGrantAndOpensActualReader(ManagedImportAndroidTest.kt:137)\n... 67 trimmed\nCaused by: java.lang.AssertionError: Expected reader_ready but reader entered ERROR\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor$lambda$0(ManagedImportAndroidTest.kt:307)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.$r8$lambda$FxvZaCO2n73__mn-rGNC8odSHsY(Unknown Source:0)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:747)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:298)\n... 69 more\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "emptyTxtReportsNoContentWithoutCreatingReadingProgress",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderBoundaryTest",
+      "method": "eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "method": "missingManagedCopyShowsRetryAndPreservesCommittedProgress",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "method": "measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "invalidStoredThemeReportsErrorAndPreservesOriginal",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "selectedThemePersistsAcrossStoreInstances",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "loadingEmptyAndErrorAreDistinctAndErrorHasRetry",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "threeTabsMetadataSearchAndThemeSelectionWork",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.MainActivityLaunchTest",
+      "method": "launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab",
+      "status": "PASS",
+      "failure": null
+    }
+  ],
+  "host": "NOT_RUN ordinary mandatory gate failed",
+  "fixture_screenshots": "NOT_COLLECTED script did not reach final mandatory pull",
+  "actual_native_connected": {
+    "tests": 24,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "diagnosis": "Both reader measured scroll/cache-loss/Continue/recreation and missing-source flows PASS. Sole external VIEW opening fails immediately with readerPhase ERROR before first reader_ready, import Idle and library Content; underlying reader failure not emitted by current phase-only diagnostics."
+}

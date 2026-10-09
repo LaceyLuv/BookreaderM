@@ -1,0 +1,15 @@
+{
+  "url": "https://manpages.ubuntu.com/manpages/noble/man8/udevadm.8.html",
+  "sha256": "0c82cc2c719b5cf0a9577739f889c061c4504cbd56d805df6bdc2c0d58b7f494",
+  "http_status": 200,
+  "platform": "Ubuntu noble 24.04",
+  "excerpts": [
+    "ORT{parent}\" keys, see udev (7) for more details), the final state of the device becomes easily unstable with this option. Added in version 251. -w , --settle Apart from triggering events, also waits for those events to finish. Note that this is different from calling udevadm settle . udevadm settle waits for all events to finish. This option only waits for events triggered by the same command to finish. Added in version 238. --uuid Trigger the synthetic device events, and associate a randomized UUID with each. These UUIDs are printed to standard output, one line for each event. These UUIDs are included in the uevent environment block (in the \"SYNTH_UUID=\" property) and may be used to track delivery of the generated events. Added in version",
+    "command wait for devices being removed instead of created or initialized. If this is specified, --initialized= will be ignored. Added in version 251. --settle When specified, also watches the udev event queue, and wait for all queued events being processed by systemd-udevd . Added in version 251. -h , --help Print a short help text and exit. udevadm lock [ options ] [ command ] ... udevadm lock takes an (advisory) exclusive lock on a block device (or all specified devices), as per Locking Block Device Access [1] and invokes a program with the locks taken. When the invoked program exits the locks are automatically released and its return value is propagated as exit code of udevadm lock . This tool is in particular useful to ensure that syste",
+    "l positional arguments can be used to specify device names or sys paths. They must start with /dev/ or /sys/ respectively. udevadm settle [ options ] Watches the udev event queue, and exits if all current events are handled. -t , --timeout= SECONDS Maximum number of seconds to wait for the event queue to become empty. The default value is 120 seconds. A value of 0 will check if the queue is empty and always return immediately. A non-zero value will return an exit code of 0 if queue became empty before timeout was reached, non-zero otherwise. -E , --exit-if-exists= FILE Stop waiting if file exists. -h , --help Print a short help text and exit. See systemd-udev-settle.service (8) for more information. udevadm control option Modify the interna"
+  ],
+  "implemented_command": "sudo udevadm settle --timeout=30",
+  "workflow_yaml_parse": "PASS",
+  "step_bash_syntax_exit_code": 0,
+  "interpretation": "Two pre-emulator KVM permission failures are BLOCKED_ENV. Asynchronous udev race remains a hypothesis until corrected setup executes; mandatory read/write and acceleration checks retained."
+}

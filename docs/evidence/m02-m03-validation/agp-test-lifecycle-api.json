@@ -1,0 +1,112 @@
+{
+  "official_source_url": "https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/8.11.1/gradle-8.11.1-sources.jar",
+  "artifact_sha256": "65bc5d04cc52655664894e196f274da781091602a219126b67fd13bd2621ddd6",
+  "note": "Official pinned AGP source proves default post-test uninstall; keep-installed is stable API and required for separate host stages/data preservation",
+  "excerpts": [
+    {
+      "file": "com/android/build/gradle/options/BooleanOption.kt",
+      "first_line": 120,
+      "lines": [
+        "    NON_TRANSITIVE_R_CLASS(\"android.nonTransitiveRClass\", true, ApiStage.Stable),",
+        "",
+        "    /**",
+        "     * Setting this field to false indicates that in the current",
+        "     * project, all the APKs installed during test will be uninstalled",
+        "     * after test finishes. Setting it to true means that the AGP",
+        "     * will leave the test APKs untouched after test.",
+        "     *",
+        "     * Default is false",
+        "     */",
+        "    ANDROID_TEST_LEAVE_APKS_INSTALLED_AFTER_RUN(\"android.injected.androidTest.leaveApksInstalledAfterRun\", false, ApiStage.Stable),",
+        "",
+        "    /**",
+        "     * When this option is enabled, dexing transforms will use the full classpath (if desugaring",
+        "     * requires a classpath). This classpath consists of all external artifacts",
+        "     * ([com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope.EXTERNAL])",
+        "     * in addition to the input artifact's dependencies provided by Gradle through",
+        "     * [org.gradle.api.artifacts.transform.InputArtifactDependencies]."
+      ]
+    },
+    {
+      "file": "com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.java",
+      "first_line": 236,
+      "lines": [
+        "                    utpTestResultListener,",
+        "                    utpLoggingLevel(),",
+        "                    getInstallApkTimeout().getOrNull(),",
+        "                    getTargetIsSplitApk().getOrElse(false),",
+        "                    !getKeepInstalledApks().get(),",
+        "                    utpRunProfileManager);",
+        "        }",
+        ""
+      ]
+    },
+    {
+      "file": "com/android/build/gradle/internal/testing/utp/UtpConfigFactory.kt",
+      "first_line": 719,
+      "lines": [
+        "                                installApkTimeout",
+        "                            )",
+        "                            this.forceCompilation = getForceCompilationEnum(forceCompilation)",
+        "                        }.build()",
+        "                        uninstallAfterTest = uninstallApksAfterTest",
+        "                        forceReinstallBeforeTest = reinstallIncompatibleApksBeforeTest",
+        "                    }.build()",
+        "                }",
+        "            }",
+        ""
+      ]
+    },
+    {
+      "file": "com/android/build/gradle/internal/testing/utp/UtpConfigFactory.kt",
+      "first_line": 734,
+      "lines": [
+        "                        installAsSplitApk = targetApkConfigBundle.isSplitApk",
+        "                        if (installApkTimeout != null) setInstallApkTimeout(installApkTimeout)",
+        "                        this.forceCompilation = getForceCompilationEnum(forceCompilation)",
+        "                    }.build()",
+        "                    uninstallAfterTest = uninstallApksAfterTest",
+        "                    forceReinstallBeforeTest = reinstallIncompatibleApksBeforeTest",
+        "                }.build()",
+        "            }",
+        "",
+        "            if (Iterables.size(helperApks) > 0) {"
+      ]
+    },
+    {
+      "file": "com/android/build/gradle/internal/testing/utp/UtpConfigFactory.kt",
+      "first_line": 748,
+      "lines": [
+        "                        if (installApkTimeout != null) setInstallApkTimeout(installApkTimeout)",
+        "                        installAsTestService = true",
+        "                        this.forceCompilation = getForceCompilationEnum(forceCompilation)",
+        "                    }.build()",
+        "                    uninstallAfterTest = uninstallApksAfterTest",
+        "                    forceReinstallBeforeTest = reinstallIncompatibleApksBeforeTest",
+        "                }.build()",
+        "            }",
+        "",
+        "            if (testData.testApk.absolutePath.isNotEmpty()) {"
+      ]
+    },
+    {
+      "file": "com/android/build/gradle/internal/testing/utp/UtpConfigFactory.kt",
+      "first_line": 761,
+      "lines": [
+        "                        addAllCommandLineParameter(additionalInstallOptions)",
+        "                        if (installApkTimeout != null) setInstallApkTimeout(installApkTimeout)",
+        "                        this.forceCompilation = getForceCompilationEnum(forceCompilation)",
+        "                    }.build()",
+        "                    uninstallAfterTest = uninstallApksAfterTest",
+        "                    forceReinstallBeforeTest = reinstallIncompatibleApksBeforeTest",
+        "                }.build()",
+        "            }",
+        "        }",
+        "    }"
+      ]
+    }
+  ],
+  "planned_command_option": "-Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true",
+  "implemented": true,
+  "bash_syntax_exit_code": 0
+}

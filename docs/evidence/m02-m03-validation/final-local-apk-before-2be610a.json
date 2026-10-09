@@ -1,0 +1,34 @@
+{
+  "signature": {
+    "argv": [
+      "/workspace/toolchains/android-sdk/build-tools/35.0.0/apksigner",
+      "verify",
+      "--print-certs",
+      "androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+    ],
+    "exit_code": 0,
+    "output": "Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts\nSigner #1 certificate DN: C=US, O=Android, CN=Android Debug\nSigner #1 certificate SHA-256 digest: aa02ee8ea2a0debb252a9b18033f730c85abb5c218fa06440740546f7dda481d\nSigner #1 certificate SHA-1 digest: 25ae6073ffc84d62cec539b314a85dd4b31cb4f8\nSigner #1 certificate MD5 digest: d9655a99974df9db9a071745bf930ccc\n"
+  },
+  "badging": {
+    "argv": [
+      "/workspace/toolchains/android-sdk/build-tools/35.0.0/aapt",
+      "dump",
+      "badging",
+      "androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+    ],
+    "exit_code": 0,
+    "output": "package: name='org.bookreader.mobile' versionCode='2' versionName='0.2.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'\nsdkVersion:'26'\ntargetSdkVersion:'36'\nuses-permission: name='org.bookreader.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'\nlaunchable-activity: name='org.bookreader.mobile.MainActivity'  label='' icon=''\n"
+  },
+  "certificate_sha256": "aa02ee8ea2a0debb252a9b18033f730c85abb5c218fa06440740546f7dda481d",
+  "certificate_matches_previous_local_m00": true,
+  "copied_apk": "/workspace/bookreader-mobile-0.2.0-debug.apk",
+  "apk_sha256": "63f4174da6012253a30ce37059e72b5d5c40ce955063cf7e7161dab4eb9ac65a",
+  "size_bytes": 17023931,
+  "source_commit": "3ce33868503bac2dd0ecd3829a7bf1a77d562f90",
+  "source_state": "exact frozen final test-source published; all app production inputs identical to cfe17f0",
+  "local_full_ci": "local-ci-attempt-5",
+  "final_java_fixture_validation": "local-asset-fixture-validation",
+  "source_fingerprint_sha256": "a0cc88b0119f7b5db7df90c0f46d08e110cb27919fa9b89bf97840c1217136e3",
+  "app_source_commit": "cfe17f0b9d2efbc39d6817c5e9b1470539587e09",
+  "final_reader_fixture_validation": "local-reader-observer-validation"
+}

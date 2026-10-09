@@ -1,0 +1,200 @@
+2026-10-04T01:31:32.5512152Z Starting 23 tests on emulator-5554 - 16
+2026-10-04T01:31:32.6448855Z 
+2026-10-04T01:31:32.6458807Z org.bookreader.mobile.encoding.AndroidTxtEncodingTest > androidCp949ExtensionFixtureIsDistinctFromEucKr[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:32.6460263Z 	java.lang.AssertionError: EUC_KR must reject CP949 extension bytes
+2026-10-04T01:31:32.6461441Z 	at org.junit.Assert.fail(Assert.java:89)
+2026-10-04T01:31:42.5448969Z 
+2026-10-04T01:31:42.5449795Z emulator-5554 - 16 Tests 3/23 completed. (0 skipped) (1 failed)
+2026-10-04T01:31:50.6471963Z 
+2026-10-04T01:31:50.6496794Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:31:50.6532182Z 
+2026-10-04T01:31:32.6448855Z 
+2026-10-04T01:31:32.6458807Z org.bookreader.mobile.encoding.AndroidTxtEncodingTest > androidCp949ExtensionFixtureIsDistinctFromEucKr[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:32.6460263Z 	java.lang.AssertionError: EUC_KR must reject CP949 extension bytes
+2026-10-04T01:31:32.6461441Z 	at org.junit.Assert.fail(Assert.java:89)
+2026-10-04T01:31:42.5448969Z 
+2026-10-04T01:31:42.5449795Z emulator-5554 - 16 Tests 3/23 completed. (0 skipped) (1 failed)
+2026-10-04T01:31:50.6471963Z 
+2026-10-04T01:31:50.6496794Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:31:50.6532182Z 
+2026-10-04T01:31:50.6534314Z org.bookreader.mobile.importing.ManagedImportAndroidTest > systemDocumentsPickerSelectsTxtFromRealProvider[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:50.6496794Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:31:50.6532182Z 
+2026-10-04T01:31:50.6534314Z org.bookreader.mobile.importing.ManagedImportAndroidTest > systemDocumentsPickerSelectsTxtFromRealProvider[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:50.6563487Z 	java.lang.IllegalStateException: System DocumentsUI did not expose selectable node: Show roots
+2026-10-04T01:31:50.6592855Z 	at org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode(ManagedImportAndroidTest.kt:126)
+2026-10-04T01:31:52.4462644Z 
+2026-10-04T01:31:52.4512519Z org.bookreader.mobile.importing.ManagedImportAndroidTest > assetSegmentImportHonorsOffsetAndDeclaredLength[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:52.4553806Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:31:52.4595455Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:31:52.5476869Z 
+2026-10-04T01:31:50.6532182Z 
+2026-10-04T01:31:50.6534314Z org.bookreader.mobile.importing.ManagedImportAndroidTest > systemDocumentsPickerSelectsTxtFromRealProvider[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:50.6563487Z 	java.lang.IllegalStateException: System DocumentsUI did not expose selectable node: Show roots
+2026-10-04T01:31:50.6592855Z 	at org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode(ManagedImportAndroidTest.kt:126)
+2026-10-04T01:31:52.4462644Z 
+2026-10-04T01:31:52.4512519Z org.bookreader.mobile.importing.ManagedImportAndroidTest > assetSegmentImportHonorsOffsetAndDeclaredLength[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:52.4553806Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:31:52.4595455Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:31:52.5476869Z 
+2026-10-04T01:31:52.5501432Z emulator-5554 - 16 Tests 5/23 completed. (0 skipped) (3 failed)
+2026-10-04T01:31:50.6592855Z 	at org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode(ManagedImportAndroidTest.kt:126)
+2026-10-04T01:31:52.4462644Z 
+2026-10-04T01:31:52.4512519Z org.bookreader.mobile.importing.ManagedImportAndroidTest > assetSegmentImportHonorsOffsetAndDeclaredLength[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:52.4553806Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:31:52.4595455Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:31:52.5476869Z 
+2026-10-04T01:31:52.5501432Z emulator-5554 - 16 Tests 5/23 completed. (0 skipped) (3 failed)
+2026-10-04T01:31:56.9497562Z 
+2026-10-04T01:31:56.9534999Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:31:56.9571741Z 
+2026-10-04T01:31:56.9534999Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:31:56.9571741Z 
+2026-10-04T01:31:56.9603749Z org.bookreader.mobile.importing.ManagedImportAndroidTest > unknownSizeSourceEnforcesActualStreamingByteLimit[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:56.9625515Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:31:56.9662393Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:31:59.1449391Z 
+2026-10-04T01:31:59.1508864Z org.bookreader.mobile.importing.ManagedImportAndroidTest > safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:59.1514028Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:31:59.1582646Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:32:02.5448614Z 
+2026-10-04T01:31:56.9662393Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:31:59.1449391Z 
+2026-10-04T01:31:59.1508864Z org.bookreader.mobile.importing.ManagedImportAndroidTest > safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:31:59.1514028Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:31:59.1582646Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:32:02.5448614Z 
+2026-10-04T01:32:02.5452077Z emulator-5554 - 16 Tests 8/23 completed. (0 skipped) (5 failed)
+2026-10-04T01:32:20.5461971Z 
+2026-10-04T01:32:20.5493316Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:32:20.5517586Z 
+2026-10-04T01:32:20.5493316Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:32:20.5517586Z 
+2026-10-04T01:32:20.5543358Z org.bookreader.mobile.importing.ManagedImportAndroidTest > externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:32:20.5596842Z 	androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+2026-10-04T01:32:20.5602816Z 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+2026-10-04T01:32:22.4450731Z 
+2026-10-04T01:32:22.4485543Z org.bookreader.mobile.importing.ManagedImportAndroidTest > stalledProviderCopyCancelsAndRemovesPrivateStaging[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:32:22.4504502Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:32:22.4534429Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:32:22.5458979Z 
+2026-10-04T01:32:20.5602816Z 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+2026-10-04T01:32:22.4450731Z 
+2026-10-04T01:32:22.4485543Z org.bookreader.mobile.importing.ManagedImportAndroidTest > stalledProviderCopyCancelsAndRemovesPrivateStaging[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:32:22.4504502Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:32:22.4534429Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:32:22.5458979Z 
+2026-10-04T01:32:22.5512724Z emulator-5554 - 16 Tests 10/23 completed. (0 skipped) (7 failed)
+2026-10-04T01:33:54.0492846Z 
+2026-10-04T01:33:54.0572172Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:33:54.0601747Z 
+2026-10-04T01:33:54.0572172Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:33:54.0601747Z 
+2026-10-04T01:33:54.0618640Z org.bookreader.mobile.importing.ManagedImportAndroidTest > ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:33:54.0632337Z 	java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+2026-10-04T01:33:54.0684706Z 	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+2026-10-04T01:34:02.5447585Z 
+2026-10-04T01:34:02.5448326Z emulator-5554 - 16 Tests 11/23 completed. (0 skipped) (8 failed)
+2026-10-04T01:34:39.7471682Z 
+2026-10-04T01:34:39.7532109Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:34:39.7533743Z 
+2026-10-04T01:34:39.7532109Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:34:39.7533743Z 
+2026-10-04T01:34:39.7563072Z org.bookreader.mobile.importing.ManagedImportAndroidTest > manualEncodingUsesStagingAfterSourceGrantIsRevoked[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:34:39.7587101Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:34:39.7611633Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:34:42.5447824Z 
+2026-10-04T01:34:42.5448468Z emulator-5554 - 16 Tests 12/23 completed. (0 skipped) (9 failed)
+2026-10-04T01:35:27.7511581Z 
+2026-10-04T01:35:27.7542028Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:35:27.7557441Z 
+2026-10-04T01:35:27.7542028Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:35:27.7557441Z 
+2026-10-04T01:35:27.7573797Z org.bookreader.mobile.importing.ManagedImportAndroidTest > externalViewReceivesTemporaryGrantAndOpensActualReader[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:35:27.7577943Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:35:27.7581623Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:35:32.5447938Z 
+2026-10-04T01:35:32.5448668Z emulator-5554 - 16 Tests 13/23 completed. (0 skipped) (10 failed)
+2026-10-04T01:36:13.8491814Z 
+2026-10-04T01:36:13.8506195Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:36:13.8506813Z 
+2026-10-04T01:36:13.8506195Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:36:13.8506813Z 
+2026-10-04T01:36:13.8508839Z org.bookreader.mobile.importing.ManagedImportAndroidTest > binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:36:13.8513229Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:36:13.8516411Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:36:22.5448614Z 
+2026-10-04T01:36:22.5449365Z emulator-5554 - 16 Tests 14/23 completed. (0 skipped) (11 failed)
+2026-10-04T01:36:59.8494240Z 
+2026-10-04T01:36:59.8522093Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:36:59.8552821Z 
+2026-10-04T01:36:59.8522093Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:36:59.8552821Z 
+2026-10-04T01:36:59.8555098Z org.bookreader.mobile.importing.ManagedImportAndroidTest > emptyTxtReportsNoContentWithoutCreatingReadingProgress[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:36:59.8559239Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:36:59.8562365Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:37:02.5447845Z 
+2026-10-04T01:37:02.5448465Z emulator-5554 - 16 Tests 15/23 completed. (0 skipped) (12 failed)
+2026-10-04T01:37:52.5447796Z emulator-5554 - 16 Tests 16/23 completed. (0 skipped) (12 failed)
+2026-10-04T01:38:31.9484201Z 
+2026-10-04T01:38:31.9512086Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:38:31.9512086Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:38:31.9565663Z 
+2026-10-04T01:38:31.9573275Z org.bookreader.mobile.reader.TxtReaderFlowTest > missingManagedCopyShowsRetryAndPreservesCommittedProgress[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:38:31.9600380Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:38:31.9632473Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:38:32.5448884Z 
+2026-10-04T01:38:32.5472882Z emulator-5554 - 16 Tests 17/23 completed. (0 skipped) (13 failed)
+2026-10-04T01:39:18.2447697Z 
+2026-10-04T01:39:18.2472623Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:39:18.2488865Z 
+2026-10-04T01:39:18.2472623Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:39:18.2488865Z 
+2026-10-04T01:39:18.2524076Z org.bookreader.mobile.reader.TxtReaderFlowTest > measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T01:39:18.2534466Z 	java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+2026-10-04T01:39:18.2582212Z 	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:82)
+2026-10-04T01:39:22.5453461Z 
+2026-10-04T01:39:22.5484561Z emulator-5554 - 16 Tests 21/23 completed. (0 skipped) (14 failed)
+2026-10-04T01:39:27.8472479Z Finished 23 tests on emulator-5554 - 16
+2026-10-04T01:39:27.8473076Z 
+2026-10-04T01:39:27.8502104Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T01:39:28.3523211Z 	at android.os.Binder.execTransactInternal(Binder.java:1421)
+2026-10-04T01:39:28.3524039Z 	at android.os.Binder.execTransact(Binder.java:1365)
+2026-10-04T01:39:28.3527826Z Caused by: java.lang.ClassNotFoundException: Didn't find class "kotlin.Pair" on path: DexPathList[[zip file "/data/app/~~fXatvykvJ1GQhViPJ3Xl1g==/org.bookreader.mobile.test-J0aFhj37xHrJezQSfFPsoQ==/base.apk"],nativeLibraryDirectories=[/data/app/~~fXatvykvJ1GQhViPJ3Xl1g==/org.bookreader.mobile.test-J0aFhj37xHrJezQSfFPsoQ==/lib/x86_64, /system/lib64, /system_ext/lib64]]
+2026-10-04T01:39:28.3531006Z 	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:259)
+2026-10-04T01:39:28.3532218Z 	at java.lang.ClassLoader.loadClass(ClassLoader.java:637)
+2026-10-04T01:39:28.3533097Z 	at java.lang.ClassLoader.loadClass(ClassLoader.java:573)
+2026-10-04T01:39:28.3533711Z 	... 6 more
+2026-10-04T01:39:28.3533915Z 
+2026-10-04T01:39:28.7482168Z 
+2026-10-04T01:39:28.7500770Z > Task :androidApp:connectedDebugAndroidTest FAILED
+2026-10-04T01:39:28.3533915Z 
+2026-10-04T01:39:28.7482168Z 
+2026-10-04T01:39:28.7500770Z > Task :androidApp:connectedDebugAndroidTest FAILED
+2026-10-04T01:39:28.8480461Z 
+2026-10-04T01:39:28.8512532Z FAILURE: Build failed with an exception.
+2026-10-04T01:39:28.8551862Z 
+2026-10-04T01:39:28.8572075Z * What went wrong:
+2026-10-04T01:39:28.8572872Z Execution failed for task ':androidApp:connectedDebugAndroidTest'.
+2026-10-04T01:39:28.8574637Z > There were failing tests. See the report at: file:///home/runner/work/BookreaderM/BookreaderM/androidApp/build/reports/androidTests/connected/debug/index.html
+2026-10-04T01:39:28.8575747Z 
+2026-10-04T01:39:28.7500770Z > Task :androidApp:connectedDebugAndroidTest FAILED
+2026-10-04T01:39:28.8480461Z 
+2026-10-04T01:39:28.8512532Z FAILURE: Build failed with an exception.
+2026-10-04T01:39:28.8551862Z 
+2026-10-04T01:39:28.8572075Z * What went wrong:
+2026-10-04T01:39:28.8572872Z Execution failed for task ':androidApp:connectedDebugAndroidTest'.
+2026-10-04T01:39:28.8574637Z > There were failing tests. See the report at: file:///home/runner/work/BookreaderM/BookreaderM/androidApp/build/reports/androidTests/connected/debug/index.html
+2026-10-04T01:39:28.8575747Z 
+2026-10-04T01:39:28.8575885Z * Try:
+2026-10-04T01:39:28.8576471Z > Run with --info or --debug option to get more log output.
+2026-10-04T01:39:29.0439173Z 
+2026-10-04T01:39:29.0439276Z 
+2026-10-04T01:39:29.0439595Z BUILD FAILED in 10m 37s
+2026-10-04T01:39:29.0440199Z 84 actionable tasks: 84 executed
+2026-10-04T01:39:29.3645517Z FAIL connected-tests command_exit=1 log_exit=0
+2026-10-04T01:39:29.3701028Z ##[error]The process '/usr/bin/sh' failed with exit code 1
+2026-10-04T01:39:29.3729939Z ##[group]Terminate Emulator
+2026-10-04T01:39:29.3730518Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 emu kill
+2026-10-04T01:39:29.3739876Z OK: killing emulator, bye bye
+2026-10-04T01:39:29.3746384Z OK

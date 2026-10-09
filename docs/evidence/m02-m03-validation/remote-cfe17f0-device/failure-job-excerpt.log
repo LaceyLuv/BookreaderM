@@ -1,0 +1,48 @@
+2026-10-04T02:44:43.6544670Z [EmulatorConsole]: Failed to start Emulator console for 5554
+2026-10-04T02:44:52.1542434Z 
+2026-10-04T02:44:52.1558973Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:44:52.1559803Z Starting 24 tests on emulator-5554 - 16
+2026-10-04T02:45:02.1662595Z 
+2026-10-04T02:45:02.1697113Z emulator-5554 - 16 Tests 5/24 completed. (0 skipped) (0 failed)
+2026-10-04T02:45:12.1539218Z emulator-5554 - 16 Tests 10/24 completed. (0 skipped) (0 failed)
+2026-10-04T02:45:22.1567785Z emulator-5554 - 16 Tests 15/24 completed. (0 skipped) (0 failed)
+2026-10-04T02:45:32.3538721Z 
+2026-10-04T02:45:32.3612965Z > Task :androidApp:connectedDebugAndroidTest
+2026-10-04T02:45:32.3655347Z 
+2026-10-04T02:45:32.3668760Z org.bookreader.mobile.reader.TxtReaderFlowTest > measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation[emulator-5554 - 16] [31mFAILED [0m
+2026-10-04T02:45:32.3689776Z 	java.lang.IllegalStateException: Fixture progress read failed: DATABASE_UNAVAILABLE
+2026-10-04T02:45:32.3708749Z 	at org.bookreader.mobile.reader.TxtReaderFlowTest$saved$1$1.invokeSuspend(TxtReaderFlowTest.kt:160)
+2026-10-04T02:45:40.9539060Z Tests on emulator-5554 - 16 failed: There was 1 failure(s).
+2026-10-04T02:45:40.9566715Z 
+2026-10-04T02:45:40.9600324Z Finished 24 tests on emulator-5554 - 16
+2026-10-04T02:45:41.7549187Z 
+2026-10-04T02:45:41.7572198Z > Task :androidApp:connectedDebugAndroidTest FAILED
+2026-10-04T02:45:41.7573834Z 
+2026-10-04T02:45:41.7574478Z FAILURE: Build failed with an exception.
+2026-10-04T02:45:41.7938255Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+2026-10-04T02:45:41.7940176Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+2026-10-04T02:45:41.7942083Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+2026-10-04T02:45:41.7944269Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+2026-10-04T02:45:41.7946984Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+2026-10-04T02:45:41.7949762Z 	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)
+2026-10-04T02:45:41.7952595Z 	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)
+2026-10-04T02:45:41.7954968Z 	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)
+2026-10-04T02:45:41.7957413Z 	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)
+2026-10-04T02:45:41.8082730Z 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+2026-10-04T02:45:41.8083663Z 
+2026-10-04T02:45:41.8083814Z 
+2026-10-04T02:45:41.8084165Z BUILD FAILED in 3m 25s
+2026-10-04T02:45:41.8085052Z 85 actionable tasks: 85 executed
+2026-10-04T02:45:42.1728115Z FAIL connected-tests command_exit=1 log_exit=0
+2026-10-04T02:45:42.1762104Z ##[error]The process '/usr/bin/sh' failed with exit code 1
+2026-10-04T02:45:42.1773016Z ##[group]Terminate Emulator
+2026-10-04T02:45:42.1773570Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 emu kill
+2026-10-04T02:45:42.1795385Z OK: killing emulator, bye bye
+2026-10-04T02:45:43.8203728Z Beginning upload of artifact content to blob storage
+2026-10-04T02:45:43.9170574Z (node:4202) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-04T02:45:43.9760439Z Uploaded bytes 237020
+2026-10-04T02:45:43.9965839Z Finished uploading artifact content to blob storage!
+2026-10-04T02:45:43.9967591Z SHA256 digest of uploaded artifact zip is 16956d7826c3481d2281a1975364028c1c4bc53549694e26170061c91a7694dd
+2026-10-04T02:45:43.9969227Z Finalizing artifact upload
+2026-10-04T02:45:44.2135394Z Artifact mobile-device-evidence.zip successfully finalized. Artifact ID 11291383786
+2026-10-04T02:45:44.2137086Z Artifact mobile-device-evidence has been successfully uploaded! Final size is 237020 bytes. Artifact ID is 11291383786

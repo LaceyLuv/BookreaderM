@@ -1,0 +1,244 @@
+{
+  "source_commit": "f3d4c38e2bbe2bb50c98d5da4e5dfaaca0376c26",
+  "app_source_commit": "9eb8f782d996fea9c0f04006e39fa72d9a3979ff",
+  "run_id": 37169506738,
+  "job_id": 111339393521,
+  "artifact_id": 11290374442,
+  "status": "FAIL",
+  "actual_native_connected": {
+    "tests": 23,
+    "failures": 11,
+    "errors": 0,
+    "skipped": 0
+  },
+  "cases": [
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidBomAndBoundaryNormalizationAreCanonical",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidStrictDecodeRejectsLateIncompleteCharacters",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
+      "method": "androidCp949ExtensionFixtureIsDistinctFromEucKr",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "systemDocumentsPickerSelectsTxtFromRealProvider",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:260)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.systemDocumentsPickerSelectsTxtFromRealProvider(ManagedImportAndroidTest.kt:95)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "assetSegmentImportHonorsOffsetAndDeclaredLength",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:260)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.assetSegmentImportHonorsOffsetAndDeclaredLength(ManagedImportAndroidTest.kt:164)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "ownUidProviderIsRejectedBeforeAnyQuery",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "unknownSizeSourceEnforcesActualStreamingByteLimit",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:260)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.unknownSizeSourceEnforcesActualStreamingByteLimit(ManagedImportAndroidTest.kt:188)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:260)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource(ManagedImportAndroidTest.kt:72)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "java.lang.AssertionError: Activity never becomes requested state \"[DESTROYED]\" (last lifecycle transition = \"PAUSED\")\nat androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)\nat androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)\nat androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)\nat androidx.test.ext.junit.rules.ActivityScenarioRule.after(ActivityScenarioRule.java:117)\nat org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:59)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invokeSuspend(AndroidComposeTestRule.android.kt:318)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:4)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invokeSuspend(ComposeUiTest.android.kt:569)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:2)\nat androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:69)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invokeSuspend(ComposeUiTest.android.kt:566)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:4)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$1.invokeSuspend(TestBuilders.kt:317)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)\nat kotlinx.coroutines.test.TestCoroutineScheduler.tryRunNextTaskUnless$kotlinx_coroutines_test(TestCoroutineScheduler.kt:99)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$workRunner$1.invokeSuspend(TestBuilders.kt:326)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)\nat kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)\nat kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)\nat kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersJvmKt.createTestResult(TestBuildersJvm.kt:10)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:309)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:167)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:549)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:318)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\nat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runners.Suite.runChild(Suite.java:128)\nat org.junit.runners.Suite.runChild(Suite.java:27)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)\nat androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:467)\nat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "stalledProviderCopyCancelsAndRemovesPrivateStaging",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "java.lang.AssertionError: Activity never becomes requested state \"[DESTROYED]\" (last lifecycle transition = \"PAUSED\")\nat androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)\nat androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)\nat androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)\nat androidx.test.ext.junit.rules.ActivityScenarioRule.after(ActivityScenarioRule.java:117)\nat org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:59)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invokeSuspend(AndroidComposeTestRule.android.kt:318)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:4)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invokeSuspend(ComposeUiTest.android.kt:569)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:2)\nat androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:69)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invokeSuspend(ComposeUiTest.android.kt:566)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:4)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$1.invokeSuspend(TestBuilders.kt:317)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)\nat kotlinx.coroutines.test.TestCoroutineScheduler.tryRunNextTaskUnless$kotlinx_coroutines_test(TestCoroutineScheduler.kt:99)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$workRunner$1.invokeSuspend(TestBuilders.kt:326)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)\nat kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)\nat kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)\nat kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersJvmKt.createTestResult(TestBuildersJvm.kt:10)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:309)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:167)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:549)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:318)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\nat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runners.Suite.runChild(Suite.java:128)\nat org.junit.runners.Suite.runChild(Suite.java:27)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)\nat androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:467)\nat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "manualEncodingUsesStagingAfterSourceGrantIsRevoked",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:260)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.manualEncodingUsesStagingAfterSourceGrantIsRevoked(ManagedImportAndroidTest.kt:155)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "externalViewReceivesTemporaryGrantAndOpensActualReader",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "java.lang.AssertionError: Activity never becomes requested state \"[DESTROYED]\" (last lifecycle transition = \"PAUSED\")\nat androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)\nat androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)\nat androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)\nat androidx.test.ext.junit.rules.ActivityScenarioRule.after(ActivityScenarioRule.java:117)\nat org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:59)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invokeSuspend(AndroidComposeTestRule.android.kt:318)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:4)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invokeSuspend(ComposeUiTest.android.kt:569)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:2)\nat androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:69)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invokeSuspend(ComposeUiTest.android.kt:566)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:4)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$1.invokeSuspend(TestBuilders.kt:317)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)\nat kotlinx.coroutines.test.TestCoroutineScheduler.tryRunNextTaskUnless$kotlinx_coroutines_test(TestCoroutineScheduler.kt:99)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$workRunner$1.invokeSuspend(TestBuilders.kt:326)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)\nat kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)\nat kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)\nat kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersJvmKt.createTestResult(TestBuildersJvm.kt:10)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:309)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:167)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:549)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:318)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\nat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runners.Suite.runChild(Suite.java:128)\nat org.junit.runners.Suite.runChild(Suite.java:27)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)\nat androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:467)\nat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "method": "emptyTxtReportsNoContentWithoutCreatingReadingProgress",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:260)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.emptyTxtReportsNoContentWithoutCreatingReadingProgress(ManagedImportAndroidTest.kt:207)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderBoundaryTest",
+      "method": "eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "method": "missingManagedCopyShowsRetryAndPreservesCommittedProgress",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "java.lang.AssertionError: Activity never becomes requested state \"[DESTROYED]\" (last lifecycle transition = \"PAUSED\")\nat androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)\nat androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)\nat androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)\nat androidx.test.ext.junit.rules.ActivityScenarioRule.after(ActivityScenarioRule.java:117)\nat org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:59)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invokeSuspend(AndroidComposeTestRule.android.kt:318)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:4)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invokeSuspend(ComposeUiTest.android.kt:569)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:2)\nat androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:69)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invokeSuspend(ComposeUiTest.android.kt:566)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:4)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$1.invokeSuspend(TestBuilders.kt:317)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)\nat kotlinx.coroutines.test.TestCoroutineScheduler.tryRunNextTaskUnless$kotlinx_coroutines_test(TestCoroutineScheduler.kt:99)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$workRunner$1.invokeSuspend(TestBuilders.kt:326)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)\nat kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)\nat kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)\nat kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersJvmKt.createTestResult(TestBuildersJvm.kt:10)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:309)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:167)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:549)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:318)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\nat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runners.Suite.runChild(Suite.java:128)\nat org.junit.runners.Suite.runChild(Suite.java:27)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)\nat androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:467)\nat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "method": "measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation",
+      "status": "FAIL",
+      "failure": {
+        "attributes": {},
+        "stacktrace": "java.lang.AssertionError: Activity never becomes requested state \"[DESTROYED]\" (last lifecycle transition = \"PAUSED\")\nat androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)\nat androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)\nat androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)\nat androidx.test.ext.junit.rules.ActivityScenarioRule.after(ActivityScenarioRule.java:117)\nat org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:59)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invokeSuspend(AndroidComposeTestRule.android.kt:318)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:4)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invokeSuspend(ComposeUiTest.android.kt:569)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:2)\nat androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:69)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invokeSuspend(ComposeUiTest.android.kt:566)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:8)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:4)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$1.invokeSuspend(TestBuilders.kt:317)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)\nat kotlinx.coroutines.test.TestCoroutineScheduler.tryRunNextTaskUnless$kotlinx_coroutines_test(TestCoroutineScheduler.kt:99)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$workRunner$1.invokeSuspend(TestBuilders.kt:326)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)\nat kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)\nat kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)\nat kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersJvmKt.createTestResult(TestBuildersJvm.kt:10)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:309)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:167)\nat kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:549)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:318)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\nat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runners.Suite.runChild(Suite.java:128)\nat org.junit.runners.Suite.runChild(Suite.java:27)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)\nat androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:467)\nat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)\n"
+      }
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "invalidStoredThemeReportsErrorAndPreservesOriginal",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.AndroidThemeStoreTest",
+      "method": "selectedThemePersistsAcrossStoreInstances",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "loadingEmptyAndErrorAreDistinctAndErrorHasRetry",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "method": "threeTabsMetadataSearchAndThemeSelectionWork",
+      "status": "PASS",
+      "failure": null
+    },
+    {
+      "classname": "org.bookreader.mobile.ui.MainActivityLaunchTest",
+      "method": "launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab",
+      "status": "PASS",
+      "failure": null
+    }
+  ],
+  "host": "NOT_RUN ordinary mandatory failure stopped script",
+  "archive_sha256": "3415e55b8b9a7be33c99d1daec75330a885d63aacd86bead3b7a834cb2e0c9d0",
+  "archive_size_bytes": 352861,
+  "native_xml_paths": [
+    "native-reports/androidApp/build/outputs/androidTest-results/connected/debug/TEST-emulator-5554 - 16-_androidApp-.xml"
+  ],
+  "diagnosis": {
+    "promotion_failure": "Android SELinux denied hardlink in AndroidManagedImportFiles.promote; first system picker logcat line981",
+    "external_intent_lifecycle": "ActivityScenario logs ignored lifecycle events because activity.getIntent changes MAIN to VIEW; actual DESTROYED ignored and cleanup reports stale PAUSED"
+  },
+  "selinux_promotion_denials": [
+    {
+      "logcat": "logcat-org.bookreader.mobile.importing.ManagedImportAndroidTest-emptyTxtReportsNoContentWithoutCreatingReadingProgress.txt",
+      "line": 164,
+      "native_log_line": "10-04 02:10:55.620  5260  5260 W DefaultDispatch: type=1400 audit(0.0:235): avc:  denied  { link } for  name=\"9e684702-1eed-4def-892a-f24eb0b7182a.part\" dev=\"dm-55\" ino=361642 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    },
+    {
+      "logcat": "logcat-org.bookreader.mobile.importing.ManagedImportAndroidTest-externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit.txt",
+      "line": 220,
+      "native_log_line": "10-04 02:05:15.812  5260  5260 W DefaultDispatch: type=1400 audit(0.0:228): avc:  denied  { link } for  name=\"1cb403b2-1cb9-4b01-930f-2e846a754721.part\" dev=\"dm-55\" ino=361626 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    },
+    {
+      "logcat": "logcat-org.bookreader.mobile.importing.ManagedImportAndroidTest-externalViewReceivesTemporaryGrantAndOpensActualReader.txt",
+      "line": 200,
+      "native_log_line": "10-04 02:09:02.592  5260  5260 W DefaultDispatch: type=1400 audit(0.0:232): avc:  denied  { link } for  name=\"3a121495-3e61-4216-9892-7a244d74ab9e.part\" dev=\"dm-55\" ino=361637 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    },
+    {
+      "logcat": "logcat-org.bookreader.mobile.importing.ManagedImportAndroidTest-manualEncodingUsesStagingAfterSourceGrantIsRevoked.txt",
+      "line": 265,
+      "native_log_line": "10-04 02:08:40.476  5260  5260 W DefaultDispatch: type=1400 audit(0.0:230): avc:  denied  { link } for  name=\"d537897d-a6b0-4470-b71e-8dec31a401cb.part\" dev=\"dm-55\" ino=361637 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    },
+    {
+      "logcat": "logcat-org.bookreader.mobile.importing.ManagedImportAndroidTest-safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource.txt",
+      "line": 107,
+      "native_log_line": "10-04 02:04:53.764  5260  5260 W DefaultDispatch: type=1400 audit(0.0:225): avc:  denied  { link } for  name=\"e2a13f14-eca3-4a07-908a-f5f0df0f0d67.part\" dev=\"dm-55\" ino=361618 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    },
+    {
+      "logcat": "logcat-org.bookreader.mobile.importing.ManagedImportAndroidTest-systemDocumentsPickerSelectsTxtFromRealProvider.txt",
+      "line": 981,
+      "native_log_line": "10-04 02:03:46.060  5260  5260 W DefaultDispatch: type=1400 audit(0.0:223): avc:  denied  { link } for  name=\"a092293a-fd98-4ecd-ad61-46c98e44ba51.part\" dev=\"dm-55\" ino=361603 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    },
+    {
+      "logcat": "logcat-org.bookreader.mobile.importing.ManagedImportAndroidTest-unknownSizeSourceEnforcesActualStreamingByteLimit.txt",
+      "line": 139,
+      "native_log_line": "10-04 02:04:32.112  5260  5260 W DefaultDispatch: type=1400 audit(0.0:224): avc:  denied  { link } for  name=\"e1c92455-0c44-454e-9f81-32de95de1911.part\" dev=\"dm-55\" ino=361618 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    },
+    {
+      "logcat": "logcat-org.bookreader.mobile.reader.TxtReaderFlowTest-measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation.txt",
+      "line": 185,
+      "native_log_line": "10-04 02:13:19.720  5260  5260 W DefaultDispatch: type=1400 audit(0.0:237): avc:  denied  { link } for  name=\"1757e191-44d8-4c75-8e35-8472aae1c171.part\" dev=\"dm-55\" ino=361642 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    },
+    {
+      "logcat": "logcat-org.bookreader.mobile.reader.TxtReaderFlowTest-missingManagedCopyShowsRetryAndPreservesCommittedProgress.txt",
+      "line": 165,
+      "native_log_line": "10-04 02:11:18.904  5260  5260 W DefaultDispatch: type=1400 audit(0.0:236): avc:  denied  { link } for  name=\"edb20d58-5799-4056-ba0c-84353a162f0a.part\" dev=\"dm-55\" ino=361642 scontext=u:r:untrusted_app:s0:c216,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c216,c256,c512,c768 tclass=file permissive=0 app=org.bookreader.mobile"
+    }
+  ]
+}

@@ -19,10 +19,10 @@
 | ID | 작업 | 상태 | 증거 |
 |---|---|---|---|
 | M00 | bootstrap-mobile-foundation | DONE | [WORKLOG](WORKLOG.md) — 실제 build/lint/unit/shared/schema 및 API36 5-case PASS |
-| M01 | epub-and-encoding-feasibility | TODO | 없음 |
-| M02 | managed-import-and-library | TODO | 없음 |
-| M03 | txt-scroll-progress-and-continue-bar | TODO | 없음 |
-| M04 | durable-progress-and-race-tests | TODO | 없음 |
+| M01 | epub-and-encoding-feasibility | IN_PROGRESS | strict grammar host 14 + 실제 Android 인코딩 3 cases PASS; Readium/EPUB 보류로 전체 M01 미완료 |
+| M02 | managed-import-and-library | DONE | TXT 내부 알파: `2be610a` local/remote CI 41/45 및 Android 25·host 2·fixture PNG PASS, [WORKLOG](WORKLOG.md) |
+| M03 | txt-scroll-progress-and-continue-bar | DONE | TXT 내부 알파: measured anchor/cache loss/Continue/recreation·cold launch/host force-stop PASS, [WORKLOG](WORKLOG.md) |
+| M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence 및 force-stop 복원 PASS; 전체 SAFE/race·60초 저장·미커밋 flush 미완료 |
 | M05 | txt-pagination-and-reflow | TODO | 없음 |
 | M06 | txt-search-bookmarks-and-encoding | TODO | 없음 |
 | M07 | mobile-controls-and-accessibility | TODO | 없음 |
@@ -100,8 +100,16 @@ M00 결과는 Reader/import/이어읽기/process-death/Readium/실기기 성능 
 
 # M01 — `epub-and-encoding-feasibility`
 
-**상태:** TODO  
+**상태:** IN_PROGRESS
+
 **선행 조건:** M00
+
+**2026-10-04 현재 범위:** 사용자 요청으로 TXT 가져오기와 실제 독서를 우선한다. strict streaming decoder,
+UTF BOM/UTF-16/CP949/EUC-KR 미리보기·수동 선택과 자체 작성 fixture를 구현했다.
+기존 host 13 cases는 PASS였지만 실제 Android Charset 3 cases 중 CP949/EUC-KR 구분이 실패했다.
+Android ICU alias의 확장 허용을 앱의 strict EUC-KR byte grammar로 제한했고 경계 회귀 포함 host 14 cases는 PASS다.
+원래 Android assertion을 유지한 수정 뒤 실제 API36 Android 인코딩 3 cases는 모두 PASS다.
+Readium/EPUB probe·ADR-0005는 보류하며 이 작업 전체를 DONE으로 올리지 않는다.
 
 ## 구현 범위
 epubAndroid 어댑터와 격리된 debug/test probe를 만든다. Readium 안정 Android Navigator로 EPUB2/3/이미지/목차/Locator 저장·재사용/테마·크기 변경을 확인한다. publication script와 외부 리소스 차단 가능성을 실제로 검증한다. Android strict decoder의 UTF BOM/CP949 확장 문자/EUC-KR/BOM 없는 UTF-16 후보와 수동 선택을 검증한다.
@@ -114,7 +122,7 @@ epubAndroid 어댑터와 격리된 debug/test probe를 만든다. Readium 안정
 - [ ] 공개 Locator를 페이지 번호로 축약하지 않고 round-trip한다.
 - [ ] 정상 이미지/CSS/검색·위치 기능과 비신뢰 script/외부 URL 차단의 양립을 확인한다.
 - [ ] SDK가 제공하지 않는 보안 API를 추정하거나 성공으로 기재하지 않는다.
-- [ ] CP949 확장 문자 fixture가 실제 기기/Android test 경로에서 통과하거나 명확히 BLOCKED_ENV로 표시된다.
+- [x] CP949 확장 문자 fixture가 실제 기기/Android test 경로에서 통과하거나 명확히 BLOCKED_ENV로 표시된다.
 
 ## 산출물
 ADR-0005, encoding probe report, test fixtures manifest, EPUB blocker 목록
@@ -125,8 +133,16 @@ EPUB 검증 실패를 은폐하지 않는다. M02–M07의 독립 작업은 진�
 
 # M02 — `managed-import-and-library`
 
-**상태:** TODO  
+**상태:** DONE — TXT 내부 알파 범위
+
 **선행 조건:** M00; M01에서 결정한 포맷/decoder 계약 참고
+
+**2026-10-09 완료 근거:** `2be610a`의 local CI6와 원격 build는 native 41 Android unit/45 shared JVM,
+failure/error/skipped 0, lint 20 Hint 및 DB/migration/schema PASS다. 실제 ordinary Android 25(가져오기 13/encoding 3 포함)와
+별도 host 2 stages 모두 PASS이며 Library/Reader 자체 fixture PNG 4개를 검증했다. 실제 SAF/VIEW/SEND/manual encoding,
+승격 no-overwrite, journal checkpoint/partial bytes recovery, disk/permission/cancel/duplicate/limit·삭제 writer 무효화 회귀가 근거다.
+Astra가 실제 identity/source/host proof를 검토하여 좁은 TXT 내부 알파를 승인했다. EPUB/Comic 제품 import 완료 주장은 아니다.
+이전 실패는 보존하며 최초 DATABASE_UNAVAILABLE/SQLite BUSY의 내부 원인은 미확인이다.
 
 ## 구현 범위
 SAF 및 외부 VIEW/SEND의 안전한 수신, 내부 관리 복사본, ImportJob journal, 해시, 포맷/한도 검사, 동일 바이트 중복 방지, 서재/책 정보/삭제/메타데이터 검색을 구현한다. 우선 TXT end-to-end에 연결하되 EPUB/Comic import에도 공통 staging 계약을 사용한다.
@@ -135,11 +151,11 @@ SAF 및 외부 VIEW/SEND의 안전한 수신, 내부 관리 복사본, ImportJob
 Reader 엔진 전체, 원본 URI 참조 모드, 원본 삭제, 일괄 import 고도화.
 
 ## 완료 조건
-- [ ] COPYING/VALIDATING/FINALIZING/COMMITTED 단계 fault injection 뒤 멱등 recovery.
-- [ ] 디스크 부족/권한 만료/취소/중복/미상 크기 URI에서 기존 서재 보존.
-- [ ] 원본 URI/파일명이 관리 파일 경로로 직접 사용되지 않음.
-- [ ] 삭제가 진행 중 save/index/decode와 충돌해 책을 재생성하지 않음.
-- [ ] 조회 실패와 빈 서재 구분; 앱 재실행 후 성공 import만 표시.
+- [x] COPYING/VALIDATING/FINALIZING/COMMITTED 단계 fault injection 뒤 멱등 recovery.
+- [x] 디스크 부족/권한 만료/취소/중복/미상 크기 URI에서 기존 서재 보존.
+- [x] 원본 URI/파일명이 관리 파일 경로로 직접 사용되지 않음.
+- [x] 삭제가 진행 중 save/index/decode와 충돌해 책을 재생성하지 않음.
+- [x] 조회 실패와 빈 서재 구분; 앱 재실행 후 성공 import만 표시.
 
 ## 산출물
 ADR-0002, import recovery tests, storage error UX, Library screenshots
@@ -150,8 +166,16 @@ ADR-0002, import recovery tests, storage error UX, Library screenshots
 
 # M03 — `txt-scroll-progress-and-continue-bar`
 
-**상태:** TODO  
+**상태:** DONE — TXT 내부 알파 범위
+
 **선행 조건:** M02; UTF-8/UTF-16 decoder 준비
+
+**2026-10-09 완료 근거:** `2be610a`의 local/remote 41/45 회귀와 actual ordinary Android 25/host 2 stages가 PASS다.
+measured canonical 행 저장/cache loss/Continue/Activity 재생성, Ready 이전 기록 보호, 원본 누락 재시도와 EOF/surrogate 경계를
+검증했다. 외부 force-stop 후 commit offset 11607/epoch 1/sequence 2를 cold library Continue가 복원했다.
+Activity 재생성은 실제 process death와 별도 evidence이며 OEM 회전/실기기 성능은 후속 gate다. Astra가 좁은 TXT 내부 알파를 승인했다.
+UTF-16 canonical cache는 [ADR-0003](adr/0003-locator-normalization-and-revision.md)의 내부 선택이다.
+전체 TXT 페이지/검색/북마크·M04 SAFE/race/미커밋 flush 완료를 뜻하지 않는다.
 
 ## 구현 범위
 canonical normalization/streaming prefix/sparse index, bounded scroll renderer, revision-aware progress read/write, Reader 상태 머신, 이어읽기 바를 연결한다. UTF-8 TXT import→본문→저장→재실행→서재→이어읽기까지 실제 경로를 만든다.
@@ -160,11 +184,11 @@ canonical normalization/streaming prefix/sparse index, bounded scroll renderer, 
 페이지 모드 전체, FTS, 전체 TXT String 로드, 모든 책별 타이포, UI polish.
 
 ## 완료 조건
-- [ ] TXT-01/03/04의 기본 canonical/경계 테스트.
-- [ ] Ready 전에 progress 쓰기가 발생하지 않음.
-- [ ] 단순 읽기 시도/실패가 lastRead/readOrder를 바꾸지 않음.
-- [ ] Cold launch는 서재; 따뜻한 Reader 복귀와 회전은 같은 위치.
-- [ ] 캐시 삭제 뒤 원본과 기록이 유지되고 재구축 경로가 존재.
+- [x] TXT-01/03/04의 기본 canonical/경계 테스트.
+- [x] Ready 전에 progress 쓰기가 발생하지 않음.
+- [x] 단순 읽기 시도/실패가 lastRead/readOrder를 바꾸지 않음.
+- [x] Cold launch는 서재; 따뜻한 Reader 복귀와 회전은 같은 위치. (Activity 재생성 기반 검증; OEM 실회전은 후속)
+- [x] 캐시 삭제 뒤 원본과 기록이 유지되고 재구축 경로가 존재.
 
 ## 산출물
 ADR-0003, first vertical-slice UI test, locator fixtures, internal-alpha 사용법
@@ -175,8 +199,13 @@ ADR-0003, first vertical-slice UI test, locator fixtures, internal-alpha 사용�
 
 # M04 — `durable-progress-and-race-tests`
 
-**상태:** TODO  
+**상태:** IN_PROGRESS
+
 **선행 조건:** M03
+
+**2026-10-09 현재 범위:** persisted sessionEpoch/sequence·DB 조건부 commit·sampling/settled save 기반과
+외부 force-stop 뒤 마지막 commit 복원은 PASS다. 전체 SAFE matrix, A/B rapid reopen, 60초 연속 이동,
+REFLOWING 미커밋 flush 및 실기기 지연 수치는 미완료여서 M04 IN_PROGRESS를 유지한다.
 
 ## 구현 범위
 앱 수준 progress single writer, persisted sessionEpoch/sequence, 1초 sampling+250ms settled save, conditional transaction, flush barrier, 저장 실패 UI를 완성한다. 외부 host-driven 종료 테스트를 만든다.
@@ -188,7 +217,7 @@ offset 최대값 기반 최신 판정, lifecycle 단독 저장, 복구 실패 �
 - [ ] SAFE-01/02/03/04/06/07/09/10/12 통과.
 - [ ] A/B 책과 같은 책의 빠른 닫기/재열기, 역방향 이동에서 의도한 최신 기록 유지.
 - [ ] 60초 연속 스크롤에도 주기 commit이 존재.
-- [ ] force-stop 뒤 마지막 commit 완료 locator 보존; 미커밋 상태까지 보존된다고 주장하지 않음.
+- [x] force-stop 뒤 마지막 commit 완료 locator 보존; 미커밋 상태까지 보존된다고 주장하지 않음.
 - [ ] 손상 locator/조회 오류는 기록 보존과 재시도 UI로 처리.
 
 ## 산출물
@@ -371,4 +400,3 @@ RELEASE_CANDIDATE_REPORT.md, signed/unsigned 산출물 구분, 최종 검사표
 
 ## 중단/제약 처리
 실제 서명/스토어 계정 접근은 별도 권한과 사용자 승인 필요. 준비 문서와 실제 배포를 혼동하지 않는다.
-

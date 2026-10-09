@@ -1,0 +1,90 @@
+static void move(UnixPath source, UnixPath target, CopyOption... options)
+        throws IOException
+    {
+        // permission check
+        SecurityManager sm = System.getSecurityManager();
+        if (sm != null) {
+            source.checkWrite();
+            target.checkWrite();
+        }
+
+        // translate options into flags
+        Flags flags = Flags.fromMoveOptions(options);
+
+        // handle atomic rename case
+        if (flags.atomicMove) {
+            try {
+                rename(source, target);
+            } catch (UnixException x) {
+                if (x.errno() == EXDEV) {
+                    throw new AtomicMoveNotSupportedException(
+                        source.getPathForExceptionMessage(),
+                        target.getPathForExceptionMessage(),
+                        x.errorString());
+                }
+                x.rethrowAsIOException(source, target);
+            }
+            return;
+        }
+
+        // move using rename or copy+delete
+        UnixFileAttributes sourceAttrs = null;
+        UnixFileAttributes targetAttrs = null;
+
+        // get attributes of source file (don't follow links)
+        try {
+            sourceAttrs = UnixFileAttributes.get(source, false);
+        } catch (UnixException x) {
+            x.rethrowAsIOException(source);
+        }
+
+        // get attributes of target file (don't follow links)
+        try {
+            targetAttrs = UnixFileAttributes.get(target, false);
+        } catch (UnixException x) {
+            // ignore
+        }
+        boolean targetExists = (targetAttrs != null);
+
+        // if the target exists:
+        // 1. check if source and target are the same file
+        // 2. throw exception if REPLACE_EXISTING option is not set
+        // 3. delete target if REPLACE_EXISTING option set
+        if (targetExists) {
+            if (sourceAttrs.isSameFile(targetAttrs))
+                return;  // nothing to do as files are identical
+            if (!flags.replaceExisting) {
+                throw new FileAlreadyExistsException(
+                    target.getPathForExceptionMessage());
+            }
+
+            // attempt to delete target
+            try {
+                if (targetAttrs.isDirectory()) {
+                    rmdir(target);
+                } else {
+                    unlink(target);
+                }
+            } catch (UnixException x) {
+                // target is non-empty directory that can't be replaced.
+                if (targetAttrs.isDirectory() &&
+                   (x.errno() == EEXIST || x.errno() == ENOTEMPTY))
+                {
+                    throw new DirectoryNotEmptyException(
+                        target.getPathForExceptionMessage());
+                }
+                x.rethrowAsIOException(target);
+            }
+        }
+
+        // first try rename
+        try {
+            rename(source, target);
+            return;
+        } catch (UnixException x) {
+            if (x.errno() != EXDEV && x.errno() != EISDIR) {
+                x.rethrowAsIOException(source, target);
+            }
+        }
+
+        

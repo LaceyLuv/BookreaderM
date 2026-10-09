@@ -1,0 +1,20 @@
+1832:             @NonNull String mode, @Nullable CancellationSignal cancellationSignal)
+1833:                     throws FileNotFoundException {
+1834:         Objects.requireNonNull(uri, "uri");
+1835:         Objects.requireNonNull(mode, "mode");
+1836: 
+1837:         try {
+1838:             if (mWrapped != null) return mWrapped.openAssetFile(uri, mode, cancellationSignal);
+1839:         } catch (RemoteException e) {
+
+1853:             }
+1854:         } else if (SCHEME_FILE.equals(scheme)) {
+1855:             ParcelFileDescriptor pfd = ParcelFileDescriptor.open(
+1856:                     new File(uri.getPath()), ParcelFileDescriptor.parseMode(mode));
+1857:             return new AssetFileDescriptor(pfd, 0, -1);
+1858:         } else {
+1859:             if ("r".equals(mode)) {
+1860:                 return openTypedAssetFileDescriptor(uri, "*/*", null, cancellationSignal);
+1861:             } else {
+1862:                 IContentProvider unstableProvider = acquireUnstableProvider(uri);
+1863:                 if (unstableProvider == null) {

@@ -1,0 +1,343 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Task :shared:tasks
+
+------------------------------------------------------------
+Tasks runnable from project ':shared'
+------------------------------------------------------------
+
+Android tasks
+-------------
+androidDependencies - Displays the Android dependencies of the project.
+signingReport - Displays the signing info for the base and test modules
+sourceSets - Prints out all the source sets defined in this project.
+
+Build tasks
+-----------
+allMetadataJar - Assembles a jar archive containing the metadata for all Kotlin source sets.
+androidDebugSourcesJar - Assembles a jar archive containing the sources of target 'androidDebug'.
+androidReleaseSourcesJar - Assembles a jar archive containing the sources of target 'androidRelease'.
+assemble - Assemble main outputs for all the variants.
+assembleAndroidTest - Assembles all the Test applications.
+assembleUnitTest - Assembles all the unit test applications.
+build - Assembles and tests this project.
+buildDependents - Assembles and tests this project and all projects that depend on it.
+buildKotlinToolingMetadata - Build metadata json file containing information about the used Kotlin tooling
+buildNeeded - Assembles and tests this project and all projects it depends on.
+clean - Deletes the build directory.
+cleanAllTests - Deletes all the test results.
+compileDebugAndroidTestSources
+compileDebugSources
+compileDebugUnitTestSources
+compileReleaseSources
+compileReleaseUnitTestSources
+extractDebugAnnotations - Extracts Android annotations for the debug variant into the archive file
+extractReleaseAnnotations - Extracts Android annotations for the release variant into the archive file
+jvmJar - Assembles an archive containing the main classes.
+jvmMainClasses - Assembles outputs for compilation 'main' of target 'jvm'
+jvmSourcesJar - Assembles a jar archive containing the sources of target 'jvm'.
+jvmTestClasses - Assembles outputs for compilation 'test' of target 'jvm'
+metadataCommonMainClasses - Assembles outputs for compilation 'commonMain' of target 'metadata'
+metadataMainClasses - Assembles outputs for compilation 'main' of target 'metadata'
+metadataSourcesJar - Assembles a jar archive containing the sources of target 'metadata'.
+sourcesJar - Assembles a jar archive containing the sources of target 'kotlin'.
+
+Help tasks
+----------
+artifactTransforms - Displays the Artifact Transforms that can be executed in project ':shared'.
+buildEnvironment - Displays all buildscript dependencies declared in project ':shared'.
+dependencies - Displays all dependencies declared in project ':shared'.
+dependencyInsight - Displays the insight into a specific dependency in project ':shared'.
+help - Displays a help message.
+javaToolchains - Displays the detected java toolchains.
+kotlinDslAccessorsReport - Prints the Kotlin code for accessing the currently available project extensions and conventions.
+outgoingVariants - Displays the outgoing variants of project ':shared'.
+projects - Displays the sub-projects of project ':shared'.
+properties - Displays the properties of project ':shared'.
+resolvableConfigurations - Displays the configurations that can be resolved in project ':shared'.
+tasks - Displays the tasks runnable from project ':shared'.
+
+Ide tasks
+---------
+resolveIdeDependencies - Debugging/Diagnosing task that will resolve dependencies for the IDE
+
+Install tasks
+-------------
+installDebugAndroidTest - Installs the android (on device) tests for the Debug build.
+uninstallAll - Uninstall all applications.
+uninstallDebugAndroidTest - Uninstalls the android (on device) tests for the Debug build.
+
+Run tasks
+---------
+jvmRun - Jvm Run task for target 'jvm' and compilation 'main'. This task can act as carrier for the IDE to execute jvm based code
+
+Signing tasks
+-------------
+generatePgpKeys - Generates a new PGP keypair.
+
+Usage: 
+gradlew generatePgpKeys --name "Jane Doe <janedoe@example.com>" --password YOUR_PASSWORD
+uploadPublicPgpKey - Uploads the public PGP key to a keyserver
+
+Validation tasks
+----------------
+checkSigningConfiguration - Checks that a signing configuration is set up correctly.
+
+Verification tasks
+------------------
+allTests - Runs the tests for all targets and create aggregated report
+check - Runs all checks.
+checkJetifier - Checks whether Jetifier is needed for the current project
+checkKotlinGradlePluginConfigurationErrors - Checks that Kotlin Gradle Plugin hasn't reported project configuration errors, failing otherwise. This task always runs before compileKotlin* or similar tasks.
+connectedAndroidTest - Installs and runs instrumentation tests for all flavors on connected devices.
+connectedCheck - Runs all device checks on currently connected devices.
+connectedDebugAndroidTest - Installs and runs the tests for debug on connected devices.
+deviceAndroidTest - Installs and runs instrumentation tests using all Device Providers.
+deviceCheck - Runs all device checks using Device Providers and Test Servers.
+jvmTest - Runs the tests of the test test run.
+lint - Runs lint on the default variant.
+lintDebug - Print text output from the corresponding lint report task
+lintFix - Runs lint on the default variant and applies any safe suggestions to the source code.
+lintRelease - Print text output from the corresponding lint report task
+test - Run unit tests for all variants.
+testDebugUnitTest - Run unit tests for the debug build.
+testReleaseUnitTest - Run unit tests for the release build.
+updateLintBaseline - Updates the lint baseline using the default variant.
+
+Other tasks
+-----------
+analyzeDebugAndroidTestDependencies
+analyzeDebugDependencies
+analyzeDebugUnitTestDependencies
+analyzeReleaseDependencies
+analyzeReleaseUnitTestDependencies
+assembleDebug - Assembles main output for variant debug
+assembleDebugAndroidTest - Assembles main output for variant debugAndroidTest
+assembleDebugUnitTest - Assembles main output for variant debugUnitTest
+assembleRelease - Assembles main output for variant release
+assembleReleaseUnitTest - Assembles main output for variant releaseUnitTest
+bundleDebugAar - Assembles a bundle containing the library in debug.
+bundleDebugLocalLintAar - Assembles a bundle containing the library in debug.
+bundleLibCompileToJarDebug
+bundleLibCompileToJarRelease
+bundleLibRuntimeToDirDebug
+bundleLibRuntimeToDirRelease
+bundleLibRuntimeToJarDebug
+bundleLibRuntimeToJarRelease
+bundleReleaseAar - Assembles a bundle containing the library in release.
+bundleReleaseLocalLintAar - Assembles a bundle containing the library in release.
+checkDebugAndroidTestAarMetadata
+checkDebugAndroidTestDuplicateClasses
+checkDebugManifest
+checkLegacyAbi
+checkReleaseManifest
+compileCommonMainKotlinMetadata - Compiles the kotlin sources in compilation 'commonMain' in target 'metadata' to Metadata.
+compileDebugAndroidTestJavaWithJavac
+compileDebugAndroidTestKotlinAndroid - Compiles the debugAndroidTest kotlin.
+compileDebugAndroidTestShaders
+compileDebugJavaWithJavac
+compileDebugKotlinAndroid - Compiles the debug kotlin.
+compileDebugLibraryResources
+compileDebugShaders
+compileDebugUnitTestJavaWithJavac
+compileDebugUnitTestKotlinAndroid - Compiles the debugUnitTest kotlin.
+compileJvmMainJava - Compiles jvm main Java source.
+compileJvmTestJava - Compiles jvm test Java source.
+compileKotlinJvm - Compiles the compilation 'main' in target 'jvm'.
+compileKotlinMetadata - Compiles the kotlin sources in compilation 'main' in target 'metadata' to Metadata.
+compileLint
+compileLintChecks
+compileReleaseJavaWithJavac
+compileReleaseKotlinAndroid - Compiles the release kotlin.
+compileReleaseLibraryResources
+compileReleaseShaders
+compileReleaseUnitTestJavaWithJavac
+compileReleaseUnitTestKotlinAndroid - Compiles the releaseUnitTest kotlin.
+compileTestKotlinJvm - Compiles the compilation 'test' in target 'jvm'.
+components - Displays the components produced by project ':shared'. [deprecated]
+compressDebugAndroidTestAssets
+consumeConfigAttr
+copyDebugJniLibsProjectAndLocalJars
+copyDebugJniLibsProjectOnly
+copyReleaseJniLibsProjectAndLocalJars
+copyReleaseJniLibsProjectOnly
+copyRoomSchemas
+copyRoomSchemasToAndroidTestAssetsDebugAndroidTest
+createDebugAndroidTestApkListingFileRedirect
+createFullJarDebug
+createFullJarRelease
+createMockableJar
+debugAssetsCopyForAGP
+dependentComponents - Displays the dependent components of components in project ':shared'. [deprecated]
+desugarDebugAndroidTestFileDependencies
+dexBuilderDebugAndroidTest
+dumpLegacyAbi
+exportCommonSourceSetsMetadataLocationsForMetadataApiElements
+exportDebugConsumerProguardFiles
+exportReleaseConsumerProguardFiles
+exportRootPublicationCoordinatesForMetadataApiElements
+exportTargetPublicationCoordinatesForDebugApiElements
+exportTargetPublicationCoordinatesForDebugRuntimeElements
+exportTargetPublicationCoordinatesForJvmApiElements
+exportTargetPublicationCoordinatesForJvmRuntimeElements
+exportTargetPublicationCoordinatesForReleaseApiElements
+exportTargetPublicationCoordinatesForReleaseRuntimeElements
+extractDebugSupportedLocales
+extractDeepLinksDebug
+extractDeepLinksForAarDebug
+extractDeepLinksForAarRelease
+extractDeepLinksRelease
+extractProguardFiles
+extractReleaseSupportedLocales
+generateDebugAndroidTestAssets
+generateDebugAndroidTestLintModel
+generateDebugAndroidTestResources
+generateDebugAndroidTestResValues
+generateDebugAndroidTestSources
+generateDebugAssets
+generateDebugExternalPublicTxt
+generateDebugLintModel
+generateDebugLintReportModel
+generateDebugLintVitalModel
+generateDebugResources
+generateDebugResValues
+generateDebugRFile
+generateDebugSources
+generateDebugUnitTestAssets
+generateDebugUnitTestLintModel
+generateDebugUnitTestResources
+generateDebugUnitTestSources
+generateDebugUnitTestStubRFile
+generateProjectStructureMetadata - Generates serialized project structure metadata of the current project (for tooling)
+generateReleaseAssets
+generateReleaseExternalPublicTxt
+generateReleaseLintModel
+generateReleaseLintReportModel
+generateReleaseLintVitalModel
+generateReleaseResources
+generateReleaseResValues
+generateReleaseRFile
+generateReleaseSources
+generateReleaseUnitTestAssets
+generateReleaseUnitTestLintModel
+generateReleaseUnitTestResources
+generateReleaseUnitTestSources
+generateReleaseUnitTestStubRFile
+javaPreCompileDebug
+javaPreCompileDebugAndroidTest
+javaPreCompileDebugUnitTest
+javaPreCompileRelease
+javaPreCompileReleaseUnitTest
+jvmProcessResources - Processes file collection.
+jvmTestProcessResources - Processes file collection.
+kmpPartiallyResolvedDependenciesChecker
+kspCommonMainKotlinMetadata
+kspDebugAndroidTestKotlinAndroid
+kspDebugKotlinAndroid
+kspDebugUnitTestKotlinAndroid
+kspKotlinJvm
+kspReleaseKotlinAndroid
+kspReleaseUnitTestKotlinAndroid
+kspTestKotlinJvm
+lintAnalyzeDebug - Run lint analysis on the debug component
+lintAnalyzeDebugAndroidTest - Run lint analysis on the debugAndroidTest component
+lintAnalyzeDebugUnitTest - Run lint analysis on the debugUnitTest component
+lintAnalyzeRelease - Run lint analysis on the release component
+lintAnalyzeReleaseUnitTest - Run lint analysis on the releaseUnitTest component
+lintFixDebug - Fix lint on the debug variant
+lintFixRelease - Fix lint on the release variant
+lintReportDebug - Run lint on the debug variant
+lintReportRelease - Run lint on the release variant
+lintVitalAnalyzeDebug - Run lint analysis with only the fatal issues enabled on the debug variant
+lintVitalAnalyzeRelease - Run lint analysis with only the fatal issues enabled on the release variant
+mapDebugAndroidTestSourceSetPaths
+mapDebugSourceSetPaths
+mapReleaseSourceSetPaths
+mergeDebugAndroidTestAssets
+mergeDebugAndroidTestGeneratedProguardFiles
+mergeDebugAndroidTestGlobalSynthetics
+mergeDebugAndroidTestJavaResource
+mergeDebugAndroidTestJniLibFolders
+mergeDebugAndroidTestNativeLibs
+mergeDebugAndroidTestResources
+mergeDebugAndroidTestShaders
+mergeDebugAssets
+mergeDebugConsumerProguardFiles
+mergeDebugGeneratedProguardFiles
+mergeDebugJavaResource
+mergeDebugJniLibFolders
+mergeDebugNativeLibs
+mergeDebugResources
+mergeDebugShaders
+mergeExtDexDebugAndroidTest
+mergeLibDexDebugAndroidTest
+mergeProjectDexDebugAndroidTest
+mergeReleaseAssets
+mergeReleaseConsumerProguardFiles
+mergeReleaseGeneratedProguardFiles
+mergeReleaseJavaResource
+mergeReleaseJniLibFolders
+mergeReleaseNativeLibs
+mergeReleaseResources
+mergeReleaseShaders
+metadataCommonMainProcessResources - Processes file collection.
+metadataProcessResources - Processes file collection.
+model - Displays the configuration model of project ':shared'. [deprecated]
+packageDebugAndroidTest
+packageDebugRenderscript
+packageDebugResources
+packageReleaseRenderscript
+packageReleaseResources
+parseDebugLocalResources
+parseReleaseLocalResources
+preBuild
+preDebugAndroidTestBuild
+preDebugBuild
+preDebugUnitTestBuild
+prepareDebugArtProfile
+prepareKotlinIdeaImport - Umbrella for all tasks required to run before IDEA/Gradle import
+prepareLintJarForPublish
+prepareReleaseArtProfile
+preReleaseBuild
+preReleaseUnitTestBuild
+processDebugAndroidTestJavaRes
+processDebugAndroidTestManifest
+processDebugAndroidTestResources
+processDebugJavaRes
+processDebugManifest
+processDebugUnitTestJavaRes
+processJvmMainResources - Processes jvm main resources.
+processJvmTestResources - Processes jvm test resources.
+processReleaseJavaRes
+processReleaseManifest
+processReleaseUnitTestJavaRes
+releaseAssetsCopyForAGP
+resolveConfigAttr
+setupLldbScript - Generate lldbinit file with imported konan_lldb.py script
+signingConfigWriterDebugAndroidTest
+stripDebugAndroidTestDebugSymbols
+stripDebugDebugSymbols
+stripReleaseDebugSymbols
+syncDebugLibJars
+syncReleaseLibJars
+transformCommonMainDependenciesMetadata - Generates serialized dependencies metadata for compilation 'commonMain' (for tooling)
+transformDependenciesMetadata
+updateLegacyAbi
+updateLintBaselineDebug - Update the lint baseline using the debug variant
+updateLintBaselineRelease - Update the lint baseline using the release variant
+validateSigningDebugAndroidTest
+verifyReleaseResources
+writeDebugAarMetadata
+writeDebugAndroidTestSigningConfigVersions
+writeDebugLintModelMetadata
+writeReleaseAarMetadata
+writeReleaseLintModelMetadata
+
+Rules
+-----
+Pattern: clean<TaskName>: Cleans the output files of a task.
+Pattern: build<ConfigurationName>: Assembles the artifacts of a configuration.
+
+BUILD SUCCESSFUL in 11s
+1 actionable task: 1 executed

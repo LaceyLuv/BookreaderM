@@ -1,0 +1,39 @@
+2026-10-04T01:50:49.3922712Z ##[group]Run test -c /dev/kvm
+2026-10-04T01:50:49.3923097Z [36;1mtest -c /dev/kvm[0m
+2026-10-04T01:50:49.3923725Z [36;1mecho 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules[0m
+2026-10-04T01:50:49.3924413Z [36;1msudo udevadm control --reload-rules[0m
+2026-10-04T01:50:49.3924796Z [36;1msudo udevadm trigger --name-match=kvm[0m
+2026-10-04T01:50:49.3925048Z [36;1mtest -r /dev/kvm && test -w /dev/kvm[0m
+2026-10-04T01:50:49.3982739Z shell: /usr/bin/bash -e {0}
+2026-10-04T01:50:49.3982954Z env:
+2026-10-04T01:50:49.3983205Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+2026-10-04T01:50:49.3983597Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+2026-10-04T01:50:49.3983932Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-10-04T01:50:49.3984174Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-10-04T01:50:49.3984413Z ##[endgroup]
+2026-10-04T01:50:49.4122094Z KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"
+2026-10-04T01:50:49.4417780Z ##[error]Process completed with exit code 1.
+2026-10-04T01:50:49.4480269Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-04T01:50:49.4480585Z with:
+2026-10-04T01:50:49.4480756Z   name: mobile-device-evidence
+2026-10-04T01:50:49.4480964Z   if-no-files-found: error
+2026-10-04T01:50:49.4481371Z   path: build/device-evidence/
+androidApp/build/outputs/androidTest-results/
+androidApp/build/reports/androidTests/
+
+2026-10-04T01:50:49.4481790Z   compression-level: 6
+2026-10-04T01:50:49.4481967Z   overwrite: false
+2026-10-04T01:50:49.4482142Z   include-hidden-files: false
+2026-10-04T01:50:49.4482330Z env:
+2026-10-04T01:50:49.4482564Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+2026-10-04T01:50:49.4482941Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+2026-10-04T01:50:49.4483437Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-10-04T01:50:49.4483675Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-10-04T01:50:49.4483902Z ##[endgroup]
+2026-10-04T01:50:49.5838265Z (node:2338) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-04T01:50:49.5839126Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-04T01:50:49.5890568Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-04T01:50:49.5891942Z The least common ancestor is /home/runner/work/BookreaderM/BookreaderM. This will be the root directory of the artifact
+2026-10-04T01:50:49.5903293Z ##[error]No files were found with the provided path: build/device-evidence/
+androidApp/build/outputs/androidTest-results/
+androidApp/build/reports/androidTests/. No artifacts will be uploaded.

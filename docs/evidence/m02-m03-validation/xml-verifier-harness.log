@@ -1,0 +1,48 @@
+[
+  {
+    "fixture": "valid",
+    "expected_success": true,
+    "actual_success": true
+  },
+  {
+    "fixture": "missing-required",
+    "expected_success": false,
+    "actual_success": false
+  },
+  {
+    "fixture": "skipped",
+    "expected_success": false,
+    "actual_success": false
+  },
+  {
+    "fixture": "unexpected-failure",
+    "expected_success": false,
+    "actual_success": false
+  },
+  {
+    "fixture": "empty",
+    "expected_success": false,
+    "actual_success": false
+  },
+  {
+    "fixture": "duplicate",
+    "expected_success": false,
+    "actual_success": false
+  },
+  {
+    "fixture": "wrong-summary-count",
+    "expected_success": false,
+    "actual_success": false
+  },
+  {
+    "fixture": "failed-summary",
+    "expected_success": false,
+    "actual_success": false
+  },
+  {
+    "fixture": "malformed",
+    "expected_success": false,
+    "actual_success": false
+  }
+]
+PASS nine synthetic XML acceptance/rejection checks; no application tests executed

@@ -1,0 +1,28 @@
+[
+  {
+    "tag": "android-13.0.0_r1",
+    "url": "https://android.googlesource.com/platform/libcore/+/android-13.0.0_r1/ojluni/src/main/java/sun/nio/fs/UnixCopyFile.java?format=TEXT",
+    "source_sha256": "fbdbf98f318431dabb7b5ead99d460fef8f60b145a54a280f3e92385a2f94770",
+    "excerpt_path": "android-13.0.0_r1-move-excerpt.txt",
+    "move_first_rename": true,
+    "fallback_exdev_eisdir": true,
+    "no_replace_guard": true,
+    "source_local_path_outside_repository": "/tmp/bookreader-m02-files-move-api/android-13.0.0_r1-UnixCopyFile.java",
+    "excerpt_sha256": "60ac3fe99ca8a0833070af2315c70a305ed07c8b750279b5d0bbf0c46745311b",
+    "verified_utc": "2026-10-04T02:26:43.106505+00:00",
+    "contract_note": "Files.move with no options checks target absence then rename; same regular-file filesystem and exclusive managed-operation lock prevent EXDEV/EISDIR fallback for this promotion. Parent-directory fsync and recovery journal remain required."
+  },
+  {
+    "tag": "android-16.0.0_r1",
+    "url": "https://android.googlesource.com/platform/libcore/+/android-16.0.0_r1/ojluni/src/main/java/sun/nio/fs/UnixCopyFile.java?format=TEXT",
+    "source_sha256": "fbdbf98f318431dabb7b5ead99d460fef8f60b145a54a280f3e92385a2f94770",
+    "excerpt_path": "android-16.0.0_r1-move-excerpt.txt",
+    "move_first_rename": true,
+    "fallback_exdev_eisdir": true,
+    "no_replace_guard": true,
+    "source_local_path_outside_repository": "/tmp/bookreader-m02-files-move-api/android-16.0.0_r1-UnixCopyFile.java",
+    "excerpt_sha256": "60ac3fe99ca8a0833070af2315c70a305ed07c8b750279b5d0bbf0c46745311b",
+    "verified_utc": "2026-10-04T02:26:43.106672+00:00",
+    "contract_note": "Files.move with no options checks target absence then rename; same regular-file filesystem and exclusive managed-operation lock prevent EXDEV/EISDIR fallback for this promotion. Parent-directory fsync and recovery journal remain required."
+  }
+]

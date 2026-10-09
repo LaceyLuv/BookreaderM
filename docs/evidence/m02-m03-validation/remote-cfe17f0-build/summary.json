@@ -1,0 +1,54 @@
+{
+  "source_commit": "cfe17f0b9d2efbc39d6817c5e9b1470539587e09",
+  "run_id": 37171679446,
+  "job_id": 111345713297,
+  "artifact_id": 11291598205,
+  "status": "PASS",
+  "archive_sha256": "b1a0d00695eaa70a78d6853342de1185a0eadcbbf413b926e347397b0b83e99d",
+  "archive_size_bytes": 15128596,
+  "actual_native_test_suites": {
+    "android-unit": {
+      "tests": 38,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 43,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "Hint": 20
+  },
+  "schemas": [
+    {
+      "path": "shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/1.json",
+      "sha256": "b8dec17c6478c78fb6e77484643a7fbf29f903afa88cf1cfe458fd8ef17b3700",
+      "matches_committed_schema": true
+    },
+    {
+      "path": "shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/2.json",
+      "sha256": "c9b1cd2e69cea3c433cb6cb4994ae9430e1d0b6c2129df55255b4b03772094d7",
+      "matches_committed_schema": true
+    }
+  ],
+  "apks": {
+    "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk": {
+      "sha256": "cb14ddb4fbf00453daa41ec262d4dd4166948b86ec972603974adfa9f13ac8f6",
+      "size_bytes": 1142871,
+      "local_path_outside_repository": "/workspace/bookreader-remote-m02-m03/cfe17f0-build/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk",
+      "signature_verify_exit_code": 0,
+      "certificate_sha256": "476bf5242b25459656c8dc3fa623e1e7ddc8fe577321f7084bdc87f9cf9b4e40"
+    },
+    "androidApp/build/outputs/apk/debug/androidApp-debug.apk": {
+      "sha256": "c813bbad8490638bd37f1f9a90429903fba029df7fe8cfb8de95ad7256fde8a7",
+      "size_bytes": 16859656,
+      "local_path_outside_repository": "/workspace/bookreader-remote-m02-m03/cfe17f0-build/androidApp/build/outputs/apk/debug/androidApp-debug.apk",
+      "signature_verify_exit_code": 0,
+      "certificate_sha256": "476bf5242b25459656c8dc3fa623e1e7ddc8fe577321f7084bdc87f9cf9b4e40"
+    }
+  }
+}

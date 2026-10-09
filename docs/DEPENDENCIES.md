@@ -1,7 +1,62 @@
-# M00 dependency and toolchain record
+# Dependency and toolchain record
 
-2026-10-04 갱신. 정확 버전은 catalog/build scripts/wrapper에 고정했다.
+2026-10-09 갱신. 정확 버전은 catalog/build scripts/wrapper에 고정했다.
 공식 release/호환표/API 확인과 실제 resolved graph·compile·runtime 결과를 구분한다.
+
+## M02/M03 working tree 추가 기록
+
+기존 정확 dependency pin을 유지하며 Readium/외부 encoding detector를 추가하지 않는다.
+Android app의 표시 버전은 `0.2.0`/versionCode 2로 변경했다. 이 숫자는 milestone 전체 완료 판정이 아니다.
+Room schema는 2로 증가하며 명시한 additive `MIGRATION_1_2`를 Android/JVM builder에 등록한다.
+기존 v1 export를 보존하고 새 실제 export/DB upgrade 결과는 신규 전체 CI에서 검증한다.
+
+Strict TXT decoder는 Android/JVM `java.nio.charset.Charset`/`CharsetDecoder`와 `CodingErrorAction.REPORT`를 사용한다.
+영구 encodingId와 charset alias를 분리한다. CP949 alias 지원은 `Charset.isSupported`로 검사하고,
+실제 Android 대상에서 자체 작성 U+AC02=`81 41` fixture를 decode해야 지원을 PASS로 판정한다.
+EUC-KR을 CP949로 대체하거나 UTF-16 BOM-less 후보를 자동으로 확정하지 않는다.
+계획서의 [Android Charset API 근거](https://developer.android.com/reference/java/nio/charset/Charset)와
+[ADR-0003](adr/0003-locator-normalization-and-revision.md), `fixtures/encoding/manifest.json`에 계약을 기록했다.
+
+기존 encoding-only host 13 cases는 PASS였지만 실제 Android에서는 ICU EUC-KR alias가 CP949 확장을 허용하여 구분 회귀가 실패했다.
+앱에서 표준 EUC-KR byte grammar를 강제한 수정은 경계 회귀 포함 host 14 cases PASS다. 원래 Android assertion은 유지하며
+후속 실제 Android 3 cases에서 모두 통과했다. host JDK가 대상 기기 지원을 증명하지 않는다. 기존 `fdd9ac1`의 최종 로컬 CI attempt 3는
+assemble/lint/Android unit 37/shared 43/실제 migration·DB/schema v2 검사를 PASS했다.
+source fingerprint와 log/XML/APK hash는 `evidence/m02-m03-validation/local-ci-attempt-3/summary.json` 및
+TESTING/WORKLOG로 별도 기록한다. 같은 source `fdd9ac1`의 원격 build `37167947509`도 실제 37/43-case XML,
+lint 20 Hint와 local byte 동일 schema 1/2를 확인해 PASS다. 실제 Android device `37167947545`는 23 cases 중 14 failures다.
+strict EUC-KR 및 Java test provider/picker 수정 source `9eb8f78`의 로컬 CI attempt 4는 38 Android unit/43 shared,
+failure/error/skipped 0, lint 20 Hint, 앱/test APK 및 schema PASS다. 당시 원격 기기/host 재검증 대기 결과는 아래 이력에 기록한다.
+같은 수정 source의 원격 build `37169215834`도 actual native 38/43-case XML, lint 20 Hint와 local byte 동일
+schema 1/2를 확인하여 PASS다. `remote-9eb8f78-build/summary.json`에 source/artifact/hash를 기록했다.
+이후 actual Android `f3d4c38`는 encoding 3 cases PASS, ordinary 23 cases 중 11 failures를 기록했다.
+SELinux `Os.link` denial을 공개 `Files.move` 경로로 바꾸고 intent/asset test dispatch를 수정한 최신 `cfe17f0`는
+로컬 CI5의 38/43 및 최종 fixture-only test APK/lint를 PASS했다. Android 13/16 libcore와 API36 resolver/provider
+공식 API 근거는 `files-move-api/`, `asset-provider-api/`에 기록한다. `cfe17f0` 원격 build도 native 38/43 PASS이며
+실제 Android는 ordinary 24 cases 중 Reader fixture progress read 1개가 DATABASE_UNAVAILABLE로 실패했다.
+가져오기 13/encoding 3는 PASS다. 내부 DB 원인은 미확인이고 test-only observer 수명/진단 교정 `3ce3386`는
+compile/lint PASS, production/unit/shared/config hash는 CI5와 같다. 당시 재검증 대기 상태는 아래 최신 결과로 갱신한다.
+
+2026-10-09 재개 기준 `3ce3386`의 원격 build `37172491541`은 native 38 Android unit/43 shared,
+failure/error/skipped 0, lint 20 Hint/schema 1/2 일치로 PASS다. actual device `37172491508`은 ordinary 24/1 FAIL이며,
+이전 measured Reader failure 대신 외부 VIEW 가져오기 완료 후 Reader ERROR가 유일한 실패다. 두 ReaderFlow/encoding 3는 PASS,
+host 2 stages는 NOT_RUN이다. 내부 원인은 확인되지 않아 SQLITE_BUSY 해결을 주장하지 않는다.
+재개 source `2be610a`는 정확 dependency pin/schema를 유지하며 서재·import·Reader에 앱 소유 Room pool을 공유하고
+단계별 sanitized 진단을 추가한다. 실제 local full CI6는 exit 0, Android unit 41/shared JVM 45 failure/error/skipped 0,
+lint 20 Hint, 앱/test APK/schema 검사 PASS와 source drift 0이다. 새 actual ordinary 25/host 2는 device `37879616383`에서 모두 PASS다.
+새 로컬 APK/hash/signature는 `final-local-apk.json`에 기록하며 CI의 독립 signer/APK와 동일성을 가정하지 않는다.
+원격 build `37879616525`의 actual native 41/45-case XML도 failure/error/skipped 0, lint 20 Hint,
+schema 1/2 local 일치로 PASS다. actual device ordinary 25와 별도 host 2/PID 종료 proof·PNG 4개도 검증했다.
+이는 동일 source 검증이며 기기 job에 설치 APK hash가 없어 local APK와의 byte 동일성은 확인하지 않았다. `remote-2be610a-build/summary.json`에 별도 artifact/hash/signature를 기록한다.
+
+`evidence/m02-m03-validation/resume-2026-10-09-baseline.json`은 doctor exit 0과
+Temurin 17.0.16+8/SDK API36/build-tools 35.0.0/Gradle wrapper 8.13 checksum 유지,
+상속된 proxy TLS 옵션 및 `/workspace/toolchains/cacerts` 보존을 기록한다. local adb 연결 기기는 0이다.
+doctor PASS는 새 변경의 Gradle/기기 검증 PASS가 아니다. 키/인증서 파일을 문서나 evidence에 복사하지 않는다.
+
+아래 M00 내용과 count는 이전 source의 완료 증거이며 신규 M02/M03 실행 결과가 아니다.
+
+## M00 검증된 기준
+
 현재 JDK 17과 SDK 36/build-tools 35.0.0 환경에서 `doctor`, `projects`, 두 모듈 task discovery가 `PASS`다.
 실제 runtime graph와 전체 assemble/lint/unit/shared/schema 검사는 `PASS`다.
 Android unit 10/shared 19 cases와 최신 source의 API36 instrumentation 5 cases가 통과했다.

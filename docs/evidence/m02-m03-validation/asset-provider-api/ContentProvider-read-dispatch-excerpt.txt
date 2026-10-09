@@ -1,0 +1,51 @@
+2140:      * @see ParcelFileDescriptor#parseMode(String)
+2141:      */
+2142:     public @Nullable ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode)
+2143:             throws FileNotFoundException {
+2144:         throw new FileNotFoundException("No files supported by provider at "
+2145:                 + uri);
+2146:     }
+2147: 
+2148:     /**
+
+2264:      * @see #getType(android.net.Uri)
+2265:      */
+2266:     public @Nullable AssetFileDescriptor openAssetFile(@NonNull Uri uri, @NonNull String mode)
+2267:             throws FileNotFoundException {
+2268:         ParcelFileDescriptor fd = openFile(uri, mode);
+2269:         return fd != null ? new AssetFileDescriptor(fd, 0, -1) : null;
+2270:     }
+2271: 
+2272:     /**
+2273:      * This is like {@link #openFile}, but can be implemented by providers
+2274:      * that need to be able to return sub-sections of files, often assets
+2275:      * inside of their .apk.
+2276:      * This method can be called from multiple threads, as described in
+2277:      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
+
+2442:     public @Nullable AssetFileDescriptor openTypedAssetFile(@NonNull Uri uri,
+2443:             @NonNull String mimeTypeFilter, @Nullable Bundle opts) throws FileNotFoundException {
+2444:         if ("*/*".equals(mimeTypeFilter)) {
+2445:             // If they can take anything, the untyped open call is good enough.
+2446:             return openAssetFile(uri, "r");
+2447:         }
+2448:         String baseType = getType(uri);
+2449:         if (baseType != null && ClipDescription.compareMimeTypes(baseType, mimeTypeFilter)) {
+2450:             // Use old untyped open call if this provider has a type for this
+2451:             // URI and it matches the request.
+2452:             return openAssetFile(uri, "r");
+2453:         }
+2454:         throw new FileNotFoundException("Can't open " + uri + " as type " + mimeTypeFilter);
+2455:     }
+2456: 
+2457: 
+2458:     /**
+
+2508:      */
+2509:     @Override
+2510:     public @Nullable AssetFileDescriptor openTypedAssetFile(@NonNull Uri uri,
+2511:             @NonNull String mimeTypeFilter, @Nullable Bundle opts,
+2512:             @Nullable CancellationSignal signal) throws FileNotFoundException {
+2513:         return openTypedAssetFile(uri, mimeTypeFilter, opts);
+2514:     }
+2515: 

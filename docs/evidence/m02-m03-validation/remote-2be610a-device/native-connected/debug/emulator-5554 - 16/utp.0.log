@@ -1,0 +1,70 @@
+INFO: Constructing runner from config.
+INFO: Configuring Android Instrumentation driver: android_instrumentation_runtime {
+  instrumentation_info {
+    app_package: "org.bookreader.mobile"
+    test_package: "org.bookreader.mobile.test"
+    test_runner_class: "androidx.test.runner.AndroidJUnitRunner"
+  }
+  instrumentation_args {
+    args_map {
+      key: "additionalTestOutputDir"
+      value: "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence"
+    }
+    args_map {
+      key: "captureFixtureScreenshots"
+      value: "true"
+    }
+    args_map {
+      key: "notClass"
+      value: "org.bookreader.mobile.reader.TxtReaderHostProcessTest"
+    }
+  }
+}
+am_instrument_timeout: 31536000
+
+INFO: Configuring AndroidTestApkInstallerPlugin: apks_to_install {
+  apk_paths: "/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+  install_options {
+  }
+}
+apks_to_install {
+  apk_paths: "/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk"
+  install_options {
+  }
+}
+
+INFO: No installables found in test fixture. Nothing to install.
+INFO: Installing [/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk] on device emulator-5554.
+INFO: Installing [/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk] on device emulator-5554.
+INFO: Start logcat streaming.
+INFO: Running Android Instrumentation driver.
+INFO: Copying files from device to host: /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/m02-library.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/m02-library.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/m03-reader.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/m03-reader.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-reader-generated-scroll.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-reader-generated-scroll.png
+INFO: Stop logcat streaming.
+INFO: Execute org.bookreader.mobile.database.AndroidDatabaseOwnerTest.concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidBomAndBoundaryNormalizationAreCanonical: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidStrictDecodeRejectsLateIncompleteCharacters: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidCp949ExtensionFixtureIsDistinctFromEucKr: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.systemDocumentsPickerSelectsTxtFromRealProvider: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.managedPromotionRefusesExistingTargetAndRenamesPrivateStaging: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.assetSegmentImportHonorsOffsetAndDeclaredLength: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.ownUidProviderIsRejectedBeforeAnyQuery: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.unknownSizeSourceEnforcesActualStreamingByteLimit: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.stalledProviderCopyCancelsAndRemovesPrivateStaging: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.manualEncodingUsesStagingAfterSourceGrantIsRevoked: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.externalViewReceivesTemporaryGrantAndOpensActualReader: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.emptyTxtReportsNoContentWithoutCreatingReadingProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderBoundaryTest.eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.missingManagedCopyShowsRetryAndPreservesCommittedProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation: PASSED
+INFO: Execute org.bookreader.mobile.ui.AndroidThemeStoreTest.invalidStoredThemeReportsErrorAndPreservesOriginal: PASSED
+INFO: Execute org.bookreader.mobile.ui.AndroidThemeStoreTest.selectedThemePersistsAcrossStoreInstances: PASSED
+INFO: Execute org.bookreader.mobile.ui.BookReaderScreenTest.loadingEmptyAndErrorAreDistinctAndErrorHasRetry: PASSED
+INFO: Execute org.bookreader.mobile.ui.BookReaderScreenTest.threeTabsMetadataSearchAndThemeSelectionWork: PASSED
+INFO: Execute org.bookreader.mobile.ui.MainActivityLaunchTest.launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab: PASSED

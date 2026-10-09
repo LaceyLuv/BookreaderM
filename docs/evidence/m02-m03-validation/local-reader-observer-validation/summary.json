@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "exit_code": 0,
+  "source_drift_from_start": [],
+  "source_fingerprint_sha256": "a0cc88b0119f7b5db7df90c0f46d08e110cb27919fa9b89bf97840c1217136e3",
+  "commands": [
+    "./gradlew --no-daemon --console=plain --stacktrace :androidApp:assembleDebugAndroidTest :androidApp:lintDebug"
+  ],
+  "lint": {
+    "Hint": 20
+  },
+  "mandatory_manifest_exact_authored_identities": {
+    "android-unit": 38,
+    "shared-jvm": 43,
+    "android-device": 24,
+    "android-host": 2
+  },
+  "source_equivalence_to_full_ci5": "Only androidTest fixture source differs from full CI5. All production and Android unit/shared test source and configuration hashes unchanged; actual CI5 Android38/shared43 native results preserved.",
+  "apk_sha256": {
+    "androidApp/build/outputs/apk/debug/androidApp-debug.apk": "63f4174da6012253a30ce37059e72b5d5c40ce955063cf7e7161dab4eb9ac65a",
+    "androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk": "b3c07f6b39187777f686d34693122e6e30b7ce37f168353aa772df4532c2e3c4"
+  }
+}

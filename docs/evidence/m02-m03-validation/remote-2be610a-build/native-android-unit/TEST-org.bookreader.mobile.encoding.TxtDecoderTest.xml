@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.bookreader.mobile.encoding.TxtDecoderTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-10-09T03:35:57.588Z" hostname="runnervmmprz5" time="0.537">
+  <properties/>
+  <testcase name="completeValidationFindsAnErrorAfterAValidPreview" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.258"/>
+  <testcase name="previewWithholdsACutOffMultibyteCharacterAndNeverSplitsASurrogate" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.023"/>
+  <testcase name="cp949ExtensionIsNotEucKrAndNeverSelectedAutomatically" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.009"/>
+  <testcase name="normalizationIsIndependentOfByteAndTextChunkBoundaries" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.067"/>
+  <testcase name="bomDetectionSurvivesOneByteReadsAndPreservesInteriorBomAndWhitespace" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.001"/>
+  <testcase name="sourceLimitUsesActualBytesAndReadsAtMostOneByteBeyondLimit" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.002"/>
+  <testcase name="encodingIdsAndEmptyTextContractAreStable" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.001"/>
+  <testcase name="eucKrGrammarCarriesPairedBytesAndRejectsCp949ExtensionRangesAtExactOffsets" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.008"/>
+  <testcase name="malformedUtf8AndTruncatedUtf16NeverUseReplacementCharacters" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.003"/>
+  <testcase name="binaryMaskedAsTxtIsRejectedButCommonTextControlsArePreserved" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.007"/>
+  <testcase name="explicitMismatchedBomAndUtf32AreRejected" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.004"/>
+  <testcase name="cancellationAndBudgetFailuresPropagateWithoutClosingCallerOwnedStream" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.006"/>
+  <testcase name="bomlessUtf16RequiresAnExplicitChoice" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.001"/>
+  <testcase name="validationDoesNotAccumulateTheBodyAndHandlesZeroLengthReadResults" classname="org.bookreader.mobile.encoding.TxtDecoderTest" time="0.137"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

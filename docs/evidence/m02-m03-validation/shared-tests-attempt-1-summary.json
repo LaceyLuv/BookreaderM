@@ -1,0 +1,226 @@
+{
+  "command": "./gradlew --no-daemon --console=plain :shared:jvmTest",
+  "exit_code": 0,
+  "reports": [
+    {
+      "path": "shared/build/test-results/jvmTest/TEST-org.bookreader.mobile.database.MigrationTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        [
+          "org.bookreader.mobile.database.MigrationTest",
+          "exportedVersionOneMigratesWithoutLosingBooksOrProgress[jvm]"
+        ]
+      ]
+    },
+    {
+      "path": "shared/build/test-results/jvmTest/TEST-org.bookreader.mobile.database.RoomDatabaseSmokeTest.xml",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "revisionRecordsAndUnknownPercentRemainDistinctFromMissing[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "foreignKeyRejectsOrphanProgressAndCascadesExplicitDeletion[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "createsInsertsQueriesAndReopensRealDatabase[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "corruptProgressReadKeepsOriginalCommittedRecord[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "invalidStoredBookIsErrorRatherThanEmptyLibrary[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "metadataMismatchNeverReturnsAUsablePosition[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "unsupportedLocatorReadKeepsOriginalCommittedRecord[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "locatorFormatMustMatchItsBook[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "duplicateBookInsertAbortsWithoutReplacingBookOrProgress[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "unavailableDatabaseReadIsErrorAndPreservesDiskRecord[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "newestLibraryOrderUsesStableIdWhenAdditionTimesMatch[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
+          "callerCancellationIsNotConvertedToDatabaseError[jvm]"
+        ]
+      ]
+    },
+    {
+      "path": "shared/build/test-results/jvmTest/TEST-org.bookreader.mobile.importing.ImportCoordinatorTest.xml",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "failedPostCommitCleanupStillReportsSuccessAndRecoveryRetries[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "durableCopyDoesNotDependOnSourceAndDuplicateKeepsProgress[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "deathWithActualPartialStagingBytesRecoversWithoutTouchingExistingProgress[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "encodingChoiceResumesPrivateStagingAfterTemporarySourceDisappears[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "missingIdenticalCopyRelinksWithoutChangingInterpretationOrProgress[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "deletingInvalidatesWriterBeforeFileRemovalAndRecoveryNeverResurrects[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "interruptedCheckpointsRecoverIdempotentlyAndPreserveExistingBook[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "cancellationDuringCopyKeepsPreviouslyCommittedBookAndCleansStage[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "actualUnknownLengthOverLimitStopsCopyWithoutCommitting[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "cancellationDuringEncodingResumeNeverCommitsOnRecovery[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "corruptedJournalCannotDeleteAnotherBooksReferencedFile[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "classifiedFailuresAndUnknownSizeKeepCommittedData[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "cancelledEncodingChoiceRemovesOnlyItsStaging[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.importing.ImportCoordinatorTest",
+          "midStreamDiskAndPermissionFailuresCleanOnlyNewPartialBytes[jvm]"
+        ]
+      ]
+    },
+    {
+      "path": "shared/build/test-results/jvmTest/TEST-org.bookreader.mobile.locator.LocatorCodecTest.xml",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        [
+          "org.bookreader.mobile.locator.LocatorCodecTest",
+          "comicIdentityIsEntryKeyAndAnchorNotImageHint[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.locator.LocatorCodecTest",
+          "unknownVersionAndTypeRemainUnsupported[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.locator.LocatorCodecTest",
+          "epubRoundTripPreservesCompleteSdkLocatorIncludingExtensionFields[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.locator.LocatorCodecTest",
+          "changedRevisionIsNotCollapsedIntoSameAnchor[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.locator.LocatorCodecTest",
+          "malformedAndInvalidCoordinatesNeverBecomeZeroLocator[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.locator.LocatorCodecTest",
+          "txtRoundTripKeepsLongUtf16AnchorAndRevision[jvm]"
+        ]
+      ]
+    },
+    {
+      "path": "shared/build/test-results/jvmTest/TEST-org.bookreader.mobile.model.BookModelTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        [
+          "org.bookreader.mobile.model.BookModelTest",
+          "managedPathCannotBeSourceUriAbsolutePathOrTraversal[jvm]"
+        ]
+      ]
+    },
+    {
+      "path": "shared/build/test-results/jvmTest/TEST-org.bookreader.mobile.repository.RoomProgressWriterTest.xml",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        [
+          "org.bookreader.mobile.repository.RoomProgressWriterTest",
+          "corruptAndUnsupportedRecordsDoNotChangeEpochOrReadOrder[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.repository.RoomProgressWriterTest",
+          "fixedBookEventsStaySeparateAndDeletedBookIsNeverRecreated[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.repository.RoomProgressWriterTest",
+          "changedRestoreRevisionOrDeletingBookRejectsWithoutMutation[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.repository.RoomProgressWriterTest",
+          "missingProgressCannotAcceptInventedRestoreAndReadyOnlyMarksActualRead[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.repository.RoomProgressWriterTest",
+          "existingProgressCannotStartWithNullOrDifferentRestoredLocator[jvm]"
+        ],
+        [
+          "org.bookreader.mobile.repository.RoomProgressWriterTest",
+          "saveUsesSequenceNotMaximumOffsetAndRejectsOldSession[jvm]"
+        ]
+      ]
+    }
+  ],
+  "totals": {
+    "tests": 40,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}
