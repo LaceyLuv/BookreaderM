@@ -27,8 +27,12 @@ import org.bookreader.mobile.repository.ProgressSession
 import org.bookreader.mobile.repository.ProgressWriteEvent
 import org.bookreader.mobile.repository.ProgressWriteResult
 import org.bookreader.mobile.repository.ReadySessionResult
+import org.bookreader.mobile.repository.DatabaseFailureDiagnostic
+import org.bookreader.mobile.repository.failureTypes
 
 interface ReaderProgressAccess {
+    /** Optional sanitized failure from the most recent operation; implementations clear it per call. */
+    fun lastDatabaseFailure(): DatabaseFailureDiagnostic? = null
     suspend fun load(bookId: String, revision: String): ProgressReadResult
     suspend fun startReadySession(bookId: String, revision: String, restoredLocator: ContentLocator?): ReadySessionResult
     suspend fun save(event: ProgressWriteEvent): ProgressWriteResult
@@ -36,6 +40,13 @@ interface ReaderProgressAccess {
 }
 
 enum class TxtReaderPhase { OPENING, LOADING_PROGRESS, PREPARING, RESTORING, READY, REFLOWING, ERROR }
+enum class ReaderFailureStage { LOAD_PROGRESS, CACHE_BUILD, RESTORE_POSITION, ACTIVATE, SAVE, FLUSH, READ_FRAGMENT }
+data class ReaderFailureDiagnostic(
+    val stage: ReaderFailureStage,
+    val resultCode: String? = null,
+    val exceptionTypes: List<String> = emptyList(),
+    val database: DatabaseFailureDiagnostic? = null,
+)
 data class TxtReaderState(
     val phase: TxtReaderPhase = TxtReaderPhase.OPENING,
     val cache: TxtCacheSnapshot = TxtCacheSnapshot(),
@@ -45,6 +56,7 @@ data class TxtReaderState(
     val error: String? = null,
     val saveError: Boolean = false,
     val sourceAvailability: BookAvailability? = null,
+    val failureDiagnostic: ReaderFailureDiagnostic? = null,
 )
 
 /** Retained by the app ViewModel, never saved as a navigation destination across process death. */
@@ -94,10 +106,15 @@ class TxtReaderController(
             cache = TxtCanonicalCache(book, directory)
             mutableState.value = TxtReaderState(phase = TxtReaderPhase.LOADING_PROGRESS,
                 restoreGeneration = mutableState.value.restoreGeneration + 1)
+            var failureStage = ReaderFailureStage.LOAD_PROGRESS
+            var resultCode: String? = null
             try {
                 val revision = requireNotNull(book.currentRevision)
                 when (val loaded = progress.load(book.id, revision)) {
-                    is ProgressReadResult.Error -> error("독서 기록을 읽을 수 없습니다. 기존 기록은 보존됩니다.")
+                    is ProgressReadResult.Error -> {
+                        resultCode = loaded.code.name
+                        error("독서 기록을 읽을 수 없습니다. 기존 기록은 보존됩니다.")
+                    }
                     is ProgressReadResult.Found -> {
                         val locator = loaded.progress.locator as? TxtLocator
                             ?: error("지원하지 않는 독서 위치입니다. 기존 기록은 보존됩니다.")
@@ -107,6 +124,7 @@ class TxtReaderController(
                     ProgressReadResult.Missing -> Unit
                 }
                 val target = (originalLocator as? TxtLocator)?.payload?.utf16Offset ?: 0
+                failureStage = ReaderFailureStage.CACHE_BUILD
                 mutableState.update { it.copy(phase = TxtReaderPhase.PREPARING, targetOffset = target) }
                 withContext(Dispatchers.IO) {
                     val buildContext = coroutineContext
@@ -121,6 +139,7 @@ class TxtReaderController(
                     }
                 }
                 val snapshot = cache.snapshot()
+                failureStage = ReaderFailureStage.RESTORE_POSITION
                 require(target <= snapshot.committedLength) { "저장된 위치가 본문 범위를 벗어납니다." }
                 mutableState.update { it.copy(cache = snapshot,
                     phase = if (it.phase == TxtReaderPhase.PREPARING) TxtReaderPhase.RESTORING else it.phase) }
@@ -128,6 +147,7 @@ class TxtReaderController(
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Exception) {
                 mutableState.update { it.copy(phase = TxtReaderPhase.ERROR,
+                    failureDiagnostic = diagnostic(failureStage, resultCode, failure),
                     sourceAvailability = (failure as? TxtSourceException)?.availability,
                     error = if (failure.message == "EMPTY_TXT") "내용이 없는 텍스트 파일입니다."
                         else "본문 또는 독서 기록을 열 수 없습니다. 원본과 기존 기록은 보존됩니다.") }
@@ -135,10 +155,18 @@ class TxtReaderController(
         }
     }
 
-    suspend fun fragment(index: Int): String = withContext(Dispatchers.IO) { cache.readFragment(index) }
+    suspend fun fragment(index: Int): String = withContext(Dispatchers.IO) {
+        try { cache.readFragment(index) }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (failure: Exception) {
+            mutableState.update { it.copy(failureDiagnostic = diagnostic(ReaderFailureStage.READ_FRAGMENT, failure = failure)) }
+            throw failure
+        }
+    }
 
     fun restoreFailed() {
         mutableState.update { it.copy(phase = TxtReaderPhase.ERROR,
+            failureDiagnostic = diagnostic(ReaderFailureStage.RESTORE_POSITION),
             error = "저장된 위치가 유효한 문자 경계가 아닙니다. 기존 기록은 보존됩니다.") }
     }
 
@@ -160,13 +188,16 @@ class TxtReaderController(
                 val started = try {
                     progress.startReadySession(book.id, requireNotNull(book.currentRevision), originalLocator)
                 } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) {
+                catch (failure: Exception) {
                     mutableState.update { it.copy(phase = TxtReaderPhase.ERROR,
+                        failureDiagnostic = diagnostic(ReaderFailureStage.ACTIVATE, failure = failure),
                         error = "독서 기록 저장을 준비할 수 없습니다. 기존 기록은 보존됩니다.") }
                     return@launch
                 }
                 if (started !is ReadySessionResult.Ready) {
                     mutableState.update { it.copy(phase = TxtReaderPhase.ERROR,
+                        failureDiagnostic = diagnostic(ReaderFailureStage.ACTIVATE,
+                            (started as? ReadySessionResult.Error)?.code?.name),
                         error = "독서 기록 저장을 준비할 수 없습니다. 기존 기록은 보존됩니다.") }
                     return@launch
                 }
@@ -211,17 +242,20 @@ class TxtReaderController(
             if (state.cache.complete) offset * 100.0 / state.cache.committedLength else null)
         val result = try { progress.save(event) }
         catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) {
-            mutableState.update { it.copy(saveError = true) }
+        catch (failure: Exception) {
+            mutableState.update { it.copy(saveError = true,
+                failureDiagnostic = diagnostic(ReaderFailureStage.SAVE, failure = failure)) }
             return@withLock
         }
         when (result) {
             ProgressWriteResult.Committed -> {
                 lastCommittedOffset = offset
-                mutableState.update { it.copy(saveError = false) }
+                mutableState.update { it.copy(saveError = false, failureDiagnostic = null) }
             }
-            ProgressWriteResult.RejectedStale -> mutableState.update { it.copy(saveError = true) }
-            is ProgressWriteResult.Error -> mutableState.update { it.copy(saveError = true) }
+            ProgressWriteResult.RejectedStale -> mutableState.update { it.copy(saveError = true,
+                failureDiagnostic = diagnostic(ReaderFailureStage.SAVE, "REJECTED_STALE")) }
+            is ProgressWriteResult.Error -> mutableState.update { it.copy(saveError = true,
+                failureDiagnostic = diagnostic(ReaderFailureStage.SAVE, result.code.name)) }
         }
     }
 
@@ -229,8 +263,14 @@ class TxtReaderController(
         persistStable()
         try { progress.flush() }
         catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { mutableState.update { it.copy(saveError = true) } }
+        catch (failure: Exception) { mutableState.update { it.copy(saveError = true,
+            failureDiagnostic = diagnostic(ReaderFailureStage.FLUSH, failure = failure)) } }
     }
+
+    private fun diagnostic(stage: ReaderFailureStage, resultCode: String? = null, failure: Exception? = null) =
+        ReaderFailureDiagnostic(stage, resultCode, failure?.let(::failureTypes).orEmpty(),
+            if (stage in setOf(ReaderFailureStage.LOAD_PROGRESS, ReaderFailureStage.ACTIVATE, ReaderFailureStage.SAVE))
+                progress.lastDatabaseFailure() else null)
 
     suspend fun close() {
         if (closing) return

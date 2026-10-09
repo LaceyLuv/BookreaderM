@@ -2,7 +2,7 @@ package org.bookreader.mobile.ui
 
 import android.content.Context
 import java.util.UUID
-import org.bookreader.mobile.database.createAndroidDatabase
+import org.bookreader.mobile.database.AndroidDatabaseOwner
 import org.bookreader.mobile.importing.AndroidManagedImportFiles
 import org.bookreader.mobile.importing.ImportCoordinator
 import org.bookreader.mobile.importing.ImportProgress
@@ -14,10 +14,8 @@ class AndroidBookManagement(context: Context) : BookManagement {
     private val files = AndroidManagedImportFiles(app)
 
     private suspend fun <T> useCoordinator(action: suspend (ImportCoordinator) -> T): T {
-        val database = createAndroidDatabase(app)
-        try {
-            return action(ImportCoordinator(database, files, { UUID.randomUUID().toString() }, System::currentTimeMillis))
-        } finally { database.close() }
+        val database = AndroidDatabaseOwner.borrow(app)
+        return action(ImportCoordinator(database, files, { UUID.randomUUID().toString() }, System::currentTimeMillis))
     }
 
     override suspend fun recover() = useCoordinator { it.recover() }
@@ -28,9 +26,8 @@ class AndroidBookManagement(context: Context) : BookManagement {
     override suspend fun preview(stagingPath: String) = files.preview(stagingPath)
     override suspend fun cancelEncoding(jobId: String) { useCoordinator { it.cancelImport(jobId) } }
     override suspend fun markUnavailable(book: org.bookreader.mobile.model.Book, availability: org.bookreader.mobile.model.BookAvailability) {
-        val db = createAndroidDatabase(app)
-        try { db.bookDao().markAvailability(book.id, requireNotNull(book.currentRevision), availability.name, System.currentTimeMillis(), book.activeSessionEpoch) }
-        finally { db.close() }
+        val db = AndroidDatabaseOwner.borrow(app)
+        db.bookDao().markAvailability(book.id, requireNotNull(book.currentRevision), availability.name, System.currentTimeMillis(), book.activeSessionEpoch)
     }
     override suspend fun delete(bookId: String, stopReading: suspend () -> Unit) = useCoordinator { it.deleteBook(bookId, stopReading) }
 }

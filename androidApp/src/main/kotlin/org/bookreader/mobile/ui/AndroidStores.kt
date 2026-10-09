@@ -3,7 +3,10 @@ package org.bookreader.mobile.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import org.bookreader.mobile.database.createAndroidDatabase
+import org.bookreader.mobile.database.AndroidDatabaseOwner
+import org.bookreader.mobile.repository.DatabaseFailureDiagnostic
+import org.bookreader.mobile.repository.DatabaseFailureStage
+import org.bookreader.mobile.repository.failureTypes
 import org.bookreader.mobile.repository.RoomBookRepository
 
 class AndroidThemeStore(private val preferences: SharedPreferences) : ThemeStore {
@@ -23,14 +26,9 @@ class AndroidThemeStore(private val preferences: SharedPreferences) : ThemeStore
 fun androidLibrarySessionFactory(context: Context): LibrarySessionFactory {
     val appContext = context.applicationContext
     return LibrarySessionFactory {
-        val database = createAndroidDatabase(appContext)
-        try {
-            LibrarySession(RoomBookRepository(database), database::close).apply {
-                progressRepository = org.bookreader.mobile.repository.RoomProgressRepository(database)
-            }
-        } catch (failure: Exception) {
-            database.close()
-            throw failure
+        val database = AndroidDatabaseOwner.borrow(appContext)
+        LibrarySession(RoomBookRepository(database), close = {}).apply {
+            progressRepository = org.bookreader.mobile.repository.RoomProgressRepository(database)
         }
     }
 }
@@ -50,27 +48,42 @@ fun androidReaderFactory(context: Context): (org.bookreader.mobile.model.Book, k
 private class AndroidReaderProgressAccess(private val context: Context) : org.bookreader.mobile.reader.ReaderProgressAccess {
     private val mutex = kotlinx.coroutines.sync.Mutex()
     private val books = java.util.concurrent.ConcurrentHashMap<Pair<String, String>, org.bookreader.mobile.model.Book>()
+    @Volatile private var lastFailure: DatabaseFailureDiagnostic? = null
+    private val onDatabaseFailure: (DatabaseFailureStage, Exception) -> Unit = { stage, failure ->
+        lastFailure = DatabaseFailureDiagnostic(stage, failureTypes(failure))
+    }
+    override fun lastDatabaseFailure() = lastFailure
     fun register(book: org.bookreader.mobile.model.Book) { books[book.id to requireNotNull(book.currentRevision)] = book }
-    private suspend fun <T> database(action: suspend (org.bookreader.mobile.database.BookReaderDatabase) -> T): T =
+    private suspend fun <T> database(stage: DatabaseFailureStage,
+        action: suspend (org.bookreader.mobile.database.BookReaderDatabase) -> T): T =
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
             mutex.lock()
             try {
-                val db = createAndroidDatabase(context)
-                try { action(db) } finally { db.close() }
+                lastFailure = null
+                var failureStage = DatabaseFailureStage.OPEN_DATABASE
+                try {
+                    val db = AndroidDatabaseOwner.borrow(context)
+                    failureStage = stage
+                    action(db)
+                } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+                catch (failure: Exception) {
+                    onDatabaseFailure(failureStage, failure)
+                    throw failure
+                }
             } finally { mutex.unlock() }
         }
-    override suspend fun load(bookId: String, revision: String) = database {
-        org.bookreader.mobile.repository.RoomProgressRepository(it).loadProgress(bookId, revision)
+    override suspend fun load(bookId: String, revision: String) = database(DatabaseFailureStage.READ_PROGRESS) {
+        org.bookreader.mobile.repository.RoomProgressRepository(it, onDatabaseFailure = onDatabaseFailure).loadProgress(bookId, revision)
     }
-    override suspend fun startReadySession(bookId: String, revision: String, restoredLocator: org.bookreader.mobile.locator.ContentLocator?) = database {
+    override suspend fun startReadySession(bookId: String, revision: String, restoredLocator: org.bookreader.mobile.locator.ContentLocator?) = database(DatabaseFailureStage.VERIFY_AVAILABILITY) {
         // The controller calls this only after the original's full SHA/size and actual layout restoration.
         books[bookId to revision]?.let { book ->
             it.bookDao().restoreVerifiedAvailability(bookId, revision, book.sourceSha256, book.sourceByteSize, System.currentTimeMillis())
         }
-        org.bookreader.mobile.repository.RoomProgressWriter(it, System::currentTimeMillis).startReadySession(bookId, revision, restoredLocator)
+        org.bookreader.mobile.repository.RoomProgressWriter(it, onDatabaseFailure, System::currentTimeMillis).startReadySession(bookId, revision, restoredLocator)
     }
-    override suspend fun save(event: org.bookreader.mobile.repository.ProgressWriteEvent) = database {
-        org.bookreader.mobile.repository.RoomProgressWriter(it, System::currentTimeMillis).save(event)
+    override suspend fun save(event: org.bookreader.mobile.repository.ProgressWriteEvent) = database(DatabaseFailureStage.SAVE_COMMIT) {
+        org.bookreader.mobile.repository.RoomProgressWriter(it, onDatabaseFailure, System::currentTimeMillis).save(event)
     }
     override suspend fun flush() { mutex.lock(); mutex.unlock() }
 }

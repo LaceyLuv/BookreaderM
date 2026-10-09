@@ -37,6 +37,7 @@ class RoomBookRepository(private val database: BookReaderDatabase) : BookReposit
 class RoomProgressRepository(
     private val database: BookReaderDatabase,
     private val codec: LocatorCodec = LocatorCodec(),
+    private val onDatabaseFailure: (DatabaseFailureStage, Exception) -> Unit = { _, _ -> },
 ) : ProgressRepository {
     override suspend fun loadProgress(bookId: String, contentRevision: String): ProgressReadResult {
         currentCoroutineContext().ensureActive()
@@ -44,8 +45,11 @@ class RoomProgressRepository(
             database.progressDao().findProgress(bookId, contentRevision)
         } catch (cancelled: CancellationException) {
             currentCoroutineContext().ensureActive()
+            reportDatabaseFailure(onDatabaseFailure, DatabaseFailureStage.READ_PROGRESS, cancelled)
             return ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE)
-        } catch (_: Exception) {
+        } catch (failure: Exception) {
+            currentCoroutineContext().ensureActive()
+            reportDatabaseFailure(onDatabaseFailure, DatabaseFailureStage.READ_PROGRESS, failure)
             return ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE)
         } ?: return ProgressReadResult.Missing
 
@@ -53,8 +57,11 @@ class RoomProgressRepository(
             database.bookDao().findBook(bookId)?.format
         } catch (cancelled: CancellationException) {
             currentCoroutineContext().ensureActive()
+            reportDatabaseFailure(onDatabaseFailure, DatabaseFailureStage.READ_BOOK, cancelled)
             return ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE)
-        } catch (_: Exception) {
+        } catch (failure: Exception) {
+            currentCoroutineContext().ensureActive()
+            reportDatabaseFailure(onDatabaseFailure, DatabaseFailureStage.READ_BOOK, failure)
             return ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE)
         }
 

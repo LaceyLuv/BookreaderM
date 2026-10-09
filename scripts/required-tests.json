@@ -74,6 +74,10 @@
     ],
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "activationFailureReportsDatabaseStageAndNeverAllowsSave"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
       "continuousMovementSamplesAndBackwardFinalAnchorIsCommitted"
     ],
     [
@@ -91,6 +95,14 @@
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",
       "readyRequiresSuccessfulProgressReadAndMeasuredRestoration"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "saveFailureReportsExactStageAndSuccessfulRetryClearsDiagnostic"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "thrownLoadFailureKeepsBoundedCauseTypesAndNeverIncludesMessages"
     ],
     [
       "org.bookreader.mobile.ui.AppViewModelTest",
@@ -299,8 +311,16 @@
       "managedPathCannotBeSourceUriAbsolutePathOrTraversal"
     ],
     [
+      "org.bookreader.mobile.repository.DatabaseFailureDiagnosticTest",
+      "causeSnapshotIsBoundedAndExcludesMessages"
+    ],
+    [
       "org.bookreader.mobile.repository.RoomProgressWriterTest",
       "changedRestoreRevisionOrDeletingBookRejectsWithoutMutation"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressWriterTest",
+      "closedDatabaseReportsOriginalStagesWithoutChangingFailureResults"
     ],
     [
       "org.bookreader.mobile.repository.RoomProgressWriterTest",
@@ -328,6 +348,10 @@
     ]
   ],
   "android-device": [
+    [
+      "org.bookreader.mobile.database.AndroidDatabaseOwnerTest",
+      "concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave"
+    ],
     [
       "org.bookreader.mobile.encoding.AndroidTxtEncodingTest",
       "androidBomAndBoundaryNormalizationAreCanonical"

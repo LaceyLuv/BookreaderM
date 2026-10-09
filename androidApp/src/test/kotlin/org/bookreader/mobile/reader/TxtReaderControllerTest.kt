@@ -77,6 +77,8 @@ class TxtReaderControllerTest {
         val controller = controller(fixture, access)
         try {
             await(controller, TxtReaderPhase.ERROR)
+            assertEquals(ReaderFailureStage.LOAD_PROGRESS, controller.state.value.failureDiagnostic?.stage)
+            assertEquals("DATABASE_UNAVAILABLE", controller.state.value.failureDiagnostic?.resultCode)
             controller.restored(controller.state.value.restoreGeneration)
             controller.visibleAnchor(0, true)
             controller.flush()
@@ -97,9 +99,64 @@ class TxtReaderControllerTest {
         try {
             val failed = await(controller, TxtReaderPhase.ERROR)
             assertEquals("내용이 없는 텍스트 파일입니다.", failed.error)
+            assertEquals(ReaderFailureStage.CACHE_BUILD, failed.failureDiagnostic?.stage)
             assertEquals(0, access.started)
             assertTrue(access.events.isEmpty())
             assertTrue(file.isFile)
+        } finally { controller.close() }
+    }
+
+    @Test fun activationFailureReportsDatabaseStageAndNeverAllowsSave() = runBlocking {
+        val failure = DatabaseFailureDiagnostic(DatabaseFailureStage.ACTIVATE, listOf("SQLiteException"))
+        val access = MemoryProgress(activation = ReadySessionResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE),
+            activationFailure = failure)
+        val controller = controller(fixture(), access)
+        try {
+            val restoring = await(controller, TxtReaderPhase.RESTORING)
+            controller.restored(restoring.restoreGeneration)
+            val failed = await(controller, TxtReaderPhase.ERROR)
+            assertEquals(ReaderFailureDiagnostic(ReaderFailureStage.ACTIVATE, "DATABASE_UNAVAILABLE",
+                database = failure), failed.failureDiagnostic)
+            controller.visibleAnchor(20, true)
+            controller.flush()
+            assertTrue(access.events.isEmpty())
+        } finally { controller.close() }
+    }
+
+    @Test fun saveFailureReportsExactStageAndSuccessfulRetryClearsDiagnostic() = runBlocking {
+        val access = MemoryProgress(saveResult = ProgressWriteResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE))
+        val controller = controller(fixture(), access)
+        try {
+            val restoring = await(controller, TxtReaderPhase.RESTORING)
+            controller.restored(restoring.restoreGeneration)
+            await(controller, TxtReaderPhase.READY)
+            controller.visibleAnchor(20, true)
+            controller.flush()
+            assertTrue(controller.state.value.saveError)
+            assertEquals(ReaderFailureStage.SAVE, controller.state.value.failureDiagnostic?.stage)
+            assertEquals("DATABASE_UNAVAILABLE", controller.state.value.failureDiagnostic?.resultCode)
+            access.saveResult = ProgressWriteResult.Committed
+            controller.flush()
+            assertFalse(controller.state.value.saveError)
+            assertNull(controller.state.value.failureDiagnostic)
+        } finally { controller.close() }
+    }
+
+    @Test fun thrownLoadFailureKeepsBoundedCauseTypesAndNeverIncludesMessages() = runBlocking {
+        val privateMessage = "private content://example/book SQL SELECT private_book"
+        val access = object : ReaderProgressAccess {
+            override suspend fun load(bookId: String, revision: String): ProgressReadResult =
+                throw IllegalStateException(privateMessage, java.io.IOException(privateMessage))
+            override suspend fun startReadySession(bookId: String, revision: String, restoredLocator: ContentLocator?): ReadySessionResult = error("Must not activate")
+            override suspend fun save(event: ProgressWriteEvent): ProgressWriteResult = error("Must not save")
+            override suspend fun flush() = Unit
+        }
+        val controller = controller(fixture(), access)
+        try {
+            val failed = await(controller, TxtReaderPhase.ERROR)
+            assertEquals(listOf("IllegalStateException", "IOException"), failed.failureDiagnostic?.exceptionTypes)
+            assertFalse(failed.failureDiagnostic.toString().contains(privateMessage))
+            controller.flush()
         } finally { controller.close() }
     }
 
@@ -144,7 +201,7 @@ class TxtReaderControllerTest {
         withTimeout(10_000) { controller.state.first { it.phase == phase &&
             (phase != TxtReaderPhase.RESTORING || it.cache.complete) } }
 
-    private fun controller(fixture: Pair<File, Book>, access: MemoryProgress) = TxtReaderController(
+    private fun controller(fixture: Pair<File, Book>, access: ReaderProgressAccess) = TxtReaderController(
         fixture.second, fixture.first, temporary.newFolder(), access,
         CoroutineScope(SupervisorJob() + Dispatchers.Default))
 
@@ -160,17 +217,23 @@ class TxtReaderControllerTest {
 
     private fun offset(event: ProgressWriteEvent) = (event.locator as TxtLocator).payload.utf16Offset
 
-    private class MemoryProgress(private val result: ProgressReadResult = ProgressReadResult.Missing) : ReaderProgressAccess {
+    private class MemoryProgress(
+        private val result: ProgressReadResult = ProgressReadResult.Missing,
+        private val activation: ReadySessionResult? = null,
+        private val activationFailure: DatabaseFailureDiagnostic? = null,
+        @Volatile var saveResult: ProgressWriteResult = ProgressWriteResult.Committed,
+    ) : ReaderProgressAccess {
         @Volatile var started = 0
+        override fun lastDatabaseFailure() = if (started > 0) activationFailure else null
         val events = CopyOnWriteArrayList<ProgressWriteEvent>()
         override suspend fun load(bookId: String, revision: String) = result
         override suspend fun startReadySession(bookId: String, revision: String, restoredLocator: ContentLocator?): ReadySessionResult {
             started++
-            return ReadySessionResult.Ready(ProgressSession(bookId, revision, started.toLong()))
+            return activation ?: ReadySessionResult.Ready(ProgressSession(bookId, revision, started.toLong()))
         }
         override suspend fun save(event: ProgressWriteEvent): ProgressWriteResult {
             events += event
-            return ProgressWriteResult.Committed
+            return saveResult
         }
         override suspend fun flush() = Unit
     }

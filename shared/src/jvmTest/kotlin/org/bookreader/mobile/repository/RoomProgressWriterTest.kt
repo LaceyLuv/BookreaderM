@@ -14,8 +14,33 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class RoomProgressWriterTest {
+    @Test fun closedDatabaseReportsOriginalStagesWithoutChangingFailureResults() = fixture { db, _ ->
+        db.bookDao().insertBook(book())
+        db.close()
+        val failures = mutableListOf<DatabaseFailureDiagnostic>()
+        val observe: (DatabaseFailureStage, Exception) -> Unit = { stage, cause ->
+            failures += DatabaseFailureDiagnostic(stage, failureTypes(cause))
+        }
+        assertEquals(ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE),
+            RoomProgressRepository(db, onDatabaseFailure = observe).loadProgress("a", "r1"))
+        assertEquals(DatabaseFailureStage.READ_PROGRESS, failures.single().stage)
+        val writer = RoomProgressWriter(db, onDatabaseFailure = observe, now = { 100 })
+        assertEquals(ReadySessionResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE),
+            writer.startReadySession("a", "r1", null))
+        assertEquals(DatabaseFailureStage.ACTIVATE_EXPECTED, failures.last().stage)
+        assertEquals(ProgressWriteResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE),
+            writer.save(event(ProgressSession("a", "r1", 1), 1, 20)))
+        assertEquals(DatabaseFailureStage.SAVE_BOOK, failures.last().stage)
+        assertTrue(failures.all { it.exceptionTypes.isNotEmpty() && it.exceptionTypes.size <= 4 })
+        // A diagnostic consumer cannot mask a database failure or change it into Missing.
+        assertEquals(ProgressReadResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE),
+            RoomProgressRepository(db, onDatabaseFailure = { _, _ -> error("Diagnostic sink failed") })
+                .loadProgress("a", "r1"))
+    }
+
     @Test fun existingProgressCannotStartWithNullOrDifferentRestoredLocator() = fixture { db, writer ->
         val book = book()
         db.bookDao().insertBook(book)

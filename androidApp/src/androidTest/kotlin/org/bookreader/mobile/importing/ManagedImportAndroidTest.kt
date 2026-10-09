@@ -23,6 +23,7 @@ import org.bookreader.mobile.database.createAndroidDatabase
 import org.bookreader.mobile.repository.LibraryState
 import org.bookreader.mobile.repository.RoomBookRepository
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.After
@@ -133,6 +134,10 @@ class ManagedImportAndroidTest {
     }
 
     @Test fun externalViewReceivesTemporaryGrantAndOpensActualReader() {
+        val shared = org.bookreader.mobile.database.AndroidDatabaseOwner.borrow(target)
+        val libraryLease = org.bookreader.mobile.ui.androidLibrarySessionFactory(compose.activity).open()
+        libraryLease.close()
+        assertSame(shared, org.bookreader.mobile.database.AndroidDatabaseOwner.borrow(target))
         sendFromProvider(Intent.ACTION_VIEW, "utf8")
         waitFor("reader_ready")
         compose.onNodeWithText("실제 문서 제공자에서 가져온 TXT입니다.", substring = true).assertIsDisplayed()
@@ -330,9 +335,13 @@ class ManagedImportAndroidTest {
         val error = state?.importing as? ImportUiState.Error
         val working = state?.importing as? ImportUiState.Working
         val lifecycle = runCatching { compose.activityRule.scenario.state }.getOrNull()
+        val reader = state?.reader?.state?.value
         return "lifecycle=$lifecycle, import=${state?.importing?.javaClass?.simpleName}, " +
             "errorCode=${error?.code}, phase=${error?.phase ?: working?.progress?.phase}, " +
-            "library=${state?.library?.javaClass?.simpleName}, readerPhase=${state?.reader?.state?.value?.phase}"
+            "library=${state?.library?.javaClass?.simpleName}, readerPhase=${reader?.phase}, " +
+            "readerError=${reader?.error}, sourceAvailability=${reader?.sourceAvailability}, " +
+            "readerFailure=${reader?.failureDiagnostic}, " +
+            "cacheComplete=${reader?.cache?.complete}, restoreGeneration=${reader?.restoreGeneration}, targetOffset=${reader?.targetOffset}"
     }
 
     private fun captureFailureDiagnostics(expectedTag: String, diagnostic: String) {

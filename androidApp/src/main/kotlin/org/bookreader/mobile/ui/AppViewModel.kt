@@ -33,7 +33,7 @@ interface ThemeStore {
     fun write(mode: ThemeMode): Result<Unit>
 }
 
-/** Each opened session owns its database; failed opens never replace user data. */
+/** A scoped repository lease; the factory decides whether close releases an owned or borrowed handle. */
 class LibrarySession(val repository: BookRepository, val close: () -> Unit) {
     var progressRepository: org.bookreader.mobile.repository.ProgressRepository? = null
 }
@@ -133,8 +133,8 @@ class AppViewModel(
                         mutableState.update { it.copy(continuePercent = (progress as? org.bookreader.mobile.repository.ProgressReadResult.Found)?.progress?.percent) }
                         loaded
                     } finally {
-                        // One load owns one handle. Cancellation and read failure both close it,
-                        // after the query exits; onCleared never races the query with close().
+                        // Release the lease after its query exits. Android borrows the app-owned pool;
+                        // independent test factories may own and close their database instead.
                         active.close()
                     }
                 }
