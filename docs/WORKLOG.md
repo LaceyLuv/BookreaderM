@@ -872,3 +872,22 @@ scripts/required-tests.json과 TASKS/TESTING/CONTEXT_HANDOFF/ADR-0004/WORKLOG/M0
 단독 unit+test APK, bash -n, full CI 모두 exit 0이다. 최종 native unit 47/shared JVM 50, failures/errors/skips 0,
 lint 20 Hint 및 APK/schema PASS, source fingerprint d0bf070fa0e2cd318ef3946db01db752574a729be70dfff7a0dc584873d8ac4a,
 drift 0이다. actual 기기/host 검증은 push 후 확인한다. SQL latency/실기기 및 M04 잔여 gate는 NOT_RUN이다.
+
+### 실제 연속 이동 FAIL과 Reader 관찰 수정
+
+`78e45f5153d47d7bc3188ebe90905b3988445be2` push 뒤 build `38116198367` native 47/50은 PASS였으나
+actual device `38116198398` ordinary 26 중 새 60초 case 1개가 FAIL(exit 1)했다. host는 NOT_RUN이다.
+raw JSON은 60,081ms/600 inputs/최대 입력 공백 130ms/anchor 변화 0/commit 관찰 1을 보인다.
+원본 native XML/connected log/report/source SHA 및 artifact `11693885911` archive hash를
+`docs/evidence/m04-continuous-validation/remote-78e45f5-device/`에 보존했다.
+
+Foundation Android 1.9.3 공식 source JAR에서 LazyListMeasuredItem.applyScrollDelta가 offset을 바꾸며
+LazyListMeasureResult가 같은 visibleItemsInfo 객체를 재사용하는 것을 확인했다. URL/hash는 foundation-api.json이다.
+Reader의 snapshotFlow가 mutable item 객체를 그대로 반환하여 동일 fragment 내부 이동 emission을 놓친다.
+TxtReaderScreen에서 item의 index/offset을 값으로 캡처하도록 수정했다. 새 테스트/한도/SQL writer는 그대로다.
+
+`source /workspace/toolchains/mobile-env.sh` 뒤
+`BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/fix-ci ./scripts/ci-check.sh`는 exit 0,
+unit 47/shared JVM 50, failure/error/skipped 0, lint 20 Hint, APK/schema PASS다.
+입력 fingerprint는 `480c6087db7ebd764497bf84534605af5f1880c87a21109777968ab7be493018`, drift 0이다.
+`git diff --check -- . ':!docs/evidence'`도 exit 0이다. 실제 Android/host 수정 후 결과는 push 뒤 확인한다.

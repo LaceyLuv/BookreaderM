@@ -1,0 +1,9 @@
+{
+  "official_source_url": "https://dl.google.com/dl/android/maven2/androidx/compose/foundation/foundation-android/1.9.3/foundation-android-1.9.3-sources.jar",
+  "sha256": "b9461ba878f67fc83110ced72da43d97e871f65f8e59f892498dc7644d43a62c",
+  "evidence": [
+    "LazyListMeasuredItem.kt offset is mutable and applyScrollDelta mutates it",
+    "LazyListMeasureResult.kt copyWithScrollDeltaWithoutRemeasure reuses visibleItemsInfo after applying scroll delta"
+  ],
+  "fix": "Capture immutable first item index/offset inside snapshotFlow instead of mutable item object"
+}

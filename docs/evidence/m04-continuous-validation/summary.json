@@ -1,6 +1,6 @@
 {
-  "base_sha": "0a66be5a4887ed19adf0bccb30561d2c41cd5168",
-  "source_fingerprint_sha256": "d0bf070fa0e2cd318ef3946db01db752574a729be70dfff7a0dc584873d8ac4a",
+  "base_sha": "78e45f5153d47d7bc3188ebe90905b3988445be2",
+  "source_fingerprint_sha256": "480c6087db7ebd764497bf84534605af5f1880c87a21109777968ab7be493018",
   "source_drift": [],
   "local_ci_exit": 0,
   "levels": {
@@ -17,7 +17,28 @@
       "skipped": 0
     }
   },
-  "remote_device": "NOT_RUN: awaiting push and actual 60-second gesture",
+  "remote_device": "NOT_RUN: awaiting fixed source push",
+  "previous_device": {
+    "source_sha": "78e45f5153d47d7bc3188ebe90905b3988445be2",
+    "workflow_id": 38116198398,
+    "artifact_id": 11693885911,
+    "archive_sha256": "66a962c2c71cbc1c32cfc723cc2151ac99ffe83a4c3ae1d99e5f8a3a0c802da1",
+    "status": "FAIL",
+    "ordinary": {
+      "tests": 26,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failed_case": "TxtReaderFlowTest.sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors",
+    "failure": "Measured anchor must change throughout the held gesture",
+    "movement_duration_ms": 60081,
+    "input_count": 600,
+    "max_input_gap_ms": 130,
+    "anchor_changes": 0,
+    "observed_commits_before_pointer_up": 1,
+    "host": "NOT_RUN: connected-tests exited 1"
+  },
   "lint_severity_counts": {
     "Hint": 20
   }

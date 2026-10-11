@@ -114,3 +114,10 @@ Android에서는 실제 pointer를 60초 이상 유지하는 Reader 회귀와 �
 저장 SQL/앱 writer 구현은 변경하지 않는다. 입력 최대 공백 1초와 commit 관찰 최대 공백 5초는 emulator 검사 한도다.
 [측정 보고서](../M04_COMMIT_LATENCY.md)에 관찰 간격과 SQL acknowledgement latency의 차이,
 실기기 및 미측정 항목을 명시한다. 최종 결과는 TESTING/native XML/raw JSON을 따른다.
+
+실제 `78e45f5` 기기 회귀는 입력 600회에도 anchor 변화 0회로 실패했다. pinned Foundation 1.9.3은
+작은 scroll에서 LazyListMeasuredItem.offset을 제자리 변경하고 visibleItemsInfo를 재사용한다.
+snapshotFlow에 item 객체를 반환하면 같은 item 내부의 이동이 distinct 비교에서 사라진다.
+first item의 index/offset을 immutable 값으로 캡처하여 각 측정 이동을 관찰한다.
+sampling/settled 간격, READY/복원 gate, SQL 조건부 writer와 테스트 기준은 유지한다.
+실패 자료를 보존하고 같은 Android 회귀를 다시 실행하며 실제 결과 전에는 SAFE-09 PASS로 처리하지 않는다.

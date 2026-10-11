@@ -30,6 +30,9 @@ commit 관찰 간격에는 sampling, IO scheduling, 독립 DB 조회의 관찰 �
 
 ## 결과
 
-신규 source의 로컬 단위 검증과 실제 Android 결과 확정 전이다.
+`78e45f5` local/remote 단위 47/50은 PASS, actual Android `38116198398`은 FAIL이다.
+60,081ms 동안 입력 600회(최대 공백 130ms)를 주입했으나 anchor 변화 0회/commit 관찰 1회였다.
+해당 결과는 SAFE-09 통과 근거가 아니며 host는 후속 단계 미실행이다.
+Reader의 mutable LazyList item 비교가 연속 이동을 누락하여 index/offset 값 캡처로 수정하고 같은 테스트를 재실행한다.
 최신 native XML/raw report/source fingerprint는 `docs/evidence/m04-continuous-validation/`에 남긴다.
 APK 컴파일을 실제 60초 입력 통과로 간주하지 않는다.

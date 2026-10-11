@@ -13,7 +13,9 @@
 |---|---|---|
 | controller 60초 단독 unit + Android test APK | PASS, exit 0 | 60초는 가상 시간; actual UI 실행 아님 |
 | full local CI | PASS, exit 0 | Android unit 47/shared JVM 50, failures/errors/skips 0, APK/schema PASS, lint 20 Hint |
-| 새 actual Android continuous touch/host | NOT_RUN | push 후 remote 결과 확인 예정 |
+| remote build `38116198367`, source `78e45f5` | PASS, exit 0 | native Android unit 47/shared JVM 50, failures/errors/skips 0, schema local 일치 |
+| `78e45f5` actual Android continuous touch | FAIL, exit 1 | ordinary 26 중 1 실패: 60,081ms/600 inputs이나 anchor 변화 0/commit 관찰 1 |
+| `78e45f5` host | NOT_RUN | connected 실패로 후속 단계 미실행 |
 | SQL write-ack latency 및 실기기 수치 | NOT_RUN | 관찰 간격과 구분 |
 
 `source /workspace/toolchains/mobile-env.sh` 이후 정확 명령:
@@ -30,6 +32,15 @@ BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/ci ./scripts/ci-
 새 native 필수 identity는 controller 60초 1개와 actual Reader 60초 1개다.
 device-check는 실패한 기기 테스트 뒤에도 생성된 report 수집을 시도하며 원래 connected exit를 보존한다.
 실제 테스트 통과 및 report status/기간/입력·commit 간격 검사 없이는 녹색으로 처리하지 않는다.
+
+### 동일 fragment 내부 이동 누락 수정
+
+`78e45f5`의 [원본 기기 실패](evidence/m04-continuous-validation/remote-78e45f5-device/summary.json)를 보존했다.
+Compose Foundation 1.9.3 공식 source에서 LazyListMeasuredItem.offset의 제자리 변경과
+LazyListMeasureResult의 visibleItemsInfo 재사용을 확인했다([URL/hash](evidence/m04-continuous-validation/foundation-api.json)).
+Reader의 snapshotFlow가 같은 mutable item을 반환하여 작은 연속 이동의 emission을 억제했다.
+first item의 index/offset을 immutable 값으로 캡처하도록 수정하며 60초 테스트/한도는 변경하지 않는다.
+수정 후 로컬 full CI 및 실제 Android/host 결과는 아래 후속 증거로 확정한다.
 
 ## M04 DB 경쟁·host 준비 경로 — 2026-10-11 후속
 
@@ -460,3 +471,11 @@ M00 PASS를 Readium 호환성이나 Reader/import/process-death PASS로 확대�
 위 `build/deliverables/`에 있으며 크기는 16,629,841 bytes, SHA-256은
 `716739c3471b4a21d689396e30b2f850b0bd393abc7ed2681506ec91a8edee82`다.
 로컬 APK와 CI APK의 hash는 각각 기록하며 동일 바이트 재현성을 주장하지 않는다.
+
+### SAFE-09 Reader 수정 후 로컬 재검증
+
+`source /workspace/toolchains/mobile-env.sh` 뒤
+`BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/fix-ci ./scripts/ci-check.sh`는 exit 0이다.
+수정 후 native unit 47/shared JVM 50, failures/errors/skips 0, lint 20 Hint, APK/schema PASS다.
+입력 fingerprint `480c6087db7ebd764497bf84534605af5f1880c87a21109777968ab7be493018`, drift 0이며
+`fix-native-*`, `fix-ci/`, `fix-ci-result.txt`, `source-before-fix-ci.json`을 보존했다.

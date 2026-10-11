@@ -221,7 +221,8 @@ UI 게시 Main 전환 후 `96c15aa` remote build(46/50)·actual ordinary 25/host
 raw PID 종료와 마지막 commit 복원까지 확인했다. 범위별 [SAFE matrix](M04_SAFETY_MATRIX.md)의 잔여 gate 때문에 IN_PROGRESS를 유지한다.
 
 **SAFE-09 후속:** 60초 가상 시간 controller sampling 검사와 실제 Reader 60초 gesture/Room observation 검사를 추가했다.
-local unit 47/shared JVM 50 및 test APK PASS이며 actual Android 결과는 대기 중이다.
+`78e45f5` local/remote unit 47/shared JVM 50 PASS이나 actual Android 26개 중 신규 1개 FAIL이다.
+같은 fragment의 작은 이동을 누락하는 snapshotFlow mutable item 비교를 index/offset 값 캡처로 수정하며 재검증한다.
 [측정 보고서](M04_COMMIT_LATENCY.md)는 관찰 간격과 SQL write-ack/실기기 성능을 구분한다.
 
 ## 구현 범위

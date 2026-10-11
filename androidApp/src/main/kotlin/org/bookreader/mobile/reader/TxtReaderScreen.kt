@@ -100,14 +100,17 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         var userMovement = false
         snapshotFlow {
             val first = list.layoutInfo.visibleItemsInfo.firstOrNull()
-            Triple(first, list.isScrollInProgress, controller.state.value.phase)
+            // LazyList reuses and mutates item info during small scrolls. Snapshot values,
+            // otherwise snapshotFlow sees the same item and suppresses movement updates.
+            Triple(first?.let { it.index to it.offset }, list.isScrollInProgress, controller.state.value.phase)
         }.collect { (item, moving, phase) ->
             if (phase != TxtReaderPhase.READY) { userMovement = false; return@collect }
             if (moving) userMovement = true
             if (item == null) return@collect
-            val layout = layouts[item.index] ?: return@collect
-            val fragment = controller.state.value.cache.fragments.getOrNull(item.index) ?: return@collect
-            val vertical = (list.layoutInfo.viewportStartOffset - item.offset).coerceAtLeast(0).toFloat()
+            val (index, offset) = item
+            val layout = layouts[index] ?: return@collect
+            val fragment = controller.state.value.cache.fragments.getOrNull(index) ?: return@collect
+            val vertical = (list.layoutInfo.viewportStartOffset - offset).coerceAtLeast(0).toFloat()
             val line = layout.getLineForVerticalPosition(vertical)
             controller.visibleAnchor(fragment.start + layout.getLineStart(line), userMovement)
             // Measured layouts are bounded to the current window; there is no whole-book layout cache.
