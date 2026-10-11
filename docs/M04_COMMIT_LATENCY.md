@@ -30,6 +30,31 @@ commit 관찰 간격에는 sampling, IO scheduling, 독립 DB 조회의 관찰 �
 
 ## 결과
 
+### 최종 검증 source `73276fe`
+
+[run 38117532253](https://github.com/LaceyLuv/BookreaderM/actions/runs/38117532253)의 ordinary Android 26,
+60초 JSON verifier, 외부 host 2 stages와 workflow 전체가 PASS다.
+fixture/device/app 식별자는 아래 `14ce759` 실행과 같고, 원본은
+[최종 raw JSON](evidence/m04-continuous-validation/remote-73276fe-device/continuous-progress-report.log) 및
+[summary](evidence/m04-continuous-validation/remote-73276fe-device/summary.json)에 있다.
+
+| 측정 | 값 |
+|---|---:|
+| 실제 이동 시간 | 60,001ms |
+| 입력 / anchor 변경 | 592 / 226회 |
+| pointer-up 전 새 commit 관찰 | 46회 |
+| 최대 입력 공백 | 148ms |
+| commit 관찰 간격 p50 / p95 / 최대 | 1,017 / 2,033 / 2,034ms |
+| pointer-up 후 최종 anchor 일치 관찰 | 259ms |
+| 최종 offset / epoch / sequence | 14,786 / 1 / 48 |
+
+시작/끝 경계를 포함한 47개 관찰 간격의 nearest-rank다. 같은 anchor의 중복 저장은 생략하므로
+가상 시간의 서로 다른 anchor 60개 검사와 실제 관찰 commit 수가 같아야 하는 것은 아니다.
+두 실제 실행을 합쳐 실기기 성능 분포로 해석하지 않는다. 아래 이전 FAIL과 첫 수정 PASS도 보존한다.
+
+### 이전 실행 이력
+
+
 `78e45f5` local/remote 단위 47/50은 PASS, actual Android `38116198398`은 FAIL이다.
 60,081ms 동안 입력 600회(최대 공백 130ms)를 주입했으나 anchor 변화 0회/commit 관찰 1회였다.
 해당 결과는 SAFE-09 통과 근거가 아니며 host는 후속 단계 미실행이다.

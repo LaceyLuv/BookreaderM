@@ -912,3 +912,28 @@ host 동기화 수정 뒤 `source /workspace/toolchains/mobile-env.sh` 및
 `BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/host-ci ./scripts/ci-check.sh`는 exit 0이다.
 단위 47/50·failures/errors/skips 0·APK/schema·lint 20 Hint는 PASS, fingerprint
 `0670f2c61c8c6522123f3bd0c7261172649eecdafe3679385946e409dfea561c`, drift 0이다.
+
+### `73276fe` 최종 remote build/device/host PASS
+
+검증 source `73276fe27da781dde807f05a85422ae18363642f`의 build `38117532227`은 PASS다.
+artifact `11694107392` native Android unit 47/shared JVM 50, failures/errors/skips 0 및 schema local 일치를 확인했다.
+기기 `38117532253`도 exit 0/PASS이며 artifact `11694212469`의 native ordinary 26과
+actual host 2 stages를 검사했다. native 필수 identity, exact raw stage start/pass/finish,
+모든 adb exit 0, live PID 5672→force-stop→absent→cold launcher 5719를 확인했다.
+마지막 commit offset 13285/epoch 1/sequence 2가 cold 서재 Continue로 복원됐다.
+
+SAFE-09 최종 raw JSON은 60,001ms/입력 592/anchor 226/새 commit 46, 최대 입력 공백 148ms,
+commit 관찰 p50 1,017ms/p95 2,033ms/최대 2,034ms, pointer-up 후 최종 일치 관찰 259ms다.
+시작/끝을 포함한 관찰 간격의 nearest-rank이며 SQL write-ack latency나 실기기 SLA 측정이 아니다.
+보고서/측정 기기 fingerprint/fixture hash/native XML/raw host/명령 exit/workflow SHA/archive SHA-256을
+`docs/evidence/m04-continuous-validation/remote-73276fe-{build,device}/`에 보존했다.
+
+정확 CI/device/native verifier 명령은 TESTING 최상단에 있으며 모두 exit 0이다.
+원본 JSON에서 각 입력·commit 공백, 매 10초 구간 이동/commit, 증가 sequence를 다시 계산했다.
+fixture 647,999 bytes/SHA256 e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0635432872b951도
+독립 생성 결과와 같다. 준비 안정화 보완 후 같은 host 검증이 통과했으며 `14ce759` 준비 timeout 원본은 유지한다.
+
+최종 문서 작성 때 source-before-host-ci의 106개 입력 hash가 모두 일치해 drift 0이다.
+TASKS/TESTING/CONTEXT_HANDOFF/SAFE matrix/측정 보고서/ADR과 evidence summary를 확정한다.
+SAFE-09 emulator correctness는 PASS지만 M04는 IN_PROGRESS다. SAFE-07 실제 disk-full,
+UI A/B·same-book rapid reopen, 삭제 중 decode/index, reflow/ON_STOP, SQL ack/실기기 수치 및 신규 Astra 검토가 남는다.

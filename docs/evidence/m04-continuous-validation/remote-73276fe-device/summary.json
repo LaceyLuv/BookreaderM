@@ -1,0 +1,47 @@
+{
+  "source_sha": "73276fe27da781dde807f05a85422ae18363642f",
+  "workflow_id": 38117532253,
+  "workflow_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/38117532253",
+  "artifact_id": 11694212469,
+  "archive_sha256": "d4d353f9e27837a72363ea06ab5b6ed084ce49d99657a71d6d47a65e72f2713e",
+  "ordinary": {
+    "tests": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "host": "PASS: exact raw start/pass/finish for both stages",
+  "old_pid": "5672",
+  "cold_launcher_pid": "5719",
+  "external_force_stop": "PASS: live PID then absent",
+  "continuous": {
+    "status": "PASS",
+    "fixture_id": "reader-continuous",
+    "fixture_sha256": "e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0635432872b951",
+    "fixture_bytes": 647999,
+    "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "api": 36,
+    "abi": "x86_64",
+    "app_version": "0.2.0",
+    "movement_duration_ms": 60001,
+    "max_input_gap_ms": 148,
+    "max_observed_commit_gap_ms": 2034,
+    "gesture_end_to_settled_observation_ms": 259,
+    "initial_sequence": 1,
+    "writer_epoch": 1,
+    "final_offset": 14786,
+    "final_sequence": 48,
+    "input_count": 592,
+    "anchor_changes": 226,
+    "observed_commits_before_pointer_up": 46,
+    "observed_commit_gap_p50_ms": 1017,
+    "observed_commit_gap_p95_ms": 2033,
+    "percentile_method": "nearest rank; includes start/end boundary intervals, not SQL write-ack latency"
+  },
+  "limitations": [
+    "No SQL write-ack latency measurement",
+    "No physical device performance claim",
+    "No guarantee for uncommitted screen state or power loss",
+    "Verification instrumentation may start another target process"
+  ]
+}

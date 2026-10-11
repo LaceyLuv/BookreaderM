@@ -3,6 +3,41 @@
 2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
 
+## M04 SAFE-09 최종 결과 — source `73276fe`
+
+`73276fe27da781dde807f05a85422ae18363642f`의 local/remote build와 actual device/host는 PASS다.
+검증 fingerprint `0670f2c61c8c6522123f3bd0c7261172649eecdafe3679385946e409dfea561c`, 후속 문서 작성 시 drift 0이다.
+[전체 summary](evidence/m04-continuous-validation/summary.json)와 [측정 보고서](M04_COMMIT_LATENCY.md)를 따른다.
+
+| 수준 | 결과 | 근거 |
+|---|---|---|
+| local full CI | exit 0/PASS, Android unit 47/shared JVM 50 | host-ci/ 및 host-native-*; failures/errors/skips 0, lint 20 Hint, APK/schema PASS |
+| remote build [38117532227](https://github.com/LaceyLuv/BookreaderM/actions/runs/38117532227) | PASS, native 47/50, failures/errors/skips 0 | remote-73276fe-build/ XML; schema local bytes 일치 |
+| API36 ordinary [38117532253](https://github.com/LaceyLuv/BookreaderM/actions/runs/38117532253) | exit 0/PASS, native 26, failures/errors/skips 0 | remote-73276fe-device/native-connected/ |
+| actual 60초 연속 touch | PASS: 60,001ms/입력 592/anchor 226/commit 46 | raw JSON, 최대 입력 공백 148ms, commit 관찰 공백 최대 2,034ms |
+| actual external host | PASS, 2 stages | raw exact stage identity, PID 5672→absent→cold 5719, commit offset 13285/epoch 1/sequence 2 복원 |
+| SQL write-ack/physical performance, 신규 Astra | NOT_RUN | emulator correctness·관찰 지표와 구분 |
+
+실행 명령(모두 exit 0):
+
+```bash
+source /workspace/toolchains/mobile-env.sh
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/host-ci ./scripts/ci-check.sh
+# 위 source로 원격 API36 job에서 실행
+./scripts/device-check.sh
+# 내려받은 실제 artifact의 보존 XML 재검증
+python3 scripts/check-test-results.py android-unit docs/evidence/m04-continuous-validation/remote-73276fe-build/native-android-unit
+python3 scripts/check-test-results.py shared-jvm docs/evidence/m04-continuous-validation/remote-73276fe-build/native-shared-jvm
+python3 scripts/check-test-results.py android-device docs/evidence/m04-continuous-validation/remote-73276fe-device/native-connected
+python3 scripts/check-test-results.py android-host docs/evidence/m04-continuous-validation/remote-73276fe-device/host-process-proof
+```
+
+host wrapper 내부의 정확 adb 명령/exit는 host-process-proof/summary.json, raw stage는 각 .log,
+command exit는 results.txt에 있다. raw 두 stage의 start/pass/finish identity도 reader-process-check.verify_stage로 별도 확인했다.
+JSON의 입력/commit 공백, 매 10초 이동/commit 존재, 증가 sequence를 원본에서 재계산했고 fixture bytes/hash도 독립 생성하여 일치했다.
+workflow SHA/native identity/archive SHA-256는 각 remote summary에 보존했다. 모든 결과는 이 source에 한정한다.
+아래 `78e45f5`/`14ce759` 실패 이력은 삭제하지 않는다. 전체 M04는 IN_PROGRESS다.
+
 ## M04 SAFE-09 연속 이동 — 2026-10-11
 
 `0a66be5` clean main에서 60초 controller/실제 Reader 검증을 추가했다.

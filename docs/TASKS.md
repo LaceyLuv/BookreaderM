@@ -22,7 +22,7 @@
 | M01 | epub-and-encoding-feasibility | IN_PROGRESS | strict grammar host 14 + 실제 Android 인코딩 3 cases PASS; Readium/EPUB 보류로 전체 M01 미완료 |
 | M02 | managed-import-and-library | DONE | TXT 내부 알파: `2be610a` local/remote CI 41/45 및 Android 25·host 2·fixture PNG PASS, [WORKLOG](WORKLOG.md) |
 | M03 | txt-scroll-progress-and-continue-bar | DONE | TXT 내부 알파: measured anchor/cache loss/Continue/recreation·cold launch/host force-stop PASS, [WORKLOG](WORKLOG.md) |
-| M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence 및 과거 force-stop 복원 PASS; reflow flush 보완, 전체 SAFE/race·60초·기기 검증 잔여 |
+| M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence·60초 연속 저장 PASS; 전체 SAFE/UI race·disk-full·reflow 기기 검증 잔여 |
 | M05 | txt-pagination-and-reflow | TODO | 없음 |
 | M06 | txt-search-bookmarks-and-encoding | TODO | 없음 |
 | M07 | mobile-controls-and-accessibility | TODO | 없음 |
@@ -223,7 +223,8 @@ raw PID 종료와 마지막 commit 복원까지 확인했다. 범위별 [SAFE ma
 **SAFE-09 후속:** 60초 가상 시간 controller sampling 검사와 실제 Reader 60초 gesture/Room observation 검사를 추가했다.
 `78e45f5` local/remote unit 47/shared JVM 50 PASS이나 actual Android 26개 중 신규 1개 FAIL이다.
 index/offset 값 캡처 수정 `14ce759`에서 actual ordinary 26 및 60초(60회 commit) PASS다.
-host 준비 timeout은 원본을 보존하고 fling/layout 안정화 뒤 expected를 캡처하도록 보완해 재검증한다.
+host 준비 timeout 원본을 보존하고 fling/layout 안정화 뒤 expected를 캡처하도록 보완했다.
+최종 `73276fe` local/remote 47/50, actual ordinary 26/host 2 stages PASS이며 SAFE-09 60,001ms/46회 commit을 확인했다.
 [측정 보고서](M04_COMMIT_LATENCY.md)는 관찰 간격과 SQL write-ack/실기기 성능을 구분한다.
 
 ## 구현 범위
@@ -235,7 +236,7 @@ offset 최대값 기반 최신 판정, lifecycle 단독 저장, 복구 실패 �
 ## 완료 조건
 - [ ] SAFE-01/02/03/04/06/07/09/10/12 통과.
 - [ ] A/B 책과 같은 책의 빠른 닫기/재열기, 역방향 이동에서 의도한 최신 기록 유지.
-- [x] 60초 연속 스크롤에도 주기 commit이 존재. (`14ce759` actual API36: 60,033ms/60회, SQL latency·실기기 성능과 구분)
+- [x] 60초 연속 스크롤에도 주기 commit이 존재. (`73276fe` actual API36: 60,001ms/46회, SQL latency·실기기 성능과 구분)
 - [x] force-stop 뒤 마지막 commit 완료 locator 보존; 미커밋 상태까지 보존된다고 주장하지 않음.
 - [ ] 손상 locator/조회 오류는 기록 보존과 재시도 UI로 처리.
 

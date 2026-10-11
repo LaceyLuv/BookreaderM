@@ -1,16 +1,21 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
-## 2026-10-11 SAFE-09 연속 이동 후속
+## 2026-10-11 SAFE-09 최종 검증
 
-60초 가상 시간 controller regression과 실제 Reader 60초 pointer gesture/Room observation 검증을 추가했다.
-`78e45f5` local/remote CI는 Android unit 47/shared JVM 50 PASS이나 actual Android는 26개 중 신규 1개 FAIL이다.
-60,081ms/600 inputs에서 anchor 변화 0/commit 관찰 1을 확인했다. LazyList의 mutable item을 snapshotFlow가
-동일 객체로 비교해 이동을 누락하는 경로를 index/offset 값 캡처로 수정했다.
-`14ce759` actual ordinary 26 및 60초 연속 이동(60회 commit)은 PASS다. host 준비는 fixed expected 대기 timeout으로 FAIL,
-마지막 fling/layout 안정화 뒤 expected를 캡처하도록 보완하며 외부 종료/복원 재검증을 진행한다.
-최신 근거는 [TESTING](TESTING.md), [측정 계약](M04_COMMIT_LATENCY.md),
-[evidence](evidence/m04-continuous-validation/summary.json)에 있다. SAFE-09 emulator correctness는 PASS이며 host 준비 실패와 전체 M04를 구분한다.
-SQL write-ack/실기기 p95·메모리, SAFE-07 disk-full, 전체 M04 및 신규 Astra 검토는 미완료다.
+검증 source는 `73276fe27da781dde807f05a85422ae18363642f`다. main에 commit/push했으며
+local/remote CI는 Android unit 47/shared JVM 50, API36 ordinary 26 및 actual host 2 stages 모두 PASS다.
+실제 60,001ms 연속 touch에서 anchor 226회/commit 46회, 최대 commit 관찰 공백 2,034ms를 확인했다.
+host는 live PID 5672→force-stop→absent→cold PID 5719, offset 13285/epoch 1/sequence 2를 서재 Continue로 복원했다.
+
+60초 회귀가 LazyList의 mutable item 비교로 같은 fragment 내부 이동을 놓치는 결함을 재현했다.
+Reader는 snapshotFlow 안에서 index/offset을 값으로 캡처하도록 수정했다. host 준비는 마지막 fling/layout이
+안정된 뒤 예상 위치를 캡처한다. `78e45f5` continuous FAIL과 `14ce759` host 준비 FAIL도 원본 보존했다.
+[TESTING](TESTING.md), [측정 보고서](M04_COMMIT_LATENCY.md), [SAFE matrix](M04_SAFETY_MATRIX.md),
+[evidence](evidence/m04-continuous-validation/summary.json)가 최신 근거다.
+
+SAFE-09 emulator correctness는 PASS, M04는 IN_PROGRESS다. 다음 우선 작업은 SAFE-07 실제 SQLite disk-full
+및 마지막 commit/다른 책 보존 검증이다. UI A/B·같은 책 rapid reopen, 삭제 중 decode/index, reflow/ON_STOP,
+SQL write-ack/실기기 p95·메모리, 신규 Astra 최종 검토는 미완료다.
 
 ## 2026-10-11 DB 경쟁 및 host 준비 후속
 
@@ -21,7 +26,7 @@ raw stack의 import progress→worker UI 게시 경로를 수정하고 수정 �
 검증 source는 `96c15aa6d074b0b6d96579e1deb54d6fbc3413ec`다. local/remote CI는 Android unit 46/shared JVM 50 PASS,
 remote device `38110471069`는 ordinary 25/actual host 2 stages PASS다. raw PID 5640→absent→cold 5688,
 commit offset 11607/epoch 1/sequence 2의 서재 Continue 복원을 확인했다. 이전 host FAIL과 구분한다.
-다음 우선 작업은 실제 Reader의 60초 연속 이동과 주기 commit/latency 또는 SAFE-07 실제 SQLite disk-full 보존 검증이다.
+이 절 이후 SAFE-09 실제 연속 이동은 상단 후속에서 검증했다. 다음 우선 작업은 SAFE-07 실제 SQLite disk-full 보존 검증이다.
 최신 근거는 [TESTING](TESTING.md), [SAFE matrix](M04_SAFETY_MATRIX.md),
 [evidence](evidence/m04-race-validation/summary.json)에 있다. 신규 Astra 검토와 전체 M04는 미완료다.
 
@@ -35,7 +40,7 @@ commit offset 11607/epoch 1/sequence 2의 서재 Continue 복원을 확인했다
 [evidence summary](evidence/m04-reflow-validation/summary.json)를 따른다.
 아래 10월 9일 PASS는 과거 결과이며 새 변경의 device/host PASS를 의미하지 않는다.
 
-다음 M04 작업은 전체 SAFE matrix, A/B rapid close/reopen, 60초 연속 이동, 실제 disk-full,
+아래 reflow 후속 당시 잔여 작업은 전체 SAFE matrix, A/B rapid close/reopen, 60초 연속 이동, 실제 disk-full,
 실제 기기의 reflow/ON_STOP 및 commit-latency다. 신규 Astra 최종 검토는 NOT_RUN이다.
 로컬 기기 검증은 authorized device가 없어 exit 78/BLOCKED_ENV다.
 새 환경에 `/workspace/toolchains/mobile-env.sh`를 준비했으며 기존 APK/서명키는 가져오지 않았다.
@@ -72,7 +77,7 @@ M01은 encoding 부분만 검증됐고 Readium/EPUB는 보류입니다. 다음 �
 | M01 | IN_PROGRESS | strict encoding host 14·실제 Android encoding 3 PASS; Readium/EPUB probe·ADR-0005 보류 |
 | M02 | DONE | TXT 내부 알파의 안전 import·관리 복사본·서재·삭제/recovery |
 | M03 | DONE | TXT 내부 알파의 스크롤 독서·canonical anchor·복원·이어읽기 |
-| M04 | IN_PROGRESS | epoch/sequence·조건부 commit·sampling 기반과 마지막 commit force-stop 복원만 검증; 아래 잔여 gate 필수 |
+| M04 | IN_PROGRESS | epoch/sequence·DB race·60초 연속 저장 및 과거 force-stop 복원 검증; 최신 host 결과와 잔여 gate는 상단 참조 |
 | M05–M11 | TODO | TXT 페이지/본문 검색/북마크, 접근성, EPUB, Comic, hardening/출시 감사 후속 |
 
 - 앱은 `0.2.0`/versionCode 2 **TXT 내부 알파**다. 세 포맷 최종 v1.0 완료 판정이 아니다.

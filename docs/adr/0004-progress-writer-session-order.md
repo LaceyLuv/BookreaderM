@@ -121,3 +121,8 @@ snapshotFlow에 item 객체를 반환하면 같은 item 내부의 이동이 dist
 first item의 index/offset을 immutable 값으로 캡처하여 각 측정 이동을 관찰한다.
 sampling/settled 간격, READY/복원 gate, SQL 조건부 writer와 테스트 기준은 유지한다.
 실패 자료를 보존하고 같은 Android 회귀를 다시 실행하며 실제 결과 전에는 SAFE-09 PASS로 처리하지 않는다.
+
+최종 source `73276fe` actual 60초 회귀는 anchor 226회/commit 관찰 46회/최대 관찰 공백 2,034ms로 PASS다.
+ordinary 26 및 외부 host 2 stages도 PASS다. host 준비는 마지막 fling/layout 안정화 후 expected를 캡처한다.
+`78e45f5` 이동 누락 FAIL과 `14ce759` host 준비 timeout 원본은 보존하며, emulator 검사 범위를 넘겨
+SQL acknowledgement/실기기 성능이나 전체 M04 완료로 확대하지 않는다.
