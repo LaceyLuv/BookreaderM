@@ -963,3 +963,19 @@ production writer/UI/schema는 변경하지 않았다. 기존 README/증거와 �
 lint 20 Hint, APK/schema PASS다. 107개 입력 fingerprint f1a40c26c304730dd729a9052a129d50292f4ddddf83d6082d4a028f12ae3e50,
 drift 0이다. source-before-ci 및 native XML/명령 exit는 docs/evidence/m04-sqlite-full-validation에 보존했다.
 actual Android/host는 push 후 검증한다. M04는 IN_PROGRESS이며 OS ENOSPC·실기기 및 신규 Astra는 NOT_RUN이다.
+
+### Android 예외 타입 공식 확인 보완
+
+초기 구현을 `7b9d27a`로 push한 뒤 Android SQLite 2.6.1의 실제 구현을 추가 확인했다.
+SQLiteException은 Android에서 android.database.SQLException의 typealias이므로 진단의 simpleName을
+JVM의 SQLiteException 문자열로 고정하면 안 된다. native probe가 실제 낸 runtime type과 Reader의
+bounded diagnostic type을 비교하도록 테스트를 보완했다. code 13/동작/보존 기준은 유지한다.
+공식 source URL/hash를 official-api.json에 추가했다.
+
+`gh run cancel 38126142063`, `gh run cancel 38126142050`은 exit 0이며 오래된 7b9d27a의 두 원격 작업은
+cancelled다. 실제 Android PASS/FAIL 증거로 취급하지 않는다. 보완 후 full CI 및 새로운 source로 원격 검증한다.
+
+`source /workspace/toolchains/mobile-env.sh` 뒤
+`BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-sqlite-full-validation/platform-ci ./scripts/ci-check.sh`는 exit 0이다.
+최종 local native 47/53, failures/errors/skips 0, lint 20 Hint, APK/schema PASS, 입력 fingerprint
+`504c4bb345f79b0f7f638bc0298c9d8eb7cadde96c81d0efefca73de7c4e0a00`, drift 0이다.

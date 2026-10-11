@@ -558,3 +558,15 @@ host 준비 동기화 수정 후 `source /workspace/toolchains/mobile-env.sh` �
 `BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/host-ci ./scripts/ci-check.sh`는 exit 0이다.
 unit 47/50·failures/errors/skips 0·APK/schema PASS·lint 20 Hint, fingerprint
 `0670f2c61c8c6522123f3bd0c7261172649eecdafe3679385946e409dfea561c`, drift 0을 `host-native-*`/`host-ci/`에 보존했다.
+
+### SAFE-07 Android native 타입 확인 보완
+
+공식 SQLite Android 2.6.1에서 SQLiteException은 android.database.SQLException의 typealias다.
+Reader diagnostic은 플랫폼별 simpleName을 기록하므로 native probe가 실제 낸 runtime type과 비교한다.
+`7b9d27a`의 remote build/device `38126142050`/`38126142063`은 이 보완으로 명시 취소했으며
+cancelled 결과를 Android 성공/실패로 취급하지 않는다. source 및 실제 최신 결과는 SAFE-07 evidence summary를 따른다.
+
+보완 후 정확 명령은 `source /workspace/toolchains/mobile-env.sh` 뒤
+`BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-sqlite-full-validation/platform-ci ./scripts/ci-check.sh`이며 exit 0이다.
+최종 local native 47/53, failures/errors/skips 0, lint 20 Hint, APK/schema PASS, fingerprint
+`504c4bb345f79b0f7f638bc0298c9d8eb7cadde96c81d0efefca73de7c4e0a00`, drift 0이다.

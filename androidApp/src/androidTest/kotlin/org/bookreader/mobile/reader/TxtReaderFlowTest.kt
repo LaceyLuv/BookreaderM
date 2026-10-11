@@ -296,7 +296,8 @@ class TxtReaderFlowTest {
             val nativeFailure = runCatching { execute("INSERT INTO full_test_payload VALUES (zeroblob($bytes))") }.exceptionOrNull()
             assertTrue(nativeFailure is SQLiteException)
             assertTrue(nativeFailure?.message.orEmpty().contains("Error code: 13,"))
-            report.put("native_probe_code", 13)
+            val nativeType = requireNotNull(requireNotNull(nativeFailure)::class.simpleName)
+            report.put("native_probe_code", 13).put("native_probe_type", nativeType)
 
             compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
             compose.waitForIdle()
@@ -309,7 +310,7 @@ class TxtReaderFlowTest {
             assertTrue(failed.saveError)
             assertEquals(ReaderFailureStage.SAVE, failed.failureDiagnostic?.stage)
             assertEquals(DatabaseFailureStage.SAVE_COMMIT, failed.failureDiagnostic?.database?.stage)
-            assertTrue(failed.failureDiagnostic?.database?.exceptionTypes?.contains("SQLiteException") == true)
+            assertTrue(failed.failureDiagnostic?.database?.exceptionTypes?.contains(nativeType) == true)
             assertEquals(before, saved(book))
             assertEquals(beforeBook, books().single { it.id == book.id })
             assertEquals(otherProgress, saved(other))
