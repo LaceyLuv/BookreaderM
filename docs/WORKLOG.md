@@ -1023,3 +1023,12 @@ full local CI exit 0, Android unit 47/shared JVM 53, failure/error/skip 0이다.
 정확 명령/exit/원본 XML/초기 실패/111개 입력 fingerprint는 TESTING 및
 `docs/evidence/m04-enospc-validation/`을 따른다. remote 검증은 push 후 진행한다.
 M04 IN_PROGRESS, Android ext4/f2fs/fsync/rollback journal/조회 오류 UI 및 신규 Astra는 NOT_RUN이다.
+
+### 원격 namespace 권한 보완
+
+`a3ee33b` remote build `38127759100`의 일반 CI는 PASS이나 ENOSPC는 uid_map Operation not permitted로
+exit 78/BLOCKED_ENV다. workflow 전체는 failure이며 제품 기록 보존 실패나 전용 테스트 PASS가 아니다.
+원본 failed-step 로그와 workflow/artifact metadata를 보존했다. Ubuntu 24.04 runner에서만 sudo로
+같은 private user/mount namespace 스크립트를 실행하도록 workflow를 보완했다. host sysctl/AppArmor는 변경하지 않는다.
+기존 HOME/JDK/SDK/Gradle cache 경로를 유지한다. 새 검증 source로 remote build를 다시 실행한다.
+앱/테스트/스크립트 바이트는 동일하며 CI 실행 권한 설정만 변경했다.

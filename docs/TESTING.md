@@ -625,3 +625,10 @@ cancelled 결과를 Android 성공/실패로 취급하지 않는다. source 및 
 `BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-sqlite-full-validation/platform-ci ./scripts/ci-check.sh`이며 exit 0이다.
 최종 local native 47/53, failures/errors/skips 0, lint 20 Hint, APK/schema PASS, fingerprint
 `504c4bb345f79b0f7f638bc0298c9d8eb7cadde96c81d0efefca73de7c4e0a00`, drift 0이다.
+
+### filesystem ENOSPC 원격 namespace 제약
+
+`a3ee33b` build `38127759100`는 일반 47/53 PASS 후 새 ENOSPC 단계의 uid_map 생성에서 exit 78/BLOCKED_ENV다.
+workflow 판정은 failure다. `remote-a3ee33b-build/blocked-env.log`에 원본이 있다.
+Ubuntu runner의 기존 sudo 권한으로 같은 격리 스크립트를 실행하도록 build workflow만 보완했다.
+전역 보안 설정을 변경하거나 검사를 skip하지 않는다. 최종 원격 결과는 상단 최신 절을 따른다.

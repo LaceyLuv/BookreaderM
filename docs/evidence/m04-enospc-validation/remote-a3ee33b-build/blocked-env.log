@@ -1,0 +1,14 @@
+build	Verify progress preservation under real filesystem ENOSPC	﻿2026-10-11T09:19:40.8851348Z ##[group]Run mkdir -p build/enospc-evidence
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8851655Z [36;1mmkdir -p build/enospc-evidence[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8851885Z [36;1mset -o pipefail[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8852177Z [36;1m./scripts/enospc-check.sh 2>&1 | tee build/enospc-evidence/check.log[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8916696Z shell: /usr/bin/bash -e {0}
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8917009Z env:
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8917260Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8917687Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8918010Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8918274Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.8918525Z ##[endgroup]
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.9074673Z unshare: write failed /proc/self/uid_map: Operation not permitted
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.9076719Z BLOCKED_ENV: Linux user/mount namespaces are required. exit=78
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:19:40.9090755Z ##[error]Process completed with exit code 78.

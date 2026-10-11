@@ -49,7 +49,11 @@ jobs:
         run: |
           mkdir -p build/enospc-evidence
           set -o pipefail
-          ./scripts/enospc-check.sh 2>&1 | tee build/enospc-evidence/check.log
+          # Ubuntu 24.04 restricts unprivileged uid_map writes. Keep the same
+          # private user/mount namespace without changing host sysctl/AppArmor.
+          export GRADLE_USER_HOME="$HOME/.gradle"
+          sudo --preserve-env=HOME,JAVA_HOME,ANDROID_HOME,ANDROID_SDK_ROOT,PATH,GRADLE_USER_HOME \
+            ./scripts/enospc-check.sh 2>&1 | tee build/enospc-evidence/check.log
       - name: Upload APK, test reports and command evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
