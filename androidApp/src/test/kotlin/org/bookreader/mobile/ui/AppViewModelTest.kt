@@ -1,10 +1,14 @@
 package org.bookreader.mobile.ui
 
 import androidx.lifecycle.ViewModelStore
+import java.util.concurrent.Executors
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -34,6 +38,38 @@ class AppViewModelTest {
     @After fun tearDown() {
         ownedModels.clear()
         Dispatchers.resetMain()
+    }
+
+    @Test fun workerImportProgressIsPublishedOnMainWithoutMovingIoWork() = runTest(dispatcher) {
+        val mainThread = Thread.currentThread()
+        val workerThread = CompletableDeferred<Thread>()
+        val progress = ImportProgress(ImportPhase.VALIDATING, 128, 128)
+        Executors.newSingleThreadExecutor().asCoroutineDispatcher().use { worker ->
+            val service = object : BookManagement by MemoryManagement() {
+                override suspend fun recover() = listOf(ImportResult.EncodingRequired("job-thread", "imports/thread.part", "fixture.txt"))
+                override suspend fun selectEncoding(jobId: String, encodingId: String,
+                    onProgress: suspend (ImportProgress) -> Unit): ImportResult {
+                    workerThread.complete(Thread.currentThread())
+                    onProgress(progress)
+                    return ImportResult.Failure(ImportErrorCode.INVALID_TEXT)
+                }
+            }
+            val model = AppViewModel(LibrarySessionFactory { LibrarySession(repository { LibraryState.Empty }) {} },
+                MemoryThemes(), worker, service)
+            own(model)
+            model.state.first { it.importing is ImportUiState.SelectEncoding }
+            // Inline observers expose the publisher thread, as Compose's test interceptor can.
+            val publisher = backgroundScope.async(Dispatchers.Unconfined) {
+                model.state.first { (it.importing as? ImportUiState.Working)?.progress == progress }
+                Thread.currentThread()
+            }
+            model.selectImportEncoding("utf-8")
+            val observedThread = publisher.await()
+            model.state.first { it.importing is ImportUiState.Error }
+            assertFalse(mainThread === workerThread.await())
+            assertTrue("Progress must be published on Main", mainThread === observedThread)
+            assertEquals(ImportPhase.VALIDATING, (model.state.value.importing as ImportUiState.Error).phase)
+        }
     }
 
     @Test fun newModelStartsAtLibraryAndLoadingUntilQueryCompletes() = runTest(dispatcher) {

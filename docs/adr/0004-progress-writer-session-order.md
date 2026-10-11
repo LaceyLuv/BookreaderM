@@ -84,3 +84,16 @@ close는 sampler/settled를 취소하고 flush를 기다린 뒤 open/restore를 
 사용자 이동 없는 close, 저장 실패와 재시도를 다룬다. `scripts/required-tests.json`에도 identity를 등록한다.
 정확 실행 결과·native XML·수정 전 실패 증거는 [TESTING](../TESTING.md)의 M04 항목과
 `docs/evidence/m04-reflow-validation/`를 따른다. mock save 오류는 실제 disk-full 검증이 아니다.
+
+
+## 2026-10-11 — 지연 event와 실제 DB 재개방 검증
+
+`RoomProgressRaceTest`에 실제 파일 DB 기반 5개 case를 추가했다. A 지연→B, 이전 세션 event,
+역방향 sequence, 동시 duplicate sequence, DELETING/삭제 완료 뒤 event를 deferred barrier로 제어한다.
+12회 새 세션 및 DB 재개방 후 epoch/sequence/locator가 유지됨을 검사한다. DB writer 조건 자체는 변경하지 않았다.
+범위와 잔여 통합 gate는 [M04 safety matrix](../M04_SAFETY_MATRIX.md)를 따른다.
+
+직전 `16e4615` actual host 준비 실패는 progress DB 오류가 아니라 import progress의 worker UI 게시 경로에서
+발생한 CalledFromWrongThreadException이다. StateFlow의 thread safety와 Compose test inline observer의
+Main view 소유권은 별개다. UI 게시만 Main으로 옮기고 IO 및 suspend cancellation을 유지한다.
+수정 전 unit 재현 및 raw host 실패를 보존한다. device/host 재실행 결과는 TESTING을 따른다.

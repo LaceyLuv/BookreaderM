@@ -1,5 +1,15 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
+## 2026-10-11 DB 경쟁 및 host 준비 후속
+
+실제 파일 DB race 5개(지연 A→B/이전 세션/역방향 sequence/동시 duplicate/삭제 중·후 save)를 추가했다.
+12회 세션 변경·DB reopen과 전체 persisted record 보존을 검사하며 UI navigation을 검사한 것으로 취급하지 않는다.
+직전 `16e4615` remote ordinary 25는 PASS, host prepare는 CalledFromWrongThreadException으로 FAIL이다.
+raw stack의 import progress→worker UI 게시 경로를 수정하고 수정 전 실패하는 회귀를 추가했다.
+새 local CI는 Android unit 46/shared JVM 50 PASS, 새 remote Android/host 검증은 결과 대기 중이다.
+최신 근거는 [TESTING](TESTING.md), [SAFE matrix](M04_SAFETY_MATRIX.md),
+[evidence](evidence/m04-race-validation/summary.json)에 있다. 신규 Astra 검토와 전체 M04는 미완료다.
+
 ## 2026-10-11 후속 작업
 
 `03870c9` clean main을 새 환경에 clone한 뒤 M04의 REFLOWING 미커밋 flush를 보완했다.

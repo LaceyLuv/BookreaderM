@@ -1,0 +1,28 @@
+{
+  "status": "FAIL",
+  "error": "stage did not start and pass exactly one test: prepareDurableReader",
+  "commands": [
+    {
+      "label": "prepareDurableReader",
+      "argv": [
+        "adb",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "class",
+        "org.bookreader.mobile.reader.TxtReaderHostProcessTest#prepareDurableReader",
+        "-e",
+        "captureFixtureScreenshots",
+        "true",
+        "-e",
+        "additionalTestOutputDir",
+        "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence",
+        "org.bookreader.mobile.test/androidx.test.runner.AndroidJUnitRunner"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

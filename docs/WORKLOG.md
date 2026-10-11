@@ -798,3 +798,30 @@ SAFE-01/02/03/04/06/07/09/10/12 matrix의 실제 단계별 증거, A/B 및 같�
 최종 stage 이후 `git diff --cached --check`는 exit 2였다. 신규 raw Gradle/adb 로그의 원래 줄 끝 공백 및 EOF 빈 줄만
 보고했으며, 원본 실행 증거는 수정하지 않았다.
 `git diff --cached --check -- . ':!docs/evidence/m04-reflow-validation'`는 exit 0으로 소스·문서의 공백 검사를 통과했다.
+
+
+## 2026-10-11 — M04 실제 DB race와 host 준비의 UI 게시 스레드
+
+시작은 clean `main...origin/main`, HEAD `16e4615247be9ef4a4c0534354f2a6b00c9083ab`였다.
+상위 AGENTS 부재와 저장소 지침, 최신 TASKS/CONTEXT_HANDOFF/ADR 및 writer/DAO/DB fixture를 재확인했다.
+`RoomProgressRaceTest`는 실제 파일 Room/bundled SQLite에서 immutable event 전달을 deferred gate로 지연한다.
+A 지연→B, 12회 같은 책 epoch 전환/reopen, forward 뒤 backward sequence, 동시 duplicate sequence,
+DELETING/삭제 완료 뒤 event를 검증하며 전체 durable record/책 metadata/다른 책 보존을 확인한다.
+DB writer production 로직은 변경하지 않았다. task 5개 단독 실행 exit 0/PASS다.
+
+이전 source의 원격 build `38109705786`은 workflow success였고, device `38109705802`는 ordinary 25 PASS지만
+host prepare에서 실패했다. artifact `11691343396`의 native XML을 직접 검증했고 raw host 실패를 보존했다.
+stack은 IO import progress가 AppViewModel StateFlow를 갱신하여 Compose test inline continuation이 worker에서 view를 건드린 경로다.
+새 unit은 실제 executor와 inline collector로 수정 전 `Progress must be published on Main` 실패(exit 1)를 재현했다.
+AppViewModel의 suspend callback은 UI 게시만 Main.immediate로 옮기며 파일 작업 IO와 부모 import 취소/완료 순서를 유지한다.
+검증 기준이나 host parser를 완화하지 않았다.
+
+변경 파일은 `shared/src/jvmTest/.../RoomProgressRaceTest.kt`, `androidApp/src/main/.../ui/AppViewModel.kt`,
+`androidApp/src/test/.../ui/AppViewModelTest.kt`, `scripts/required-tests.json`,
+TASKS/TESTING/CONTEXT_HANDOFF/ADR-0004/WORKLOG, 새 `docs/M04_SAFETY_MATRIX.md`,
+`docs/evidence/m04-race-validation/`다. 기존 README/사용자 변경/과거 증거는 보존했다.
+
+정확 명령은 TESTING의 M04 DB 경쟁 절을 따른다. doctor/task discovery는 exit 0,
+full CI는 exit 0(Android unit 46/shared JVM 50, failure/error/skipped 0, lint 20 Hint, APK/schema PASS)다.
+source fingerprint `2cce4a46f213306e12cc9d54a6ec07f8f1d08991cc5445b7a7ac21acb5da31c1`, drift 0이다.
+새 device/host는 push 뒤 결과를 확인한다. M04는 IN_PROGRESS, SAFE 전체/60초/실제 disk-full/실기기 latency/신규 Astra 검토는 미완료다.

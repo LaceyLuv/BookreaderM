@@ -173,6 +173,10 @@
       "tabsAndQueryPersistWithinModelButNewModelStartsInLibrary"
     ],
     [
+      "org.bookreader.mobile.ui.AppViewModelTest",
+      "workerImportProgressIsPublishedOnMainWithoutMovingIoWork"
+    ],
+    [
       "org.bookreader.mobile.ui.LibrarySearchTest",
       "searchesTitleAuthorAndOriginalNameIgnoringCase"
     ],
@@ -329,6 +333,26 @@
     [
       "org.bookreader.mobile.repository.DatabaseFailureDiagnosticTest",
       "causeSnapshotIsBoundedAndExcludesMessages"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressRaceTest",
+      "concurrentDuplicateSequenceCommitsExactlyOnce"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressRaceTest",
+      "delayedBookASaveCannotChangeNewlyActiveBookB"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressRaceTest",
+      "delayedForwardEventCannotOverwriteNewerBackwardSequence"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressRaceTest",
+      "delayedSavesDuringAndAfterDeletionNeverRecreateBookOrTouchOtherBook"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressRaceTest",
+      "rapidSameBookSessionsRejectDelayedOldEventsAcrossDatabaseReopens"
     ],
     [
       "org.bookreader.mobile.repository.RoomProgressWriterTest",

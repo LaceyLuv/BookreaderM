@@ -3,6 +3,39 @@
 2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
 
+## M04 DB 경쟁·host 준비 경로 — 2026-10-11 후속
+
+`16e4615` 기준 working tree에서 실제 파일 Room DB 경쟁 5개와 import UI publisher-thread 회귀 1개를 추가했다.
+검증 fingerprint `2cce4a46f213306e12cc9d54a6ec07f8f1d08991cc5445b7a7ac21acb5da31c1`, 입력 drift 0이다.
+[summary](evidence/m04-race-validation/summary.json), native XML과 [SAFE matrix](M04_SAFETY_MATRIX.md)를 따른다.
+
+| 실행 | 결과 | 근거 |
+|---|---|---|
+| 새 DB race 5개 단독 실행 | PASS, exit 0 | `targeted-tests.log`, `targeted-native-shared/`; 실제 DB close/open 포함 |
+| UI publisher-thread 수정 전 회귀 | FAIL, exit 1 (결함 재현) | `worker-before-fix/`; worker에서 UI 게시 assertion 실패 |
+| 수정 후 full local CI | PASS, exit 0 | Android unit 46/shared JVM 50, failures/errors/skips 0; APK 2개/schema PASS, lint 20 Hint |
+| 이전 `16e4615` remote build `38109705786` | workflow success | 이전 source의 결과; 새 변경의 PASS로 사용하지 않음 |
+| 이전 `16e4615` remote device `38109705802` | ordinary 25 PASS / host FAIL | native XML 직접 검증; prepare CalledFromWrongThreadException, force-stop/cold verify NOT_RUN |
+| 새 source remote Android/host | NOT_RUN | push 뒤 재검증 결과 확인 예정 |
+
+정확 실행 명령 (`source /workspace/toolchains/mobile-env.sh` 이후):
+
+```bash
+./scripts/doctor.sh
+./gradlew --no-daemon --console=plain :shared:tasks --all
+./gradlew --no-daemon --console=plain :shared:jvmTest --tests org.bookreader.mobile.repository.RoomProgressRaceTest
+# production Main 게시 수정 전: exit 1
+./gradlew --no-daemon --console=plain :androidApp:testDebugUnitTest --tests org.bookreader.mobile.ui.AppViewModelTest.workerImportProgressIsPublishedOnMainWithoutMovingIoWork
+# 수정 후 exit 0, 내부 모든 명령/exit는 ci-check.log 및 ci/results.txt
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-race-validation/ci ./scripts/ci-check.sh
+python3 scripts/check-test-results.py android-device docs/evidence/m04-race-validation/previous-16e4615-device/native-connected
+git diff --check
+```
+
+SAFE-02/03/04 및 06의 DB 저장 부분만 새 concurrency case로 검증했다. UI rapid close/reopen,
+삭제 중 decode/index, 실제 disk-full, 60초 연속 이동/commit-latency, reflow/ON_STOP 통합과 신규 Astra 검토는 남아 있다.
+새 host 원본 결과 확인 전에는 Main 게시 수정이 actual host 실패를 해결했다고 확정하지 않는다.
+
 ## M04 재배치 중 flush — 2026-10-11
 
 기준 HEAD `03870c9c612694ca69528d0b5df7e44fa432a447`의 working tree에서 REFLOWING 중 미커밋 anchor 저장을 보완했다.

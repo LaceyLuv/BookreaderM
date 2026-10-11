@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="org.bookreader.mobile.database.AndroidDatabaseOwnerTest" tests="25" failures="0" errors="0" skipped="0" time="49.483" timestamp="2026-10-11T03:58:34" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 16" />
+    <property name="flavor" value="" />
+    <property name="project" value=":androidApp" />
+  </properties>
+  <testcase name="concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave" classname="org.bookreader.mobile.database.AndroidDatabaseOwnerTest" time="0.214" />
+  <testcase name="androidBomAndBoundaryNormalizationAreCanonical" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.001" />
+  <testcase name="androidStrictDecodeRejectsLateIncompleteCharacters" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.015" />
+  <testcase name="androidCp949ExtensionFixtureIsDistinctFromEucKr" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.031" />
+  <testcase name="systemDocumentsPickerSelectsTxtFromRealProvider" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="6.688" />
+  <testcase name="managedPromotionRefusesExistingTargetAndRenamesPrivateStaging" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.953" />
+  <testcase name="assetSegmentImportHonorsOffsetAndDeclaredLength" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.207" />
+  <testcase name="ownUidProviderIsRejectedBeforeAnyQuery" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.572" />
+  <testcase name="unknownSizeSourceEnforcesActualStreamingByteLimit" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.445" />
+  <testcase name="safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.35" />
+  <testcase name="externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.451" />
+  <testcase name="stalledProviderCopyCancelsAndRemovesPrivateStaging" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.578" />
+  <testcase name="ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.605" />
+  <testcase name="manualEncodingUsesStagingAfterSourceGrantIsRevoked" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.547" />
+  <testcase name="externalViewReceivesTemporaryGrantAndOpensActualReader" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.952" />
+  <testcase name="binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.409" />
+  <testcase name="emptyTxtReportsNoContentWithoutCreatingReadingProgress" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.527" />
+  <testcase name="eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid" classname="org.bookreader.mobile.reader.TxtReaderBoundaryTest" time="1.491" />
+  <testcase name="missingManagedCopyShowsRetryAndPreservesCommittedProgress" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="3.232" />
+  <testcase name="measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="4.073" />
+  <testcase name="invalidStoredThemeReportsErrorAndPreservesOriginal" classname="org.bookreader.mobile.ui.AndroidThemeStoreTest" time="0.053" />
+  <testcase name="selectedThemePersistsAcrossStoreInstances" classname="org.bookreader.mobile.ui.AndroidThemeStoreTest" time="0.006" />
+  <testcase name="loadingEmptyAndErrorAreDistinctAndErrorHasRetry" classname="org.bookreader.mobile.ui.BookReaderScreenTest" time="1.229" />
+  <testcase name="threeTabsMetadataSearchAndThemeSelectionWork" classname="org.bookreader.mobile.ui.BookReaderScreenTest" time="4.01" />
+  <testcase name="launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab" classname="org.bookreader.mobile.ui.MainActivityLaunchTest" time="2.319" />
+</testsuite>

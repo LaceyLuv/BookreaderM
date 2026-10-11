@@ -192,7 +192,13 @@ class AppViewModel(
             try {
                 recoveryDone.await()
                 val result = withContext(ioDispatcher) {
-                    action(service) { progress -> mutableState.update { it.copy(importing = ImportUiState.Working(progress)) } }
+                    action(service) { progress ->
+                        // Provider callbacks run on IO. Publish UI state on Main even
+                        // when an inline collector resumes on the publisher's thread.
+                        withContext(Dispatchers.Main.immediate) {
+                            mutableState.update { it.copy(importing = ImportUiState.Working(progress)) }
+                        }
+                    }
                 }
                 acceptImportResult(result, origin)
             } catch (cancelled: CancellationException) {
