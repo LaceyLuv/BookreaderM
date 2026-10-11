@@ -126,3 +126,12 @@ sampling/settled 간격, READY/복원 gate, SQL 조건부 writer와 테스트 �
 ordinary 26 및 외부 host 2 stages도 PASS다. host 준비는 마지막 fling/layout 안정화 후 expected를 캡처한다.
 `78e45f5` 이동 누락 FAIL과 `14ce759` host 준비 timeout 원본은 보존하며, emulator 검사 범위를 넘겨
 SQL acknowledgement/실기기 성능이나 전체 M04 완료로 확대하지 않는다.
+
+## 2026-10-11 — SAFE-07 native SQLite 용량 오류 검증
+
+안전하게 반복 가능한 실제 엔진 실패를 얻기 위해 fixture DB의 max_page_count를 제한하고 테스트 전용
+AFTER trigger의 bounded 할당으로 native SQLITE_FULL(13)을 발생시킨다. 수동 예외 주입과 구분한다.
+JVM은 commit/activation의 rollback과 reopen·동일 event 재시도를 확인하고 Android는 실제 Reader의
+오류 표시·기록/원본 보존·자동 재시도를 검증한다. finally에서 한도와 fixture schema를 복원한다.
+앱 소유 Room pool은 닫지 않는다. production writer/schema 변경 없이 검증을 추가한다.
+이 선택은 OS filesystem ENOSPC나 WAL/fsync 실패를 대체하지 않으며 범위는 [SAFE-07 보고서](../M04_SQLITE_FULL.md)를 따른다.

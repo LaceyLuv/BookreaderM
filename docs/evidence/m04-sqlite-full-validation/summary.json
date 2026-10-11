@@ -1,0 +1,37 @@
+{
+  "base_sha": "685b6d23acfcdb66f2a95ad86c4e3e1809046ee7",
+  "source_fingerprint_sha256": "f1a40c26c304730dd729a9052a129d50292f4ddddf83d6082d4a028f12ae3e50",
+  "source_drift": [],
+  "local_ci_exit": 0,
+  "levels": {
+    "android-unit": {
+      "tests": 47,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 53,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "remote_device": "NOT_RUN: awaiting push",
+  "initial_android_compile": {
+    "exit": 1,
+    "reason": "assertDoesNotExist is a SemanticsNodeInteraction member, not an importable extension; corrected import"
+  },
+  "corrected_android_compile_exit": 0,
+  "mechanism": "Native SQLite max_page_count and bounded test trigger; not filesystem ENOSPC",
+  "remaining": [
+    "Actual Android UI execution",
+    "OS filesystem/WAL/fsync ENOSPC",
+    "Physical devices",
+    "Remaining M04 SAFE/UI races/reflow",
+    "New Astra review"
+  ],
+  "lint_severity_counts": {
+    "Hint": 20
+  }
+}

@@ -389,6 +389,18 @@
     [
       "org.bookreader.mobile.repository.RoomProgressWriterTest",
       "verifiedAvailabilityRestoreCannotReviveDeletingOrChangedRevisionAndPreservesProgress"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullUpdatePreservesLastCommitAcrossReopenAndSameEventCanRetry"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullFirstSaveDoesNotInventProgressAndCanRetryAfterCapacityReturns"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullActivationRollsBackEpochAndReadOrderThenRestoresExistingRecord"
     ]
   ],
   "android-device": [
@@ -495,6 +507,10 @@
     [
       "org.bookreader.mobile.ui.MainActivityLaunchTest",
       "launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns"
     ]
   ],
   "android-host": [

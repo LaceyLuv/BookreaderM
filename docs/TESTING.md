@@ -3,6 +3,36 @@
 2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
 
+## M04 SAFE-07 native SQLite FULL — 2026-10-11
+
+clean main `685b6d2`에서 실제 엔진 용량 한도 오류 회귀를 추가했다. 입력 fingerprint
+`f1a40c26c304730dd729a9052a129d50292f4ddddf83d6082d4a028f12ae3e50`, drift 0이다.
+[summary](evidence/m04-sqlite-full-validation/summary.json), [범위 보고서](M04_SQLITE_FULL.md)를 따른다.
+
+| 검사 | 결과 | 범위 |
+|---|---|---|
+| 새 실제 DB 3개 단독 | exit 0/PASS | update/insert/activation의 native code 13, 기록/다른 책/metadata rollback, reopen/retry |
+| Android test APK | 수정 후 exit 0/PASS | 초기 잘못된 member import 컴파일 exit 1도 보존; 실제 UI 실행 아님 |
+| full local CI | exit 0/PASS | Android unit 47/shared JVM 53, failures/errors/skips 0, APK/schema PASS, lint 20 Hint |
+| 새 actual Android UI/host | NOT_RUN | push 후 실행 결과 확인 예정 |
+| OS filesystem ENOSPC 및 실기기 | NOT_RUN | native page-limit FULL과 구분 |
+
+`source /workspace/toolchains/mobile-env.sh` 이후 정확 명령:
+
+```bash
+./scripts/doctor.sh
+./gradlew --no-daemon --console=plain :shared:jvmTest --tests org.bookreader.mobile.repository.RoomProgressFullTest
+./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest
+bash -n scripts/device-check.sh
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-sqlite-full-validation/ci ./scripts/ci-check.sh
+```
+
+새 native 필수 identity는 shared 3개와 Android Reader 1개다. max_page_count 한도·테스트 전용 trigger·부가 table은
+실제 writer의 transaction을 SQLITE_FULL로 실패시킨다. 수동 예외 throw/mock 결과 반환이 아니다.
+Android는 앱 소유 writer 연결을 빌리고 finally에서 한도와 fixture schema를 복원하며 DB를 닫지 않는다.
+새 `sqlite-full-report.log`는 native probe code 13/오류 표시/기록·파일 보존/자동 retry/정리 완료를 별도 확인한다.
+connected 실패 때도 report를 수집하되 원래 exit를 보존한다. production 소스/schema 변경은 없다.
+
 ## M04 SAFE-09 최종 결과 — source `73276fe`
 
 `73276fe27da781dde807f05a85422ae18363642f`의 local/remote build와 actual device/host는 PASS다.

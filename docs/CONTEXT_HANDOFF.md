@@ -1,5 +1,13 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
+## 2026-10-11 SAFE-07 후속 진행
+
+clean main `685b6d2`에서 native SQLite page-limit FULL 검증을 추가한다. 실제 DB의 update/insert/activation
+3개 회귀는 native code 13/rollback/reopen/retry PASS이며 실제 Reader 오류 UI·자동 재시도 회귀도 추가했다.
+최종 결과는 [TESTING](TESTING.md), [범위 보고서](M04_SQLITE_FULL.md),
+[evidence](evidence/m04-sqlite-full-validation/summary.json)에 확정한다. Android 실행 전에는 PASS로 간주하지 않는다.
+OS filesystem ENOSPC, 실기기 WAL/fsync 부족, 전체 M04와 신규 Astra 검토는 미완료다.
+
 ## 2026-10-11 SAFE-09 최종 검증
 
 검증 source는 `73276fe27da781dde807f05a85422ae18363642f`다. main에 commit/push했으며

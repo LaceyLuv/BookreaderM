@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.bookreader.mobile.repository.RoomProgressFullTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-11T08:47:32.712Z" hostname="5b4ca140f8fd" time="0.126">
+  <properties/>
+  <testcase name="fullUpdatePreservesLastCommitAcrossReopenAndSameEventCanRetry[jvm]" classname="org.bookreader.mobile.repository.RoomProgressFullTest" time="0.059"/>
+  <testcase name="fullActivationRollsBackEpochAndReadOrderThenRestoresExistingRecord[jvm]" classname="org.bookreader.mobile.repository.RoomProgressFullTest" time="0.037"/>
+  <testcase name="fullFirstSaveDoesNotInventProgressAndCanRetryAfterCapacityReturns[jvm]" classname="org.bookreader.mobile.repository.RoomProgressFullTest" time="0.03"/>
+  <system-out><![CDATA[FULL_FIXTURE page_count=14 page_size=4096 growth_bytes=73728
+NATIVE_SQLITE_FULL code=13 stage=SAVE_COMMIT
+FULL_FIXTURE page_count=14 page_size=4096 growth_bytes=73728
+NATIVE_SQLITE_FULL code=13 stage=ACTIVATE
+FULL_FIXTURE page_count=14 page_size=4096 growth_bytes=73728
+NATIVE_SQLITE_FULL code=13 stage=SAVE_COMMIT
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

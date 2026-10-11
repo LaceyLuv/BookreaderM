@@ -937,3 +937,29 @@ fixture 647,999 bytes/SHA256 e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0
 TASKS/TESTING/CONTEXT_HANDOFF/SAFE matrix/측정 보고서/ADR과 evidence summary를 확정한다.
 SAFE-09 emulator correctness는 PASS지만 M04는 IN_PROGRESS다. SAFE-07 실제 disk-full,
 UI A/B·same-book rapid reopen, 삭제 중 decode/index, reflow/ON_STOP, SQL ack/실기기 수치 및 신규 Astra 검토가 남는다.
+
+## 2026-10-11 — SAFE-07 native SQLite FULL 검증
+
+시작은 clean main/origin/main `685b6d23acfcdb66f2a95ad86c4e3e1809046ee7`이다. 상위/저장소 AGENTS,
+CONTEXT_HANDOFF/SAFE matrix와 실제 writer/DAO/schema/Reader 오류 경로를 읽었다.
+cloud-environment-runtime 스킬에 따라 환경을 확인했다. network enforced/unrestricted, credentials 없음,
+기존 JDK17/SDK 환경을 재사용했다. Room 2.8.3 및 SQLite 2.6.1 공식 source의 useWriterConnection/usePrepared/
+execSQL/SQLiteException과 공식 SQLite max_page_count/code 13을 확인했다. URL/hash는 official-api.json이다.
+
+RoomProgressFullTest 3개는 실제 파일 DB와 native engine을 사용한다. 용량 한도와 bounded 부가 할당 trigger로
+progress UPDATE/첫 INSERT/activation metadata INSERT 뒤 SQLITE_FULL을 일으킨다. 원래 예외 code 13과
+실패 stage, 전체 두 책/진행도/read_order 보존·DB reopen·같은 event retry 성공 및 부가 할당 성공을 검증한다.
+예외나 repository 반환값을 주입하지 않는다. OS filesystem ENOSPC/WAL/fsync 부족과는 구분한다.
+
+TxtReaderFlowTest에 자체 생성 두 TXT를 실제 import한 뒤 앱 소유 writer pool의 page 한도를 제한하는 case를 추가했다.
+native probe와 오류 UI, 마지막 commit 및 다른 책/원본 hash 보존, 용량 복원 후 추가 입력/직접 flush 없는 자동 retry를
+검사한다. finally에서 원래 한도와 fixture schema를 복원하며 빌린 DB는 닫지 않는다.
+TestDocumentsProvider/required-tests/device-check도 새 fixture/필수 identity/raw JSON 수집·검증을 반영했다.
+production writer/UI/schema는 변경하지 않았다. 기존 README/증거와 사용자 파일을 보존했다.
+
+단독 shared 3개는 exit 0/native XML PASS다. Android APK 첫 compile은 member assertDoesNotExist를 extension으로
+잘못 import해 exit 1이었다. import만 제거 후 동일 명령 exit 0; 두 로그를 보존했다. doctor/bash -n도 exit 0이다.
+정확 명령은 TESTING 최신 절을 따른다. full CI exit 0, Android unit 47/shared JVM 53, failures/errors/skips 0,
+lint 20 Hint, APK/schema PASS다. 107개 입력 fingerprint f1a40c26c304730dd729a9052a129d50292f4ddddf83d6082d4a028f12ae3e50,
+drift 0이다. source-before-ci 및 native XML/명령 exit는 docs/evidence/m04-sqlite-full-validation에 보존했다.
+actual Android/host는 push 후 검증한다. M04는 IN_PROGRESS이며 OS ENOSPC·실기기 및 신규 Astra는 NOT_RUN이다.

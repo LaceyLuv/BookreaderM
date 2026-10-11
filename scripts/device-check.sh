@@ -81,8 +81,11 @@ run_logged connected-tests ./gradlew --no-daemon --console=plain --stacktrace \
 # Preserve the generated measurement on assertion failure, without masking the test exit.
 report_exit=0
 run_logged continuous-progress-report adb shell run-as org.bookreader.mobile cat files/txt-continuous-report.json || report_exit=$?
+full_report_exit=0
+run_logged sqlite-full-report adb shell run-as org.bookreader.mobile cat files/txt-full-report.json || full_report_exit=$?
 if (( connected_exit != 0 )); then exit "$connected_exit"; fi
 if (( report_exit != 0 )); then exit "$report_exit"; fi
+if (( full_report_exit != 0 )); then exit "$full_report_exit"; fi
 run_logged verified-test-results python3 scripts/check-test-results.py \
   android-device androidApp/build/outputs/androidTest-results/connected
 run_logged verified-continuous-progress python3 - "$evidence_dir/continuous-progress-report.log" <<'PY'
@@ -100,6 +103,21 @@ assert all(a['sequence'] < b['sequence'] for a, b in zip(report['commits'], repo
 print('PASS 60s actual touch with periodic Room observations; SQL write-ack/physical latency not measured')
 print(json.dumps({key: report[key] for key in ('movement_duration_ms', 'max_observed_commit_gap_ms',
     'gesture_end_to_settled_observation_ms', 'final_sequence')}, sort_keys=True))
+PY
+# Verify the native capacity failure and actual UI recovery report independently of JUnit XML.
+run_logged verified-sqlite-full python3 - "$evidence_dir/sqlite-full-report.log" <<'PY'
+from pathlib import Path
+import json
+import sys
+report = json.loads(Path(sys.argv[1]).read_text())
+assert report['status'] == 'PASS' and report['fixture_id'] == 'reader-full'
+assert report['native_probe_code'] == 13 and 0 < report['growth_bytes'] <= 1_048_576
+assert all(report[key] is True for key in ('save_error_visible', 'records_preserved_on_failure',
+    'managed_files_preserved', 'retry_cleared_error', 'other_book_preserved_after_retry',
+    'fixture_limit_and_schema_restored'))
+assert report['initial_offset'] != report['pending_offset'] == report['retry_offset']
+assert report['retry_sequence'] > report['initial_sequence']
+print('PASS native SQLite page-limit FULL, actual Reader error UI, preserved records and automatic retry; OS ENOSPC not measured')
 PY
 # The excluded class is mandatory here: both exact methods execute around an
 # external adb force-stop, independent of JUnit method ordering.

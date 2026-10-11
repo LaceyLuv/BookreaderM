@@ -17,6 +17,9 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.execSQL
+import androidx.room.useWriterConnection
+import androidx.sqlite.SQLiteException
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import java.security.MessageDigest
@@ -28,6 +31,7 @@ import kotlinx.coroutines.withContext
 import org.bookreader.mobile.MainActivity
 import org.bookreader.mobile.database.createAndroidDatabase
 import org.bookreader.mobile.database.BookReaderDatabase
+import org.bookreader.mobile.database.AndroidDatabaseOwner
 import org.bookreader.mobile.importing.TestSenderActivity
 import org.bookreader.mobile.locator.TxtLocator
 import org.bookreader.mobile.model.Book
@@ -35,6 +39,7 @@ import org.bookreader.mobile.model.ReadingProgress
 import org.bookreader.mobile.repository.LibraryState
 import org.bookreader.mobile.repository.ProgressReadResult
 import org.bookreader.mobile.repository.RoomBookRepository
+import org.bookreader.mobile.repository.DatabaseFailureStage
 import org.bookreader.mobile.repository.RoomProgressRepository
 import org.bookreader.mobile.ui.AppViewModel
 import org.bookreader.mobile.ui.AndroidBookManagement
@@ -221,6 +226,129 @@ class TxtReaderFlowTest {
             try { if (held) inject(MotionEvent.ACTION_CANCEL) }
             finally {
                 report.put("status", if (passed) "PASS" else "FAIL")
+                reportFile.writeText(report.toString(2))
+            }
+        }
+    }
+
+    @Test fun sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns() {
+        val reportFile = File(target.filesDir, "txt-full-report.json")
+        if (reportFile.exists()) assertTrue(reportFile.delete())
+        // Another real imported book/progress must remain unchanged throughout the failure.
+        sendFixture("reader-full-other")
+        waitFor("reader_ready")
+        val other = reader().book
+        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        val otherProgress = requireNotNull(saved(other))
+        val otherRecord = books().single { it.id == other.id }
+        val otherFile = File(File(target.filesDir, "managed"), other.managedRelativePath)
+        val otherHash = digest(otherFile)
+
+        sendFixture("reader-full")
+        waitFor("reader_ready")
+        val controller = reader()
+        val book = controller.book
+        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.waitForIdle()
+        val initialAnchor = measuredVisibleLine(controller)
+        assertTrue(initialAnchor > 0)
+        compose.waitUntil(10_000) { saved(book)?.let { offset(it) == initialAnchor } == true }
+        val before = requireNotNull(saved(book))
+        val beforeBook = books().single { it.id == book.id }
+        val original = File(File(target.filesDir, "managed"), book.managedRelativePath)
+        val originalHash = digest(original)
+        // Borrow the same one-writer Room pool used by the real Reader; never close it here.
+        val database = AndroidDatabaseOwner.borrow(target)
+        fun scalar(sql: String): Long = runBlocking { database.useWriterConnection { connection ->
+            connection.usePrepared(sql) { check(it.step()); it.getLong(0) }
+        } }
+        fun execute(sql: String) = runBlocking { database.useWriterConnection { it.execSQL(sql) } }
+        val originalLimit = scalar("PRAGMA max_page_count")
+        val beforeOrder = scalar("SELECT value FROM app_metadata WHERE `key` = 'read_order'")
+        val report = JSONObject().apply {
+            put("fixture_id", "reader-full")
+            put("fixture_sha256", book.sourceSha256)
+            put("fixture_bytes", book.sourceByteSize)
+            put("other_fixture_sha256", other.sourceSha256)
+            put("build_fingerprint", Build.FINGERPRINT)
+            put("api", Build.VERSION.SDK_INT)
+            put("abi", Build.SUPPORTED_ABIS.first())
+            put("mechanism", "Native SQLite max_page_count plus test-only growth trigger; not filesystem ENOSPC")
+            put("initial_offset", initialAnchor)
+            put("initial_sequence", before.writerSequence)
+            put("writer_epoch", before.writerSessionEpoch)
+        }
+        var passed = false
+        try {
+            execute("CREATE TABLE full_test_payload (payload BLOB NOT NULL)")
+            val bytes = (scalar("PRAGMA page_count") + 4) * scalar("PRAGMA page_size")
+            check(bytes in 1..1_048_576)
+            // Test-only growth happens after the normal progress UPDATE, in its real transaction.
+            check(book.id.matches(Regex("[a-f0-9-]+")))
+            execute("CREATE TRIGGER full_test_write AFTER UPDATE ON reading_progress " +
+                "WHEN NEW.bookId = '${book.id}' BEGIN INSERT INTO full_test_payload VALUES (zeroblob($bytes)); END")
+            val pages = scalar("PRAGMA page_count")
+            assertEquals(pages, scalar("PRAGMA max_page_count = $pages"))
+            report.put("page_limit", pages).put("page_size", scalar("PRAGMA page_size")).put("growth_bytes", bytes)
+            // Confirm code 13 from the native engine on this same constrained writer connection.
+            val nativeFailure = runCatching { execute("INSERT INTO full_test_payload VALUES (zeroblob($bytes))") }.exceptionOrNull()
+            assertTrue(nativeFailure is SQLiteException)
+            assertTrue(nativeFailure?.message.orEmpty().contains("Error code: 13,"))
+            report.put("native_probe_code", 13)
+
+            compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+            compose.waitForIdle()
+            val pendingAnchor = measuredVisibleLine(controller)
+            assertNotEquals(initialAnchor, pendingAnchor)
+            waitFor("reader_save_error")
+            val failed = controller.state.value
+            assertEquals(TxtReaderPhase.READY, failed.phase)
+            assertEquals(pendingAnchor, failed.stableOffset)
+            assertTrue(failed.saveError)
+            assertEquals(ReaderFailureStage.SAVE, failed.failureDiagnostic?.stage)
+            assertEquals(DatabaseFailureStage.SAVE_COMMIT, failed.failureDiagnostic?.database?.stage)
+            assertTrue(failed.failureDiagnostic?.database?.exceptionTypes?.contains("SQLiteException") == true)
+            assertEquals(before, saved(book))
+            assertEquals(beforeBook, books().single { it.id == book.id })
+            assertEquals(otherProgress, saved(other))
+            assertEquals(otherRecord, books().single { it.id == other.id })
+            assertEquals(beforeOrder, scalar("SELECT value FROM app_metadata WHERE `key` = 'read_order'"))
+            assertEquals(0L, scalar("SELECT count(*) FROM full_test_payload"))
+            assertEquals(originalHash, digest(original))
+            assertEquals(otherHash, digest(otherFile))
+            report.put("pending_offset", pendingAnchor).put("save_error_visible", true)
+                .put("records_preserved_on_failure", true).put("managed_files_preserved", true)
+
+            // Keep the trigger. Capacity relief must make the same actual write succeed, via retry.
+            assertEquals(originalLimit, scalar("PRAGMA max_page_count = $originalLimit"))
+            compose.waitUntil(10_000) {
+                !controller.state.value.saveError && saved(book)?.let { offset(it) == pendingAnchor } == true
+            }
+            val committed = requireNotNull(saved(book))
+            compose.onNodeWithTag("reader_save_error").assertDoesNotExist()
+            assertNull(controller.state.value.failureDiagnostic)
+            assertEquals(before.writerSessionEpoch, committed.writerSessionEpoch)
+            assertTrue(committed.writerSequence > before.writerSequence)
+            assertEquals(1L, scalar("SELECT count(*) FROM full_test_payload"))
+            assertEquals(otherProgress, saved(other))
+            assertEquals(otherRecord, books().single { it.id == other.id })
+            assertEquals(beforeBook, books().single { it.id == book.id })
+            assertEquals(beforeOrder, scalar("SELECT value FROM app_metadata WHERE `key` = 'read_order'"))
+            assertEquals(originalHash, digest(original))
+            assertEquals(otherHash, digest(otherFile))
+            report.put("retry_offset", offset(committed)).put("retry_sequence", committed.writerSequence)
+                .put("retry_cleared_error", true).put("other_book_preserved_after_retry", true)
+            passed = true
+        } finally {
+            try {
+                assertEquals(originalLimit, scalar("PRAGMA max_page_count = $originalLimit"))
+                execute("DROP TRIGGER IF EXISTS full_test_write")
+                execute("DROP TABLE IF EXISTS full_test_payload")
+                report.put("fixture_limit_and_schema_restored", true)
+            } finally {
+                report.put("status", if (passed && report.optBoolean("fixture_limit_and_schema_restored")) "PASS" else "FAIL")
                 reportFile.writeText(report.toString(2))
             }
         }
