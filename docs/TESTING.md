@@ -16,7 +16,8 @@
 | 수정 후 full local CI | PASS, exit 0 | Android unit 46/shared JVM 50, failures/errors/skips 0; APK 2개/schema PASS, lint 20 Hint |
 | 이전 `16e4615` remote build `38109705786` | workflow success | 이전 source의 결과; 새 변경의 PASS로 사용하지 않음 |
 | 이전 `16e4615` remote device `38109705802` | ordinary 25 PASS / host FAIL | native XML 직접 검증; prepare CalledFromWrongThreadException, force-stop/cold verify NOT_RUN |
-| 새 source remote Android/host | NOT_RUN | push 뒤 재검증 결과 확인 예정 |
+| `96c15aa` remote build `38110471084` | PASS | native Android unit 46/shared JVM 50, failures/errors/skips 0; schema local 일치 |
+| `96c15aa` remote device `38110471069` | PASS | native ordinary 25/실제 raw host 2 stages; 모두 성공, PID 5640→absent→5688 |
 
 정확 실행 명령 (`source /workspace/toolchains/mobile-env.sh` 이후):
 
@@ -34,7 +35,22 @@ git diff --check
 
 SAFE-02/03/04 및 06의 DB 저장 부분만 새 concurrency case로 검증했다. UI rapid close/reopen,
 삭제 중 decode/index, 실제 disk-full, 60초 연속 이동/commit-latency, reflow/ON_STOP 통합과 신규 Astra 검토는 남아 있다.
-새 host 원본 결과 확인 전에는 Main 게시 수정이 actual host 실패를 해결했다고 확정하지 않는다.
+새 actual host 원본에서 prepare와 cold verify의 exact start/pass/finish를 확인했다.
+외부 adb가 살아 있는 PID 5640을 force-stop한 뒤 absent, cold launcher PID 5688을 확인했고,
+마지막 commit offset 11607/epoch 1/sequence 2가 cold 서재 Continue로 복원됐다.
+이전 worker UI 게시 실패 경로 수정 후 해당 host flow가 PASS임을 확인했다. 단일 실행으로 모든 timing 문제 제거를 주장하지 않는다.
+증거는 `remote-96c15aa-device/native-connected/`, `host-process-proof/`, 각 native/host verifier log와 summary다.
+이전 `16e4615` FAIL 원본은 `previous-16e4615-device/`에 그대로 있다.
+원격 기기 명령은 `./scripts/device-check.sh`, host는 그 안에서
+`python3 scripts/reader-process-check.py build/device-evidence/reader-host-process`로 실행됐고 wrapper exit는 0이다.
+다운로드 후 아래 두 검증도 exit 0이다.
+
+```bash
+python3 scripts/check-test-results.py android-device docs/evidence/m04-race-validation/remote-96c15aa-device/native-connected
+python3 scripts/check-test-results.py android-host docs/evidence/m04-race-validation/remote-96c15aa-device/host-process-proof
+```
+
+미커밋 화면 위치·실기기 latency는 검증 대상이 아니며, verification instrumentation은 또 다른 target process를 시작할 수 있다.
 
 ## M04 재배치 중 flush — 2026-10-11
 

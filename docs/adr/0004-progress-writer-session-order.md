@@ -97,3 +97,9 @@ close는 sampler/settled를 취소하고 flush를 기다린 뒤 open/restore를 
 발생한 CalledFromWrongThreadException이다. StateFlow의 thread safety와 Compose test inline observer의
 Main view 소유권은 별개다. UI 게시만 Main으로 옮기고 IO 및 suspend cancellation을 유지한다.
 수정 전 unit 재현 및 raw host 실패를 보존한다. device/host 재실행 결과는 TESTING을 따른다.
+
+
+수정 source `96c15aa`는 local/remote build unit 46/shared JVM 50와 actual ordinary Android 25 및
+외부 host 2 stages를 통과했다. 원본 host는 PID 5640 종료/absent/cold PID 5688과 commit
+offset 11607/epoch 1/sequence 2 보존·서재 Continue 복원을 확인한다. `16e4615` prepare 실패 원본도 보존했다.
+이전 실패 경로 수정 후 이번 flow가 통과했다는 범위로 기록하며, 전체 M04 SAFE gate는 미완료다.

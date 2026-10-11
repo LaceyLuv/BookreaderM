@@ -13,7 +13,7 @@ M04는 **IN_PROGRESS**다. 아래는 검사 수준별 증거이며 하나의 수
 | 06 삭제 중 작업 | `delayedSavesDuringAndAfterDeletionNeverRecreateBookOrTouchOtherBook`: DELETING/삭제 완료 후 지연 save 거부, 다른 책 불변, DB 재개방 | save와 decode/index/file cleanup 동시 실행 전체 경로 |
 | 07 disk-full | 기존 저장 오류 UI 및 닫힌 DB 오류 보존 회귀 | 실제 SQLite/storage disk-full; 오류 주입은 disk-full 증거가 아님 |
 | 09 60초 연속 이동 | 기존 controller의 약 1.5초 sampling/역방향 settled save 검사 | 60초 연속 이동·주기 실제 commit과 측정 기기/빌드/fixture가 있는 latency report |
-| 10 외부 종료 | 과거 `2be610a` host PASS; `16e4615` ordinary 25 PASS이나 host prepare FAIL | Main 게시 수정 후 actual host 2 stages 재검증; 미커밋 화면 위치 보존은 보장하지 않음 |
+| 10 외부 종료 | `96c15aa` ordinary 25/host 2 stages PASS; PID 5640→외부 force-stop→absent→cold PID 5688, commit offset 11607/epoch 1/sequence 2 복원 | 미커밋 화면 위치·전원 차단/저장장치 손상은 보장하지 않음 |
 | 12 reflow | `16e4615`의 신규 controller 4개: pending backward flush/close 대기/임시 0 차단/오류 재시도 | 실제 설정·ON_STOP 중 reflow와 임시 callback 경로 |
 
 ## 실제 DB 경쟁 테스트의 경계
@@ -37,3 +37,10 @@ AppViewModel은 suspend progress callback의 UI 상태 게시만 `Dispatchers.Ma
 파일 작업은 IO에 남고 새 독립 coroutine/Job을 만들지 않아 부모 import의 취소·완료 순서를 유지한다.
 새 unit은 실제 별도 worker와 inline collector로 수정 전 publisher-thread 실패를 재현하며,
 수정 후 Main 게시/IO 작업 유지/오류 phase 보존을 확인한다. 이것만으로 actual host 성공을 선언하지 않는다.
+
+
+수정 후 `96c15aa` [device run 38110471069](https://github.com/LaceyLuv/BookreaderM/actions/runs/38110471069)는
+ordinary 25 및 actual host 2 stages를 통과했다. source SHA, native XML, exact raw stage/PID 종료·재시작 proof는
+[새 device summary](evidence/m04-race-validation/remote-96c15aa-device/summary.json)에 연결된다.
+로컬·원격 build 모두 unit 46/shared JVM 50 PASS다. 그 결과는 이번 DB 경쟁 검사를 뒷받침하지만
+SAFE-01/02/03/04/06/07/09/12의 위 잔여 통합·장애·측정 gate 및 Astra 신규 최종 검토를 완료한 것은 아니다.

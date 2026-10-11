@@ -217,7 +217,8 @@ REFLOWING 미커밋 flush 및 실기기 지연 수치는 미완료여서 M04 IN_
 **추가 검증:** 실제 파일 DB의 지연 A→B/이전 epoch/역방향 sequence/duplicate sequence/삭제 후 save
 5개 및 Main publisher-thread 회귀 1개를 추가했다. 로컬 full CI는 Android unit 46/shared JVM 50 PASS다.
 `16e4615` ordinary Android 25는 PASS이나 host prepare는 worker UI 갱신으로 FAIL이었다.
-UI 게시 Main 전환 후 새 remote host 결과는 대기 중이다. 범위별 [SAFE matrix](M04_SAFETY_MATRIX.md)를 따른다.
+UI 게시 Main 전환 후 `96c15aa` remote build(46/50)·actual ordinary 25/host 2 stages는 PASS다.
+raw PID 종료와 마지막 commit 복원까지 확인했다. 범위별 [SAFE matrix](M04_SAFETY_MATRIX.md)의 잔여 gate 때문에 IN_PROGRESS를 유지한다.
 
 ## 구현 범위
 앱 수준 progress single writer, persisted sessionEpoch/sequence, 1초 sampling+250ms settled save, conditional transaction, flush barrier, 저장 실패 UI를 완성한다. 외부 host-driven 종료 테스트를 만든다.

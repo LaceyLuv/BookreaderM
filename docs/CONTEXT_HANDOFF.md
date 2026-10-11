@@ -6,7 +6,10 @@
 12회 세션 변경·DB reopen과 전체 persisted record 보존을 검사하며 UI navigation을 검사한 것으로 취급하지 않는다.
 직전 `16e4615` remote ordinary 25는 PASS, host prepare는 CalledFromWrongThreadException으로 FAIL이다.
 raw stack의 import progress→worker UI 게시 경로를 수정하고 수정 전 실패하는 회귀를 추가했다.
-새 local CI는 Android unit 46/shared JVM 50 PASS, 새 remote Android/host 검증은 결과 대기 중이다.
+검증 source는 `96c15aa6d074b0b6d96579e1deb54d6fbc3413ec`다. local/remote CI는 Android unit 46/shared JVM 50 PASS,
+remote device `38110471069`는 ordinary 25/actual host 2 stages PASS다. raw PID 5640→absent→cold 5688,
+commit offset 11607/epoch 1/sequence 2의 서재 Continue 복원을 확인했다. 이전 host FAIL과 구분한다.
+다음 우선 작업은 실제 Reader의 60초 연속 이동과 주기 commit/latency 또는 SAFE-07 실제 SQLite disk-full 보존 검증이다.
 최신 근거는 [TESTING](TESTING.md), [SAFE matrix](M04_SAFETY_MATRIX.md),
 [evidence](evidence/m04-race-validation/summary.json)에 있다. 신규 Astra 검토와 전체 M04는 미완료다.
 

@@ -825,3 +825,24 @@ TASKS/TESTING/CONTEXT_HANDOFF/ADR-0004/WORKLOG, 새 `docs/M04_SAFETY_MATRIX.md`,
 full CI는 exit 0(Android unit 46/shared JVM 50, failure/error/skipped 0, lint 20 Hint, APK/schema PASS)다.
 source fingerprint `2cce4a46f213306e12cc9d54a6ec07f8f1d08991cc5445b7a7ac21acb5da31c1`, drift 0이다.
 새 device/host는 push 뒤 결과를 확인한다. M04는 IN_PROGRESS, SAFE 전체/60초/실제 disk-full/실기기 latency/신규 Astra 검토는 미완료다.
+
+
+### `96c15aa` 원격 검증 확정
+
+코드·회귀·중간 증거를 `96c15aa6d074b0b6d96579e1deb54d6fbc3413ec`로 commit/push했다.
+원격 build `38110471084`는 success이며 artifact `11691432639`의 native XML이 Android unit 46/shared JVM 50,
+failure/error/skipped 0이고 exported schema는 local과 같다. 원격 기기 `38110471069`도 success다.
+artifact `11690673689`의 source SHA는 정확히 `96c15aa`이며 ordinary native XML은 25/0 failures/errors/skips다.
+
+actual host raw 두 stage는 정확한 start/pass/finish identity를 검증했다. host script가 실제 live PID 5640을
+force-stop한 뒤 absent, cold launcher PID 5688을 확인했고 offset 11607/epoch 1/sequence 2 commit이
+cold 서재 Continue로 복원됐다. stage/adb command exit는 모두 0, device-check wrapper도 exit 0이다.
+Activity recreation이나 미커밋 화면 위치 보존으로 해석하지 않는다. verification instrumentation은 별도 target process를 시작할 수 있다.
+각 native XML/raw logs/proof/workflow/archive SHA-256은 `docs/evidence/m04-race-validation/remote-96c15aa-{build,device}/`에 보존했다.
+exact 실행/다운로드 후 verifier 명령은 TESTING에 있으며 모두 exit 0이다. 이전 `16e4615` host FAIL을 삭제하지 않았다.
+
+로컬·원격 결과 및 M04 잔여 항목을 TASKS/TESTING/CONTEXT_HANDOFF/ADR/SAFE matrix에 확정한다.
+이 확정은 문서·증거 변경뿐이며 검증 code input은 source fingerprint와 동일하다.
+새 source의 실제 기기 host 회귀는 완료했으나 전체 SAFE/60초 연속 이동/실제 disk-full/실기기 latency와
+신규 Astra 최종 검토는 미완료다. 다음 우선 작업은 60초 주기 commit 또는 SAFE-07 실제 disk-full 검증이다.
+코드·문서 공백 검사는 evidence raw 로그를 제외하고 exit 0이며, raw Gradle/adb의 원래 공백은 유지한다.
