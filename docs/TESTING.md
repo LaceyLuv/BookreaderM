@@ -655,3 +655,11 @@ cancelled 결과를 Android 성공/실패로 취급하지 않는다. source 및 
 workflow 판정은 failure다. `remote-a3ee33b-build/blocked-env.log`에 원본이 있다.
 Ubuntu runner의 기존 sudo 권한으로 같은 격리 스크립트를 실행하도록 build workflow만 보완했다.
 전역 보안 설정을 변경하거나 검사를 skip하지 않는다. 최종 원격 결과는 상단 최신 절을 따른다.
+
+### page-limit 오류 배너의 비동기 reflow 측정 보완
+
+`bacd79f` build `38128654804`는 48/53/ENOSPC 3 PASS, device `38128654709`는 DB owner PASS이나
+page-limit UI의 anchor 비교 1개 FAIL(53 vs 6625), host NOT_RUN이다. 원본은 `remote-bacd79f-{build,device}`에 있다.
+오류 배너가 viewport를 바꾼 뒤 READY로 복귀하기 전에 측정할 수 있어 배너/READY를 먼저 기다리도록
+test 순서만 수정했다. 전체 assertion을 유지한다. `./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest`
+exit 0은 APK compile 증거이며 actual PASS는 새 원격 실행 결과를 따른다.

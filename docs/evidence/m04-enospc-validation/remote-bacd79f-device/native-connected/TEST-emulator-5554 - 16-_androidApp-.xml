@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="org.bookreader.mobile.database.AndroidDatabaseOwnerTest" tests="27" failures="1" errors="0" skipped="0" time="122.364" timestamp="2026-10-11T09:40:06" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 16" />
+    <property name="flavor" value="" />
+    <property name="project" value=":androidApp" />
+  </properties>
+  <testcase name="concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave" classname="org.bookreader.mobile.database.AndroidDatabaseOwnerTest" time="0.171" />
+  <testcase name="androidBomAndBoundaryNormalizationAreCanonical" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.0" />
+  <testcase name="androidStrictDecodeRejectsLateIncompleteCharacters" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.047" />
+  <testcase name="androidCp949ExtensionFixtureIsDistinctFromEucKr" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.005" />
+  <testcase name="systemDocumentsPickerSelectsTxtFromRealProvider" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="7.39" />
+  <testcase name="managedPromotionRefusesExistingTargetAndRenamesPrivateStaging" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.081" />
+  <testcase name="assetSegmentImportHonorsOffsetAndDeclaredLength" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.596" />
+  <testcase name="ownUidProviderIsRejectedBeforeAnyQuery" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.034" />
+  <testcase name="unknownSizeSourceEnforcesActualStreamingByteLimit" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.504" />
+  <testcase name="safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.958" />
+  <testcase name="externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.673" />
+  <testcase name="stalledProviderCopyCancelsAndRemovesPrivateStaging" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.981" />
+  <testcase name="ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.545" />
+  <testcase name="manualEncodingUsesStagingAfterSourceGrantIsRevoked" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.335" />
+  <testcase name="externalViewReceivesTemporaryGrantAndOpensActualReader" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.025" />
+  <testcase name="binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.6" />
+  <testcase name="emptyTxtReportsNoContentWithoutCreatingReadingProgress" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="2.537" />
+  <testcase name="eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid" classname="org.bookreader.mobile.reader.TxtReaderBoundaryTest" time="1.092" />
+  <testcase name="sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="64.869" />
+  <testcase name="missingManagedCopyShowsRetryAndPreservesCommittedProgress" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="3.074" />
+  <testcase name="measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="5.169" />
+  <testcase name="sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="4.52">
+    <failure>java.lang.AssertionError: expected:&lt;53&gt; but was:&lt;6625&gt;
+at org.junit.Assert.fail(Assert.java:89)
+at org.junit.Assert.failNotEquals(Assert.java:835)
+at org.junit.Assert.assertEquals(Assert.java:120)
+at org.junit.Assert.assertEquals(Assert.java:146)
+at org.bookreader.mobile.reader.TxtReaderFlowTest.sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns(TxtReaderFlowTest.kt:309)
+</failure>
+  </testcase>
+  <testcase name="invalidStoredThemeReportsErrorAndPreservesOriginal" classname="org.bookreader.mobile.ui.AndroidThemeStoreTest" time="0.074" />
+  <testcase name="selectedThemePersistsAcrossStoreInstances" classname="org.bookreader.mobile.ui.AndroidThemeStoreTest" time="0.027" />
+  <testcase name="loadingEmptyAndErrorAreDistinctAndErrorHasRetry" classname="org.bookreader.mobile.ui.BookReaderScreenTest" time="1.504" />
+  <testcase name="threeTabsMetadataSearchAndThemeSelectionWork" classname="org.bookreader.mobile.ui.BookReaderScreenTest" time="3.919" />
+  <testcase name="launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab" classname="org.bookreader.mobile.ui.MainActivityLaunchTest" time="1.764" />
+</testsuite>

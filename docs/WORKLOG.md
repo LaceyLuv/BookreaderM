@@ -1050,3 +1050,19 @@ callback이 새 epoch를 추가로 만들지 않게 했다. 기존 owner 테스�
 비권한 local 경로는 원래 user+mount namespace다. 전역 sysctl/AppArmor 변경은 없다.
 정확 명령/exit/native XML/새 입력 fingerprint는 TESTING 및 `source-activation-fix.json`을 따른다.
 새 source를 commit/push하고 remote build/device를 재검증한다. M04는 IN_PROGRESS다.
+
+### `bacd79f` 결과와 page-limit UI 측정 순서 보완
+
+`bacd79f` remote build `38128654804`는 native 48/53/ENOSPC 3 모두 PASS다.
+관리자 mount namespace에서 실제 errno 28/가용 공간 0/SQLite13/보존·retry·정리까지 확인했다.
+actual device `38128654709`는 기존 DB owner case가 PASS지만 ordinary 27개 중 page-limit UI 1개가
+expected measured anchor 53 / controller stableOffset 6625로 FAIL했다. host는 NOT_RUN이다.
+raw XML/report/command/metadata/archive hash를 `remote-bacd79f-{build,device}`에 보존했다.
+
+오류 배너는 Reader viewport 높이를 바꿔 비동기 reflow를 시작한다. 기존 test는 배너 표시를 기다리기 전에
+화면 anchor를 측정해 임시 scroll-to-item 프레임을 관측할 수 있었다. 배너 표시와 reader_ready 복귀를
+먼저 기다린 후 같은 독립 TextLayout 측정을 하도록 순서만 수정했다. expected를 controller 값으로 대체하거나
+기록/다른 책/파일/자동 retry assertion을 제거하지 않았다. 정확한 이전 scheduling 자체를 raw만으로 단정하지 않는다.
+이번 변경은 Android test뿐이며 production 활성화 수정/단위/ENOSPC 코드는 bacd79f와 동일하다.
+`./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest`는 exit 0이다.
+새 source로 실제 기기 회귀를 다시 검증한다.

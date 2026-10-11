@@ -300,10 +300,13 @@ class TxtReaderFlowTest {
             report.put("native_probe_code", 13).put("native_probe_type", nativeType)
 
             compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+            // The error banner changes the viewport and starts asynchronous reflow.
+            // Measure only after its restoration, never during the temporary scroll-to-item frame.
+            waitFor("reader_save_error")
+            waitFor("reader_ready")
             compose.waitForIdle()
             val pendingAnchor = measuredVisibleLine(controller)
             assertNotEquals(initialAnchor, pendingAnchor)
-            waitFor("reader_save_error")
             val failed = controller.state.value
             assertEquals(TxtReaderPhase.READY, failed.phase)
             assertEquals(pendingAnchor, failed.stableOffset)

@@ -1,5 +1,13 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
+## 2026-10-11 page-limit UI 측정 후속
+
+`bacd79f` remote build는 48/53/실제 ENOSPC 3 PASS다. actual Android에서 기존 DB owner는 PASS했으나
+page-limit 오류 UI의 anchor 비교가 53 vs 6625로 FAIL했다(host NOT_RUN).
+오류 배너의 viewport 변경/reflow 완료 전에 측정하지 않도록 배너 표시→reader_ready→독립 위치 측정 순서로
+테스트만 보완했다. production 코드는 bacd79f와 동일하고 test APK compile은 PASS다. 새 remote 결과를 확정할 예정이다.
+실패 원본은 `docs/evidence/m04-enospc-validation/remote-bacd79f-device`에 있다.
+
 ## 2026-10-11 원격 회귀에서 발견한 activation 중복 후속
 
 ENOSPC 원격 검증 중 `a3ee33b` actual Android ordinary 27개 중 DB owner 1개가 REJECTED_STALE로 실패했다.

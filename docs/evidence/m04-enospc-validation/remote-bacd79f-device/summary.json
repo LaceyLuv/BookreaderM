@@ -1,0 +1,23 @@
+{
+  "source_sha": "bacd79f0af4da29c88fddd4fba5902e76be2e5c5",
+  "workflow_id": 38128654709,
+  "artifact_id": 11698675994,
+  "archive_sha256": "8a96b8721289727d60d12ac7fc7da54932a7729d1c97c57051fe3a8fc37572cb",
+  "ordinary": {
+    "tests": 27,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "failed_cases": [
+    {
+      "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "name": "sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns",
+      "failure": "java.lang.AssertionError: expected:<53> but was:<6625>\nat org.junit.Assert.fail(Assert.java:89)\nat org.junit.Assert.failNotEquals(Assert.java:835)\nat org.junit.Assert.assertEquals(Assert.java:120)\nat org.junit.Assert.assertEquals(Assert.java:146)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns(TxtReaderFlowTest.kt:309)\n"
+    }
+  ],
+  "db_owner_status": "PASS",
+  "host_status": "NOT_RUN: ordinary instrumentation failed",
+  "continuous": "PASS",
+  "sqlite_page_limit_full": "FAIL"
+}
