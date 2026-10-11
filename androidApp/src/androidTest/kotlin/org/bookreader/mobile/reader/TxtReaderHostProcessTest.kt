@@ -72,10 +72,15 @@ class TxtReaderHostProcessTest {
         waitFor("reader_ready")
         val controller = reader()
         repeat(8) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        // Finish the last fling/layout before capturing a fixed expected anchor. A
+        // nonzero offset alone can still belong to an intermediate moving frame.
+        compose.waitForIdle()
         compose.waitUntil(10_000) { controller.state.value.stableOffset?.let { it > 0 } == true }
         val expected = requireNotNull(controller.state.value.stableOffset)
         compose.waitUntil(10_000) { saved(controller.book)?.let { offset(it) == expected } == true }
         val committed = requireNotNull(saved(controller.book))
+        assertEquals(expected, controller.state.value.stableOffset)
+        assertFalse(controller.state.value.saveError)
         ReaderFixtureScreenshot.capture("txt-reader-generated-host.png")
         val properties = Properties().apply {
             setProperty("bookId", controller.book.id)

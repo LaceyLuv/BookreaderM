@@ -479,3 +479,17 @@ M00 PASS를 Readium 호환성이나 Reader/import/process-death PASS로 확대�
 수정 후 native unit 47/shared JVM 50, failures/errors/skips 0, lint 20 Hint, APK/schema PASS다.
 입력 fingerprint `480c6087db7ebd764497bf84534605af5f1880c87a21109777968ab7be493018`, drift 0이며
 `fix-native-*`, `fix-ci/`, `fix-ci-result.txt`, `source-before-fix-ci.json`을 보존했다.
+
+### `14ce759` actual SAFE-09 및 host 준비 결과
+
+[device run 38116877735](https://github.com/LaceyLuv/BookreaderM/actions/runs/38116877735)는
+ordinary 26 및 60초 JSON verifier PASS이나 host 준비 timeout으로 workflow FAIL(exit 65)이다.
+[원본 summary](evidence/m04-continuous-validation/remote-14ce759-device/summary.json)의
+60,033ms/anchor 224/commit 60/최대 관찰 공백 1,102ms는 실제 SAFE-09 기기 결과다.
+외부 force-stop/서재 Continue 검사는 이 source에서 NOT_RUN이다.
+준비 코드에 마지막 swipe 후 compose.waitForIdle와 commit 후 anchor/saveError 확인을 추가해 재실행한다.
+
+host 준비 동기화 수정 후 `source /workspace/toolchains/mobile-env.sh` 및
+`BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/host-ci ./scripts/ci-check.sh`는 exit 0이다.
+unit 47/50·failures/errors/skips 0·APK/schema PASS·lint 20 Hint, fingerprint
+`0670f2c61c8c6522123f3bd0c7261172649eecdafe3679385946e409dfea561c`, drift 0을 `host-native-*`/`host-ci/`에 보존했다.

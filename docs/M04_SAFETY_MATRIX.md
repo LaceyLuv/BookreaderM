@@ -1,7 +1,7 @@
 # M04 진행도 안전성 검증 현황 — 2026-10-11
 
 M04는 **IN_PROGRESS**다. 아래는 검사 수준별 증거이며 하나의 수준 통과를 전체 시나리오 통과로 취급하지 않는다.
-최신 로컬 결과와 소스 fingerprint는 [summary](evidence/m04-race-validation/summary.json),
+최신 로컬 결과와 소스 fingerprint는 [summary](evidence/m04-continuous-validation/summary.json),
 정확 명령/exit는 [TESTING](TESTING.md), 제품 계약은 [개정 계획 부록 B](BookReader_Mobile_v1_1_Implementation_Plan.md)를 따른다.
 
 | SAFE | 확보한 검사 | 남은 검증 |
@@ -12,7 +12,7 @@ M04는 **IN_PROGRESS**다. 아래는 검사 수준별 증거이며 하나의 수
 | 04 역방향 순서 경쟁 | `delayedForwardEventCannotOverwriteNewerBackwardSequence`, `concurrentDuplicateSequenceCommitsExactlyOnce`: 지연된 forward 거부, 같은 sequence 동시 save는 정확히 하나만 commit | UI 이벤트 캡처부터 DB까지의 지연·역방향 통합 |
 | 06 삭제 중 작업 | `delayedSavesDuringAndAfterDeletionNeverRecreateBookOrTouchOtherBook`: DELETING/삭제 완료 후 지연 save 거부, 다른 책 불변, DB 재개방 | save와 decode/index/file cleanup 동시 실행 전체 경로 |
 | 07 disk-full | 기존 저장 오류 UI 및 닫힌 DB 오류 보존 회귀 | 실제 SQLite/storage disk-full; 오류 주입은 disk-full 증거가 아님 |
-| 09 60초 연속 이동 | 기존 controller의 약 1.5초 sampling/역방향 settled save 검사 | 60초 연속 이동·주기 실제 commit과 측정 기기/빌드/fixture가 있는 latency report |
+| 09 60초 연속 이동 | 가상 60초 sampling 60회/settled save PASS; 값 캡처 수정 `14ce759` actual API36 60,033ms/anchor 224/commit 60/최대 관찰 공백 1,102ms PASS ([보고서](M04_COMMIT_LATENCY.md)); `78e45f5` FAIL 보존 | SQL write-ack/실기기 5MiB·50MiB 성능 별도 NOT_RUN |
 | 10 외부 종료 | `96c15aa` ordinary 25/host 2 stages PASS; PID 5640→외부 force-stop→absent→cold PID 5688, commit offset 11607/epoch 1/sequence 2 복원 | 미커밋 화면 위치·전원 차단/저장장치 손상은 보장하지 않음 |
 | 12 reflow | `16e4615`의 신규 controller 4개: pending backward flush/close 대기/임시 0 차단/오류 재시도 | 실제 설정·ON_STOP 중 reflow와 임시 callback 경로 |
 

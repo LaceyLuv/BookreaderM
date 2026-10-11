@@ -1,6 +1,6 @@
 {
-  "base_sha": "78e45f5153d47d7bc3188ebe90905b3988445be2",
-  "source_fingerprint_sha256": "480c6087db7ebd764497bf84534605af5f1880c87a21109777968ab7be493018",
+  "base_sha": "14ce759131342364b79a52442566e78c747bc6cc",
+  "source_fingerprint_sha256": "0670f2c61c8c6522123f3bd0c7261172649eecdafe3679385946e409dfea561c",
   "source_drift": [],
   "local_ci_exit": 0,
   "levels": {
@@ -17,7 +17,7 @@
       "skipped": 0
     }
   },
-  "remote_device": "NOT_RUN: awaiting fixed source push",
+  "remote_device": "NOT_RUN: awaiting host synchronization source push",
   "previous_device": {
     "source_sha": "78e45f5153d47d7bc3188ebe90905b3988445be2",
     "workflow_id": 38116198398,
@@ -41,5 +41,49 @@
   },
   "lint_severity_counts": {
     "Hint": 20
+  },
+  "reader_fix_device": {
+    "source_sha": "14ce759131342364b79a52442566e78c747bc6cc",
+    "workflow_id": 38116877735,
+    "workflow_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/38116877735",
+    "artifact_id": 11694500936,
+    "archive_sha256": "d5c151ba255bf839d5050745fb6dbdfaae37f5852c21a025e081982fc11805a7",
+    "ordinary": {
+      "tests": 26,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "host": "FAIL: prepareDurableReader timed out waiting for the captured offset; force-stop/cold verify NOT_RUN",
+    "continuous": {
+      "status": "PASS",
+      "fixture_id": "reader-continuous",
+      "fixture_sha256": "e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0635432872b951",
+      "fixture_bytes": 647999,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "app_version": "0.2.0",
+      "movement_duration_ms": 60033,
+      "max_input_gap_ms": 250,
+      "max_observed_commit_gap_ms": 1102,
+      "gesture_end_to_settled_observation_ms": 266,
+      "initial_sequence": 1,
+      "writer_epoch": 1,
+      "final_offset": 14786,
+      "final_sequence": 62,
+      "input_count": 593,
+      "anchor_changes": 224,
+      "observed_commits_before_pointer_up": 60,
+      "observed_commit_gap_p50_ms": 1000,
+      "observed_commit_gap_p95_ms": 1100,
+      "percentile_method": "nearest rank; includes start/end boundary intervals, not SQL write-ack latency"
+    },
+    "limitations": [
+      "No SQL write-ack latency measurement",
+      "No physical device performance claim",
+      "No guarantee for uncommitted screen state or power loss",
+      "Verification instrumentation may start another target process"
+    ]
   }
 }

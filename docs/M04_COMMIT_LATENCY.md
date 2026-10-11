@@ -36,3 +36,28 @@ commit 관찰 간격에는 sampling, IO scheduling, 독립 DB 조회의 관찰 �
 Reader의 mutable LazyList item 비교가 연속 이동을 누락하여 index/offset 값 캡처로 수정하고 같은 테스트를 재실행한다.
 최신 native XML/raw report/source fingerprint는 `docs/evidence/m04-continuous-validation/`에 남긴다.
 APK 컴파일을 실제 60초 입력 통과로 간주하지 않는다.
+
+### Reader 수정 source `14ce759`의 실제 결과
+
+[run 38116877735](https://github.com/LaceyLuv/BookreaderM/actions/runs/38116877735)의 ordinary Android 26과
+연속 이동 JSON 검증은 PASS다. 후속 host 준비 timeout 때문에 workflow 전체는 FAIL이며 서로 구분한다.
+fixture `reader-continuous`는 647,999 bytes, SHA-256
+`e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0635432872b951`이다.
+API 36/x86_64, app 0.2.0, build fingerprint
+`google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys`에서 실행했다.
+
+| 측정 | 값 |
+|---|---:|
+| 실제 이동 시간 | 60,033ms |
+| 입력 / anchor 변경 | 593 / 224회 |
+| pointer-up 전 새 commit 관찰 | 60회 |
+| 최대 입력 공백 | 250ms |
+| commit 관찰 간격 p50 / p95 / 최대 | 1,000 / 1,100 / 1,102ms |
+| pointer-up 후 최종 anchor 일치 관찰 | 266ms |
+| 최종 offset / epoch / sequence | 14,786 / 1 / 62 |
+
+백분위는 시작/끝 경계를 포함한 61개 관찰 간격의 nearest-rank다.
+[raw JSON](evidence/m04-continuous-validation/remote-14ce759-device/continuous-progress-report.log)과
+[summary](evidence/m04-continuous-validation/remote-14ce759-device/summary.json)를 보존한다.
+입력 시각·매 10초 구간 이동/commit·엄격 증가 sequence·공백 한도를 원본에서 재검증했다.
+독립 생성한 fixture bytes/hash도 실제 import 보고와 같다.

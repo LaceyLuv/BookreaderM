@@ -5,9 +5,11 @@
 60초 가상 시간 controller regression과 실제 Reader 60초 pointer gesture/Room observation 검증을 추가했다.
 `78e45f5` local/remote CI는 Android unit 47/shared JVM 50 PASS이나 actual Android는 26개 중 신규 1개 FAIL이다.
 60,081ms/600 inputs에서 anchor 변화 0/commit 관찰 1을 확인했다. LazyList의 mutable item을 snapshotFlow가
-동일 객체로 비교해 이동을 누락하는 경로를 고쳐 index/offset을 값으로 캡처한다. 수정 후 검증은 진행 중이다.
+동일 객체로 비교해 이동을 누락하는 경로를 index/offset 값 캡처로 수정했다.
+`14ce759` actual ordinary 26 및 60초 연속 이동(60회 commit)은 PASS다. host 준비는 fixed expected 대기 timeout으로 FAIL,
+마지막 fling/layout 안정화 뒤 expected를 캡처하도록 보완하며 외부 종료/복원 재검증을 진행한다.
 최신 근거는 [TESTING](TESTING.md), [측정 계약](M04_COMMIT_LATENCY.md),
-[evidence](evidence/m04-continuous-validation/summary.json)에 있다. SAFE-09 완료 표시는 actual 결과 전까지 보류한다.
+[evidence](evidence/m04-continuous-validation/summary.json)에 있다. SAFE-09 emulator correctness는 PASS이며 host 준비 실패와 전체 M04를 구분한다.
 SQL write-ack/실기기 p95·메모리, SAFE-07 disk-full, 전체 M04 및 신규 Astra 검토는 미완료다.
 
 ## 2026-10-11 DB 경쟁 및 host 준비 후속

@@ -891,3 +891,24 @@ TxtReaderScreen에서 item의 index/offset을 값으로 캡처하도록 수정�
 unit 47/shared JVM 50, failure/error/skipped 0, lint 20 Hint, APK/schema PASS다.
 입력 fingerprint는 `480c6087db7ebd764497bf84534605af5f1880c87a21109777968ab7be493018`, drift 0이다.
 `git diff --check -- . ':!docs/evidence'`도 exit 0이다. 실제 Android/host 수정 후 결과는 push 뒤 확인한다.
+
+### `14ce759` 연속 이동 PASS, host 준비 대기 FAIL
+
+수정 source `14ce759131342364b79a52442566e78c747bc6cc`를 push했다. build `38116877737`은 native 47/50 PASS,
+기기 `38116877735`는 ordinary native 26/0 failures/errors/skips 및 continuous JSON verifier PASS다.
+실제 60,033ms/593 inputs/anchor 224회/commit 60회, 최대 입력 공백 250ms,
+최대 commit 관찰 공백 1,102ms, p50 1,000ms/p95 1,100ms(nearest rank, 시작/끝 구간 포함),
+pointer-up 후 최종 anchor 관찰 266ms다. 이 측정은 SQL write-ack latency가 아니다.
+
+workflow 전체는 host prepareDurableReader의 77행에서 fixed expected offset commit 대기 10초가 만료되어 FAIL(exit 65)이다.
+`remote-14ce759-device/`에 native XML/raw report/host 실패/workflow/artifact hash를 보존했다.
+host 코드는 마지막 swipe 뒤 안정화를 기다리지 않고 nonzero anchor를 바로 캡처하고 있었다.
+기존 이동 누락 수정 뒤 중간 fling 위치를 expected로 고정할 수 있어, 명시적 compose.waitForIdle로
+마지막 fling/layout을 완료한 뒤 expected를 잡고 commit 후 같은 위치/saveError false를 확인하도록 보완한다.
+현재 raw 실패에는 중간/최종 offset 수치가 없어 timeout만으로 실제 값 불일치를 확정하지는 않는다.
+기존 force-stop/모든 필드 보존 검증과 timeout/필수 test/parser 기준은 유지한다.
+
+host 동기화 수정 뒤 `source /workspace/toolchains/mobile-env.sh` 및
+`BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/host-ci ./scripts/ci-check.sh`는 exit 0이다.
+단위 47/50·failures/errors/skips 0·APK/schema·lint 20 Hint는 PASS, fingerprint
+`0670f2c61c8c6522123f3bd0c7261172649eecdafe3679385946e409dfea561c`, drift 0이다.
