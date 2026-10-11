@@ -4,8 +4,10 @@ import java.io.File
 import java.security.MessageDigest
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -25,6 +27,101 @@ import org.junit.rules.TemporaryFolder
 
 class TxtReaderControllerTest {
     @get:Rule val temporary = TemporaryFolder()
+
+    @Test fun reflowFlushCommitsPendingBackwardAnchorAndIgnoresTemporaryZero() = runBlocking {
+        val access = MemoryProgress()
+        val controller = controller(fixture(), access, this)
+        try {
+            controller.restored(await(controller, TxtReaderPhase.RESTORING).restoreGeneration)
+            await(controller, TxtReaderPhase.READY)
+            controller.visibleAnchor(80, true)
+            controller.flush()
+            controller.visibleAnchor(20, true)
+            controller.beginReflow()
+            controller.visibleAnchor(0, true)
+            controller.visibleAnchor(100, false)
+            controller.flush() // ON_STOP uses this barrier without finishing layout restoration.
+            assertEquals(TxtReaderPhase.REFLOWING, controller.state.value.phase)
+            assertEquals(listOf(80L, 20L), access.events.map(::offset))
+            assertEquals(listOf(1L, 2L), access.events.map { it.sequence })
+            controller.flush()
+            assertEquals(2, access.events.size)
+            controller.restored(controller.state.value.restoreGeneration)
+            await(controller, TxtReaderPhase.READY)
+            controller.visibleAnchor(0, false)
+            controller.flush()
+            assertEquals(2, access.events.size)
+        } finally { controller.close() }
+    }
+
+    @Test fun closeDuringReflowWaitsForPendingSaveBeforeFinishing() = runBlocking {
+        val entered = CompletableDeferred<ProgressWriteEvent>()
+        val release = CompletableDeferred<Unit>()
+        val memory = MemoryProgress()
+        var flushed = false
+        val access = object : ReaderProgressAccess by memory {
+            override suspend fun save(event: ProgressWriteEvent): ProgressWriteResult {
+                entered.complete(event)
+                release.await()
+                return memory.save(event)
+            }
+            override suspend fun flush() { flushed = true }
+        }
+        val controller = controller(fixture(), access, this)
+        try {
+            controller.restored(await(controller, TxtReaderPhase.RESTORING).restoreGeneration)
+            await(controller, TxtReaderPhase.READY)
+            controller.visibleAnchor(60, true)
+            controller.beginReflow()
+            controller.visibleAnchor(0, true)
+            val closing = async { controller.close() }
+            val event = withTimeout(5_000) { entered.await() }
+            assertEquals(60L, offset(event))
+            assertFalse(closing.isCompleted)
+            assertFalse(flushed)
+            controller.restored(controller.state.value.restoreGeneration)
+            controller.visibleAnchor(0, true)
+            release.complete(Unit)
+            withTimeout(5_000) { closing.await() }
+            assertTrue(flushed)
+            assertEquals(listOf(60L), memory.events.map(::offset))
+        } finally { release.complete(Unit); controller.close() }
+    }
+
+    @Test fun reflowWithoutUserMovementNeverCreatesProgress() = runBlocking {
+        val access = MemoryProgress()
+        val controller = controller(fixture(), access, this)
+        try {
+            controller.restored(await(controller, TxtReaderPhase.RESTORING).restoreGeneration)
+            await(controller, TxtReaderPhase.READY)
+            controller.beginReflow()
+            controller.visibleAnchor(0, true)
+            controller.flush()
+            controller.close()
+            assertTrue(access.events.isEmpty())
+        } finally { controller.close() }
+    }
+
+    @Test fun failedReflowSaveRetainsPendingAnchorForRetry() = runBlocking {
+        val access = MemoryProgress(saveResult = ProgressWriteResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE))
+        val controller = controller(fixture(), access, this)
+        try {
+            controller.restored(await(controller, TxtReaderPhase.RESTORING).restoreGeneration)
+            await(controller, TxtReaderPhase.READY)
+            controller.visibleAnchor(40, true)
+            controller.beginReflow()
+            controller.flush()
+            assertTrue(controller.state.value.saveError)
+            assertEquals(ReaderFailureStage.SAVE, controller.state.value.failureDiagnostic?.stage)
+            access.saveResult = ProgressWriteResult.Committed
+            controller.visibleAnchor(0, true)
+            controller.flush()
+            assertFalse(controller.state.value.saveError)
+            assertNull(controller.state.value.failureDiagnostic)
+            assertEquals(listOf(40L, 40L), access.events.map(::offset))
+            assertEquals(listOf(1L, 2L), access.events.map { it.sequence })
+        } finally { controller.close() }
+    }
 
     @Test fun readyRequiresSuccessfulProgressReadAndMeasuredRestoration() = runBlocking {
         val fixture = fixture()
@@ -201,9 +298,10 @@ class TxtReaderControllerTest {
         withTimeout(10_000) { controller.state.first { it.phase == phase &&
             (phase != TxtReaderPhase.RESTORING || it.cache.complete) } }
 
-    private fun controller(fixture: Pair<File, Book>, access: ReaderProgressAccess) = TxtReaderController(
+    private fun controller(fixture: Pair<File, Book>, access: ReaderProgressAccess,
+        parentScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)) = TxtReaderController(
         fixture.second, fixture.first, temporary.newFolder(), access,
-        CoroutineScope(SupervisorJob() + Dispatchers.Default))
+        parentScope)
 
     private fun fixture(): Pair<File, Book> {
         val file = temporary.newFile()

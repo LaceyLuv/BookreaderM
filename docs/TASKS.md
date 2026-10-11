@@ -22,7 +22,7 @@
 | M01 | epub-and-encoding-feasibility | IN_PROGRESS | strict grammar host 14 + 실제 Android 인코딩 3 cases PASS; Readium/EPUB 보류로 전체 M01 미완료 |
 | M02 | managed-import-and-library | DONE | TXT 내부 알파: `2be610a` local/remote CI 41/45 및 Android 25·host 2·fixture PNG PASS, [WORKLOG](WORKLOG.md) |
 | M03 | txt-scroll-progress-and-continue-bar | DONE | TXT 내부 알파: measured anchor/cache loss/Continue/recreation·cold launch/host force-stop PASS, [WORKLOG](WORKLOG.md) |
-| M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence 및 force-stop 복원 PASS; 전체 SAFE/race·60초 저장·미커밋 flush 미완료 |
+| M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence 및 과거 force-stop 복원 PASS; reflow flush 보완, 전체 SAFE/race·60초·기기 검증 잔여 |
 | M05 | txt-pagination-and-reflow | TODO | 없음 |
 | M06 | txt-search-bookmarks-and-encoding | TODO | 없음 |
 | M07 | mobile-controls-and-accessibility | TODO | 없음 |
@@ -206,6 +206,13 @@ ADR-0003, first vertical-slice UI test, locator fixtures, internal-alpha 사용�
 **2026-10-09 현재 범위:** persisted sessionEpoch/sequence·DB 조건부 commit·sampling/settled save 기반과
 외부 force-stop 뒤 마지막 commit 복원은 PASS다. 전체 SAFE matrix, A/B rapid reopen, 60초 연속 이동,
 REFLOWING 미커밋 flush 및 실기기 지연 수치는 미완료여서 M04 IN_PROGRESS를 유지한다.
+
+**2026-10-11 후속 범위:** READY에서 수락한 미커밋 anchor를 REFLOWING 중 flush/close할 수 있게 수정했다.
+임시 0·비사용자 callback 차단은 유지하며 새 회귀 4개를 필수 test manifest에 등록했다.
+수정 전 4개 중 3개 실패로 결함을 재현했다. 새 실행 결과는 TESTING의 M04 절과
+`docs/evidence/m04-reflow-validation/`에 기록한다. 이번 controller 단위 검사는 실제 ON_STOP/설정 변경 UI,
+전체 SAFE-12 및 전체 M04 승인 근거로 확대하지 않는다. M04는 IN_PROGRESS다.
+
 
 ## 구현 범위
 앱 수준 progress single writer, persisted sessionEpoch/sequence, 1초 sampling+250ms settled save, conditional transaction, flush barrier, 저장 실패 UI를 완성한다. 외부 host-driven 종료 테스트를 만든다.

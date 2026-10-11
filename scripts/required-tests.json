@@ -78,11 +78,19 @@
     ],
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "closeDuringReflowWaitsForPendingSaveBeforeFinishing"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
       "continuousMovementSamplesAndBackwardFinalAnchorIsCommitted"
     ],
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",
       "emptyTxtShowsExplicitErrorWithoutCreatingReadHistory"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "failedReflowSaveRetainsPendingAnchorForRetry"
     ],
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",
@@ -95,6 +103,14 @@
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",
       "readyRequiresSuccessfulProgressReadAndMeasuredRestoration"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "reflowFlushCommitsPendingBackwardAnchorAndIgnoresTemporaryZero"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "reflowWithoutUserMovementNeverCreatesProgress"
     ],
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",

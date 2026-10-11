@@ -19,9 +19,9 @@ DELETING book이나 다른 revision/오래된 세션은 기록을 재생성하�
 
 현재 Reader controller는 실제 사용자 스크롤 이후의 canonical 행 offset만 저장한다. 1초 sampling과 250ms
 settled save를 함께 쓰고, mutex로 저장/flush를 직렬화한다. layout callback과 Ready 전에는 쓰지 않는다.
-서재 복귀와 lifecycle stop에서 flush를 시도하며 실패는 UI에 표시한다. 현재 `persistStable`은 READY에서만 쓰므로
-REFLOWING 중 close/ON_STOP에서는 마지막 commit을 보호하지만 reflow 직전의 아직 미커밋 이동을 flush하지 못할 수 있다.
-이 최신 미커밋 이동의 flush barrier 보장은 M04에서 해결·검증할 잔여 사항이다. 새 프로세스는 서재에서 시작하고,
+서재 복귀와 lifecycle stop에서 flush를 시도하며 실패는 UI에 표시한다. 2026-10-11 보완으로 `persistStable`은
+READY 또는 REFLOWING에서 마지막 안정 anchor를 저장한다. REFLOWING의 anchor는 READY에서 수락한 실제 사용자 이동으로
+고정되며 재배치 callback은 변경할 수 없다. 새 session 활성화·조회/본문 검증·최초 복원 gate는 그대로 유지한다. 새 프로세스는 서재에서 시작하고,
 이어읽기는 마지막 성공한 세션의 책을 여는 Reader 밖 하단 바로 제공한다.
 
 ## 이유와 검증 한계
@@ -64,3 +64,23 @@ Android unit 41/shared JVM 45 failure/error/skipped 0, lint 20 Hint 및 앱/test
 raw host는 PID 5624→외부 force-stop→absent→cold PID 5671 및 commit offset 11607/epoch 1/sequence 2 이후
 cold library Continue 복원을 확인했다. Activity 재생성과 별도 actual external process 종료 증거다.
 해당 성공은 이전 SQLite 오류의 내부 원인 확정이나 M04 전체 SAFE/race/미커밋 flush 완료 근거가 아니다.
+
+
+## M04 일부 보완 — 2026-10-11 재배치 중 flush
+
+READY에서 아직 저장되지 않은 사용자 이동 직후 `beginReflow`가 settled job을 취소하고 phase를 바꾸면,
+기존 READY-only 조건은 `flush`/`close`에서도 해당 위치를 버렸다. 저장 가능 phase에 REFLOWING을 포함하여
+이미 검증된 session과 stableOffset을 기존 writer mutex/epoch/sequence 경로로 commit한다.
+새 위치 입력은 여전히 READY에서만 허용한다. 사용자 이동이 없으면 새 기록을 만들지 않고 같은 offset은 중복 저장하지 않는다.
+실패 시 lastCommittedOffset을 갱신하지 않아 다음 flush에서 같은 anchor와 증가한 sequence로 재시도한다.
+
+소유권 검토: ViewModel의 readerMutex가 close→open을 직렬화하고, factory가 공유하는 AndroidReaderProgressAccess가
+앱 Reader들의 DB 접근/flush를 직렬화한다. controller는 parentScope 자식 lifetime의 sampler/settled/open/restore 작업을 소유하며,
+close는 sampler/settled를 취소하고 flush를 기다린 뒤 open/restore를 join하고 lifetime을 취소한다.
+이번 수정은 소유권·취소 범위를 변경하지 않는다. 호출자 취소, process kill, ON_STOP callback의 실제 기기 완료 보장까지
+확대하지 않는다. host/기기 재검증 및 전체 M04 matrix는 후속 gate다.
+
+새 controller 테스트 4개는 재배치 중 역방향 미커밋 anchor와 임시 0 무시, 지연 save에 대한 close 대기,
+사용자 이동 없는 close, 저장 실패와 재시도를 다룬다. `scripts/required-tests.json`에도 identity를 등록한다.
+정확 실행 결과·native XML·수정 전 실패 증거는 [TESTING](../TESTING.md)의 M04 항목과
+`docs/evidence/m04-reflow-validation/`를 따른다. mock save 오류는 실제 disk-full 검증이 아니다.

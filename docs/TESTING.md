@@ -1,7 +1,46 @@
 # 모바일 검증 계약
 
-2026-10-09 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
+2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
+
+## M04 재배치 중 flush — 2026-10-11
+
+기준 HEAD `03870c9c612694ca69528d0b5df7e44fa432a447`의 working tree에서 REFLOWING 중 미커밋 anchor 저장을 보완했다.
+검증 입력 fingerprint는 `3cc61fc407e9a1441b862fba940e178dc849c22b0e240ef222487f35939b24cf`이며,
+`source-before-ci.json`에 파일별 SHA-256을 기록했다. 실행 종료 후 입력 drift는 0이다.
+[evidence summary](evidence/m04-reflow-validation/summary.json)와 native XML이 새 결과의 기준이다.
+
+| 실행 | 결과 | 증거·한계 |
+|---|---|---|
+| `./scripts/doctor.sh` | PASS, exit 0 | Temurin 17.0.16+8, SDK 36/build-tools 35.0.0, Gradle 8.13 |
+| 수정 전 신규 controller 테스트 4개 | FAIL, exit 1 (의도한 재현) | 3 failures/0 errors/0 skipped; `before-fix/gradle.log`, `before-fix/native-android-unit/` |
+| `./scripts/ci-check.sh` | PASS, exit 0 | Android unit 45/shared JVM 45, failure/error/skipped 0; APK 2개, lint 20 Hint, Room schema PASS |
+| `./scripts/device-check.sh` | BLOCKED_ENV, exit 78 | authorized device 0; `device/`, `device-check.log` |
+| 실제 ON_STOP/설정 reflow·host force-stop·실기기 지연·Astra 신규 최종 검토 | NOT_RUN | 과거 기기/host PASS를 새 변경 결과로 재사용하지 않음 |
+
+실행은 `source /workspace/toolchains/mobile-env.sh` 이후 아래 명령을 사용했다.
+
+```bash
+./scripts/doctor.sh
+./gradlew --no-daemon --console=plain :androidApp:tasks --all
+# production 수정 전: exit 1, 4 tests / 3 failures
+./gradlew --no-daemon --console=plain :androidApp:testDebugUnitTest \
+  --tests 'org.bookreader.mobile.reader.TxtReaderControllerTest.*reflow*' \
+  --tests 'org.bookreader.mobile.reader.TxtReaderControllerTest.closeDuringReflowWaitsForPendingSaveBeforeFinishing' \
+  --tests 'org.bookreader.mobile.reader.TxtReaderControllerTest.failedReflowSaveRetainsPendingAnchorForRetry'
+# production 수정 후: exit 0
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-reflow-validation/ci ./scripts/ci-check.sh
+# exit 78: connected device 없음
+BOOKREADER_DEVICE_EVIDENCE_DIR=docs/evidence/m04-reflow-validation/device ./scripts/device-check.sh
+git diff --check
+```
+
+새 회귀는 같은 runBlocking event loop에서 사용자 이동→reflow를 지연 없이 실행하여 sampler/settled 타이밍에 의존하지 않는다.
+close 테스트는 deferred로 save 완료를 지연하고 close/flush 완료가 그 뒤임을 확인한다.
+controller 결과는 실제 DB commit-latency 측정이나 실제 Android lifecycle 실행이 아니다.
+임시 0 무시·역방향 anchor 보존은 SAFE-12의 controller 부분 증거이며,
+M04 전체 SAFE matrix/A-B rapid reopen/60초 연속 스크롤/실제 disk-full 및 기기 검증은 미완료다.
+이 환경에는 기존 debug signer가 없으므로 새 APK를 이전 제공 APK와 동일 서명·데이터 유지 업데이트로 취급하지 않는다.
 
 ## M02/M03 현재 검증 — 2026-10-09 재개 working tree
 

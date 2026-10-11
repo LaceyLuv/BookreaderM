@@ -236,7 +236,10 @@ class TxtReaderController(
         val state = mutableState.value
         val capturedSession = session ?: return@withLock
         val offset = state.stableOffset ?: return@withLock
-        if (state.phase != TxtReaderPhase.READY || offset == lastCommittedOffset) return@withLock
+        // Reflow freezes the last user anchor accepted in READY. Flush/sampling may
+        // commit it while layout is pending; reflow callbacks cannot replace it.
+        if (state.phase !in setOf(TxtReaderPhase.READY, TxtReaderPhase.REFLOWING) ||
+            offset == lastCommittedOffset) return@withLock
         val event = ProgressWriteEvent(capturedSession, ++sequence,
             TxtLocator(capturedSession.contentRevision, TxtLocatorPayload(offset)),
             if (state.cache.complete) offset * 100.0 / state.cache.committedLength else null)

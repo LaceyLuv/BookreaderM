@@ -1,5 +1,21 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
+## 2026-10-11 후속 작업
+
+`03870c9` clean main을 새 환경에 clone한 뒤 M04의 REFLOWING 미커밋 flush를 보완했다.
+`persistStable`은 READY에서 수락된 stableOffset을 REFLOWING에서도 저장하며,
+재배치 callback의 임시 0·비사용자 이동은 여전히 anchor를 변경하지 못한다.
+새 필수 controller 회귀 4개와 수정 전 실패 증거가 추가됐다.
+정확한 최신 검증 결과는 [TESTING](TESTING.md)의 M04 절 및
+[evidence summary](evidence/m04-reflow-validation/summary.json)를 따른다.
+아래 10월 9일 PASS는 과거 결과이며 새 변경의 device/host PASS를 의미하지 않는다.
+
+다음 M04 작업은 전체 SAFE matrix, A/B rapid close/reopen, 60초 연속 이동, 실제 disk-full,
+실제 기기의 reflow/ON_STOP 및 commit-latency다. 신규 Astra 최종 검토는 NOT_RUN이다.
+로컬 기기 검증은 authorized device가 없어 exit 78/BLOCKED_ENV다.
+새 환경에 `/workspace/toolchains/mobile-env.sh`를 준비했으며 기존 APK/서명키는 가져오지 않았다.
+새 debug build를 이전 제공 APK와 같은 signer라고 간주하지 않는다.
+
 ## 붙여넣기용 재개 프롬프트
 
 ```text
@@ -91,7 +107,7 @@ M01은 encoding 부분만 검증됐고 Readium/EPUB는 보류입니다. 다음 �
 ## 다음 우선 작업: M04
 
 1. [TASKS M04](TASKS.md)·개정 계획 부록 B SAFE matrix·ADR-0004와 controller/writer를 읽고 앱 수준 single writer·작업/취소 소유권·flush barrier의 현재 구현을 확인한다.
-2. `persistStable`은 READY에서만 저장한다. **REFLOWING 중 close/ON_STOP가 reflow 직전 미커밋 이동을 flush하지 못할 수 있는 잔여 문제**를 해결·검증한다. 임시 0 locator/복원 callback이 기존 위치를 덮어쓰면 안 된다.
+2. `persistStable`은 READY 및 REFLOWING에서 검증된 stableOffset을 저장한다. **REFLOWING 미커밋 flush는 10월 11일 controller 수정/회귀 대상으로 보완했으며**, 실제 기기의 close/ON_STOP·재배치 UI 검증을 이어간다. 임시 0 locator/복원 callback이 기존 위치를 덮어쓰면 안 된다.
 3. SAFE-01 조회 오류, 02 A 저장 지연→B, 03 이전 세션 지연 write, 04 역방향 sequence race, 06 삭제 중 save/decode/index, 07 disk-full, 09 60초 연속 이동, 10 외부 종료, 12 reflow를 실제 matrix로 검증한다. 기존 일부 회귀 PASS만으로 전체 matrix를 체크하지 않는다.
 4. A/B 책 및 같은 책 빠른 close/reopen, 손상 locator/조회 오류 기록 보존·재시도 UI, 1초 sampling+250ms settled save·60초 연속 스크롤 중 주기 commit을 검증한다. commit-latency report는 측정 기기/빌드/fixture·미측정 항목을 명시한다.
 5. 관련 unit·실제 DB·Android·외부 host 검증을 실행하고 ADR-0004/TASKS/TESTING/WORKLOG에 source SHA 또는 working-tree fingerprint, 정확 명령/exit code·native XML/raw proof·미실행 blocker를 남긴 뒤 Astra 최종 검토를 받는다.

@@ -1,0 +1,84 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :androidApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:preBuild UP-TO-DATE
+> Task :shared:preDebugBuild UP-TO-DATE
+> Task :androidApp:preBuild UP-TO-DATE
+> Task :androidApp:preDebugBuild UP-TO-DATE
+> Task :androidApp:generateDebugResValues
+> Task :shared:generateDebugResValues
+> Task :shared:writeDebugAarMetadata
+> Task :androidApp:generateDebugResources
+> Task :shared:generateDebugResources
+> Task :shared:packageDebugResources
+> Task :shared:extractDeepLinksDebug
+> Task :shared:processDebugManifest
+> Task :shared:compileDebugLibraryResources
+> Task :shared:parseDebugLocalResources
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:javaPreCompileDebug
+> Task :shared:generateDebugRFile
+> Task :shared:kspDebugKotlinAndroid
+> Task :androidApp:checkDebugAarMetadata
+> Task :androidApp:mapDebugSourceSetPaths
+> Task :androidApp:packageDebugResources
+> Task :androidApp:parseDebugLocalResources
+> Task :androidApp:createDebugCompatibleScreenManifests
+> Task :androidApp:extractDeepLinksDebug
+> Task :androidApp:processDebugMainManifest
+> Task :androidApp:mergeDebugResources
+> Task :androidApp:processDebugManifest
+> Task :androidApp:preDebugUnitTestBuild UP-TO-DATE
+> Task :androidApp:javaPreCompileDebug
+> Task :androidApp:javaPreCompileDebugUnitTest
+> Task :androidApp:processDebugManifestForPackage
+> Task :androidApp:processDebugResources
+
+> Task :shared:compileDebugKotlinAndroid
+w: file:///workspace/bookreader-mobile/shared/build/generated/ksp/android/androidDebug/kotlin/org/bookreader/mobile/database/BookReaderDatabaseConstructor.kt:5:8 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///workspace/bookreader-mobile/shared/src/commonMain/kotlin/org/bookreader/mobile/database/BookReaderDatabase.kt:55:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileDebugJavaWithJavac NO-SOURCE
+> Task :shared:copyRoomSchemas NO-SOURCE
+> Task :shared:bundleLibRuntimeToJarDebug
+> Task :shared:bundleLibCompileToJarDebug
+> Task :shared:processDebugJavaRes
+> Task :androidApp:compileDebugKotlin
+> Task :androidApp:compileDebugJavaWithJavac NO-SOURCE
+> Task :androidApp:bundleDebugClassesToRuntimeJar
+> Task :androidApp:bundleDebugClassesToCompileJar
+> Task :androidApp:processDebugJavaRes
+> Task :androidApp:compileDebugUnitTestKotlin
+> Task :androidApp:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :androidApp:processDebugUnitTestJavaRes
+
+> Task :androidApp:testDebugUnitTest
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080
+
+TxtReaderControllerTest > closeDuringReflowWaitsForPendingSaveBeforeFinishing FAILED
+    kotlinx.coroutines.TimeoutCancellationException at CoroutineDebugging.kt:42
+        Caused by: kotlinx.coroutines.TimeoutCancellationException at Timeout.kt:189
+
+TxtReaderControllerTest > reflowFlushCommitsPendingBackwardAnchorAndIgnoresTemporaryZero FAILED
+    java.lang.AssertionError at TxtReaderControllerTest.kt:31
+
+TxtReaderControllerTest > failedReflowSaveRetainsPendingAnchorForRetry FAILED
+    java.lang.AssertionError at TxtReaderControllerTest.kt:105
+
+4 tests completed, 3 failed
+
+> Task :androidApp:testDebugUnitTest FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':androidApp:testDebugUnitTest'.
+> There were failing tests. See the report at: file:///workspace/bookreader-mobile/androidApp/build/reports/tests/testDebugUnitTest/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 1m 8s
+38 actionable tasks: 38 executed

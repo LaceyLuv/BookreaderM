@@ -758,3 +758,43 @@ Room 소유권 변경 후 회귀 PASS와 이전 SQLITE_BUSY 내부 원인 입증
 CI 독립 debug signer와 구분하며 서명이 다른 기존 설치본을 uninstall/data clear하도록 안내하지 않는다.
 최종 제품 경로는 `TXT 추가`→picker→관리 복사본→`읽기`; 외부 VIEW는 import 후 바로 Reader,
 SEND는 확인→commit→`읽기`다. 새 프로세스는 서재부터 시작한다. 앱은 TXT 내부 알파이지 최종 세 포맷 v1.0이 아니다.
+
+
+## 2026-10-11 — M04 REFLOWING 미커밋 flush 보완
+
+`/workspace/bookreader-mobile` 부재를 확인하고 사용자 지정 URL/main을 해당 경로로 clone했다.
+시작 HEAD는 `03870c9c612694ca69528d0b5df7e44fa432a447`, `main...origin/main` clean이었다.
+`/AGENTS.md`와 `/workspace/AGENTS.md`는 없었으며 저장소 AGENTS, CONTEXT_HANDOFF,
+TASKS M04/개정 계획 SAFE matrix/ADR-0004와 controller·Android progress adapter·Room writer·ViewModel을 읽었다.
+기존 README와 과거 증거는 유지했다.
+
+이번 한 작업은 `persistStable`의 READY-only gate 때문에 REFLOWING 중 flush/close가
+직전 미커밋 사용자 anchor를 저장하지 못하는 결함이다. READY에서 얻은 stableOffset만 REFLOWING에서도
+저장하도록 바꾸고 임시 locator/비사용자 callback 차단 및 mutex/session/sequence 검사·취소 소유권은 유지했다.
+새 회귀 4개는 미커밋 역방향 위치 flush, 지연 write 중 close 대기, 이동 없는 reflow, 오류 후 retry를 검증한다.
+테스트는 저장 실패를 주입한 단위 검사이며 실제 disk-full 결과가 아니다.
+
+변경 파일:
+- `androidApp/src/main/kotlin/org/bookreader/mobile/reader/TxtReaderController.kt`
+- `androidApp/src/test/kotlin/org/bookreader/mobile/reader/TxtReaderControllerTest.kt`
+- `scripts/required-tests.json`
+- `docs/adr/0004-progress-writer-session-order.md`, `docs/TASKS.md`, `docs/TESTING.md`, `docs/CONTEXT_HANDOFF.md`, 이 WORKLOG
+- `docs/evidence/m04-reflow-validation/`의 raw logs/native XML/source fingerprint/summary
+
+새 환경에 정확 pin의 JDK/SDK를 설치하고 제공 proxy/CA trust를 유지했다.
+원래 툴체인·debug signer/APK는 이 clone에 없었다. 도구/CA/서명키는 저장소 evidence에 넣지 않는다.
+정확 명령과 exit는 TESTING M04 절에 있으며 full CI 내부 명령/exit는 `ci-check.log` 및 `ci/results.txt`에 있다.
+수정 전 tests-only 실행은 4개/3 failures, exit 1로 결함을 재현했다. 이후 full CI는 exit 0,
+Android unit 45/shared JVM 45, failure/error/skipped 모두 0, lint 20 Hint, APK/schema PASS다.
+검증 입력 fingerprint `3cc61fc407e9a1441b862fba940e178dc849c22b0e240ef222487f35939b24cf`, source drift 0이다.
+`git diff --check`는 exit 0이다. 새 local device-check는 authorized device가 없어 exit 78/BLOCKED_ENV다.
+
+M04는 IN_PROGRESS를 유지한다. 다음 선행 조건은 이번 소스에서 실제 Android reflow/ON_STOP 및 host 회귀 실행 환경,
+SAFE-01/02/03/04/06/07/09/10/12 matrix의 실제 단계별 증거, A/B 및 같은 책 rapid close/reopen,
+60초 연속 이동과 실제 disk-full/commit-latency 측정이다. 신규 Astra 최종 검토는 NOT_RUN이다.
+과거 `2be610a` 기기/host PASS를 이번 수정의 결과로 재사용하지 않았다.
+
+
+최종 stage 이후 `git diff --cached --check`는 exit 2였다. 신규 raw Gradle/adb 로그의 원래 줄 끝 공백 및 EOF 빈 줄만
+보고했으며, 원본 실행 증거는 수정하지 않았다.
+`git diff --cached --check -- . ':!docs/evidence/m04-reflow-validation'`는 exit 0으로 소스·문서의 공백 검사를 통과했다.
