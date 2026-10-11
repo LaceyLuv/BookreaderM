@@ -17,7 +17,82 @@
       "skipped": 0
     }
   },
-  "remote_device": "NOT_RUN: awaiting push",
+  "remote_device": {
+    "source_sha": "bf7589dcc018c57fc43101a16198cc3afd12b9cd",
+    "workflow_id": 38126287699,
+    "workflow_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/38126287699",
+    "artifact_id": 11697417819,
+    "archive_sha256": "141c719c3b4ac866b516a6525f9e48c4a6c89a39703b3f1f923054c7bf7e6a04",
+    "ordinary": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "host": "PASS: exact raw start/pass/finish for both stages",
+    "old_pid": "5794",
+    "cold_launcher_pid": "5843",
+    "external_force_stop": "PASS: live PID then absent",
+    "continuous": {
+      "status": "PASS",
+      "fixture_id": "reader-continuous",
+      "fixture_sha256": "e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0635432872b951",
+      "fixture_bytes": 647999,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "app_version": "0.2.0",
+      "movement_duration_ms": 60017,
+      "max_input_gap_ms": 132,
+      "max_observed_commit_gap_ms": 1067,
+      "gesture_end_to_settled_observation_ms": 264,
+      "initial_sequence": 1,
+      "writer_epoch": 1,
+      "final_offset": 14786,
+      "final_sequence": 62,
+      "input_count": 595,
+      "anchor_changes": 226,
+      "observed_commits_before_pointer_up": 60,
+      "observed_commit_gap_p50_ms": 1000,
+      "observed_commit_gap_p95_ms": 1018,
+      "percentile_method": "nearest rank; includes start/end boundary intervals, not SQL write-ack latency"
+    },
+    "sqlite_full": {
+      "fixture_id": "reader-full",
+      "fixture_sha256": "2a60740d85202c12c334a9a0f17924b21ee56552e4473b4183dacc887b81fcfb",
+      "fixture_bytes": 611999,
+      "other_fixture_sha256": "410e497bd48ed1048c8880390d580b9b13ccdc2e9f650bf2dcdfe581e982e078",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "mechanism": "Native SQLite max_page_count plus test-only growth trigger; not filesystem ENOSPC",
+      "initial_offset": 4964,
+      "initial_sequence": 1,
+      "writer_epoch": 1,
+      "page_limit": 16,
+      "page_size": 4096,
+      "growth_bytes": 81920,
+      "native_probe_code": 13,
+      "native_probe_type": "SQLException",
+      "pending_offset": 6625,
+      "save_error_visible": true,
+      "records_preserved_on_failure": true,
+      "managed_files_preserved": true,
+      "retry_offset": 6625,
+      "retry_sequence": 3,
+      "retry_cleared_error": true,
+      "other_book_preserved_after_retry": true,
+      "fixture_limit_and_schema_restored": true,
+      "status": "PASS"
+    },
+    "limitations": [
+      "No SQL write-ack latency measurement",
+      "No physical device performance claim",
+      "No guarantee for uncommitted screen state or power loss",
+      "Verification instrumentation may start another target process",
+      "Native page-limit FULL only; filesystem ENOSPC and WAL/fsync storage exhaustion NOT_RUN"
+    ]
+  },
   "initial_android_compile": {
     "exit": 1,
     "reason": "assertDoesNotExist is a SemanticsNodeInteraction member, not an importable extension; corrected import"
@@ -25,7 +100,6 @@
   "corrected_android_compile_exit": 0,
   "mechanism": "Native SQLite max_page_count and bounded test trigger; not filesystem ENOSPC",
   "remaining": [
-    "Actual Android UI execution",
     "OS filesystem/WAL/fsync ENOSPC",
     "Physical devices",
     "Remaining M04 SAFE/UI races/reflow",
@@ -39,5 +113,28 @@
     "build": 38126142050,
     "device": 38126142063,
     "conclusion": "cancelled: superseded by platform-type assertion correction"
+  },
+  "source_sha": "bf7589dcc018c57fc43101a16198cc3afd12b9cd",
+  "remote_build": {
+    "source_sha": "bf7589dcc018c57fc43101a16198cc3afd12b9cd",
+    "workflow_id": 38126287697,
+    "workflow_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/38126287697",
+    "artifact_id": 11696743481,
+    "archive_sha256": "45561b8aa1c2aab38e53b1ae6a0e0a131a8236e3e9e186ac46b3ec9ccfa0f76b",
+    "levels": {
+      "android-unit": {
+        "tests": 47,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "shared-jvm": {
+        "tests": 53,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "schemas_match_local": true
   }
 }

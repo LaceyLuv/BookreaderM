@@ -5,8 +5,9 @@
 
 ## M04 SAFE-07 native SQLite FULL — 2026-10-11
 
-clean main `685b6d2`에서 실제 엔진 용량 한도 오류 회귀를 추가했다. 입력 fingerprint
-`f1a40c26c304730dd729a9052a129d50292f4ddddf83d6082d4a028f12ae3e50`, drift 0이다.
+clean main `685b6d2`에서 실제 엔진 용량 한도 오류 회귀를 추가했다. 최종 검증 source는
+`bf7589dcc018c57fc43101a16198cc3afd12b9cd`, 입력 fingerprint
+`504c4bb345f79b0f7f638bc0298c9d8eb7cadde96c81d0efefca73de7c4e0a00`, drift 0이다.
 [summary](evidence/m04-sqlite-full-validation/summary.json), [범위 보고서](M04_SQLITE_FULL.md)를 따른다.
 
 | 검사 | 결과 | 범위 |
@@ -14,7 +15,8 @@ clean main `685b6d2`에서 실제 엔진 용량 한도 오류 회귀를 추가�
 | 새 실제 DB 3개 단독 | exit 0/PASS | update/insert/activation의 native code 13, 기록/다른 책/metadata rollback, reopen/retry |
 | Android test APK | 수정 후 exit 0/PASS | 초기 잘못된 member import 컴파일 exit 1도 보존; 실제 UI 실행 아님 |
 | full local CI | exit 0/PASS | Android unit 47/shared JVM 53, failures/errors/skips 0, APK/schema PASS, lint 20 Hint |
-| 새 actual Android UI/host | NOT_RUN | push 후 실행 결과 확인 예정 |
+| remote build [38126287697](https://github.com/LaceyLuv/BookreaderM/actions/runs/38126287697) | PASS, native 47/53, 실패/오류/skip 0 | schema local bytes 일치; code 13 세 건 원본 XML 확인 |
+| actual API36 [38126287699](https://github.com/LaceyLuv/BookreaderM/actions/runs/38126287699) | exit 0/PASS, native ordinary 27/host 2 stages | 실제 SQLite 오류 UI·기록/파일 보존·자동 retry·정리 PASS |
 | OS filesystem ENOSPC 및 실기기 | NOT_RUN | native page-limit FULL과 구분 |
 
 `source /workspace/toolchains/mobile-env.sh` 이후 정확 명령:
@@ -32,6 +34,36 @@ BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-sqlite-full-validation/ci ./scripts/ci
 Android는 앱 소유 writer 연결을 빌리고 finally에서 한도와 fixture schema를 복원하며 DB를 닫지 않는다.
 새 `sqlite-full-report.log`는 native probe code 13/오류 표시/기록·파일 보존/자동 retry/정리 완료를 별도 확인한다.
 connected 실패 때도 report를 수집하되 원래 exit를 보존한다. production 소스/schema 변경은 없다.
+
+### `bf7589d` 실제 기기 증거
+
+[기기 summary](evidence/m04-sqlite-full-validation/remote-bf7589d-device/summary.json)의 source SHA는 정확히 `bf7589d`다.
+raw `sqlite-full-report.log`에서 한도 16 pages×4,096 bytes, 부가 할당 81,920 bytes,
+native probe code 13/SQLException을 확인했다. 실제 저장 오류 UI가 나타난 동안 offset 4964/sequence 1과
+다른 책/관리 파일 hash/읽기 순서를 보존했다. 한도 복원 후 추가 입력·flush 없이 pending 6625를 sequence 3으로
+commit하고 saveError/diagnostic을 지웠다. 동일 trigger의 할당이 1행 성공하며 한도/schema 정리도 확인했다.
+fixture bytes/hash를 독립 생성해 보고서와 일치함을 확인했다.
+
+host raw는 정확한 두 stage start/pass/finish, command exit 0, PID 5794→외부 force-stop→absent→cold 5843,
+마지막 commit offset 13285/epoch 1/sequence 3의 cold 서재 Continue 복원을 보인다.
+기존 60초 회귀도 60,017ms/commit 60/최대 관찰 공백 1,067ms로 PASS다. OS/실기기 성능 측정으로 확대하지 않는다.
+
+최종 추가 검증 명령(모두 exit 0):
+
+```bash
+source /workspace/toolchains/mobile-env.sh
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-sqlite-full-validation/platform-ci ./scripts/ci-check.sh
+# 원격 API36에서 같은 source로 실행
+./scripts/device-check.sh
+# 원격 artifact 보존 XML 확인
+python3 scripts/check-test-results.py android-unit docs/evidence/m04-sqlite-full-validation/remote-bf7589d-build/native-android-unit
+python3 scripts/check-test-results.py shared-jvm docs/evidence/m04-sqlite-full-validation/remote-bf7589d-build/native-shared-jvm
+python3 scripts/check-test-results.py android-device docs/evidence/m04-sqlite-full-validation/remote-bf7589d-device/native-connected
+python3 scripts/check-test-results.py android-host docs/evidence/m04-sqlite-full-validation/remote-bf7589d-device/host-process-proof
+```
+
+exact adb 명령/exit는 host-process-proof/summary.json, 각 raw .log와 wrapper results.txt에 있다.
+실패 자료 및 취소한 이전 source는 보존한다. source SHA/archive hash/workflow 결과/native XML/JSON을 함께 검사했다.
 
 ## M04 SAFE-09 최종 결과 — source `73276fe`
 

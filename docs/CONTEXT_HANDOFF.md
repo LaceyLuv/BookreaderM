@@ -1,12 +1,23 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
-## 2026-10-11 SAFE-07 후속 진행
+## 2026-10-11 SAFE-07 native SQLite FULL 최종 검증
 
-clean main `685b6d2`에서 native SQLite page-limit FULL 검증을 추가한다. 실제 DB의 update/insert/activation
-3개 회귀는 native code 13/rollback/reopen/retry PASS이며 실제 Reader 오류 UI·자동 재시도 회귀도 추가했다.
-최종 결과는 [TESTING](TESTING.md), [범위 보고서](M04_SQLITE_FULL.md),
-[evidence](evidence/m04-sqlite-full-validation/summary.json)에 확정한다. Android 실행 전에는 PASS로 간주하지 않는다.
-OS filesystem ENOSPC, 실기기 WAL/fsync 부족, 전체 M04와 신규 Astra 검토는 미완료다.
+검증 source `bf7589dcc018c57fc43101a16198cc3afd12b9cd`는 local/remote Android unit 47/shared JVM 53,
+actual API36 ordinary 27 및 외부 host 2 stages 모두 PASS다. 신규 DB 3개는 native SQLITE_FULL(13)의
+update/첫 insert/activation rollback·재개방·동일 event 재시도를 확인했다.
+실제 Reader에서도 오류 UI, 마지막 commit/다른 책/관리 파일 보존 및 공간 복원 후 자동 재시도를 검증했다.
+실패 시 offset 4964/sequence 1을 보존하고, 용량 복원 뒤 pending 6625를 sequence 3으로 commit하며 오류가 사라졌다.
+테스트 한도와 부가 schema도 복원됐다. production writer/UI/schema 변경은 없다.
+
+실제 60초 연속 저장(60,017ms/60 commits)과 host PID 5794→absent→cold 5843,
+offset 13285/epoch 1/sequence 3의 서재 Continue 복원도 회귀 PASS다.
+[TESTING](TESTING.md), [범위 보고서](M04_SQLITE_FULL.md), [SAFE matrix](M04_SAFETY_MATRIX.md),
+[evidence](evidence/m04-sqlite-full-validation/summary.json)가 최신 근거다.
+
+native page-limit FULL은 OS filesystem ENOSPC와 구분한다. M04는 IN_PROGRESS다.
+다음 우선 작업은 격리된 제한 용량 파일시스템에서 실제 ENOSPC/WAL·journal 부족 시 기록 보존 검증,
+또는 SAFE-01 실제 Reader 조회 오류/재시도 UI다. UI A/B·같은 책 rapid reopen, 삭제 중 decode/index,
+reflow/ON_STOP, 실기기 성능 및 신규 Astra 최종 검토도 남아 있다.
 
 ## 2026-10-11 SAFE-09 최종 검증
 

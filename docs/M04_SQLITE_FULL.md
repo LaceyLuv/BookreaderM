@@ -35,3 +35,26 @@ trigger/부가 테이블은 테스트 전용이며 production schema·migration�
 실패 시 기록·파일 보존, 오류 표시 및 자동 재시도 결과를 보존한다. 사용자 책 본문·URI는 기록하지 않는다.
 동일 native test identity와 JSON verifier가 모두 통과해야 실제 Android PASS로 처리한다.
 M04 전체와 SAFE-07 OS ENOSPC 범위는 이 검사만으로 완료 처리하지 않는다.
+
+## `bf7589d` 확정 결과
+
+검증 source `bf7589dcc018c57fc43101a16198cc3afd12b9cd`는 local/remote 단위 47/53,
+actual API36 ordinary 27 및 외부 host 2 stages 모두 PASS다. 실패/오류/skip은 0이다.
+[기기 run](https://github.com/LaceyLuv/BookreaderM/actions/runs/38126287699),
+[원본 report](evidence/m04-sqlite-full-validation/remote-bf7589d-device/sqlite-full-report.log),
+[native DB XML](evidence/m04-sqlite-full-validation/remote-bf7589d-build/native-shared-jvm/TEST-org.bookreader.mobile.repository.RoomProgressFullTest.xml)을 보존했다.
+
+| 관찰 | 결과 |
+|---|---|
+| JVM fixture | 14 pages×4,096 bytes, growth 73,728 bytes; native code 13 세 건 |
+| Android fixture | 16 pages×4,096 bytes, growth 81,920 bytes; native probe code 13/SQLException |
+| 실패 전 마지막 commit | offset 4,964 / epoch 1 / sequence 1 |
+| 오류 중 화면의 pending anchor | 6,625; saveError UI 표시, DB 기록은 이전 값 그대로 |
+| 용량 복원 후 자동 retry | offset 6,625 / sequence 3; 오류/diagnostic 제거, 같은 trigger의 할당 1행 성공 |
+| 다른 책·원본·metadata | 실패 때와 retry 뒤 보존; fixture 한도/schema 복원 PASS |
+
+자체 생성 `reader-full`은 611,999 bytes, SHA-256
+`2a60740d85202c12c334a9a0f17924b21ee56552e4473b4183dacc887b81fcfb`다.
+두 번째 `reader-full-other` hash는 `410e497bd48ed1048c8880390d580b9b13ccdc2e9f650bf2dcdfe581e982e078`이다.
+독립 생성한 두 fixture hash와 실제 import 보고가 같다. API36/x86_64 기기 fingerprint는
+`google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys`다.

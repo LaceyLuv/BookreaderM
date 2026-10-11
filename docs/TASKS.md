@@ -228,8 +228,9 @@ host 준비 timeout 원본을 보존하고 fling/layout 안정화 뒤 expected�
 [측정 보고서](M04_COMMIT_LATENCY.md)는 관찰 간격과 SQL write-ack/실기기 성능을 구분한다.
 
 **SAFE-07 후속:** native SQLite page-limit FULL(13)의 update/insert/activation rollback·재개방·재시도
-3개 실제 DB 회귀와 Reader 오류 UI/자동 재시도 회귀를 추가한다. [범위 보고서](M04_SQLITE_FULL.md)를 따른다.
-최종 Android 판정은 실행 증거로 확정하며 OS ENOSPC를 검사했다고 확대하지 않는다.
+3개 실제 DB 회귀와 Reader 오류 UI/자동 재시도 회귀를 추가했다. `bf7589d` local/remote 47/53,
+actual ordinary 27/host 2 stages PASS다. [범위 보고서](M04_SQLITE_FULL.md)를 따르며
+OS filesystem ENOSPC/WAL·journal 부족 검증을 완료했다고 확대하지 않는다. M04는 IN_PROGRESS다.
 
 ## 구현 범위
 앱 수준 progress single writer, persisted sessionEpoch/sequence, 1초 sampling+250ms settled save, conditional transaction, flush barrier, 저장 실패 UI를 완성한다. 외부 host-driven 종료 테스트를 만든다.

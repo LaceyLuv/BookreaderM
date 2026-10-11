@@ -135,3 +135,7 @@ JVM은 commit/activation의 rollback과 reopen·동일 event 재시도를 확인
 오류 표시·기록/원본 보존·자동 재시도를 검증한다. finally에서 한도와 fixture schema를 복원한다.
 앱 소유 Room pool은 닫지 않는다. production writer/schema 변경 없이 검증을 추가한다.
 이 선택은 OS filesystem ENOSPC나 WAL/fsync 실패를 대체하지 않으며 범위는 [SAFE-07 보고서](../M04_SQLITE_FULL.md)를 따른다.
+
+source `bf7589d`의 local/remote unit 47/53, actual ordinary 27/host 2 stages가 통과했다.
+native DB 세 실패의 code 13, actual Reader 오류 표시·기록/파일 보존·용량 복원 후 자동 retry와
+fixture 한도/schema 정리까지 확인했다. 이 증거는 native page-limit FULL 범위이며 OS ENOSPC gate는 남는다.

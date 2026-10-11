@@ -979,3 +979,27 @@ cancelled다. 실제 Android PASS/FAIL 증거로 취급하지 않는다. 보완 
 `BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-sqlite-full-validation/platform-ci ./scripts/ci-check.sh`는 exit 0이다.
 최종 local native 47/53, failures/errors/skips 0, lint 20 Hint, APK/schema PASS, 입력 fingerprint
 `504c4bb345f79b0f7f638bc0298c9d8eb7cadde96c81d0efefca73de7c4e0a00`, drift 0이다.
+
+### `bf7589d` 원격 및 actual Android 확정
+
+최종 source `bf7589dcc018c57fc43101a16198cc3afd12b9cd`를 main에 push했다.
+remote build `38126287697`는 PASS이며 artifact `11696743481` native 47/53, failures/errors/skips 0,
+세 SQLite FULL 원본 code 13 및 schema local bytes 일치를 확인했다.
+actual device `38126287699`도 exit 0/PASS, artifact `11697417819` native ordinary 27/host 2 stages PASS다.
+
+기기 report는 16 pages×4,096 bytes 한도와 growth 81,920 bytes, native probe code 13/SQLException을 보인다.
+실제 Reader의 저장 실패 UI가 나타난 동안 마지막 commit offset 4964/epoch 1/sequence 1, 다른 책,
+두 관리 파일 hash, metadata/read_order가 유지됐다. 용량 복원 후 추가 입력/직접 flush 없이 pending 6625를
+sequence 3으로 자동 저장했고 오류/diagnostic이 사라졌다. 동일 trigger의 할당 1행과 최종 한도/schema 복원도 확인했다.
+fixture 두 개의 hash/bytes는 독립 생성한 값과 일치한다. full report/native XML/verifier log를 보존했다.
+
+기존 60초 회귀는 60,017ms/anchor 226/commit 60/최대 관찰 공백 1,067ms PASS다.
+raw host 두 stage는 정확한 start/pass/finish와 모든 command exit 0, PID 5794→외부 force-stop→absent→cold 5843,
+commit offset 13285/epoch 1/sequence 3의 cold 서재 Continue 복원을 확인했다.
+원본 명령/exit/native XML/raw JSON/PID proof/workflow SHA/archive SHA-256을
+`docs/evidence/m04-sqlite-full-validation/remote-bf7589d-{build,device}/`에 보존했다.
+
+최종 정확 CI/device/native verifier 명령은 TESTING 최신 절을 따른다. 모두 exit 0이다.
+증거 정리 당시 107개 검증 입력의 hash가 일치해 source drift 0이다. 이후 변경은 문서와 증거뿐이다.
+TASKS/TESTING/WORKLOG/CONTEXT_HANDOFF/ADR/SAFE matrix/범위 보고서를 확정한다.
+M04는 IN_PROGRESS, OS filesystem ENOSPC·WAL/fsync 부족, UI race/reflow 등 잔여 gate와 신규 Astra는 미완료다.
