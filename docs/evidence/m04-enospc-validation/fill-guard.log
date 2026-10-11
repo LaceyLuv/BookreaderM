@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/bookreader-mobile/scripts/fill-enospc-fixture.py", line 42, in <module>
+    main()
+  File "/workspace/bookreader-mobile/scripts/fill-enospc-fixture.py", line 15, in main
+    assert any(row[:3] == ["bookreader-enospc", str(root), "tmpfs"] for row in mounts)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+helper guard command_exit=1 (expected 1)

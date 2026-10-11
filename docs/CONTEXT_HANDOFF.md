@@ -1,5 +1,16 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
+## 2026-10-11 SAFE-07 실제 filesystem ENOSPC 후속
+
+clean main `071e920`에서 별도 8MiB tmpfs와 production Room WAL writer를 사용하는 전용 JVM 3개를 추가했다.
+OS errno 28/여유 공간 0 → native SQLITE_FULL(13) → update/첫 insert/activation rollback,
+두 책/기록/읽기 순서/TXT hash 보존, 공간 확보 후 DB reopen·동일 요청 retry까지 local PASS다.
+일반 local CI도 Android unit 47/shared JVM 53, 실패/오류/skip 0으로 PASS다.
+새 remote build/device 결과는 아직 NOT_RUN이며 실행 후 이 절을 확정한다.
+[범위 보고서](M04_FILESYSTEM_ENOSPC.md), [증거](evidence/m04-enospc-validation/)를 따른다.
+Android ext4/f2fs·fsync·rollback journal·full 상태 cold start까지 확대한 결과가 아니다.
+M04 IN_PROGRESS를 유지하며 다음 우선 작업은 SAFE-01 actual Reader 조회 오류/재시도 UI다.
+
 ## 2026-10-11 SAFE-07 native SQLite FULL 최종 검증
 
 검증 source `bf7589dcc018c57fc43101a16198cc3afd12b9cd`는 local/remote Android unit 47/shared JVM 53,

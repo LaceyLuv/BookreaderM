@@ -1,0 +1,42 @@
+[
+  {
+    "command": "./gradlew --no-daemon --console=plain :shared:tasks --all",
+    "attempt": "initial",
+    "exit_code": 1,
+    "evidence": "task-discovery-initial-fail.log"
+  },
+  {
+    "command": "./gradlew --no-daemon --console=plain :shared:tasks --all",
+    "attempt": "fixed",
+    "exit_code": 0,
+    "evidence": "task-discovery.log"
+  },
+  {
+    "command": "./scripts/enospc-check.sh",
+    "attempt": "namespace-cache-initial",
+    "exit_code": 1,
+    "evidence": "namespace-cache-initial-fail.log"
+  },
+  {
+    "command": "./scripts/enospc-check.sh",
+    "attempt": "fixed",
+    "exit_code": 0,
+    "evidence": "local-enospc.log"
+  },
+  {
+    "command": "BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-enospc-validation/local-ci ./scripts/ci-check.sh",
+    "exit_code": 0,
+    "evidence": "local-ci/results.txt"
+  },
+  {
+    "command": "BOOKREADER_ENOSPC_ROOT=/workspace python3 scripts/fill-enospc-fixture.py /workspace/enospc-guard-must-not-exist",
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "evidence": "fill-guard.log",
+    "created_file": false
+  },
+  {
+    "command": "bash -n scripts/enospc-check.sh",
+    "exit_code": 0
+  }
+]

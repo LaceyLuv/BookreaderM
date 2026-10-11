@@ -3,6 +3,29 @@
 2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
 
+## M04 SAFE-07 실제 filesystem ENOSPC — 2026-10-11
+
+[범위 보고서](M04_FILESYSTEM_ENOSPC.md), [원본 증거](evidence/m04-enospc-validation/)를 따른다.
+local 전용 JVM 3개/일반 Android unit 47/shared JVM 53 PASS, 실패/오류/skip 0이다.
+8MiB tmpfs의 실제 errno 28·남은 공간 0과 SQLite FULL(13) 3건을 확인했다.
+검증 입력 111개 fingerprint는 `d144fb4b45108675f7a294d1c4173d6ae24ca68c4c09bbc7f6dfd557da2afec8`이다.
+원격 build/device는 새 source로 실행 예정이며 과거 PASS를 재사용하지 않는다.
+
+정확 명령(`source /workspace/toolchains/mobile-env.sh` 이후):
+
+```bash
+./gradlew --no-daemon --console=plain :shared:tasks --all
+./scripts/enospc-check.sh
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-enospc-validation/local-ci ./scripts/ci-check.sh
+bash -n scripts/enospc-check.sh
+```
+
+최초 task discovery는 DSL receiver/불필요한 `!!`로 exit 1, 최초 namespace 실행은 root cache 경로로 exit 1이었다.
+수정 후 위 명령은 모두 exit 0이다. [commands.json](evidence/m04-enospc-validation/commands.json)에 원본 로그/exit를 보존했다.
+일반 `/workspace`를 지정한 filler는 할당 전에 exit 1로 거부하고 파일을 만들지 않는 guard도 확인했다.
+namespace가 없는 환경의 전용 검사는 exit 78/BLOCKED_ENV이며 skip/PASS로 대체하지 않는다.
+Android 실제 filesystem ENOSPC/전원 차단/fsync/rollback journal 및 신규 Astra 검토는 NOT_RUN이다.
+
 ## M04 SAFE-07 native SQLite FULL — 2026-10-11
 
 clean main `685b6d2`에서 실제 엔진 용량 한도 오류 회귀를 추가했다. 최종 검증 source는

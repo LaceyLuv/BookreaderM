@@ -522,5 +522,19 @@
       "org.bookreader.mobile.reader.TxtReaderHostProcessTest",
       "verifyColdLibraryContinue"
     ]
+  ],
+  "shared-enospc": [
+    [
+      "org.bookreader.mobile.repository.RoomProgressEnospcTest",
+      "walUpdatePreservesRecordsAndFilesThenSameEventRetries"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressEnospcTest",
+      "walFirstSaveRemainsMissingThenSameEventRetries"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressEnospcTest",
+      "walActivationPreservesEpochAndReadOrderThenRetries"
+    ]
   ]
 }

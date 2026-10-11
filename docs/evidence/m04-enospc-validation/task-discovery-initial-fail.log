@@ -1,0 +1,52 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :shared
+e: file:///workspace/bookreader-mobile/shared/build.gradle.kts:16:27: 'var compilations: NamedDomainObjectContainer<KotlinJvmCompilation>' can't be called in this context by implicit receiver. Use the explicit one if necessary
+e: file:///workspace/bookreader-mobile/shared/build.gradle.kts:16:27: 'var compilations: NamedDomainObjectContainer<KotlinJvmCompilation>' can't be called in this context by implicit receiver. Use the explicit one if necessary
+w: file:///workspace/bookreader-mobile/shared/build.gradle.kts:23:89: Unnecessary non-null assertion (!!) on a non-null receiver of type FileCollection
+w: ⚠️ Missing `androidTarget()` in Kotlin Multiplatform Project
+Missing `androidTarget()` Kotlin target in multiplatform project 'shared (:shared)'.
+The Android Gradle plugin was applied without creating a corresponding `androidTarget()` Kotlin Target
+```
+plugins {
+    id("com.android.library")
+    kotlin("multiplatform")
+}
+
+kotlin {
+    androidTarget() // <-- please register this Android target
+}
+```
+Solution: Please register the Android target.
+
+
+[Incubating] Problems report is available at: file:///workspace/bookreader-mobile/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file '/workspace/bookreader-mobile/shared/build.gradle.kts' line: 16
+
+* What went wrong:
+Script compilation errors:
+
+  Line 16:             associateWith(compilations.getByName("main"))
+                                     ^ 'var compilations: NamedDomainObjectContainer<KotlinJvmCompilation>' can't be called in this context by implicit receiver. Use the explicit one if necessary
+
+  Line 16:             associateWith(compilations.getByName("main"))
+                                     ^ 'var compilations: NamedDomainObjectContainer<KotlinJvmCompilation>' can't be called in this context by implicit receiver. Use the explicit one if necessary
+
+  Line 23:             classpath = enospcTest.output.allOutputs + enospcTest.runtimeDependencyFiles!!
+                                                                                                   ^ Unnecessary non-null assertion (!!) on a non-null receiver of type FileCollection
+
+3 errors
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 13s

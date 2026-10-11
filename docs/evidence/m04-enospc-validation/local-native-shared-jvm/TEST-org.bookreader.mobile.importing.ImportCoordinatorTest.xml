@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.bookreader.mobile.importing.ImportCoordinatorTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-10-11T09:14:22.192Z" hostname="5b4ca140f8fd" time="1.45">
+  <properties/>
+  <testcase name="failedPostCommitCleanupStillReportsSuccessAndRecoveryRetries[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.114"/>
+  <testcase name="durableCopyDoesNotDependOnSourceAndDuplicateKeepsProgress[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.063"/>
+  <testcase name="deathWithActualPartialStagingBytesRecoversWithoutTouchingExistingProgress[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.045"/>
+  <testcase name="encodingChoiceResumesPrivateStagingAfterTemporarySourceDisappears[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.061"/>
+  <testcase name="missingIdenticalCopyRelinksWithoutChangingInterpretationOrProgress[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.027"/>
+  <testcase name="changedExistingCopyIsNeverSilentlyOverwrittenByIdenticalReimport[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.021"/>
+  <testcase name="deletingInvalidatesWriterBeforeFileRemovalAndRecoveryNeverResurrects[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.047"/>
+  <testcase name="interruptedCheckpointsRecoverIdempotentlyAndPreserveExistingBook[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.195"/>
+  <testcase name="cancellationDuringCopyKeepsPreviouslyCommittedBookAndCleansStage[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.027"/>
+  <testcase name="actualUnknownLengthOverLimitStopsCopyWithoutCommitting[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.73"/>
+  <testcase name="cancellationDuringEncodingResumeNeverCommitsOnRecovery[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.012"/>
+  <testcase name="corruptedJournalCannotDeleteAnotherBooksReferencedFile[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.03"/>
+  <testcase name="classifiedFailuresAndUnknownSizeKeepCommittedData[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.014"/>
+  <testcase name="cancelledEncodingChoiceRemovesOnlyItsStaging[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.014"/>
+  <testcase name="readyRowWithDefinitelyAbsentCopyRelinksIdempotentlyAndKeepsProgress[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.029"/>
+  <testcase name="midStreamDiskAndPermissionFailuresCleanOnlyNewPartialBytes[jvm]" classname="org.bookreader.mobile.importing.ImportCoordinatorTest" time="0.018"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

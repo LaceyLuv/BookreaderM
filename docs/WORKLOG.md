@@ -1003,3 +1003,23 @@ commit offset 13285/epoch 1/sequence 3의 cold 서재 Continue 복원을 확인�
 증거 정리 당시 107개 검증 입력의 hash가 일치해 source drift 0이다. 이후 변경은 문서와 증거뿐이다.
 TASKS/TESTING/WORKLOG/CONTEXT_HANDOFF/ADR/SAFE matrix/범위 보고서를 확정한다.
 M04는 IN_PROGRESS, OS filesystem ENOSPC·WAL/fsync 부족, UI race/reflow 등 잔여 gate와 신규 Astra는 미완료다.
+
+## 2026-10-11 — SAFE-07 실제 Linux filesystem ENOSPC
+
+`071e920` clean main과 상위/저장소 지침·인계 문서를 확인하고 다음 잔여 ENOSPC 검증을 선택했다.
+user/mount namespace에서만 새 8MiB tmpfs를 생성한다. helper는 mount source/type/capacity/path를 확인하고
+bounded 할당으로 실제 errno 28을 확인한다. working filesystem의 공간은 소진하지 않는다.
+production 파일/schema/UI는 변경하지 않았다. 별도 jvmEnospcTest compilation/필수 3개 identity 및
+scripts/enospc-check.sh/fill-enospc-fixture.py와 build workflow의 필수 단계를 추가했다.
+
+Room WAL checkpoint TRUNCATE 뒤 실제 production save/activation을 실행해 native code 13/stage를 검사한다.
+두 책 전체 기록/metadata/read_order/TXT hash, 첫 저장 Missing, 공간 확보 후 DB 재개방·같은 event retry,
+역방향 offset과 duplicate stale 거부를 확인한다. finally/EXIT에서 파일·DB·mountpoint를 정리한다.
+TXT fixture 각 2,700 bytes는 자체 생성이다. Android import/Reader ENOSPC 또는 process-death 시험이 아니다.
+
+첫 Gradle DSL compile exit 1과 namespace root cache exit 1은 원본 로그로 남겼다.
+receiver/불필요한 non-null assertion과 Gradle home/cache만 수정한 뒤 전용 native 3개 PASS다.
+full local CI exit 0, Android unit 47/shared JVM 53, failure/error/skip 0이다.
+정확 명령/exit/원본 XML/초기 실패/111개 입력 fingerprint는 TESTING 및
+`docs/evidence/m04-enospc-validation/`을 따른다. remote 검증은 push 후 진행한다.
+M04 IN_PROGRESS, Android ext4/f2fs/fsync/rollback journal/조회 오류 UI 및 신규 Astra는 NOT_RUN이다.

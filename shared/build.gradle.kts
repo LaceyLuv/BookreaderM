@@ -10,7 +10,25 @@ plugins {
 kotlin {
     androidTarget { compilerOptions { jvmTarget.set(JvmTarget.JVM_17) } }
     // A host target executes the same core and real bundled SQLite DB tests in CI.
-    jvm { compilerOptions { jvmTarget.set(JvmTarget.JVM_17) } }
+    jvm {
+        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
+        val mainCompilation = compilations.getByName("main")
+        val enospcTest by compilations.creating {
+            associateWith(mainCompilation)
+            defaultSourceSet.dependencies { implementation(kotlin("test-junit")) }
+        }
+        tasks.register<Test>("jvmEnospcTest") {
+            description = "Real ENOSPC on an isolated 8 MiB Linux tmpfs (scripts/enospc-check.sh)."
+            group = "verification"
+            testClassesDirs = enospcTest.output.classesDirs
+            classpath = enospcTest.output.allOutputs + enospcTest.runtimeDependencyFiles
+            systemProperty("bookreader.enospc.root", providers.environmentVariable("BOOKREADER_ENOSPC_ROOT").getOrElse(""))
+            systemProperty("bookreader.enospc.helper", rootProject.file("scripts/fill-enospc-fixture.py").absolutePath)
+            // Every invocation needs a fresh real filesystem failure, never cached XML.
+            outputs.upToDateWhen { false }
+            outputs.cacheIf { false }
+        }
+    }
     jvmToolchain(17)
     sourceSets {
         commonMain.dependencies {

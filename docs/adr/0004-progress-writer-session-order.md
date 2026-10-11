@@ -139,3 +139,11 @@ JVM은 commit/activation의 rollback과 reopen·동일 event 재시도를 확인
 source `bf7589d`의 local/remote unit 47/53, actual ordinary 27/host 2 stages가 통과했다.
 native DB 세 실패의 code 13, actual Reader 오류 표시·기록/파일 보존·용량 복원 후 자동 retry와
 fixture 한도/schema 정리까지 확인했다. 이 증거는 native page-limit FULL 범위이며 OS ENOSPC gate는 남는다.
+
+### 2026-10-11: 실제 filesystem ENOSPC 검증 분리
+
+page-limit FULL은 OS 공간 부족을 대신하지 않으므로 별도 8MiB tmpfs의 bounded 할당으로 실제 errno 28을 만든다.
+production WAL writer의 기존/첫 저장과 activation에서 code 13 및 전체 record/file 보존을 확인한다.
+환경 의존 검사는 별도 Kotlin compilation/필수 identity로 실행하며 namespace 부재는 BLOCKED_ENV다.
+기본 JVM suite의 skip으로 숨기거나 실제 Android storage/fsync/전원 차단 보증으로 확대하지 않는다.
+자세한 근거와 재현 명령은 [보고서](../M04_FILESYSTEM_ENOSPC.md), [TESTING](../TESTING.md)을 따른다.
