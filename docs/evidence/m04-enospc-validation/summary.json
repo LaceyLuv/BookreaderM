@@ -1,0 +1,164 @@
+{
+  "source_sha": "ebee7723eed8c7ca487736af52570ae1cfd3d4ba",
+  "validation_input_fingerprint": "112c4be06eba47de32ff750c02af7d909310a3bea3f7d3c33e560a528de669e5",
+  "input_count": 111,
+  "source_drift": 0,
+  "local": {
+    "unit_and_enospc_source_sha": "bacd79f0af4da29c88fddd4fba5902e76be2e5c5",
+    "android_test_apk_compile_source_sha": "ebee7723eed8c7ca487736af52570ae1cfd3d4ba",
+    "enospc": 3,
+    "android_unit": 48,
+    "shared_jvm": 53,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "status": "PASS"
+  },
+  "remote_build": {
+    "source_sha": "ebee7723eed8c7ca487736af52570ae1cfd3d4ba",
+    "workflow_id": 38129413116,
+    "workflow_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/38129413116",
+    "artifact_id": 11698451773,
+    "archive_sha256": "a8004c8fadfa33f58def38a4585ad60ba4b3280197ce8a89fefe7ed61567f5da",
+    "levels": {
+      "android-unit": {
+        "tests": 48,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "shared-jvm": {
+        "tests": 53,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "shared-enospc": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "enospc_os_proof": [
+      {
+        "errno": 28,
+        "capacity_bytes": 8388608,
+        "written_bytes": 8294400,
+        "available_bytes": 0
+      },
+      {
+        "errno": 28,
+        "capacity_bytes": 8388608,
+        "written_bytes": 8294400,
+        "available_bytes": 0
+      },
+      {
+        "errno": 28,
+        "capacity_bytes": 8388608,
+        "written_bytes": 8294400,
+        "available_bytes": 0
+      }
+    ],
+    "sqlite_full_code": 13,
+    "enospc_scope": "Linux 8 MiB tmpfs, production WAL allocation; not Android fsync or power loss",
+    "schemas_match_local": true
+  },
+  "remote_device": {
+    "source_sha": "ebee7723eed8c7ca487736af52570ae1cfd3d4ba",
+    "workflow_id": 38129413128,
+    "workflow_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/38129413128",
+    "artifact_id": 11698847810,
+    "archive_sha256": "1610a8a89a0de151c70fad60d28fd96ee398fc4ea0ceb1e144e45387459c444d",
+    "ordinary": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "host": "PASS: exact raw start/pass/finish for both stages",
+    "old_pid": "5691",
+    "cold_launcher_pid": "5739",
+    "external_force_stop": "PASS: live PID then absent",
+    "continuous": {
+      "status": "PASS",
+      "fixture_id": "reader-continuous",
+      "fixture_sha256": "e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0635432872b951",
+      "fixture_bytes": 647999,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "app_version": "0.2.0",
+      "movement_duration_ms": 60067,
+      "max_input_gap_ms": 133,
+      "max_observed_commit_gap_ms": 1050,
+      "gesture_end_to_settled_observation_ms": 163,
+      "initial_sequence": 1,
+      "writer_epoch": 1,
+      "final_offset": 14786,
+      "final_sequence": 62,
+      "input_count": 591,
+      "anchor_changes": 226,
+      "observed_commits_before_pointer_up": 60,
+      "observed_commit_gap_p50_ms": 1001,
+      "observed_commit_gap_p95_ms": 1034,
+      "percentile_method": "nearest rank; includes start/end boundary intervals, not SQL write-ack latency"
+    },
+    "sqlite_full": {
+      "fixture_id": "reader-full",
+      "fixture_sha256": "2a60740d85202c12c334a9a0f17924b21ee56552e4473b4183dacc887b81fcfb",
+      "fixture_bytes": 611999,
+      "other_fixture_sha256": "410e497bd48ed1048c8880390d580b9b13ccdc2e9f650bf2dcdfe581e982e078",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "mechanism": "Native SQLite max_page_count plus test-only growth trigger; not filesystem ENOSPC",
+      "initial_offset": 4964,
+      "initial_sequence": 1,
+      "writer_epoch": 1,
+      "page_limit": 16,
+      "page_size": 4096,
+      "growth_bytes": 81920,
+      "native_probe_code": 13,
+      "native_probe_type": "SQLException",
+      "pending_offset": 6625,
+      "save_error_visible": true,
+      "records_preserved_on_failure": true,
+      "managed_files_preserved": true,
+      "retry_offset": 6625,
+      "retry_sequence": 3,
+      "retry_cleared_error": true,
+      "other_book_preserved_after_retry": true,
+      "fixture_limit_and_schema_restored": true,
+      "status": "PASS"
+    },
+    "limitations": [
+      "No SQL write-ack latency measurement",
+      "No physical device performance claim",
+      "No guarantee for uncommitted screen state or power loss",
+      "Verification instrumentation may start another target process"
+    ],
+    "host_committed": {
+      "utf16Offset": 13285,
+      "epoch": 1,
+      "sequence": 3
+    }
+  },
+  "m04_status": "IN_PROGRESS",
+  "historical_failures": [
+    "a3ee33b build: ENOSPC BLOCKED_ENV exit 78, ordinary 47/53 PASS",
+    "7f7c46b build: ENOSPC harness checkout access failure exit 1, ordinary 47/53 PASS",
+    "a3ee33b device: ordinary 27 with one REJECTED_STALE failure, host NOT_RUN",
+    "bacd79f build: 48/53/3 PASS; device: one page-limit UI measurement failure 53 vs 6625, host NOT_RUN",
+    "restoration callback unit before fix: expected activation count 1, actual 2"
+  ],
+  "not_run": [
+    "Android ext4/f2fs ENOSPC",
+    "rollback journal mode",
+    "device fsync errors and power loss",
+    "cold process while still full",
+    "SAFE-01 actual Reader progress-load error retry UI",
+    "physical device performance",
+    "new Astra review"
+  ]
+}

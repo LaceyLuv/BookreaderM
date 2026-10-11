@@ -1066,3 +1066,22 @@ raw XML/report/command/metadata/archive hash를 `remote-bacd79f-{build,device}`�
 이번 변경은 Android test뿐이며 production 활성화 수정/단위/ENOSPC 코드는 bacd79f와 동일하다.
 `./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest`는 exit 0이다.
 새 source로 실제 기기 회귀를 다시 검증한다.
+
+### `ebee772` 원격 최종 확정
+
+source `ebee7723eed8c7ca487736af52570ae1cfd3d4ba`의 remote build `38129413116` 및 actual device `38129413128` 모두 PASS다.
+build artifact `11698451773`는 native 48/53/ENOSPC 3, device artifact `11698847810`는
+ordinary 27/host 2 stages이며 failure/error/skip 0이다. sudo 관리자 경로의 private mount namespace에서
+실제 errno 28/여유 공간 0/WAL 0 bytes/code 13 세 건 및 records/files/reopen/retry/cleanup exit 0을 확인했다.
+
+이전 실패를 삭제하지 않았다. `a3ee33b` device의 DB owner case도 최종 PASS다.
+raw host exact start/pass/finish, 모든 command exit 0, PID 5691→absent→cold 5739,
+서재 Continue 복원을 확인했다. 실제 연속 이동 60,067ms/60 commits,
+기존 page-limit FULL의 UI/기록/원본 보존 및 자동 retry도 PASS다.
+
+원본 XML/JSON/host proof/command exit/workflow SHA/archive SHA-256 및 서버 digest 일치를
+`docs/evidence/m04-enospc-validation/remote-ebee772-{build,device}/`에 보존했다.
+111개 검증 입력 fingerprint `112c4be06eba47de32ff750c02af7d909310a3bea3f7d3c33e560a528de669e5`, drift 0이다.
+이후 변경은 문서/증거뿐이며 README/사용자 파일은 보존했다. 정확 명령/exit는 TESTING/commands.json을 따른다.
+TASKS/TESTING/WORKLOG/CONTEXT_HANDOFF/ADR/SAFE matrix/범위 보고서를 확정했다.
+M04 IN_PROGRESS, 다음은 SAFE-01 실제 Reader DB 조회 오류/재시도 UI다. 새 Astra 검토는 NOT_RUN이다.

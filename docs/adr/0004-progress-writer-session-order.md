@@ -154,3 +154,6 @@ production WAL writer의 기존/첫 저장과 activation에서 code 13 및 전�
 확인했다. 새 단위 테스트가 수정 전 activation 2회로 실패한다. restored() 진입을 직렬화하고 LAZY job을
 필드에 등록한 뒤 시작해 동시/즉시 재진입에서 기존 작업을 보게 한다. DB stale 거부 기준은 유지한다.
 기기 실패 raw만으로 특정 scheduling 순서를 확정하지 않으며 수정 후 원격 검증은 TESTING을 따른다.
+
+최종 `ebee772`는 local/remote 48/53 및 실제 ENOSPC 3, actual 27/host 2 stages PASS다.
+세부 source/evidence/미검증 경계는 [TESTING](../TESTING.md)의 최신 절을 따른다.

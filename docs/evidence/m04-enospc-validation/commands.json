@@ -38,5 +38,45 @@
   {
     "command": "bash -n scripts/enospc-check.sh",
     "exit_code": 0
+  },
+  {
+    "command": "./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest",
+    "exit_code": 0,
+    "evidence": "full-ui-reflow-compile.log"
+  },
+  {
+    "command": "./gradlew --no-daemon --console=plain :androidApp:testDebugUnitTest --tests org.bookreader.mobile.reader.TxtReaderControllerTest.restorationCallbackDuringPendingActivationStartsOnlyOneSession",
+    "attempt": "before production fix",
+    "exit_code": 1,
+    "evidence": "activation-before-fix/command.log"
+  },
+  {
+    "command": "./gradlew --no-daemon --console=plain :androidApp:testDebugUnitTest --tests org.bookreader.mobile.reader.TxtReaderControllerTest.restorationCallbackDuringPendingActivationStartsOnlyOneSession",
+    "attempt": "after production fix",
+    "exit_code": 0,
+    "evidence": "activation-after-fix.log"
+  },
+  {
+    "command": "./scripts/enospc-check.sh",
+    "attempt": "final local",
+    "exit_code": 0,
+    "evidence": "final-local-enospc.log"
+  },
+  {
+    "command": "BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-enospc-validation/final-local-ci ./scripts/ci-check.sh",
+    "exit_code": 0,
+    "evidence": "final-local-ci/results.txt"
+  },
+  {
+    "command": "export GRADLE_USER_HOME=\"$HOME/.gradle\"; sudo --preserve-env=HOME,JAVA_HOME,ANDROID_HOME,ANDROID_SDK_ROOT,PATH,GRADLE_USER_HOME ./scripts/enospc-check.sh",
+    "environment": "GitHub ubuntu-24.04",
+    "exit_code": 0,
+    "evidence": "remote-ebee772-build/enospc-check.log"
+  },
+  {
+    "command": "./scripts/device-check.sh",
+    "environment": "GitHub API36 emulator",
+    "exit_code": 0,
+    "evidence": "remote-ebee772-device/results.txt"
   }
 ]

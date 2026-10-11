@@ -1,35 +1,24 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
-## 2026-10-11 page-limit UI 측정 후속
+## 2026-10-11 실제 ENOSPC 및 activation 중복 최종 검증
 
-`bacd79f` remote build는 48/53/실제 ENOSPC 3 PASS다. actual Android에서 기존 DB owner는 PASS했으나
-page-limit 오류 UI의 anchor 비교가 53 vs 6625로 FAIL했다(host NOT_RUN).
-오류 배너의 viewport 변경/reflow 완료 전에 측정하지 않도록 배너 표시→reader_ready→독립 위치 측정 순서로
-테스트만 보완했다. production 코드는 bacd79f와 동일하고 test APK compile은 PASS다. 새 remote 결과를 확정할 예정이다.
-실패 원본은 `docs/evidence/m04-enospc-validation/remote-bacd79f-device`에 있다.
+최종 source `ebee7723eed8c7ca487736af52570ae1cfd3d4ba`의 remote Android unit 48/shared JVM 53,
+별도 ENOSPC 3개, actual API36 ordinary 27 및 외부 host 2 stages 모두 PASS다.
+local 48/53/3은 동일 production/test 입력의 `bacd79f`에서 실행했고, 후속 UI test APK도 compile PASS다.
+8MiB tmpfs의 실제 errno 28/여유 공간 0에서 production WAL 쓰기가 SQLite FULL(13)로 실패함을 확인했다.
+update/첫 insert/activation의 전체 기록·다른 책·TXT hash 보존, 공간 확보 후 DB reopen·동일 요청 retry도 PASS다.
 
-## 2026-10-11 원격 회귀에서 발견한 activation 중복 후속
+원격 기기 회귀에서 발견한 REJECTED_STALE를 조사해 중복 restoration callback의 activation 2회를
+단위 테스트로 재현했다. restored() 진입 직렬화 및 LAZY job 등록 후 시작으로 수정했고 기존 기기 회귀도 PASS다.
+`a3ee33b` device FAIL/host NOT_RUN과 두 CI namespace 실패는 원본 보존했다.
+`bacd79f` page-limit UI 측정 실패도 보존했으며 오류 배너의 reflow 완료 후 측정하게 보완했다.
+관리자 CI는 private mount namespace, 비권한 local은 user+mount namespace를 사용한다. 전역 보안 설정은 바꾸지 않는다.
 
-ENOSPC 원격 검증 중 `a3ee33b` actual Android ordinary 27개 중 DB owner 1개가 REJECTED_STALE로 실패했다.
-host는 NOT_RUN이다. 조사에서 restoration callback이 activation 대기 중 겹치면 두 session을 만드는 경로를
-새 단위 테스트로 재현했다(수정 전 expected 1 / actual 2). restored() 진입 직렬화 및 lazy job 등록 후 시작으로
-보완했다. local Android unit 48/shared JVM 53/실제 tmpfs ENOSPC 3개 모두 PASS다.
-
-또한 `a3ee33b` CI는 uid_map 제한(exit 78), `7f7c46b` CI는 새 user namespace root의 private checkout 접근
-실패(exit 1)였다. 관리자 CI는 private mount namespace만 만들고, 비권한 local은 user+mount namespace를 사용한다.
-전역 sysctl/AppArmor는 변경하지 않는다. 최종 새 source의 원격 build/device는 실행 후 확정한다.
-원본 실패와 명령/exit는 [증거](evidence/m04-enospc-validation/) 및 TESTING/WORKLOG에 보존했다.
-
-## 2026-10-11 SAFE-07 실제 filesystem ENOSPC 후속
-
-clean main `071e920`에서 별도 8MiB tmpfs와 production Room WAL writer를 사용하는 전용 JVM 3개를 추가했다.
-OS errno 28/여유 공간 0 → native SQLITE_FULL(13) → update/첫 insert/activation rollback,
-두 책/기록/읽기 순서/TXT hash 보존, 공간 확보 후 DB reopen·동일 요청 retry까지 local PASS다.
-일반 local CI도 Android unit 47/shared JVM 53, 실패/오류/skip 0으로 PASS다.
-새 remote build/device 결과는 아직 NOT_RUN이며 실행 후 이 절을 확정한다.
-[범위 보고서](M04_FILESYSTEM_ENOSPC.md), [증거](evidence/m04-enospc-validation/)를 따른다.
-Android ext4/f2fs·fsync·rollback journal·full 상태 cold start까지 확대한 결과가 아니다.
-M04 IN_PROGRESS를 유지하며 다음 우선 작업은 SAFE-01 actual Reader 조회 오류/재시도 UI다.
+[TESTING](TESTING.md), [범위 보고서](M04_FILESYSTEM_ENOSPC.md),
+[evidence](evidence/m04-enospc-validation/summary.json)가 최신 근거다.
+M04는 IN_PROGRESS다. 다음 우선 작업은 SAFE-01 actual Reader DB 조회 오류/재시도 UI다.
+기존 managed-copy 누락 재시도와 DB 조회 오류 검사를 구분한다. UI A/B·같은 책 rapid reopen,
+삭제 중 decode/index, reflow/ON_STOP, Android 실제 저장장치 ENOSPC/fsync, 실기기 성능 및 신규 Astra도 남아 있다.
 
 ## 2026-10-11 SAFE-07 native SQLite FULL 최종 검증
 

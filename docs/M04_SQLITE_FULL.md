@@ -58,3 +58,9 @@ actual API36 ordinary 27 및 외부 host 2 stages 모두 PASS다. 실패/오류/
 두 번째 `reader-full-other` hash는 `410e497bd48ed1048c8880390d580b9b13ccdc2e9f650bf2dcdfe581e982e078`이다.
 독립 생성한 두 fixture hash와 실제 import 보고가 같다. API36/x86_64 기기 fingerprint는
 `google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys`다.
+
+## Linux filesystem ENOSPC 후속
+
+실제 Linux 8MiB tmpfs ENOSPC/WAL 검증과 controller activation 중복 수정의 최신 결과는
+[별도 보고서](M04_FILESYSTEM_ENOSPC.md) 및 [TESTING](TESTING.md)의 `ebee772` 결과를 따른다.
+이 문서의 page-limit 결과를 Android 실제 저장장치 ENOSPC로 확대하지 않는다.

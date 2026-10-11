@@ -28,7 +28,7 @@ Gradle cache/home은 원래 경로를 유지한다. namespace를 사용할 수 �
 `source /workspace/toolchains/mobile-env.sh` 뒤 `./scripts/enospc-check.sh`를 실행한다.
 별도 Kotlin `jvmEnospcTest` compilation/task이므로 일반 shared JVM 53개에 환경 의존 skip을 섞지 않는다.
 전용 3개 identity는 `scripts/required-tests.json`의 `shared-enospc`에서 필수 검사하며, 매번 실제 실행한다.
-GitHub build workflow도 이 명령을 필수 단계로 실행하고 원본 XML/로그를 업로드한다.
+GitHub build workflow는 기존 sudo 권한으로 같은 명령을 필수 실행하고 원본 XML/로그를 업로드한다.
 
 최신 판정은 [TESTING](TESTING.md)과 [증거](evidence/m04-enospc-validation/)를 따른다.
 최초 Gradle DSL 컴파일 오류 및 namespace root의 cache 경로 오류도 보존한다. 둘 다 제품 실패가 아닌
@@ -41,3 +41,20 @@ Android 내부 ext4/f2fs/OEM, 별도 rollback journal 모드, fsync 시점의 �
 새 프로세스 기동은 검증하지 않았다. 공간 확보 **후** DB 재개방이며 process-death 시험으로 부르지 않는다.
 이번 TXT는 test-owned 파일이며 Android SAF import/실제 Reader UI ENOSPC 시험으로 확대하지 않는다.
 M04는 IN_PROGRESS다. 다음은 SAFE-01 실제 Reader 조회 오류/재시도 UI 또는 실제 Android 저장장치 ENOSPC다.
+
+## `ebee772` 확정 결과와 회귀 수정
+
+local/remote 일반 단위 48/53과 ENOSPC 3개는 failure/error/skip 0으로 PASS다.
+각 ENOSPC fixture는 8,388,608 bytes 파일시스템에서 실제 errno 28을 받았으며,
+WAL 0 bytes/가용 공간 0에서 production writer가 code 13을 반환했다. record/file/reopen/retry 및 정리까지 통과했다.
+remote build [38129413116](https://github.com/LaceyLuv/BookreaderM/actions/runs/38129413116)의
+native XML과 cleanup exit 0을 [원본](evidence/m04-enospc-validation/remote-ebee772-build/)에 보존했다.
+
+같은 source actual API36 ordinary 27/외부 host 2 stages도 PASS다.
+이 과정의 이전 device 실행에서 REJECTED_STALE가 관측됐고, 중복 restoration callback이 activation을
+두 번 생성하는 경로를 단위 테스트에서 재현했다. controller는 진입 직렬화와 LAZY job의 선등록으로 보완했다.
+기존 DB stale 거부나 테스트 기준을 낮추지 않았다. raw만으로 특정 기기 interleaving을 단정하지 않는다.
+
+111개 검증 입력 drift 0, native schema bytes local/remote 동일이다.
+[summary](evidence/m04-enospc-validation/summary.json)는 이전 실패와 최종 source/입력 fingerprint/artifact hash/명령 결과를 보존한다.
+실제 Android ENOSPC/fsync/전원 차단은 여전히 NOT_RUN이다.

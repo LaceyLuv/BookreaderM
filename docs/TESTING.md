@@ -3,51 +3,72 @@
 2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
 
-## M04 activation 중복 및 ENOSPC harness 최종 보완 — 2026-10-11
+## M04 실제 ENOSPC 및 activation 중복 — 2026-10-11 최종
 
-`a3ee33b` actual ordinary는 27개 중 AndroidDatabaseOwnerTest 1개 FAIL(REJECTED_STALE), host NOT_RUN이다.
-raw XML/실패 stack/continuous·page-limit 보고서는 `remote-a3ee33b-device`에 보존했다.
-`7f7c46b` remote build는 일반 47/53 PASS이나 새 user namespace root가 runner private checkout에 접근하지
-못해 ENOSPC 명령 exit 1, 전용 테스트 0개다. 이 결과도 PASS로 바꾸지 않았다.
+source `ebee7723eed8c7ca487736af52570ae1cfd3d4ba`, 검증 입력 111개 fingerprint
+`112c4be06eba47de32ff750c02af7d909310a3bea3f7d3c33e560a528de669e5`, source drift 0이다.
+[summary](evidence/m04-enospc-validation/summary.json), [범위 보고서](M04_FILESYSTEM_ENOSPC.md)를 따른다.
 
-중복 복원 callback의 activation 2회 문제를 새 단위 테스트로 재현했다. 원본 native XML은
-`activation-before-fix`에 있으며 targeted command exit 1, expected 1 / actual 2다.
-restored 진입을 동기화하고 LAZY job을 등록한 뒤 시작하도록 수정했다.
-수정 후 같은 targeted command exit 0, full local CI Android unit 48/shared JVM 53 및 ENOSPC 3개 PASS다.
-관리자 CI는 mount namespace만 사용해 호스트 filesystem의 기존 접근 권한을 유지한다.
+| 검사 | 판정 | 증거/범위 |
+|---|---|---|
+| activation 단위 수정 전 | exit 1/FAIL | callback 중복에서 activation expected 1 / actual 2; `activation-before-fix/` |
+| 같은 회귀 수정 후 | exit 0/PASS | 정확히 1회 활성화·정상 epoch/offset 저장 |
+| full local CI | exit 0/PASS | Android unit 48/shared JVM 53, failure/error/skip 0, APK/schema PASS |
+| 실제 tmpfs ENOSPC local | exit 0/PASS | 별도 3개, 실제 errno 28·가용 공간 0·WAL FULL(13), record/file/retry/정리 |
+| remote build [38129413116](https://github.com/LaceyLuv/BookreaderM/actions/runs/38129413116) | PASS | native 48/53/3, artifact `11698451773`, schema local bytes 일치 |
+| actual API36 [38129413128](https://github.com/LaceyLuv/BookreaderM/actions/runs/38129413128) | exit 0/PASS | ordinary 27/host 2 stages, artifact `11698847810` |
 
-정확 명령(`source /workspace/toolchains/mobile-env.sh` 이후):
-
-```bash
-./gradlew --no-daemon --console=plain :androidApp:testDebugUnitTest --tests org.bookreader.mobile.reader.TxtReaderControllerTest.restorationCallbackDuringPendingActivationStartsOnlyOneSession
-./scripts/enospc-check.sh
-BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-enospc-validation/final-local-ci ./scripts/ci-check.sh
-```
-
-수정 후 모두 exit 0이다. 최종 원격 build/device는 새 source로 실행 예정이며 과거 PASS를 재사용하지 않는다.
-
-## M04 SAFE-07 실제 filesystem ENOSPC — 2026-10-11
-
-[범위 보고서](M04_FILESYSTEM_ENOSPC.md), [원본 증거](evidence/m04-enospc-validation/)를 따른다.
-local 전용 JVM 3개/일반 Android unit 47/shared JVM 53 PASS, 실패/오류/skip 0이다.
-8MiB tmpfs의 실제 errno 28·남은 공간 0과 SQLite FULL(13) 3건을 확인했다.
-검증 입력 111개 fingerprint는 `d144fb4b45108675f7a294d1c4173d6ae24ca68c4c09bbc7f6dfd557da2afec8`이다.
-원격 build/device는 새 source로 실행 예정이며 과거 PASS를 재사용하지 않는다.
-
-정확 명령(`source /workspace/toolchains/mobile-env.sh` 이후):
+정확 local 명령(`source /workspace/toolchains/mobile-env.sh` 이후):
 
 ```bash
 ./gradlew --no-daemon --console=plain :shared:tasks --all
+./gradlew --no-daemon --console=plain :androidApp:testDebugUnitTest --tests org.bookreader.mobile.reader.TxtReaderControllerTest.restorationCallbackDuringPendingActivationStartsOnlyOneSession
 ./scripts/enospc-check.sh
-BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-enospc-validation/local-ci ./scripts/ci-check.sh
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-enospc-validation/final-local-ci ./scripts/ci-check.sh
 bash -n scripts/enospc-check.sh
 ```
 
-최초 task discovery는 DSL receiver/불필요한 `!!`로 exit 1, 최초 namespace 실행은 root cache 경로로 exit 1이었다.
-수정 후 위 명령은 모두 exit 0이다. [commands.json](evidence/m04-enospc-validation/commands.json)에 원본 로그/exit를 보존했다.
-일반 `/workspace`를 지정한 filler는 할당 전에 exit 1로 거부하고 파일을 만들지 않는 guard도 확인했다.
-namespace가 없는 환경의 전용 검사는 exit 78/BLOCKED_ENV이며 skip/PASS로 대체하지 않는다.
-Android 실제 filesystem ENOSPC/전원 차단/fsync/rollback journal 및 신규 Astra 검토는 NOT_RUN이다.
+최종 명령은 모두 exit 0이다. 단위/ENOSPC local native는 `bacd79f`에서 실행했고, 이후 바뀐 검증 입력은 Android instrumentation test 한 파일뿐이다.
+`ebee772`의 test APK compile도 exit 0이며 최종 remote는 모든 검사를 다시 실행했다.
+첫 Gradle DSL/task discovery exit 1과 namespace root cache exit 1도 보존했다.
+일반 `/workspace`를 지정한 filler는 실제 할당 전에 exit 1로 거부하고 파일을 만들지 않았다.
+namespace가 없는 환경은 exit 78/BLOCKED_ENV이며 테스트 skip/PASS로 바꾸지 않는다.
+원격 Ubuntu는 아래 명령으로 private mount namespace를 만든다. 전역 sysctl/AppArmor는 변경하지 않는다.
+
+```bash
+export GRADLE_USER_HOME="$HOME/.gradle"
+sudo --preserve-env=HOME,JAVA_HOME,ANDROID_HOME,ANDROID_SDK_ROOT,PATH,GRADLE_USER_HOME ./scripts/enospc-check.sh
+# API36 emulator의 별도 job
+./scripts/device-check.sh
+python3 scripts/check-test-results.py shared-enospc docs/evidence/m04-enospc-validation/remote-ebee772-build/native-shared-enospc
+python3 scripts/check-test-results.py android-unit docs/evidence/m04-enospc-validation/remote-ebee772-build/native-android-unit
+python3 scripts/check-test-results.py shared-jvm docs/evidence/m04-enospc-validation/remote-ebee772-build/native-shared-jvm
+python3 scripts/check-test-results.py android-device docs/evidence/m04-enospc-validation/remote-ebee772-device/native-connected
+python3 scripts/check-test-results.py android-host docs/evidence/m04-enospc-validation/remote-ebee772-device/host-process-proof
+```
+
+모두 exit 0이다. 실제 XML/JSON, exact raw host stage, workflow SHA, archive SHA-256/서버 digest를 확인했다.
+host PID 5691→외부 force-stop→absent→cold 5739 및 마지막 commit offset 13285/epoch 1/sequence 3의
+cold 서재 Continue 복원을 확인했다.
+actual 60초 회귀는 60,067ms/60 commits,
+최대 관찰 공백 1,050ms다. SQL write-ack/실기기 성능 수치로 확대하지 않는다.
+기존 Reader page-limit FULL 오류 UI/기록·파일 보존/자동 retry도 PASS다. 이는 Android 실제 ENOSPC와 구분한다.
+
+### 보존한 원격 실패
+
+- `a3ee33b` build `38127759100`: 일반 47/53 PASS 후 uid_map 제한으로 ENOSPC exit 78/BLOCKED_ENV, 전용 실행 0개.
+- `7f7c46b` build `38128112864`: 일반 47/53 PASS 후 root user namespace의 private checkout 접근 실패 exit 1, 전용 실행 0개.
+- `a3ee33b` device `38127759101`: ordinary 27개 중 AndroidDatabaseOwnerTest 1개가 REJECTED_STALE로 FAIL. host NOT_RUN.
+  원본만으로 정확한 스케줄 순서를 단정하지 않는다. 조사에서 callback/job 등록 사이 activation 중복을 별도 단위 재현했다.
+- `bacd79f` build `38128654804`: 48/53/ENOSPC 3 PASS. device `38128654709`는 DB owner PASS지만 page-limit UI
+  측정 53 vs stableOffset 6625로 1개 FAIL, host NOT_RUN이다. 오류 배너의 viewport 변경/reflow가 끝난 뒤
+  독립 TextLayout 위치를 측정하도록 test 순서만 보완했다. expected를 controller 값으로 바꾸거나 assertion을 줄이지 않았다.
+
+각 원본 XML/로그/summary는 `remote-a3ee33b-{build,device}`, `remote-7f7c46b-build`, `remote-bacd79f-{build,device}`에 있다.
+최종 controller는 synchronized restored 진입과 LAZY job 등록 후 start를 사용하며 DB의 stale 거부 기준은 유지한다.
+[commands.json](evidence/m04-enospc-validation/commands.json)에 초기/최종 명령과 exit를 연결했다.
+**NOT_RUN:** Android ext4/f2fs ENOSPC, rollback journal 모드, fsync 장치 오류/전원 차단, full 상태 cold start,
+SAFE-01 실제 DB 조회 오류/재시도 UI, 실기기 성능 및 신규 Astra 검토. M04는 IN_PROGRESS다.
 
 ## M04 SAFE-07 native SQLite FULL — 2026-10-11
 
