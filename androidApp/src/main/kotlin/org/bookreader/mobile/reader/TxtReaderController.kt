@@ -3,6 +3,7 @@ package org.bookreader.mobile.reader
 import java.io.File
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
@@ -176,6 +177,7 @@ class TxtReaderController(
     }
 
     /** The screen calls this only after actual TextLayout measurement and canonical-anchor scroll. */
+    @Synchronized
     fun restored(generation: Int) {
         val before = mutableState.value
         if (before.restoreGeneration != generation || before.phase !in
@@ -183,7 +185,9 @@ class TxtReaderController(
         displayedGeneration = generation
         // Early prefix display is allowed; integrity/strict decoding must finish before durable writes.
         if (!before.cache.complete || restoringJob?.isActive == true) return
-        restoringJob = scope.launch {
+        // Claim activation before its body can run or another completion callback can enter.
+        // Lazy start also prevents an immediate/reentrant callback from observing a missing job.
+        restoringJob = scope.launch(start = CoroutineStart.LAZY) {
             if (session == null) {
                 val started = try {
                     progress.startReadySession(book.id, requireNotNull(book.currentRevision), originalLocator)
@@ -211,6 +215,7 @@ class TxtReaderController(
                 mutableState.update { it.copy(phase = TxtReaderPhase.READY) }
             }
         }
+        restoringJob?.start()
     }
 
     fun beginReflow() {

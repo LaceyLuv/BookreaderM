@@ -6,6 +6,15 @@ cd "$mobile_root"
 if [[ ${1:-} != --namespace ]]; then
   # Mapping this user to namespace root must not move the Gradle cache to /root.
   export GRADLE_USER_HOME="${GRADLE_USER_HOME:-$HOME/.gradle}"
+  if [[ $(id -u) == 0 ]]; then
+    # The CI administrator already has mount privileges. A user namespace would
+    # drop access to runner-owned private directories on the parent filesystem.
+    if ! unshare --mount true; then
+      printf 'BLOCKED_ENV: private mount namespace is required. exit=78\n' >&2
+      exit 78
+    fi
+    exec unshare --mount "$0" --namespace
+  fi
   if ! unshare --user --map-root-user --mount true; then
     printf 'BLOCKED_ENV: Linux user/mount namespaces are required. exit=78\n' >&2
     exit 78

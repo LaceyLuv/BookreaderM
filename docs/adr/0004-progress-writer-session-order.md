@@ -147,3 +147,10 @@ production WAL writer의 기존/첫 저장과 activation에서 code 13 및 전�
 환경 의존 검사는 별도 Kotlin compilation/필수 identity로 실행하며 namespace 부재는 BLOCKED_ENV다.
 기본 JVM suite의 skip으로 숨기거나 실제 Android storage/fsync/전원 차단 보증으로 확대하지 않는다.
 자세한 근거와 재현 명령은 [보고서](../M04_FILESYSTEM_ENOSPC.md), [TESTING](../TESTING.md)을 따른다.
+
+### 2026-10-11: restoration activation 등록의 원자성
+
+기기 DB owner 회귀의 REJECTED_STALE 조사에서 완료 callback이 job 대입 전에 겹치면 두 epoch를 만드는 경로를
+확인했다. 새 단위 테스트가 수정 전 activation 2회로 실패한다. restored() 진입을 직렬화하고 LAZY job을
+필드에 등록한 뒤 시작해 동시/즉시 재진입에서 기존 작업을 보게 한다. DB stale 거부 기준은 유지한다.
+기기 실패 raw만으로 특정 scheduling 순서를 확정하지 않으며 수정 후 원격 검증은 TESTING을 따른다.

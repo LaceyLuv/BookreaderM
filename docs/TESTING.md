@@ -3,6 +3,29 @@
 2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
 
+## M04 activation 중복 및 ENOSPC harness 최종 보완 — 2026-10-11
+
+`a3ee33b` actual ordinary는 27개 중 AndroidDatabaseOwnerTest 1개 FAIL(REJECTED_STALE), host NOT_RUN이다.
+raw XML/실패 stack/continuous·page-limit 보고서는 `remote-a3ee33b-device`에 보존했다.
+`7f7c46b` remote build는 일반 47/53 PASS이나 새 user namespace root가 runner private checkout에 접근하지
+못해 ENOSPC 명령 exit 1, 전용 테스트 0개다. 이 결과도 PASS로 바꾸지 않았다.
+
+중복 복원 callback의 activation 2회 문제를 새 단위 테스트로 재현했다. 원본 native XML은
+`activation-before-fix`에 있으며 targeted command exit 1, expected 1 / actual 2다.
+restored 진입을 동기화하고 LAZY job을 등록한 뒤 시작하도록 수정했다.
+수정 후 같은 targeted command exit 0, full local CI Android unit 48/shared JVM 53 및 ENOSPC 3개 PASS다.
+관리자 CI는 mount namespace만 사용해 호스트 filesystem의 기존 접근 권한을 유지한다.
+
+정확 명령(`source /workspace/toolchains/mobile-env.sh` 이후):
+
+```bash
+./gradlew --no-daemon --console=plain :androidApp:testDebugUnitTest --tests org.bookreader.mobile.reader.TxtReaderControllerTest.restorationCallbackDuringPendingActivationStartsOnlyOneSession
+./scripts/enospc-check.sh
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-enospc-validation/final-local-ci ./scripts/ci-check.sh
+```
+
+수정 후 모두 exit 0이다. 최종 원격 build/device는 새 source로 실행 예정이며 과거 PASS를 재사용하지 않는다.
+
 ## M04 SAFE-07 실제 filesystem ENOSPC — 2026-10-11
 
 [범위 보고서](M04_FILESYSTEM_ENOSPC.md), [원본 증거](evidence/m04-enospc-validation/)를 따른다.

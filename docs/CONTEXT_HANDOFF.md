@@ -1,5 +1,17 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
+## 2026-10-11 원격 회귀에서 발견한 activation 중복 후속
+
+ENOSPC 원격 검증 중 `a3ee33b` actual Android ordinary 27개 중 DB owner 1개가 REJECTED_STALE로 실패했다.
+host는 NOT_RUN이다. 조사에서 restoration callback이 activation 대기 중 겹치면 두 session을 만드는 경로를
+새 단위 테스트로 재현했다(수정 전 expected 1 / actual 2). restored() 진입 직렬화 및 lazy job 등록 후 시작으로
+보완했다. local Android unit 48/shared JVM 53/실제 tmpfs ENOSPC 3개 모두 PASS다.
+
+또한 `a3ee33b` CI는 uid_map 제한(exit 78), `7f7c46b` CI는 새 user namespace root의 private checkout 접근
+실패(exit 1)였다. 관리자 CI는 private mount namespace만 만들고, 비권한 local은 user+mount namespace를 사용한다.
+전역 sysctl/AppArmor는 변경하지 않는다. 최종 새 source의 원격 build/device는 실행 후 확정한다.
+원본 실패와 명령/exit는 [증거](evidence/m04-enospc-validation/) 및 TESTING/WORKLOG에 보존했다.
+
 ## 2026-10-11 SAFE-07 실제 filesystem ENOSPC 후속
 
 clean main `071e920`에서 별도 8MiB tmpfs와 production Room WAL writer를 사용하는 전용 JVM 3개를 추가했다.

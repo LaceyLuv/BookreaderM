@@ -32,6 +32,41 @@ import org.junit.rules.TemporaryFolder
 class TxtReaderControllerTest {
     @get:Rule val temporary = TemporaryFolder()
 
+    @Test fun restorationCallbackDuringPendingActivationStartsOnlyOneSession() = runBlocking {
+        val owner = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
+        val memory = MemoryProgress()
+        val allowActivation = CompletableDeferred<Unit>()
+        lateinit var active: TxtReaderController
+        val access = object : ReaderProgressAccess by memory {
+            override suspend fun startReadySession(bookId: String, revision: String,
+                restoredLocator: ContentLocator?): ReadySessionResult {
+                val started = memory.startReadySession(bookId, revision, restoredLocator)
+                // A repeated completion callback must not activate another epoch while this one waits.
+                if (memory.started == 1) active.restored(active.state.value.restoreGeneration)
+                allowActivation.await()
+                return started
+            }
+        }
+        active = controller(fixture(), access, owner)
+        try {
+            val restoring = await(active, TxtReaderPhase.RESTORING)
+            active.restored(restoring.restoreGeneration)
+            assertEquals(1, memory.started)
+            allowActivation.complete(Unit)
+            await(active, TxtReaderPhase.READY)
+            active.visibleAnchor(20, true)
+            active.flush()
+            assertEquals(1, memory.started)
+            assertEquals(1L, memory.events.single().session.sessionEpoch)
+            assertEquals(20L, offset(memory.events.single()))
+            assertFalse(active.state.value.saveError)
+        } finally {
+            allowActivation.complete(Unit)
+            active.close()
+            owner.cancel()
+        }
+    }
+
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test fun sixtySecondsOfUnsettledMovementSamplesEverySecondThenSettles() = runBlocking {
         val scheduler = TestCoroutineScheduler()

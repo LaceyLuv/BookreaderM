@@ -1,0 +1,17 @@
+build	Verify progress preservation under real filesystem ENOSPC	﻿2026-10-11T09:26:54.6205694Z ##[group]Run mkdir -p build/enospc-evidence
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6205915Z [36;1mmkdir -p build/enospc-evidence[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6206070Z [36;1mset -o pipefail[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6206258Z [36;1m# Ubuntu 24.04 restricts unprivileged uid_map writes. Keep the same[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6206528Z [36;1m# private user/mount namespace without changing host sysctl/AppArmor.[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6206754Z [36;1mexport GRADLE_USER_HOME="$HOME/.gradle"[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6207022Z [36;1msudo --preserve-env=HOME,JAVA_HOME,ANDROID_HOME,ANDROID_SDK_ROOT,PATH,GRADLE_USER_HOME \[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6207339Z [36;1m  ./scripts/enospc-check.sh 2>&1 | tee build/enospc-evidence/check.log[0m
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6260362Z shell: /usr/bin/bash -e {0}
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6260506Z env:
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6260675Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6260943Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6261213Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6261377Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6261531Z ##[endgroup]
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6463534Z ./scripts/enospc-check.sh: line 5: cd: /home/runner/work/BookreaderM/BookreaderM: Permission denied
+build	Verify progress preservation under real filesystem ENOSPC	2026-10-11T09:26:54.6486533Z ##[error]Process completed with exit code 1.

@@ -237,6 +237,10 @@ OS filesystem ENOSPC/WAL·journal 부족 검증을 완료했다고 확대하지 
 [범위 보고서](M04_FILESYSTEM_ENOSPC.md)처럼 기록/파일 보존 및 공간 확보 후 동일 요청 retry를 검사한다.
 Android 실제 저장장치/fsync/rollback journal과 SAFE-01 UI는 미완료다.
 
+**회귀 발견 후속:** `a3ee33b` actual DB owner 1개가 REJECTED_STALE로 FAIL했다(host NOT_RUN).
+중복 restoration callback이 epoch를 두 번 만드는 경로를 단위 테스트에서 재현해 진입 직렬화/LAZY job 등록으로
+보완했다. local 48/53 및 ENOSPC 3개 PASS, 최종 remote 검증 대기다. 원본 실패와 범위는 TESTING을 따른다.
+
 ## 구현 범위
 앱 수준 progress single writer, persisted sessionEpoch/sequence, 1초 sampling+250ms settled save, conditional transaction, flush barrier, 저장 실패 UI를 완성한다. 외부 host-driven 종료 테스트를 만든다.
 

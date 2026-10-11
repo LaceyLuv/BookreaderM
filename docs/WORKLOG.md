@@ -1032,3 +1032,21 @@ exit 78/BLOCKED_ENV다. workflow 전체는 failure이며 제품 기록 보존 �
 같은 private user/mount namespace 스크립트를 실행하도록 workflow를 보완했다. host sysctl/AppArmor는 변경하지 않는다.
 기존 HOME/JDK/SDK/Gradle cache 경로를 유지한다. 새 검증 source로 remote build를 다시 실행한다.
 앱/테스트/스크립트 바이트는 동일하며 CI 실행 권한 설정만 변경했다.
+
+### 실제 기기 회귀 실패와 activation 보완
+
+`a3ee33b` ordinary 27개 중 AndroidDatabaseOwnerTest가 REJECTED_STALE로 FAIL했다. 실제 host 단계는 시작하지
+않았으므로 NOT_RUN이다. 이력의 PASS를 덮어쓰거나 재실행만으로 실패를 숨기지 않았다. raw XML/stack과
+당시 continuous/page-limit report는 `remote-a3ee33b-device`에 보존했다.
+
+실제 코드를 조사해 restored()의 job 검사와 launch 대입 사이에 callback이 겹치면 activation이 중복되는 경로를
+발견했다. 새 deterministic 단위 회귀에서 expected 1/actual 2로 수정 전 실패했다. 기기 raw만으로 정확한
+스케줄 interleaving을 단정하지는 않는다. restored() 진입을 직렬화하고 LAZY job을 먼저 등록해 재진입/동시
+callback이 새 epoch를 추가로 만들지 않게 했다. 기존 owner 테스트/기준은 낮추지 않았다.
+수정 후 targeted exit 0, full local CI Android unit 48/shared JVM 53 및 실제 ENOSPC 3개 모두 PASS다.
+
+`7f7c46b` remote build는 일반 47/53 PASS 후 root user namespace의 checkout 접근 실패(exit 1)였다.
+관리자 경로에서는 global user identity를 유지한 채 mount namespace만 생성하게 수정했다.
+비권한 local 경로는 원래 user+mount namespace다. 전역 sysctl/AppArmor 변경은 없다.
+정확 명령/exit/native XML/새 입력 fingerprint는 TESTING 및 `source-activation-fix.json`을 따른다.
+새 source를 commit/push하고 remote build/device를 재검증한다. M04는 IN_PROGRESS다.

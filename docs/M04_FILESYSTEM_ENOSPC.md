@@ -1,7 +1,8 @@
 # M04 SAFE-07 — 실제 파일시스템 ENOSPC
 
 Linux의 별도 user/mount namespace 안에 새 8MiB tmpfs를 만들고, 그 안의 실제 Room/bundled SQLite WAL DB를
-검사한다. production writer·schema·UI는 변경하지 않는다. SQLite page 한도나 trigger, mock 예외를 사용하지 않는다.
+검사한다. ENOSPC fixture는 production writer·schema를 변경하지 않는다.
+기기 회귀에서 발견한 controller activation 중복은 별도 단위 재현 후 수정했다(TESTING 참조). SQLite page 한도나 trigger, mock 예외를 사용하지 않는다.
 기존 page-limit 검사와 Android 오류 UI 검증은 [별도 보고서](M04_SQLITE_FULL.md)의 당시 결과다.
 
 ## 실패와 복구 계약
@@ -19,8 +20,8 @@ Linux의 별도 user/mount namespace 안에 새 8MiB tmpfs를 만들고, 그 안
    재개방 뒤 성공 기록과 다른 책/파일 보존을 확인한다. 역방향 offset 80→10도 정상 저장되어야 한다.
 
 fixture마다 finally에서 filler 제거·DB close·자체 파일 정리를 수행한다. shell EXIT trap은 tmpfs를 unmount하고
-빈 mountpoint를 제거하며 정리 실패도 nonzero로 처리한다. namespace root 매핑에도 Gradle cache/home은 원래 사용자의
-경로를 유지한다. namespace를 사용할 수 없으면 exit 78/BLOCKED_ENV이며 PASS나 test skip으로 바꾸지 않는다.
+빈 mountpoint를 제거하며 정리 실패도 nonzero로 처리한다. 비권한 local은 user+mount namespace, 관리자 CI는 mount namespace만 사용한다.
+Gradle cache/home은 원래 경로를 유지한다. namespace를 사용할 수 없으면 exit 78/BLOCKED_ENV이며 PASS나 test skip으로 바꾸지 않는다.
 
 ## 실행과 증거
 

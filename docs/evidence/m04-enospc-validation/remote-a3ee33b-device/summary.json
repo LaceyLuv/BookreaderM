@@ -1,0 +1,22 @@
+{
+  "source_sha": "a3ee33b206634c726a1a636e2d6f4ffc6796a881",
+  "workflow_id": 38127759101,
+  "artifact_id": 11698775002,
+  "archive_sha256": "c8fcc579c3bf5fd5df7e7c5821f81a9a14080d56fd4b32d5fc561586db70b001",
+  "ordinary": {
+    "tests": 27,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "failed_cases": [
+    {
+      "classname": "org.bookreader.mobile.database.AndroidDatabaseOwnerTest",
+      "name": "concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave",
+      "failure": "java.lang.AssertionError: Save failure: ReaderFailureDiagnostic(stage=SAVE, resultCode=REJECTED_STALE, exceptionTypes=[], database=null)\nat org.junit.Assert.fail(Assert.java:89)\nat org.junit.Assert.assertTrue(Assert.java:42)\nat org.junit.Assert.assertFalse(Assert.java:65)\nat org.bookreader.mobile.database.AndroidDatabaseOwnerTest$concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave$1.invokeSuspend(AndroidDatabaseOwnerTest.kt:81)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)\nat kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)\nat kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)\nat kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)\nat kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)\nat org.bookreader.mobile.database.AndroidDatabaseOwnerTest.concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(AndroidDatabaseOwnerTest.kt:34)\n"
+    }
+  ],
+  "host_status": "NOT_RUN: ordinary instrumentation failed",
+  "continuous": "PASS",
+  "sqlite_page_limit_full": "PASS"
+}
