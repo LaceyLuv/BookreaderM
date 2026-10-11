@@ -119,7 +119,7 @@ public final class TestDocumentsProvider extends DocumentsProvider {
 
     private byte[] bytes(String id) {
         switch (id) {
-            case "reader-scroll": case "reader-host": case "reader-failure":
+            case "reader-scroll": case "reader-host": case "reader-failure": case "reader-continuous":
                 StringBuilder text = new StringBuilder();
                 for (int line = 0; line < 6000; line++) {
                     if (line != 0) text.append('\n');

@@ -220,6 +220,10 @@ REFLOWING 미커밋 flush 및 실기기 지연 수치는 미완료여서 M04 IN_
 UI 게시 Main 전환 후 `96c15aa` remote build(46/50)·actual ordinary 25/host 2 stages는 PASS다.
 raw PID 종료와 마지막 commit 복원까지 확인했다. 범위별 [SAFE matrix](M04_SAFETY_MATRIX.md)의 잔여 gate 때문에 IN_PROGRESS를 유지한다.
 
+**SAFE-09 후속:** 60초 가상 시간 controller sampling 검사와 실제 Reader 60초 gesture/Room observation 검사를 추가했다.
+local unit 47/shared JVM 50 및 test APK PASS이며 actual Android 결과는 대기 중이다.
+[측정 보고서](M04_COMMIT_LATENCY.md)는 관찰 간격과 SQL write-ack/실기기 성능을 구분한다.
+
 ## 구현 범위
 앱 수준 progress single writer, persisted sessionEpoch/sequence, 1초 sampling+250ms settled save, conditional transaction, flush barrier, 저장 실패 UI를 완성한다. 외부 host-driven 종료 테스트를 만든다.
 

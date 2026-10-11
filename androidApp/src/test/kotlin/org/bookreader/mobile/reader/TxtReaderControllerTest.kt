@@ -12,6 +12,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestCoroutineScheduler
 import org.bookreader.mobile.locator.ContentLocator
 import org.bookreader.mobile.locator.TxtLocator
 import org.bookreader.mobile.locator.TxtLocatorPayload
@@ -27,6 +31,55 @@ import org.junit.rules.TemporaryFolder
 
 class TxtReaderControllerTest {
     @get:Rule val temporary = TemporaryFolder()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test fun sixtySecondsOfUnsettledMovementSamplesEverySecondThenSettles() = runBlocking {
+        val scheduler = TestCoroutineScheduler()
+        val owner = CoroutineScope(SupervisorJob() + StandardTestDispatcher(scheduler))
+        val memory = MemoryProgress()
+        val committedAt = mutableListOf<Long>()
+        val access = object : ReaderProgressAccess by memory {
+            override suspend fun save(event: ProgressWriteEvent): ProgressWriteResult {
+                committedAt += scheduler.currentTime
+                return memory.save(event)
+            }
+        }
+        val controller = controller(fixture(), access, owner)
+        try {
+            // Cache IO is real; only after it completes do we advance virtual reader time.
+            withTimeout(10_000) {
+                while (controller.state.value.phase != TxtReaderPhase.RESTORING || !controller.state.value.cache.complete) {
+                    scheduler.runCurrent()
+                    delay(5)
+                }
+            }
+            controller.restored(controller.state.value.restoreGeneration)
+            scheduler.runCurrent()
+            assertEquals(TxtReaderPhase.READY, controller.state.value.phase)
+            repeat(600) { index ->
+                controller.visibleAnchor(100L + index % 500, true)
+                scheduler.advanceTimeBy(100)
+                scheduler.runCurrent()
+            }
+            // No 250ms quiet period occurred. Debounce-only saving must fail this assertion.
+            assertEquals((1L..60L).map { it * 1_000 }, committedAt)
+            assertEquals((1L..60L).toList(), memory.events.map { it.sequence })
+            assertEquals((1..60).map { 100L + (it * 10 - 1) % 500 }, memory.events.map(::offset))
+            controller.visibleAnchor(20, true)
+            scheduler.advanceTimeBy(249)
+            scheduler.runCurrent()
+            assertEquals(60, memory.events.size)
+            scheduler.advanceTimeBy(1)
+            scheduler.runCurrent()
+            assertEquals(60_250L, committedAt.last())
+            assertEquals(20L, offset(memory.events.last()))
+            assertEquals(61L, memory.events.last().sequence)
+        } finally {
+            owner.cancel()
+            scheduler.runCurrent()
+            controller.close()
+        }
+    }
 
     @Test fun reflowFlushCommitsPendingBackwardAnchorAndIgnoresTemporaryZero() = runBlocking {
         val access = MemoryProgress()

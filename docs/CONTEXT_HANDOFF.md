@@ -1,5 +1,13 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
 
+## 2026-10-11 SAFE-09 연속 이동 후속
+
+60초 가상 시간 controller regression과 실제 Reader 60초 pointer gesture/Room observation 검증을 추가했다.
+로컬 full CI는 Android unit 47/shared JVM 50 PASS, actual Android 실행은 결과 대기 중이다.
+최신 근거는 [TESTING](TESTING.md), [측정 계약](M04_COMMIT_LATENCY.md),
+[evidence](evidence/m04-continuous-validation/summary.json)에 있다. SAFE-09 완료 표시는 actual 결과 전까지 보류한다.
+SQL write-ack/실기기 p95·메모리, SAFE-07 disk-full, 전체 M04 및 신규 Astra 검토는 미완료다.
+
 ## 2026-10-11 DB 경쟁 및 host 준비 후속
 
 실제 파일 DB race 5개(지연 A→B/이전 세션/역방향 sequence/동시 duplicate/삭제 중·후 save)를 추가했다.

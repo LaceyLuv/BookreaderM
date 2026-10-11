@@ -3,6 +3,34 @@
 2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
 
+## M04 SAFE-09 연속 이동 — 2026-10-11
+
+`0a66be5` clean main에서 60초 controller/실제 Reader 검증을 추가했다.
+입력 fingerprint `d0bf070fa0e2cd318ef3946db01db752574a729be70dfff7a0dc584873d8ac4a`, drift 0이다.
+[summary](evidence/m04-continuous-validation/summary.json)와 [측정 계약](M04_COMMIT_LATENCY.md)을 따른다.
+
+| 실행 | 결과 | 범위 |
+|---|---|---|
+| controller 60초 단독 unit + Android test APK | PASS, exit 0 | 60초는 가상 시간; actual UI 실행 아님 |
+| full local CI | PASS, exit 0 | Android unit 47/shared JVM 50, failures/errors/skips 0, APK/schema PASS, lint 20 Hint |
+| 새 actual Android continuous touch/host | NOT_RUN | push 후 remote 결과 확인 예정 |
+| SQL write-ack latency 및 실기기 수치 | NOT_RUN | 관찰 간격과 구분 |
+
+`source /workspace/toolchains/mobile-env.sh` 이후 정확 명령:
+
+```bash
+./scripts/doctor.sh
+./gradlew --no-daemon --console=plain :androidApp:tasks --all
+./gradlew --no-daemon --console=plain :androidApp:testDebugUnitTest --tests org.bookreader.mobile.reader.TxtReaderControllerTest.sixtySecondsOfUnsettledMovementSamplesEverySecondThenSettles :androidApp:assembleDebugAndroidTest
+bash -n scripts/device-check.sh
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-continuous-validation/ci ./scripts/ci-check.sh
+```
+
+위 명령은 모두 exit 0이다. 최종 CI에는 unit 정리 단계의 cancellation drain 보완과 device report 수집까지 포함한다.
+새 native 필수 identity는 controller 60초 1개와 actual Reader 60초 1개다.
+device-check는 실패한 기기 테스트 뒤에도 생성된 report 수집을 시도하며 원래 connected exit를 보존한다.
+실제 테스트 통과 및 report status/기간/입력·commit 간격 검사 없이는 녹색으로 처리하지 않는다.
+
 ## M04 DB 경쟁·host 준비 경로 — 2026-10-11 후속
 
 `16e4615` 기준 working tree에서 실제 파일 Room DB 경쟁 5개와 import UI publisher-thread 회귀 1개를 추가했다.

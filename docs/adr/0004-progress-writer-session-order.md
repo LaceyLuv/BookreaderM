@@ -103,3 +103,14 @@ Main view 소유권은 별개다. UI 게시만 Main으로 옮기고 IO 및 suspe
 외부 host 2 stages를 통과했다. 원본 host는 PID 5640 종료/absent/cold PID 5688과 commit
 offset 11607/epoch 1/sequence 2 보존·서재 Continue 복원을 확인한다. `16e4615` prepare 실패 원본도 보존했다.
 이전 실패 경로 수정 후 이번 flow가 통과했다는 범위로 기록하며, 전체 M04 SAFE gate는 미완료다.
+
+
+## 2026-10-11 — SAFE-09 연속 이동 검증 계약
+
+60초 가상 시간에 100ms 간격 anchor를 주입하는 controller 회귀를 추가한다. 1초 sampling 60개와
+250ms settled save를 구분하여 debounce-only 구현이면 실패하게 한다.
+Android에서는 실제 pointer를 60초 이상 유지하는 Reader 회귀와 독립 Room observer를 사용한다.
+실제 입력 시각/측정 anchor/commit sequence를 fixture-only JSON에 기록한다.
+저장 SQL/앱 writer 구현은 변경하지 않는다. 입력 최대 공백 1초와 commit 관찰 최대 공백 5초는 emulator 검사 한도다.
+[측정 보고서](../M04_COMMIT_LATENCY.md)에 관찰 간격과 SQL acknowledgement latency의 차이,
+실기기 및 미측정 항목을 명시한다. 최종 결과는 TESTING/native XML/raw JSON을 따른다.

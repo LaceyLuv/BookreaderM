@@ -846,3 +846,29 @@ exact 실행/다운로드 후 verifier 명령은 TESTING에 있으며 모두 exi
 새 source의 실제 기기 host 회귀는 완료했으나 전체 SAFE/60초 연속 이동/실제 disk-full/실기기 latency와
 신규 Astra 최종 검토는 미완료다. 다음 우선 작업은 60초 주기 commit 또는 SAFE-07 실제 disk-full 검증이다.
 코드·문서 공백 검사는 evidence raw 로그를 제외하고 exit 0이며, raw Gradle/adb의 원래 공백은 유지한다.
+
+
+## 2026-10-11 — M04 SAFE-09 60초 연속 이동 검증
+
+시작 HEAD `0a66be5a4887ed19adf0bccb30561d2c41cd5168`, main/origin clean 및 상위 지침 부재를 확인했다.
+TASKS/SAFE matrix/인계와 controller sampler, Reader 실제 UI, TestDocumentsProvider, 기기 wrapper를 읽었다.
+공식 Compose UI Android 1.9.3 source JAR에서 SemanticsNode.positionOnScreen/size를 확인했고 URL/hash는
+`docs/evidence/m04-continuous-validation/compose-api.json`에 남겼다.
+
+controller unit은 실제 cache IO를 마친 뒤 60초 가상 시간의 100ms 이동을 주입한다. sampling 60회/정확 offset/sequence와
+그 뒤 250ms settled backward save를 확인한다. 테스트 소유 scope를 cancel/drain한 뒤 controller를 닫는다.
+actual Reader case는 자체 생성 reader-continuous 6,000행 TXT를 가져온 뒤 한 pointer를 60초 이상 유지하며
+2초마다 방향을 바꾼다. visibleAnchor/flush를 직접 호출하지 않고 실제 측정 anchor와 별도 Room observer를 기록한다.
+report에 fixture hash/bytes, device/API/ABI/app version, 입력/anchor/새 sequence 관찰 시각과 최종 위치를 남긴다.
+사용자 책/URI나 SQL ack latency로 확대하지 않는다. 구체 한도와 해석은 M04_COMMIT_LATENCY를 따른다.
+
+device-check는 연결 테스트 실패 때도 report 수집을 시도하되 원래 nonzero exit를 유지한다.
+새 native identity 2개를 manifest에 등록하고 raw JSON의 PASS/60초/입력 간격/commit 간격을 별도로 확인한다.
+기존 실패/과거 증거/README는 보존했다. 생산 앱/DB writer 코드 변경은 없다.
+
+변경 파일은 TxtReaderControllerTest, TxtReaderFlowTest, TestDocumentsProvider, scripts/device-check.sh,
+scripts/required-tests.json과 TASKS/TESTING/CONTEXT_HANDOFF/ADR-0004/WORKLOG/M04_COMMIT_LATENCY 및 evidence다.
+정확 실행 명령은 TESTING SAFE-09 절과 ci-check.log/ci/results.txt를 따른다. doctor/task discovery,
+단독 unit+test APK, bash -n, full CI 모두 exit 0이다. 최종 native unit 47/shared JVM 50, failures/errors/skips 0,
+lint 20 Hint 및 APK/schema PASS, source fingerprint d0bf070fa0e2cd318ef3946db01db752574a729be70dfff7a0dc584873d8ac4a,
+drift 0이다. actual 기기/host 검증은 push 후 확인한다. SQL latency/실기기 및 M04 잔여 gate는 NOT_RUN이다.

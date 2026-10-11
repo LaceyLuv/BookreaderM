@@ -74,11 +74,33 @@ if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
   test_arguments+=("-Pandroid.testInstrumentationRunnerArguments.captureFixtureScreenshots=true"
     "-Pandroid.testInstrumentationRunnerArguments.additionalTestOutputDir=$fixture_output")
 fi
+connected_exit=0
 run_logged connected-tests ./gradlew --no-daemon --console=plain --stacktrace \
   --rerun-tasks -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true \
-  "${test_arguments[@]}" :androidApp:connectedDebugAndroidTest
+  "${test_arguments[@]}" :androidApp:connectedDebugAndroidTest || connected_exit=$?
+# Preserve the generated measurement on assertion failure, without masking the test exit.
+report_exit=0
+run_logged continuous-progress-report adb shell run-as org.bookreader.mobile cat files/txt-continuous-report.json || report_exit=$?
+if (( connected_exit != 0 )); then exit "$connected_exit"; fi
+if (( report_exit != 0 )); then exit "$report_exit"; fi
 run_logged verified-test-results python3 scripts/check-test-results.py \
   android-device androidApp/build/outputs/androidTest-results/connected
+run_logged verified-continuous-progress python3 - "$evidence_dir/continuous-progress-report.log" <<'PY'
+from pathlib import Path
+import json
+import sys
+
+report = json.loads(Path(sys.argv[1]).read_text())
+assert report['status'] == 'PASS' and report['fixture_id'] == 'reader-continuous'
+assert report['movement_duration_ms'] >= 60_000
+assert report['max_input_gap_ms'] <= 1_000
+assert len(report['anchors']) >= 120 and len(report['commits']) >= 12
+assert report['max_observed_commit_gap_ms'] <= 5_000
+assert all(a['sequence'] < b['sequence'] for a, b in zip(report['commits'], report['commits'][1:]))
+print('PASS 60s actual touch with periodic Room observations; SQL write-ack/physical latency not measured')
+print(json.dumps({key: report[key] for key in ('movement_duration_ms', 'max_observed_commit_gap_ms',
+    'gesture_end_to_settled_observation_ms', 'final_sequence')}, sort_keys=True))
+PY
 # The excluded class is mandatory here: both exact methods execute around an
 # external adb force-stop, independent of JUnit method ordering.
 run_logged host-process-tests python3 scripts/reader-process-check.py "$evidence_dir/reader-host-process"
