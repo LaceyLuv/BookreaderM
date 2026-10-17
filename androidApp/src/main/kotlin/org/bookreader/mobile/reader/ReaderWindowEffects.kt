@@ -7,6 +7,8 @@ import android.content.pm.ActivityInfo
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -35,7 +37,7 @@ fun readerWindowEffects(options: ReaderWindowOptions): Boolean {
     if (activity == null) return touchExploration
     val window = activity.window
     val controller = remember(window, view) { WindowCompat.getInsetsController(window, view) }
-    val initial = remember(window) {
+    val initial = rememberSaveable(saver = WindowSnapshotSaver) {
         val insets = ViewCompat.getRootWindowInsets(view)
         WindowSnapshot(window.attributes.screenBrightness,
             window.attributes.flags and WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON != 0,
@@ -43,12 +45,19 @@ fun readerWindowEffects(options: ReaderWindowOptions): Boolean {
             insets?.isVisible(WindowInsetsCompat.Type.statusBars()) ?: true,
             insets?.isVisible(WindowInsetsCompat.Type.navigationBars()) ?: true)
     }
+    var ownsRotation by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(options, window) {
         window.attributes = window.attributes.apply { screenBrightness = options.brightness ?: WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE }
         if (options.keepScreenOn || initial.keepScreenOn) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         else window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        val orientation = if (options.lockRotation) ActivityInfo.SCREEN_ORIENTATION_LOCKED else initial.orientation
-        if (activity.requestedOrientation != orientation) activity.requestedOrientation = orientation
+        if (options.lockRotation) {
+            ownsRotation = true
+            if (activity.requestedOrientation != ActivityInfo.SCREEN_ORIENTATION_LOCKED)
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+        } else if (ownsRotation) {
+            if (activity.requestedOrientation != initial.orientation) activity.requestedOrientation = initial.orientation
+            ownsRotation = false
+        }
         if (options.fullscreen) {
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             controller.hide(WindowInsetsCompat.Type.systemBars())
@@ -63,7 +72,10 @@ fun readerWindowEffects(options: ReaderWindowOptions): Boolean {
             window.attributes = window.attributes.apply { screenBrightness = initial.brightness }
             if (initial.keepScreenOn) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             else window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            if (activity.requestedOrientation != initial.orientation) activity.requestedOrientation = initial.orientation
+            // Configuration replacement is still the same Reader. Restoring here would fight
+            // the new Activity's orientation request and lose the original unlocked baseline.
+            if (ownsRotation && !activity.isChangingConfigurations && activity.requestedOrientation != initial.orientation)
+                activity.requestedOrientation = initial.orientation
             controller.systemBarsBehavior = initial.barBehavior
             if (initial.statusVisible) controller.show(WindowInsetsCompat.Type.statusBars()) else controller.hide(WindowInsetsCompat.Type.statusBars())
             if (initial.navigationVisible) controller.show(WindowInsetsCompat.Type.navigationBars()) else controller.hide(WindowInsetsCompat.Type.navigationBars())
@@ -74,3 +86,8 @@ fun readerWindowEffects(options: ReaderWindowOptions): Boolean {
 
 private data class WindowSnapshot(val brightness: Float, val keepScreenOn: Boolean, val orientation: Int,
     val barBehavior: Int, val statusVisible: Boolean, val navigationVisible: Boolean)
+
+private val WindowSnapshotSaver = listSaver<WindowSnapshot, Any>(
+    save = { listOf(it.brightness, it.keepScreenOn, it.orientation, it.barBehavior, it.statusVisible, it.navigationVisible) },
+    restore = { WindowSnapshot(it[0] as Float, it[1] as Boolean, it[2] as Int, it[3] as Int, it[4] as Boolean, it[5] as Boolean) },
+)

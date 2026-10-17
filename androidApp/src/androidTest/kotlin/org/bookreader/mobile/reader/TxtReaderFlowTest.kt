@@ -1086,7 +1086,8 @@ class TxtReaderFlowTest {
             compose.onNodeWithTag("reader_settings").performClick()
             compose.onNodeWithTag("reader_mode_PAGES").performClick()
             compose.onNodeWithTag("reader_settings_apply").performClick()
-            waitFor("reader_ready")
+            compose.waitUntil(15_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
+                active.state.value.phase == TxtReaderPhase.READY }
             compose.onNodeWithTag("reader_next").assertIsEnabled()
             val pageAnchor = active.state.value.stableOffset
             compose.onNodeWithTag("reader_ready").performTouchInput {
@@ -1111,6 +1112,10 @@ class TxtReaderFlowTest {
                 assertTrue(compose.activity.window.attributes.flags and android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON != 0)
                 assertEquals(ActivityInfo.SCREEN_ORIENTATION_LOCKED, compose.activity.requestedOrientation)
             }
+            compose.activityRule.scenario.recreate()
+            waitFor("reader_ready")
+            assertSame(active, reader())
+            assertEquals(moved, active.state.value.stableOffset)
             compose.onNodeWithTag("reader_menu").performClick()
             compose.onNodeWithTag("reader_menu_exit").performScrollTo().performClick()
             waitFor("library_content")
