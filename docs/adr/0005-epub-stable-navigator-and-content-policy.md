@@ -50,7 +50,8 @@ CSP와 최종 manifest 권한, 실제 WebView attack fixture가 별도 gate다. 
 ## 결과·제약
 
 기본 SDK AAR/Locator compile, bounded ZIP 및 XML/CSP host unit 8개를 실행했다.
-실제 Android SAX 호환성, WebView engine/image/CSS/TOC/위치 복원 및 CSP violation event 검증은 준비 중이다.
+`46da7fa` API36에서 Android SAX, WebView engine/image/TOC/위치 복원 및 CSP violation event 3개는 PASS다.
+전체 suite의 M07 1 FAIL과 host NOT_RUN은 [보고서](../M01_EPUB_PROBE.md)에 구분했다. 검색 및 추가 attack 회귀는 후속이다.
 기기 실행 전 M01 또는 M08 완료로 올리지 않는다. Android host process-death, 더 넓은 정상 EPUB corpus,
 고급 SVG·font obfuscation, physical performance, SDK version 업그레이드 검증은 아직 완료되지 않았다.
 DTD·암호화/font obfuscation·고급 interactive 콘텐츠는 지원 불가로 거부한다.

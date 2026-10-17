@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.bookreader.mobile.repository.RoomProgressEnospcTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-17T06:10:46.954Z" hostname="runnervm8k3b6" time="0.402">
+  <properties/>
+  <testcase name="walFirstSaveRemainsMissingThenSameEventRetries" classname="org.bookreader.mobile.repository.RoomProgressEnospcTest" time="0.277"/>
+  <testcase name="walActivationPreservesEpochAndReadOrderThenRetries" classname="org.bookreader.mobile.repository.RoomProgressEnospcTest" time="0.065"/>
+  <testcase name="walUpdatePreservesRecordsAndFilesThenSameEventRetries" classname="org.bookreader.mobile.repository.RoomProgressEnospcTest" time="0.06"/>
+  <system-out><![CDATA[FIXTURE id=a bytes=2700 sha256=1dc18e7387d7c9ef2f8d0c3c683d3bf2a59918831d0e084efaadda2b943f17ae
+FIXTURE id=b bytes=2700 sha256=c9d8c8eefcc042989de2cc770a1e0ae7fad821a1755ad1445ef04e2958949a4a
+OS_ENOSPC {"errno": 28, "capacity_bytes": 8388608, "written_bytes": 8265728, "available_bytes": 0}
+WAL_BEFORE_FAILURE bytes=0 journal_mode=wal
+NATIVE_SQLITE_FULL code=13 stage=SAVE_COMMIT wal_bytes=0 available_bytes=0
+ENOSPC_PASS insert rollback=true reopened=true identical_event_retry=true files_preserved=true
+FIXTURE id=a bytes=2700 sha256=1dc18e7387d7c9ef2f8d0c3c683d3bf2a59918831d0e084efaadda2b943f17ae
+FIXTURE id=b bytes=2700 sha256=c9d8c8eefcc042989de2cc770a1e0ae7fad821a1755ad1445ef04e2958949a4a
+OS_ENOSPC {"errno": 28, "capacity_bytes": 8388608, "written_bytes": 8265728, "available_bytes": 0}
+WAL_BEFORE_FAILURE bytes=0 journal_mode=wal
+NATIVE_SQLITE_FULL code=13 stage=ACTIVATE wal_bytes=0 available_bytes=0
+ENOSPC_PASS activation rollback=true reopened=true activation_retry=true files_preserved=true
+FIXTURE id=a bytes=2700 sha256=1dc18e7387d7c9ef2f8d0c3c683d3bf2a59918831d0e084efaadda2b943f17ae
+FIXTURE id=b bytes=2700 sha256=c9d8c8eefcc042989de2cc770a1e0ae7fad821a1755ad1445ef04e2958949a4a
+OS_ENOSPC {"errno": 28, "capacity_bytes": 8388608, "written_bytes": 8265728, "available_bytes": 0}
+WAL_BEFORE_FAILURE bytes=0 journal_mode=wal
+NATIVE_SQLITE_FULL code=13 stage=SAVE_COMMIT wal_bytes=0 available_bytes=0
+ENOSPC_PASS update rollback=true reopened=true identical_event_retry=true files_preserved=true
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

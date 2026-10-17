@@ -1,0 +1,59 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080
+> Task :epubAndroid:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :epubAndroid:preBuild UP-TO-DATE
+> Task :epubAndroid:preDebugBuild UP-TO-DATE
+> Task :epubAndroid:generateDebugResValues UP-TO-DATE
+> Task :epubAndroid:generateDebugResources UP-TO-DATE
+> Task :epubAndroid:packageDebugResources UP-TO-DATE
+> Task :epubAndroid:parseDebugLocalResources UP-TO-DATE
+> Task :epubAndroid:generateDebugRFile UP-TO-DATE
+> Task :epubAndroid:javaPreCompileDebug UP-TO-DATE
+> Task :epubAndroid:preDebugUnitTestBuild UP-TO-DATE
+> Task :epubAndroid:generateDebugUnitTestStubRFile UP-TO-DATE
+> Task :epubAndroid:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :epubAndroid:mergeDebugJniLibFolders UP-TO-DATE
+> Task :epubAndroid:mergeDebugNativeLibs NO-SOURCE
+> Task :epubAndroid:stripDebugDebugSymbols NO-SOURCE
+> Task :epubAndroid:copyDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :epubAndroid:extractDeepLinksForAarDebug UP-TO-DATE
+> Task :epubAndroid:mergeDebugShaders UP-TO-DATE
+> Task :epubAndroid:compileDebugShaders NO-SOURCE
+> Task :epubAndroid:generateDebugAssets UP-TO-DATE
+> Task :epubAndroid:mergeDebugAssets UP-TO-DATE
+> Task :epubAndroid:prepareDebugArtProfile UP-TO-DATE
+> Task :epubAndroid:prepareLintJarForPublish UP-TO-DATE
+> Task :epubAndroid:processDebugManifest UP-TO-DATE
+> Task :epubAndroid:writeDebugAarMetadata UP-TO-DATE
+
+> Task :epubAndroid:compileDebugKotlin FAILED
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:6:8 Unresolved reference 'kotlinx'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:7:8 Unresolved reference 'kotlinx'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:8:8 Unresolved reference 'kotlinx'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:9:8 Unresolved reference 'kotlinx'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:10:8 Unresolved reference 'kotlinx'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:28:49 Unresolved reference 'withContext'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:28:61 Unresolved reference 'Dispatchers'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:29:23 Unresolved reference 'currentCoroutineContext'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:48:63 Suspension functions can only be called within coroutine body.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:65:55 This is an internal API that should not be used outside of Readium modules. No compatibility guarantees are provided.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:69:13 Unresolved reference 'withContext'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:69:25 Unresolved reference 'Dispatchers'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:71:21 Unresolved reference 'currentCoroutineContext'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:76:37 Unresolved reference 'CancellationException'.
+e: file:///workspace/bookreader-mobile-epub/epubAndroid/src/main/kotlin/org/bookreader/mobile/epub/SafeEpub.kt:76:68 Type mismatch: inferred type is 'ERROR CLASS: Symbol not found for CancellationException', but 'Throwable' was expected.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':epubAndroid:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1s
+18 actionable tasks: 1 executed, 17 up-to-date
