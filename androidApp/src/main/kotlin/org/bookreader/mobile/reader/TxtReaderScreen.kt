@@ -3,6 +3,8 @@ package org.bookreader.mobile.reader
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -215,8 +217,13 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                             catch (cancelled: CancellationException) { throw cancelled }
                             catch (_: Exception) { controller.contentReadFailed() }
                         }
-                        text?.let {
-                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(it, style = typography,
+                        if (text == null) {
+                            // A zero-height unloaded item lets LazyColumn collapse a far seek back
+                            // toward the old viewport before its asynchronous text arrives. Keep
+                            // the requested item measurable and visible until its real layout exists.
+                            Spacer(Modifier.fillMaxWidth().height(with(density) { maxOf(1, viewport.height).toDp() }))
+                        } else {
+                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(requireNotNull(text), style = typography,
                                 onTextLayout = { result -> layouts[index] = result },
                                 modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index")) } }
                         }

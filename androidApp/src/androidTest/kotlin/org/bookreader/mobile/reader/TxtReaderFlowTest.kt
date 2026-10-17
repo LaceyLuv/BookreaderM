@@ -1142,6 +1142,24 @@ class TxtReaderFlowTest {
         } finally { restoreReaderGlobalSettings(originalSettings) }
     }
 
+    @Test fun sliderSeeksRestoreUncomposedDistantScrollFragmentsInBothDirections() {
+        sendFixture("reader-pages")
+        waitFor("reader_ready")
+        val active = reader()
+        compose.onNodeWithTag("reader_menu").performClick()
+        for (fraction in listOf(.7f, .1f, .9f, .3f, .8f, .2f)) {
+            compose.onNodeWithTag("reader_seek").performSemanticsAction(SemanticsActions.SetProgress) { assertTrue(it(fraction)) }
+            val expected = (active.state.value.cache.committedLength * fraction.toDouble()).toLong()
+            compose.waitUntil(15_000) { active.state.value.let {
+                it.phase == TxtReaderPhase.READY && kotlin.math.abs((it.stableOffset ?: -1000) - expected) < 10
+            } }
+            val accepted = requireNotNull(active.state.value.stableOffset)
+            compose.waitUntil(10_000) { saved(active.book)?.let { offset(it) == accepted } == true }
+            assertAnchorInFirstMeasuredLine(active, accepted)
+        }
+        compose.onNodeWithTag("reader_menu_close").performClick()
+    }
+
     @Test fun readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor() {
         val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
         val originalScale = uiShell("settings get system font_scale").trim().toFloatOrNull()
