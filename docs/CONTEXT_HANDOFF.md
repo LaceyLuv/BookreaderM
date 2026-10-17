@@ -1,5 +1,13 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## 2026-10-17 main EPUB 제품 통합 — 최신
+
+main `22526d3`에 검증된 EPUB 제품 연결을 fast-forward로 반영했다. native API36 **52 cases + 기존 TXT 외부 host 2 stages PASS**, skip/failure/error 0이며 [원본](evidence/m01-epub-validation/remote-22526d3-device/)을 보존했다. `14c8c42`의 commit acknowledgement 보호도 native 49/host 2 PASS다. [EPUB 제품 보고서](M08_EPUB_PRODUCT.md)를 따른다.
+
+Comic은 `/workspace/bookreader-mobile-comic-product`에서 진행한다. `207d2a1` 52개 중 51 PASS/1 회전 baseline FAIL을 확인했다. 스크롤 안정화 후 비교하도록 교정했고, 연속 이미지 확대 화면·핀치/RTL·실제 검색 문단 viewport 확인과 EPUB/Comic 각각의 외부 host 2단계를 추가했다. `361b3f9` 및 `964f8cc` 원격 검증 중이며 후속 resource/UI bounds를 점검하고 있다. 이전 worktree와 실패 원본을 삭제하지 않는다.
+
+`14a79be` unsigned release APK/AAB가 빌드됐고 APK 정적 감사 PASS다. 실제 서명·배포·물리 성능·16KB 기기·TalkBack 및 독립 신규 review는 NOT_RUN이다. M04–M11 전체/출시 gate를 완료로 올리지 않고 남은 계획을 계속 진행한다.
+
 ## 2026-10-17 M07 후속 및 EPUB/Comic 제품 브랜치
 
 - main `7eaa0f5`: 먼 TXT seek placeholder 보완, Reader composition 소유권, 복원 scrollToItem의 명시적 Main 복귀, 실제 bounded EPUB 검색 hook 및 1080×1600 Comic 100장 fixture. local APK/lint/관련 unit PASS. main 원격 build PASS, device 39013554915 실행 중.
