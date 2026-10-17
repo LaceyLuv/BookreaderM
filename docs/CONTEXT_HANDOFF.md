@@ -1,5 +1,14 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## 2026-10-17 M07 후속 및 EPUB/Comic 제품 브랜치
+
+- main `7eaa0f5`: 먼 TXT seek placeholder 보완, Reader composition 소유권, 복원 scrollToItem의 명시적 Main 복귀, 실제 bounded EPUB 검색 hook 및 1080×1600 Comic 100장 fixture. local APK/lint/관련 unit PASS. main 원격 build PASS, device 39013554915 실행 중.
+- `f7483e6` actual API36 49개 중 46 PASS/3 FAIL. M07 메뉴와 6회 왕복 seek는 PASS. EPUB search service 미적용·DocumentsUI 항목 실패·IO snapshot 경로의 UI 재측정 오류는 원본 보존했다. 새 수정의 전체 native PASS/host PASS를 아직 주장하지 않는다.
+- `/workspace/bookreader-mobile-reader`, `codex/archive-reader`의 `eb73378`: 제품 EPUB import/Fragment host/설정/TOC/search/bookmark/복원 연결. bcc2081 local full CI 64 Android unit/71 shared/13 EPUB와 remote build PASS. native 39013633781 및 후속 39014076167은 실행 중. 아직 main 제품 기능 아님.
+- `/workspace/bookreader-mobile-comic-product`, `codex/comic-product`의 `207d2a1`: Comic 제품 import/단일·연속·웹툰 preset/방향·핏/zoom/북마크/위치 연결. local Android unit 64/shared 72, APK/test APK/lint PASS. native 39014175686 실행 중. 연속 보기 pinch UX·추가 SAFE 및 실제 복원 검증은 계속 필요하다. 아직 main 제품 기능 아님.
+- [APK 정적 감사](M10_PACKAGE_AUDIT.md)는 위 브랜치의 정확 APK hash/4 ABI/ELF·ZIP 16KB/manifest 검사를 구분한다. 물리 16KB 기기·성능·TalkBack·release/서명·전체 P0는 NOT_RUN이며 M10/M11 완료가 아니다.
+- 남은 전체 계획 진행 목표는 계속 유효하다. 실패/원본 evidence 및 모든 기존 worktree를 보존하고 결과를 확인한 뒤 main에 검증된 변경을 통합한다.
+
 ## 2026-10-17 archive 진행도·bounded SDK 검색 기반
 
 main `6ee9d4f`까지 local full CI Android 64/shared 71/archive·EPUB·Comic 13 PASS다.

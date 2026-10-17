@@ -1,0 +1,237 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :shared:preBuild UP-TO-DATE
+> Task :epubAndroid:preBuild UP-TO-DATE
+> Task :epubAndroid:preDebugBuild UP-TO-DATE
+> Task :shared:preDebugBuild UP-TO-DATE
+> Task :shared:generateDebugResValues
+> Task :shared:writeDebugAarMetadata
+> Task :shared:generateDebugResources
+> Task :shared:packageDebugResources
+> Task :shared:extractDeepLinksDebug
+> Task :shared:processDebugManifest
+> Task :epubAndroid:generateDebugResValues
+> Task :epubAndroid:generateDebugResources
+> Task :epubAndroid:packageDebugResources
+> Task :epubAndroid:extractDeepLinksDebug
+> Task :epubAndroid:writeDebugAarMetadata
+> Task :epubAndroid:processDebugManifest
+> Task :shared:compileDebugLibraryResources
+> Task :epubAndroid:compileDebugLibraryResources
+> Task :androidApp:preBuild UP-TO-DATE
+> Task :androidApp:preDebugBuild UP-TO-DATE
+> Task :androidApp:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :androidApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :epubAndroid:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :epubAndroid:javaPreCompileDebug
+> Task :epubAndroid:parseDebugLocalResources
+> Task :shared:parseDebugLocalResources
+> Task :epubAndroid:mergeDebugShaders
+> Task :epubAndroid:compileDebugShaders NO-SOURCE
+> Task :epubAndroid:generateDebugAssets UP-TO-DATE
+> Task :epubAndroid:generateDebugRFile
+> Task :epubAndroid:mergeDebugAssets
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:generateDebugRFile
+> Task :shared:javaPreCompileDebug
+> Task :androidApp:checkDebugAarMetadata
+> Task :androidApp:generateDebugResValues
+> Task :androidApp:mapDebugSourceSetPaths
+> Task :androidApp:generateDebugResources
+> Task :androidApp:mergeDebugResources
+> Task :androidApp:packageDebugResources
+> Task :androidApp:parseDebugLocalResources
+> Task :androidApp:createDebugCompatibleScreenManifests
+> Task :androidApp:extractDeepLinksDebug
+> Task :shared:kspDebugKotlinAndroid
+> Task :androidApp:processDebugMainManifest
+> Task :androidApp:processDebugManifest
+> Task :androidApp:processDebugManifestForPackage
+> Task :shared:kspKotlinJvm
+> Task :epubAndroid:mergeDebugJniLibFolders
+> Task :epubAndroid:mergeDebugNativeLibs NO-SOURCE
+> Task :epubAndroid:copyDebugJniLibsProjectOnly
+> Task :epubAndroid:stripDebugDebugSymbols NO-SOURCE
+> Task :epubAndroid:copyDebugJniLibsProjectAndLocalJars
+> Task :epubAndroid:extractDeepLinksForAarDebug
+> Task :epubAndroid:prepareDebugArtProfile
+> Task :epubAndroid:prepareLintJarForPublish
+> Task :epubAndroid:writeDebugLintModelMetadata
+> Task :epubAndroid:extractProguardFiles
+> Task :androidApp:javaPreCompileDebug
+> Task :androidApp:mergeDebugShaders
+> Task :androidApp:compileDebugShaders NO-SOURCE
+> Task :androidApp:generateDebugAssets UP-TO-DATE
+> Task :androidApp:processDebugResources
+> Task :androidApp:desugarDebugFileDependencies
+> Task :androidApp:l8DexDesugarLibDebug
+> Task :shared:jvmProcessResources NO-SOURCE
+> Task :shared:processJvmMainResources SKIPPED
+> Task :shared:mergeDebugShaders
+> Task :shared:compileDebugShaders NO-SOURCE
+> Task :shared:debugAssetsCopyForAGP NO-SOURCE
+> Task :shared:generateDebugAssets UP-TO-DATE
+> Task :shared:mergeDebugAssets
+> Task :androidApp:mergeDebugAssets
+> Task :androidApp:compressDebugAssets
+> Task :epubAndroid:compileDebugKotlin
+> Task :androidApp:checkDebugDuplicateClasses
+> Task :epubAndroid:compileDebugJavaWithJavac NO-SOURCE
+
+> Task :shared:compileKotlinJvm
+w: file:///home/runner/work/BookreaderM/BookreaderM/shared/build/generated/ksp/jvm/jvmMain/kotlin/org/bookreader/mobile/database/BookReaderDatabaseConstructor.kt:5:8 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///home/runner/work/BookreaderM/BookreaderM/shared/src/commonMain/kotlin/org/bookreader/mobile/database/BookReaderDatabase.kt:58:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileDebugKotlinAndroid
+w: file:///home/runner/work/BookreaderM/BookreaderM/shared/build/generated/ksp/android/androidDebug/kotlin/org/bookreader/mobile/database/BookReaderDatabaseConstructor.kt:5:8 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///home/runner/work/BookreaderM/BookreaderM/shared/src/commonMain/kotlin/org/bookreader/mobile/database/BookReaderDatabase.kt:58:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileJvmMainJava NO-SOURCE
+> Task :shared:jvmMainClasses
+> Task :shared:kspTestKotlinJvm SKIPPED
+> Task :epubAndroid:bundleLibCompileToJarDebug
+> Task :epubAndroid:processDebugJavaRes
+> Task :shared:compileDebugJavaWithJavac NO-SOURCE
+> Task :shared:copyRoomSchemas NO-SOURCE
+> Task :epubAndroid:bundleLibRuntimeToJarDebug
+> Task :shared:bundleLibRuntimeToJarDebug
+> Task :shared:processDebugJavaRes
+> Task :androidApp:mergeExtDexDebug
+> Task :epubAndroid:bundleLibRuntimeToDirDebug
+> Task :shared:bundleLibCompileToJarDebug
+> Task :shared:bundleLibRuntimeToDirDebug
+> Task :shared:mergeDebugJniLibFolders
+> Task :shared:mergeDebugNativeLibs NO-SOURCE
+> Task :shared:copyDebugJniLibsProjectOnly
+> Task :shared:stripDebugDebugSymbols NO-SOURCE
+> Task :shared:copyDebugJniLibsProjectAndLocalJars
+> Task :epubAndroid:extractDebugAnnotations
+> Task :androidApp:mergeDebugJniLibFolders
+> Task :shared:extractDebugAnnotations
+> Task :androidApp:mergeDebugNativeLibs
+
+> Task :androidApp:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libsqliteJni.so. Run with --info option to learn more.
+
+> Task :androidApp:validateSigningDebug
+> Task :androidApp:writeDebugAppMetadata
+> Task :androidApp:writeDebugSigningConfigVersions
+> Task :shared:extractDeepLinksForAarDebug
+> Task :shared:mergeDebugGeneratedProguardFiles
+> Task :shared:mergeDebugConsumerProguardFiles
+> Task :shared:prepareDebugArtProfile
+> Task :shared:prepareLintJarForPublish
+> Task :shared:mergeDebugJavaResource
+> Task :shared:syncDebugLibJars
+> Task :epubAndroid:mergeDebugGeneratedProguardFiles
+> Task :epubAndroid:mergeDebugConsumerProguardFiles
+> Task :epubAndroid:mergeDebugJavaResource
+> Task :shared:bundleDebugLocalLintAar
+> Task :epubAndroid:syncDebugLibJars
+> Task :androidApp:preDebugAndroidTestBuild SKIPPED
+> Task :androidApp:generateDebugAndroidTestResValues
+> Task :epubAndroid:bundleDebugLocalLintAar
+> Task :shared:createFullJarDebug
+> Task :shared:writeDebugLintModelMetadata
+> Task :epubAndroid:createFullJarDebug
+> Task :androidApp:extractProguardFiles
+> Task :shared:extractProguardFiles
+> Task :androidApp:mergeLibDexDebug
+> Task :androidApp:preDebugUnitTestBuild UP-TO-DATE
+> Task :androidApp:javaPreCompileDebugUnitTest
+> Task :shared:generateDebugLintModel
+> Task :epubAndroid:generateDebugLintModel
+> Task :androidApp:checkDebugAndroidTestAarMetadata
+> Task :epubAndroid:preDebugAndroidTestBuild UP-TO-DATE
+> Task :epubAndroid:generateDebugAndroidTestResValues
+> Task :epubAndroid:generateDebugAndroidTestLintModel
+> Task :epubAndroid:preDebugUnitTestBuild UP-TO-DATE
+> Task :epubAndroid:generateDebugUnitTestLintModel
+> Task :epubAndroid:lintAnalyzeDebugAndroidTest
+> Task :androidApp:compileDebugKotlin
+> Task :androidApp:compileDebugJavaWithJavac NO-SOURCE
+> Task :epubAndroid:lintAnalyzeDebugUnitTest
+> Task :shared:preDebugAndroidTestBuild UP-TO-DATE
+> Task :shared:generateDebugAndroidTestResValues
+> Task :shared:generateDebugAndroidTestLintModel
+> Task :shared:preDebugUnitTestBuild UP-TO-DATE
+> Task :shared:generateDebugUnitTestLintModel
+> Task :androidApp:dexBuilderDebug
+> Task :androidApp:mergeDebugGlobalSynthetics
+> Task :androidApp:processDebugJavaRes
+> Task :shared:lintAnalyzeDebugAndroidTest
+> Task :androidApp:mergeDebugJavaResource
+> Task :androidApp:mergeProjectDexDebug
+> Task :shared:lintAnalyzeDebugUnitTest
+> Task :androidApp:bundleDebugClassesToCompileJar
+> Task :androidApp:generateDebugAndroidTestLintModel
+> Task :androidApp:generateDebugLintReportModel
+> Task :androidApp:packageDebug
+> Task :androidApp:createDebugApkListingFileRedirect
+> Task :androidApp:assembleDebug
+> Task :androidApp:generateDebugUnitTestLintModel
+> Task :shared:jvmJar
+> Task :shared:lintAnalyzeDebug
+> Task :androidApp:bundleDebugClassesToRuntimeJar
+> Task :androidApp:compileDebugUnitTestKotlin
+> Task :androidApp:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :androidApp:processDebugUnitTestJavaRes
+> Task :epubAndroid:lintAnalyzeDebug
+> Task :shared:compileTestKotlinJvm
+> Task :shared:compileJvmTestJava NO-SOURCE
+> Task :shared:jvmTestProcessResources NO-SOURCE
+> Task :shared:processJvmTestResources SKIPPED
+> Task :shared:jvmTestClasses
+> Task :androidApp:testDebugUnitTest
+> Task :shared:jvmTest
+> Task :androidApp:mapDebugAndroidTestSourceSetPaths
+> Task :androidApp:generateDebugAndroidTestResources
+> Task :androidApp:lintAnalyzeDebugUnitTest
+> Task :epubAndroid:generateDebugUnitTestStubRFile
+> Task :androidApp:mergeDebugAndroidTestResources
+> Task :androidApp:processDebugAndroidTestManifest
+> Task :androidApp:processDebugAndroidTestResources
+> Task :epubAndroid:compileDebugUnitTestKotlin
+> Task :androidApp:javaPreCompileDebugAndroidTest
+> Task :androidApp:mergeDebugAndroidTestShaders
+> Task :androidApp:compileDebugAndroidTestShaders NO-SOURCE
+> Task :androidApp:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :androidApp:mergeDebugAndroidTestAssets
+> Task :androidApp:compressDebugAndroidTestAssets
+> Task :androidApp:desugarDebugAndroidTestFileDependencies
+> Task :androidApp:checkDebugAndroidTestDuplicateClasses
+> Task :androidApp:lintAnalyzeDebugAndroidTest
+> Task :androidApp:mergeExtDexDebugAndroidTest
+> Task :androidApp:mergeLibDexDebugAndroidTest
+> Task :androidApp:mergeDebugAndroidTestJniLibFolders
+> Task :androidApp:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :androidApp:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :androidApp:validateSigningDebugAndroidTest
+> Task :androidApp:writeDebugAndroidTestSigningConfigVersions
+> Task :epubAndroid:javaPreCompileDebugUnitTest
+> Task :epubAndroid:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :epubAndroid:processDebugUnitTestJavaRes
+> Task :epubAndroid:testDebugUnitTest
+
+> Task :androidApp:compileDebugAndroidTestKotlin
+w: file:///home/runner/work/BookreaderM/BookreaderM/androidApp/src/androidTest/kotlin/org/bookreader/mobile/epub/EpubProbeTest.kt:78:45 This API is still experimental. It might change in the future without notice.
+
+> Task :epubAndroid:generateDebugLintReportModel
+> Task :epubAndroid:lintReportDebug
+> Task :epubAndroid:lintDebug
+> Task :androidApp:compileDebugAndroidTestJavaWithJavac
+> Task :androidApp:dexBuilderDebugAndroidTest
+> Task :androidApp:mergeDebugAndroidTestGlobalSynthetics
+> Task :androidApp:processDebugAndroidTestJavaRes
+> Task :androidApp:mergeProjectDexDebugAndroidTest
+> Task :androidApp:mergeDebugAndroidTestJavaResource
+> Task :androidApp:packageDebugAndroidTest
+> Task :androidApp:createDebugAndroidTestApkListingFileRedirect
+> Task :androidApp:assembleDebugAndroidTest
+> Task :androidApp:lintAnalyzeDebug
+> Task :androidApp:lintReportDebug
+> Task :androidApp:lintDebug
+
+BUILD SUCCESSFUL in 3m 1s
+171 actionable tasks: 171 executed

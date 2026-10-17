@@ -110,11 +110,14 @@ class ArchiveProgressController(val book: Book, private val progress: ReaderProg
         // Only READY user input can populate pending. Preserve it through renderer errors/close.
         if (anchor == committed) return@withLock
         val event = ProgressWriteEvent(captured, ++sequence, anchor.locator, anchor.percent)
+        // Do not abandon a successful DB acknowledgement when a newer settling job cancels us.
+        withContext(NonCancellable) {
         val result = try { progress.save(event) }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { ProgressWriteResult.Error(ProgressErrorCode.DATABASE_UNAVAILABLE) }
         if (result == ProgressWriteResult.Committed) committed = anchor
         mutableState.update { it.copy(saveError = result != ProgressWriteResult.Committed) }
+        }
     }
 
     suspend fun flush() {

@@ -272,6 +272,35 @@ class TxtReaderControllerTest {
         } finally { release.complete(Unit); controller.close() }
     }
 
+    @Test fun reflowCancellationAfterCommitWaitsForAcknowledgementWithoutDuplicateWrite() = runBlocking {
+        val memory = MemoryProgress()
+        val committed = CompletableDeferred<Unit>()
+        val acknowledgement = CompletableDeferred<Unit>()
+        val access = object : ReaderProgressAccess by memory {
+            override suspend fun save(event: ProgressWriteEvent): ProgressWriteResult {
+                val result = memory.save(event)
+                if (!committed.isCompleted) { committed.complete(Unit); acknowledgement.await() }
+                return result
+            }
+        }
+        val active = controller(fixture(), access)
+        try {
+            active.restored(await(active, TxtReaderPhase.RESTORING).restoreGeneration)
+            await(active, TxtReaderPhase.READY)
+            active.visibleAnchor(20, true)
+            withTimeout(3_000) { committed.await() }
+            // The transaction is committed, but its acknowledgement has not reached the owner.
+            active.beginReflow()
+            acknowledgement.complete(Unit)
+            withTimeout(3_000) { active.flush() }
+            active.restored(active.state.value.restoreGeneration)
+            await(active, TxtReaderPhase.READY)
+            active.flush()
+            assertEquals(1, memory.events.size)
+            assertEquals(20L, offset(memory.events.single()))
+        } finally { acknowledgement.complete(Unit); active.close() }
+    }
+
     @Test fun reflowWithoutUserMovementNeverCreatesProgress() = runBlocking {
         val access = MemoryProgress()
         val controller = controller(fixture(), access, this)
