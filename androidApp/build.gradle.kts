@@ -31,6 +31,7 @@ kotlin {
     compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
 }
 dependencies {
+    implementation(libs.kotlinx.serialization.json)
     implementation(project(":shared"))
     debugImplementation(project(":epubAndroid"))
     debugImplementation(libs.androidx.fragment.ktx)
