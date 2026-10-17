@@ -1081,9 +1081,18 @@ class TxtReaderFlowTest {
             assertEquals(before, saved(book))
             assertEquals(offset(before), active.state.value.stableOffset)
             compose.onNodeWithTag("reader_seek").performSemanticsAction(SemanticsActions.SetProgress) { it(.7f) }
-            compose.waitUntil(15_000) { active.state.value.let {
-                it.phase == TxtReaderPhase.READY && (it.stableOffset ?: 0) > it.cache.committedLength * .65
-            } }
+            try {
+                compose.waitUntil(15_000) { active.state.value.let {
+                    it.phase == TxtReaderPhase.READY && (it.stableOffset ?: 0) in
+                        (it.cache.committedLength * .69).toLong()..(it.cache.committedLength * .71).toLong()
+                } }
+            } catch (failure: Throwable) {
+                val observed = active.state.value
+                val preview = compose.onNodeWithTag("reader_seek_preview").fetchSemanticsNode().config
+                throw AssertionError("Seek state phase=${observed.phase} target=${observed.targetOffset} " +
+                    "stable=${observed.stableOffset} generation=${observed.restoreGeneration} " +
+                    "complete=${observed.cache.complete} length=${observed.cache.committedLength} preview=$preview", failure)
+            }
             val target = requireNotNull(active.state.value.stableOffset)
             compose.waitUntil(10_000) { saved(book)?.let { offset(it) == target } == true }
             compose.onNodeWithTag("reader_menu_close").performClick()
