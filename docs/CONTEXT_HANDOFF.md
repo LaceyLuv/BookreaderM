@@ -1,5 +1,15 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## 2026-10-17 강화된 제품 검증 및 M10 후속
+
+- main 3940a35는 EPUB 기존 API36 52/TXT host 2 PASS 및 문서다. 후속 강화 검증 964f8cc에서 글자 크기 변경 후 검색 문단이 viewport 밖으로 이동하는 실제 FAIL을 발견했다. progression 근접 결과를 exact restore 완료로 취급하지 않는다.
+- codex/comic-product a5a7a31은 SDK 텍스트/첫 표시 요소 locator 보존, 3a629a4는 목록 상태 캡처와 EPUB aggregate markup/positions 한도를 보완했다. 원격 결과 확인 중이다.
+- 9dfb884는 세 포맷 공통 위치 메뉴, Comic 돌아가기, 서재 그리드, EPUB publisher style 기본 유지/명시적 opt-out을 추가했다. local unit 66/shared 74/EPUB 16, app/test APK/lint PASS; 새 native 미확인.
+- c1ab039 Android 26/34/36 매트릭스 실행 중. EPUB/Comic 각 외부 host 2단계는 아직 PASS라고 주장하지 않는다.
+- c1ab039 unsigned release APK/AAB 실제 빌드·APK 정적 감사 PASS, 별도 source/hash 보존. QA/PERFORMANCE/SECURITY/RELEASE_CANDIDATE_REPORT를 후속 worktree에서 작성했다. 물리 기기/16KB 실행/TalkBack/최종 release 승인/신규 독립 리뷰는 미완료다.
+- 207d2a1(Comic 이동 중 baseline), 361b3f9(TXT LazyColumn 측정), 964f8cc(EPUB 실제 문단)의 전체 native FAIL 및 logcat 원본을 보존했다. 기존 성공 증거를 지우지 않는다.
+
+
 ## 2026-10-17 main EPUB 제품 통합 — 최신
 
 main `22526d3`에 검증된 EPUB 제품 연결을 fast-forward로 반영했다. native API36 **52 cases + 기존 TXT 외부 host 2 stages PASS**, skip/failure/error 0이며 [원본](evidence/m01-epub-validation/remote-22526d3-device/)을 보존했다. `14c8c42`의 commit acknowledgement 보호도 native 49/host 2 PASS다. [EPUB 제품 보고서](M08_EPUB_PRODUCT.md)를 따른다.
