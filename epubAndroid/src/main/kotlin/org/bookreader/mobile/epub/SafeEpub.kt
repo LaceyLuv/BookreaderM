@@ -27,11 +27,13 @@ import org.readium.r2.streamer.parser.epub.EpubParser
 object SafeEpub {
     suspend fun open(file: File): Publication = withContext(Dispatchers.IO) {
         val context = currentCoroutineContext()
-        val archive = BoundedZip(file, checkCancellation = context::ensureActive)
+        val deadline = System.nanoTime() + 60_000_000_000L
+        fun checkpoint() { context.ensureActive(); require(System.nanoTime() < deadline) { "Publication validation time limit" } }
+        val archive = BoundedZip(file, checkCancellation = ::checkpoint)
         require(archive.read("mimetype", 128).toString(Charsets.US_ASCII) == "application/epub+zip") { "EPUB mimetype required" }
         require("META-INF/encryption.xml" !in archive.entries && "META-INF/rights.xml" !in archive.entries) { "Encrypted EPUB unsupported" }
         for (entry in archive.entries.values) {
-            context.ensureActive()
+            checkpoint()
             val extension = entry.key.substringAfterLast('.', "").lowercase(Locale.ROOT)
             require(extension !in setOf("js", "mjs", "wasm", "epub", "zip", "cbz")) { "Active or nested resource unsupported" }
             if (extension in setOf("xml", "opf", "ncx", "html", "xhtml", "htm", "svg")) {
@@ -41,8 +43,10 @@ object SafeEpub {
             }
             if (extension == "css") require(entry.size <= EpubContentPolicy.MAX_MARKUP)
         }
+        val allowed = EpubPackagePolicy.validate(archive)
+        checkpoint()
         // A new read owner must not inherit the already-completed opening coroutine's Job.
-        val container = PublicationContainer(file)
+        val container = PublicationContainer(file, allowed)
         try {
             val asset = ContainerAsset(Format(FormatSpecification(Specification.Epub, Specification.Zip), MediaType.EPUB, FileExtension("epub")), container)
             val publication = PublicationOpener(EpubParser()).open(asset, allowUserInteraction = false)
@@ -57,13 +61,14 @@ object SafeEpub {
     }
 }
 
-private class PublicationContainer(file: File) : Container<Resource> {
+private class PublicationContainer(file: File, private val allowed: Set<String>) : Container<Resource> {
     private val closed = AtomicBoolean(false)
     private val archive = BoundedZip(file) { check(!closed.get()) { "Publication closed" } }
-    override val entries: Set<Url> = archive.entries.keys.map { requireNotNull(Url.fromDecodedPath(it)) }.toSet()
+    override val entries: Set<Url> = archive.entries.keys.filter { it in allowed }.map { requireNotNull(Url.fromDecodedPath(it)) }.toSet()
     override fun get(url: Url): Resource? {
         if (closed.get() || url is AbsoluteUrl || java.net.URI(url.toString()).rawQuery != null) return null
         val key = url.path ?: return null
+        if (key !in allowed) return null
         val entry = archive.entries[key] ?: return null
         return InMemoryResource(null, Resource.Properties()) {
             withContext(Dispatchers.IO) {

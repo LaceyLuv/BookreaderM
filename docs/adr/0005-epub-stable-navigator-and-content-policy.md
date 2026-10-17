@@ -13,7 +13,7 @@ core-ktx 1.19.0을 요구한다. 현재 검증 도구 compileSdk 36/Kotlin 2.2.2
 Kotlin 2.1.21/core 1.16.0/Fragment 1.8.7 기반 공식 POM을 현재 앱 도구에서 실제 빌드했다.
 별도 `epubAndroid` Android library는 common domain에 SDK 클래스를 노출하지 않는다.
 앱 연결은 `debugImplementation`과 exported=false인 fixture 전용 Activity뿐이다.
-BSD-3-Clause 원문을 별도 보존하며 transitive license 감사는 M10 후속이다.
+BSD-3-Clause 원문을 별도 보존하고 AAR assets에도 포함하며 transitive license 감사는 M10 후속이다.
 
 ## 공식 API 확인
 
@@ -35,7 +35,9 @@ source 512MiB, entry 20,000, logical total 4GiB, resource 64MiB, directory 64MiB
 path 1024자/32단계, markup 16MiB, XML depth 64/nodes 100,000/attributes 128, resource read 30초 한도다.
 ZIP64/split/encrypted/nested archive와 special file은 명시적으로 지원하지 않는다.
 
-Publication은 해당 한 개 ZIP의 virtual Container만 받는다. absolute URL/query/없는 key는 읽지 못한다.
+Publication은 해당 한 개 ZIP의 virtual Container만 받는다. container rootfile은 OPF로 제한하고,
+manifest MIME과 확장자의 대응을 강제한다. 검증한 manifest resource와 metadata만 제공하여
+HTML을 PNG 확장자로 숨기는 검사 우회를 거부한다. 전체 사전 검증은 60초/cancellation 예산을 갖는다. absolute URL/query/없는 key는 읽지 못한다.
 Readium parser에 HttpClient/외부 파일 retriever를 제공하지 않는다. EPUB script/이벤트 핸들러/active element,
 DTD/entity, 위험 URL 및 다른 책 경로는 처리 전에 거부한다. 정규식으로 script를 지우는 sanitizer가 아니다.
 정상 XHTML에는 DOM으로 CSP를 head 첫 위치에 넣고, 이후 SDK가 주입한 bundle engine script만 허용한다.
@@ -47,7 +49,7 @@ CSP와 최종 manifest 권한, 실제 WebView attack fixture가 별도 gate다. 
 
 ## 결과·제약
 
-기본 SDK AAR/Locator compile, bounded ZIP 및 XML/CSP host unit 6개를 실행했다.
+기본 SDK AAR/Locator compile, bounded ZIP 및 XML/CSP host unit 8개를 실행했다.
 실제 Android SAX 호환성, WebView engine/image/CSS/TOC/위치 복원 및 CSP violation event 검증은 준비 중이다.
 기기 실행 전 M01 또는 M08 완료로 올리지 않는다. Android host process-death, 더 넓은 정상 EPUB corpus,
 고급 SVG·font obfuscation, physical performance, SDK version 업그레이드 검증은 아직 완료되지 않았다.

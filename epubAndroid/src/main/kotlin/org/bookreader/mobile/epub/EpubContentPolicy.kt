@@ -72,11 +72,15 @@ object EpubContentPolicy {
         }
     }
 
-    fun protectXhtml(bytes: ByteArray, resourceKey: String = "chapter.xhtml"): ByteArray {
-        validateXml(bytes, content = true, resourceKey)
+    fun parseXml(bytes: ByteArray, content: Boolean = false, resourceKey: String = "metadata.xml"): org.w3c.dom.Document {
+        validateXml(bytes, content, resourceKey)
         val builder = DocumentBuilderFactory.newInstance().apply { isNamespaceAware = true }.newDocumentBuilder()
         builder.setEntityResolver { _, _ -> throw SAXException("External entity blocked") }
-        val document = builder.parse(ByteArrayInputStream(bytes))
+        return builder.parse(ByteArrayInputStream(bytes))
+    }
+
+    fun protectXhtml(bytes: ByteArray, resourceKey: String = "chapter.xhtml"): ByteArray {
+        val document = parseXml(bytes, content = true, resourceKey)
         require(document.documentElement.localName.equals("html", true)) { "XHTML root required" }
         val heads = document.getElementsByTagNameNS("*", "head")
         require(heads.length == 1) { "XHTML head required" }
