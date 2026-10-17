@@ -1,0 +1,2002 @@
+{
+  "source_sha": "f208a069f7712a89f610f77750e464332b3ff876",
+  "workflow_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/39006450905",
+  "artifact_id": 12091366689,
+  "archive_sha256": "e73df195d46455e9695904d44f5bb2fc006aee2dc22291b1e277b5e1e426ddc1",
+  "status": "PASS",
+  "suites": {
+    "android-device": {
+      "tests": 38,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "android-host": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "host": {
+    "old_pid": "5895",
+    "cold_launcher_pid": "5941",
+    "status": "PASS"
+  },
+  "screenshots": [
+    {
+      "name": "m02-library.png",
+      "sha256": "f7b6bd35789f87a3ca39fdaf41e304b9b50aab4c2d49acbaacbacffd48c02b33",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "txt-reader-generated-host.png",
+      "sha256": "87cd2ddd77fe67a16039effe48d3ec760d16b7ff31b78511ab5cdfc57a631b1c",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "m03-reader.png",
+      "sha256": "b06bc7af60ec12850a58608c118ce7f9ec0d16513840c78a2c99c473b70ac9f3",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "txt-reader-generated-pages.png",
+      "sha256": "cd585865959cfa85b072b786ec63bd535e5b321624cd9c57733e27bbe4fe9a06",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "txt-reader-generated-scroll.png",
+      "sha256": "36399d7f840194a427e20bc804d782cffcfba6f812ed2fc143cf3198c0c12106",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "txt-reader-generated-page-reflow.png",
+      "sha256": "04c8affe9e1b7a5567565b42299d7f7f798ec8bc1aa7e55593284bd7035e17e8",
+      "size": [
+        1080,
+        1920
+      ]
+    }
+  ],
+  "reports": {
+    "reader-reflow-stop-report": {
+      "status": "PASS",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "fixture_sha256": "da86407e37f58e79c01efc84bb6722779019267ff7cbb6d1dff5e48eb2abc39c",
+      "original_offset": 6699,
+      "pending_offset": 5019,
+      "initial_orientation": 1,
+      "changed_orientation": 2,
+      "initial_generation": 1,
+      "final_generation": 2,
+      "writer_epoch": 1,
+      "mechanism": "Actual Activity orientation change and ON_STOP with pending native writer; not process death or an isolated ON_STOP-only trigger"
+    },
+    "sqlite-full-report": {
+      "fixture_id": "reader-full",
+      "fixture_sha256": "2a60740d85202c12c334a9a0f17924b21ee56552e4473b4183dacc887b81fcfb",
+      "fixture_bytes": 611999,
+      "other_fixture_sha256": "410e497bd48ed1048c8880390d580b9b13ccdc2e9f650bf2dcdfe581e982e078",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "mechanism": "Native SQLite max_page_count plus test-only growth trigger; not filesystem ENOSPC",
+      "initial_offset": 4435,
+      "initial_sequence": 1,
+      "writer_epoch": 1,
+      "page_limit": 25,
+      "page_size": 4096,
+      "growth_bytes": 114688,
+      "native_probe_code": 13,
+      "native_probe_type": "SQLException",
+      "pending_offset": 5919,
+      "save_error_visible": true,
+      "records_preserved_on_failure": true,
+      "managed_files_preserved": true,
+      "retry_offset": 5919,
+      "retry_sequence": 4,
+      "retry_cleared_error": true,
+      "other_book_preserved_after_retry": true,
+      "fixture_limit_and_schema_restored": true,
+      "status": "PASS"
+    },
+    "reader-query-error-report": {
+      "fixture_id": "reader-query-error",
+      "fixture_sha256": "bf691ba827f091530990d040f4ac0ae8a4f913b73cf1d004e08f87cdc91d3e9b",
+      "fixture_bytes": 653999,
+      "other_fixture_sha256": "11b3c4b9b7013e9512c538d3584bb82d45c07cc4bd6c0c8b437207a4230e97e4",
+      "api": 36,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "mechanism": "temporary query-column rename; native SQLite query failure",
+      "initial_offset": 5019,
+      "initial_sequence": 1,
+      "initial_epoch": 1,
+      "native_probe_code": 1,
+      "native_probe_type": "SQLException",
+      "failed_retries": 2,
+      "error_ui_visible": true,
+      "all_records_preserved_on_error": true,
+      "managed_files_preserved": true,
+      "bookmarks_preserved": true,
+      "restored_offset": 5019,
+      "restored_epoch": 2,
+      "retry_cleared_error": true,
+      "progress_unchanged_after_restore": true,
+      "other_book_preserved_after_retry": true,
+      "new_offset": 6660,
+      "new_epoch": 2,
+      "save_after_retry": true,
+      "fixture_restored": true,
+      "status": "PASS"
+    },
+    "reader-locator-error-report": {
+      "fixture_id": "reader-locator-error",
+      "fixture_sha256": "61294ec66e23db2e5ce1bd362e5273a884f37af09a7dedf6af69cda34ef0a259",
+      "fixture_bytes": 665999,
+      "other_fixture_sha256": "11b3c4b9b7013e9512c538d3584bb82d45c07cc4bd6c0c8b437207a4230e97e4",
+      "api": 36,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "mechanism": "test-only malformed locator JSON; real Room repository decoding",
+      "initial_offset": 5186,
+      "initial_sequence": 1,
+      "initial_epoch": 1,
+      "failed_retries": 2,
+      "error_ui_visible": true,
+      "all_records_preserved_on_error": true,
+      "managed_files_preserved": true,
+      "bookmarks_preserved": true,
+      "restored_offset": 5186,
+      "restored_epoch": 2,
+      "retry_cleared_error": true,
+      "progress_unchanged_after_restore": true,
+      "other_book_preserved_after_retry": true,
+      "new_offset": 6882,
+      "new_epoch": 2,
+      "save_after_retry": true,
+      "fixture_restored": true,
+      "status": "PASS"
+    },
+    "reader-reopen-report": {
+      "status": "PASS",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "fixture_sha256": "ea8c58dc2b158279528548d9a9a2ddc5330e71046949937e537dfd61134bc516",
+      "cancelled_openings": 5,
+      "original_offset": 4602,
+      "original_epoch": 1,
+      "mechanism": "Native writer held through five actual UI open/restore/close cycles; release then reopen and save"
+    },
+    "reader-delete-decoding-report": {
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "mechanism": "Real 32MiB managed TXT decode; AppViewModel deletion request during partial cache; not a visible Reader delete-button flow",
+      "fixture_sha256": "926591212b3ea4a32d012d54e0ad620097754e2e3f727bfc0036a93df6f5a950",
+      "fixture_bytes": 33554432,
+      "partial_utf16_length": 16384,
+      "book_and_progress_absent": true,
+      "managed_copy_absent": true,
+      "partial_cache_removed": true,
+      "other_book_preserved": true,
+      "status": "PASS"
+    },
+    "reader-switch-report": {
+      "status": "PASS",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "fixture_sha256": [
+        "4b9d6419658a1c7a7705aed5d95fee8755ea065df0db3841851c0964fc2d9877",
+        "ae24850d9f674654e59de6fb6af6cb17c51a3c4e142f31360c3afce63007e3bc"
+      ],
+      "events": [
+        {
+          "iteration": 0,
+          "fixture_id": "reader-switch-a",
+          "previous_offset": 6364,
+          "committed_offset": 7923,
+          "epoch": 2,
+          "sequence": 2,
+          "backward": false,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 1,
+          "fixture_id": "reader-switch-b",
+          "previous_offset": 6364,
+          "committed_offset": 7923,
+          "epoch": 2,
+          "sequence": 2,
+          "backward": false,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 2,
+          "fixture_id": "reader-switch-a",
+          "previous_offset": 7923,
+          "committed_offset": 6327,
+          "epoch": 3,
+          "sequence": 2,
+          "backward": true,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 3,
+          "fixture_id": "reader-switch-b",
+          "previous_offset": 7923,
+          "committed_offset": 6327,
+          "epoch": 3,
+          "sequence": 2,
+          "backward": true,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 4,
+          "fixture_id": "reader-switch-a",
+          "previous_offset": 6327,
+          "committed_offset": 7903,
+          "epoch": 4,
+          "sequence": 2,
+          "backward": false,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 5,
+          "fixture_id": "reader-switch-b",
+          "previous_offset": 6327,
+          "committed_offset": 7903,
+          "epoch": 4,
+          "sequence": 2,
+          "backward": false,
+          "close_waited_for_writer": true
+        }
+      ],
+      "mechanism": "Held production Room writer connection; actual UI scroll/back/open; no fake save result"
+    },
+    "continuous-progress-report": {
+      "fixture_id": "reader-continuous",
+      "fixture_sha256": "e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0635432872b951",
+      "fixture_bytes": 647999,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "app_version": "0.2.0",
+      "writer_epoch": 1,
+      "initial_sequence": 1,
+      "commits": [
+        {
+          "elapsed_ms": 479,
+          "sequence": 2,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 1480,
+          "sequence": 3,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 2479,
+          "sequence": 4,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 3479,
+          "sequence": 5,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 4496,
+          "sequence": 6,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 5514,
+          "sequence": 7,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 6529,
+          "sequence": 8,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 7529,
+          "sequence": 9,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 8530,
+          "sequence": 10,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 9529,
+          "sequence": 11,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 11529,
+          "sequence": 12,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 13546,
+          "sequence": 13,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 14546,
+          "sequence": 14,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 15547,
+          "sequence": 15,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 16546,
+          "sequence": 16,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 17562,
+          "sequence": 17,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 18562,
+          "sequence": 18,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 19563,
+          "sequence": 19,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 20563,
+          "sequence": 20,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 21563,
+          "sequence": 21,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 22581,
+          "sequence": 22,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 23579,
+          "sequence": 23,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 24596,
+          "sequence": 24,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 25596,
+          "sequence": 25,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 26612,
+          "sequence": 26,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 27629,
+          "sequence": 27,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 29713,
+          "sequence": 28,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 31629,
+          "sequence": 29,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 32629,
+          "sequence": 30,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 33629,
+          "sequence": 31,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 34645,
+          "sequence": 32,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 35645,
+          "sequence": 33,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 36679,
+          "sequence": 34,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 37679,
+          "sequence": 35,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 39680,
+          "sequence": 36,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 41696,
+          "sequence": 37,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 42695,
+          "sequence": 38,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 43695,
+          "sequence": 39,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 44696,
+          "sequence": 40,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 45696,
+          "sequence": 41,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 46695,
+          "sequence": 42,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 47696,
+          "sequence": 43,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 48696,
+          "sequence": 44,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 49695,
+          "sequence": 45,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 50696,
+          "sequence": 46,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 51695,
+          "sequence": 47,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 52695,
+          "sequence": 48,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 53712,
+          "sequence": 49,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 54713,
+          "sequence": 50,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 55712,
+          "sequence": 51,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 56712,
+          "sequence": 52,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 57812,
+          "sequence": 53,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 58729,
+          "sequence": 54,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 59729,
+          "sequence": 55,
+          "offset": 13195
+        }
+      ],
+      "anchors": [
+        {
+          "elapsed_ms": 278,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 578,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 878,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 1078,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 1378,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 1678,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 1878,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 2278,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 2578,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 2878,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 3078,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 3378,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 3678,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 3878,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 4278,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 4594,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 4794,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 5094,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 5411,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 5611,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 5928,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 6328,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 6528,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 6828,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 7128,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 7328,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 7628,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 7928,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 8328,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 8528,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 8828,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 9128,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 9328,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 9628,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 9928,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 10328,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 10528,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 10828,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 11128,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 11328,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 11628,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 11928,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 12328,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 12528,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 12844,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 13144,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 13344,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 13644,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 13944,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 14244,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 14544,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 14845,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 15145,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 15344,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 15644,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 15944,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 16244,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 16544,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 16844,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 17161,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 17361,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 17661,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 17861,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 18261,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 18561,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 18862,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 19062,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 19361,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 19661,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 19861,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 20261,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 20561,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 20861,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 21061,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 21361,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 21694,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 21894,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 22278,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 22578,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 22878,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 23078,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 23378,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 23678,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 23878,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 24294,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 24594,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 24794,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 25094,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 25394,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 25594,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 25894,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 26311,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 26611,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 26828,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 27128,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 27328,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 27628,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 27928,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 28328,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 28563,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 28911,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 29111,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 29411,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 29711,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 29911,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 30311,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 30617,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 30811,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 31111,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 31411,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 31628,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 31928,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 32328,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 32528,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 32828,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 33128,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 33328,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 33628,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 33928,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 34328,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 34529,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 34844,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 35144,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 35344,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 35644,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 35945,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 36261,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 36578,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 36878,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 37078,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 37378,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 37678,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 37884,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 38278,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 38578,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 38878,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 39078,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 39384,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 39678,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 39878,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 40278,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 40578,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 40884,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 41078,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 41378,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 41694,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 41894,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 42294,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 42594,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 42794,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 43094,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 43394,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 43594,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 43894,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 44294,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 44594,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 44794,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 45094,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 45394,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 45594,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 45894,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 46294,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 46594,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 46794,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 47094,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 47394,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 47594,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 47894,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 48294,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 48594,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 48794,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 49094,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 49394,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 49594,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 49894,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 50294,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 50594,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 50794,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 51094,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 51394,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 51594,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 51894,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 52294,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 52594,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 52794,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 53094,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 53394,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 53594,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 53911,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 54311,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 54611,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 54812,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 55112,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 55411,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 55611,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 55911,
+          "offset": 13157
+        },
+        {
+          "elapsed_ms": 56311,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 56511,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 56811,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 57111,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 57411,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 57611,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 57911,
+          "offset": 13372
+        },
+        {
+          "elapsed_ms": 58311,
+          "offset": 13334
+        },
+        {
+          "elapsed_ms": 58611,
+          "offset": 13313
+        },
+        {
+          "elapsed_ms": 58828,
+          "offset": 13275
+        },
+        {
+          "elapsed_ms": 59128,
+          "offset": 13254
+        },
+        {
+          "elapsed_ms": 59328,
+          "offset": 13216
+        },
+        {
+          "elapsed_ms": 59628,
+          "offset": 13195
+        },
+        {
+          "elapsed_ms": 59928,
+          "offset": 13157
+        }
+      ],
+      "input_elapsed_ms": [
+        45,
+        130,
+        231,
+        346,
+        446,
+        547,
+        646,
+        746,
+        847,
+        946,
+        1046,
+        1146,
+        1246,
+        1347,
+        1446,
+        1546,
+        1647,
+        1746,
+        1847,
+        1946,
+        2046,
+        2146,
+        2247,
+        2347,
+        2446,
+        2546,
+        2646,
+        2746,
+        2846,
+        2946,
+        3046,
+        3146,
+        3246,
+        3347,
+        3446,
+        3546,
+        3646,
+        3746,
+        3846,
+        3946,
+        4047,
+        4146,
+        4246,
+        4346,
+        4446,
+        4563,
+        4663,
+        4763,
+        4863,
+        4963,
+        5063,
+        5163,
+        5263,
+        5365,
+        5479,
+        5580,
+        5679,
+        5779,
+        5881,
+        5996,
+        6096,
+        6196,
+        6296,
+        6396,
+        6497,
+        6596,
+        6696,
+        6797,
+        6896,
+        6996,
+        7096,
+        7197,
+        7297,
+        7396,
+        7496,
+        7596,
+        7696,
+        7796,
+        7896,
+        7996,
+        8096,
+        8196,
+        8296,
+        8396,
+        8496,
+        8596,
+        8697,
+        8797,
+        8896,
+        8996,
+        9097,
+        9196,
+        9296,
+        9396,
+        9496,
+        9597,
+        9696,
+        9796,
+        9896,
+        9996,
+        10097,
+        10196,
+        10296,
+        10396,
+        10497,
+        10596,
+        10696,
+        10796,
+        10896,
+        10996,
+        11097,
+        11196,
+        11297,
+        11396,
+        11496,
+        11596,
+        11696,
+        11796,
+        11897,
+        11996,
+        12096,
+        12196,
+        12297,
+        12396,
+        12496,
+        12596,
+        12696,
+        12798,
+        12913,
+        13013,
+        13113,
+        13214,
+        13313,
+        13413,
+        13512,
+        13613,
+        13713,
+        13813,
+        13913,
+        14013,
+        14113,
+        14213,
+        14313,
+        14413,
+        14513,
+        14613,
+        14713,
+        14813,
+        14913,
+        15013,
+        15113,
+        15213,
+        15313,
+        15413,
+        15512,
+        15614,
+        15713,
+        15813,
+        15913,
+        16013,
+        16113,
+        16213,
+        16313,
+        16413,
+        16513,
+        16613,
+        16713,
+        16813,
+        16913,
+        17013,
+        17115,
+        17230,
+        17330,
+        17430,
+        17529,
+        17631,
+        17730,
+        17830,
+        17929,
+        18030,
+        18129,
+        18230,
+        18330,
+        18430,
+        18530,
+        18630,
+        18729,
+        18830,
+        18929,
+        19030,
+        19129,
+        19229,
+        19330,
+        19429,
+        19529,
+        19630,
+        19729,
+        19830,
+        19929,
+        20029,
+        20129,
+        20230,
+        20329,
+        20429,
+        20529,
+        20629,
+        20729,
+        20830,
+        20929,
+        21030,
+        21129,
+        21229,
+        21330,
+        21430,
+        21529,
+        21631,
+        21763,
+        21863,
+        21963,
+        22061,
+        22147,
+        22246,
+        22346,
+        22446,
+        22546,
+        22646,
+        22746,
+        22846,
+        22946,
+        23047,
+        23146,
+        23246,
+        23347,
+        23446,
+        23546,
+        23646,
+        23746,
+        23846,
+        23946,
+        24046,
+        24146,
+        24248,
+        24363,
+        24463,
+        24563,
+        24663,
+        24763,
+        24863,
+        24963,
+        25063,
+        25163,
+        25263,
+        25363,
+        25463,
+        25563,
+        25663,
+        25763,
+        25863,
+        25963,
+        26063,
+        26163,
+        26265,
+        26379,
+        26480,
+        26580,
+        26679,
+        26781,
+        26896,
+        26996,
+        27096,
+        27196,
+        27296,
+        27396,
+        27496,
+        27596,
+        27696,
+        27796,
+        27896,
+        27996,
+        28096,
+        28196,
+        28296,
+        28396,
+        28501,
+        28631,
+        28746,
+        28865,
+        28986,
+        29081,
+        29180,
+        29283,
+        29380,
+        29481,
+        29680,
+        29780,
+        29881,
+        29979,
+        30079,
+        30180,
+        30280,
+        30379,
+        30479,
+        30580,
+        30679,
+        30780,
+        30879,
+        30979,
+        31080,
+        31179,
+        31279,
+        31380,
+        31480,
+        31580,
+        31696,
+        31796,
+        31897,
+        31997,
+        32096,
+        32196,
+        32297,
+        32396,
+        32496,
+        32596,
+        32696,
+        32796,
+        32896,
+        32996,
+        33096,
+        33196,
+        33296,
+        33396,
+        33496,
+        33596,
+        33696,
+        33796,
+        33896,
+        33996,
+        34096,
+        34196,
+        34296,
+        34396,
+        34496,
+        34596,
+        34713,
+        34813,
+        34913,
+        35013,
+        35113,
+        35213,
+        35313,
+        35413,
+        35513,
+        35613,
+        35712,
+        35812,
+        35913,
+        36013,
+        36113,
+        36213,
+        36330,
+        36430,
+        36531,
+        36646,
+        36746,
+        36846,
+        36946,
+        37047,
+        37146,
+        37246,
+        37346,
+        37446,
+        37546,
+        37646,
+        37746,
+        37846,
+        37946,
+        38046,
+        38146,
+        38246,
+        38346,
+        38446,
+        38546,
+        38646,
+        38746,
+        38847,
+        38946,
+        39046,
+        39146,
+        39246,
+        39346,
+        39446,
+        39546,
+        39647,
+        39746,
+        39847,
+        39946,
+        40046,
+        40146,
+        40246,
+        40346,
+        40446,
+        40547,
+        40646,
+        40746,
+        40846,
+        40946,
+        41046,
+        41146,
+        41246,
+        41346,
+        41446,
+        41546,
+        41647,
+        41763,
+        41863,
+        41963,
+        42063,
+        42163,
+        42263,
+        42362,
+        42462,
+        42563,
+        42663,
+        42763,
+        42863,
+        42962,
+        43063,
+        43163,
+        43262,
+        43363,
+        43463,
+        43563,
+        43663,
+        43762,
+        43863,
+        43963,
+        44063,
+        44162,
+        44263,
+        44362,
+        44462,
+        44563,
+        44662,
+        44763,
+        44863,
+        44963,
+        45063,
+        45163,
+        45263,
+        45363,
+        45462,
+        45563,
+        45662,
+        45762,
+        45863,
+        45962,
+        46063,
+        46163,
+        46263,
+        46362,
+        46462,
+        46563,
+        46663,
+        46763,
+        46863,
+        46963,
+        47063,
+        47163,
+        47263,
+        47363,
+        47463,
+        47563,
+        47663,
+        47763,
+        47863,
+        47963,
+        48063,
+        48162,
+        48263,
+        48363,
+        48463,
+        48563,
+        48663,
+        48763,
+        48863,
+        48963,
+        49063,
+        49163,
+        49262,
+        49363,
+        49463,
+        49563,
+        49663,
+        49763,
+        49863,
+        49963,
+        50063,
+        50163,
+        50263,
+        50362,
+        50462,
+        50563,
+        50663,
+        50763,
+        50863,
+        50963,
+        51063,
+        51163,
+        51263,
+        51363,
+        51462,
+        51563,
+        51662,
+        51763,
+        51863,
+        51963,
+        52064,
+        52162,
+        52263,
+        52362,
+        52463,
+        52563,
+        52662,
+        52763,
+        52863,
+        52962,
+        53063,
+        53163,
+        53262,
+        53363,
+        53463,
+        53563,
+        53663,
+        53779,
+        53879,
+        53979,
+        54079,
+        54179,
+        54279,
+        54379,
+        54479,
+        54579,
+        54679,
+        54779,
+        54879,
+        54979,
+        55080,
+        55179,
+        55279,
+        55380,
+        55479,
+        55579,
+        55679,
+        55779,
+        55879,
+        55979,
+        56079,
+        56179,
+        56280,
+        56379,
+        56480,
+        56579,
+        56679,
+        56779,
+        56879,
+        56979,
+        57079,
+        57179,
+        57279,
+        57380,
+        57479,
+        57579,
+        57679,
+        57779,
+        57879,
+        57979,
+        58079,
+        58179,
+        58280,
+        58379,
+        58479,
+        58581,
+        58679,
+        58796,
+        58896,
+        58996,
+        59096,
+        59196,
+        59296,
+        59396,
+        59496,
+        59596,
+        59696,
+        59796,
+        59896,
+        59996
+      ],
+      "measurement": "Monotonic real-time touch and independent Room observations; not SQL write-ack latency",
+      "movement_duration_ms": 60079,
+      "max_input_gap_ms": 199,
+      "gesture_end_to_settled_observation_ms": 261,
+      "final_offset": 13157,
+      "final_sequence": 56,
+      "max_observed_commit_gap_ms": 2084,
+      "status": "PASS"
+    }
+  }
+}

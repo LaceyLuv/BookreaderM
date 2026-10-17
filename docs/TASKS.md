@@ -24,8 +24,8 @@
 | M03 | txt-scroll-progress-and-continue-bar | DONE | TXT 내부 알파: measured anchor/cache loss/Continue/recreation·cold launch/host force-stop PASS, [WORKLOG](WORKLOG.md) |
 | M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence·60초 연속 저장 PASS; 전체 SAFE/UI race·disk-full·reflow 기기 검증 잔여 |
 | M05 | txt-pagination-and-reflow | IN_PROGRESS | 1349ce8 local/remote 52/57/3·actual 35/host 2 PASS; 설정 추가 조합 검증 잔여 |
-| M06 | txt-search-bookmarks-and-encoding | IN_PROGRESS | 로컬 격리 worktree 구현·검증 중; 아직 main 기능 아님 |
-| M07 | mobile-controls-and-accessibility | TODO | 없음 |
+| M06 | txt-search-bookmarks-and-encoding | IN_PROGRESS | f208a06 main 55/67/3·actual 38/host 2 PASS; 50MiB/준비 중 북마크 gate 잔여 |
+| M07 | mobile-controls-and-accessibility | IN_PROGRESS | 격리 worktree에서 메뉴/슬라이더/창 설정 구현 및 검증 중 |
 | M08 | epub-product-integration | TODO | 없음 |
 | M09 | comic-reader-and-memory | TODO | 없음 |
 | M10 | hardening-and-release-evidence | TODO | 없음 |
@@ -280,7 +280,7 @@ ADR-0004, scripts/process-death-test.*, commit-latency report, race test results
 - [x] 각 page range가 연속 [start,end)이며 긴 문단/빈 줄/이모지의 내용 coverage 유지. (`1349ce8` 실제 TextMeasurer/hash)
 - [x] 131072/1MiB 단일 문단 끝까지 접근 가능. (`1349ce8` 실제 coverage)
 - [ ] font/size/line/letter/margin/insets/density/systemFontScale 변경마다 적절한 cache invalidation.
-- [ ] 100회 앞뒤 이동과 random jump 후에도 내용 중복/누락/드리프트 없음.
+- [x] 100회 앞뒤 이동과 random jump 후에도 내용 중복/누락/드리프트 없음. (`f208a06` 실제 TextMeasurer 20지역×5회)
 - [x] 설정 변경 후 기존 anchor가 같은 문장 또는 동일 페이지 범위 안에 존재. (`1349ce8` mode/size actual UI; 나머지 조합은 위 gate 유지)
 
 ## 산출물
@@ -303,10 +303,10 @@ literal 본문 검색, chunk overlap/결과 token/offset mapping, 북마크, 미
 
 ## 완료 조건
 - [ ] TXT-05/06/09/10/12와 검색/북마크 integration 통과.
-- [ ] fragment 경계 query도 같은 canonical offset으로 이동.
+- [x] fragment 경계 query도 같은 canonical offset으로 이동.
 - [ ] 전체 페이지 수 없음/인덱싱 중에도 유효 locator 북마크 저장 가능.
-- [ ] 인코딩 변경 시 이전 해석의 기록을 삭제하거나 새 offset으로 오적용하지 않음.
-- [ ] 오래된 검색 job 결과가 새 query/다른 책에 나타나지 않음.
+- [x] 인코딩 변경 시 이전 해석의 기록을 삭제하거나 새 offset으로 오적용하지 않음.
+- [x] 오래된 검색 job 결과가 새 query/다른 책에 나타나지 않음.
 
 ## 산출물
 encoding UX screenshots, search/bookmark tests, 50MiB TXT report
@@ -317,7 +317,7 @@ encoding UX screenshots, search/bookmark tests, 50MiB TXT report
 
 # M07 — `mobile-controls-and-accessibility`
 
-**상태:** TODO  
+**상태:** IN_PROGRESS
 **선행 조건:** M06
 
 ## 구현 범위

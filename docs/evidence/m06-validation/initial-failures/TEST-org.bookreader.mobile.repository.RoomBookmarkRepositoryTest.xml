@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.bookreader.mobile.repository.RoomBookmarkRepositoryTest" tests="3" skipped="0" failures="1" errors="0" timestamp="2026-10-17T05:13:53.178Z" hostname="c6743006fa8e" time="0.054">
+  <properties/>
+  <testcase name="oldRevisionAndSessionWritesAreRejectedAndDeletionCannotRecreateBookmarks[jvm]" classname="org.bookreader.mobile.repository.RoomBookmarkRepositoryTest" time="0.011"/>
+  <testcase name="malformedAndQueryFailurePreserveOriginalBookmarkAndProgressRows[jvm]" classname="org.bookreader.mobile.repository.RoomBookmarkRepositoryTest" time="0.008">
+    <failure message="java.lang.IllegalArgumentException: Column 'locatorJson' does not exist. Available columns: [id, bookId, contentRevision, locatorType, locatorVersion, unavailable_locator, label, createdAt, updatedAt]" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Column 'locatorJson' does not exist. Available columns: [id, bookId, contentRevision, locatorType, locatorVersion, unavailable_locator, label, createdAt, updatedAt]
+	at androidx.room.util.SQLiteStatementUtil__StatementUtilKt.getColumnIndexOrThrow(StatementUtil.kt:38)
+	at androidx.room.util.SQLiteStatementUtil.getColumnIndexOrThrow(Unknown Source)
+	at org.bookreader.mobile.database.BookmarkDao_Impl.page$lambda$0(BookmarkDao_Impl.kt:87)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2$invokeSuspend$$inlined$internalPerform$1.invokeSuspend(DBUtil.kt:173)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2$invokeSuspend$$inlined$internalPerform$1.invoke(DBUtil.kt)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2$invokeSuspend$$inlined$internalPerform$1.invoke(DBUtil.kt)
+	at androidx.room.coroutines.ConnectionPoolImpl$useConnection$4.invokeSuspend(ConnectionPoolImpl.kt:148)
+	at androidx.room.coroutines.ConnectionPoolImpl$useConnection$4.invoke(ConnectionPoolImpl.kt)
+	at androidx.room.coroutines.ConnectionPoolImpl$useConnection$4.invoke(ConnectionPoolImpl.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at androidx.room.coroutines.ConnectionPoolImpl.useConnection(ConnectionPoolImpl.kt:148)
+	at androidx.room.RoomConnectionManager.useConnection(RoomConnectionManager.jvmNative.kt:52)
+	at androidx.room.RoomDatabase.useConnection(RoomDatabase.jvmNative.kt:255)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2.invokeSuspend(DBUtil.jvmNative.kt:70)
+	at _COROUTINE._BOUNDARY._(CoroutineDebugging.kt:42)
+	at androidx.room.coroutines.ConnectionPoolImpl.useConnection(ConnectionPoolImpl.kt:148)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2.invokeSuspend(DBUtil.jvmNative.kt:70)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt.performSuspending(DBUtil.jvmNative.kt:39)
+	at org.bookreader.mobile.repository.RoomBookmarkRepositoryTest$malformedAndQueryFailurePreserveOriginalBookmarkAndProgressRows$1.invokeSuspend(RoomBookmarkRepositoryTest.kt:53)
+	at org.bookreader.mobile.repository.RoomBookmarkRepositoryTest$fixture$1.invokeSuspend(RoomBookmarkRepositoryTest.kt:63)
+Caused by: java.lang.IllegalArgumentException: Column 'locatorJson' does not exist. Available columns: [id, bookId, contentRevision, locatorType, locatorVersion, unavailable_locator, label, createdAt, updatedAt]
+	at androidx.room.util.SQLiteStatementUtil__StatementUtilKt.getColumnIndexOrThrow(StatementUtil.kt:38)
+	at androidx.room.util.SQLiteStatementUtil.getColumnIndexOrThrow(Unknown Source)
+	at org.bookreader.mobile.database.BookmarkDao_Impl.page$lambda$0(BookmarkDao_Impl.kt:87)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2$invokeSuspend$$inlined$internalPerform$1.invokeSuspend(DBUtil.kt:173)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2$invokeSuspend$$inlined$internalPerform$1.invoke(DBUtil.kt)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2$invokeSuspend$$inlined$internalPerform$1.invoke(DBUtil.kt)
+	at androidx.room.coroutines.ConnectionPoolImpl$useConnection$4.invokeSuspend(ConnectionPoolImpl.kt:148)
+	at androidx.room.coroutines.ConnectionPoolImpl$useConnection$4.invoke(ConnectionPoolImpl.kt)
+	at androidx.room.coroutines.ConnectionPoolImpl$useConnection$4.invoke(ConnectionPoolImpl.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at androidx.room.coroutines.ConnectionPoolImpl.useConnection(ConnectionPoolImpl.kt:148)
+	at androidx.room.RoomConnectionManager.useConnection(RoomConnectionManager.jvmNative.kt:52)
+	at androidx.room.RoomDatabase.useConnection(RoomDatabase.jvmNative.kt:255)
+	at androidx.room.util.DBUtil__DBUtil_jvmNativeKt$performSuspending$2.invokeSuspend(DBUtil.jvmNative.kt:70)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+</failure>
+  </testcase>
+  <testcase name="bookmarksPersistCanonicalLocatorsWithBoundedPagesAndProtectOtherBooks[jvm]" classname="org.bookreader.mobile.repository.RoomBookmarkRepositoryTest" time="0.035"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

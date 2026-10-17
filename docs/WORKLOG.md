@@ -1,5 +1,14 @@
 # M00 작업 기록
 
+## 2026-10-17 M06 검증
+
+`f208a06` main에서 local/remote unit 55/shared 67, remote ENOSPC 3, API36 ordinary 38/host 2 PASS다.
+검색·북마크·해석 전환 및 M05 추가 설정/OS 배율·밀도 회귀를 실행했다.
+[보고서](M06_READER_TOOLS.md), [summary](evidence/m06-validation/summary.json)가 최신 근거다.
+M07은 `/workspace/bookreader-mobile-m07`에서 구현·검증 중이다. 남은 전체 계획 진행 요청은 계속 유효하다.
+이전 절의 M06 미반영/미실행 안내보다 이 절을 우선한다. 전체 M04–M06와 출시 gate를 자동 완료로 올리지 않는다.
+
+
 ## 2026-10-01 — M00 BLOCKED
 
 대상은 `/workspace/bookreader-mobile` 독립 모바일 프로젝트다. 초기 `/workspace/.git`은 비어 있는
