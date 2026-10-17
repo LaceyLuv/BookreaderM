@@ -43,6 +43,7 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
     var settings by remember { mutableStateOf(false) }
     var bookmarks by remember { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
+    val seek = remember(controller) { ReaderSeekPreview(controller::seek) }
     var viewport by remember { mutableStateOf(IntSize.Zero) }
     val exploration = readerWindowEffects(state.settings.window)
     val chrome = !state.settings.window.fullscreen || exploration
@@ -59,7 +60,13 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
         TextButton(onClick = { bookmarks = true; menu = false; controller.loadBookmarks() }, enabled = ready, modifier = Modifier.testTag("comic_bookmarks")) { Text("북마크") }
     } }
     Column(Modifier.fillMaxSize().testTag("comic_reader")) {
-        if (chrome) { Text(controller.book.title, maxLines = 1); Controls() }
+        if (chrome) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(controller.book.title, Modifier.weight(1f), maxLines = 1)
+                TextButton(onClick = { menu = true }, modifier = Modifier.testTag("comic_menu")) { Text("메뉴") }
+            }
+            Controls()
+        }
         if (state.fatalError || progress.phase == ArchiveReaderPhase.ERROR) {
             Column(Modifier.weight(1f).padding(16.dp)) {
                 Text("압축파일 또는 저장 위치를 열지 못했습니다. 기존 기록은 보존됩니다.", Modifier.testTag("comic_error"))
@@ -84,10 +91,19 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
         if (chrome) FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             TextButton(onClick = { controller.move(-1) }, enabled = state.index > 0, modifier = Modifier.testTag("comic_previous")) { Text("이전") }
             Text("${state.index + 1} / ${state.manifest?.entryKeys?.size ?: 0}")
+            if (state.canReturn) TextButton(onClick = controller::returnFromJump, enabled = ready, modifier = Modifier.testTag("comic_return")) { Text("이전 위치로") }
             TextButton(onClick = { controller.move(1) }, enabled = state.index + 1 < (state.manifest?.entryKeys?.size ?: 0), modifier = Modifier.testTag("comic_next")) { Text("다음") }
         }
     }
-    if (menu) AlertDialog(onDismissRequest = { menu = false }, title = { Text("독서 메뉴") }, text = { Controls() }, confirmButton = { TextButton(onClick = { menu = false }) { Text("닫기") } })
+    if (menu) AlertDialog(onDismissRequest = { menu = false }, title = { Text("독서 메뉴") }, text = {
+        Column {
+            val count = state.manifest?.entryKeys?.size ?: 0
+            val current = if (count > 1) state.index.toFloat() / (count - 1) else 0f
+            Text("${if (seek.fraction == null) "현재" else "이동 미리보기"} ${((seek.fraction ?: current) * (count - 1).coerceAtLeast(0)).toInt() + 1} / $count")
+            ReaderPositionSlider(current, ready && count > 1, seek, "comic_seek")
+            Controls()
+        }
+    }, confirmButton = { TextButton(onClick = { menu = false }, modifier = Modifier.testTag("comic_menu_close")) { Text("닫기 / 이동 취소") } })
     if (settings) ComicSettingsDialog(controller) { settings = false }
     if (bookmarks) AlertDialog(onDismissRequest = { bookmarks = false }, title = { Text("북마크") }, text = {
         Column {

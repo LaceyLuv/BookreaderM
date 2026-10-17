@@ -18,7 +18,7 @@ data class ComicReaderUi(val manifest: ComicManifest? = null, val index: Int = 0
     val fatalError: Boolean = false, val settings: ReaderSettings = ReaderSettings(),
     val settingsError: Boolean = false, val settingsSaving: Boolean = false, val hostVersion: Int = 0,
     val bookmarks: List<Bookmark> = emptyList(), val bookmarkCursor: BookmarkCursor? = null,
-    val bookmarkError: Boolean = false)
+    val bookmarkError: Boolean = false, val canReturn: Boolean = false)
 
 /** Owns one verified archive and writer. Composed pages own and release their bitmap leases. */
 class ComicReaderController(val book: Book, private val file: File, private val cacheDirectory: File,
@@ -34,6 +34,7 @@ class ComicReaderController(val book: Book, private val file: File, private val 
     private var closing = false
     private var pendingJump = false
     private var requestedAnchor: ComicLocatorPayload? = null
+    private var returnAnchor: ComicLocatorPayload? = null
     var loadedSettings: LoadedReaderSettings? = null
         private set
     private var settingsJob: Job? = null
@@ -99,6 +100,26 @@ class ComicReaderController(val book: Book, private val file: File, private val 
         mutableState.update { it.copy(index = index) }
     }
     fun move(delta: Int) = goIndex(state.value.index + delta)
+    private fun rememberOrigin() {
+        if (returnAnchor != null) return
+        val key = state.value.manifest?.entryKeys?.getOrNull(state.value.index) ?: return
+        returnAnchor = anchor() ?: ComicLocatorPayload(key, imageIndexHint = state.value.index, normalizedX = .5, normalizedY = 0.0)
+        mutableState.update { it.copy(canReturn = true) }
+    }
+    fun seek(fraction: Float) {
+        if (!fraction.isFinite() || progress.state.value.phase != ArchiveReaderPhase.READY) return
+        val manifest = state.value.manifest ?: return
+        rememberOrigin()
+        goIndex((fraction.coerceIn(0f, 1f) * (manifest.entryKeys.size - 1)).toInt())
+    }
+    fun returnFromJump() {
+        val anchor = returnAnchor ?: return
+        val index = state.value.manifest?.indexOf(anchor.entryKey) ?: return
+        if (index < 0 || progress.state.value.phase != ArchiveReaderPhase.READY) return
+        returnAnchor = null
+        mutableState.update { it.copy(canReturn = false) }
+        goIndex(index, anchor)
+    }
     fun goIndex(index: Int, anchor: ComicLocatorPayload? = null) {
         val manifest = state.value.manifest ?: return
         if (closing || index !in manifest.entryKeys.indices || state.value.fatalError) return
@@ -152,6 +173,7 @@ class ComicReaderController(val book: Book, private val file: File, private val 
         val locator = value.locator as? ComicLocator
         val index = locator?.let { state.value.manifest?.indexOf(it.payload.entryKey) } ?: -1
         if (index < 0) { mutableState.update { it.copy(bookmarkError = true) }; return }
+        rememberOrigin()
         goIndex(index, locator?.payload)
     }
     fun deleteBookmark(id: String) { scope.launch {

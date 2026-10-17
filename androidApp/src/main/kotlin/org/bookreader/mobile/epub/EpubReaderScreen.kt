@@ -35,6 +35,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     val exploration = readerWindowEffects(state.settings.window)
     val chrome = !state.settings.window.fullscreen || exploration
     var menu by remember(controller) { mutableStateOf(false) }
+    val seek = remember(controller) { ReaderSeekPreview(controller::seek) }
     var settings by remember(controller) { mutableStateOf(false) }
     var search by remember(controller) { mutableStateOf(false) }
     var bookmarks by remember(controller) { mutableStateOf(false) }
@@ -60,7 +61,13 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
         }
     }
     Column(Modifier.fillMaxSize().testTag("epub_reader")) {
-        if (chrome) { Text(controller.book.title, Modifier.padding(horizontal = 8.dp), maxLines = 1, overflow = TextOverflow.Ellipsis); Controls() }
+        if (chrome) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(controller.book.title, Modifier.weight(1f).padding(horizontal = 8.dp), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                TextButton(onClick = { menu = true }, modifier = Modifier.testTag("epub_menu")) { Text("메뉴") }
+            }
+            Controls()
+        }
         if (state.error != null || progress.phase == ArchiveReaderPhase.ERROR) {
             Column(Modifier.weight(1f).fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.Center) {
                 Text(state.error ?: "저장된 독서 위치를 읽거나 복원하지 못했습니다. 기존 기록은 보존됩니다.", Modifier.testTag("epub_error"))
@@ -85,7 +92,14 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
             TextButton(onClick = { controller.next(1) }, enabled = ready, modifier = Modifier.testTag("epub_next")) { Text("다음") }
         }
     }
-    if (menu) AlertDialog(onDismissRequest = { menu = false }, title = { Text("독서 메뉴") }, text = { Controls() }, confirmButton = { TextButton(onClick = { menu = false }) { Text("닫기") } })
+    if (menu) AlertDialog(onDismissRequest = { menu = false }, title = { Text("독서 메뉴") }, text = {
+        Column {
+            val current = (controller.initialLocator()?.locations?.totalProgression ?: 0.0).toFloat()
+            Text("${if (seek.fraction == null) "현재" else "이동 미리보기"} ${((seek.fraction ?: current) * 100).toInt()}%")
+            ReaderPositionSlider(current, ready, seek, "epub_seek")
+            Controls()
+        }
+    }, confirmButton = { TextButton(onClick = { menu = false }, modifier = Modifier.testTag("epub_menu_close")) { Text("닫기 / 이동 취소") } })
     if (settings) ReaderSettingsDialog(TxtReaderState(phase = if (ready) TxtReaderPhase.READY else TxtReaderPhase.REFLOWING, settings = state.settings, settingsLoaded = controller.loadedSettings,
         settingsError = state.settingsError, settingsSaving = state.settingsSaving), controller::retrySettings, controller::saveSettings, epubMode = true) { settings = false }
     if (search) {

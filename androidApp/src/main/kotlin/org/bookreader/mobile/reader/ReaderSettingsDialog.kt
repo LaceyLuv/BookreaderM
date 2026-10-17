@@ -59,6 +59,12 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                     global.letterSpacingEm > (if (epubMode) 0f else -.02f), global.letterSpacingEm < .10f,
                     { global = global.copy(letterSpacingEm = (global.letterSpacingEm - .01f).coerceAtLeast(if (epubMode) 0f else -.02f)) },
                     { global = global.copy(letterSpacingEm = (global.letterSpacingEm.coerceAtLeast(if (epubMode) 0f else -.02f) + .01f).coerceAtMost(.10f)) })
+                if (epubMode) {
+                    WindowToggle("출판사 스타일 유지", "epub_publisher_styles", global.epubPublisherStyles) {
+                        global = global.copy(epubPublisherStyles = it)
+                    }
+                    if (global.epubPublisherStyles) Text("출판사 스타일을 끄면 글꼴·행간·자간 설정을 우선 적용합니다.")
+                }
                 if (epubMode && global.letterSpacingEm < 0) Text("이 EPUB의 자간은 0으로 표시합니다. 저장된 TXT 기본값은 유지됩니다.")
                 SettingStepper(if (epubMode) "여백 배율" else "좌우 여백", if (epubMode) "${(global.marginDp / 16f * 100).roundToInt()}%" else "${global.marginDp} dp", "margin",
                     global.marginDp > 8, global.marginDp < 40,

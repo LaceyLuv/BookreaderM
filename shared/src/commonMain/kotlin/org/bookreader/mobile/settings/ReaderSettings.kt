@@ -32,6 +32,7 @@ data class ReaderSettings(
     val comicDirection: ComicDirection = ComicDirection.LTR,
     val comicFit: ComicFit = ComicFit.CONTAIN,
     val comicGapDp: Int = 8,
+    val epubPublisherStyles: Boolean = true,
 ) {
     init {
         require(fontSizeSp.isFinite() && fontSizeSp in 12f..36f)

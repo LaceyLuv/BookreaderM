@@ -116,6 +116,17 @@ class ComicReaderFlowTest {
         compose.onNodeWithTag("comic_back").performClick(); waitFor("continue_reading")
         compose.onNodeWithTag("continue_reading").performClick(); waitFor("comic_ready")
         assertEquals(anchor, saved(book))
+        compose.onNodeWithTag("comic_menu").performClick()
+        compose.onNodeWithTag("comic_seek").performTouchInput {
+            down(center); moveTo(androidx.compose.ui.geometry.Offset(width * .1f, centerY)); cancel()
+        }
+        compose.waitForIdle(); android.os.SystemClock.sleep(400)
+        assertEquals(anchor, saved(book))
+        compose.onNodeWithTag("comic_seek").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetProgress) { it(0f) }
+        compose.waitUntil(20_000) { saved(book)?.payload?.entryKey == "01.png" }
+        compose.onNodeWithTag("comic_menu_close").performClick()
+        compose.onNodeWithTag("comic_return").performClick()
+        compose.waitUntil(20_000) { saved(book) == anchor }
         assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
     }
     private fun reader(): ComicReaderController {

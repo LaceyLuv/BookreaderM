@@ -19,6 +19,7 @@ import org.readium.r2.shared.ExperimentalReadiumApi
 import org.readium.r2.shared.publication.Locator
 import org.readium.r2.shared.publication.Publication
 import org.readium.r2.shared.publication.services.search.search
+import org.readium.r2.shared.publication.services.locateProgression
 import org.readium.r2.shared.util.AbsoluteUrl
 import org.readium.r2.shared.util.getOrElse
 
@@ -57,6 +58,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     private var userMovement = false
     private var jumpTarget: Locator? = null
     private var captureJob: Job? = null
+    private var seekJob: Job? = null
     private var returnTo: Locator? = null
     private var closing = false
     private var searchJob: Job? = null
@@ -100,7 +102,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     fun initialLocator(): Locator? = (progress.state.value.accepted as? EpubLocator)?.let(::sdk)
     fun preferences(): EpubPreferences = state.value.settings.let {
         EpubPreferences(scroll = it.readingMode == TxtReadingMode.SCROLL, fontSize = it.fontSizeSp / 18.0,
-            lineHeight = it.lineHeight.toDouble(), publisherStyles = false,
+            lineHeight = it.lineHeight.toDouble(), publisherStyles = it.epubPublisherStyles,
             letterSpacing = it.letterSpacingEm.coerceAtLeast(0f).toDouble() * 2, pageMargins = it.marginDp / 16.0,
             fontFamily = if (it.font == ReaderFont.SANS) org.readium.r2.navigator.preferences.FontFamily.SANS_SERIF else org.readium.r2.navigator.preferences.FontFamily.SERIF,
             backgroundColor = if (it.theme == ReaderTheme.OLED) org.readium.r2.navigator.preferences.Color(0xff000000.toInt()) else null,
@@ -161,6 +163,19 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     }
     fun armMovement() { if (progress.state.value.phase == ArchiveReaderPhase.READY) { userMovement = true; jumpTarget = null } }
     fun next(direction: Int) { armMovement(); if (direction > 0) host?.goForward(animated = false) else host?.goBackward(animated = false) }
+    fun seek(fraction: Float) {
+        if (!fraction.isFinite() || progress.state.value.phase != ArchiveReaderPhase.READY) return
+        val opened = publication ?: return
+        seekJob?.cancel()
+        seekJob = scope.launch {
+            try {
+                val locator = withContext(Dispatchers.IO) { opened.locateProgression(fraction.coerceIn(0f, 1f).toDouble()) }
+                ensureActive()
+                if (!closing) navigate(requireNotNull(locator))
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutableState.update { it.copy(notice = "이 위치를 계산하지 못했습니다. 현재 기록은 유지됩니다.") } }
+        }
+    }
     fun navigate(locator: Locator, rememberOrigin: Boolean = true) {
         if (progress.state.value.phase != ArchiveReaderPhase.READY) return
         try {
@@ -266,7 +281,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     suspend fun close() {
         if (closing) return
         closing = true
-        captureJob?.cancel(); restoreTimeout?.cancel()
+        seekJob?.cancel(); captureJob?.cancel(); restoreTimeout?.cancel()
         openJob.cancel(); searchJob?.cancel(); settingsJob?.cancel()
         detachHost?.invoke(); detachHost = null; host = null
         try { openJob.join(); searchJob?.join(); settingsJob?.join(); progress.close() }

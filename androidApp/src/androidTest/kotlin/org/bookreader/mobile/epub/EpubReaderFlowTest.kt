@@ -54,6 +54,18 @@ class EpubReaderFlowTest {
         assertEquals(BookFormat.EPUB, book.format)
         val source = target.assets.open("epub-fixtures/epub3.epub").use { it.readBytes() }
         assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
+        compose.onNodeWithTag("epub_menu").performClick()
+        val beforeSeek = saved(book)
+        compose.onNodeWithTag("epub_seek").performTouchInput {
+            down(center); moveTo(androidx.compose.ui.geometry.Offset(width * .9f, centerY)); cancel()
+        }
+        compose.waitForIdle(); android.os.SystemClock.sleep(400)
+        assertEquals(beforeSeek, saved(book))
+        compose.onNodeWithTag("epub_seek").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetProgress) { it(.9f) }
+        compose.waitUntil(20_000) { saved(book)?.payload?.locator?.get("href")?.toString()?.contains("two.xhtml") == true }
+        compose.onNodeWithTag("epub_menu_close").performClick()
+        compose.onNodeWithTag("epub_return").performClick()
+        compose.waitUntil(20_000) { saved(book)?.payload?.locator?.get("href")?.toString()?.contains("one.xhtml") == true }
         compose.onNodeWithTag("epub_toc").performClick()
         compose.onAllNodesWithTag("epub_toc_item")[1].performClick()
         compose.waitUntil(20_000) { saved(book)?.payload?.locator?.get("href")?.toString()?.contains("two.xhtml") == true }
@@ -122,10 +134,18 @@ class EpubReaderFlowTest {
         send("epub-product"); waitFor("epub_ready")
         assertEquals(-.02f, reader().state.value.settings.letterSpacingEm)
         assertEquals(0.0, requireNotNull(reader().preferences().letterSpacing), 0.0)
+        assertEquals(true, reader().preferences().publisherStyles)
+        assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
+        compose.onNodeWithTag("epub_settings").performClick()
+        compose.onNodeWithTag("epub_publisher_styles").performScrollTo().performClick()
+        compose.onNodeWithTag("reader_settings_apply").performClick()
+        waitFor("epub_ready")
         assertEquals(false, reader().preferences().publisherStyles)
-        assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
+        assertEquals(-.02f, reader().state.value.settings.letterSpacingEm)
+        val storedSettings = requireNotNull(runBlocking { database.readerSettingsDao().global() })
+        assertEquals(value.copy(epubPublisherStyles = false), org.bookreader.mobile.settings.ReaderSettingsCodec.readGlobal(storedSettings.schemaVersion, storedSettings.settingsJson))
         compose.onNodeWithTag("epub_back").performClick(); waitFor("continue_reading")
-        assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
+        assertEquals(storedSettings, runBlocking { database.readerSettingsDao().global() })
     }
     private fun assertParagraphVisible(chapter: String, id: String) {
         val completed = java.util.concurrent.CountDownLatch(1)

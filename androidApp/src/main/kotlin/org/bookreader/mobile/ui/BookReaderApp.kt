@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items as gridItems
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
@@ -314,12 +317,14 @@ private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String?
             if (matches.isEmpty()) {
                 StatusMessage("검색 결과가 없습니다", "search_empty")
             } else {
-                LazyColumn(
+                LazyVerticalGrid(
+                    columns = GridCells.Adaptive(160.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.fillMaxSize().testTag("library_content"),
                     contentPadding = PaddingValues(bottom = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    items(matches, key = Book::id) { BookMetadata(it, onInfo, onOpen) }
+                    gridItems(matches, key = Book::id) { BookMetadata(it, onInfo, onOpen) }
                 }
             }
         }
