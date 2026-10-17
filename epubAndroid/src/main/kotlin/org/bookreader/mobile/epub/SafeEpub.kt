@@ -53,11 +53,12 @@ object SafeEpub {
         var opened: Publication? = null
         try {
             val asset = ContainerAsset(Format(FormatSpecification(Specification.Epub, Specification.Zip), MediaType.EPUB, FileExtension("epub")), container)
-            val publication = PublicationOpener(EpubParser(), onCreatePublication = {
+            val publication = PublicationOpener(EpubParser()).open(asset, allowUserInteraction = false, onCreatePublication = {
                 servicesBuilder.searchServiceFactory = { BoundedEpubSearchService(it.manifest, it.container) }
-            }).open(asset, allowUserInteraction = false)
+            })
                 .getOrElse { throw IllegalArgumentException("EPUB parser rejected publication") }
             opened = publication
+            check(publication.findService(org.readium.r2.shared.publication.services.search.SearchService::class) is BoundedEpubSearchService)
             require(publication.readingOrder.isNotEmpty() && publication.readingOrder.size <= 20_000)
             if (publication.metadata.presentation.layout == EpubLayout.FIXED) {
                 error("Fixed-layout EPUB unsupported")

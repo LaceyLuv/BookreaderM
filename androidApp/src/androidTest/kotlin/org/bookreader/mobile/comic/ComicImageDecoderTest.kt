@@ -51,6 +51,9 @@ class ComicImageDecoderTest {
             val initialPss = Debug.getPss(); var maximumPss = initialPss
             repeat(100) { index ->
                 decoder.decode("pages/${index.toString().padStart(3, '0')}.png", 1080, 1920).use {
+                    assertEquals(1080, it.sourceWidth)
+                    assertEquals(1600, it.sourceHeight)
+                    assertTrue(it.bitmap.allocationByteCount >= 1024 * 1024)
                     maximumBytes = maxOf(maximumBytes, decoder.retainedBitmapBytes)
                     assertTrue(decoder.retainedBitmapBytes <= decoder.bitmapBudget)
                 }

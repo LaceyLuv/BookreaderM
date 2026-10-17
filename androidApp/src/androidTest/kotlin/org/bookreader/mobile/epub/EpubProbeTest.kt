@@ -133,7 +133,7 @@ class EpubProbeTest {
                     var total = 0
                     while (true) {
                         val page = cursor.next().getOrElse { error("Search failed") } ?: break
-                        assertTrue(page.locators.size in 1..50)
+                        assertTrue("Bounded search page size=${page.locators.size}", page.locators.size in 1..50)
                         page.locators.forEach { locator ->
                             assertEquals("문단", locator.text.highlight)
                             assertTrue((locator.text.before?.length ?: 0) <= 161)

@@ -1180,3 +1180,11 @@ M06은 `/workspace/bookreader-mobile-m06`의 `codex/m06-tools`에서 구현 중�
 사용자 목표는 남은 계획 전체 진행이다. M04 전체와 실기기/출시 gate를 완료로 올리지 않고 계속 진행한다.
 
 M05 최신 source fingerprint `e2d3caa89d74e7d946b3523389a362e381b803b86899c71edd25d5e22a35ae89`, drift 0. 정확 명령은 local-ci-reflow-fix/results.txt 및 각 remote workflow/results.txt를 따른다.
+
+## 2026-10-17 M07 far seek와 archive 회귀 후속
+
+- f7483e6 API36 49개 중 46 PASS/3 FAIL. 기존 M07 메뉴 seek와 신규 6회 원거리 왕복 seek는 PASS. 전체/host PASS 아님.
+- 남은 실패: EPUB bounded service 미적용, DocumentsUI 항목 탐색 실패, malformed locator 재시도 중 SnapshotStateObserver 스레드 오류. 후자는 IO snapshot callback에서 scrollToItem 재측정이 실행된 원본 stack을 확보했다.
+- Reader 인스턴스별 composition key와 Main dispatcher 강제 복귀를 추가했다. Readium 3.1.2 open()의 명시적 onCreatePublication hook으로 bounded service를 설치하고 실제 서비스 타입도 확인한다.
+- Comic 100장 fixture를 40×20에서 1080×1600으로 강화하고 실제 allocation ≥1MiB를 요구한다. 이전 tiny fixture PASS는 새로운 이미지 크기 검증으로 승계하지 않는다.
+- local test APK/app/module lint/EPUB unit: /workspace/scratch/m01/service-and-ui-dispatch-check.log. 새 원격 결과는 별도 기록 예정.
