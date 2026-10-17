@@ -1061,7 +1061,12 @@ class TxtReaderFlowTest {
             val active = reader()
             val book = active.book
             repeat(2) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
-            compose.waitUntil(10_000) { saved(book)?.let { offset(it) == active.state.value.stableOffset && offset(it) > 0 } == true }
+            // A periodic save can match the current anchor while the preceding fling is still
+            // moving. Drain Compose's real scroll animation before taking the immutable baseline.
+            compose.waitForIdle()
+            val settledAnchor = measuredVisibleLine(active)
+            compose.waitUntil(10_000) { saved(book)?.let { offset(it) == settledAnchor && offset(it) > 0 } == true }
+            assertEquals(settledAnchor, active.state.value.stableOffset)
             val before = requireNotNull(saved(book))
             compose.onNodeWithTag("reader_menu").performClick()
             compose.onNodeWithTag("reader_seek").performTouchInput {
