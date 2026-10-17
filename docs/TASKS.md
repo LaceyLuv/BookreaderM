@@ -23,7 +23,7 @@
 | M02 | managed-import-and-library | DONE | TXT 내부 알파: `2be610a` local/remote CI 41/45 및 Android 25·host 2·fixture PNG PASS, [WORKLOG](WORKLOG.md) |
 | M03 | txt-scroll-progress-and-continue-bar | DONE | TXT 내부 알파: measured anchor/cache loss/Continue/recreation·cold launch/host force-stop PASS, [WORKLOG](WORKLOG.md) |
 | M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence·60초 연속 저장 PASS; 전체 SAFE/UI race·disk-full·reflow 기기 검증 잔여 |
-| M05 | txt-pagination-and-reflow | TODO | 없음 |
+| M05 | txt-pagination-and-reflow | IN_PROGRESS | M04 UI gate PASS 후 로컬 격리 worktree 구현·검증 중; 아직 main 기능 아님 |
 | M06 | txt-search-bookmarks-and-encoding | TODO | 없음 |
 | M07 | mobile-controls-and-accessibility | TODO | 없음 |
 | M08 | epub-product-integration | TODO | 없음 |
@@ -252,7 +252,7 @@ offset 최대값 기반 최신 판정, lifecycle 단독 저장, 복구 실패 �
 
 ## 완료 조건
 - [ ] SAFE-01/02/03/04/06/07/09/10/12 통과.
-- [ ] A/B 책과 같은 책의 빠른 닫기/재열기, 역방향 이동에서 의도한 최신 기록 유지.
+- [x] A/B 책과 같은 책의 빠른 닫기/재열기, 역방향 이동에서 의도한 최신 기록 유지. (`85653ad` actual API36, [보고서](M04_UI_RACES.md))
 - [x] 60초 연속 스크롤에도 주기 commit이 존재. (`73276fe` actual API36: 60,001ms/46회, SQL latency·실기기 성능과 구분)
 - [x] force-stop 뒤 마지막 commit 완료 locator 보존; 미커밋 상태까지 보존된다고 주장하지 않음.
 - [x] 손상 locator/조회 오류는 기록 보존과 재시도 UI로 처리. (`0e2605e` actual UI 2 cases; bookmark는 별도 미구현/NOT_RUN)
@@ -266,8 +266,8 @@ ADR-0004, scripts/process-death-test.*, commit-latency report, race test results
 
 # M05 — `txt-pagination-and-reflow`
 
-**상태:** TODO  
-**선행 조건:** M04
+**상태:** IN_PROGRESS  
+**선행 조건:** M04 (실제 UI race 핵심 검증 PASS; 설정 reflow는 이 작업에서, bookmark 불변은 M06에서 보완하며 전체 M04는 IN_PROGRESS 유지)
 
 ## 구현 범위
 같은 실제 text measurement를 사용하는 bounded 페이지 렌더링, 지역 page boundary cache, 타이포 설정/시스템 배율/창 크기 reflow, 페이지·스크롤 상호 전환을 구현한다.

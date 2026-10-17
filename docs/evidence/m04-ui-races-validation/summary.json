@@ -1,0 +1,23 @@
+{
+  "scope": "M04 actual UI races, cancellation, rotation/ON_STOP",
+  "source_sha": "85653ada7259c9c80329ca759e5fc43df870cfff",
+  "source_fingerprint": "891c14fab251cab7a4e864eb4a838dd195677fcce822a37fe608fcc84372c6ed",
+  "status": "PASS",
+  "milestone_status": "IN_PROGRESS",
+  "local_ci": "local-activation-fix/summary.json",
+  "remote_build": "remote-85653ad-build/summary.json",
+  "remote_device": "remote-85653ad-device/summary.json",
+  "preserved_failures": [
+    "close-before-fix/",
+    "remote-14fb88c-device-failed/summary.json",
+    "activation-fix-compile-failed.log"
+  ],
+  "not_run": [
+    "M06 bookmark invariance",
+    "M05 real typography/settings reflow",
+    "Android ext4/f2fs ENOSPC/fsync",
+    "physical-device latency/memory",
+    "new Astra review"
+  ],
+  "local_device": "BLOCKED_ENV: no authorized device; exit 78"
+}

@@ -167,3 +167,12 @@ native SQLite 조회 오류를 만들었다. malformed JSON도 실제 repository
 복구 후 측정 위치 복원 및 정확히 1회 activation/new epoch save를 검사한다.
 `0e2605e` actual ordinary 29/host 2 stages와 local/remote unit 48/53, remote ENOSPC 3 PASS다.
 bookmark 미구현 범위는 NOT_RUN이다. [보고서](../M04_PROGRESS_READ_ERRORS.md)와 [TESTING](../TESTING.md)을 따른다.
+
+### 2026-10-17: 닫기와 Room 활성화 대기 취소
+
+Room 2.8.3의 DB 소유 Job으로 전환되는 연결 대기는 Reader job 취소만으로 즉시 끝나지 않는다.
+활성화는 ViewModel 소유 sibling과 직렬 admission gate로 실행하고 호출자의 await를 취소 가능하게 둔다.
+원래 요청의 생존 여부를 연결 획득 후와 availability+activation transaction commit 직전에 검사한다.
+취소된 대기는 늦게 연결을 얻어도 기록을 바꾸지 못한다. 이미 수락한 save는 flush barrier를 유지한다.
+단위 50/53, ENOSPC 3, actual ordinary 33/host 2 stages PASS이며 실패 이력과 제한은
+[범위 보고서](../M04_UI_RACES.md)를 따른다.

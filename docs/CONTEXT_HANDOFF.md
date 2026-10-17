@@ -1,5 +1,20 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## M04 실제 UI 경쟁·취소 — 2026-10-17
+
+source `85653ada7259c9c80329ca759e5fc43df870cfff`에서 local/remote unit 50/shared JVM 53,
+remote 실제 ENOSPC 3, actual API36 ordinary 33/외부 host 2 stages 모두 PASS다.
+취소 전 flush 대기와 Room DB Job의 연결 대기를 분리해 수정했다. A/B 6회(역방향 2회),
+복원 중 close/reopen 5회, 실제 회전/ON_STOP의 pending anchor, 32MiB decode 중 삭제를 검증했다.
+`14fb88c` device 1 FAIL/host NOT_RUN과 수정 전 unit timeout은 보존했다.
+[범위 보고서](M04_UI_RACES.md), [summary](evidence/m04-ui-races-validation/summary.json),
+[정확 명령](evidence/m04-ui-races-validation/commands.json)이 최신 근거다.
+
+M04는 IN_PROGRESS다. M05 설정 reflow, M06 bookmark 불변, 실제 Android storage/fsync,
+실기기 성능 및 신규 Astra 검토는 미완료다. 사용자의 남은 계획 전체 진행 요청에 따라 M05 구현을 이어간다.
+로컬 기기는 없어 exit 78/BLOCKED_ENV이며 원격 emulator 결과와 구분한다.
+
+
 ## 2026-10-17 SAFE-01 실제 Reader 조회 오류·재시도
 
 source `0e2605e9a21be7fc72cfa6a72e36e89de406fe3d`에서 native SQLite 조회 오류와 malformed locator의 실제 Reader UI 회귀 2개를 추가했다.

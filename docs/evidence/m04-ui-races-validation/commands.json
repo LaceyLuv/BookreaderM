@@ -1,0 +1,44 @@
+[
+  {
+    "command": "./gradlew :androidApp:testDebugUnitTest --tests org.bookreader.mobile.reader.TxtReaderControllerTest.closeCancelsPendingActivationBeforeWaitingForProgressFlush",
+    "result": "FAIL before fix",
+    "exit_code": 1,
+    "evidence": "close-before-fix/"
+  },
+  {
+    "command": "./gradlew :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest --console=plain",
+    "result": "PASS final activation fix",
+    "exit_code": 0,
+    "evidence": "activation-fix-unit-compile.log"
+  },
+  {
+    "command": "BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-ui-races-validation/local-activation-fix ./scripts/ci-check.sh",
+    "result": "PASS",
+    "exit_code": 0,
+    "evidence": "local-activation-fix/results.txt"
+  },
+  {
+    "command": "./scripts/device-check.sh",
+    "result": "BLOCKED_ENV local",
+    "exit_code": 78,
+    "evidence": "local-device/"
+  },
+  {
+    "command": "GitHub mobile-ci.yml / scripts/ci-check.sh and scripts/enospc-check.sh",
+    "result": "PASS",
+    "exit_code": 0,
+    "run": 39004200808
+  },
+  {
+    "command": "GitHub mobile-device-tests.yml / scripts/device-check.sh",
+    "result": "PASS",
+    "exit_code": 0,
+    "run": 39004200823
+  },
+  {
+    "command": "GitHub mobile-device-tests.yml / scripts/device-check.sh at 14fb88c",
+    "result": "FAIL: close/reopen timeout; host NOT_RUN",
+    "exit_code": 1,
+    "run": 39003165693
+  }
+]

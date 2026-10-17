@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.bookreader.mobile.reader.TxtReaderControllerTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-10-17T04:31:27.245Z" hostname="c6743006fa8e" time="3.103">
+  <properties/>
+  <testcase name="closeCancelsPendingActivationBeforeWaitingForProgressFlush" classname="org.bookreader.mobile.reader.TxtReaderControllerTest" time="3.103">
+    <failure message="kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 3000 ms" type="kotlinx.coroutines.TimeoutCancellationException">kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 3000 ms
+	at _COROUTINE._BOUNDARY._(CoroutineDebugging.kt:42)
+	at org.bookreader.mobile.reader.TxtReaderControllerTest$closeCancelsPendingActivationBeforeWaitingForProgressFlush$1.invokeSuspend(TxtReaderControllerTest.kt:93)
+Caused by: kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 3000 ms
+	at kotlinx.coroutines.TimeoutKt.TimeoutCancellationException(Timeout.kt:189)
+	at kotlinx.coroutines.TimeoutCoroutine.run(Timeout.kt:157)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedRunnableTask.run(EventLoop.common.kt:505)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.DefaultExecutor.run(DefaultExecutor.kt:105)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
