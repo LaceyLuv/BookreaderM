@@ -164,11 +164,11 @@ private fun ComicPage(controller: ComicReaderController, entry: String, viewport
     val current = image
     var enlarged by remember(entry) { mutableStateOf(false) }
     DisposableEffect(current) { onDispose { current?.let { leases.remove(it); it.close() } } }
-    val pageHeight = if (!continuous || current == null) viewport.height.toFloat() else when (state.settings.comicFit) {
+    val pageHeight = (if (!continuous || current == null) viewport.height.toFloat() else when (state.settings.comicFit) {
         ComicFit.WIDTH -> viewport.width.toFloat() * current.bitmap.height / current.bitmap.width
         ComicFit.HEIGHT -> viewport.height.toFloat()
         ComicFit.CONTAIN -> minOf(viewport.height.toFloat(), viewport.width.toFloat() * current.bitmap.height / current.bitmap.width)
-    }
+    }).coerceIn(1f, 100000f)
     Box(Modifier.fillMaxWidth().height(with(density) { pageHeight.coerceIn(1f, 100000f).toDp() })
         .onSizeChanged { if (current != null) onHeight(it.height) }.testTag("comic_page")) {
         if (failed) Column(Modifier.align(Alignment.Center).padding(16.dp)) {
@@ -201,25 +201,29 @@ private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, vi
     continuous: Boolean, exploration: Boolean, onMenu: () -> Unit, navigation: Boolean = true) {
     val readerState by controller.state.collectAsStateWithLifecycle()
     val settings = readerState.settings
+    var canvasViewport by remember(viewport) { mutableStateOf(viewport) }
     val bitmap = remember(image) { image.bitmap.asImageBitmap() }
-    val base = when (settings.comicFit) {
-        ComicFit.WIDTH -> viewport.width.toFloat() / bitmap.width
-        ComicFit.HEIGHT -> viewport.height.toFloat() / bitmap.height
-        ComicFit.CONTAIN -> minOf(viewport.width.toFloat() / bitmap.width, viewport.height.toFloat() / bitmap.height)
+    val requestedBase = when (settings.comicFit) {
+        ComicFit.WIDTH -> canvasViewport.width.toFloat() / bitmap.width
+        ComicFit.HEIGHT -> canvasViewport.height.toFloat() / bitmap.height
+        ComicFit.CONTAIN -> minOf(canvasViewport.width.toFloat() / bitmap.width, canvasViewport.height.toFloat() / bitmap.height)
     }
-    var zoom by remember(image) { mutableFloatStateOf(1f) }
+    // Very tall continuous pages use a complete scaled image within the layout height cap.
+    // Never clip away the tail merely to keep LazyColumn dimensions bounded.
+    val base = if (continuous) minOf(requestedBase, canvasViewport.height.toFloat() / bitmap.height) else requestedBase
+    var zoom by remember(image, canvasViewport) { mutableFloatStateOf(1f) }
     fun clamp(position: Offset, scale: Float): Offset {
         val w = bitmap.width * base * scale; val h = bitmap.height * base * scale
-        return Offset(if (w <= viewport.width) (viewport.width - w) / 2 else position.x.coerceIn(viewport.width - w, 0f),
-            if (h <= viewport.height) (viewport.height - h) / 2 else position.y.coerceIn(viewport.height - h, 0f))
+        return Offset(if (w <= canvasViewport.width) (canvasViewport.width - w) / 2 else position.x.coerceIn(canvasViewport.width - w, 0f),
+            if (h <= canvasViewport.height) (canvasViewport.height - h) / 2 else position.y.coerceIn(canvasViewport.height - h, 0f))
     }
-    var origin by remember(image) { mutableStateOf(clamp(Offset(
+    var origin by remember(image, canvasViewport) { mutableStateOf(clamp(Offset(
         -((controller.anchor()?.normalizedX ?: 0.0) * bitmap.width * base).toFloat(),
         -((controller.anchor()?.normalizedY ?: 0.0) * bitmap.height * base).toFloat()), 1f)) }
     fun save() { controller.visible(image.entryKey, (-origin.x / (bitmap.width * base * zoom)).toDouble(),
         (-origin.y / (bitmap.height * base * zoom)).toDouble(), true) }
     val direction = if (settings.comicDirection == ComicDirection.LTR) 1 else -1
-    var modifier = Modifier.fillMaxSize().clipToBounds().semantics { contentDescription = "만화 이미지" }.testTag("comic_image")
+    var modifier = Modifier.fillMaxSize().onSizeChanged { canvasViewport = it }.clipToBounds().semantics { contentDescription = "만화 이미지" }.testTag("comic_image")
     if (!continuous && !exploration) modifier = modifier.pointerInput(image) {
         detectTapGestures(onDoubleTap = { point ->
             val next = if (zoom > 1f) 1f else 2.5f
