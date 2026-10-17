@@ -1,0 +1,118 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080
+> Task :epubAndroid:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :epubAndroid:preBuild UP-TO-DATE
+> Task :epubAndroid:preDebugBuild UP-TO-DATE
+> Task :epubAndroid:generateDebugResValues UP-TO-DATE
+> Task :epubAndroid:generateDebugResources UP-TO-DATE
+> Task :epubAndroid:packageDebugResources UP-TO-DATE
+> Task :epubAndroid:parseDebugLocalResources UP-TO-DATE
+> Task :epubAndroid:generateDebugRFile UP-TO-DATE
+> Task :epubAndroid:javaPreCompileDebug UP-TO-DATE
+> Task :epubAndroid:preDebugUnitTestBuild UP-TO-DATE
+> Task :epubAndroid:generateDebugUnitTestStubRFile UP-TO-DATE
+> Task :epubAndroid:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :epubAndroid:mergeDebugJniLibFolders UP-TO-DATE
+> Task :epubAndroid:mergeDebugNativeLibs NO-SOURCE
+> Task :epubAndroid:stripDebugDebugSymbols NO-SOURCE
+> Task :epubAndroid:copyDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :epubAndroid:extractDeepLinksForAarDebug UP-TO-DATE
+> Task :epubAndroid:mergeDebugShaders UP-TO-DATE
+> Task :epubAndroid:compileDebugShaders NO-SOURCE
+> Task :epubAndroid:generateDebugAssets UP-TO-DATE
+> Task :epubAndroid:mergeDebugAssets UP-TO-DATE
+> Task :epubAndroid:prepareDebugArtProfile UP-TO-DATE
+> Task :epubAndroid:prepareLintJarForPublish UP-TO-DATE
+> Task :epubAndroid:processDebugManifest UP-TO-DATE
+> Task :epubAndroid:writeDebugAarMetadata UP-TO-DATE
+> Task :epubAndroid:preDebugAndroidTestBuild UP-TO-DATE
+> Task :epubAndroid:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :epubAndroid:writeDebugLintModelMetadata UP-TO-DATE
+> Task :epubAndroid:extractProguardFiles UP-TO-DATE
+> Task :epubAndroid:compileDebugKotlin
+> Task :epubAndroid:compileDebugJavaWithJavac NO-SOURCE
+> Task :epubAndroid:processDebugJavaRes UP-TO-DATE
+> Task :epubAndroid:bundleLibCompileToJarDebug
+> Task :epubAndroid:bundleLibRuntimeToJarDebug
+> Task :epubAndroid:extractDebugAnnotations
+> Task :epubAndroid:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :epubAndroid:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :epubAndroid:mergeDebugJavaResource UP-TO-DATE
+> Task :epubAndroid:syncDebugLibJars
+> Task :epubAndroid:bundleDebugLocalLintAar
+> Task :epubAndroid:createFullJarDebug
+> Task :epubAndroid:compileDebugUnitTestKotlin
+> Task :epubAndroid:generateDebugAndroidTestLintModel
+> Task :epubAndroid:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :epubAndroid:processDebugUnitTestJavaRes UP-TO-DATE
+
+> Task :epubAndroid:testDebugUnitTest
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080
+
+> Task :epubAndroid:generateDebugLintReportModel
+> Task :epubAndroid:generateDebugUnitTestLintModel
+> Task :epubAndroid:lintAnalyzeDebugAndroidTest
+> Task :epubAndroid:lintAnalyzeDebugUnitTest
+> Task :epubAndroid:lintAnalyzeDebug
+
+> Task :epubAndroid:lintReportDebug
+Wrote HTML report to file:///workspace/bookreader-mobile-comic/epubAndroid/build/reports/lint-results-debug.html
+Lint found 2 errors. First failure:
+/workspace/bookreader-mobile-comic/epubAndroid/src/main/kotlin/org/bookreader/mobile/comic/ComicImageDecoder.kt:6: Error: Avoid using android.media.ExifInterface; use androidx.exifinterface.media.ExifInterface instead [ExifInterface]
+import android.media.ExifInterface
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+> Task :epubAndroid:lintDebug FAILED
+/workspace/bookreader-mobile-comic/epubAndroid/src/main/kotlin/org/bookreader/mobile/comic/ComicImageDecoder.kt:6: Error: Avoid using android.media.ExifInterface; use androidx.exifinterface.media.ExifInterface instead [ExifInterface]
+import android.media.ExifInterface
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspace/bookreader-mobile-comic/epubAndroid/src/main/kotlin/org/bookreader/mobile/comic/ComicImageDecoder.kt:68: Error: Avoid using android.media.ExifInterface; use androidx.exifinterface.media.ExifInterface instead [ExifInterface]
+                val orientation = if (jpeg) ExifInterface(temporary.path).getAttributeInt(ExifInterface.TAG_ORIENTATION, 1) else 1
+                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "ExifInterface":
+   The android.media.ExifInterface implementation has some known security bugs
+   in older versions of Android. There is a new implementation available of
+   this library in the support library, which is preferable.
+
+2 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':epubAndroid:lintDebug'.
+> Lint found errors in the project; aborting build.
+  
+  Fix the issues identified by lint, or create a baseline to see only new errors.
+  To create a baseline, run `gradlew updateLintBaseline` after adding the following to the module's build.gradle file:
+  ```
+  android {
+      lint {
+          baseline = file("lint-baseline.xml")
+      }
+  }
+  ```
+  For more details, see https://developer.android.com/studio/write/lint#snapshot
+  
+  /workspace/bookreader-mobile-comic/epubAndroid/src/main/kotlin/org/bookreader/mobile/comic/ComicImageDecoder.kt:6: Error: Avoid using android.media.ExifInterface; use androidx.exifinterface.media.ExifInterface instead [ExifInterface]
+  import android.media.ExifInterface
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  /workspace/bookreader-mobile-comic/epubAndroid/src/main/kotlin/org/bookreader/mobile/comic/ComicImageDecoder.kt:68: Error: Avoid using android.media.ExifInterface; use androidx.exifinterface.media.ExifInterface instead [ExifInterface]
+                  val orientation = if (jpeg) ExifInterface(temporary.path).getAttributeInt(ExifInterface.TAG_ORIENTATION, 1) else 1
+                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+     Explanation for issues of type "ExifInterface":
+     The android.media.ExifInterface implementation has some known security bugs
+     in older versions of Android. There is a new implementation available of
+     this library in the support library, which is preferable.
+  
+  2 errors
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 5s
+42 actionable tasks: 17 executed, 25 up-to-date

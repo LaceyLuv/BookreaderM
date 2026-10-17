@@ -1081,9 +1081,18 @@ class TxtReaderFlowTest {
             assertEquals(before, saved(book))
             assertEquals(offset(before), active.state.value.stableOffset)
             compose.onNodeWithTag("reader_seek").performSemanticsAction(SemanticsActions.SetProgress) { it(.7f) }
-            compose.waitUntil(15_000) { active.state.value.let {
-                it.phase == TxtReaderPhase.READY && (it.stableOffset ?: 0) > it.cache.committedLength * .65
-            } }
+            try {
+                compose.waitUntil(15_000) { active.state.value.let {
+                    it.phase == TxtReaderPhase.READY && (it.stableOffset ?: 0) in
+                        (it.cache.committedLength * .69).toLong()..(it.cache.committedLength * .71).toLong()
+                } }
+            } catch (failure: Throwable) {
+                val observed = active.state.value
+                val preview = compose.onNodeWithTag("reader_seek_preview").fetchSemanticsNode().config
+                throw AssertionError("Seek state phase=${observed.phase} target=${observed.targetOffset} " +
+                    "stable=${observed.stableOffset} generation=${observed.restoreGeneration} " +
+                    "complete=${observed.cache.complete} length=${observed.cache.committedLength} preview=$preview", failure)
+            }
             val target = requireNotNull(active.state.value.stableOffset)
             compose.waitUntil(10_000) { saved(book)?.let { offset(it) == target } == true }
             compose.onNodeWithTag("reader_menu_close").performClick()
@@ -1131,6 +1140,24 @@ class TxtReaderFlowTest {
                 assertEquals(initialOrientation, compose.activity.requestedOrientation)
             }
         } finally { restoreReaderGlobalSettings(originalSettings) }
+    }
+
+    @Test fun sliderSeeksRestoreUncomposedDistantScrollFragmentsInBothDirections() {
+        sendFixture("reader-pages")
+        waitFor("reader_ready")
+        val active = reader()
+        compose.onNodeWithTag("reader_menu").performClick()
+        for (fraction in listOf(.7f, .1f, .9f, .3f, .8f, .2f)) {
+            compose.onNodeWithTag("reader_seek").performSemanticsAction(SemanticsActions.SetProgress) { assertTrue(it(fraction)) }
+            val expected = (active.state.value.cache.committedLength * fraction.toDouble()).toLong()
+            compose.waitUntil(15_000) { active.state.value.let {
+                it.phase == TxtReaderPhase.READY && kotlin.math.abs((it.stableOffset ?: -1000) - expected) < 10
+            } }
+            val accepted = requireNotNull(active.state.value.stableOffset)
+            compose.waitUntil(10_000) { saved(active.book)?.let { offset(it) == accepted } == true }
+            assertAnchorInFirstMeasuredLine(active, accepted)
+        }
+        compose.onNodeWithTag("reader_menu_close").performClick()
     }
 
     @Test fun readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor() {

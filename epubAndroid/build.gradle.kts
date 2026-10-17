@@ -20,6 +20,7 @@ kotlin {
     compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
 }
 dependencies {
+    implementation(libs.androidx.exifinterface)
     api(libs.readium.shared)
     api(libs.readium.streamer)
     api(libs.readium.navigator)

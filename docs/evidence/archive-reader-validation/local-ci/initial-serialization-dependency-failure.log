@@ -1,0 +1,95 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080
+Starting a Gradle Daemon, 1 busy and 1 incompatible Daemons could not be reused, use --status for details
+> Task :shared:preBuild UP-TO-DATE
+> Task :androidApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :epubAndroid:preBuild UP-TO-DATE
+> Task :epubAndroid:preDebugBuild UP-TO-DATE
+> Task :androidApp:preBuild UP-TO-DATE
+> Task :androidApp:preDebugBuild UP-TO-DATE
+> Task :shared:preDebugBuild UP-TO-DATE
+> Task :androidApp:generateDebugResValues
+> Task :shared:generateDebugResValues
+> Task :epubAndroid:generateDebugResValues
+> Task :shared:writeDebugAarMetadata
+> Task :epubAndroid:writeDebugAarMetadata
+> Task :epubAndroid:generateDebugResources
+> Task :shared:generateDebugResources
+> Task :androidApp:generateDebugResources
+> Task :shared:packageDebugResources
+> Task :epubAndroid:packageDebugResources
+> Task :shared:extractDeepLinksDebug
+> Task :epubAndroid:extractDeepLinksDebug
+> Task :epubAndroid:compileDebugLibraryResources
+> Task :shared:compileDebugLibraryResources
+> Task :androidApp:packageDebugResources
+> Task :shared:processDebugManifest
+> Task :epubAndroid:processDebugManifest
+> Task :epubAndroid:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :epubAndroid:javaPreCompileDebug
+> Task :shared:parseDebugLocalResources
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :epubAndroid:parseDebugLocalResources
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:javaPreCompileDebug
+> Task :epubAndroid:generateDebugRFile
+> Task :shared:generateDebugRFile
+> Task :androidApp:checkDebugAarMetadata
+> Task :androidApp:mapDebugSourceSetPaths
+> Task :epubAndroid:compileDebugKotlin
+> Task :epubAndroid:compileDebugJavaWithJavac NO-SOURCE
+> Task :epubAndroid:bundleLibCompileToJarDebug
+> Task :epubAndroid:bundleLibRuntimeToJarDebug
+> Task :epubAndroid:processDebugJavaRes
+> Task :androidApp:createDebugCompatibleScreenManifests
+> Task :androidApp:extractDeepLinksDebug
+> Task :androidApp:parseDebugLocalResources
+> Task :androidApp:mergeDebugResources
+> Task :androidApp:processDebugMainManifest
+> Task :androidApp:processDebugManifest
+> Task :androidApp:preDebugUnitTestBuild UP-TO-DATE
+> Task :androidApp:javaPreCompileDebug
+> Task :androidApp:processDebugManifestForPackage
+> Task :androidApp:javaPreCompileDebugUnitTest
+> Task :androidApp:processDebugResources
+> Task :shared:kspDebugKotlinAndroid
+
+> Task :shared:compileDebugKotlinAndroid
+w: file:///workspace/bookreader-mobile-reader/shared/build/generated/ksp/android/androidDebug/kotlin/org/bookreader/mobile/database/BookReaderDatabaseConstructor.kt:5:8 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///workspace/bookreader-mobile-reader/shared/src/commonMain/kotlin/org/bookreader/mobile/database/BookReaderDatabase.kt:58:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileDebugJavaWithJavac NO-SOURCE
+> Task :shared:copyRoomSchemas NO-SOURCE
+> Task :shared:bundleLibCompileToJarDebug
+> Task :shared:bundleLibRuntimeToJarDebug
+> Task :shared:processDebugJavaRes
+> Task :androidApp:compileDebugKotlin
+> Task :androidApp:compileDebugJavaWithJavac NO-SOURCE
+> Task :androidApp:processDebugJavaRes
+> Task :androidApp:bundleDebugClassesToRuntimeJar
+> Task :androidApp:bundleDebugClassesToCompileJar
+
+> Task :androidApp:compileDebugUnitTestKotlin FAILED
+e: file:///workspace/bookreader-mobile-reader/androidApp/src/test/kotlin/org/bookreader/mobile/reader/ArchiveProgressControllerTest.kt:8:30 Unresolved reference 'json'.
+e: file:///workspace/bookreader-mobile-reader/androidApp/src/test/kotlin/org/bookreader/mobile/reader/ArchiveProgressControllerTest.kt:18:62 Cannot access class 'JsonObject'. Check your module classpath for missing or conflicting dependencies.
+e: file:///workspace/bookreader-mobile-reader/androidApp/src/test/kotlin/org/bookreader/mobile/reader/ArchiveProgressControllerTest.kt:18:91 Unresolved reference 'buildJsonObject'.
+e: file:///workspace/bookreader-mobile-reader/androidApp/src/test/kotlin/org/bookreader/mobile/reader/ArchiveProgressControllerTest.kt:18:109 Unresolved reference 'put'.
+e: file:///workspace/bookreader-mobile-reader/androidApp/src/test/kotlin/org/bookreader/mobile/reader/ArchiveProgressControllerTest.kt:18:128 Unresolved reference 'put'.
+e: file:///workspace/bookreader-mobile-reader/androidApp/src/test/kotlin/org/bookreader/mobile/reader/ArchiveProgressControllerTest.kt:18:166 Unresolved reference 'putJsonObject'.
+e: file:///workspace/bookreader-mobile-reader/androidApp/src/test/kotlin/org/bookreader/mobile/reader/ArchiveProgressControllerTest.kt:18:195 Unresolved reference 'put'.
+e: file:///workspace/bookreader-mobile-reader/androidApp/src/test/kotlin/org/bookreader/mobile/reader/ArchiveProgressControllerTest.kt:18:219 Unresolved reference 'put'.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':androidApp:compileDebugUnitTestKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 36s
+50 actionable tasks: 50 executed

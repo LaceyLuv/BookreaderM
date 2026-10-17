@@ -3,6 +3,8 @@ package org.bookreader.mobile.reader
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -57,6 +59,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 @Composable
@@ -128,7 +132,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         val generation = state.restoreGeneration
         val target = state.targetOffset
         val index = controller.cache.fragmentFor(target)
-        list.scrollToItem(index)
+        withContext(Dispatchers.Main.immediate) { list.scrollToItem(index) }
         val layout = snapshotFlow { layouts[index] }.first { it != null } ?: return@LaunchedEffect
         val fragment = state.cache.fragments[index]
         val canonicalRelative = (target - fragment.start).toInt()
@@ -141,7 +145,11 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         var relative = canonicalRelative.coerceIn(0, fragment.length - 1)
         if (relative > 0 && layout.layoutInput.text[relative].isLowSurrogate()) relative--
         val line = layout.getLineForOffset(relative)
-        list.scrollToItem(index, layout.getLineTop(line).roundToInt() - list.layoutInfo.viewportStartOffset)
+        // A snapshot continuation may resume from the IO publisher under the test interceptor.
+        // Every call that forces Android layout must explicitly return to the UI dispatcher.
+        withContext(Dispatchers.Main.immediate) {
+            list.scrollToItem(index, layout.getLineTop(line).roundToInt() - list.layoutInfo.viewportStartOffset)
+        }
         // Wait for the list to apply that measured line position before allowing the writer.
         snapshotFlow { list.layoutInfo.visibleItemsInfo.any { it.index == index } }.first { it }
         controller.restored(generation)
@@ -215,8 +223,13 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                             catch (cancelled: CancellationException) { throw cancelled }
                             catch (_: Exception) { controller.contentReadFailed() }
                         }
-                        text?.let {
-                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(it, style = typography,
+                        if (text == null) {
+                            // A zero-height unloaded item lets LazyColumn collapse a far seek back
+                            // toward the old viewport before its asynchronous text arrives. Keep
+                            // the requested item measurable and visible until its real layout exists.
+                            Spacer(Modifier.fillMaxWidth().height(with(density) { maxOf(1, viewport.height).toDp() }))
+                        } else {
+                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(requireNotNull(text), style = typography,
                                 onTextLayout = { result -> layouts[index] = result },
                                 modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index")) } }
                         }

@@ -88,6 +88,8 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
                     ImportStatus(state.importing, model::confirmShare, model::dismissImport, model::cancelImport,
                         model::selectImportEncoding, model::openBook)
                 }
+                // Reader replacement can be conflated into one composition frame. Scope the
+                // LazyList, gesture jobs, and saved window baseline to this specific owner.
                 androidx.compose.runtime.key(reader) { TxtReaderScreen(reader, model::leaveReader) }
             }
             }
