@@ -35,6 +35,21 @@ class BoundedZipTest {
         encrypted.writeBytes(bytes)
         assertThrows(IllegalArgumentException::class.java) { BoundedZip(encrypted) }
     }
+    @Test fun streamingOutputIsBoundedAndFileDirectoryCollisionsAreRejected() {
+        for (entries in listOf(arrayOf("folder" to "file", "folder/page.png" to "image"),
+            arrayOf("folder/page.png" to "image", "folder" to "file")))
+            assertThrows(IllegalArgumentException::class.java) { BoundedZip(zip(*entries)) }
+        val archive = BoundedZip(zip("folder/" to "", "folder/page.png" to "x".repeat(2 * 1024 * 1024)))
+        var written = 0L
+        var largest = 0
+        val sink = object : java.io.OutputStream() {
+            override fun write(value: Int) { written++ }
+            override fun write(bytes: ByteArray, offset: Int, count: Int) { written += count; largest = maxOf(largest, count) }
+        }
+        assertEquals(2L * 1024 * 1024, archive.copyTo("folder/page.png", sink, 3 * 1024 * 1024))
+        assertEquals(2L * 1024 * 1024, written)
+        assertTrue(largest <= 16 * 1024)
+    }
     @Test fun crcCorruptionAndForgedDeclaredSizeCannotReturnPartialContent() {
         for (field in listOf(16, 24)) {
             val file = zip("body" to "x".repeat(1000)); val bytes = file.readBytes()

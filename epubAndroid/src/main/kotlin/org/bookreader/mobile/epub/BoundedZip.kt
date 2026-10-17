@@ -3,6 +3,7 @@ package org.bookreader.mobile.epub
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
+import java.io.OutputStream
 import java.io.RandomAccessFile
 import java.nio.ByteBuffer
 import java.nio.charset.CodingErrorAction
@@ -80,12 +81,25 @@ class BoundedZip(private val file: File, maxSourceBytes: Long = 512L * 1024 * 10
                 if (directory) require(size == 0L) else result[key] = Entry(key, size, compressed, u32(header, 16), method, dataOffset, !utf8 && rawName.any { it < 0 })
             }
             require(cursor == directoryOffset + directorySize)
+            val files = result.keys.map { Normalizer.normalize(it, Normalizer.Form.NFC) }.toSet()
+            for (path in paths) {
+                val parts = path.split('/')
+                for (depth in 1 until parts.size) require(parts.take(depth).joinToString("/") !in files) { "File/directory collision" }
+            }
             intervals.sortedBy { it.first }.zipWithNext().forEach { (a, b) -> require(a.second <= b.first) { "Overlapping archive entries" } }
             result
         }
     }
 
     fun read(key: String, maxBytes: Int, cancellationCheck: () -> Unit = {}): ByteArray {
+        val entry = requireNotNull(entries[key]) { "Missing archive entry" }
+        val output = ByteArrayOutputStream(minOf(entry.size, 64 * 1024).toInt())
+        copyTo(key, output, maxBytes, cancellationCheck)
+        return output.toByteArray()
+    }
+
+    /** The caller owns the sink and must discard it if validation or cancellation fails. */
+    fun copyTo(key: String, output: OutputStream, maxBytes: Int, cancellationCheck: () -> Unit = {}): Long {
         val entry = requireNotNull(entries[key]) { "Missing archive entry" }
         require(maxBytes in 1..64 * 1024 * 1024 && entry.size <= maxBytes && file.length() == sourceLength) { "Resource read limit" }
         val start = System.nanoTime()
@@ -102,19 +116,19 @@ class BoundedZip(private val file: File, maxSourceBytes: Long = 512L * 1024 * 10
             val inflater = if (entry.method == 8) Inflater(true) else null
             try {
                 val stream = inflater?.let { InflaterInputStream(compressed, it, 16 * 1024) } ?: compressed
-                val output = ByteArrayOutputStream(minOf(entry.size, 64 * 1024).toInt())
+                var written = 0L
                 val crc = CRC32(); val buffer = ByteArray(16 * 1024)
                 while (true) {
                     checkCancellation(); cancellationCheck()
                     require(System.nanoTime() - start < 30_000_000_000L) { "Resource time limit" }
                     val count = stream.read(buffer)
                     if (count < 0) break
-                    require(output.size().toLong() + count <= minOf(maxBytes.toLong(), entry.size)) { "Actual resource size limit" }
-                    output.write(buffer, 0, count); crc.update(buffer, 0, count)
+                    require(written + count <= minOf(maxBytes.toLong(), entry.size)) { "Actual resource size limit" }
+                    output.write(buffer, 0, count); crc.update(buffer, 0, count); written += count
                 }
-                require(output.size().toLong() == entry.size && crc.value == entry.crc) { "Resource size or CRC mismatch" }
+                require(written == entry.size && crc.value == entry.crc) { "Resource size or CRC mismatch" }
                 if (inflater != null) require(inflater.finished() && inflater.bytesRead == entry.compressedSize) { "Invalid compressed stream" }
-                output.toByteArray()
+                written
             } finally { inflater?.end() }
         }
     }

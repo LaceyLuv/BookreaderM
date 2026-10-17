@@ -761,6 +761,18 @@
     [
       "org.bookreader.mobile.epub.EpubPackagePolicyTest",
       "onlyTypedManifestResourcesAndValidatedMetadataAreServed"
+    ],
+    [
+      "org.bookreader.mobile.epub.BoundedZipTest",
+      "streamingOutputIsBoundedAndFileDirectoryCollisionsAreRejected"
+    ],
+    [
+      "org.bookreader.mobile.comic.ComicManifestTest",
+      "reorderedArchivesAndLocalesKeepFullPathIdentityAndNaturalNumbers"
+    ],
+    [
+      "org.bookreader.mobile.comic.ComicManifestTest",
+      "unsupportedArchivesAndCancelledInspectionNeverProduceManifest"
     ]
   ]
 }
