@@ -97,8 +97,12 @@ class EpubProbeTest {
             var publication: org.readium.r2.shared.publication.Publication? = null
             scenario.onActivity { publication = it.publication }
             val opened = requireNotNull(publication)
-            for (path in listOf("../other-book/OPS/one.xhtml", "file:///data/local/tmp/private", "https://example.invalid/one.xhtml", "OPS/one.xhtml?other=book"))
+            for (path in listOf("../other-book/OPS/one.xhtml", "file:///data/local/tmp/private", "https://example.invalid/one.xhtml"))
                 assertNull("Container must reject foreign resource", opened.get(requireNotNull(Url(path))))
+            // SDK Publication.get explicitly retries without a query/fragment. This still maps
+            // to this publication's own allowlisted resource; it is not cross-book access.
+            val localWithQuery = requireNotNull(opened.get(requireNotNull(Url("OPS/one.xhtml?other=book"))))
+            localWithQuery.close()
             val match = runBlocking {
                 withTimeout(15_000) {
                     val iterator = requireNotNull(opened.search("two 문단 0179"))
