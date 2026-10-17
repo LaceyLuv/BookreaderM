@@ -140,7 +140,7 @@ for fixture in ('reader-query-error', 'reader-locator-error'):
         'managed_files_preserved', 'retry_cleared_error', 'progress_unchanged_after_restore',
         'other_book_preserved_after_retry', 'save_after_retry', 'fixture_restored'))
     if fixture == 'reader-query-error':
-        assert report['native_probe_code'] == 1 and report['native_probe_type'] == 'SQLiteException'
+        assert report['native_probe_code'] == 1 and report['native_probe_type'] == 'SQLException'
     print(f'PASS {fixture}: preserved records through failed retries, measured restoration and new-session save')
 PY_READ
 # The excluded class is mandatory here: both exact methods execute around an

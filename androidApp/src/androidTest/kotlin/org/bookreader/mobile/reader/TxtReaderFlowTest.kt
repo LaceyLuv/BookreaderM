@@ -485,7 +485,7 @@ class TxtReaderFlowTest {
                     state.failureDiagnostic?.resultCode)
                 if (nativeQueryFailure) {
                     assertEquals(DatabaseFailureStage.READ_PROGRESS, state.failureDiagnostic?.database?.stage)
-                    assertTrue(state.failureDiagnostic?.database?.exceptionTypes?.contains("SQLiteException") == true)
+                    assertTrue(state.failureDiagnostic?.database?.exceptionTypes?.contains(report.getString("native_probe_type")) == true)
                 } else assertNull(state.failureDiagnostic?.database)
                 assertNull(state.stableOffset)
                 compose.onNodeWithTag("reader_retry").assertIsDisplayed()
