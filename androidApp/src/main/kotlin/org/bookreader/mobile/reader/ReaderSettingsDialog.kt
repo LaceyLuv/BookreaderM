@@ -15,11 +15,11 @@ import kotlin.math.roundToInt
 
 @Composable
 fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState, onDismiss: () -> Unit) =
-    ReaderSettingsDialog(state, controller::retrySettings, controller::saveSettings, onDismiss)
+    ReaderSettingsDialog(state, controller::retrySettings, controller::saveSettings, onDismiss = onDismiss)
 
 @Composable
 fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
-    onSave: (ReaderSettings, BookReaderPreferences) -> Unit, onDismiss: () -> Unit) {
+    onSave: (ReaderSettings, BookReaderPreferences) -> Unit, epubMode: Boolean = false, onDismiss: () -> Unit) {
     val loaded = state.settingsLoaded
     var global by remember(loaded) { mutableStateOf(loaded?.global ?: ReaderSettings()) }
     var preferences by remember(loaded) { mutableStateOf(loaded?.book ?: BookReaderPreferences()) }
@@ -47,7 +47,7 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                         modifier = Modifier.testTag("reader_font_${font.name}"),
                         label = { Text(if (font == ReaderFont.SANS) "기본 고딕" else "기본 명조") }) }
                 }
-                SettingStepper("글자 크기", "${global.fontSizeSp.roundToInt()} sp", "font_size",
+                SettingStepper(if (epubMode) "글자 배율" else "글자 크기", if (epubMode) "${(global.fontSizeSp / 18f * 100).roundToInt()}%" else "${global.fontSizeSp.roundToInt()} sp", "font_size",
                     global.fontSizeSp > 12, global.fontSizeSp < 36,
                     { global = global.copy(fontSizeSp = (global.fontSizeSp - 1).coerceAtLeast(12f)) },
                     { global = global.copy(fontSizeSp = (global.fontSizeSp + 1).coerceAtMost(36f)) })
@@ -56,10 +56,11 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                     { global = global.copy(lineHeight = (global.lineHeight - .1f).coerceAtLeast(1f)) },
                     { global = global.copy(lineHeight = (global.lineHeight + .1f).coerceAtMost(2f)) })
                 SettingStepper("자간", "${(global.letterSpacingEm * 100).roundToInt()}%", "letter_spacing",
-                    global.letterSpacingEm > -.02f, global.letterSpacingEm < .10f,
-                    { global = global.copy(letterSpacingEm = (global.letterSpacingEm - .01f).coerceAtLeast(-.02f)) },
-                    { global = global.copy(letterSpacingEm = (global.letterSpacingEm + .01f).coerceAtMost(.10f)) })
-                SettingStepper("좌우 여백", "${global.marginDp} dp", "margin",
+                    global.letterSpacingEm > (if (epubMode) 0f else -.02f), global.letterSpacingEm < .10f,
+                    { global = global.copy(letterSpacingEm = (global.letterSpacingEm - .01f).coerceAtLeast(if (epubMode) 0f else -.02f)) },
+                    { global = global.copy(letterSpacingEm = (global.letterSpacingEm.coerceAtLeast(if (epubMode) 0f else -.02f) + .01f).coerceAtMost(.10f)) })
+                if (epubMode && global.letterSpacingEm < 0) Text("이 EPUB의 자간은 0으로 표시합니다. 저장된 TXT 기본값은 유지됩니다.")
+                SettingStepper(if (epubMode) "여백 배율" else "좌우 여백", if (epubMode) "${(global.marginDp / 16f * 100).roundToInt()}%" else "${global.marginDp} dp", "margin",
                     global.marginDp > 8, global.marginDp < 40,
                     { global = global.copy(marginDp = (global.marginDp - 4).coerceAtLeast(8)) },
                     { global = global.copy(marginDp = (global.marginDp + 4).coerceAtMost(40)) })

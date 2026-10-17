@@ -110,6 +110,19 @@ class EpubReaderFlowTest {
             assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
         }
     }
+    @Test fun negativeTxtLetterSpacingOpensEpubWithoutRewritingStoredDefaults() {
+        val value = org.bookreader.mobile.settings.ReaderSettings(letterSpacingEm = -.02f)
+        val raw = org.bookreader.mobile.database.ReaderGlobalSettingsEntity(schemaVersion = 1,
+            settingsJson = org.bookreader.mobile.settings.ReaderSettingsCodec.write(value))
+        runBlocking { database.readerSettingsDao().putGlobal(raw) }
+        send("epub-product"); waitFor("epub_ready")
+        assertEquals(-.02f, reader().state.value.settings.letterSpacingEm)
+        assertEquals(0.0, requireNotNull(reader().preferences().letterSpacing), 0.0)
+        assertEquals(false, reader().preferences().publisherStyles)
+        assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
+        compose.onNodeWithTag("epub_back").performClick(); waitFor("continue_reading")
+        assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
+    }
     private fun assertRenderedNear(locator: EpubLocator) {
         compose.activityRule.scenario.onActivity { activity ->
             val wrapper = activity.supportFragmentManager.fragments.filterIsInstance<EpubHostFragment>().single()

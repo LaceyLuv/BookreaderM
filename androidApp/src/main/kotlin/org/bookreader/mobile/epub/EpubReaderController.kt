@@ -98,7 +98,8 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     fun initialLocator(): Locator? = (progress.state.value.accepted as? EpubLocator)?.let(::sdk)
     fun preferences(): EpubPreferences = state.value.settings.let {
         EpubPreferences(scroll = it.readingMode == TxtReadingMode.SCROLL, fontSize = it.fontSizeSp / 18.0,
-            lineHeight = it.lineHeight.toDouble(), letterSpacing = it.letterSpacingEm.toDouble(), pageMargins = it.marginDp / 16.0,
+            lineHeight = it.lineHeight.toDouble(), publisherStyles = false,
+            letterSpacing = it.letterSpacingEm.coerceAtLeast(0f).toDouble() * 2, pageMargins = it.marginDp / 16.0,
             fontFamily = if (it.font == ReaderFont.SANS) org.readium.r2.navigator.preferences.FontFamily.SANS_SERIF else org.readium.r2.navigator.preferences.FontFamily.SERIF,
             backgroundColor = if (it.theme == ReaderTheme.OLED) org.readium.r2.navigator.preferences.Color(0xff000000.toInt()) else null,
             theme = when (it.theme) {
