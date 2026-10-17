@@ -352,12 +352,15 @@ class TxtReaderController(
         val event = ProgressWriteEvent(capturedSession, ++sequence,
             TxtLocator(capturedSession.contentRevision, TxtLocatorPayload(offset)),
             if (state.cache.complete) offset * 100.0 / state.cache.committedLength else null)
+        // A committed transaction must deliver its acknowledgement even when settling/reflow
+        // cancels the caller. The writer mutex remains held until this save finishes.
+        kotlinx.coroutines.withContext(kotlinx.coroutines.NonCancellable) {
         val result = try { progress.save(event) }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (failure: Exception) {
             mutableState.update { it.copy(saveError = true,
                 failureDiagnostic = diagnostic(ReaderFailureStage.SAVE, failure = failure)) }
-            return@withLock
+            return@withContext
         }
         when (result) {
             ProgressWriteResult.Committed -> {
@@ -368,6 +371,7 @@ class TxtReaderController(
                 failureDiagnostic = diagnostic(ReaderFailureStage.SAVE, "REJECTED_STALE")) }
             is ProgressWriteResult.Error -> mutableState.update { it.copy(saveError = true,
                 failureDiagnostic = diagnostic(ReaderFailureStage.SAVE, result.code.name)) }
+        }
         }
     }
 

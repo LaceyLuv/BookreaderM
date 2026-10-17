@@ -1188,3 +1188,11 @@ M05 최신 source fingerprint `e2d3caa89d74e7d946b3523389a362e381b803b86899c71ed
 - Reader 인스턴스별 composition key와 Main dispatcher 강제 복귀를 추가했다. Readium 3.1.2 open()의 명시적 onCreatePublication hook으로 bounded service를 설치하고 실제 서비스 타입도 확인한다.
 - Comic 100장 fixture를 40×20에서 1080×1600으로 강화하고 실제 allocation ≥1MiB를 요구한다. 이전 tiny fixture PASS는 새로운 이미지 크기 검증으로 승계하지 않는다.
 - local test APK/app/module lint/EPUB unit: /workspace/scratch/m01/service-and-ui-dispatch-check.log. 새 원격 결과는 별도 기록 예정.
+
+## 2026-10-17 commit acknowledgement 취소 회귀
+
+- main 7eaa0f5 actual API36 49개 중 48 PASS/1 FAIL. M07 원거리 seek·UI 소유권·bounded EPUB search 5개·1080×1600 Comic 100장 decoder는 PASS다. 전체/host는 PASS 아님. Comic 최대 bitmap 1,728,000 bytes / 예산 13,421,772 bytes, emulator PSS 130,708→153,404 KiB이며 물리 성능 판정 아님.
+- TXT 회전 native는 같은 anchor/epoch에 sequence만 다시 증가한 상태를 발견했다. DB commit 후 ack 대기를 취소하는 단위 fixture로 동일 문제를 먼저 FAIL 재현했다(`/workspace/scratch/m07/commit-ack-before.log`).
+- writer mutex 안의 save/ack 전달 구간을 NonCancellable로 보유해 settling/reflow 취소가 성공 ack를 버리지 않게 했다. 새로운 event/record를 만들지 않고 ack를 마친 뒤 caller 취소/close가 진행된다. 기존 activation cancel gate는 변경하지 않았다. archive 공통 writer에도 적용하고 반복 입력 회귀를 추가했다.
+- `./gradlew :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest :androidApp:lintDebug` 후속 로그는 commit-ack-final.log. 새 실제 회전/host 결과는 별도 확인한다.
+- bcc2081 EPUB 제품 branch remote build 64 Android/71 shared/13 EPUB/3 native ENOSPC PASS, native 51 중 50 PASS/1 검색 assertion FAIL. 검색 SDK 위치는 highlight 텍스트를 반드시 보존하지 않으므로 실제 progression/렌더 위치 확인으로 교정했다. 원본 결과 모두 보존한다.
