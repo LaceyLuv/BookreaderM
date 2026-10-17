@@ -27,3 +27,10 @@ val MIGRATION_3_4: Migration = object : Migration(3, 4) {
         connection.execSQL("CREATE INDEX IF NOT EXISTS index_bookmarks_bookId_contentRevision_createdAt_id ON bookmarks (bookId, contentRevision, createdAt, id)")
     }
 }
+
+/** Old journals remain TXT; books/progress/bookmarks/settings are not rewritten. */
+val MIGRATION_4_5: Migration = object : Migration(4, 5) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("ALTER TABLE import_jobs ADD COLUMN format TEXT NOT NULL DEFAULT 'TXT'")
+    }
+}

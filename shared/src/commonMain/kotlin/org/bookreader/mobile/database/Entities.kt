@@ -83,6 +83,7 @@ data class ImportJobEntity(
     val normalizationVersion: Int? = null,
     val committedBookId: String? = null,
     val failureCode: String? = null,
+    @androidx.room.ColumnInfo(defaultValue = "'TXT'") val format: String = "TXT",
 )
 
 @Entity(tableName = "app_metadata")

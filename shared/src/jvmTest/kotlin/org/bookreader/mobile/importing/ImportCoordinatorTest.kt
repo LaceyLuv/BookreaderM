@@ -13,6 +13,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.bookreader.mobile.model.BookFormat
 import org.bookreader.mobile.database.BookEntity
 import org.bookreader.mobile.database.BookReaderDatabase
 import org.bookreader.mobile.database.ImportJobEntity
@@ -35,6 +36,72 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class ImportCoordinatorTest {
+    @Test fun archiveJournalsRecoverEveryCommitBoundaryWithoutChangingExistingTxt() {
+        for (format in listOf(BookFormat.EPUB, BookFormat.COMIC)) for (checkpoint in listOf(
+            ImportCheckpoint.JOURNALED, ImportCheckpoint.COPYING, ImportCheckpoint.COPIED,
+            ImportCheckpoint.VALIDATED, ImportCheckpoint.FINALIZING, ImportCheckpoint.PROMOTED, ImportCheckpoint.COMMITTED)) fixture { f ->
+            val existing = assertIs<ImportResult.Success>(f.coordinator().importTxt(f.request())).book
+            val oldBook = f.db.bookDao().findBook(existing.id)
+            val progress = f.progress(existing.id, existing.currentRevision!!)
+            f.db.progressDao().insertProgress(progress)
+            f.archiveSource()
+            assertFailsWith<ProcessDeath> { f.coordinator(checkpoint).importBook(f.request("archive.zip").copy(format = format)) }
+            Files.delete(f.source)
+            f.coordinator().recover()
+            val jobs = f.db.importDao().listJobs().filter { it.format == format.name }
+            assertEquals(1, jobs.size)
+            val recovered = f.db.bookDao().findBook(jobs.single().proposedBookId)
+            if (checkpoint in listOf(ImportCheckpoint.JOURNALED, ImportCheckpoint.COPYING)) assertNull(recovered)
+            else {
+                assertEquals(format.name, recovered!!.format)
+                assertEquals(archiveContentRevision(format, recovered.sourceSha256), recovered.currentRevision)
+                assertNull(recovered.encodingId); assertNull(recovered.normalizationVersion)
+                assertTrue(Files.exists(f.files.resolve(recovered.managedRelativePath)))
+                assertEquals("COMMITTED", jobs.single().state)
+            }
+            f.coordinator().recover()
+            assertEquals(oldBook, f.db.bookDao().findBook(existing.id))
+            assertEquals(progress, f.db.progressDao().findProgress(existing.id, existing.currentRevision!!))
+            assertTrue(Files.exists(f.files.resolve(existing.managedRelativePath)))
+        }
+    }
+
+    @Test fun archiveFailureMutationAndCancellationCannotCommitOrChangeExistingBook() = fixture { f ->
+        val existing = assertIs<ImportResult.Success>(f.coordinator().importTxt(f.request())).book
+        val original = f.db.bookDao().findBook(existing.id)
+        f.archiveSource()
+        val request = f.request("archive.epub").copy(format = BookFormat.EPUB)
+        f.files.archiveFailure = ImportErrorCode.UNSUPPORTED_FORMAT
+        assertEquals(ImportResult.Failure(ImportErrorCode.UNSUPPORTED_FORMAT), f.coordinator().importBook(request))
+        f.files.archiveFailure = null
+        f.files.mutateArchive = true
+        assertEquals(ImportResult.Failure(ImportErrorCode.FILE_IO), f.coordinator().importBook(request))
+        f.files.mutateArchive = false
+        f.files.validationCheckpoint = { currentCoroutineContext().cancel(); currentCoroutineContext().ensureActive() }
+        var cancelled = false
+        coroutineScope {
+            launch { try { f.coordinator().importBook(request) } catch (_: CancellationException) { cancelled = true } }.join()
+        }
+        assertTrue(cancelled)
+        f.files.validationCheckpoint = {}
+        f.coordinator().recover()
+        assertEquals(original, f.db.bookDao().findBook(existing.id))
+        assertTrue(f.db.importDao().listJobs().filter { it.format == "EPUB" }.all { it.state in setOf("FAILED", "CANCELLED") })
+        assertTrue(Files.exists(f.source))
+    }
+
+    @Test fun duplicateArchiveKeepsIdentityAndCannotSilentlyChangeFormat() = fixture { f ->
+        f.archiveSource()
+        val request = f.request("archive.epub").copy(format = BookFormat.EPUB)
+        val original = assertIs<ImportResult.Success>(f.coordinator().importBook(request)).book
+        val again = assertIs<ImportResult.Success>(f.coordinator().importBook(request))
+        assertTrue(again.duplicate); assertEquals(original, again.book)
+        assertEquals(ImportResult.Failure(ImportErrorCode.UNSUPPORTED_FORMAT),
+            f.coordinator().importBook(request.copy(format = BookFormat.COMIC)))
+        assertEquals(original, f.db.bookDao().findBook(original.id)!!.toBook())
+        assertEquals(ImportResult.Failure(ImportErrorCode.TOO_LARGE), f.coordinator().importBook(request.copy(expectedBytes = MAX_EPUB_BYTES + 1)))
+    }
+
     @Test fun encodingRoundTripPreservesEachRevisionsProgressAndBookmarks() = fixture { f ->
         Files.write(f.source, "ABCDabcd01234567".toByteArray())
         val book = assertIs<ImportResult.Success>(f.coordinator().importTxt(f.request())).book
@@ -350,6 +417,12 @@ class ImportCoordinatorTest {
         val files = DiskFiles(directory.resolve("private"), source)
         fun request(name: String = "fixture.txt") = ImportRequest("fixture://temporary-grant", name)
         fun coordinator(crash: ImportCheckpoint? = null) = ImportCoordinator(db, files, { UUID.randomUUID().toString() }, { 100L }, ImportFaultHook { if (it == crash) throw ProcessDeath() })
+        fun archiveSource() {
+            java.util.zip.ZipOutputStream(Files.newOutputStream(source)).use { out ->
+                out.putNextEntry(java.util.zip.ZipEntry("generated-resource"))
+                out.write("Generated coordinator fixture; SDK validation is a separate suite".toByteArray()); out.closeEntry()
+            }
+        }
         fun progress(bookId: String, revision: String) = ReadingProgressEntity(bookId, revision, "txt", 1, LocatorCodec().encode(TxtLocator(revision, TxtLocatorPayload(7))), 12.0, 1, 1, 1)
     }
 
@@ -358,6 +431,8 @@ class ImportCoordinatorTest {
         var copyFailure: ImportErrorCode? = null
         var copyAfterBytesFailure: ImportErrorCode? = null
         var requireChoice = false
+        var archiveFailure: ImportErrorCode? = null
+        var mutateArchive = false
         var copyCalls = 0
         var removeFailure = false
         var validationCheckpoint: suspend () -> Unit = {}
@@ -402,6 +477,14 @@ class ImportCoordinatorTest {
                 }
             } catch (_: java.nio.charset.CharacterCodingException) { throw ImportFailure(ImportErrorCode.INVALID_TEXT) }
             return TxtValidation(id, 1)
+        }
+        // Coordinator fault adapter only; EPUB/Comic parsing belongs to actual platform suites.
+        override suspend fun validateArchive(relativePath: String, fingerprint: FileFingerprint, format: BookFormat) {
+            validationCheckpoint()
+            archiveFailure?.let { throw ImportFailure(it) }
+            require(format != BookFormat.TXT)
+            java.util.zip.ZipFile(resolve(relativePath).toFile()).use { require(it.size() == 1) }
+            if (mutateArchive) Files.write(resolve(relativePath), byteArrayOf(1, 2, 3))
         }
         override suspend fun fingerprint(relativePath: String, maxBytes: Long): FileFingerprint? {
             val path = resolve(relativePath)

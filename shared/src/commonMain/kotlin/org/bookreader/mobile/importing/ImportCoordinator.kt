@@ -11,6 +11,7 @@ import org.bookreader.mobile.database.BookEntity
 import org.bookreader.mobile.database.BookReaderDatabase
 import org.bookreader.mobile.database.ImportJobEntity
 import org.bookreader.mobile.model.isManagedRelativePath
+import org.bookreader.mobile.model.BookFormat
 
 // All import/recovery/deletion instances in this process share file ownership and serialization.
 private val managedOperations = Mutex()
@@ -24,22 +25,26 @@ class ImportCoordinator(
 ) {
     private val dao get() = database.importDao()
 
-    suspend fun importTxt(request: ImportRequest, onProgress: suspend (ImportProgress) -> Unit = {}): ImportResult = managedOperations.withLock {
+    suspend fun importTxt(request: ImportRequest, onProgress: suspend (ImportProgress) -> Unit = {}): ImportResult =
+        importBook(request.copy(format = BookFormat.TXT), onProgress)
+
+    suspend fun importBook(request: ImportRequest, onProgress: suspend (ImportProgress) -> Unit = {}): ImportResult = managedOperations.withLock {
+        val limit = maxImportBytes(request.format)
         currentCoroutineContext().ensureActive()
-        if (request.expectedBytes != null && request.expectedBytes > MAX_TXT_BYTES) return@withLock ImportResult.Failure(ImportErrorCode.TOO_LARGE)
+        if (request.expectedBytes != null && request.expectedBytes > limit) return@withLock ImportResult.Failure(ImportErrorCode.TOO_LARGE)
         if (request.expectedBytes != null && request.expectedBytes < 0) return@withLock ImportResult.Failure(ImportErrorCode.SOURCE_UNAVAILABLE)
         val id = checkedId(newId())
         val bookId = checkedId(newId())
         val name = request.displayName.filter { it.code >= 32 && it.code != 127 }.take(256).ifBlank { "텍스트 파일.txt" }
-        var job = ImportJobEntity(id, bookId, "imports/$id.part", "books/$bookId/original", "NEW", name, now(), now(), request.sourceUri, request.expectedBytes, encodingId = request.encodingId)
+        var job = ImportJobEntity(id, bookId, "imports/$id.part", "books/$bookId/original", "NEW", name, now(), now(), request.sourceUri, request.expectedBytes, encodingId = request.encodingId.takeIf { request.format == BookFormat.TXT }, format = request.format.name)
         try {
             dao.insertJob(job)
             faultHook.reached(ImportCheckpoint.JOURNALED)
             job = job.copy(state = "COPYING", updatedAt = now()).also { dao.updateJob(it) }
             faultHook.reached(ImportCheckpoint.COPYING)
-            val fingerprint = files.copySource(request, job.stagingPath, MAX_TXT_BYTES) { bytes ->
+            val fingerprint = files.copySource(request, job.stagingPath, limit) { bytes ->
                 currentCoroutineContext().ensureActive()
-                if (bytes !in 0..MAX_TXT_BYTES) throw ImportFailure(ImportErrorCode.TOO_LARGE)
+                if (bytes !in 0..limit) throw ImportFailure(ImportErrorCode.TOO_LARGE)
                 onProgress(ImportProgress(ImportPhase.COPYING, bytes, request.expectedBytes))
             }
             job = job.copy(state = "VALIDATING", bytesCopied = fingerprint.byteSize, sourceSha256 = fingerprint.sha256, updatedAt = now()).also { dao.updateJob(it) }
@@ -60,7 +65,7 @@ class ImportCoordinator(
 
     suspend fun resumeValidation(jobId: String, encodingId: String, onProgress: suspend (ImportProgress) -> Unit = {}): ImportResult = managedOperations.withLock {
         val job = dao.findJob(jobId) ?: return@withLock ImportResult.Failure(ImportErrorCode.INVALID_JOURNAL)
-        if (!owns(job) || job.state != "VALIDATING") return@withLock ImportResult.Failure(ImportErrorCode.INVALID_JOURNAL)
+        if (!owns(job) || job.state != "VALIDATING" || job.format != "TXT") return@withLock ImportResult.Failure(ImportErrorCode.INVALID_JOURNAL)
         if (encodingId !in setOf("utf-8", "utf-16le", "utf-16be", "cp949", "euc-kr")) return@withLock encodingRequired(job, ImportErrorCode.ENCODING_REQUIRED)
         val chosen = job.copy(encodingId = encodingId, failureCode = null, updatedAt = now()).also { dao.updateJob(it) }
         try { validateAndFinish(chosen, onProgress) }
@@ -81,15 +86,15 @@ class ImportCoordinator(
 
     private suspend fun validateAndFinish(job: ImportJobEntity, onProgress: suspend (ImportProgress) -> Unit): ImportResult {
         onProgress(ImportProgress(ImportPhase.VALIDATING, job.bytesCopied, job.expectedBytes))
-        val validation = try { files.validateTxt(job.stagingPath, job.sourceSha256!!, job.encodingId) }
+        val validation = try { validateJob(job, job.stagingPath) }
         catch (failure: ImportFailure) {
-            if (failure.code == ImportErrorCode.ENCODING_REQUIRED || failure.code == ImportErrorCode.INVALID_TEXT) {
+            if (job.format == "TXT" && (failure.code == ImportErrorCode.ENCODING_REQUIRED || failure.code == ImportErrorCode.INVALID_TEXT)) {
                 val pending = job.copy(failureCode = failure.code.name, updatedAt = now()).also { dao.updateJob(it) }
                 return encodingRequired(pending, failure.code)
             }
             throw failure
         }
-        val validated = job.copy(encodingId = validation.encodingId, normalizationVersion = validation.normalizationVersion, failureCode = null, updatedAt = now())
+        val validated = job.copy(encodingId = validation?.encodingId, normalizationVersion = validation?.normalizationVersion, failureCode = null, updatedAt = now())
         dao.updateJob(validated)
         faultHook.reached(ImportCheckpoint.VALIDATED)
         currentCoroutineContext().ensureActive()
@@ -102,13 +107,26 @@ class ImportCoordinator(
         }
     }
 
+    private suspend fun validateJob(job: ImportJobEntity, path: String): TxtValidation? {
+        val format = BookFormat.entries.firstOrNull { it.name == job.format } ?: throw ImportFailure(ImportErrorCode.INVALID_JOURNAL)
+        val fingerprint = FileFingerprint(job.sourceSha256 ?: throw ImportFailure(ImportErrorCode.INVALID_JOURNAL), job.bytesCopied)
+        if (fingerprint.byteSize > maxImportBytes(format)) throw ImportFailure(ImportErrorCode.TOO_LARGE)
+        if (format == BookFormat.TXT) return files.validateTxt(path, fingerprint.sha256, job.encodingId)
+        files.validateArchive(path, fingerprint, format)
+        if (files.fingerprint(path, maxImportBytes(format)) != fingerprint) throw ImportFailure(ImportErrorCode.FILE_IO)
+        return null
+    }
+
     private suspend fun finish(job: ImportJobEntity): ImportResult.Success {
         check(owns(job))
+        val format = BookFormat.valueOf(job.format)
+        val limit = maxImportBytes(format)
         var duplicate = dao.findDuplicate(job.sourceSha256!!, job.bytesCopied)
+        if (duplicate != null && duplicate.format != job.format) throw ImportFailure(ImportErrorCode.UNSUPPORTED_FORMAT)
         if (duplicate?.availability == "DELETING") throw ImportFailure(ImportErrorCode.BOOK_DELETING)
         if (duplicate?.availability == "READY") {
             val existing = duplicate
-            val actual = files.fingerprint(existing.managedRelativePath, MAX_TXT_BYTES)
+            val actual = files.fingerprint(existing.managedRelativePath, limit)
             if (actual == null) {
                 // Only definite absence is relinkable. Permission/I/O/hash mismatch stays fail-closed.
                 if (database.bookDao().markAvailability(existing.id, existing.currentRevision!!, "MISSING", now(), existing.activeSessionEpoch) != 1) throw ImportFailure(ImportErrorCode.EXISTING_COPY_UNAVAILABLE)
@@ -117,16 +135,17 @@ class ImportCoordinator(
         }
         if (duplicate?.availability != "READY") {
             if (duplicate != null && duplicate.availability != "MISSING") throw ImportFailure(ImportErrorCode.EXISTING_COPY_UNAVAILABLE)
-            val finalFingerprint = files.fingerprint(job.finalRelativePath, MAX_TXT_BYTES)
+            val finalFingerprint = files.fingerprint(job.finalRelativePath, limit)
             if (finalFingerprint != null && finalFingerprint != FileFingerprint(job.sourceSha256, job.bytesCopied)) throw ImportFailure(ImportErrorCode.INVALID_JOURNAL)
             if (finalFingerprint == null) files.promote(job.stagingPath, job.finalRelativePath)
             faultHook.reached(ImportCheckpoint.PROMOTED)
         }
         val candidate = BookEntity(
-            id = job.proposedBookId, format = "TXT", title = job.displayName.substringBeforeLast('.').ifBlank { job.displayName },
+            id = job.proposedBookId, format = job.format, title = job.displayName.substringBeforeLast('.').ifBlank { job.displayName },
             originalDisplayName = job.displayName, managedRelativePath = job.finalRelativePath,
             sourceSha256 = job.sourceSha256, sourceByteSize = job.bytesCopied,
-            currentRevision = txtContentRevision(job.sourceSha256, job.encodingId!!, job.normalizationVersion!!),
+            currentRevision = if (format == BookFormat.TXT) txtContentRevision(job.sourceSha256, job.encodingId!!, job.normalizationVersion!!)
+                else archiveContentRevision(format, job.sourceSha256),
             encodingId = job.encodingId, normalizationVersion = job.normalizationVersion, sourceUri = job.sourceUri,
             addedAt = job.createdAt, createdAt = job.createdAt, updatedAt = now(),
         )
@@ -152,17 +171,18 @@ class ImportCoordinator(
             currentCoroutineContext().ensureActive()
             if (!owns(job)) { outcomes += ImportResult.Failure(ImportErrorCode.INVALID_JOURNAL); continue }
             try {
+                val limit = maxImportBytes(BookFormat.valueOf(job.format))
                 when (job.state) {
                     "FINALIZING" -> {
-                        val path = if (files.fingerprint(job.finalRelativePath, MAX_TXT_BYTES) != null) job.finalRelativePath else job.stagingPath
-                        val actual = files.fingerprint(path, MAX_TXT_BYTES)
-                        if (job.sourceSha256 == null || actual != FileFingerprint(job.sourceSha256, job.bytesCopied) || job.encodingId == null || job.normalizationVersion == null) throw ImportFailure(ImportErrorCode.INVALID_JOURNAL)
-                        val validation = files.validateTxt(path, job.sourceSha256, job.encodingId)
-                        if (validation.encodingId != job.encodingId || validation.normalizationVersion != job.normalizationVersion) throw ImportFailure(ImportErrorCode.INVALID_JOURNAL)
+                        val path = if (files.fingerprint(job.finalRelativePath, limit) != null) job.finalRelativePath else job.stagingPath
+                        val actual = files.fingerprint(path, limit)
+                        if (job.sourceSha256 == null || actual != FileFingerprint(job.sourceSha256, job.bytesCopied)) throw ImportFailure(ImportErrorCode.INVALID_JOURNAL)
+                        val validation = validateJob(job, path)
+                        if (validation?.encodingId != job.encodingId || validation?.normalizationVersion != job.normalizationVersion) throw ImportFailure(ImportErrorCode.INVALID_JOURNAL)
                         outcomes += finish(job)
                     }
                     "VALIDATING" -> {
-                        if (job.sourceSha256 != null && files.fingerprint(job.stagingPath, MAX_TXT_BYTES) == FileFingerprint(job.sourceSha256, job.bytesCopied)) {
+                        if (job.sourceSha256 != null && files.fingerprint(job.stagingPath, limit) == FileFingerprint(job.sourceSha256, job.bytesCopied)) {
                             outcomes += validateAndFinish(job, {})
                         } else { fail(job.id, "FAILED", ImportErrorCode.INTERRUPTED); outcomes += ImportResult.Failure(ImportErrorCode.INTERRUPTED) }
                     }
@@ -254,7 +274,7 @@ class ImportCoordinator(
 
     private suspend fun removeUnreferenced(path: String) { if (dao.references(path) == 0) files.remove(path) }
     private fun encodingRequired(job: ImportJobEntity, code: ImportErrorCode) = ImportResult.EncodingRequired(job.id, job.stagingPath, job.displayName, code)
-    private fun owns(job: ImportJobEntity): Boolean = validId(job.id) && validId(job.proposedBookId) &&
+    private fun owns(job: ImportJobEntity): Boolean = BookFormat.entries.any { it.name == job.format } && validId(job.id) && validId(job.proposedBookId) &&
         job.stagingPath == "imports/${job.id}.part" && job.finalRelativePath == "books/${job.proposedBookId}/original"
     private fun checkedId(value: String): String { require(validId(value)); return value }
     private fun validId(value: String): Boolean = value.length in 1..64 && value.all { it.isLetterOrDigit() && it.code < 128 || it == '-' }

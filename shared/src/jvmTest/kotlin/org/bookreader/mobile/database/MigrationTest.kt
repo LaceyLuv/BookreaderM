@@ -25,6 +25,8 @@ class MigrationTest {
     @Test fun exportedVersionTwoMigratesWithoutLosingBooksOrProgress() = migration(2)
     @Test fun exportedVersionThreePreservesSettingsBooksAndProgress() = migration(3)
 
+    @Test fun exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt() = migration(4)
+
     private fun migration(version: Int) = runBlocking {
         val directory = Files.createTempDirectory("bookreader-migration-")
         val path = directory.resolve("db.sqlite")
@@ -79,13 +81,23 @@ class MigrationTest {
                     insert.step()
                 }
             }
+            if (version >= 4) BundledSQLiteDriver().open(path.toString()).use { connection ->
+                connection.execSQL("INSERT INTO import_jobs (id,proposedBookId,stagingPath,finalRelativePath,state,displayName,createdAt,updatedAt,bytesCopied) VALUES ('old-job','pending','imports/old-job.part','books/pending/original','COPYING','original.txt',41,42,43)")
+                connection.prepare("INSERT INTO bookmarks (id,bookId,contentRevision,locatorType,locatorVersion,locatorJson,label,createdAt,updatedAt) VALUES ('raw-bookmark',?,?,'future',9,'{untouched}','label',51,52)").use {
+                    it.bindText(1,book.id);it.bindText(2,progress.contentRevision);it.step()
+                }
+            }
             val migrated = createJvmDatabase(path)
             try {
                 assertEquals(book, migrated.bookDao().findBook(book.id))
                 assertEquals(progress, migrated.progressDao().findProgress(book.id, progress.contentRevision))
-                assertTrue(migrated.importDao().listJobs().isEmpty())
+                if (version < 4) assertTrue(migrated.importDao().listJobs().isEmpty()) else {
+                    assertEquals(ImportJobEntity("old-job","pending","imports/old-job.part","books/pending/original","COPYING","original.txt",41,42,bytesCopied=43), migrated.importDao().listJobs().single())
+                }
                 assertEquals(ReaderSettingsRows(if (version >= 3) ReaderGlobalSettingsEntity(schemaVersion = 2, settingsJson = "{future}") else null, null), migrated.readerSettingsDao().read(book.id))
-                assertTrue(migrated.bookmarkDao().page(book.id, progress.contentRevision, Long.MAX_VALUE, "z").isEmpty())
+                val bookmarks = migrated.bookmarkDao().page(book.id, progress.contentRevision, Long.MAX_VALUE, "z")
+                if (version < 4) assertTrue(bookmarks.isEmpty()) else assertEquals(
+                    BookmarkEntity("raw-bookmark", book.id, progress.contentRevision, "future", 9, "{untouched}", "label", 51, 52), bookmarks.single())
                 assertEquals(17L, migrated.progressWriterDao().readOrder())
                 val ready = assertIs<ReadySessionResult.Ready>(RoomProgressWriter(migrated) { 30 }.startReadySession(book.id, progress.contentRevision, locator))
                 assertEquals(10L, ready.session.sessionEpoch)

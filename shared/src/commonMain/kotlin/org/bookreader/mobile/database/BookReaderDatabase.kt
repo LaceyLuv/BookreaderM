@@ -43,7 +43,7 @@ interface ProgressDao {
 }
 
 @Database(entities = [BookEntity::class, ReadingProgressEntity::class, ImportJobEntity::class, AppMetadataEntity::class,
-    ReaderGlobalSettingsEntity::class, BookReaderPreferencesEntity::class, BookmarkEntity::class], version = 4, exportSchema = true)
+    ReaderGlobalSettingsEntity::class, BookReaderPreferencesEntity::class, BookmarkEntity::class], version = 5, exportSchema = true)
 @ConstructedBy(BookReaderDatabaseConstructor::class)
 abstract class BookReaderDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao

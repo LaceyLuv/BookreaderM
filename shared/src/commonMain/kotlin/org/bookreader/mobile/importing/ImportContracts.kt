@@ -1,20 +1,33 @@
 package org.bookreader.mobile.importing
 
+import org.bookreader.mobile.model.BookFormat
 import org.bookreader.mobile.model.Book
 
 const val MAX_TXT_BYTES: Long = 256L * 1024 * 1024
+const val MAX_EPUB_BYTES: Long = 512L * 1024 * 1024
+const val MAX_COMIC_BYTES: Long = 2L * 1024 * 1024 * 1024
+fun maxImportBytes(format: BookFormat): Long = when (format) {
+    BookFormat.TXT -> MAX_TXT_BYTES
+    BookFormat.EPUB -> MAX_EPUB_BYTES
+    BookFormat.COMIC -> MAX_COMIC_BYTES
+}
+fun archiveContentRevision(format: BookFormat, sha256: String): String {
+    require(format != BookFormat.TXT && sha256.length == 64 && sha256.all { it in "0123456789abcdef" })
+    return "${format.name.lowercase()}:$sha256:policy:1"
+}
 
 data class ImportRequest(
     val sourceUri: String,
     val displayName: String,
     val expectedBytes: Long? = null,
     val encodingId: String? = null,
+    val format: BookFormat = BookFormat.TXT,
 )
 
 data class FileFingerprint(val sha256: String, val byteSize: Long) {
     init {
         require(sha256.length == 64 && sha256.all { it in "0123456789abcdef" })
-        require(byteSize in 0..MAX_TXT_BYTES)
+        require(byteSize in 0..MAX_COMIC_BYTES)
     }
 }
 
@@ -61,6 +74,10 @@ interface ManagedImportFiles {
 
     /** Strict streaming validation, never replacement decoding. Revision hashes source+encoding+policy. */
     suspend fun validateTxt(relativePath: String, sourceSha256: String, encodingId: String?): TxtValidation
+    /** Must validate the complete archive through the format adapter before any commit. */
+    suspend fun validateArchive(relativePath: String, fingerprint: FileFingerprint, format: BookFormat) {
+        throw ImportFailure(ImportErrorCode.UNSUPPORTED_FORMAT)
+    }
     suspend fun fingerprint(relativePath: String, maxBytes: Long): FileFingerprint?
     /** Atomic same-filesystem move; never overwrite an existing destination. */
     suspend fun promote(stagingPath: String, finalRelativePath: String)
