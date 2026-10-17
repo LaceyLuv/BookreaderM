@@ -56,6 +56,7 @@ object EpubContentPolicy {
     }
 
     private fun validateReference(raw: String, externalLink: Boolean, resourceKey: String) {
+        require(raw.length <= 8192) { "Resource reference length limit" }
         require(raw.none { it.code < 32 || it == '\\' }) { "Unsafe resource reference" }
         val uri = URI(raw.trim())
         require(!uri.isAbsolute || externalLink && uri.scheme.lowercase(Locale.ROOT) in setOf("https", "http")) { "External or active resource unsupported" }

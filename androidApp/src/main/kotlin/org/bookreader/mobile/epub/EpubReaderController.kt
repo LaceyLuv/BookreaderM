@@ -33,7 +33,7 @@ data class EpubReaderUi(val opened: Boolean = false, val error: String? = null,
     val settingsSaving: Boolean = false, val hostVersion: Int = 0,
     val query: String = "", val results: List<Locator> = emptyList(), val searching: Boolean = false,
     val searchError: Boolean = false, val bookmarks: List<Bookmark> = emptyList(), val bookmarkError: Boolean = false,
-    val bookmarkCursor: BookmarkCursor? = null, val canReturn: Boolean = false, val externalUrl: String? = null)
+    val bookmarkCursor: BookmarkCursor? = null, val canReturn: Boolean = false, val externalUrl: String? = null, val notice: String? = null)
 
 /** ViewModel owner for one verified private EPUB and its progress session. UI callbacks run on Main. */
 @OptIn(ExperimentalReadiumApi::class)
@@ -152,7 +152,12 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     }
     fun returnFromJump() { val target = returnTo ?: return; returnTo = null; navigate(target, false); mutableState.update { it.copy(canReturn = false) } }
     fun beforeInternalLink() { if (returnTo == null) returnTo = host?.currentLocator?.value; armMovement(); mutableState.update { it.copy(canReturn = returnTo != null) } }
-    fun externalLink(url: AbsoluteUrl) { if (url.isHttp) mutableState.update { it.copy(externalUrl = url.toString()) } }
+    fun externalLink(url: AbsoluteUrl) {
+        if (!url.isHttp) return
+        if (url.toString().length <= 8192) mutableState.update { it.copy(externalUrl = url.toString()) }
+        else mutableState.update { it.copy(notice = "링크가 너무 길어 열 수 없습니다.") }
+    }
+    fun externalOpenFailed() { mutableState.update { it.copy(notice = "브라우저를 열지 못했습니다. 독서는 계속할 수 있습니다.") } }
     fun dismissExternal() { mutableState.update { it.copy(externalUrl = null) } }
     fun fail(message: String) { progress.restorationFailed(); mutableState.update { it.copy(error = message) } }
 

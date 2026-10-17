@@ -77,6 +77,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
                 if (!chrome) TextButton(onClick = { menu = true }, modifier = Modifier.align(Alignment.TopEnd).testTag("epub_menu")) { Text("메뉴") }
             }
         }
+        state.notice?.let { Text(it) }
         if (progress.saveError) Text("독서 위치를 저장하지 못했습니다. 마지막 저장 기록은 유지됩니다.", Modifier.testTag("epub_save_error"))
         if (chrome) FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             TextButton(onClick = { controller.next(-1) }, enabled = ready, modifier = Modifier.testTag("epub_previous")) { Text("이전") }
@@ -108,7 +109,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
         AlertDialog(onDismissRequest = { toc = false }, title = { Text("목차") }, text = {
             LazyColumn(Modifier.heightIn(max = 400.dp)) { items(links.first) { (link, depth) ->
                 TextButton(onClick = { controller.publication?.locatorFromLink(link)?.let { controller.navigate(it) }; toc = false }, modifier = Modifier.padding(start = (depth * 8).dp).testTag("epub_toc_item")) {
-                    Text(link.title ?: "이름 없는 장", maxLines = 2, overflow = TextOverflow.Ellipsis)
+                    Text(link.title?.take(200) ?: "이름 없는 장", maxLines = 2, overflow = TextOverflow.Ellipsis)
                 }
             }
                 if (links.second) item { Text("목차 표시 한도에 도달했습니다. 일부 항목은 본문 이동으로 확인할 수 있습니다.") }
@@ -132,7 +133,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     state.externalUrl?.let { url -> AlertDialog(onDismissRequest = controller::dismissExternal,
         title = { Text("외부 링크 열기") }, text = { Text(url, maxLines = 4, overflow = TextOverflow.Ellipsis) },
         confirmButton = { TextButton(onClick = {
-            try { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } catch (_: android.content.ActivityNotFoundException) { }
+            try { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } catch (_: android.content.ActivityNotFoundException) { controller.externalOpenFailed() }
             controller.dismissExternal()
         }) { Text("브라우저로 열기") } }, dismissButton = { TextButton(onClick = controller::dismissExternal) { Text("취소") } }) }
 }

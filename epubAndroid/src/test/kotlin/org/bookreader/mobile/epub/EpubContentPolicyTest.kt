@@ -17,6 +17,12 @@ class EpubContentPolicyTest {
             assertThrows(Exception::class.java) { EpubContentPolicy.protectXhtml(html(body)) }
         }
     }
+    @Test fun oversizedLinksFailBeforeReachingAnyBrowserIntent() {
+        val normal = "https://example.invalid/" + "a".repeat(1024)
+        assertTrue(EpubContentPolicy.protectXhtml(html("<a href=\"$normal\">open</a>")).isNotEmpty())
+        val oversized = "https://example.invalid/" + "a".repeat(8192)
+        assertThrows(Exception::class.java) { EpubContentPolicy.protectXhtml(html("<a href=\"$oversized\">open</a>")) }
+    }
     @Test fun dtdEntitiesAndExcessiveNestingFailClosed() {
         assertThrows(Exception::class.java) { EpubContentPolicy.validateXml("<!DOCTYPE html [<!ENTITY secret SYSTEM 'file:///private/canary'>]><html>&secret;</html>".toByteArray(), true) }
         assertThrows(Exception::class.java) { EpubContentPolicy.validateXml(("<a>".repeat(65) + "</a>".repeat(65)).toByteArray(), true) }
