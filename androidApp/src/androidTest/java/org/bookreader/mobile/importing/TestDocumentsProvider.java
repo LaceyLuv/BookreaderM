@@ -121,6 +121,7 @@ public final class TestDocumentsProvider extends DocumentsProvider {
         switch (id) {
             case "reader-scroll": case "reader-host": case "reader-failure": case "reader-continuous":
             case "reader-full": case "reader-full-other":
+            case "reader-query-error": case "reader-locator-error": case "reader-read-other":
                 StringBuilder text = new StringBuilder();
                 for (int line = 0; line < 6000; line++) {
                     if (line != 0) text.append('\n');

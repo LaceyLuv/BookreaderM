@@ -83,9 +83,14 @@ report_exit=0
 run_logged continuous-progress-report adb shell run-as org.bookreader.mobile cat files/txt-continuous-report.json || report_exit=$?
 full_report_exit=0
 run_logged sqlite-full-report adb shell run-as org.bookreader.mobile cat files/txt-full-report.json || full_report_exit=$?
+read_report_exit=0
+for fixture in reader-query-error reader-locator-error; do
+  run_logged "$fixture-report" adb shell run-as org.bookreader.mobile cat "files/$fixture-report.json" || read_report_exit=$?
+done
 if (( connected_exit != 0 )); then exit "$connected_exit"; fi
 if (( report_exit != 0 )); then exit "$report_exit"; fi
 if (( full_report_exit != 0 )); then exit "$full_report_exit"; fi
+if (( read_report_exit != 0 )); then exit "$read_report_exit"; fi
 run_logged verified-test-results python3 scripts/check-test-results.py \
   android-device androidApp/build/outputs/androidTest-results/connected
 run_logged verified-continuous-progress python3 - "$evidence_dir/continuous-progress-report.log" <<'PY'
@@ -119,6 +124,25 @@ assert report['initial_offset'] != report['pending_offset'] == report['retry_off
 assert report['retry_sequence'] > report['initial_sequence']
 print('PASS native SQLite page-limit FULL, actual Reader error UI, preserved records and automatic retry; OS ENOSPC not measured')
 PY
+# Native query failure and malformed locator are separate real Reader paths.
+run_logged verified-progress-read-errors python3 - "$evidence_dir" <<'PY_READ'
+from pathlib import Path
+import json
+import sys
+for fixture in ('reader-query-error', 'reader-locator-error'):
+    report = json.loads((Path(sys.argv[1]) / f'{fixture}-report.log').read_text())
+    assert report['status'] == 'PASS' and report['fixture_id'] == fixture
+    assert report['failed_retries'] == 2
+    assert report['initial_offset'] == report['restored_offset'] > 0
+    assert report['restored_epoch'] == report['new_epoch'] == report['initial_epoch'] + 1
+    assert report['new_offset'] != report['initial_offset']
+    assert all(report[key] is True for key in ('error_ui_visible', 'all_records_preserved_on_error',
+        'managed_files_preserved', 'retry_cleared_error', 'progress_unchanged_after_restore',
+        'other_book_preserved_after_retry', 'save_after_retry', 'fixture_restored'))
+    if fixture == 'reader-query-error':
+        assert report['native_probe_code'] == 1 and report['native_probe_type'] == 'SQLiteException'
+    print(f'PASS {fixture}: preserved records through failed retries, measured restoration and new-session save')
+PY_READ
 # The excluded class is mandatory here: both exact methods execute around an
 # external adb force-stop, independent of JUnit method ordering.
 run_logged host-process-tests python3 scripts/reader-process-check.py "$evidence_dir/reader-host-process"

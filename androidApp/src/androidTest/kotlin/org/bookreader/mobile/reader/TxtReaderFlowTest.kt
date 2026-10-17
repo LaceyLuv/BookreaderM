@@ -386,6 +386,183 @@ class TxtReaderFlowTest {
         }
     }
 
+    @Test fun nativeProgressQueryFailureShowsRetryWithoutChangingRecords() {
+        verifyProgressReadFailure(nativeQueryFailure = true)
+    }
+
+    @Test fun malformedLocatorShowsRetryWithoutReplacingStoredRecord() {
+        verifyProgressReadFailure(nativeQueryFailure = false)
+    }
+
+    private fun verifyProgressReadFailure(nativeQueryFailure: Boolean) {
+        val fixture = if (nativeQueryFailure) "reader-query-error" else "reader-locator-error"
+        val reportFile = File(target.filesDir, "$fixture-report.json")
+        if (reportFile.exists()) assertTrue(reportFile.delete())
+        sendFixture("reader-read-other")
+        waitFor("reader_ready")
+        val other = reader().book
+        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        val otherProgress = requireNotNull(saved(other))
+        sendFixture(fixture)
+        waitFor("reader_ready")
+        val book = reader().book
+        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        val committed = requireNotNull(saved(book))
+        assertTrue(offset(committed) > 0)
+        val beforeBooks = books()
+        val beforeBook = beforeBooks.single { it.id == book.id }
+        val originals = listOf(book, other).map {
+            File(File(target.filesDir, "managed"), it.managedRelativePath)
+        }
+        val hashes = originals.map(::digest)
+        // Keep the app-owned pool open. DDL and repair use its serialized writer connection.
+        val database = AndroidDatabaseOwner.borrow(target)
+        fun execute(sql: String) = runBlocking { database.useWriterConnection { it.execSQL(sql) } }
+        fun records(): List<List<String?>> = runBlocking { database.useWriterConnection { connection ->
+            connection.usePrepared("SELECT * FROM reading_progress ORDER BY 1, 2") { statement ->
+                buildList {
+                    while (statement.step()) add((0 until 9).map {
+                        if (statement.isNull(it)) null else statement.getText(it)
+                    })
+                }
+            }
+        } }
+        fun readOrder(): Long = runBlocking { database.useWriterConnection { connection ->
+            connection.usePrepared("SELECT value FROM app_metadata WHERE `key` = 'read_order'") {
+                check(it.step()); it.getLong(0)
+            }
+        } }
+        fun locatorJson(value: String) = runBlocking { database.useWriterConnection { connection ->
+            connection.usePrepared("UPDATE reading_progress SET locatorJson = ? WHERE bookId = ? AND contentRevision = ?") {
+                it.bindText(1, value); it.bindText(2, book.id)
+                it.bindText(3, requireNotNull(book.currentRevision)); it.step()
+            }
+        } }
+        val originalRows = records()
+        val originalJson = requireNotNull(originalRows.single { it[0] == book.id }[4])
+        val beforeOrder = readOrder()
+        var faultInstalled = false
+        var passed = false
+        val report = JSONObject().apply {
+            put("fixture_id", fixture).put("fixture_sha256", book.sourceSha256)
+            put("fixture_bytes", book.sourceByteSize).put("other_fixture_sha256", other.sourceSha256)
+            put("api", Build.VERSION.SDK_INT).put("build_fingerprint", Build.FINGERPRINT)
+            put("mechanism", if (nativeQueryFailure) "temporary query-column rename; native SQLite query failure"
+                else "test-only malformed locator JSON; real Room repository decoding")
+            put("initial_offset", offset(committed)).put("initial_sequence", committed.writerSequence)
+            put("initial_epoch", beforeBook.activeSessionEpoch)
+        }
+        try {
+            if (nativeQueryFailure) {
+                // Values, rows and foreign-key/index definitions survive the reversible rename.
+                // DAO WHERE bookId then fails in SQLite; no fake Error or closed borrowed DB.
+                execute("ALTER TABLE reading_progress RENAME COLUMN bookId TO fixture_held_book_id")
+            } else locatorJson("{malformed-test-locator")
+            faultInstalled = true
+            val failedRows = records()
+            if (nativeQueryFailure) {
+                assertTrue("DDL must preserve every progress value", originalRows == failedRows)
+                val nativeFailure = runCatching { runBlocking {
+                    observerDatabase.progressDao().findProgress(book.id, requireNotNull(book.currentRevision))
+                } }.exceptionOrNull()
+                assertTrue(nativeFailure is SQLiteException)
+                assertTrue(nativeFailure?.message.orEmpty().contains("Error code: 1,"))
+                report.put("native_probe_code", 1)
+                report.put("native_probe_type", requireNotNull(nativeFailure)::class.simpleName)
+            }
+            compose.onNodeWithTag("read_${book.id}").performClick()
+            waitFor("reader_error")
+            val failedController = reader()
+            fun assertPreservedError() {
+                val state = failedController.state.value
+                assertEquals(TxtReaderPhase.ERROR, state.phase)
+                assertEquals(ReaderFailureStage.LOAD_PROGRESS, state.failureDiagnostic?.stage)
+                assertEquals(if (nativeQueryFailure) "DATABASE_UNAVAILABLE" else "INVALID_RECORD",
+                    state.failureDiagnostic?.resultCode)
+                if (nativeQueryFailure) {
+                    assertEquals(DatabaseFailureStage.READ_PROGRESS, state.failureDiagnostic?.database?.stage)
+                    assertTrue(state.failureDiagnostic?.database?.exceptionTypes?.contains("SQLiteException") == true)
+                } else assertNull(state.failureDiagnostic?.database)
+                assertNull(state.stableOffset)
+                compose.onNodeWithTag("reader_retry").assertIsDisplayed()
+                compose.onNodeWithTag("reader_text").assertDoesNotExist()
+                assertTrue("Error/retry must preserve all raw progress columns", failedRows == records())
+                assertTrue("Error/retry must preserve every book including epoch and read order", beforeBooks == books())
+                assertEquals(beforeOrder, readOrder())
+                assertEquals(hashes, originals.map(::digest))
+            }
+            assertPreservedError()
+            repeat(2) {
+                val generation = failedController.state.value.restoreGeneration
+                compose.onNodeWithTag("reader_retry").performClick()
+                compose.waitUntil(10_000) {
+                    val state = failedController.state.value
+                    state.restoreGeneration > generation && state.phase == TxtReaderPhase.ERROR
+                }
+                // Observe beyond the normal 1s sampling period while the read remains failed.
+                SystemClock.sleep(1_250)
+                assertPreservedError()
+            }
+            report.put("failed_retries", 2).put("error_ui_visible", true)
+                .put("all_records_preserved_on_error", true).put("managed_files_preserved", true)
+            if (nativeQueryFailure) execute("ALTER TABLE reading_progress RENAME COLUMN fixture_held_book_id TO bookId")
+            else locatorJson(originalJson)
+            faultInstalled = false
+            assertTrue("Fixture repair restores original values", originalRows == records())
+            compose.onNodeWithTag("reader_retry").performClick()
+            waitFor("reader_ready")
+            compose.waitForIdle()
+            assertSame(failedController, reader())
+            assertEquals(offset(committed), reader().state.value.targetOffset)
+            assertEquals(offset(committed), measuredVisibleLine(reader()))
+            assertEquals(committed, saved(book))
+            assertEquals(otherProgress, saved(other))
+            assertTrue("Restoration must not write a new progress record", originalRows == records())
+            val afterBooks = books()
+            assertEquals(beforeBooks.filter { it.id != book.id }, afterBooks.filter { it.id != book.id })
+            val restoredBook = afterBooks.single { it.id == book.id }
+            assertEquals(beforeBook.activeSessionEpoch + 1, restoredBook.activeSessionEpoch)
+            assertEquals(beforeOrder + 1, readOrder())
+            assertEquals(hashes, originals.map(::digest))
+            assertNull(reader().state.value.failureDiagnostic)
+            compose.onNodeWithTag("reader_error").assertDoesNotExist()
+            report.put("restored_offset", measuredVisibleLine(reader()))
+                .put("restored_epoch", restoredBook.activeSessionEpoch)
+                .put("retry_cleared_error", true).put("progress_unchanged_after_restore", true)
+                .put("other_book_preserved_after_retry", true)
+            // Successful retry must also re-enable ordinary user-driven saving in the new epoch.
+            compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+            compose.waitForIdle()
+            val moved = measuredVisibleLine(reader())
+            assertNotEquals(offset(committed), moved)
+            compose.waitUntil(10_000) { saved(book)?.let {
+                offset(it) == moved && it.writerSessionEpoch == restoredBook.activeSessionEpoch
+            } == true }
+            assertEquals(otherProgress, saved(other))
+            assertEquals(hashes, originals.map(::digest))
+            report.put("new_offset", moved).put("new_epoch", requireNotNull(saved(book)).writerSessionEpoch)
+                .put("save_after_retry", true)
+            passed = true
+        } finally {
+            try {
+                if (faultInstalled) {
+                    if (nativeQueryFailure) execute("ALTER TABLE reading_progress RENAME COLUMN fixture_held_book_id TO bookId")
+                    else locatorJson(originalJson)
+                }
+                // Real DAO query must work after cleanup, including a failed assertion path.
+                runBlocking { assertNotNull(observerDatabase.progressDao().findProgress(book.id, requireNotNull(book.currentRevision))) }
+                report.put("fixture_restored", true)
+            } finally {
+                report.put("status", if (passed && report.optBoolean("fixture_restored")) "PASS" else "FAIL")
+                reportFile.writeText(report.toString(2))
+            }
+        }
+    }
+
     private fun measuredVisibleLine(controller: TxtReaderController): Long {
         val viewport = compose.onNodeWithTag("reader_text").fetchSemanticsNode().positionInRoot.y
         val state = controller.state.value
