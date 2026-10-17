@@ -1,5 +1,15 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## 2026-10-17 M07 main 반영 및 EPUB 선행 probe
+
+`a183271` main에 메뉴·취소 가능한 위치 slider·탭/swipe·창 설정을 반영했다.
+local/remote build unit 59/shared 67/remote ENOSPC 3 PASS, device run 39007531744는 실행 중이다.
+[보고서](M07_MOBILE_CONTROLS.md)와 `docs/evidence/m07-validation`을 따른다.
+`/workspace/bookreader-mobile-epub`의 `codex/m01-epub`에서 Readium 3.1.2 격리 probe를 구현 중이다.
+최신 3.4.0은 현재 compileSdk/Kotlin보다 높은 요구를 명시하므로 기존 도구와 호환되는 안정 버전을 검증한다.
+EPUB 제품 가져오기/독서로 연결한 상태가 아니다. 전체 남은 계획 진행 목표는 계속 유효하다.
+
+
 ## 2026-10-17 M06 main 검증 및 M07 진행
 
 `f208a06` main에서 local/remote unit 55/shared 67, remote ENOSPC 3, API36 ordinary 38/host 2 PASS다.
