@@ -21,12 +21,15 @@ import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 class MigrationTest {
-    @Test fun exportedVersionOneMigratesWithoutLosingBooksOrProgress() = runBlocking {
+    @Test fun exportedVersionOneMigratesWithoutLosingBooksOrProgress() = migration(1)
+    @Test fun exportedVersionTwoMigratesWithoutLosingBooksOrProgress() = migration(2)
+
+    private fun migration(version: Int) = runBlocking {
         val directory = Files.createTempDirectory("bookreader-migration-")
         val path = directory.resolve("db.sqlite")
         val schemaPath = listOf(
-            Path.of("schemas/org.bookreader.mobile.database.BookReaderDatabase/1.json"),
-            Path.of("shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/1.json"),
+            Path.of("schemas/org.bookreader.mobile.database.BookReaderDatabase/$version.json"),
+            Path.of("shared/schemas/org.bookreader.mobile.database.BookReaderDatabase/$version.json"),
         ).first { Files.isRegularFile(it) }
         val schema = Json.parseToJsonElement(Files.readString(schemaPath)).jsonObject.getValue("database").jsonObject
         val book = BookEntity(
@@ -43,10 +46,11 @@ class MigrationTest {
                     val e = entity.jsonObject
                     val table = e.getValue("tableName").jsonPrimitive.content
                     connection.execSQL(e.getValue("createSql").jsonPrimitive.content.replace("\${TABLE_NAME}", table))
-                    for (index in e.getValue("indices").jsonArray) connection.execSQL(index.jsonObject.getValue("createSql").jsonPrimitive.content.replace("\${TABLE_NAME}", table))
+                    for (index in e["indices"]?.jsonArray.orEmpty()) connection.execSQL(index.jsonObject.getValue("createSql").jsonPrimitive.content.replace("\${TABLE_NAME}", table))
                 }
                 for (query in schema.getValue("setupQueries").jsonArray) connection.execSQL(query.jsonPrimitive.content)
-                connection.execSQL("PRAGMA user_version = 1")
+                connection.execSQL("PRAGMA user_version = $version")
+                if (version == 2) connection.execSQL("INSERT INTO app_metadata (`key`, value) VALUES ('read_order', 17)")
                 connection.prepare("INSERT INTO books (id,format,title,originalDisplayName,managedRelativePath,sourceSha256,sourceByteSize,addedAt,createdAt,updatedAt,currentRevision,encodingId,normalizationVersion,availability,lastOpenedAt,lastReadAt,readOrder,activeSessionEpoch) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)").use { insert ->
                     listOf(book.id, book.format, book.title, book.originalDisplayName, book.managedRelativePath, book.sourceSha256).forEachIndexed { i, value -> insert.bindText(i + 1, value) }
                     listOf(book.sourceByteSize, book.addedAt, book.createdAt, book.updatedAt).forEachIndexed { i, value -> insert.bindLong(i + 7, value) }
@@ -78,6 +82,7 @@ class MigrationTest {
                 assertEquals(book, migrated.bookDao().findBook(book.id))
                 assertEquals(progress, migrated.progressDao().findProgress(book.id, progress.contentRevision))
                 assertTrue(migrated.importDao().listJobs().isEmpty())
+                assertEquals(ReaderSettingsRows(null, null), migrated.readerSettingsDao().read(book.id))
                 assertEquals(17L, migrated.progressWriterDao().readOrder())
                 val ready = assertIs<ReadySessionResult.Ready>(RoomProgressWriter(migrated) { 30 }.startReadySession(book.id, progress.contentRevision, locator))
                 assertEquals(10L, ready.session.sessionEpoch)

@@ -12,3 +12,11 @@ val MIGRATION_1_2: Migration = object : Migration(1, 2) {
         connection.execSQL("INSERT INTO app_metadata (`key`, value) SELECT 'read_order', COALESCE(MAX(readOrder), 0) FROM books")
     }
 }
+
+/** Settings are additive; existing books, interpretation revisions and locators are untouched. */
+val MIGRATION_2_3: Migration = object : Migration(2, 3) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS reader_global_settings (id TEXT NOT NULL, schemaVersion INTEGER NOT NULL, settingsJson TEXT NOT NULL, PRIMARY KEY(id))")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS book_reader_preferences (bookId TEXT NOT NULL, schemaVersion INTEGER NOT NULL, preferencesJson TEXT NOT NULL, PRIMARY KEY(bookId), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+    }
+}

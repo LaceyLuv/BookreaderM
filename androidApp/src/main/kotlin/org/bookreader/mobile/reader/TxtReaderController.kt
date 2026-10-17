@@ -30,6 +30,12 @@ import org.bookreader.mobile.repository.ProgressWriteResult
 import org.bookreader.mobile.repository.ReadySessionResult
 import org.bookreader.mobile.repository.DatabaseFailureDiagnostic
 import org.bookreader.mobile.repository.failureTypes
+import org.bookreader.mobile.settings.*
+
+interface ReaderSettingsAccess {
+    suspend fun load(bookId: String): ReaderSettingsRead
+    suspend fun save(expected: LoadedReaderSettings, global: ReaderSettings, book: BookReaderPreferences): ReaderSettingsWrite
+}
 
 interface ReaderProgressAccess {
     /** Optional sanitized failure from the most recent operation; implementations clear it per call. */
@@ -58,6 +64,10 @@ data class TxtReaderState(
     val saveError: Boolean = false,
     val sourceAvailability: BookAvailability? = null,
     val failureDiagnostic: ReaderFailureDiagnostic? = null,
+    val settings: ReaderSettings = ReaderSettings(),
+    val settingsLoaded: LoadedReaderSettings? = null,
+    val settingsError: Boolean = false,
+    val settingsSaving: Boolean = false,
 )
 
 /** Retained by the app ViewModel, never saved as a navigation destination across process death. */
@@ -67,6 +77,7 @@ class TxtReaderController(
     cacheDirectory: File,
     private val progress: ReaderProgressAccess,
     parentScope: CoroutineScope,
+    private val settingsAccess: ReaderSettingsAccess? = null,
 ) {
     private val lifetime = SupervisorJob(parentScope.coroutineContext[Job])
     private val scope = CoroutineScope(parentScope.coroutineContext + lifetime)
@@ -86,6 +97,8 @@ class TxtReaderController(
     private var lastCommittedOffset: Long? = null
     private var closing = false
     private val writerMutex = Mutex()
+    private var settingsJob: Job? = null
+    private var navigationGeneration: Int? = null
 
     init { retry() }
 
@@ -110,6 +123,7 @@ class TxtReaderController(
             var failureStage = ReaderFailureStage.LOAD_PROGRESS
             var resultCode: String? = null
             try {
+                loadSettings()
                 val revision = requireNotNull(book.currentRevision)
                 when (val loaded = progress.load(book.id, revision)) {
                     is ProgressReadResult.Error -> {
@@ -165,6 +179,61 @@ class TxtReaderController(
         }
     }
 
+    suspend fun range(start: Long, maxUnits: Int): String = withContext(Dispatchers.IO) {
+        cache.readRange(start, maxUnits)
+    }
+
+    private suspend fun loadSettings() {
+        val access = settingsAccess ?: return
+        when (val loaded = access.load(book.id)) {
+            is ReaderSettingsRead.Ready -> mutableState.update {
+                val reflow = it.phase in setOf(TxtReaderPhase.READY, TxtReaderPhase.REFLOWING)
+                it.copy(settings = loaded.value.effective, settingsLoaded = loaded.value, settingsError = false,
+                    phase = if (reflow) TxtReaderPhase.REFLOWING else it.phase,
+                    targetOffset = if (reflow) it.stableOffset ?: it.targetOffset else it.targetOffset,
+                    restoreGeneration = it.restoreGeneration + if (reflow) 1 else 0)
+            }
+            ReaderSettingsRead.Error -> mutableState.update { it.copy(settingsError = true) }
+        }
+    }
+
+    fun retrySettings() {
+        if (closing || settingsJob?.isActive == true) return
+        settingsJob = scope.launch {
+            loadSettings()
+        }
+    }
+
+    fun saveSettings(global: ReaderSettings, preferences: BookReaderPreferences) {
+        val access = settingsAccess ?: return
+        val before = state.value
+        val expected = before.settingsLoaded ?: return
+        if (closing || before.phase != TxtReaderPhase.READY || before.settingsSaving || before.settingsError) return
+        mutableState.update { it.copy(settingsSaving = true) }
+        settingsJob = scope.launch {
+            when (access.save(expected, global, preferences)) {
+                ReaderSettingsWrite.SAVED -> {
+                    loadSettings()
+                }
+                ReaderSettingsWrite.CONFLICT, ReaderSettingsWrite.ERROR ->
+                    mutableState.update { it.copy(settingsError = true) }
+            }
+            mutableState.update { it.copy(settingsSaving = false) }
+        }
+    }
+
+    /** Navigation freezes the old anchor until the target's actual measured layout is visible. */
+    fun navigateTo(offset: Long) {
+        val current = state.value
+        if (closing || current.phase != TxtReaderPhase.READY || !current.cache.complete ||
+            offset !in 0..current.cache.committedLength) return
+        settleJob?.cancel()
+        val generation = current.restoreGeneration + 1
+        navigationGeneration = generation
+        mutableState.update { it.copy(phase = TxtReaderPhase.REFLOWING, targetOffset = offset,
+            restoreGeneration = generation) }
+    }
+
     fun restoreFailed() {
         mutableState.update { it.copy(phase = TxtReaderPhase.ERROR,
             failureDiagnostic = diagnostic(ReaderFailureStage.RESTORE_POSITION),
@@ -213,6 +282,11 @@ class TxtReaderController(
             if (!closing && mutableState.value.restoreGeneration == generation &&
                 mutableState.value.phase in setOf(TxtReaderPhase.RESTORING, TxtReaderPhase.REFLOWING)) {
                 mutableState.update { it.copy(phase = TxtReaderPhase.READY) }
+                if (navigationGeneration == generation) {
+                    navigationGeneration = null
+                    visibleAnchor(mutableState.value.targetOffset, true)
+                    scope.launch { persistStable() }
+                }
             }
         }
         restoringJob?.start()
@@ -290,9 +364,11 @@ class TxtReaderController(
         // accepted READY/REFLOWING anchors and in-flight saves still use the flush barrier.
         openJob?.cancel()
         restoringJob?.cancel()
+        settingsJob?.cancel()
         try {
             openJob?.join()
             restoringJob?.join()
+            settingsJob?.join()
             flush()
         } finally { lifetime.cancel() }
     }

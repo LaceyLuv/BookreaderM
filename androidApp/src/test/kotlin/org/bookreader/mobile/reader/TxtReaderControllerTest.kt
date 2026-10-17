@@ -34,6 +34,67 @@ import org.junit.rules.TemporaryFolder
 class TxtReaderControllerTest {
     @get:Rule val temporary = TemporaryFolder()
 
+    @Test fun pageNavigationCommitsOnlyAfterCurrentGenerationIsMeasuredAndKeepsEpoch() = runBlocking {
+        val memory = MemoryProgress()
+        val active = controller(fixture(), memory)
+        try {
+            active.restored(await(active, TxtReaderPhase.RESTORING).restoreGeneration)
+            await(active, TxtReaderPhase.READY)
+            active.visibleAnchor(20, true)
+            active.flush()
+            val before = memory.events.last()
+            val oldGeneration = active.state.value.restoreGeneration
+            active.navigateTo(40)
+            active.restored(oldGeneration)
+            active.flush()
+            assertEquals(TxtReaderPhase.REFLOWING, active.state.value.phase)
+            assertEquals(before, memory.events.last())
+            active.restored(active.state.value.restoreGeneration)
+            await(active, TxtReaderPhase.READY)
+            withTimeout(3_000) { active.state.first { it.stableOffset == 40L } }
+            active.flush()
+            assertEquals(40L, offset(memory.events.last()))
+            assertEquals(before.session, memory.events.last().session)
+            assertEquals(1, memory.started)
+            val navigated = memory.events.last()
+            active.beginReflow()
+            active.visibleAnchor(0, false)
+            active.restored(active.state.value.restoreGeneration)
+            await(active, TxtReaderPhase.READY)
+            active.flush()
+            assertEquals(navigated, memory.events.last())
+        } finally { active.close() }
+    }
+
+    @Test fun failedSettingsReadUsesDisplayDefaultsWithoutAutomaticOrExplicitOverwrite() = runBlocking {
+        val data = fixture()
+        val memory = MemoryProgress()
+        var settingsWrites = 0
+        val settings = object : ReaderSettingsAccess {
+            override suspend fun load(bookId: String) = org.bookreader.mobile.settings.ReaderSettingsRead.Error
+            override suspend fun save(expected: org.bookreader.mobile.settings.LoadedReaderSettings,
+                global: org.bookreader.mobile.settings.ReaderSettings,
+                book: org.bookreader.mobile.settings.BookReaderPreferences): org.bookreader.mobile.settings.ReaderSettingsWrite {
+                settingsWrites++
+                return org.bookreader.mobile.settings.ReaderSettingsWrite.SAVED
+            }
+        }
+        val owner = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        val active = TxtReaderController(data.second, data.first, temporary.newFolder(), memory, owner, settings)
+        try {
+            val readyToRestore = await(active, TxtReaderPhase.RESTORING)
+            assertTrue(readyToRestore.settingsError)
+            assertEquals(org.bookreader.mobile.settings.ReaderSettings(), readyToRestore.settings)
+            active.restored(readyToRestore.restoreGeneration)
+            await(active, TxtReaderPhase.READY)
+            active.saveSettings(org.bookreader.mobile.settings.ReaderSettings(fontSizeSp = 24f),
+                org.bookreader.mobile.settings.BookReaderPreferences())
+            active.flush()
+            assertEquals(0, settingsWrites)
+            assertTrue(memory.events.isEmpty())
+        } finally { active.close(); owner.cancel() }
+    }
+
     @Test fun restorationCallbackDuringPendingActivationStartsOnlyOneSession() = runBlocking {
         val owner = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
         val memory = MemoryProgress()

@@ -858,7 +858,7 @@ class TxtReaderFlowTest {
             // The UI model uses the real coordinator: durable DELETING -> close -> file/row removal.
             model.requestDelete(active.book)
             model.confirmDelete()
-            model.openBook(active.book) // Already-queued stale navigation must be rejected.
+            model.openBook(active.book) // A reopen requested after deletion begins must be rejected.
             withTimeout(30_000) {
                 while (withContext(Dispatchers.IO) { observerDatabase.bookDao().findBook(active.book.id) } != null) delay(25)
                 model.state.first { it.reader == null }
@@ -893,6 +893,78 @@ class TxtReaderFlowTest {
             runBlocking { withTimeout(10_000) { deletion.join() } }
             report.put("status", if (passed) "PASS" else "FAIL")
             reportFile.writeText(report.toString(2))
+        }
+    }
+
+    @Test fun pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor() {
+        val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
+        try {
+        sendFixture("reader-pages")
+        waitFor("reader_ready")
+        val active = reader()
+        val book = active.book
+        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.waitForIdle()
+        val anchor = measuredVisibleLine(active)
+        compose.waitUntil(10_000) { saved(book)?.let { offset(it) == anchor } == true }
+        val before = requireNotNull(saved(book))
+        fun settings(action: () -> Unit) {
+            val generation = active.state.value.restoreGeneration
+            compose.onNodeWithTag("reader_settings").performClick()
+            action()
+            compose.onNodeWithTag("reader_settings_apply").performClick()
+            compose.waitUntil(15_000) {
+                active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
+            }
+            compose.waitForIdle()
+        }
+        settings { compose.onNodeWithTag("reader_mode_PAGES").performClick() }
+        compose.onNodeWithTag("reader_page").assertIsDisplayed()
+        assertEquals(anchor, active.state.value.targetOffset)
+        assertEquals(before, saved(book))
+        val pageStarts = mutableListOf(anchor)
+        repeat(12) {
+            val generation = active.state.value.restoreGeneration
+            compose.onNodeWithTag("reader_next").performClick()
+            compose.waitUntil(10_000) {
+                active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
+            }
+            assertTrue(active.state.value.targetOffset > pageStarts.last())
+            pageStarts += active.state.value.targetOffset
+        }
+        repeat(12) { index ->
+            val generation = active.state.value.restoreGeneration
+            compose.onNodeWithTag("reader_previous").performClick()
+            compose.waitUntil(10_000) {
+                active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
+            }
+            assertEquals(pageStarts[11 - index], active.state.value.targetOffset)
+        }
+        compose.waitUntil(10_000) { saved(book)?.let { offset(it) == anchor } == true }
+        val returned = requireNotNull(saved(book))
+        settings { compose.onNodeWithTag("font_size_increase").performClick() }
+        assertEquals(anchor, active.state.value.targetOffset)
+        assertEquals(returned, saved(book))
+        settings { compose.onNodeWithTag("reader_mode_SCROLL").performClick() }
+        assertAnchorInFirstMeasuredLine(active, anchor)
+        assertEquals(returned, saved(book))
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        compose.onNodeWithTag("read_${book.id}").performClick()
+        waitFor("reader_ready")
+        assertEquals(19f, reader().state.value.settings.fontSizeSp)
+        assertEquals(org.bookreader.mobile.settings.TxtReadingMode.SCROLL, reader().state.value.settings.readingMode)
+        assertAnchorInFirstMeasuredLine(reader(), anchor)
+        assertEquals(returned, saved(book))
+        } finally {
+            var current: TxtReaderController? = null
+            compose.activityRule.scenario.onActivity { current = ViewModelProvider(it)[AppViewModel::class.java].state.value.reader }
+            runBlocking {
+                current?.close()
+                if (originalSettings == null) observerDatabase.useWriterConnection {
+                    it.execSQL("DELETE FROM reader_global_settings WHERE id = 'global'")
+                } else observerDatabase.readerSettingsDao().putGlobal(originalSettings)
+            }
         }
     }
 

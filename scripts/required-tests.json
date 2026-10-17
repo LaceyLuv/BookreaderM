@@ -199,6 +199,14 @@
     [
       "org.bookreader.mobile.reader.ReaderActivationGateTest",
       "cancelledReaderReturnsBeforeDatabaseJobAndCannotActivateAfterRelease"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "pageNavigationCommitsOnlyAfterCurrentGenerationIsMeasuredAndKeepsEpoch"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "failedSettingsReadUsesDisplayDefaultsWithoutAutomaticOrExplicitOverwrite"
     ]
   ],
   "shared-jvm": [
@@ -413,6 +421,22 @@
     [
       "org.bookreader.mobile.repository.RoomProgressFullTest",
       "fullActivationRollsBackEpochAndReadOrderThenRestoresExistingRecord"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionTwoMigratesWithoutLosingBooksOrProgress"
+    ],
+    [
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "settingsRoundTripInheritAndRejectStaleEditorsWithoutChangingProgress"
+    ],
+    [
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "malformedFutureAndOutOfRangeSettingsStayByteExactAndPreventStaleSave"
+    ],
+    [
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "deletionCascadesOnlyBookOverridesAndLateSaveCannotRecreateBook"
     ]
   ],
   "android-device": [
@@ -547,6 +571,14 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "deletingDuringRealDecodeCancelsPartialIndexAndQueuedReopen"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtPageEngineTest",
+      "actualMeasurementCoversLongParagraphsBlankLinesAndEmojiWithoutDrift"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor"
     ]
   ],
   "android-host": [

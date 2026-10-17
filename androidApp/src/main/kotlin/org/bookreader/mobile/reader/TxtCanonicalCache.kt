@@ -41,6 +41,18 @@ class TxtCanonicalCache(private val book: Book, private val directory: File) {
 
     @Synchronized fun snapshot(): TxtCacheSnapshot = current
 
+    /** Bounded canonical window; a cache fragment never inserts a paragraph boundary. */
+    @Synchronized fun readRange(start: Long, maxUnits: Int): String {
+        require(maxUnits in 1..65_536 && start in 0..current.committedLength)
+        val count = minOf(maxUnits.toLong(), current.committedLength - start).toInt()
+        val bytes = ByteArray(count * 2)
+        RandomAccessFile(readable, "r").use { file -> file.seek(start * 2); file.readFully(bytes) }
+        val chars = CharArray(count) { i -> ((bytes[i * 2].toInt() and 255) or
+            ((bytes[i * 2 + 1].toInt() and 255) shl 8)).toChar() }
+        require(chars.isEmpty() || !chars.first().isLowSurrogate()) { "Invalid canonical boundary" }
+        return String(chars, 0, if (chars.lastOrNull()?.isHighSurrogate() == true) count - 1 else count)
+    }
+
     @Synchronized fun readFragment(index: Int): String {
         textLru[index]?.let { return it }
         val fragment = current.fragments[index]

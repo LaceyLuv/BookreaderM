@@ -43,7 +43,14 @@ fun androidReaderFactory(context: Context): (org.bookreader.mobile.model.Book, k
         val progressAccess = AndroidReaderProgressAccess(app, book, scope, activationGate)
         org.bookreader.mobile.reader.TxtReaderController(book,
             java.io.File(java.io.File(app.filesDir, "managed"), book.managedRelativePath),
-            java.io.File(app.cacheDir, "txt"), progressAccess, scope)
+            java.io.File(app.cacheDir, "txt"), progressAccess, scope,
+            object : org.bookreader.mobile.reader.ReaderSettingsAccess {
+                private fun repository() = org.bookreader.mobile.settings.ReaderSettingsRepository(AndroidDatabaseOwner.borrow(app))
+                override suspend fun load(bookId: String) = repository().load(bookId)
+                override suspend fun save(expected: org.bookreader.mobile.settings.LoadedReaderSettings,
+                    global: org.bookreader.mobile.settings.ReaderSettings,
+                    book: org.bookreader.mobile.settings.BookReaderPreferences) = repository().save(expected, global, book)
+            })
     }
 }
 

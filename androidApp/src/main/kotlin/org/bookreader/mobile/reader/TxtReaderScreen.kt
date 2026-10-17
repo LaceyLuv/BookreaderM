@@ -2,6 +2,7 @@ package org.bookreader.mobile.reader
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,6 +23,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -32,6 +35,16 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.intl.LocaleList
+import androidx.compose.ui.text.style.Hyphens
+import androidx.compose.ui.text.style.LineBreak
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.em
+import org.bookreader.mobile.settings.ReaderFont
+import org.bookreader.mobile.settings.ReaderTheme
+import org.bookreader.mobile.settings.TxtReadingMode
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,12 +61,29 @@ import kotlin.math.roundToInt
 fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     val state by controller.state.collectAsStateWithLifecycle()
     val list = rememberLazyListState()
-    val layouts = remember(controller, state.restoreGeneration) { mutableStateMapOf<Int, TextLayoutResult>() }
     val scope = rememberCoroutineScope()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
-    val viewport = remember(controller) { arrayOf(IntSize.Zero) }
+    var viewport by remember(controller) { mutableStateOf(IntSize.Zero) }
     val density = LocalDensity.current
-    val typography = MaterialTheme.typography.bodyLarge
+    val settings = state.settings
+    val foreground = when (settings.theme) {
+        ReaderTheme.LIGHT, ReaderTheme.SEPIA -> Color(0xFF202020)
+        ReaderTheme.DARK, ReaderTheme.OLED -> Color(0xFFE8E8E8)
+    }
+    val background = when (settings.theme) {
+        ReaderTheme.LIGHT -> Color(0xFFFFFDF8); ReaderTheme.SEPIA -> Color(0xFFF1E5CA)
+        ReaderTheme.DARK -> Color(0xFF222222); ReaderTheme.OLED -> Color.Black
+    }
+    val typography = MaterialTheme.typography.bodyLarge.copy(
+        color = foreground, fontFamily = if (settings.font == ReaderFont.SANS) FontFamily.SansSerif else FontFamily.Serif,
+        fontSize = settings.fontSizeSp.sp, lineHeight = (settings.fontSizeSp * settings.lineHeight).sp,
+        letterSpacing = settings.letterSpacingEm.em, localeList = LocaleList.current,
+        platformStyle = PlatformTextStyle(includeFontPadding = false), lineBreak = LineBreak.Simple, hyphens = Hyphens.None)
+    val scrollMode = settings.readingMode == TxtReadingMode.SCROLL
+    var showSettings by remember(controller) { mutableStateOf(false) }
+    val layouts = remember(controller, state.restoreGeneration, typography, density, viewport) {
+        mutableStateMapOf<Int, TextLayoutResult>()
+    }
     val previousTypography = remember(controller) { arrayOf(Triple(density.density, density.fontScale, typography)) }
     LaunchedEffect(density.density, density.fontScale, typography) {
         val changed = Triple(density.density, density.fontScale, typography)
@@ -71,7 +101,8 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         onDispose { lifecycle.removeObserver(observer) }
     }
 
-    LaunchedEffect(controller, state.restoreGeneration, state.phase) {
+    LaunchedEffect(controller, state.restoreGeneration, state.phase, scrollMode, typography, density, viewport) {
+        if (!scrollMode) return@LaunchedEffect
         if (state.phase != TxtReaderPhase.RESTORING && state.phase != TxtReaderPhase.REFLOWING)
             return@LaunchedEffect
         val generation = state.restoreGeneration
@@ -96,7 +127,8 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         controller.restored(generation)
     }
 
-    LaunchedEffect(controller, state.restoreGeneration) {
+    LaunchedEffect(controller, state.restoreGeneration, scrollMode, typography, density, viewport) {
+        if (!scrollMode) return@LaunchedEffect
         var userMovement = false
         snapshotFlow {
             val first = list.layoutInfo.visibleItemsInfo.firstOrNull()
@@ -124,6 +156,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
             TextButton(onClick = onClose, modifier = Modifier.testTag("reader_back")) { Text("서재") }
             Text(controller.book.title, Modifier.weight(1f), maxLines = 1,
                 style = MaterialTheme.typography.titleMedium)
+            TextButton(onClick = { showSettings = true }, modifier = Modifier.testTag("reader_settings")) { Text("설정") }
         }
         if (state.phase == TxtReaderPhase.ERROR) {
             Column(Modifier.weight(1f).fillMaxWidth().padding(24.dp),
@@ -135,12 +168,15 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         } else {
             Box(Modifier.weight(1f).fillMaxWidth().testTag(
                 if (state.phase == TxtReaderPhase.READY) "reader_ready" else "reader_content")) {
-                LazyColumn(state = list, userScrollEnabled = state.phase == TxtReaderPhase.READY,
-                    contentPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
+                if (!scrollMode) TxtPageContent(controller, state, typography,
+                    Modifier.fillMaxSize().background(background).padding(horizontal = settings.marginDp.dp, vertical = 12.dp))
+                else LazyColumn(state = list, userScrollEnabled = state.phase == TxtReaderPhase.READY,
+                    contentPadding = PaddingValues(horizontal = settings.marginDp.dp, vertical = 12.dp),
                     modifier = Modifier.fillMaxSize().testTag("reader_text")
+                        .background(background)
                         .onSizeChanged { size ->
-                            if (viewport[0] != IntSize.Zero && viewport[0] != size) controller.beginReflow()
-                            viewport[0] = size
+                            if (viewport != IntSize.Zero && viewport != size) controller.beginReflow()
+                            viewport = size
                         }) {
                     items(count = state.cache.fragments.size, key = { it }) { index ->
                         val text by produceState<String?>(null, controller, index, state.restoreGeneration) {
@@ -149,8 +185,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                             catch (_: Exception) { controller.contentReadFailed() }
                         }
                         text?.let {
-                            key(state.restoreGeneration) { Text(it, style = MaterialTheme.typography.bodyLarge.copy(
-                                fontSize = 18.sp, lineHeight = 29.sp),
+                            key(state.restoreGeneration) { Text(it, style = typography,
                                 onTextLayout = { result -> layouts[index] = result },
                                 modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index")) }
                         }
@@ -172,5 +207,8 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
             Modifier.padding(12.dp).testTag("reader_progress"))
         if (state.saveError) Text("진행도를 저장하지 못했습니다. 다시 시도합니다.",
             Modifier.padding(8.dp).testTag("reader_save_error"))
+        if (state.settingsError) Text("읽기 설정 오류: 기존 설정은 보존됩니다. 설정에서 다시 읽어 주세요.",
+            Modifier.padding(8.dp).testTag("reader_settings_error"))
     }
+    if (showSettings) ReaderSettingsDialog(controller, state) { showSettings = false }
 }
