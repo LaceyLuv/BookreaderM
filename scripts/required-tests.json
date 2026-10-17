@@ -207,6 +207,18 @@
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",
       "failedSettingsReadUsesDisplayDefaultsWithoutAutomaticOrExplicitOverwrite"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderToolsTest",
+      "lateSearchCannotReplaceNewQueryAndResultStorageIsBounded"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderToolsTest",
+      "searchReturnIsOneUseAndKeepsTheOriginalAnchorAcrossSeveralHits"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderToolsTest",
+      "bookmarkReadFailureKeepsVisibleRecordsAndReaderErrorBlocksMutations"
     ]
   ],
   "shared-jvm": [
@@ -619,6 +631,18 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "invalidManualEncodingKeepsOriginalBookProgressAndManagedBytes"
     ]
   ],
   "android-host": [

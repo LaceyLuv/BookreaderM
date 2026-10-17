@@ -205,7 +205,8 @@ fun BookReaderScreen(
                         }
                         change.previews.firstOrNull { it.encoding == encoding }?.text?.let { Text(it.take(160), maxLines = 3) }
                     }
-                } }, confirmButton = { TextButton(enabled = !change.committing, onClick = onDismissBookEncoding) { Text("취소") } })
+                } }, confirmButton = { TextButton(enabled = !change.committing, onClick = onDismissBookEncoding,
+                    modifier = Modifier.testTag("book_encoding_cancel")) { Text("취소") } })
         }
     }
 }

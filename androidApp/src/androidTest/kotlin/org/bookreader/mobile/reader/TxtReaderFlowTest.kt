@@ -14,6 +14,10 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
@@ -435,6 +439,21 @@ class TxtReaderFlowTest {
         val hashes = originals.map(::digest)
         // Keep the app-owned pool open. DDL and repair use its serialized writer connection.
         val database = AndroidDatabaseOwner.borrow(target)
+        runBlocking {
+            for ((owner, progress) in listOf(book to committed, other to otherProgress)) {
+                database.bookmarkDao().insert(org.bookreader.mobile.database.BookmarkEntity(
+                    "read-error-${owner.id}", owner.id, requireNotNull(owner.currentRevision), "txt", 1,
+                    org.bookreader.mobile.locator.LocatorCodec().encode(progress.locator), "Own fixture bookmark", 1, 1))
+            }
+        }
+        fun bookmarkRows(): List<List<String?>> = runBlocking { database.useWriterConnection { connection ->
+            connection.usePrepared("SELECT * FROM bookmarks ORDER BY id") { statement ->
+                buildList { while (statement.step()) add((0 until 9).map {
+                    if (statement.isNull(it)) null else statement.getText(it)
+                }) }
+            }
+        } }
+        val originalBookmarks = bookmarkRows()
         fun execute(sql: String) = runBlocking { database.useWriterConnection { it.execSQL(sql) } }
         fun records(): List<List<String?>> = runBlocking { database.useWriterConnection { connection ->
             connection.usePrepared("SELECT * FROM reading_progress ORDER BY 1, 2") { statement ->
@@ -508,6 +527,8 @@ class TxtReaderFlowTest {
                 assertTrue("Error/retry must preserve every book including epoch and read order", beforeBooks == books())
                 assertEquals(beforeOrder, readOrder())
                 assertEquals(hashes, originals.map(::digest))
+                assertTrue("Query errors and retries preserve all bookmark columns", originalBookmarks == bookmarkRows())
+                compose.onNodeWithTag("reader_bookmarks").assertIsNotEnabled()
             }
             assertPreservedError()
             repeat(2) {
@@ -543,6 +564,8 @@ class TxtReaderFlowTest {
             assertEquals(beforeOrder + 1, readOrder())
             assertEquals(hashes, originals.map(::digest))
             assertNull(reader().state.value.failureDiagnostic)
+            assertTrue("Recovery preserves all bookmarks", originalBookmarks == bookmarkRows())
+            report.put("bookmarks_preserved", true)
             compose.onNodeWithTag("reader_error").assertDoesNotExist()
             report.put("restored_offset", measuredVisibleLine(reader()))
                 .put("restored_epoch", restoredBook.activeSessionEpoch)
@@ -898,6 +921,13 @@ class TxtReaderFlowTest {
 
     @Test fun pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor() {
         val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
+        val originalScale = uiShell("settings get system font_scale").trim().toFloatOrNull()
+        val initialScale = compose.activity.resources.configuration.fontScale
+        val densityOutput = uiShell("wm density")
+        val originalDensityOverride = Regex("Override density: (\\d+)").find(densityOutput)?.groupValues?.get(1)?.toInt()
+        val initialDensity = compose.activity.resources.configuration.densityDpi
+        var changedScale = false
+        var changedDensity = false
         try {
         sendFixture("reader-pages")
         waitFor("reader_ready")
@@ -921,6 +951,10 @@ class TxtReaderFlowTest {
         }
         settings { compose.onNodeWithTag("reader_mode_PAGES").performClick() }
         compose.onNodeWithTag("reader_page").assertIsDisplayed()
+        compose.onNodeWithTag("reader_ready").assertIsDisplayed()
+        compose.onNodeWithTag("reader_next").assertIsEnabled()
+        instrumentation.waitForIdleSync()
+        SystemClock.sleep(250) // Allow the ready frame to reach the screenshot surface.
         ReaderFixtureScreenshot.capture("txt-reader-generated-pages.png")
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(before, saved(book))
@@ -945,6 +979,37 @@ class TxtReaderFlowTest {
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == anchor } == true }
         val returned = requireNotNull(saved(book))
         settings { compose.onNodeWithTag("font_size_increase").performClick() }
+        for (tag in listOf("reader_font_SERIF", "line_height_increase", "letter_spacing_increase", "margin_increase")) {
+            settings { compose.onNodeWithTag(tag).performScrollTo().performClick() }
+            assertEquals(anchor, active.state.value.targetOffset)
+            assertEquals(returned, saved(book))
+        }
+        val scale = if (kotlin.math.abs(initialScale - 1.3f) > .01f) 1.3f else 1.0f
+        var generation = active.state.value.restoreGeneration
+        changedScale = true
+        uiShell("settings put system font_scale $scale")
+        compose.waitUntil(30_000) {
+            kotlin.math.abs(compose.activity.resources.configuration.fontScale - scale) < .01f &&
+                active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
+        }
+        assertSame(active, reader())
+        assertEquals(anchor, active.state.value.targetOffset)
+        assertEquals(returned, saved(book))
+        val density = if (initialDensity == 360) 420 else 360
+        generation = active.state.value.restoreGeneration
+        changedDensity = true
+        uiShell("wm density $density")
+        compose.waitUntil(30_000) {
+            compose.activity.resources.configuration.densityDpi == density &&
+                active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
+        }
+        assertSame(active, reader())
+        assertEquals(anchor, active.state.value.targetOffset)
+        assertEquals(returned, saved(book))
+        compose.onNodeWithTag("reader_ready").assertIsDisplayed()
+        compose.onNodeWithTag("reader_next").assertIsEnabled()
+        instrumentation.waitForIdleSync()
+        SystemClock.sleep(250)
         ReaderFixtureScreenshot.capture("txt-reader-generated-page-reflow.png")
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(returned, saved(book))
@@ -960,15 +1025,155 @@ class TxtReaderFlowTest {
         assertAnchorInFirstMeasuredLine(reader(), anchor)
         assertEquals(returned, saved(book))
         } finally {
+            try {
+            if (changedDensity) uiShell("wm density ${originalDensityOverride ?: "reset"}")
+            if (changedScale) uiShell(if (originalScale == null) "settings delete system font_scale"
+                else "settings put system font_scale $originalScale")
+            if (changedScale || changedDensity) compose.waitUntil(30_000) {
+                compose.activity.resources.configuration.let {
+                    it.densityDpi == initialDensity && kotlin.math.abs(it.fontScale - initialScale) < .01f
+                }
+            }
+            } finally {
             var current: TxtReaderController? = null
             compose.activityRule.scenario.onActivity { current = ViewModelProvider(it)[AppViewModel::class.java].state.value.reader }
             runBlocking {
-                current?.close()
+                try { current?.close() } finally {
                 if (originalSettings == null) observerDatabase.useWriterConnection {
                     it.execSQL("DELETE FROM reader_global_settings WHERE id = 'global'")
                 } else observerDatabase.readerSettingsDao().putGlobal(originalSettings)
+                }
+            }
             }
         }
+    }
+
+    private fun uiShell(command: String): String = android.os.ParcelFileDescriptor.AutoCloseInputStream(
+        instrumentation.uiAutomation.executeShellCommand(command)).bufferedReader().use { it.readText() }
+
+    @Test fun literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen() {
+        sendFixture("reader-tools")
+        waitFor("reader_ready")
+        val active = reader()
+        val book = active.book
+        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.waitForIdle()
+        val origin = measuredVisibleLine(active)
+        compose.waitUntil(10_000) { saved(book)?.let { offset(it) == origin } == true }
+        compose.onNodeWithTag("reader_bookmarks").performClick()
+        compose.waitUntil(10_000) { active.tools.state.value.bookmarksReadReady }
+        compose.onNodeWithTag("reader_bookmark_label").performTextInput("돌아갈 곳")
+        compose.onNodeWithTag("reader_bookmark_add").performClick()
+        compose.waitUntil(10_000) { active.tools.state.value.bookmarks.size == 1 && !active.tools.state.value.bookmarkWriting }
+        val bookmark = active.tools.state.value.bookmarks.single()
+        assertEquals(origin, (bookmark.locator as TxtLocator).payload.utf16Offset)
+        compose.onNodeWithTag("reader_bookmark_close").performClick()
+        compose.onNodeWithTag("reader_search").performClick()
+        compose.onNodeWithTag("reader_search_query").performTextInput("경계검색😀")
+        compose.waitUntil(15_000) { active.tools.state.value.searchComplete }
+        assertEquals(listOf(16382L), active.tools.state.value.hits.map { it.offset })
+        compose.onNodeWithTag("reader_search_hit_16382").performClick()
+        compose.waitUntil(10_000) { active.state.value.let { it.phase == TxtReaderPhase.READY && it.targetOffset == 16382L } }
+        assertAnchorInFirstMeasuredLine(active, 16382)
+        compose.waitUntil(10_000) { saved(book)?.let { offset(it) == 16382L } == true }
+        compose.onNodeWithTag("reader_search_return").performClick()
+        compose.waitUntil(10_000) { active.state.value.let { it.phase == TxtReaderPhase.READY && it.targetOffset == origin } }
+        compose.onNodeWithTag("reader_search_return").assertDoesNotExist()
+        assertAnchorInFirstMeasuredLine(active, origin)
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        compose.onNodeWithTag("read_${book.id}").performClick()
+        waitFor("reader_ready")
+        compose.onNodeWithTag("reader_bookmarks").performClick()
+        compose.waitUntil(10_000) { reader().tools.state.value.bookmarks.size == 1 }
+        assertEquals(bookmark, reader().tools.state.value.bookmarks.single())
+        compose.onNodeWithTag("reader_bookmark_${bookmark.id}").performClick()
+        compose.waitUntil(10_000) { reader().state.value.phase == TxtReaderPhase.READY }
+        assertAnchorInFirstMeasuredLine(reader(), origin)
+        assertEquals(origin, offset(requireNotNull(saved(book))))
+    }
+
+    @Test fun manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark() {
+        sendFixture("reader-encoding-revision")
+        waitFor("reader_ready")
+        val originalBook = reader().book
+        val file = File(File(target.filesDir, "managed"), originalBook.managedRelativePath)
+        val hash = digest(file)
+        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.waitForIdle()
+        val originalOffset = measuredVisibleLine(reader())
+        compose.waitUntil(10_000) { saved(originalBook)?.let { offset(it) == originalOffset } == true }
+        val originalProgress = requireNotNull(saved(originalBook))
+        compose.onNodeWithTag("reader_bookmarks").performClick()
+        compose.waitUntil(10_000) { reader().tools.state.value.bookmarksReadReady }
+        compose.onNodeWithTag("reader_bookmark_add").performClick()
+        compose.waitUntil(10_000) { reader().tools.state.value.bookmarks.size == 1 }
+        val originalBookmark = reader().tools.state.value.bookmarks.single()
+        compose.onNodeWithTag("reader_bookmark_close").performClick()
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        changeFixtureEncoding(originalBook.id, "UTF16LE", "utf-16le")
+        compose.onNodeWithTag("read_${originalBook.id}").performClick()
+        waitFor("reader_ready")
+        val changed = reader().book
+        assertNotEquals(originalBook.currentRevision, changed.currentRevision)
+        assertEquals(0L, reader().state.value.targetOffset)
+        assertEquals(32_768L, reader().state.value.cache.committedLength)
+        assertEquals(originalProgress, saved(originalBook))
+        repeat(2) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.waitForIdle()
+        val changedOffset = measuredVisibleLine(reader())
+        compose.waitUntil(10_000) { saved(changed)?.let { offset(it) == changedOffset } == true }
+        val changedProgress = requireNotNull(saved(changed))
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        changeFixtureEncoding(originalBook.id, "UTF8", "utf-8")
+        compose.onNodeWithTag("read_${originalBook.id}").performClick()
+        waitFor("reader_ready")
+        assertEquals(originalBook.currentRevision, reader().book.currentRevision)
+        assertAnchorInFirstMeasuredLine(reader(), originalOffset)
+        assertEquals(originalProgress, saved(originalBook))
+        assertEquals(changedProgress, saved(changed))
+        compose.onNodeWithTag("reader_bookmarks").performClick()
+        compose.waitUntil(10_000) { reader().tools.state.value.bookmarks.size == 1 }
+        assertEquals(originalBookmark, reader().tools.state.value.bookmarks.single())
+        assertEquals(hash, digest(file))
+    }
+
+    @Test fun invalidManualEncodingKeepsOriginalBookProgressAndManagedBytes() {
+        sendFixture("reader-encoding-invalid")
+        waitFor("reader_ready")
+        val book = reader().book
+        val file = File(File(target.filesDir, "managed"), book.managedRelativePath)
+        val hash = digest(file)
+        compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        val progress = saved(book)
+        val beforeBooks = books()
+        compose.onNodeWithTag("info_${book.id}").performClick()
+        compose.onNodeWithTag("book_change_encoding").performClick()
+        lateinit var model: AppViewModel
+        compose.activityRule.scenario.onActivity { model = ViewModelProvider(it)[AppViewModel::class.java] }
+        compose.waitUntil(10_000) { model.state.value.encodingChange?.loading == false }
+        compose.waitForIdle()
+        compose.onNodeWithTag("book_encoding_UTF16LE").performClick()
+        waitFor("book_encoding_error")
+        assertEquals(beforeBooks, books())
+        assertEquals(progress, saved(book))
+        assertEquals(hash, digest(file))
+        compose.onNodeWithTag("book_encoding_cancel").performClick()
+    }
+
+    private fun changeFixtureEncoding(bookId: String, option: String, expectedId: String) {
+        compose.onNodeWithTag("info_$bookId").performClick()
+        compose.onNodeWithTag("book_change_encoding").performClick()
+        lateinit var model: AppViewModel
+        compose.activityRule.scenario.onActivity { model = ViewModelProvider(it)[AppViewModel::class.java] }
+        compose.waitUntil(10_000) { model.state.value.encodingChange?.loading == false }
+        compose.onNodeWithTag("book_encoding_$option").performClick()
+        compose.waitUntil(30_000) { model.state.value.encodingChange == null && books().single { it.id == bookId }.encodingId == expectedId }
+        waitFor("library_content")
     }
 
     /** A test-owned coroutine borrows the production writer; it never closes the application DB. */

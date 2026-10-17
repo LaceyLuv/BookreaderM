@@ -23,6 +23,7 @@ data class TxtToolsState(
     val searchComplete: Boolean = false, val searchCapped: Boolean = false,
     val bookmarks: List<Bookmark> = emptyList(), val bookmarkCursor: BookmarkCursor? = null,
     val bookmarksLoading: Boolean = false, val bookmarkReadError: Boolean = false,
+    val bookmarksReadReady: Boolean = false,
     val bookmarkWriting: Boolean = false, val bookmarkWriteError: Boolean = false,
     val returnOffset: Long? = null,
 )
@@ -105,7 +106,7 @@ class TxtReaderTools(
         val generation = ++bookmarkGeneration
         val cursor = if (more) state.value.bookmarkCursor else null
         if (more && state.value.bookmarks.size >= 1000) return
-        mutableState.update { it.copy(bookmarksLoading = true, bookmarkReadError = false) }
+        mutableState.update { it.copy(bookmarksLoading = true, bookmarkReadError = false, bookmarksReadReady = false) }
         bookmarkJob = scope.launch {
             val loaded = try { access.load(book.id, requireNotNull(book.currentRevision), cursor) }
             catch (cancelled: CancellationException) { throw cancelled }
@@ -114,7 +115,7 @@ class TxtReaderTools(
             when (loaded) {
                 is BookmarkReadResult.Ready -> mutableState.update { it.copy(bookmarksLoading = false,
                     bookmarks = (if (more) it.bookmarks + loaded.bookmarks else loaded.bookmarks).take(1000),
-                    bookmarkCursor = loaded.next, bookmarkReadError = false) }
+                    bookmarkCursor = loaded.next, bookmarkReadError = false, bookmarksReadReady = true) }
                 BookmarkReadResult.Error -> mutableState.update { it.copy(bookmarksLoading = false, bookmarkReadError = true) }
             }
         }
@@ -124,7 +125,8 @@ class TxtReaderTools(
         val access = bookmarkAccess ?: return
         val current = reader()
         val active = session() ?: return
-        if (current.phase != TxtReaderPhase.READY || state.value.bookmarkWriting || label.length > 200) return
+        if (current.phase != TxtReaderPhase.READY || state.value.bookmarkWriting ||
+            !state.value.bookmarksReadReady || label.length > 200) return
         val offset = current.stableOffset ?: current.targetOffset
         mutableState.update { it.copy(bookmarkWriting = true, bookmarkWriteError = false) }
         scope.launch {
@@ -139,7 +141,7 @@ class TxtReaderTools(
 
     fun deleteBookmark(id: String) {
         val access = bookmarkAccess ?: return
-        if (state.value.bookmarkWriting || reader().phase != TxtReaderPhase.READY) return
+        if (state.value.bookmarkWriting || !state.value.bookmarksReadReady || reader().phase != TxtReaderPhase.READY) return
         mutableState.update { it.copy(bookmarkWriting = true, bookmarkWriteError = false) }
         scope.launch {
             val result = try { access.delete(book.id, id) }

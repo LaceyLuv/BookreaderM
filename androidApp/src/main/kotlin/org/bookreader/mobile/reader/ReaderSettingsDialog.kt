@@ -37,6 +37,7 @@ fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState,
                 Row {
                     ReaderFont.entries.forEach { font -> FilterChip(selected = global.font == font,
                         onClick = { global = global.copy(font = font) },
+                        modifier = Modifier.testTag("reader_font_${font.name}"),
                         label = { Text(if (font == ReaderFont.SANS) "기본 고딕" else "기본 명조") }) }
                 }
                 SettingStepper("글자 크기", "${global.fontSizeSp.roundToInt()} sp", "font_size",

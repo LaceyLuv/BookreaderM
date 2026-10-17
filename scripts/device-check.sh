@@ -139,7 +139,7 @@ for fixture in ('reader-query-error', 'reader-locator-error'):
     assert report['new_offset'] != report['initial_offset']
     assert all(report[key] is True for key in ('error_ui_visible', 'all_records_preserved_on_error',
         'managed_files_preserved', 'retry_cleared_error', 'progress_unchanged_after_restore',
-        'other_book_preserved_after_retry', 'save_after_retry', 'fixture_restored'))
+        'other_book_preserved_after_retry', 'save_after_retry', 'fixture_restored', 'bookmarks_preserved'))
     if fixture == 'reader-query-error':
         assert report['native_probe_code'] == 1 and report['native_probe_type'] == 'SQLException'
     print(f'PASS {fixture}: preserved records through failed retries, measured restoration and new-session save')

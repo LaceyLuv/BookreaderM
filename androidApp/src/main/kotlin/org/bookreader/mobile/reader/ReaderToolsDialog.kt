@@ -38,7 +38,7 @@ fun ReaderSearchDialog(controller: TxtReaderController, onDismiss: () -> Unit) {
             else if (state.nextSearchOffset != null && !state.searching && state.query.isNotEmpty())
                 TextButton(onClick = controller.tools::moreSearch) { Text("계속 찾기") }
         }
-    }, confirmButton = { TextButton(onClick = onDismiss) { Text("닫기") } })
+    }, confirmButton = { TextButton(onClick = onDismiss, modifier = Modifier.testTag("reader_search_close")) { Text("닫기") } })
 }
 
 @Composable
@@ -50,7 +50,7 @@ fun ReaderBookmarksDialog(controller: TxtReaderController, onDismiss: () -> Unit
         Column {
             OutlinedTextField(value = label, onValueChange = { label = it.take(200) }, label = { Text("이름 (선택)") },
                 modifier = Modifier.fillMaxWidth().testTag("reader_bookmark_label"))
-            TextButton(enabled = !state.bookmarkWriting && !state.bookmarkReadError && !state.bookmarksLoading,
+            TextButton(enabled = !state.bookmarkWriting && state.bookmarksReadReady,
                 onClick = { controller.tools.addBookmark(label) }, modifier = Modifier.testTag("reader_bookmark_add")) { Text("현재 위치 저장") }
             if (state.bookmarksLoading) Text("북마크를 읽는 중")
             if (state.bookmarkReadError) {
@@ -67,7 +67,7 @@ fun ReaderBookmarksDialog(controller: TxtReaderController, onDismiss: () -> Unit
                         }, modifier = Modifier.weight(1f).testTag("reader_bookmark_${bookmark.id}")) {
                             Text(bookmark.label ?: "저장된 위치", maxLines = 2)
                         }
-                        TextButton(enabled = !state.bookmarkWriting,
+                        TextButton(enabled = !state.bookmarkWriting && state.bookmarksReadReady,
                             onClick = { controller.tools.deleteBookmark(bookmark.id) }) { Text("삭제") }
                     }
                 }
@@ -76,5 +76,5 @@ fun ReaderBookmarksDialog(controller: TxtReaderController, onDismiss: () -> Unit
             else if (state.bookmarkCursor != null && !state.bookmarksLoading)
                 TextButton(onClick = { controller.tools.loadBookmarks(more = true) }) { Text("더 보기") }
         }
-    }, confirmButton = { TextButton(onClick = onDismiss) { Text("닫기") } })
+    }, confirmButton = { TextButton(onClick = onDismiss, modifier = Modifier.testTag("reader_bookmark_close")) { Text("닫기") } })
 }

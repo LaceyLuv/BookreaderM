@@ -129,7 +129,7 @@ public final class TestDocumentsProvider extends DocumentsProvider {
         switch (id) {
             case "reader-scroll": case "reader-host": case "reader-failure": case "reader-continuous":
             case "reader-full": case "reader-full-other":
-            case "reader-reflow-stop": case "reader-pages":
+            case "reader-reflow-stop": case "reader-pages": case "reader-tools":
             case "reader-switch-a": case "reader-switch-b": case "reader-reopen":
             case "reader-query-error": case "reader-locator-error": case "reader-read-other":
                 StringBuilder text = new StringBuilder();
@@ -140,7 +140,13 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                     for (int zero = number.length(); zero < 5; zero++) text.append('0');
                     text.append(number).append(" · 읽기 위치와 줄바꿈을 검증하는 자체 생성 문장입니다.");
                 }
+                if ("reader-tools".equals(id)) text.insert(16382, "경계검색😀");
                 return text.toString().getBytes(StandardCharsets.UTF_8);
+            case "reader-encoding-revision": case "reader-encoding-invalid":
+                StringBuilder ascii = new StringBuilder();
+                for (int index = 0; index < 16384; index++) ascii.append("ABCD");
+                if ("reader-encoding-invalid".equals(id)) ascii.append('X');
+                return ascii.toString().getBytes(StandardCharsets.UTF_8);
             case "system-picker": return "시스템 파일 선택기로 추가한 실제 TXT입니다.\n".getBytes(StandardCharsets.UTF_8);
             case "empty": return new byte[0];
             case "legacy": return new byte[] { (byte) 0xb0, (byte) 0xa1, 0x0a };

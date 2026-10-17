@@ -48,13 +48,15 @@ class TxtPageEngineTest {
             assertArrayEquals(MessageDigest.getInstance("SHA-256").digest(body.toByteArray(Charsets.UTF_16LE)), digest.digest())
             assertTrue(largestRead <= 65_536)
             // A random regional start and 100 forward/back pairs must reuse identical boundaries.
-            var start = body.length / 3
-            while (body[start].isLowSurrogate()) start++
-            val first = engine.next(start.toLong())
-            val second = engine.next(first.range.end)
-            repeat(100) {
-                assertEquals(first, engine.previous(second.range.start))
-                assertEquals(second, engine.next(first.range.end))
+            for (region in 1..20) {
+                var start = body.length * region / 22
+                while (body[start].isLowSurrogate()) start++
+                val first = engine.next(start.toLong())
+                val second = engine.next(first.range.end)
+                repeat(5) {
+                    assertEquals(first, engine.previous(second.range.start))
+                    assertEquals(second, engine.next(first.range.end))
+                }
             }
             assertEquals(body.length.toLong(), engine.previous(body.length.toLong()).range.end)
         }

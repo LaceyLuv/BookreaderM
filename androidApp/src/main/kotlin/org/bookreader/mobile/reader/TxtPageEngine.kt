@@ -23,6 +23,9 @@ class TxtPageEngine(
     suspend fun next(start: Long): TxtMeasuredPage {
         require(start in 0 until length && heightPx > 0)
         ranges[start]?.let { range -> return render(range) }
+        // An arbitrary jump creates a new local run. Keeping overlapping runs could
+        // give the same end two different predecessors and make Back drift.
+        if (ranges.isNotEmpty() && ranges.values.none { it.end == start }) ranges.clear()
         var budget = 16_384
         while (true) {
             currentCoroutineContext().ensureActive()
@@ -55,6 +58,7 @@ class TxtPageEngine(
     suspend fun previous(end: Long): TxtMeasuredPage {
         require(end in 1..length)
         ranges.values.firstOrNull { it.end == end }?.let { return render(it) }
+        if (ranges.isNotEmpty() && end !in ranges) ranges.clear()
         // A large jump starts a new local run. Measure only a bounded suffix for its predecessor.
         var start = (end - 16_384).coerceAtLeast(0)
         var text = try { read(start, (end - start).toInt()) }
