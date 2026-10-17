@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.useWriterConnection
+import androidx.room.execSQL
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import kotlinx.coroutines.*
@@ -28,7 +30,8 @@ class EpubReaderFlowTest {
     private val target get() = instrumentation.targetContext
     private val database by lazy { createAndroidDatabase(target) }
     private var existing: Set<String>? = null
-    @Before fun preserveExistingBooks() { existing = books().map { it.id }.toSet() }
+    private var originalGlobal: org.bookreader.mobile.database.ReaderGlobalSettingsEntity? = null
+    @Before fun preserveExistingBooks() { existing = books().map { it.id }.toSet(); originalGlobal = runBlocking { database.readerSettingsDao().global() } }
     @After fun cleanupOwnedFixtures() {
         try {
             compose.activityRule.scenario.close()
@@ -36,7 +39,14 @@ class EpubReaderFlowTest {
             books().filter { it.id !in preserved && it.originalDisplayName.startsWith("../../epub-") }.forEach {
                 runBlocking { assertEquals(DeleteResult.Deleted, AndroidBookManagement(target).delete(it.id)) }
             }
-        } finally { database.close() }
+        } finally {
+            runBlocking {
+                val original = originalGlobal
+                if (original == null) database.useWriterConnection { it.execSQL("DELETE FROM reader_global_settings WHERE id = 'global'") }
+                else database.readerSettingsDao().putGlobal(original)
+            }
+            database.close()
+        }
     }
     @Test fun managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator() {
         send("epub-product"); waitFor("epub_ready")
@@ -52,7 +62,11 @@ class EpubReaderFlowTest {
         compose.onNodeWithTag("epub_search_start").performClick()
         waitFor("epub_search_result")
         compose.onNodeWithTag("epub_search_result").performClick()
-        compose.waitUntil(20_000) { saved(book)?.payload?.locator?.toString()?.contains("0179") == true }
+        compose.waitUntil(20_000) {
+            val locator = saved(book)?.payload?.locator ?: return@waitUntil false
+            val json = org.json.JSONObject(locator.toString())
+            json.getString("href").endsWith("two.xhtml") && json.getJSONObject("locations").optDouble("progression", 0.0) > .5
+        }
         val original = requireNotNull(saved(book))
         compose.onNodeWithTag("epub_bookmarks").performClick()
         compose.onNodeWithTag("epub_bookmark_add").performClick()
@@ -61,11 +75,19 @@ class EpubReaderFlowTest {
         compose.activityRule.scenario.recreate()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
+        assertRenderedNear(original)
+        compose.onNodeWithTag("epub_settings").performClick()
+        compose.onNodeWithTag("font_size_increase").performScrollTo().performClick()
+        compose.onNodeWithTag("reader_settings_apply").performClick()
+        waitFor("epub_ready")
+        assertEquals(original, saved(book))
+        assertRenderedNear(original)
         compose.onNodeWithTag("epub_back").performClick()
         waitFor("continue_reading")
         compose.onNodeWithTag("continue_reading").performClick()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
+        assertRenderedNear(original)
         compose.onNodeWithTag("epub_bookmarks").performClick()
         waitFor("epub_bookmark_item")
         compose.onNodeWithTag("epub_bookmark_item").performClick()
@@ -86,6 +108,17 @@ class EpubReaderFlowTest {
             assertEquals(ids, books().map { it.id }.toSet())
             assertEquals(record, saved(book))
             assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
+        }
+    }
+    private fun assertRenderedNear(locator: EpubLocator) {
+        compose.activityRule.scenario.onActivity { activity ->
+            val wrapper = activity.supportFragmentManager.fragments.filterIsInstance<EpubHostFragment>().single()
+            val navigator = wrapper.childFragmentManager.fragments.filterIsInstance<org.readium.r2.navigator.epub.EpubNavigatorFragment>().single()
+            val actual = navigator.currentLocator.value.toJSON()
+            val expected = org.json.JSONObject(locator.payload.locator.toString())
+            assertEquals(expected.getString("href"), actual.getString("href"))
+            assertEquals(expected.getJSONObject("locations").optDouble("progression", 0.0),
+                actual.getJSONObject("locations").optDouble("progression", 0.0), .03)
         }
     }
     private fun reader(): EpubReaderController {
