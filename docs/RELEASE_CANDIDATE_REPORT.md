@@ -53,5 +53,5 @@ DRM/FXL/RAR/CBR/animation/recursive archive는 지원하지 않는다. EPUB 전�
 actual 0.9565038378966562, tolerance 0.03이다. 정확 문단 표시 assertion보다 먼저 이 비교가 실패했다.
 precise text locator의 복원과 progression 값 차이의 관계를 추가로 확인해야 하며 허용 오차만 넓혀 PASS를 만들지 않는다.
 `9dfb884`의 최신 local full CI는 66/74/16 및 schema/lint/build PASS다.
-원격 build 39017137521 및 API26/34/36 device 39017137527은 결과 확인이 필요하다.
+원격 build 39017137521은 workflow SUCCESS지만 artifact 미회수이며 API26/34/36 device 39017137527은 아직 실행 중이다. 이전 c1ab039 matrix는 API26 job SUCCESS/API34·36 FAIL이며 원본 회수가 필요하다.
 [전달서](SESSION_HANDOFF.md)를 먼저 읽고 재개한다.
