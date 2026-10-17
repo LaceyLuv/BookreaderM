@@ -553,6 +553,14 @@
     [
       "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
       "comicOnlyOverridesRoundTripWithoutErasingInheritedReadingModeOrProgress"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords"
     ]
   ],
   "android-device": [

@@ -26,8 +26,10 @@ class MigrationTest {
     @Test fun exportedVersionThreePreservesSettingsBooksAndProgress() = migration(3)
 
     @Test fun exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt() = migration(4)
+    @Test fun migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts() = migration(4, "statement")
+    @Test fun migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords() = migration(4, "validation")
 
-    private fun migration(version: Int) = runBlocking {
+    private fun migration(version: Int, failure: String? = null) = runBlocking {
         val directory = Files.createTempDirectory("bookreader-migration-")
         val path = directory.resolve("db.sqlite")
         val schemaPath = listOf(
@@ -86,6 +88,35 @@ class MigrationTest {
                 connection.prepare("INSERT INTO bookmarks (id,bookId,contentRevision,locatorType,locatorVersion,locatorJson,label,createdAt,updatedAt) VALUES ('raw-bookmark',?,?,'future',9,'{untouched}','label',51,52)").use {
                     it.bindText(1,book.id);it.bindText(2,progress.contentRevision);it.step()
                 }
+            }
+            if (failure != null) {
+                BundledSQLiteDriver().open(path.toString()).use { connection ->
+                    connection.execSQL(if (failure == "statement")
+                        "ALTER TABLE import_jobs ADD COLUMN format TEXT NOT NULL DEFAULT 'UNKNOWN'"
+                        else "ALTER TABLE books ADD COLUMN futureData TEXT")
+                }
+                fun rawSnapshot(): List<List<String?>> = BundledSQLiteDriver().open(path.toString()).use { connection ->
+                    buildList {
+                        val queries = listOf("PRAGMA user_version", "SELECT name,sql FROM sqlite_master ORDER BY name") +
+                            listOf("books", "reading_progress", "bookmarks", "import_jobs", "app_metadata",
+                                "reader_global_settings", "book_reader_preferences", "room_master_table").map { "SELECT * FROM $it ORDER BY 1" }
+                        for (query in queries) connection.prepare(query).use { statement ->
+                            while (statement.step()) add(List(statement.getColumnCount()) {
+                                if (statement.isNull(it)) null else statement.getText(it)
+                            })
+                        }
+                    }
+                }
+                val before = rawSnapshot()
+                repeat(2) {
+                    val broken = createJvmDatabase(path)
+                    try {
+                        assertIs<org.bookreader.mobile.repository.LibraryState.Error>(
+                            org.bookreader.mobile.repository.RoomBookRepository(broken).loadBooks())
+                    } finally { broken.close() }
+                    assertEquals(before, rawSnapshot(), "Failed migration must preserve schema version and every raw row")
+                }
+                return@runBlocking
             }
             val migrated = createJvmDatabase(path)
             try {
