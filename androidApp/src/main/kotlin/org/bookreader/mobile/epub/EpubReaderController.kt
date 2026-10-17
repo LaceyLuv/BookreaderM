@@ -55,6 +55,8 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     private var detachHost: (() -> Unit)? = null
     private var generation = 0
     private var userMovement = false
+    private var jumpTarget: Locator? = null
+    private var captureJob: Job? = null
     private var returnTo: Locator? = null
     private var closing = false
     private var searchJob: Job? = null
@@ -108,7 +110,8 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     }
     fun attach(navigator: EpubNavigatorFragment, detach: () -> Unit): Int {
         check(!closing)
-        host = navigator; detachHost = detach; userMovement = false
+        captureJob?.cancel()
+        host = navigator; detachHost = detach; userMovement = false; jumpTarget = null
         generation = progress.beginReflow()
         restoreTimeout?.cancel()
         val expectedGeneration = generation
@@ -121,7 +124,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         return generation
     }
     fun detach(navigator: EpubNavigatorFragment) {
-        if (host === navigator) { restoreTimeout?.cancel(); host = null; detachHost = null; userMovement = false }
+        if (host === navigator) { captureJob?.cancel(); restoreTimeout?.cancel(); host = null; detachHost = null; userMovement = false }
     }
     fun pageChanged(navigator: EpubNavigatorFragment, token: Int, locator: Locator) {
         if (closing || host !== navigator || token != generation) return
@@ -134,24 +137,43 @@ class EpubReaderController(val book: Book, private val file: File, private val v
                 restoreTimeout?.cancel()
                 progress.restored(token)
             } else if (userMovement && before.phase == ArchiveReaderPhase.READY) {
-                progress.userAnchor(token, canonical(locator), locator.locations.totalProgression?.times(100))
+                captureJob?.cancel()
+                val target = jumpTarget?.takeIf { it.href.removeFragment().removeQuery() == locator.href.removeFragment().removeQuery() }
+                captureJob = scope.launch {
+                    try {
+                        // The page callback contains progression only. Preserve the user's search
+                        // text/fragment, or ask the SDK for the actual first visible DOM block.
+                        val precise = target ?: navigator.firstVisibleElementLocator() ?: locator
+                        ensureActive()
+                        if (closing || host !== navigator || token != generation || progress.state.value.phase != ArchiveReaderPhase.READY) return@launch
+                        if (precise.href.removeFragment().removeQuery() != locator.href.removeFragment().removeQuery()) return@launch
+                        val anchored = precise.copy(title = locator.title, locations = precise.locations.copy(
+                            progression = locator.locations.progression, position = locator.locations.position,
+                            totalProgression = locator.locations.totalProgression),
+                            // A very large HTML block still has its exact SDK CSS selector.
+                            text = if ((precise.text.highlight?.length ?: 0) > 4096) Locator.Text() else precise.text)
+                        progress.userAnchor(token, canonical(anchored), locator.locations.totalProgression?.times(100))
+                    } catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { fail("표시 위치를 읽지 못했습니다. 기존 독서 기록은 보존됩니다.") }
+                }
             }
         } catch (_: Exception) { fail("독서 위치를 복원하지 못했습니다. 기존 기록은 보존됩니다.") }
     }
-    fun armMovement() { if (progress.state.value.phase == ArchiveReaderPhase.READY) userMovement = true }
+    fun armMovement() { if (progress.state.value.phase == ArchiveReaderPhase.READY) { userMovement = true; jumpTarget = null } }
     fun next(direction: Int) { armMovement(); if (direction > 0) host?.goForward(animated = false) else host?.goBackward(animated = false) }
     fun navigate(locator: Locator, rememberOrigin: Boolean = true) {
         if (progress.state.value.phase != ArchiveReaderPhase.READY) return
         try {
             validate(locator)
-            if (rememberOrigin && returnTo == null) returnTo = host?.currentLocator?.value
+            if (rememberOrigin && returnTo == null) returnTo = initialLocator() ?: host?.currentLocator?.value
             armMovement()
+            jumpTarget = locator
             check(host?.go(locator, animated = false) == true)
             mutableState.update { it.copy(canReturn = returnTo != null) }
         } catch (_: Exception) { mutableState.update { it.copy(error = "이 위치로 이동할 수 없습니다. 현재 기록은 유지됩니다.") } }
     }
     fun returnFromJump() { val target = returnTo ?: return; returnTo = null; navigate(target, false); mutableState.update { it.copy(canReturn = false) } }
-    fun beforeInternalLink() { if (returnTo == null) returnTo = host?.currentLocator?.value; armMovement(); mutableState.update { it.copy(canReturn = returnTo != null) } }
+    fun beforeInternalLink() { if (returnTo == null) returnTo = initialLocator() ?: host?.currentLocator?.value; armMovement(); mutableState.update { it.copy(canReturn = returnTo != null) } }
     fun externalLink(url: AbsoluteUrl) {
         if (!url.isHttp) return
         if (url.toString().length <= 8192) mutableState.update { it.copy(externalUrl = url.toString()) }
@@ -196,7 +218,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     }
     fun addBookmark() {
         val session = progress.readySession() ?: return
-        val locator = host?.currentLocator?.value ?: return
+        val locator = initialLocator() ?: host?.currentLocator?.value ?: return
         scope.launch {
             try {
                 val result = bookmarkAccess.add(java.util.UUID.randomUUID().toString(), session, canonical(locator), null, System.currentTimeMillis())
@@ -244,7 +266,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     suspend fun close() {
         if (closing) return
         closing = true
-        restoreTimeout?.cancel()
+        captureJob?.cancel(); restoreTimeout?.cancel()
         openJob.cancel(); searchJob?.cancel(); settingsJob?.cancel()
         detachHost?.invoke(); detachHost = null; host = null
         try { openJob.join(); searchJob?.join(); settingsJob?.join(); progress.close() }
