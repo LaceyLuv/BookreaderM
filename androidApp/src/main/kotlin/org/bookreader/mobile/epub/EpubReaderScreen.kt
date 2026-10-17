@@ -86,7 +86,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     }
     if (menu) AlertDialog(onDismissRequest = { menu = false }, title = { Text("독서 메뉴") }, text = { Controls() }, confirmButton = { TextButton(onClick = { menu = false }) { Text("닫기") } })
     if (settings) ReaderSettingsDialog(TxtReaderState(phase = if (ready) TxtReaderPhase.READY else TxtReaderPhase.REFLOWING, settings = state.settings, settingsLoaded = controller.loadedSettings,
-        settingsError = state.settingsError, settingsSaving = state.settingsSaving), controller::retrySettings, controller::saveSettings) { settings = false }
+        settingsError = state.settingsError, settingsSaving = state.settingsSaving), controller::retrySettings, controller::saveSettings, epubMode = true) { settings = false }
     if (search) {
         var query by remember(controller) { mutableStateOf(state.query) }
         AlertDialog(onDismissRequest = { search = false; controller.cancelSearch() }, title = { Text("본문 검색") }, text = {
