@@ -23,8 +23,8 @@
 | M02 | managed-import-and-library | DONE | TXT 내부 알파: `2be610a` local/remote CI 41/45 및 Android 25·host 2·fixture PNG PASS, [WORKLOG](WORKLOG.md) |
 | M03 | txt-scroll-progress-and-continue-bar | DONE | TXT 내부 알파: measured anchor/cache loss/Continue/recreation·cold launch/host force-stop PASS, [WORKLOG](WORKLOG.md) |
 | M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence·60초 연속 저장 PASS; 전체 SAFE/UI race·disk-full·reflow 기기 검증 잔여 |
-| M05 | txt-pagination-and-reflow | IN_PROGRESS | M04 UI gate PASS 후 로컬 격리 worktree 구현·검증 중; 아직 main 기능 아님 |
-| M06 | txt-search-bookmarks-and-encoding | TODO | 없음 |
+| M05 | txt-pagination-and-reflow | IN_PROGRESS | 1349ce8 local/remote 52/57/3·actual 35/host 2 PASS; 설정 추가 조합 검증 잔여 |
+| M06 | txt-search-bookmarks-and-encoding | IN_PROGRESS | 로컬 격리 worktree 구현·검증 중; 아직 main 기능 아님 |
 | M07 | mobile-controls-and-accessibility | TODO | 없음 |
 | M08 | epub-product-integration | TODO | 없음 |
 | M09 | comic-reader-and-memory | TODO | 없음 |
@@ -266,7 +266,8 @@ ADR-0004, scripts/process-death-test.*, commit-latency report, race test results
 
 # M05 — `txt-pagination-and-reflow`
 
-**상태:** IN_PROGRESS  
+**상태:** IN_PROGRESS
+
 **선행 조건:** M04 (실제 UI race 핵심 검증 PASS; 설정 reflow는 이 작업에서, bookmark 불변은 M06에서 보완하며 전체 M04는 IN_PROGRESS 유지)
 
 ## 구현 범위
@@ -276,11 +277,11 @@ ADR-0004, scripts/process-death-test.*, commit-latency report, race test results
 평균 글자 폭 pagination, 전체 페이지 View 생성, 페이지 번호 영구 저장.
 
 ## 완료 조건
-- [ ] 각 page range가 연속 [start,end)이며 긴 문단/빈 줄/이모지의 내용 coverage 유지.
-- [ ] 131072/1MiB 단일 문단 끝까지 접근 가능.
+- [x] 각 page range가 연속 [start,end)이며 긴 문단/빈 줄/이모지의 내용 coverage 유지. (`1349ce8` 실제 TextMeasurer/hash)
+- [x] 131072/1MiB 단일 문단 끝까지 접근 가능. (`1349ce8` 실제 coverage)
 - [ ] font/size/line/letter/margin/insets/density/systemFontScale 변경마다 적절한 cache invalidation.
 - [ ] 100회 앞뒤 이동과 random jump 후에도 내용 중복/누락/드리프트 없음.
-- [ ] 설정 변경 후 기존 anchor가 같은 문장 또는 동일 페이지 범위 안에 존재.
+- [x] 설정 변경 후 기존 anchor가 같은 문장 또는 동일 페이지 범위 안에 존재. (`1349ce8` mode/size actual UI; 나머지 조합은 위 gate 유지)
 
 ## 산출물
 layout-key spec, coverage/property tests, reflow UI screenshots
@@ -291,7 +292,7 @@ layout-key spec, coverage/property tests, reflow UI screenshots
 
 # M06 — `txt-search-bookmarks-and-encoding`
 
-**상태:** TODO  
+**상태:** IN_PROGRESS
 **선행 조건:** M05
 
 ## 구현 범위

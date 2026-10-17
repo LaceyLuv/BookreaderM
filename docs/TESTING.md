@@ -1,5 +1,19 @@
 # 모바일 검증 계약
 
+## 2026-10-17 M05 페이지·설정 핵심 검증 및 M06 착수
+
+source `1349ce8ee502686bd217373257e96432a7ff0204`에서 local/remote unit 52/shared JVM 57,
+remote ENOSPC 3, actual API36 ordinary 35/외부 host 2 stages 모두 PASS다.
+Room schema 3의 전역/책별 설정, bounded 실제 측정 페이지, mode/size reflow를 구현했다.
+`6552d56` local full CI의 간헐적 restoration timeout을 보존하고 READY/anchor 게시를 보완했다.
+[보고서](M05_PAGINATION.md), [summary](evidence/m05-validation/summary.json)가 근거다.
+
+M05는 IN_PROGRESS다. 글꼴/행간/자간/여백 및 실제 OS 배율·밀도 조합과 안정된 첫 페이지 PNG를 후속 검증한다.
+M06은 `/workspace/bookreader-mobile-m06`의 `codex/m06-tools`에서 구현 중이며 아직 main 기능이 아니다.
+검색·북마크(schema 4)·수동 인코딩 전환을 연결했고, 실제 UI 및 SAFE-01 bookmark 불변 회귀를 준비했다.
+사용자 목표는 남은 계획 전체 진행이다. M04 전체와 실기기/출시 gate를 완료로 올리지 않고 계속 진행한다.
+
+
 ## M04 실제 UI 경쟁·취소 — 2026-10-17
 
 source `85653ada7259c9c80329ca759e5fc43df870cfff`에서 local/remote unit 50/shared JVM 53,

@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "source_sha": "1349ce8ee502686bd217373257e96432a7ff0204",
+  "source_fingerprint": "e2d3caa89d74e7d946b3523389a362e381b803b86899c71edd25d5e22a35ae89",
+  "source_drift": 0,
+  "local_ci": {
+    "command": "BOOKREADER_EVIDENCE_DIR=docs/evidence/m05-validation/local-ci-reflow-fix ./scripts/ci-check.sh",
+    "exit_code": 0,
+    "suites": {
+      "android-unit": {
+        "tests": 52,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "shared-jvm": {
+        "tests": 57,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "remote_build": "remote-1349ce8-build/summary.json",
+  "remote_device": "remote-1349ce8-device/summary.json",
+  "milestone_status": "IN_PROGRESS",
+  "remaining": [
+    "individual font/line/letter/margin and OS fontScale/density combinations",
+    "extended arbitrary-region boundary coverage",
+    "stable first-page screenshot (initial capture contains transient restoring overlay)"
+  ],
+  "failures_preserved": [
+    "local-ci/",
+    "initial-failures/"
+  ],
+  "local_device": "BLOCKED_ENV: no authorized device"
+}
