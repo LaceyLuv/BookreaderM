@@ -1,0 +1,69 @@
+[
+  {
+    "command": "source /workspace/toolchains/mobile-env.sh; ./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest",
+    "exit_code": 0,
+    "evidence": "test-apk-compile.log"
+  },
+  {
+    "command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-read-error-validation/local-ci ./scripts/ci-check.sh",
+    "exit_code": 0,
+    "evidence": "local-ci/results.txt"
+  },
+  {
+    "command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_DEVICE_EVIDENCE_DIR=docs/evidence/m04-read-error-validation/local-device ./scripts/device-check.sh",
+    "exit_code": 78,
+    "status": "BLOCKED_ENV",
+    "reason": "No authorized local Android device",
+    "evidence": "local-device/results.txt"
+  },
+  {
+    "command": "bash -n scripts/device-check.sh",
+    "exit_code": 0
+  },
+  {
+    "command": "git diff --check -- . ':!docs/evidence'",
+    "exit_code": 0
+  },
+  {
+    "command": "git push origin main",
+    "exit_code": 0,
+    "source_sha": "199e9b956717a7c6b44ba0c7e08c87a84b68de96"
+  },
+  {
+    "command": "source /workspace/toolchains/mobile-env.sh; ./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest",
+    "exit_code": 0,
+    "source_sha": "0e2605e9a21be7fc72cfa6a72e36e89de406fe3d",
+    "evidence": "test-apk-fixed-compile.log"
+  },
+  {
+    "command": "./scripts/device-check.sh",
+    "environment": "GitHub Actions",
+    "exit_code": 1,
+    "workflow_id": 38999665795,
+    "status": "FAIL",
+    "source_sha": "199e9b956717a7c6b44ba0c7e08c87a84b68de96",
+    "evidence": "remote-199e9b9-device-failed/results.txt",
+    "host": "NOT_RUN"
+  },
+  {
+    "command": "git push origin main",
+    "exit_code": 0,
+    "source_sha": "0e2605e9a21be7fc72cfa6a72e36e89de406fe3d"
+  },
+  {
+    "command": "./scripts/ci-check.sh and ./scripts/enospc-check.sh",
+    "environment": "GitHub Actions",
+    "exit_code": 0,
+    "workflow_id": 39000328372,
+    "source_sha": "0e2605e9a21be7fc72cfa6a72e36e89de406fe3d",
+    "evidence": "remote-0e2605e-build/results.txt"
+  },
+  {
+    "command": "./scripts/device-check.sh",
+    "environment": "GitHub Actions",
+    "exit_code": 0,
+    "workflow_id": 39000328613,
+    "source_sha": "0e2605e9a21be7fc72cfa6a72e36e89de406fe3d",
+    "evidence": "remote-0e2605e-device/results.txt"
+  }
+]

@@ -1,7 +1,68 @@
 # 모바일 검증 계약
 
-2026-10-11 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
+2026-10-17 갱신. 결과는 `PASS / FAIL / NOT_RUN / BLOCKED_ENV`로 구분한다.
 테스트 파일의 존재, 환경 검사 성공, Activity 재생성은 각각 실제 테스트 통과나 프로세스 종료 검증을 대신하지 않는다.
+
+## M04 SAFE-01 실제 Reader 조회 오류·재시도 — 2026-10-17
+
+source `0e2605e9a21be7fc72cfa6a72e36e89de406fe3d`, 검증 입력 112개 fingerprint
+`c04c2b9d4a5500a1e6fe63d4e3629f8f721d230b22ccb3d7d91a1ed9e84db4b8`, source drift 0이다.
+[summary](evidence/m04-read-error-validation/summary.json), [범위 보고서](M04_PROGRESS_READ_ERRORS.md)를 따른다.
+production 코드/schema/migration은 바뀌지 않았으며 README를 보존했다.
+
+| 검사 | 판정 | 증거/범위 |
+|---|---|---|
+| local test APK compile | exit 0/PASS | 새 실제 UI 검사 2개 컴파일 |
+| full local CI | exit 0/PASS | Android unit 48/shared JVM 53, failure/error/skip 0, APK/lint/schema PASS |
+| local device | exit 78/BLOCKED_ENV | authorized Android device 없음; 기기 PASS로 대체하지 않음 |
+| remote build [39000328372](https://github.com/LaceyLuv/BookreaderM/actions/runs/39000328372) | PASS | native 48/53/ENOSPC 3, artifact `12088568841` |
+| actual API36 [39000328613](https://github.com/LaceyLuv/BookreaderM/actions/runs/39000328613) | exit 0/PASS | ordinary 29/외부 host 2 stages, artifact `12088683868` |
+
+정확 local 명령은 `source /workspace/toolchains/mobile-env.sh` 뒤 실행했다.
+
+```bash
+./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest
+BOOKREADER_EVIDENCE_DIR=docs/evidence/m04-read-error-validation/local-ci ./scripts/ci-check.sh
+BOOKREADER_DEVICE_EVIDENCE_DIR=docs/evidence/m04-read-error-validation/local-device ./scripts/device-check.sh
+bash -n scripts/device-check.sh
+```
+
+기기 명령만 exit 78이며 나머지는 exit 0이다. [commands.json](evidence/m04-read-error-validation/commands.json),
+local/native XML, 원격 artifact/server digest와 ZIP SHA-256, command results 및 host raw proof를 보존했다.
+local CI 48/53은 `199e9b9` 입력으로 실행했다. 후속 변경은 Android test와 device-check의 예외 타입 검사 각 1줄뿐이며 unit/shared/production 입력은 동일하다. 최종 test APK 재컴파일도 exit 0이고, 최종 원격은 위 commit 전체를 checkout했다.
+
+첫 `199e9b9` device run 38999665795는 ordinary 29 중 1 FAIL, host NOT_RUN이었다.
+native probe의 SQLite code 1과 오류 단계 검사는 통과했지만 test line 488이 런타임 클래스 이름을
+`SQLiteException`으로 고정해 실패했다. 공식 2.6.1 Android source의 실제 별칭은
+`SQLiteException = android.database.SQLException`이다. native probe에서 얻은 클래스 이름과
+Reader 진단을 비교하고 기기 report 검증도 Android의 `SQLException`을 기대하도록 수정했다.
+오류 코드/기록 보존 검사는 완화하지 않았다. [원본 FAIL](evidence/m04-read-error-validation/remote-199e9b9-device-failed/summary.json)과
+[공식 source 근거](evidence/m04-read-error-validation/sqlite-api-source.json)를 보존했다.
+
+새 actual UI 검사 두 개:
+
+- native DAO 조회를 열 이름의 가역적 변경으로 실패시켜 SQLite code **1**을 확인했다.
+  `LOAD_PROGRESS / DATABASE_UNAVAILABLE / READ_PROGRESS`와 실제 오류/재시도 UI가 일치한다.
+  기존 offset **5617**, epoch **1**, 모든 book/progress/read_order와 두 관리 파일을
+  오류 및 실패한 재시도 2회 동안 보존했다. 복구 후 TextLayout 측정 **5617**,
+  새 epoch **2**에서 사용자 swipe 위치 **7477** 저장 PASS다.
+- malformed locator는 `INVALID_RECORD`로 표시하며 잘못된 원본 JSON 자체를 오류 동안 보존했다.
+  테스트가 원래 JSON을 복원한 뒤 UI 재시도에서 offset **5805**로 돌아왔고,
+  새 epoch **2**의 위치 **7727** 저장 PASS다. 앱의 자동 손상 복구를 뜻하지 않는다.
+
+각 경로에서 복원 자체는 progress를 쓰지 않고 성공한 activation만 epoch/read_order를 한 번 올렸다.
+다른 책 보존, 관리 파일 hash, fault 복원 및 실제 DAO 재조회까지 PASS다. fixture 본문/bytes/hash는
+자체 생성 규칙으로 별도 재계산해 raw report와 대조했다. bookmark는 v2 schema/DAO/UI가 없어 NOT_RUN이다.
+
+기존 회귀도 새 source에서 실행했다. 실제 연속 이동 60,002ms /
+60 commits, 최대 관찰 공백 1,101ms다.
+외부 host는 live PID 5794 → force-stop → absent → cold PID 5842 및
+서재 Continue 복원을 확인했다. verification instrumentation은 별도 target process를 시작할 수 있다.
+SQL write-ack/미커밋 화면 위치/전원 차단/실기기 성능 보증과 구분한다.
+
+M04는 **IN_PROGRESS**다. 다음은 실제 UI A/B 및 같은 책 rapid close/reopen이다.
+bookmark 불변, 삭제 중 decode/index, 실제 reflow/ON_STOP, Android 실제 storage ENOSPC/fsync,
+실기기 성능 및 신규 Astra 검토도 NOT_RUN이다.
 
 ## M04 실제 ENOSPC 및 activation 중복 — 2026-10-11 최종
 

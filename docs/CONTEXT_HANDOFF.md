@@ -1,4 +1,19 @@
-# BookReader Mobile 새 컨텍스트 인계 — 2026-10-09
+# BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
+
+## 2026-10-17 SAFE-01 실제 Reader 조회 오류·재시도
+
+source `0e2605e9a21be7fc72cfa6a72e36e89de406fe3d`에서 native SQLite 조회 오류와 malformed locator의 실제 Reader UI 회귀 2개를 추가했다.
+실패한 재시도 2회 동안 전체 progress/book/read_order 및 두 관리 파일을 보존하고,
+장애 해제 후 이전 commit의 TextLayout 위치 복원·정확히 1회 activation·새 epoch 저장을 확인했다.
+production 코드/schema 변경은 없다. local(초기 source)/최종 remote unit 48/shared JVM 53, remote ENOSPC 3,
+actual API36 ordinary 29/외부 host 2 stages 모두 PASS다. 최초 199e9b9의 예외 타입 이름 assertion FAIL과 host NOT_RUN은 원본 보존했다. local device는 기기 부재로 exit 78/BLOCKED_ENV다.
+[TESTING](TESTING.md), [보고서](M04_PROGRESS_READ_ERRORS.md),
+[evidence](evidence/m04-read-error-validation/summary.json)가 최신 근거다.
+
+M04는 IN_PROGRESS다. **다음 우선 작업은 실제 UI A/B 및 같은 책 rapid close/reopen**이다.
+SAFE-01 bookmark 불변은 현재 entity/DAO/UI 미구현으로 NOT_RUN이며 M06 이후 검증한다.
+삭제 중 decode/index, 실제 reflow/ON_STOP, Android ext4/f2fs ENOSPC/fsync, 실기기 성능 및 신규 Astra 검토도 남는다.
+이하 이전 절의 '다음 SAFE-01' 안내보다 이 절을 우선한다.
 
 ## 2026-10-11 실제 ENOSPC 및 activation 중복 최종 검증
 

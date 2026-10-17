@@ -1085,3 +1085,27 @@ raw host exact start/pass/finish, 모든 command exit 0, PID 5691→absent→col
 이후 변경은 문서/증거뿐이며 README/사용자 파일은 보존했다. 정확 명령/exit는 TESTING/commands.json을 따른다.
 TASKS/TESTING/WORKLOG/CONTEXT_HANDOFF/ADR/SAFE matrix/범위 보고서를 확정했다.
 M04 IN_PROGRESS, 다음은 SAFE-01 실제 Reader DB 조회 오류/재시도 UI다. 새 Astra 검토는 NOT_RUN이다.
+
+
+## 2026-10-17 — SAFE-01 actual Reader 조회 오류 및 retry
+
+clean `bedfdea` main 및 origin 일치를 확인하고 기존 README/사용자 변경을 보존했다.
+AGENTS/최신 인계/TASKS/실제 코드를 읽고 다음 우선 작업인 SAFE-01 UI를 선택했다.
+`0e2605e`에 TxtReaderFlowTest 2개, 자체 fixture provider 3개 ID, mandatory manifest 29개,
+device-check report 수집/검증을 구현하고 main에 commit/push했다. production 변경은 없다.
+
+첫 `199e9b9` 기기 실행은 예외 클래스 이름 assertion으로 29개 중 1 FAIL, host NOT_RUN이었다.
+공식 AndroidX 2.6.1 source의 typealias가 SQLException임을 확인해 native probe의 실제 타입과
+진단을 비교하도록 1줄, device report checker의 기대 타입 1줄을 보완했다. 실패 원본은 보존했다.
+local 48/53은 초기 입력이고 최종 test APK 재컴파일은 exit 0이다.
+가역적인 query column rename은 native SQLite code 1을 발생시키며 borrowed DB close를 쓰지 않는다.
+malformed locator는 원래 JSON을 보존해 fixture repair/UI retry한다. 전체 progress 9열/book/read_order,
+두 관리 파일 hash, 오류 중 retry 2회, 실제 TextLayout 복원과 새 epoch save, finally 복원까지 검사한다.
+local CI 48/53 exit 0, local device exit 78/BLOCKED_ENV, remote build 39000328372 48/53/3,
+actual device 39000328613 ordinary 29/host 2 stages 모두 PASS다. 정확 명령/exit 및 source fingerprint는
+`docs/evidence/m04-read-error-validation/commands.json`, `source.json`, `summary.json`을 따른다.
+native XML/raw host proof/기기 report/workflow SHA/artifact digest를 보존하고 별도 검증했다.
+
+검증 입력 112개 fingerprint `c04c2b9d4a5500a1e6fe63d4e3629f8f721d230b22ccb3d7d91a1ed9e84db4b8`, drift 0.
+bookmark entity/DAO/UI가 없으므로 해당 gate는 NOT_RUN, 새 Astra 검토도 NOT_RUN이다.
+M04 IN_PROGRESS를 유지한다. 다음 우선 작업은 실제 UI A/B 및 같은 책 rapid close/reopen이다.

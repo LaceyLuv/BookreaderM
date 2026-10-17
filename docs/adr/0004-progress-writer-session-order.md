@@ -157,3 +157,13 @@ production WAL writer의 기존/첫 저장과 activation에서 code 13 및 전�
 
 최종 `ebee772`는 local/remote 48/53 및 실제 ENOSPC 3, actual 27/host 2 stages PASS다.
 세부 source/evidence/미검증 경계는 [TESTING](../TESTING.md)의 최신 절을 따른다.
+
+
+### 2026-10-17: SAFE-01 실제 Reader 조회 실패 증거
+
+production API에 fault hook을 추가하지 않고, 테스트 전용 schema의 가역적 query-column rename으로
+native SQLite 조회 오류를 만들었다. malformed JSON도 실제 repository decode 경로에서 별도 검증한다.
+앱 소유 pool은 유지하고 finally에서 fault를 복원한다. 반복 UI retry 중 기록/metadata/file 보존,
+복구 후 측정 위치 복원 및 정확히 1회 activation/new epoch save를 검사한다.
+`0e2605e` actual ordinary 29/host 2 stages와 local/remote unit 48/53, remote ENOSPC 3 PASS다.
+bookmark 미구현 범위는 NOT_RUN이다. [보고서](../M04_PROGRESS_READ_ERRORS.md)와 [TESTING](../TESTING.md)을 따른다.

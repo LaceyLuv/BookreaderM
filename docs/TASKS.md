@@ -238,6 +238,12 @@ actual ordinary 27/host 2 stages PASS다. 8MiB tmpfs에서 실제 errno 28/WAL F
 단위 테스트로 재현해 진입 직렬화/LAZY job 등록으로 수정했다. 원본 실패와 범위는
 [TESTING](TESTING.md), [보고서](M04_FILESYSTEM_ENOSPC.md)를 따른다. M04는 IN_PROGRESS다.
 
+**2026-10-17 SAFE-01 후속:** `0e2605e`의 actual Reader native SQLite 조회 오류/malformed locator
+두 회귀가 오류·실패 retry 중 전체 기록/파일 보존 및 복구 후 measured restore/new epoch save를 검증했다.
+local/remote 48/53, remote ENOSPC 3, actual ordinary 29/host 2 stages PASS다.
+[범위 보고서](M04_PROGRESS_READ_ERRORS.md), [TESTING](TESTING.md)을 따른다.
+bookmark entity/DAO/UI 부재로 해당 불변 gate는 NOT_RUN이며 전체 M04는 IN_PROGRESS다.
+
 ## 구현 범위
 앱 수준 progress single writer, persisted sessionEpoch/sequence, 1초 sampling+250ms settled save, conditional transaction, flush barrier, 저장 실패 UI를 완성한다. 외부 host-driven 종료 테스트를 만든다.
 
@@ -249,7 +255,7 @@ offset 최대값 기반 최신 판정, lifecycle 단독 저장, 복구 실패 �
 - [ ] A/B 책과 같은 책의 빠른 닫기/재열기, 역방향 이동에서 의도한 최신 기록 유지.
 - [x] 60초 연속 스크롤에도 주기 commit이 존재. (`73276fe` actual API36: 60,001ms/46회, SQL latency·실기기 성능과 구분)
 - [x] force-stop 뒤 마지막 commit 완료 locator 보존; 미커밋 상태까지 보존된다고 주장하지 않음.
-- [ ] 손상 locator/조회 오류는 기록 보존과 재시도 UI로 처리.
+- [x] 손상 locator/조회 오류는 기록 보존과 재시도 UI로 처리. (`0e2605e` actual UI 2 cases; bookmark는 별도 미구현/NOT_RUN)
 
 ## 산출물
 ADR-0004, scripts/process-death-test.*, commit-latency report, race test results
