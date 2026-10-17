@@ -703,6 +703,10 @@
     [
       "org.bookreader.mobile.epub.EpubProbeTest",
       "sdkSearchReturnsFullLocatorAndContainerCannotReadOutsideBook"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubProbeTest",
+      "searchResultsArePagedAndOversizedChaptersReportAnExplicitLimit"
     ]
   ],
   "android-host": [
@@ -773,6 +777,14 @@
     [
       "org.bookreader.mobile.comic.ComicManifestTest",
       "unsupportedArchivesAndCancelledInspectionNeverProduceManifest"
+    ],
+    [
+      "org.bookreader.mobile.epub.LiteralMatchCursorTest",
+      "manyOverlappingMatchesRemainPagedAndKeepUtf16Ranges"
+    ],
+    [
+      "org.bookreader.mobile.epub.LiteralMatchCursorTest",
+      "absentRepeatedPrefixSearchChecksCancellationWithinBoundedWindows"
     ]
   ]
 }

@@ -9,6 +9,8 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import org.readium.r2.shared.publication.Publication
+import org.readium.r2.shared.ExperimentalReadiumApi
+import org.readium.r2.shared.publication.services.search.searchServiceFactory
 import org.readium.r2.shared.publication.epub.EpubLayout
 import org.readium.r2.shared.publication.presentation.presentation
 import org.readium.r2.shared.util.*
@@ -24,6 +26,7 @@ import org.readium.r2.streamer.PublicationOpener
 import org.readium.r2.streamer.parser.epub.EpubParser
 
 /** Publication owns the virtual container; all content comes from this one validated private ZIP. */
+@OptIn(ExperimentalReadiumApi::class)
 object SafeEpub {
     suspend fun open(file: File): Publication = withContext(Dispatchers.IO) {
         val context = currentCoroutineContext()
@@ -50,7 +53,9 @@ object SafeEpub {
         var opened: Publication? = null
         try {
             val asset = ContainerAsset(Format(FormatSpecification(Specification.Epub, Specification.Zip), MediaType.EPUB, FileExtension("epub")), container)
-            val publication = PublicationOpener(EpubParser()).open(asset, allowUserInteraction = false)
+            val publication = PublicationOpener(EpubParser(), onCreatePublication = {
+                servicesBuilder.searchServiceFactory = { BoundedEpubSearchService(it.manifest, it.container) }
+            }).open(asset, allowUserInteraction = false)
                 .getOrElse { throw IllegalArgumentException("EPUB parser rejected publication") }
             opened = publication
             require(publication.readingOrder.isNotEmpty() && publication.readingOrder.size <= 20_000)

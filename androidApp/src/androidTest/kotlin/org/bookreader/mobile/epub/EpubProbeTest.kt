@@ -117,6 +117,46 @@ class EpubProbeTest {
         }
     }
 
+    @OptIn(ExperimentalReadiumApi::class)
+    @Test fun searchResultsArePagedAndOversizedChaptersReportAnExplicitLimit() {
+        launch("epub3").use { scenario ->
+            waitFor(scenario) { it.loadedPages > 0 }
+            var publication: org.readium.r2.shared.publication.Publication? = null
+            scenario.onActivity { publication = it.publication }
+            runBlocking { withTimeout(15_000) {
+                val cursor = requireNotNull(publication!!.search("문단"))
+                try {
+                    var total = 0
+                    while (true) {
+                        val page = cursor.next().getOrElse { error("Search failed") } ?: break
+                        assertTrue(page.locators.size in 1..50)
+                        page.locators.forEach { locator ->
+                            assertEquals("문단", locator.text.highlight)
+                            assertTrue((locator.text.before?.length ?: 0) <= 161)
+                            assertTrue((locator.text.after?.length ?: 0) <= 161)
+                        }
+                        total += page.locators.size
+                    }
+                    assertEquals(360, total)
+                    assertEquals(360, cursor.resultCount)
+                } finally { cursor.close() }
+                assertTrue(cursor.next().isFailure)
+            } }
+        }
+        val file = java.io.File.createTempFile("search-limit-", ".epub", instrumentation.targetContext.cacheDir)
+        try {
+            instrumentation.targetContext.assets.open("epub-fixtures/search-limit.epub").use { input -> file.outputStream().use(input::copyTo) }
+            runBlocking { withTimeout(30_000) {
+                val publication = SafeEpub.open(file)
+                try {
+                    val cursor = requireNotNull(publication.search("한글"))
+                    try { assertTrue("Large chapter must report an error instead of silent truncation", cursor.next().isFailure) }
+                    finally { cursor.close() }
+                } finally { publication.close() }
+            } }
+        } finally { file.delete() }
+    }
+
     @Test fun activePublicationContentIsRejectedBeforeCreatingAnyNavigator() {
         for (fixture in listOf("active-script", "external-image", "disguised-markup")) launch(fixture).use { scenario ->
             val deadline = SystemClock.uptimeMillis() + 20_000
