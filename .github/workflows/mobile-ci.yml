@@ -4,6 +4,7 @@ on:
     paths:
       - 'androidApp/**'
       - 'shared/**'
+      - 'epubAndroid/**'
       - 'fixtures/**'
       - 'gradle/**'
       - '*.gradle.kts'
@@ -16,6 +17,7 @@ on:
     paths:
       - 'androidApp/**'
       - 'shared/**'
+      - 'epubAndroid/**'
       - 'fixtures/**'
       - 'gradle/**'
       - '*.gradle.kts'
@@ -69,3 +71,5 @@ jobs:
             shared/build/reports/
             shared/build/test-results/
             shared/schemas/
+            epubAndroid/build/test-results/
+            epubAndroid/build/reports/

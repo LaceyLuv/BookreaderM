@@ -6,5 +6,5 @@ dependencyResolutionManagement {
     repositories { google(); mavenCentral() }
 }
 rootProject.name = "BookReaderMobile"
-include(":androidApp", ":shared")
+include(":androidApp", ":shared", ":epubAndroid")
 

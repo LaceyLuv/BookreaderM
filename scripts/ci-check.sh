@@ -29,6 +29,7 @@ run_logged gradle-version ./gradlew --version
 run_logged projects ./gradlew --no-daemon --console=plain projects
 run_logged android-tasks ./gradlew --no-daemon --console=plain :androidApp:tasks --all
 run_logged shared-tasks ./gradlew --no-daemon --console=plain :shared:tasks --all
+run_logged epub-tasks ./gradlew --no-daemon --console=plain :epubAndroid:tasks --all
 
 # Discover from the selected plugins on each run. Missing tasks are a failure,
 # never silently replaced with a no-op or skipped.
@@ -45,13 +46,15 @@ for task in assembleDebug lintDebug testDebugUnitTest assembleDebugAndroidTest; 
   require_task androidApp "$task" "$evidence_dir/android-tasks.log"
 done
 require_task shared jvmTest "$evidence_dir/shared-tasks.log"
+require_task epubAndroid testDebugUnitTest "$evidence_dir/epub-tasks.log"
+require_task epubAndroid lintDebug "$evidence_dir/epub-tasks.log"
 run_logged clear-old-test-results python3 - <<'PY'
 from pathlib import Path
 
 # Only generated XML is removed. Missing declared test outputs make Gradle
 # execute tests again; stale reports must not satisfy mandatory-case checks.
 removed = 0
-for folder in ('androidApp/build/test-results/testDebugUnitTest', 'shared/build/test-results/jvmTest'):
+for folder in ('androidApp/build/test-results/testDebugUnitTest', 'shared/build/test-results/jvmTest', 'epubAndroid/build/test-results/testDebugUnitTest'):
     for report in Path(folder).glob('TEST-*.xml'):
         report.unlink()
         removed += 1
@@ -59,11 +62,15 @@ print(f'Removed {removed} old generated unit/shared XML reports')
 PY
 run_logged build-and-tests ./gradlew --no-daemon --console=plain --stacktrace \
   :androidApp:assembleDebug :androidApp:lintDebug \
-  :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest :shared:jvmTest
+  :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest :shared:jvmTest \
+  :epubAndroid:testDebugUnitTest :epubAndroid:lintDebug
 run_logged android-unit-results python3 scripts/check-test-results.py \
   android-unit androidApp/build/test-results/testDebugUnitTest
 run_logged shared-test-results python3 scripts/check-test-results.py \
   shared-jvm shared/build/test-results/jvmTest
+
+run_logged epub-test-results python3 scripts/check-test-results.py \
+  epub-unit epubAndroid/build/test-results/testDebugUnitTest
 
 # Schema content must be produced by Room KSP, never hand-created to pass.
 run_logged room-schema python3 - <<'PY'

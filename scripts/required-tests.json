@@ -667,6 +667,18 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubProbeTest",
+      "stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubProbeTest",
+      "activePublicationContentIsRejectedBeforeCreatingAnyNavigator"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubProbeTest",
+      "cspBlocksExternalCssResourcesWhileEngineCanNavigateOffline"
     ]
   ],
   "android-host": [
@@ -691,6 +703,32 @@
     [
       "org.bookreader.mobile.repository.RoomProgressEnospcTest",
       "walActivationPreservesEpochAndReadOrderThenRetries"
+    ]
+  ],
+  "epub-unit": [
+    [
+      "org.bookreader.mobile.epub.BoundedZipTest",
+      "boundedReadPreservesUnicodeIdentityAndRejectsActualOverflowAndCancellation"
+    ],
+    [
+      "org.bookreader.mobile.epub.BoundedZipTest",
+      "traversalDuplicateNormalizedNamesAndEncryptedFlagsFailBeforeInflation"
+    ],
+    [
+      "org.bookreader.mobile.epub.BoundedZipTest",
+      "crcCorruptionAndForgedDeclaredSizeCannotReturnPartialContent"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubContentPolicyTest",
+      "passiveTextLocalImagesCssAndAnchorsSurviveCspInjection"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubContentPolicyTest",
+      "activeMarkupExternalImagesAndTraversalAreRejected"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubContentPolicyTest",
+      "dtdEntitiesAndExcessiveNestingFailClosed"
     ]
   ]
 }
