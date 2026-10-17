@@ -20,10 +20,11 @@ public final class TestSenderActivity extends Activity {
         if (action == null) action = Intent.ACTION_VIEW;
         Intent incoming = new Intent(action);
         incoming.setComponent(new ComponentName("org.bookreader.mobile", "org.bookreader.mobile.MainActivity"));
+        String mime = fixture.startsWith("epub-") ? "application/epub+zip" : "text/plain";
         if (Intent.ACTION_SEND.equals(action)) {
-            incoming.setType("text/plain");
+            incoming.setType(mime);
             incoming.putExtra(Intent.EXTRA_STREAM, uri);
-        } else incoming.setDataAndType(uri, "text/plain");
+        } else incoming.setDataAndType(uri, mime);
         incoming.setClipData(ClipData.newRawUri("TXT fixture", uri));
         incoming.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(incoming);

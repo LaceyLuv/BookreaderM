@@ -124,3 +124,31 @@ private class AndroidReaderProgressAccess(
     }
     override suspend fun flush() { mutex.lock(); mutex.unlock() }
 }
+
+fun androidEpubReaderFactory(context: Context): (org.bookreader.mobile.model.Book, kotlinx.coroutines.CoroutineScope) -> org.bookreader.mobile.epub.EpubReaderController {
+    val app = context.applicationContext
+    val gate = org.bookreader.mobile.reader.ReaderActivationGate()
+    return { book, scope ->
+        val files = org.bookreader.mobile.importing.AndroidManagedImportFiles(app)
+        org.bookreader.mobile.epub.EpubReaderController(book,
+            java.io.File(java.io.File(app.filesDir, "managed"), book.managedRelativePath), verifySource = {
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    require(book.currentRevision == org.bookreader.mobile.importing.archiveContentRevision(book.format, book.sourceSha256))
+                    require(files.fingerprint(book.managedRelativePath, org.bookreader.mobile.importing.MAX_EPUB_BYTES) ==
+                        org.bookreader.mobile.importing.FileFingerprint(book.sourceSha256, book.sourceByteSize))
+                }
+            }, AndroidReaderProgressAccess(app, book, scope, gate), scope,
+            object : org.bookreader.mobile.reader.ReaderSettingsAccess {
+                private fun repository() = org.bookreader.mobile.settings.ReaderSettingsRepository(AndroidDatabaseOwner.borrow(app))
+                override suspend fun load(bookId: String) = repository().load(bookId)
+                override suspend fun save(expected: org.bookreader.mobile.settings.LoadedReaderSettings,
+                    global: org.bookreader.mobile.settings.ReaderSettings, book: org.bookreader.mobile.settings.BookReaderPreferences) = repository().save(expected, global, book)
+            }, object : org.bookreader.mobile.epub.ArchiveBookmarkAccess {
+                private fun repository() = org.bookreader.mobile.repository.RoomBookmarkRepository(AndroidDatabaseOwner.borrow(app))
+                override suspend fun load(bookId: String, revision: String, cursor: org.bookreader.mobile.repository.BookmarkCursor?) = repository().load(bookId, revision, cursor)
+                override suspend fun add(id: String, session: org.bookreader.mobile.repository.ProgressSession,
+                    locator: org.bookreader.mobile.locator.ContentLocator, label: String?, now: Long) = repository().add(id, session, locator, label, now)
+                override suspend fun delete(bookId: String, id: String) = repository().delete(bookId, id)
+            })
+    }
+}

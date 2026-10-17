@@ -66,6 +66,18 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
             }
         }
     }
+    state.epubReader?.let { reader ->
+        MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
+            Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
+                Column(Modifier.fillMaxSize().safeDrawingPadding()) {
+                    if (state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
+                        model::dismissImport, model::cancelImport, model::selectImportEncoding, model::openBook)
+                    androidx.compose.runtime.key(reader) { org.bookreader.mobile.epub.EpubReaderScreen(reader, model::leaveReader) { model.openBook(reader.book) } }
+                }
+            }
+        }
+        return
+    }
     state.reader?.let { reader ->
         MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
@@ -76,7 +88,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
                     ImportStatus(state.importing, model::confirmShare, model::dismissImport, model::cancelImport,
                         model::selectImportEncoding, model::openBook)
                 }
-                TxtReaderScreen(reader, model::leaveReader)
+                androidx.compose.runtime.key(reader) { TxtReaderScreen(reader, model::leaveReader) }
             }
             }
         }
@@ -149,7 +161,7 @@ fun BookReaderScreen(
                         modifier = Modifier.testTag("screen_title"))
                     if (state.tab == AppTab.LIBRARY) Button(onClick = onAddTxt,
                         enabled = state.importing !is ImportUiState.Working && state.importing !is ImportUiState.SelectEncoding,
-                        modifier = Modifier.testTag("add_txt")) { Text("TXT 추가") }
+                        modifier = Modifier.testTag("add_txt")) { Text("책 추가") }
                 }
                 state.notice?.let { Text(it, modifier = Modifier.testTag("import_notice"), color = MaterialTheme.colorScheme.error) }
                 ImportStatus(state.importing, onConfirmShare, onDismissImport, onCancelImport,

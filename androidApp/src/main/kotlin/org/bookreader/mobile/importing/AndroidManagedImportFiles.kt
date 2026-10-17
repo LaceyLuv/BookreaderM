@@ -59,7 +59,8 @@ class AndroidManagedImportFiles(private val context: Context) : ManagedImportFil
         } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
         catch (_: SecurityException) { currentCoroutineContext().ensureActive(); throw ImportFailure(ImportErrorCode.PERMISSION_DENIED) }
         catch (_: Exception) { throw ImportFailure(ImportErrorCode.SOURCE_UNAVAILABLE) }
-        return ImportRequest(document.uri.toString(), name, size, encodingId)
+        return ImportRequest(document.uri.toString(), name, size, encodingId,
+            format = if (name.endsWith(".epub", ignoreCase = true)) org.bookreader.mobile.model.BookFormat.EPUB else org.bookreader.mobile.model.BookFormat.TXT)
     }
 
     private fun requireAccess(uri: Uri) {
@@ -152,6 +153,15 @@ class AndroidManagedImportFiles(private val context: Context) : ManagedImportFil
                 try { block(signal) } finally { watcher.cancel() }
             }
         }
+
+    override suspend fun validateArchive(relativePath: String, fingerprint: FileFingerprint, format: org.bookreader.mobile.model.BookFormat) {
+        if (format != org.bookreader.mobile.model.BookFormat.EPUB) throw ImportFailure(ImportErrorCode.UNSUPPORTED_FORMAT)
+        try {
+            val publication = org.bookreader.mobile.epub.SafeEpub.open(owned(relativePath))
+            publication.close()
+        } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+        catch (_: Exception) { throw ImportFailure(ImportErrorCode.UNSUPPORTED_FORMAT) }
+    }
 
     override suspend fun validateTxt(relativePath: String, sourceSha256: String, encodingId: String?): TxtValidation {
         val coroutine = currentCoroutineContext()

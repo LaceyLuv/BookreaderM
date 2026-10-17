@@ -14,7 +14,12 @@ import org.bookreader.mobile.settings.*
 import kotlin.math.roundToInt
 
 @Composable
-fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState, onDismiss: () -> Unit) {
+fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState, onDismiss: () -> Unit) =
+    ReaderSettingsDialog(state, controller::retrySettings, controller::saveSettings, onDismiss)
+
+@Composable
+fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
+    onSave: (ReaderSettings, BookReaderPreferences) -> Unit, onDismiss: () -> Unit) {
     val loaded = state.settingsLoaded
     var global by remember(loaded) { mutableStateOf(loaded?.global ?: ReaderSettings()) }
     var preferences by remember(loaded) { mutableStateOf(loaded?.book ?: BookReaderPreferences()) }
@@ -23,7 +28,7 @@ fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState,
             Column(Modifier.verticalScroll(rememberScrollState()).testTag("reader_settings_dialog")) {
                 if (state.settingsError) {
                     Text("설정을 읽거나 저장하지 못했습니다. 기존 설정은 보존됩니다.")
-                    TextButton(onClick = controller::retrySettings) { Text("다시 읽기") }
+                    TextButton(onClick = onRetry) { Text("다시 읽기") }
                 }
                 Text("이 책의 읽기 방식")
                 FlowRow {
@@ -84,7 +89,7 @@ fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState,
         },
         confirmButton = { TextButton(enabled = loaded != null && !state.settingsError && !state.settingsSaving &&
             state.phase == TxtReaderPhase.READY, modifier = Modifier.testTag("reader_settings_apply"),
-            onClick = { controller.saveSettings(global, preferences); onDismiss() }) { Text("적용") } },
+            onClick = { onSave(global, preferences); onDismiss() }) { Text("적용") } },
         dismissButton = { TextButton(onClick = onDismiss) { Text("닫기") } })
 }
 

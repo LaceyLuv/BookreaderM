@@ -20,7 +20,7 @@ class AndroidBookManagement(context: Context) : BookManagement {
 
     override suspend fun recover() = useCoordinator { it.recover() }
     override suspend fun import(document: IncomingDocument, onProgress: suspend (ImportProgress) -> Unit): ImportResult =
-        useCoordinator { it.importTxt(files.request(document), onProgress) }
+        useCoordinator { it.importBook(files.request(document), onProgress) }
     override suspend fun selectEncoding(jobId: String, encodingId: String, onProgress: suspend (ImportProgress) -> Unit): ImportResult =
         useCoordinator { it.resumeValidation(jobId, encodingId, onProgress) }
     override suspend fun preview(stagingPath: String) = files.preview(stagingPath)

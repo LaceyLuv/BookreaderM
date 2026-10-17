@@ -1,0 +1,118 @@
+package org.bookreader.mobile.epub
+
+import android.content.ComponentName
+import android.content.Intent
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.lifecycle.ViewModelProvider
+import androidx.test.platform.app.InstrumentationRegistry
+import java.io.File
+import kotlinx.coroutines.*
+import org.bookreader.mobile.MainActivity
+import org.bookreader.mobile.database.createAndroidDatabase
+import org.bookreader.mobile.importing.DeleteResult
+import org.bookreader.mobile.importing.TestSenderActivity
+import org.bookreader.mobile.locator.EpubLocator
+import org.bookreader.mobile.model.Book
+import org.bookreader.mobile.model.BookFormat
+import org.bookreader.mobile.repository.*
+import org.bookreader.mobile.ui.AndroidBookManagement
+import org.bookreader.mobile.ui.AppViewModel
+import org.junit.*
+import org.junit.Assert.*
+
+/** Real managed import, Room records, stable SDK Fragment and product UI; generated books only. */
+class EpubReaderFlowTest {
+    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
+    private val target get() = instrumentation.targetContext
+    private val database by lazy { createAndroidDatabase(target) }
+    private var existing: Set<String>? = null
+    @Before fun preserveExistingBooks() { existing = books().map { it.id }.toSet() }
+    @After fun cleanupOwnedFixtures() {
+        try {
+            compose.activityRule.scenario.close()
+            val preserved = existing ?: return
+            books().filter { it.id !in preserved && it.originalDisplayName.startsWith("../../epub-") }.forEach {
+                runBlocking { assertEquals(DeleteResult.Deleted, AndroidBookManagement(target).delete(it.id)) }
+            }
+        } finally { database.close() }
+    }
+    @Test fun managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator() {
+        send("epub-product"); waitFor("epub_ready")
+        val active = reader(); val book = active.book
+        assertEquals(BookFormat.EPUB, book.format)
+        val source = target.assets.open("epub-fixtures/epub3.epub").use { it.readBytes() }
+        assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
+        compose.onNodeWithTag("epub_toc").performClick()
+        compose.onAllNodesWithTag("epub_toc_item")[1].performClick()
+        compose.waitUntil(20_000) { saved(book)?.payload?.locator?.get("href")?.toString()?.contains("two.xhtml") == true }
+        compose.onNodeWithTag("epub_search").performClick()
+        compose.onNodeWithTag("epub_search_query").performTextInput("two 문단 0179")
+        compose.onNodeWithTag("epub_search_start").performClick()
+        waitFor("epub_search_result")
+        compose.onNodeWithTag("epub_search_result").performClick()
+        compose.waitUntil(20_000) { saved(book)?.payload?.locator?.toString()?.contains("0179") == true }
+        val original = requireNotNull(saved(book))
+        compose.onNodeWithTag("epub_bookmarks").performClick()
+        compose.onNodeWithTag("epub_bookmark_add").performClick()
+        waitFor("epub_bookmark_item")
+        compose.onNodeWithText("닫기").performClick()
+        compose.activityRule.scenario.recreate()
+        waitFor("epub_ready")
+        assertEquals(original, saved(book))
+        compose.onNodeWithTag("epub_back").performClick()
+        waitFor("continue_reading")
+        compose.onNodeWithTag("continue_reading").performClick()
+        waitFor("epub_ready")
+        assertEquals(original, saved(book))
+        compose.onNodeWithTag("epub_bookmarks").performClick()
+        waitFor("epub_bookmark_item")
+        compose.onNodeWithTag("epub_bookmark_item").performClick()
+        waitFor("epub_ready")
+        assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
+    }
+    @Test fun unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy() {
+        send("epub-product"); waitFor("epub_ready")
+        val book = reader().book
+        compose.onNodeWithTag("epub_next").performClick()
+        compose.waitUntil(20_000) { saved(book) != null }
+        compose.onNodeWithTag("epub_back").performClick(); waitFor("continue_reading")
+        val record = saved(book)
+        val source = File(target.filesDir, "managed/${book.managedRelativePath}").readBytes()
+        val ids = books().map { it.id }.toSet()
+        for (name in listOf("epub-unsafe", "epub-disguised")) {
+            send(name); waitFor("import_error")
+            assertEquals(ids, books().map { it.id }.toSet())
+            assertEquals(record, saved(book))
+            assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
+        }
+    }
+    private fun reader(): EpubReaderController {
+        var owner: EpubReaderController? = null
+        compose.activityRule.scenario.onActivity { owner = ViewModelProvider(it)[AppViewModel::class.java].state.value.epubReader }
+        return requireNotNull(owner)
+    }
+    private fun books(): List<Book> = runBlocking { withContext(Dispatchers.IO) {
+        when (val read = RoomBookRepository(database).loadBooks()) {
+            is LibraryState.Content -> read.books
+            LibraryState.Empty -> emptyList()
+            else -> error("Fixture library read failed")
+        }
+    } }
+    private fun saved(book: Book): EpubLocator? = runBlocking { withContext(Dispatchers.IO) {
+        when (val read = RoomProgressRepository(database).loadProgress(book.id, requireNotNull(book.currentRevision))) {
+            is ProgressReadResult.Found -> read.progress.locator as EpubLocator
+            ProgressReadResult.Missing -> null
+            is ProgressReadResult.Error -> error("Fixture progress read failed")
+        }
+    } }
+    private fun send(name: String) { instrumentation.context.startActivity(Intent().apply {
+        component = ComponentName(instrumentation.context, TestSenderActivity::class.java)
+        putExtra("fixture", name); addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    }) }
+    private fun waitFor(tag: String) {
+        compose.waitUntil(40_000) { compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        compose.onNodeWithTag(tag).assertIsDisplayed()
+    }
+}

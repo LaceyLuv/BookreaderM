@@ -51,6 +51,8 @@ class ArchiveProgressController(val book: Book, private val progress: ReaderProg
         catch (_: Exception) { mutableState.update { it.copy(phase = ArchiveReaderPhase.ERROR) } }
     }
 
+    fun readySession(): ProgressSession? = session.takeIf { !closing && state.value.phase == ArchiveReaderPhase.READY }
+
     fun beginReflow(): Int {
         val before = state.value
         if (!closing && before.phase == ArchiveReaderPhase.READY)

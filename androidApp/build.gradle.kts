@@ -33,8 +33,9 @@ kotlin {
 dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(project(":shared"))
-    debugImplementation(project(":epubAndroid"))
-    debugImplementation(libs.androidx.fragment.ktx)
+    implementation(project(":epubAndroid"))
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.fragment.compose)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

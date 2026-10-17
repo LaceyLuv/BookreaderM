@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.app.Activity
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.ComponentActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModel
@@ -18,16 +18,13 @@ import org.bookreader.mobile.ui.AndroidBookManagement
 import org.bookreader.mobile.importing.DocumentIntents
 import org.bookreader.mobile.importing.DocumentIntentResult
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     private lateinit var model: AppViewModel
     private val picker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) handleDocument(DocumentIntents.parsePicker(result.data))
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        val factory = object : ViewModelProvider.Factory {
+    override val defaultViewModelProviderFactory: ViewModelProvider.Factory get() = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 require(modelClass.isAssignableFrom(AppViewModel::class.java))
                 @Suppress("UNCHECKED_CAST")
@@ -36,10 +33,20 @@ class MainActivity : ComponentActivity() {
                     themes = AndroidThemeStore(getSharedPreferences("app_settings", MODE_PRIVATE)),
                     management = AndroidBookManagement(applicationContext),
                     readerFactory = androidReaderFactory(applicationContext),
+                    epubFactory = org.bookreader.mobile.ui.androidEpubReaderFactory(applicationContext),
                 ) as T
             }
         }
-        model = ViewModelProvider(this, factory)[AppViewModel::class.java]
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        model = ViewModelProvider(this)[AppViewModel::class.java]
+        if (model.state.value.epubReader == null) {
+            supportFragmentManager.fragments.filterIsInstance<org.bookreader.mobile.epub.EpubHostFragment>().forEach {
+                supportFragmentManager.beginTransaction().remove(it).commitNowAllowingStateLoss()
+            }
+        }
         setContent { BookReaderApp(model, onAddTxt = { picker.launch(DocumentIntents.pickerIntent()) }) }
         if (savedInstanceState == null) handleDocument(DocumentIntents.parseExternal(intent))
     }

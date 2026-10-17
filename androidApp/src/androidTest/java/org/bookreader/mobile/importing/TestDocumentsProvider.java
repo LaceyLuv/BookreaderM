@@ -71,10 +71,10 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 switch (columns[index]) {
                     case DocumentsContract.Document.COLUMN_DOCUMENT_ID: values[index] = id; break;
                     case DocumentsContract.Document.COLUMN_DISPLAY_NAME:
-                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + ".txt";
+                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.startsWith("epub-") ? ".epub" : ".txt");
                         break;
                     case DocumentsContract.Document.COLUMN_MIME_TYPE:
-                        values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : "text/plain";
+                        values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : id.startsWith("epub-") ? "application/epub+zip" : "text/plain";
                         break;
                     case DocumentsContract.Document.COLUMN_SIZE:
                         if ("unknown".equals(id) || "stalled".equals(id)) values[index] = null;
@@ -126,6 +126,24 @@ public final class TestDocumentsProvider extends DocumentsProvider {
     }
 
     private byte[] bytes(String id) {
+        if (id.startsWith("epub-")) {
+            String name;
+            switch (id) {
+                case "epub-product": name = "epub3"; break;
+                case "epub-unsafe": name = "active-script"; break;
+                case "epub-disguised": name = "disguised-markup"; break;
+                default: throw new IllegalArgumentException("Unknown EPUB fixture");
+            }
+            try (java.io.InputStream input = getContext().createPackageContext("org.bookreader.mobile", 0)
+                    .getAssets().open("epub-fixtures/" + name + ".epub");
+                 java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream()) {
+                byte[] buffer = new byte[4096]; int count;
+                while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
+                return output.toByteArray();
+            } catch (IOException | android.content.pm.PackageManager.NameNotFoundException failure) {
+                throw new IllegalStateException("Unable to read generated EPUB fixture", failure);
+            }
+        }
         switch (id) {
             case "reader-scroll": case "reader-host": case "reader-failure": case "reader-continuous":
             case "reader-full": case "reader-full-other":

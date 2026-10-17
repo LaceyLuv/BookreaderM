@@ -28,7 +28,10 @@ import org.readium.r2.streamer.parser.epub.EpubParser
 /** Publication owns the virtual container; all content comes from this one validated private ZIP. */
 @OptIn(ExperimentalReadiumApi::class)
 object SafeEpub {
-    suspend fun open(file: File): Publication = withContext(Dispatchers.IO) {
+    suspend fun open(file: File): Publication {
+        // withContext has prompt cancellation on return: retain ownership until delivery.
+        var produced: Publication? = null
+        try { return withContext(Dispatchers.IO) {
         val context = currentCoroutineContext()
         val deadline = System.nanoTime() + 60_000_000_000L
         fun checkpoint() { context.ensureActive(); require(System.nanoTime() < deadline) { "Publication validation time limit" } }
@@ -53,19 +56,25 @@ object SafeEpub {
         var opened: Publication? = null
         try {
             val asset = ContainerAsset(Format(FormatSpecification(Specification.Epub, Specification.Zip), MediaType.EPUB, FileExtension("epub")), container)
-            val publication = PublicationOpener(EpubParser(), onCreatePublication = {
+            val publication = PublicationOpener(EpubParser()).open(asset, allowUserInteraction = false, onCreatePublication = {
                 servicesBuilder.searchServiceFactory = { BoundedEpubSearchService(it.manifest, it.container) }
-            }).open(asset, allowUserInteraction = false)
+            })
                 .getOrElse { throw IllegalArgumentException("EPUB parser rejected publication") }
             opened = publication
+            check(publication.findService(org.readium.r2.shared.publication.services.search.SearchService::class) is BoundedEpubSearchService)
             require(publication.readingOrder.isNotEmpty() && publication.readingOrder.size <= 20_000)
             if (publication.metadata.presentation.layout == EpubLayout.FIXED) {
                 error("Fixed-layout EPUB unsupported")
             }
             require(publication.readingOrder.all { it.mediaType?.isHtml == true && it.url() !is AbsoluteUrl }) { "Unsupported EPUB reading order" }
+            produced = publication
             publication
         } catch (failure: Throwable) {
             try { opened?.close() } finally { container.close() }
+            throw failure
+        }
+        } } catch (failure: Throwable) {
+            produced?.close()
             throw failure
         }
     }
