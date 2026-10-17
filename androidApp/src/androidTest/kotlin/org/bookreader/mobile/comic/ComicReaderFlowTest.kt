@@ -68,6 +68,10 @@ class ComicReaderFlowTest {
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
             active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         waitFor("comic_ready")
+        compose.onNodeWithTag("comic_image").performTouchInput { swipeRight() }
+        compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "02.png" && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
+        compose.onNodeWithTag("comic_image").performTouchInput { swipeLeft() }
+        compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "01.png" && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         compose.onNodeWithTag("comic_image").performTouchInput { doubleClick(center) }
         compose.onNodeWithTag("comic_image").performTouchInput {
             down(0, center - Offset(30f, 0f)); down(1, center + Offset(30f, 0f))

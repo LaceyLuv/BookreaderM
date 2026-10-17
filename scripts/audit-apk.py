@@ -5,6 +5,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('apk', type=pathlib.Path)
 parser.add_argument('--source-sha', required=True)
 parser.add_argument('--output', type=pathlib.Path, required=True)
+parser.add_argument('--unsigned', action='store_true', help='Audit an intentionally unsigned local APK; signature verification remains separately reported.')
 args = parser.parse_args()
 assert re.fullmatch(r'[0-9a-f]{40}', args.source_sha), 'Exact build source SHA required'
 assert args.apk.is_file() and args.apk.stat().st_size <= 512 * 1024 * 1024
@@ -57,8 +58,10 @@ with zipfile.ZipFile(args.apk) as archive:
         abis.add(info.filename.split('/')[1])
         native.append({'path': info.filename, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest(),
             'load_segments': segments, 'pass': all(s['aligned_16kb'] for s in segments)})
-status = not forbidden and backup_disabled and cleartext_disabled and alignment['exit_code'] == 0 and signer['exit_code'] == 0 and all(n['pass'] for n in native)
+signature_status = 'PASS' if signer['exit_code'] == 0 else 'NOT_SIGNED' if args.unsigned else 'FAIL'
+status = not forbidden and backup_disabled and cleartext_disabled and alignment['exit_code'] == 0 and (signer['exit_code'] == 0 or args.unsigned) and all(n['pass'] for n in native)
 report = {'status': 'PASS' if status else 'FAIL', 'scope': 'static APK permissions, backup flags, signature verification, ZIP and ELF 16KB alignment',
+    'signature_status': signature_status, 'intentionally_unsigned': args.unsigned,
     'source_sha': args.source_sha, 'apk': str(args.apk), 'bytes': args.apk.stat().st_size,
     'sha256': hashlib.sha256(args.apk.read_bytes()).hexdigest(), 'permissions': permissions, 'unexpected_permissions': forbidden,
     'backup_disabled': backup_disabled, 'cleartext_disabled': cleartext_disabled, 'abis': sorted(abis), 'native': native,

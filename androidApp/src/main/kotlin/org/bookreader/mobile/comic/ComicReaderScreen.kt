@@ -242,7 +242,7 @@ private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, vi
                 if (event.changes.count { it.pressed } > 1) multiple = true
                 val pan = event.calculatePan(); val scale = event.calculateZoom()
                 total += pan
-                if (multiple || zoom > 1f || abs(total.y) > viewConfiguration.touchSlop) {
+                if (multiple || zoom > 1f || abs(total.y) > viewConfiguration.touchSlop && abs(total.y) > abs(total.x)) {
                     if (pan != Offset.Zero || scale != 1f) {
                         val next = (zoom * scale).coerceIn(1f, 6f)
                         val center = event.calculateCentroid(useCurrent = false)

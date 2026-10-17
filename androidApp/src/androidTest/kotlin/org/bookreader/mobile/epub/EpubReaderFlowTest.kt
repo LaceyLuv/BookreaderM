@@ -67,6 +67,7 @@ class EpubReaderFlowTest {
             val json = org.json.JSONObject(locator.toString())
             json.getString("href").endsWith("two.xhtml") && json.getJSONObject("locations").optDouble("progression", 0.0) > .5
         }
+        assertParagraphVisible("two", "p179")
         val original = requireNotNull(saved(book))
         compose.onNodeWithTag("epub_bookmarks").performClick()
         compose.onNodeWithTag("epub_bookmark_add").performClick()
@@ -76,18 +77,21 @@ class EpubReaderFlowTest {
         waitFor("epub_ready")
         assertEquals(original, saved(book))
         assertRenderedNear(original)
+        assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_settings").performClick()
         compose.onNodeWithTag("font_size_increase").performScrollTo().performClick()
         compose.onNodeWithTag("reader_settings_apply").performClick()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
         assertRenderedNear(original)
+        assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_back").performClick()
         waitFor("continue_reading")
         compose.onNodeWithTag("continue_reading").performClick()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
         assertRenderedNear(original)
+        assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_bookmarks").performClick()
         waitFor("epub_bookmark_item")
         compose.onNodeWithTag("epub_bookmark_item").performClick()
@@ -122,6 +126,23 @@ class EpubReaderFlowTest {
         assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
         compose.onNodeWithTag("epub_back").performClick(); waitFor("continue_reading")
         assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
+    }
+    private fun assertParagraphVisible(chapter: String, id: String) {
+        val completed = java.util.concurrent.CountDownLatch(1)
+        var visible = "null"
+        compose.activityRule.scenario.onActivity { activity ->
+            fun webViews(view: android.view.View): List<android.webkit.WebView> = when (view) {
+                is android.webkit.WebView -> listOf(view)
+                is android.view.ViewGroup -> (0 until view.childCount).flatMap { webViews(view.getChildAt(it)) }
+                else -> emptyList()
+            }
+            val web = webViews(activity.window.decorView).first { it.isShown && it.url?.contains("/$chapter.xhtml") == true }
+            web.evaluateJavascript("(() => { const r = document.getElementById('$id').getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth; })()") {
+                visible = it; completed.countDown()
+            }
+        }
+        assertTrue(completed.await(10, java.util.concurrent.TimeUnit.SECONDS))
+        assertEquals("The searched paragraph must be in the visible viewport", "true", visible)
     }
     private fun assertRenderedNear(locator: EpubLocator) {
         compose.activityRule.scenario.onActivity { activity ->
