@@ -1,0 +1,31 @@
+{
+  "source_sha": "9dfb884b40b50163e001612d55ffb961898e93ad",
+  "scope": "9dfb884 production and tests; later 716ae03 merge changes documentation/evidence only",
+  "status": "PASS",
+  "commands": [
+    {
+      "command": "BOOKREADER_EVIDENCE_DIR=build/ci-contract ./scripts/ci-check.sh",
+      "exit_code": 0
+    }
+  ],
+  "suites": {
+    "android-unit": {
+      "tests": 66,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 74,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "epub-unit": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  }
+}

@@ -49,7 +49,7 @@ local full CI Android 60/shared 71/EPUB 8 PASS이며 archive 제품 UI 연결은
 | ID | 작업 | 상태 | 증거 |
 |---|---|---|---|
 | M00 | bootstrap-mobile-foundation | DONE | [WORKLOG](WORKLOG.md) — 실제 build/lint/unit/shared/schema 및 API36 5-case PASS |
-| M01 | epub-and-encoding-feasibility | IN_PROGRESS | strict grammar host 14 + 실제 Android 인코딩 3 cases PASS; Readium/EPUB 보류로 전체 M01 미완료 |
+| M01 | epub-and-encoding-feasibility | DONE | 안정 Readium 3.1.2 공개 API/실제 EPUB probe 5 및 Android encoding 3 PASS; 제품/출시 gate 별도 |
 | M02 | managed-import-and-library | DONE | TXT 내부 알파: `2be610a` local/remote CI 41/45 및 Android 25·host 2·fixture PNG PASS, [WORKLOG](WORKLOG.md) |
 | M03 | txt-scroll-progress-and-continue-bar | DONE | TXT 내부 알파: measured anchor/cache loss/Continue/recreation·cold launch/host force-stop PASS, [WORKLOG](WORKLOG.md) |
 | M04 | durable-progress-and-race-tests | IN_PROGRESS | epoch/sequence·60초 연속 저장 PASS; 전체 SAFE/UI race·disk-full·reflow 기기 검증 잔여 |
@@ -57,9 +57,9 @@ local full CI Android 60/shared 71/EPUB 8 PASS이며 archive 제품 UI 연결은
 | M06 | txt-search-bookmarks-and-encoding | IN_PROGRESS | f208a06 main 55/67/3·actual 38/host 2 PASS; 50MiB/준비 중 북마크 gate 잔여 |
 | M07 | mobile-controls-and-accessibility | IN_PROGRESS | 격리 worktree에서 메뉴/슬라이더/창 설정 구현 및 검증 중 |
 | M08 | epub-product-integration | TODO | 없음 |
-| M09 | comic-reader-and-memory | TODO | 없음 |
-| M10 | hardening-and-release-evidence | TODO | 없음 |
-| M11 | release-candidate-audit | TODO | 없음 |
+| M09 | comic-reader-and-memory | IN_PROGRESS | [제품 보고서](M09_COMIC_PRODUCT.md), 최신 native/host 확인 중 |
+| M10 | hardening-and-release-evidence | IN_PROGRESS | [QA](QA_MATRIX.md)·[성능](PERFORMANCE.md)·[보안](SECURITY.md)·unsigned 패키지 정적 감사 |
+| M11 | release-candidate-audit | BLOCKED | [출시 감사](RELEASE_CANDIDATE_REPORT.md), 미해결/미실행 P0 gate |
 
 ## 공통 명령 계약
 
@@ -130,7 +130,7 @@ M00 결과는 Reader/import/이어읽기/process-death/Readium/실기기 성능 
 
 # M01 — `epub-and-encoding-feasibility`
 
-**상태:** IN_PROGRESS
+**상태:** DONE
 
 **선행 조건:** M00
 
@@ -141,6 +141,8 @@ Android ICU alias의 확장 허용을 앱의 strict EUC-KR byte grammar로 제�
 원래 Android assertion을 유지한 수정 뒤 실제 API36 Android 인코딩 3 cases는 모두 PASS다.
 Readium/EPUB probe·ADR-0005는 보류하며 이 작업 전체를 DONE으로 올리지 않는다.
 
+**2026-10-17 완료 근거:** 22526d3 API36 suite의 EPUB probe 5/제품 3 및 encoding 3 PASS. ADR-0005의 정확 고정 API·MIME/CSP/foreign resource/Locator/search 결과를 확인했다. M01 feasibility 완료이며 강화된 제품 exact restore 및 출시 승인과 구분한다. 위 10월 4일 보류 문구는 이력이다.
+
 ## 구현 범위
 epubAndroid 어댑터와 격리된 debug/test probe를 만든다. Readium 안정 Android Navigator로 EPUB2/3/이미지/목차/Locator 저장·재사용/테마·크기 변경을 확인한다. publication script와 외부 리소스 차단 가능성을 실제로 검증한다. Android strict decoder의 UTF BOM/CP949 확장 문자/EUC-KR/BOM 없는 UTF-16 후보와 수동 선택을 검증한다.
 
@@ -148,10 +150,10 @@ epubAndroid 어댑터와 격리된 debug/test probe를 만든다. Readium 안정
 완성 EPUB UI, 자체 전체 EPUB 렌더러/CFI 엔진, alpha Compose Navigator 채택, DRM.
 
 ## 완료 조건
-- [ ] Readium 고정 버전/라이선스/추가 모듈 필요성/Android host 형태가 ADR에 기록되어 있다.
-- [ ] 공개 Locator를 페이지 번호로 축약하지 않고 round-trip한다.
-- [ ] 정상 이미지/CSS/검색·위치 기능과 비신뢰 script/외부 URL 차단의 양립을 확인한다.
-- [ ] SDK가 제공하지 않는 보안 API를 추정하거나 성공으로 기재하지 않는다.
+- [x] Readium 고정 버전/라이선스/추가 모듈 필요성/Android host 형태가 ADR에 기록되어 있다.
+- [x] 공개 Locator를 페이지 번호로 축약하지 않고 round-trip한다.
+- [x] 정상 이미지/CSS/검색·위치 기능과 비신뢰 script/외부 URL 차단의 양립을 확인한다.
+- [x] SDK가 제공하지 않는 보안 API를 추정하거나 성공으로 기재하지 않는다.
 - [x] CP949 확장 문자 fixture가 실제 기기/Android test 경로에서 통과하거나 명확히 BLOCKED_ENV로 표시된다.
 
 ## 산출물
@@ -372,7 +374,7 @@ device-control/UI tests, accessibility checklist, API behavior notes
 
 # M08 — `epub-product-integration`
 
-**상태:** IN_PROGRESS  
+**상태:** IN_PROGRESS
 **선행 조건:** M07 및 M01 EPUB gate 해소
 
 **2026-10-17:** main 22526d3 제품 EPUB 통합. 실제 API36 52/기존 TXT host 2 PASS. EPUB 자체 외부 host와 추가 hardening은 후속 브랜치에서 검증 중이며 실기기/출시 완료가 아니다. [보고서](M08_EPUB_PRODUCT.md).
@@ -399,7 +401,7 @@ M01의 테스트만 통과하고 실제 제품 WebView/host 경로를 검증하�
 
 # M09 — `comic-reader-and-memory`
 
-**상태:** TODO  
+**상태:** IN_PROGRESS
 **선행 조건:** M07, M02 import/security 계약
 
 ## 구현 범위
@@ -424,7 +426,7 @@ comic acceptance matrix, memory/PSS report, sort/entry manifest spec
 
 # M10 — `hardening-and-release-evidence`
 
-**상태:** TODO  
+**상태:** IN_PROGRESS
 **선행 조건:** M08 및 M09
 
 ## 구현 범위
@@ -449,7 +451,7 @@ QA_MATRIX.md, PERFORMANCE.md, SECURITY.md, dependency/license report
 
 # M11 — `release-candidate-audit`
 
-**상태:** TODO  
+**상태:** BLOCKED
 **선행 조건:** M10 및 모든 P0 gate 통과
 
 ## 구현 범위

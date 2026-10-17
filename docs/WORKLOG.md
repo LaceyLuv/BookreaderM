@@ -1196,3 +1196,24 @@ M05 최신 source fingerprint `e2d3caa89d74e7d946b3523389a362e381b803b86899c71ed
 - writer mutex 안의 save/ack 전달 구간을 NonCancellable로 보유해 settling/reflow 취소가 성공 ack를 버리지 않게 했다. 새로운 event/record를 만들지 않고 ack를 마친 뒤 caller 취소/close가 진행된다. 기존 activation cancel gate는 변경하지 않았다. archive 공통 writer에도 적용하고 반복 입력 회귀를 추가했다.
 - `./gradlew :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest :androidApp:lintDebug` 후속 로그는 commit-ack-final.log. 새 실제 회전/host 결과는 별도 확인한다.
 - bcc2081 EPUB 제품 branch remote build 64 Android/71 shared/13 EPUB/3 native ENOSPC PASS, native 51 중 50 PASS/1 검색 assertion FAIL. 검색 SDK 위치는 highlight 텍스트를 반드시 보존하지 않으므로 실제 progression/렌더 위치 확인으로 교정했다. 원본 결과 모두 보존한다.
+
+
+## 2026-10-17 제품 후속·최종 패키지 준비·사용자 요청에 따른 세션 인계
+
+사용자는 남은 계획 전체 진행 후 이번 세션은 현재 작업까지만 마무리하고 전달서를 만들도록 지시했다.
+현재 main은 검증된 EPUB 22526d3 + 문서/실패 증거이며 Comic 후속은 codex/comic-product에서 보존한다.
+9dfb884(후속 716ae03은 문서 merge) local `BOOKREADER_EVIDENCE_DIR=build/ci-contract ./scripts/ci-check.sh`
+exit 0: Android unit 66/shared JVM 74/EPUB 16, assembleDebug/test APK/lint/schema 5 PASS.
+[원본 XML·명령](evidence/m10-local-validation/source-9dfb884/summary.json)을 보존했다.
+8a6a778은 실제 SQL migration 실패와 schema validation 실패를 만들고 두 번 재열어 전체 raw schema/row 보존을 검증한다.
+9dfb884는 공통 취소형 seek, Comic return, 서재 grid, EPUB publisher style 기본값/opt-out 및 native 회귀를 추가했다.
+
+c1ab039 `./gradlew :androidApp:assembleRelease :androidApp:bundleRelease` exit 0;
+`python3 scripts/audit-apk.py ... --unsigned --source-sha c1ab03953876b5111a356f66a3ef05856d39f623 ...` exit 0.
+[실제 APK/AAB hash](evidence/m10-package-audit/archive-c1ab039-artifacts.json), [정적 감사](evidence/m10-package-audit/archive-c1ab039-release.json).
+서명 상태 NOT_SIGNED, 4 ABI ELF/ZIP 16KB 정렬·manifest PASS이며 최종 9dfb884 release 패키지는 NOT_RUN이다.
+
+새 QA_MATRIX/PERFORMANCE/SECURITY/RELEASE_CANDIDATE_REPORT와 Comic 제품 보고서, ADR 후속을 작성했다.
+M01 feasibility 기준은 과거 실제 probe 5/encoding 3 PASS로 DONE, M09/M10 IN_PROGRESS, M11 BLOCKED다.
+다른 전체 milestone을 자동 완료하지 않았다. a5a7a31 native 53/1 FAIL 및 새 9dfb884 원격 미확인 결과는
+[SESSION_HANDOFF](SESSION_HANDOFF.md)에 기록했다. 물리 기기/신규 독립 리뷰/서명·배포는 NOT_RUN이다.
