@@ -437,6 +437,46 @@
     [
       "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
       "deletionCascadesOnlyBookOverridesAndLateSaveCannotRecreateBook"
+    ],
+    [
+      "org.bookreader.mobile.search.TxtLiteralSearchTest",
+      "fragmentBoundaryOverlappingAndAstralQueriesKeepCanonicalOffsets"
+    ],
+    [
+      "org.bookreader.mobile.search.TxtLiteralSearchTest",
+      "batchesPreserveOverlapsAndOnlyAsciiCaseIsFolded"
+    ],
+    [
+      "org.bookreader.mobile.search.TxtLiteralSearchTest",
+      "invalidQueriesAndCancelledScanNeverReadUnboundedBody"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "bookmarksPersistCanonicalLocatorsWithBoundedPagesAndProtectOtherBooks"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "oldRevisionAndSessionWritesAreRejectedAndDeletionCannotRecreateBookmarks"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "malformedAndQueryFailurePreserveOriginalBookmarkAndProgressRows"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionThreePreservesSettingsBooksAndProgress"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "encodingRoundTripPreservesEachRevisionsProgressAndBookmarks"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "failedAndCancelledEncodingValidationLeaveOriginalInterpretationUntouched"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "cancelledInterpretationTransactionRollsBackItsBookUpdate"
     ]
   ],
   "android-device": [

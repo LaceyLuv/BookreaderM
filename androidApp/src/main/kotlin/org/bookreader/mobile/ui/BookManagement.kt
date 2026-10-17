@@ -13,7 +13,15 @@ interface BookManagement {
     suspend fun cancelEncoding(jobId: String)
     suspend fun markUnavailable(book: org.bookreader.mobile.model.Book, availability: org.bookreader.mobile.model.BookAvailability)
     suspend fun delete(bookId: String, stopReading: suspend () -> Unit = {}): DeleteResult
+    suspend fun changeEncoding(book: org.bookreader.mobile.model.Book, encoding: String,
+        stopReading: suspend () -> Unit, onCommitting: suspend () -> Unit): org.bookreader.mobile.importing.EncodingChangeResult =
+        org.bookreader.mobile.importing.EncodingChangeResult.Failure(org.bookreader.mobile.importing.ImportErrorCode.UNSUPPORTED_FORMAT)
 }
+
+data class BookEncodingUi(val book: org.bookreader.mobile.model.Book,
+    val previews: List<org.bookreader.mobile.encoding.TxtEncodingPreview> = emptyList(),
+    val loading: Boolean = true, val working: Boolean = false, val committing: Boolean = false,
+    val error: String? = null)
 
 sealed interface ImportUiState {
     data object Idle : ImportUiState

@@ -43,7 +43,7 @@ interface ProgressDao {
 }
 
 @Database(entities = [BookEntity::class, ReadingProgressEntity::class, ImportJobEntity::class, AppMetadataEntity::class,
-    ReaderGlobalSettingsEntity::class, BookReaderPreferencesEntity::class], version = 3, exportSchema = true)
+    ReaderGlobalSettingsEntity::class, BookReaderPreferencesEntity::class, BookmarkEntity::class], version = 4, exportSchema = true)
 @ConstructedBy(BookReaderDatabaseConstructor::class)
 abstract class BookReaderDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
@@ -51,6 +51,7 @@ abstract class BookReaderDatabase : RoomDatabase() {
     abstract fun importDao(): ImportDao
     abstract fun progressWriterDao(): ProgressWriterDao
     abstract fun readerSettingsDao(): ReaderSettingsDao
+    abstract fun bookmarkDao(): BookmarkDao
 }
 
 @Suppress("KotlinNoActualForExpect")

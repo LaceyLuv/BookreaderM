@@ -78,3 +78,8 @@ sealed interface DeleteResult {
     data object Missing : DeleteResult
     data class Failure(val code: ImportErrorCode) : DeleteResult
 }
+
+sealed interface EncodingChangeResult {
+    data class Changed(val book: Book, val hasExistingProgress: Boolean) : EncodingChangeResult
+    data class Failure(val code: ImportErrorCode) : EncodingChangeResult
+}

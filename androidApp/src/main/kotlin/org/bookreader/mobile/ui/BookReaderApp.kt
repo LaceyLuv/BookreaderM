@@ -85,7 +85,8 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
     BackHandler(enabled = state.tab != AppTab.LIBRARY) { model.selectTab(AppTab.LIBRARY) }
     BookReaderScreen(state, model::selectTab, model::updateQuery, model::retryLibrary, model::selectTheme,
         onAddTxt, model::confirmShare, model::dismissImport, model::cancelImport, model::selectImportEncoding,
-        model::showBook, model::requestDelete, model::confirmDelete, model::openBook)
+        model::showBook, model::requestDelete, model::confirmDelete, model::openBook,
+        model::requestBookEncoding, model::changeBookEncoding, model::dismissBookEncoding)
 }
 
 @Composable
@@ -104,6 +105,9 @@ fun BookReaderScreen(
     onDeleteRequested: (Book?) -> Unit = {},
     onConfirmDelete: () -> Unit = {},
     onOpenBook: (Book) -> Unit = {},
+    onBookEncoding: (Book) -> Unit = {},
+    onChangeBookEncoding: (String) -> Unit = {},
+    onDismissBookEncoding: () -> Unit = {},
 ) {
     val dark = state.theme.isDark(isSystemInDarkTheme())
     MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
@@ -172,6 +176,8 @@ fun BookReaderScreen(
                 text = { Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(book.title); Text(book.originalDisplayName); Text("${book.sourceByteSize} bytes · ${book.encodingId.orEmpty()}")
                     Text("앱 내부 관리 복사본")
+                    if (book.format == org.bookreader.mobile.model.BookFormat.TXT && book.availability == BookAvailability.READY)
+                        TextButton(onClick = { onBookEncoding(book) }, modifier = Modifier.testTag("book_change_encoding")) { Text("인코딩 변경") }
                 } },
                 confirmButton = { TextButton(onClick = { onBookInfo(null) }) { Text("닫기") } },
                 dismissButton = { TextButton(onClick = { onDeleteRequested(book) }, modifier = Modifier.testTag("book_delete")) { Text("삭제") } })
@@ -181,6 +187,25 @@ fun BookReaderScreen(
                 text = { Text("${book.title}의 앱 내부 복사본과 독서 진행도·북마크가 삭제됩니다. 원본 파일은 삭제하지 않습니다.") },
                 confirmButton = { TextButton(onClick = onConfirmDelete, modifier = Modifier.testTag("confirm_delete")) { Text("삭제") } },
                 dismissButton = { TextButton(onClick = { onDeleteRequested(null) }) { Text("취소") } })
+        }
+        state.encodingChange?.let { change ->
+            AlertDialog(onDismissRequest = onDismissBookEncoding, title = { Text("이 책의 인코딩 변경") },
+                text = { LazyColumn(Modifier.heightIn(max = 420.dp)) {
+                    item {
+                        Text("원본 파일은 바꾸지 않습니다. 새 해석에 기록이 없으면 처음부터 읽으며, 이전 진행도와 북마크는 보존됩니다.")
+                        Text("현재: ${change.book.encodingId}")
+                        if (change.loading) Text("미리보기 준비 중")
+                        if (change.working) Text(if (change.committing) "변경 저장 중" else "전체 본문을 확인하는 중")
+                        change.error?.let { Text(it, modifier = Modifier.testTag("book_encoding_error")) }
+                    }
+                    items(TxtEncoding.entries.filter { it.isSupported }) { encoding ->
+                        TextButton(enabled = !change.loading && !change.working && encoding.id != change.book.encodingId,
+                            onClick = { onChangeBookEncoding(encoding.id) }, modifier = Modifier.testTag("book_encoding_${encoding.name}")) {
+                            Text(encoding.id)
+                        }
+                        change.previews.firstOrNull { it.encoding == encoding }?.text?.let { Text(it.take(160), maxLines = 3) }
+                    }
+                } }, confirmButton = { TextButton(enabled = !change.committing, onClick = onDismissBookEncoding) { Text("취소") } })
         }
     }
 }

@@ -50,6 +50,12 @@ fun androidReaderFactory(context: Context): (org.bookreader.mobile.model.Book, k
                 override suspend fun save(expected: org.bookreader.mobile.settings.LoadedReaderSettings,
                     global: org.bookreader.mobile.settings.ReaderSettings,
                     book: org.bookreader.mobile.settings.BookReaderPreferences) = repository().save(expected, global, book)
+            }, object : org.bookreader.mobile.reader.ReaderBookmarkAccess {
+                private fun repository() = org.bookreader.mobile.repository.RoomBookmarkRepository(AndroidDatabaseOwner.borrow(app))
+                override suspend fun load(bookId: String, revision: String, cursor: org.bookreader.mobile.repository.BookmarkCursor?) = repository().load(bookId, revision, cursor)
+                override suspend fun add(id: String, session: org.bookreader.mobile.repository.ProgressSession,
+                    locator: org.bookreader.mobile.locator.TxtLocator, label: String?, now: Long) = repository().add(id, session, locator, label, now)
+                override suspend fun delete(bookId: String, id: String) = repository().delete(bookId, id)
             })
     }
 }

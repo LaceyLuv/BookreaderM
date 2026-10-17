@@ -20,3 +20,10 @@ val MIGRATION_2_3: Migration = object : Migration(2, 3) {
         connection.execSQL("CREATE TABLE IF NOT EXISTS book_reader_preferences (bookId TEXT NOT NULL, schemaVersion INTEGER NOT NULL, preferencesJson TEXT NOT NULL, PRIMARY KEY(bookId), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
     }
 }
+
+val MIGRATION_3_4: Migration = object : Migration(3, 4) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS bookmarks (id TEXT NOT NULL, bookId TEXT NOT NULL, contentRevision TEXT NOT NULL, locatorType TEXT NOT NULL, locatorVersion INTEGER NOT NULL, locatorJson TEXT NOT NULL, label TEXT, createdAt INTEGER NOT NULL, updatedAt INTEGER NOT NULL, PRIMARY KEY(id), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+        connection.execSQL("CREATE INDEX IF NOT EXISTS index_bookmarks_bookId_contentRevision_createdAt_id ON bookmarks (bookId, contentRevision, createdAt, id)")
+    }
+}

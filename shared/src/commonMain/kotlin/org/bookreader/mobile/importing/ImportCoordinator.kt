@@ -195,6 +195,41 @@ class ImportCoordinator(
         catch (_: Exception) { currentCoroutineContext().ensureActive(); DeleteResult.Failure(ImportErrorCode.DATABASE_UNAVAILABLE) }
     }
 
+    /** Validate the durable original before changing interpretation; old revision records are never removed. */
+    suspend fun changeTxtEncoding(bookId: String, expectedRevision: String, encoding: String,
+        stopReading: suspend () -> Unit = {}, onCommitting: suspend () -> Unit = {}): EncodingChangeResult = managedOperations.withLock {
+        val request = currentCoroutineContext()
+        try {
+            if (encoding !in setOf("utf-8", "utf-16le", "utf-16be", "cp949", "euc-kr"))
+                return@withLock EncodingChangeResult.Failure(ImportErrorCode.ENCODING_REQUIRED)
+            val book = dao.findBook(bookId) ?: return@withLock EncodingChangeResult.Failure(ImportErrorCode.SOURCE_UNAVAILABLE)
+            if (book.availability != "READY" || book.format != "TXT" || book.currentRevision != expectedRevision)
+                return@withLock EncodingChangeResult.Failure(ImportErrorCode.EXISTING_COPY_UNAVAILABLE)
+            if (!isBookPath(book.managedRelativePath) || dao.references(book.managedRelativePath) != 1)
+                return@withLock EncodingChangeResult.Failure(ImportErrorCode.INVALID_JOURNAL)
+            val before = files.fingerprint(book.managedRelativePath, MAX_TXT_BYTES)
+            if (before != FileFingerprint(book.sourceSha256, book.sourceByteSize))
+                return@withLock EncodingChangeResult.Failure(ImportErrorCode.EXISTING_COPY_UNAVAILABLE)
+            val validation = files.validateTxt(book.managedRelativePath, book.sourceSha256, encoding)
+            if (files.fingerprint(book.managedRelativePath, MAX_TXT_BYTES) != before)
+                return@withLock EncodingChangeResult.Failure(ImportErrorCode.EXISTING_COPY_UNAVAILABLE)
+            val revision = txtContentRevision(book.sourceSha256, validation.encodingId, validation.normalizationVersion)
+            // A bad record in the destination interpretation remains an error, never a fresh start.
+            val progress = org.bookreader.mobile.repository.RoomProgressRepository(database).loadProgress(bookId, revision)
+            if (progress is org.bookreader.mobile.repository.ProgressReadResult.Error)
+                return@withLock EncodingChangeResult.Failure(ImportErrorCode.DATABASE_UNAVAILABLE)
+            stopReading()
+            onCommitting()
+            request.ensureActive()
+            val changed = dao.switchTxtInterpretation(book, validation.encodingId, revision,
+                validation.normalizationVersion, now()) { request.ensureActive() }
+                ?: return@withLock EncodingChangeResult.Failure(ImportErrorCode.EXISTING_COPY_UNAVAILABLE)
+            EncodingChangeResult.Changed(changed.toBook(), progress is org.bookreader.mobile.repository.ProgressReadResult.Found)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (failure: ImportFailure) { EncodingChangeResult.Failure(failure.code) }
+        catch (_: Exception) { request.ensureActive(); EncodingChangeResult.Failure(ImportErrorCode.DATABASE_UNAVAILABLE) }
+    }
+
     private suspend fun finishDelete(book: BookEntity) {
         if (!isBookPath(book.managedRelativePath)) throw ImportFailure(ImportErrorCode.INVALID_JOURNAL)
         // A corrupt shared path must never cause another book's file to be removed.

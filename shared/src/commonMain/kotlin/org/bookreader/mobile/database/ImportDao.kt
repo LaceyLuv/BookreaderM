@@ -47,6 +47,20 @@ interface ImportDao {
     }
 
     @Transaction
+    suspend fun switchTxtInterpretation(expected: BookEntity, encoding: String, revision: String,
+        normalization: Int, now: Long, checkRequest: () -> Unit): BookEntity? {
+        checkRequest()
+        val book = findBook(expected.id) ?: return null
+        if (book != expected || book.format != "TXT" || book.availability != "READY") return null
+        check(book.activeSessionEpoch < Long.MAX_VALUE)
+        val updated = book.copy(encodingId = encoding, currentRevision = revision,
+            normalizationVersion = normalization, activeSessionEpoch = book.activeSessionEpoch + 1, updatedAt = now)
+        updateBook(updated)
+        checkRequest()
+        return updated
+    }
+
+    @Transaction
     suspend fun beginDelete(id: String, now: Long): BookEntity? {
         val book = findBook(id) ?: return null
         if (book.availability == "DELETING") return book

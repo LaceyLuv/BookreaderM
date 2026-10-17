@@ -81,6 +81,9 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         platformStyle = PlatformTextStyle(includeFontPadding = false), lineBreak = LineBreak.Simple, hyphens = Hyphens.None)
     val scrollMode = settings.readingMode == TxtReadingMode.SCROLL
     var showSettings by remember(controller) { mutableStateOf(false) }
+    var showSearch by remember(controller) { mutableStateOf(false) }
+    var showBookmarks by remember(controller) { mutableStateOf(false) }
+    val toolsState by controller.tools.state.collectAsStateWithLifecycle()
     val layouts = remember(controller, state.restoreGeneration, typography, density, viewport) {
         mutableStateMapOf<Int, TextLayoutResult>()
     }
@@ -202,6 +205,14 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
             }
         }
         val offset = state.stableOffset ?: state.targetOffset
+        Row(Modifier.fillMaxWidth()) {
+            TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showSearch = true },
+                modifier = Modifier.testTag("reader_search")) { Text("본문 검색") }
+            TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showBookmarks = true },
+                modifier = Modifier.testTag("reader_bookmarks")) { Text("북마크") }
+            if (toolsState.returnOffset != null) TextButton(enabled = state.phase == TxtReaderPhase.READY,
+                onClick = controller.tools::returnFromSearch, modifier = Modifier.testTag("reader_search_return")) { Text("검색 전 위치") }
+        }
         Text(if (state.cache.complete) "${(offset * 100.0 / state.cache.committedLength).toInt()}%"
             else "본문 준비 중",
             Modifier.padding(12.dp).testTag("reader_progress"))
@@ -211,4 +222,6 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
             Modifier.padding(8.dp).testTag("reader_settings_error"))
     }
     if (showSettings) ReaderSettingsDialog(controller, state) { showSettings = false }
+    if (showSearch) ReaderSearchDialog(controller) { showSearch = false }
+    if (showBookmarks) ReaderBookmarksDialog(controller) { showBookmarks = false }
 }

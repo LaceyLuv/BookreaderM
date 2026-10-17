@@ -54,6 +54,7 @@ data class AppUiState(
     val reader: TxtReaderController? = null,
     val notice: String? = null,
     val continuePercent: Double? = null,
+    val encodingChange: BookEncodingUi? = null,
 )
 
 class AppViewModel(
@@ -68,6 +69,8 @@ class AppViewModel(
     private var libraryJob: Job? = null
     private val themeMutex = Mutex()
     private var importJob: Job? = null
+    private var encodingJob: Job? = null
+    private val pendingInterpretations = mutableSetOf<String>()
     private val recoveryDone = kotlinx.coroutines.CompletableDeferred<Unit>()
 
     init {
@@ -173,6 +176,69 @@ class AppViewModel(
     fun showBook(book: Book?) { mutableState.update { it.copy(selectedBook = book) } }
     fun requestDelete(book: Book?) { mutableState.update { it.copy(deletingBook = book) } }
 
+    fun requestBookEncoding(book: Book) {
+        val service = management ?: return
+        if (book.format != org.bookreader.mobile.model.BookFormat.TXT || book.availability != BookAvailability.READY ||
+            encodingJob?.isActive == true) return
+        mutableState.update { it.copy(selectedBook = null, encodingChange = BookEncodingUi(book)) }
+        encodingJob = viewModelScope.launch {
+            try {
+                val previews = withContext(ioDispatcher) { service.preview(book.managedRelativePath) }
+                mutableState.update { it.copy(encodingChange = BookEncodingUi(book, previews, loading = false)) }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutableState.update { it.copy(encodingChange = BookEncodingUi(book,
+                loading = false, error = "미리보기를 읽지 못했습니다. 원본과 기록은 보존됩니다.")) } }
+        }
+    }
+
+    fun dismissBookEncoding() {
+        if (state.value.encodingChange?.committing == true) return
+        encodingJob?.cancel()
+        mutableState.update { it.copy(encodingChange = null) }
+    }
+
+    fun changeBookEncoding(encoding: String) {
+        val service = management ?: return
+        val pending = state.value.encodingChange ?: return
+        if (pending.loading || pending.working || encodingJob?.isActive == true) return
+        pendingInterpretations += pending.book.id
+        mutableState.update { it.copy(encodingChange = pending.copy(working = true, error = null)) }
+        encodingJob = viewModelScope.launch {
+            try {
+                val result = withContext(ioDispatcher) {
+                    service.changeEncoding(pending.book, encoding, stopReading = {
+                        withContext(Dispatchers.Main.immediate) {
+                            readerMutex.withLock {
+                                if (state.value.reader?.book?.id == pending.book.id) {
+                                    readerObserver?.cancel()
+                                    state.value.reader?.close()
+                                    mutableState.update { it.copy(reader = null) }
+                                }
+                            }
+                        }
+                    }, onCommitting = {
+                        withContext(Dispatchers.Main.immediate) { mutableState.update {
+                            it.copy(encodingChange = it.encodingChange?.copy(committing = true))
+                        } }
+                    })
+                }
+                when (result) {
+                    is EncodingChangeResult.Changed -> {
+                        mutableState.update { it.copy(encodingChange = null, notice =
+                            if (result.hasExistingProgress) "인코딩을 변경했습니다. 이 해석의 기존 독서 위치를 복원할 수 있습니다."
+                            else "인코딩을 변경했습니다. 새 해석은 처음부터 읽습니다. 이전 진행도와 북마크는 보존됩니다.") }
+                        refreshLibrary()
+                    }
+                    is EncodingChangeResult.Failure -> mutableState.update { it.copy(encodingChange = pending.copy(
+                        loading = false, error = importErrorMessage(result.code))) }
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutableState.update { it.copy(encodingChange = pending.copy(loading = false,
+                error = "인코딩을 변경하지 못했습니다. 원본과 기록은 보존됩니다.")) } }
+            finally { pendingInterpretations.remove(pending.book.id) }
+        }
+    }
+
     private fun runImport(document: IncomingDocument) = launchImport(document.origin) { service, progress ->
         service.import(document, progress)
     }
@@ -264,12 +330,12 @@ class AppViewModel(
     private var readerObserver: Job? = null
     fun openBook(book: Book) {
         val factory = readerFactory ?: return
-        if (book.availability != BookAvailability.READY || book.id in pendingDeletions) return
+        if (book.availability != BookAvailability.READY || book.id in pendingDeletions || book.id in pendingInterpretations) return
         viewModelScope.launch {
             try {
             readerMutex.withLock {
                 // A tap queued before confirmation must not reopen this book after deletion starts.
-                if (book.id in pendingDeletions) return@withLock
+                if (book.id in pendingDeletions || book.id in pendingInterpretations) return@withLock
                 readerObserver?.cancel()
                 state.value.reader?.close()
                 mutableState.update { it.copy(reader = null) }

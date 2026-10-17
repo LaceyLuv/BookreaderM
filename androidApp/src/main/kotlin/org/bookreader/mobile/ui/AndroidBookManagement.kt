@@ -30,4 +30,8 @@ class AndroidBookManagement(context: Context) : BookManagement {
         db.bookDao().markAvailability(book.id, requireNotNull(book.currentRevision), availability.name, System.currentTimeMillis(), book.activeSessionEpoch)
     }
     override suspend fun delete(bookId: String, stopReading: suspend () -> Unit) = useCoordinator { it.deleteBook(bookId, stopReading) }
+    override suspend fun changeEncoding(book: org.bookreader.mobile.model.Book, encoding: String,
+        stopReading: suspend () -> Unit, onCommitting: suspend () -> Unit) = useCoordinator {
+        it.changeTxtEncoding(book.id, requireNotNull(book.currentRevision), encoding, stopReading, onCommitting)
+    }
 }

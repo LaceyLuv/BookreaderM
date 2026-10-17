@@ -35,6 +35,68 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class ImportCoordinatorTest {
+    @Test fun encodingRoundTripPreservesEachRevisionsProgressAndBookmarks() = fixture { f ->
+        Files.write(f.source, "ABCDabcd01234567".toByteArray())
+        val book = assertIs<ImportResult.Success>(f.coordinator().importTxt(f.request())).book
+        val originalRevision = requireNotNull(book.currentRevision)
+        val writer = RoomProgressWriter(f.db) { 101 }
+        val session = assertIs<ReadySessionResult.Ready>(writer.startReadySession(book.id, originalRevision, null)).session
+        val locator = TxtLocator(originalRevision, TxtLocatorPayload(7))
+        assertEquals(ProgressWriteResult.Committed, writer.save(ProgressWriteEvent(session, 1, locator, null)))
+        val bookmarks = org.bookreader.mobile.repository.RoomBookmarkRepository(f.db)
+        assertEquals(org.bookreader.mobile.repository.BookmarkWriteResult.COMMITTED,
+            bookmarks.add("old-interpretation", session, locator, "original", 101))
+        val originalProgress = f.db.progressDao().findProgress(book.id, originalRevision)
+        val originalBookmarks = bookmarks.load(book.id, originalRevision)
+        val before = f.db.bookDao().findBook(book.id)!!
+        val changed = assertIs<EncodingChangeResult.Changed>(f.coordinator().changeTxtEncoding(book.id, originalRevision, "utf-16le"))
+        assertTrue(!changed.hasExistingProgress)
+        val revision = requireNotNull(changed.book.currentRevision)
+        assertNotEquals(originalRevision, revision)
+        assertEquals(before.lastReadAt, changed.book.lastReadAt)
+        assertEquals(before.readOrder, changed.book.readOrder)
+        assertEquals(originalProgress, f.db.progressDao().findProgress(book.id, originalRevision))
+        assertEquals(originalBookmarks, bookmarks.load(book.id, originalRevision))
+        assertNull(f.db.progressDao().findProgress(book.id, revision))
+        val newSession = assertIs<ReadySessionResult.Ready>(writer.startReadySession(book.id, revision, null)).session
+        val newLocator = TxtLocator(revision, TxtLocatorPayload(3))
+        assertEquals(ProgressWriteResult.Committed, writer.save(ProgressWriteEvent(newSession, 1, newLocator, null)))
+        val newProgress = f.db.progressDao().findProgress(book.id, revision)
+        val restored = assertIs<EncodingChangeResult.Changed>(f.coordinator().changeTxtEncoding(book.id, revision, "utf-8"))
+        assertTrue(restored.hasExistingProgress)
+        assertEquals(originalRevision, restored.book.currentRevision)
+        assertEquals(originalProgress, f.db.progressDao().findProgress(book.id, originalRevision))
+        assertEquals(newProgress, f.db.progressDao().findProgress(book.id, revision))
+        assertEquals(originalBookmarks, bookmarks.load(book.id, originalRevision))
+        assertEquals(ProgressWriteResult.RejectedStale, writer.save(ProgressWriteEvent(session, 2, locator, null)))
+    }
+
+    @Test fun failedAndCancelledEncodingValidationLeaveOriginalInterpretationUntouched() = fixture { f ->
+        Files.write(f.source, "abc".toByteArray())
+        val book = assertIs<ImportResult.Success>(f.coordinator().importTxt(f.request())).book
+        val before = f.db.bookDao().findBook(book.id)
+        assertEquals(EncodingChangeResult.Failure(ImportErrorCode.INVALID_TEXT),
+            f.coordinator().changeTxtEncoding(book.id, book.currentRevision!!, "utf-16le"))
+        assertEquals(before, f.db.bookDao().findBook(book.id))
+        f.files.validationCheckpoint = { throw CancellationException("Fixture cancellation") }
+        assertFailsWith<CancellationException> { f.coordinator().changeTxtEncoding(book.id, book.currentRevision!!, "cp949") }
+        assertEquals(before, f.db.bookDao().findBook(book.id))
+        assertEquals("abc", Files.readString(f.files.resolve(book.managedRelativePath)))
+    }
+
+    @Test fun cancelledInterpretationTransactionRollsBackItsBookUpdate() = fixture { f ->
+        val book = assertIs<ImportResult.Success>(f.coordinator().importTxt(f.request())).book
+        val before = f.db.bookDao().findBook(book.id)!!
+        var checks = 0
+        assertFailsWith<CancellationException> {
+            f.db.importDao().switchTxtInterpretation(before, "cp949", "new-revision", 1, 105) {
+                if (++checks == 2) throw CancellationException("After update before commit")
+            }
+        }
+        assertEquals(2, checks)
+        assertEquals(before, f.db.bookDao().findBook(book.id))
+    }
+
     @Test fun durableCopyDoesNotDependOnSourceAndDuplicateKeepsProgress() = fixture { f ->
         val first = assertIs<ImportResult.Success>(f.coordinator().importTxt(f.request("../private/name.txt")))
         assertEquals("../private/name", first.book.title)

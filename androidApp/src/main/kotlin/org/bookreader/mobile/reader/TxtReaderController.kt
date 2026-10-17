@@ -78,6 +78,7 @@ class TxtReaderController(
     private val progress: ReaderProgressAccess,
     parentScope: CoroutineScope,
     private val settingsAccess: ReaderSettingsAccess? = null,
+    bookmarkAccess: ReaderBookmarkAccess? = null,
 ) {
     private val lifetime = SupervisorJob(parentScope.coroutineContext[Job])
     private val scope = CoroutineScope(parentScope.coroutineContext + lifetime)
@@ -99,6 +100,7 @@ class TxtReaderController(
     private val writerMutex = Mutex()
     private var settingsJob: Job? = null
     private var navigationGeneration: Int? = null
+    val tools = TxtReaderTools(book, scope, { state.value }, { session }, ::range, ::navigateTo, bookmarkAccess)
 
     init { retry() }
 
