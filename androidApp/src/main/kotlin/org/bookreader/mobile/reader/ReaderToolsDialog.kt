@@ -13,7 +13,7 @@ import org.bookreader.mobile.locator.TxtLocator
 
 @Composable
 fun ReaderSearchDialog(controller: TxtReaderController, onDismiss: () -> Unit) {
-    val state by controller.tools.state.collectAsStateWithLifecycle()
+    val state = controller.tools.state.collectAsStateWithLifecycle().value
     AlertDialog(onDismissRequest = onDismiss, title = { Text("책 안에서 찾기") }, text = {
         Column {
             OutlinedTextField(value = state.query, onValueChange = { controller.tools.search(it.take(257), state.ignoreAsciiCase) },
@@ -43,7 +43,7 @@ fun ReaderSearchDialog(controller: TxtReaderController, onDismiss: () -> Unit) {
 
 @Composable
 fun ReaderBookmarksDialog(controller: TxtReaderController, onDismiss: () -> Unit) {
-    val state by controller.tools.state.collectAsStateWithLifecycle()
+    val state = controller.tools.state.collectAsStateWithLifecycle().value
     var label by remember { mutableStateOf("") }
     LaunchedEffect(controller) { controller.tools.loadBookmarks() }
     AlertDialog(onDismissRequest = onDismiss, title = { Text("북마크") }, text = {

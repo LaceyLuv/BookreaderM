@@ -36,8 +36,8 @@ import kotlin.math.roundToInt
 
 @Composable
 fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, onRetry: () -> Unit) {
-    val state by controller.state.collectAsStateWithLifecycle()
-    val progress by controller.progress.state.collectAsStateWithLifecycle()
+    val state = controller.state.collectAsStateWithLifecycle().value
+    val progress = controller.progress.state.collectAsStateWithLifecycle().value
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val scope = rememberCoroutineScope()
     var settings by remember { mutableStateOf(false) }
@@ -107,7 +107,7 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
 
 @Composable
 private fun ComicContinuous(controller: ComicReaderController, manifest: ComicManifest, viewport: IntSize, exploration: Boolean) {
-    val state by controller.state.collectAsStateWithLifecycle()
+    val state = controller.state.collectAsStateWithLifecycle().value
     val list = rememberLazyListState(initialFirstVisibleItemIndex = state.index)
     val loaded = remember { mutableStateMapOf<Int, Int>() }
     val density = LocalDensity.current
@@ -141,7 +141,7 @@ private fun ComicContinuous(controller: ComicReaderController, manifest: ComicMa
 private fun ComicPage(controller: ComicReaderController, entry: String, viewport: IntSize, continuous: Boolean,
     exploration: Boolean, onReady: (String) -> Unit, onMenu: () -> Unit,
     onHeight: (Int) -> Unit = {}, onRelease: () -> Unit = {}) {
-    val state by controller.state.collectAsStateWithLifecycle()
+    val state = controller.state.collectAsStateWithLifecycle().value
     var image by remember(entry) { mutableStateOf<ComicImage?>(null) }
     var failed by remember(entry) { mutableStateOf(false) }
     var attempt by remember(entry) { mutableIntStateOf(0) }
@@ -199,7 +199,7 @@ private fun ComicPage(controller: ComicReaderController, entry: String, viewport
 @Composable
 private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, viewport: IntSize,
     continuous: Boolean, exploration: Boolean, onMenu: () -> Unit, navigation: Boolean = true) {
-    val readerState by controller.state.collectAsStateWithLifecycle()
+    val readerState = controller.state.collectAsStateWithLifecycle().value
     val settings = readerState.settings
     var canvasViewport by remember(viewport) { mutableStateOf(viewport) }
     val bitmap = remember(image) { image.bitmap.asImageBitmap() }
@@ -265,7 +265,7 @@ private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, vi
 
 @Composable
 private fun ComicSettingsDialog(controller: ComicReaderController, dismiss: () -> Unit) {
-    val state by controller.state.collectAsStateWithLifecycle()
+    val state = controller.state.collectAsStateWithLifecycle().value
     val loaded = controller.loadedSettings
     var global by remember(loaded) { mutableStateOf(loaded?.global ?: ReaderSettings()) }
     var book by remember(loaded) { mutableStateOf(loaded?.book ?: BookReaderPreferences()) }

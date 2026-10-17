@@ -65,7 +65,9 @@ import kotlin.math.roundToInt
 
 @Composable
 fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
-    val state by controller.state.collectAsStateWithLifecycle()
+    // Capture one immutable generation for item count, keys and deferred item content.
+    // Reading the delegated State inside LazyListScope can switch providers mid-measure.
+    val state = controller.state.collectAsStateWithLifecycle().value
     val list = rememberLazyListState()
     val scope = rememberCoroutineScope()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -95,7 +97,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     val showChrome = !settings.window.fullscreen || touchExploration
     var showSearch by remember(controller) { mutableStateOf(false) }
     var showBookmarks by remember(controller) { mutableStateOf(false) }
-    val toolsState by controller.tools.state.collectAsStateWithLifecycle()
+    val toolsState = controller.tools.state.collectAsStateWithLifecycle().value
     val layouts = remember(controller, state.restoreGeneration, typography, density, viewport) {
         mutableStateMapOf<Int, TextLayoutResult>()
     }

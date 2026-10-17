@@ -27,8 +27,8 @@ import org.readium.r2.shared.publication.Link
 
 @Composable
 fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRetry: () -> Unit) {
-    val state by controller.state.collectAsStateWithLifecycle()
-    val progress by controller.progress.state.collectAsStateWithLifecycle()
+    val state = controller.state.collectAsStateWithLifecycle().value
+    val progress = controller.progress.state.collectAsStateWithLifecycle().value
     val scope = rememberCoroutineScope()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current

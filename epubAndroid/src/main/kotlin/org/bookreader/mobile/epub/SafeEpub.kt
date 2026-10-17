@@ -36,6 +36,7 @@ object SafeEpub {
         val deadline = System.nanoTime() + 60_000_000_000L
         fun checkpoint() { context.ensureActive(); require(System.nanoTime() < deadline) { "Publication validation time limit" } }
         val archive = BoundedZip(file, checkCancellation = ::checkpoint)
+        val budget = EpubResourceBudget(archive)
         require(archive.read("mimetype", 128).toString(Charsets.US_ASCII) == "application/epub+zip") { "EPUB mimetype required" }
         require("META-INF/encryption.xml" !in archive.entries && "META-INF/rights.xml" !in archive.entries) { "Encrypted EPUB unsupported" }
         for (entry in archive.entries.values) {
@@ -45,7 +46,8 @@ object SafeEpub {
             if (extension in setOf("xml", "opf", "ncx", "html", "xhtml", "htm", "svg")) {
                 val bytes = archive.read(entry.key, EpubContentPolicy.MAX_MARKUP)
                 EpubContentPolicy.validateXml(bytes, extension in setOf("html", "xhtml", "htm", "svg"), entry.key)
-                if (extension in setOf("html", "xhtml", "htm")) EpubContentPolicy.protectXhtml(bytes, entry.key)
+                if (extension in setOf("html", "xhtml", "htm"))
+                    budget.protectedMarkup(entry.key, EpubContentPolicy.protectXhtml(bytes, entry.key).size)
             }
             if (extension == "css") require(entry.size <= EpubContentPolicy.MAX_MARKUP)
         }
@@ -62,7 +64,7 @@ object SafeEpub {
                 .getOrElse { throw IllegalArgumentException("EPUB parser rejected publication") }
             opened = publication
             check(publication.findService(org.readium.r2.shared.publication.services.search.SearchService::class) is BoundedEpubSearchService)
-            require(publication.readingOrder.isNotEmpty() && publication.readingOrder.size <= 20_000)
+            budget.readingOrder(publication.readingOrder.map { requireNotNull(it.url().path) })
             if (publication.metadata.presentation.layout == EpubLayout.FIXED) {
                 error("Fixed-layout EPUB unsupported")
             }
