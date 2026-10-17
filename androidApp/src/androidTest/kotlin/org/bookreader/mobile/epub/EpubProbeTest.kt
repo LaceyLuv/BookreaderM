@@ -14,6 +14,12 @@ import org.readium.r2.navigator.epub.EpubPreferences
 import org.readium.r2.navigator.preferences.Theme
 import org.junit.Assert.*
 import org.junit.Test
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
+import org.readium.r2.shared.ExperimentalReadiumApi
+import org.readium.r2.shared.publication.services.search.search
+import org.readium.r2.shared.util.getOrElse
+import org.readium.r2.shared.util.Url
 
 /** Real stable Fragment/WebView, generated books only; Activity recreation is not process death. */
 class EpubProbeTest {
@@ -83,8 +89,36 @@ class EpubProbeTest {
             }
         }
     }
+    @OptIn(ExperimentalReadiumApi::class)
+    @Test fun sdkSearchReturnsFullLocatorAndContainerCannotReadOutsideBook() {
+        launch("epub3").use { scenario ->
+            waitFor(scenario) { it.loadedPages > 0 }
+            assertEquals("true", js(scenario, "one", "getComputedStyle(document.getElementById('start')).color === 'rgb(17, 34, 51)'"))
+            var publication: org.readium.r2.shared.publication.Publication? = null
+            scenario.onActivity { publication = it.publication }
+            val opened = requireNotNull(publication)
+            for (path in listOf("../other-book/OPS/one.xhtml", "file:///data/local/tmp/private", "https://example.invalid/one.xhtml", "OPS/one.xhtml?other=book"))
+                assertNull("Container must reject foreign resource", opened.get(requireNotNull(Url(path))))
+            val match = runBlocking {
+                withTimeout(15_000) {
+                    val iterator = requireNotNull(opened.search("two 문단 0179"))
+                    try {
+                        val page = iterator.next().getOrElse { error("SDK search failed") }
+                        requireNotNull(page).locators.single()
+                    } finally { iterator.close() }
+                }
+            }
+            assertEquals("two 문단 0179", match.text.highlight)
+            assertTrue(match.href.toString().endsWith("two.xhtml"))
+            assertTrue(match.locations.progression!! > .5)
+            scenario.onActivity { assertTrue(requireNotNull(it.navigator).go(match, animated = false)) }
+            waitFor(scenario) { it.navigator?.currentLocator?.value?.href?.toString()?.endsWith("two.xhtml") == true && it.loadedPages >= 2 }
+            assertEquals("true", js(scenario, "two", "document.body.innerText.includes('two 문단 0179')"))
+        }
+    }
+
     @Test fun activePublicationContentIsRejectedBeforeCreatingAnyNavigator() {
-        for (fixture in listOf("active-script", "external-image")) launch(fixture).use { scenario ->
+        for (fixture in listOf("active-script", "external-image", "disguised-markup")) launch(fixture).use { scenario ->
             val deadline = SystemClock.uptimeMillis() + 20_000
             var rejected = false
             while (!rejected && SystemClock.uptimeMillis() < deadline) {

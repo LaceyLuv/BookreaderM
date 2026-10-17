@@ -47,17 +47,22 @@ object SafeEpub {
         checkpoint()
         // A new read owner must not inherit the already-completed opening coroutine's Job.
         val container = PublicationContainer(file, allowed)
+        var opened: Publication? = null
         try {
             val asset = ContainerAsset(Format(FormatSpecification(Specification.Epub, Specification.Zip), MediaType.EPUB, FileExtension("epub")), container)
             val publication = PublicationOpener(EpubParser()).open(asset, allowUserInteraction = false)
                 .getOrElse { throw IllegalArgumentException("EPUB parser rejected publication") }
+            opened = publication
             require(publication.readingOrder.isNotEmpty() && publication.readingOrder.size <= 20_000)
             if (publication.metadata.presentation.layout == EpubLayout.FIXED) {
-                publication.close(); error("Fixed-layout EPUB unsupported")
+                error("Fixed-layout EPUB unsupported")
             }
             require(publication.readingOrder.all { it.mediaType?.isHtml == true && it.url() !is AbsoluteUrl }) { "Unsupported EPUB reading order" }
             publication
-        } catch (failure: Throwable) { container.close(); throw failure }
+        } catch (failure: Throwable) {
+            try { opened?.close() } finally { container.close() }
+            throw failure
+        }
     }
 }
 

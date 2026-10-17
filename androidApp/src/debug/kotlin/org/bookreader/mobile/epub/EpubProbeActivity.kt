@@ -29,7 +29,7 @@ class EpubProbeActivity : FragmentActivity() {
         super.onCreate(null)
         setContentView(FrameLayout(this).apply { id = R.id.epub_probe_container })
         val fixture = intent.getStringExtra("fixture") ?: "epub3"
-        require(fixture in setOf("epub2", "epub3", "active-script", "external-image", "css-external"))
+        require(fixture in setOf("epub2", "epub3", "active-script", "external-image", "css-external", "disguised-markup"))
         val restored = savedInstanceState?.getString("locator")?.let { Locator.fromJSON(JSONObject(it)) }
         lifecycleScope.launch {
             try {

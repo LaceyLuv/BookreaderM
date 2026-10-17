@@ -9,7 +9,7 @@ def png():
  def chunk(kind,data): return struct.pack('!I',len(data))+kind+data+struct.pack('!I',zlib.crc32(kind+data))
  return b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('!2I5B',2,2,8,2,0,0,0))+chunk(b'IDAT',zlib.compress((b'\x00'+b'\x22\x88\xcc'*2)*2))+chunk(b'IEND',b'')
 manifest=[]
-for name in ['epub2','epub3','active-script','external-image','css-external']:
+for name in ['epub2','epub3','active-script','external-image','css-external','disguised-markup']:
  version='2.0' if name=='epub2' else '3.0'
  body='<p id="start">자체 작성 EPUB 보안·복원 검증 문장입니다.</p><img id="fixture-image" src="image.png" alt="자체 생성 파란 이미지"/>'
  if name=='active-script': body+='<script>document.body.dataset.attack="executed"</script>'
@@ -24,6 +24,9 @@ for name in ['epub2','epub3','active-script','external-image','css-external']:
  for chapter in ['one','two']:
   text=''.join(f'<p id="p{i}">{chapter} 문단 {i:04d} · 위치를 보존하는 자체 작성 내용입니다.</p>' for i in range(180))
   entries[f'OPS/{chapter}.xhtml']=f'<html xmlns="http://www.w3.org/1999/xhtml"><head><title>{chapter}</title><link rel="stylesheet" href="style.css"/></head><body><h1>{chapter}</h1>{body}{text}<a href="'+('two.xhtml' if chapter=='one' else 'one.xhtml')+'">다른 장</a></body></html>'
+ if name=='disguised-markup':
+  entries['OPS/one.png']=entries.pop('OPS/one.xhtml')
+  entries['OPS/package.opf']=entries['OPS/package.opf'].replace('href="one.xhtml"','href="one.png"')
  path=destination/f'{name}.epub'
  with zipfile.ZipFile(path,'w') as out:
   for key,value in entries.items():
