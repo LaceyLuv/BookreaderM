@@ -1,5 +1,13 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## 2026-10-17 archive 진행도·bounded SDK 검색 기반
+
+main `6ee9d4f`까지 local full CI Android 64/shared 71/archive·EPUB·Comic 13 PASS다.
+[M08 기반 보고서](M08_ARCHIVE_PROGRESS.md)에 저장 gate와 검색 자원 한도를 기록했다.
+제품 host는 `/workspace/bookreader-mobile-reader`에서 별도 진행 중이며 아직 main 사용자 경로가 아니다.
+M07 seek diagnostic/device 및 Comic 실제 decode는 원격 결과를 기다리는 중이다. 이전 native FAIL은 유지한다.
+
+
 ## 2026-10-17 추가 검증 및 Comic decode 기반
 
 main `30853c6` local full CI: Android 60/shared 71/archive·EPUB·Comic 11 PASS, schema 5 및 APK/lint PASS.
