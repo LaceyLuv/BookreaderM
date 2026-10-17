@@ -28,10 +28,12 @@ private data class TxtPageLayoutKey(
     val direction: androidx.compose.ui.unit.LayoutDirection,
 )
 private data class LoadedPage(val engine: TxtPageEngine, val generation: Int, val page: TxtMeasuredPage)
+data class PageStepRequest(val id: Long = 0, val direction: Int = 0)
 
 @Composable
 fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style: TextStyle,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier, step: PageStepRequest = PageStepRequest(), showControls: Boolean = true,
+    onAvailability: (Boolean, Boolean) -> Unit = { _, _ -> }) {
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
     val font = LocalFontFamilyResolver.current.resolve(style.fontFamily).value
@@ -64,12 +66,26 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
         catch (_: Exception) { controller.contentReadFailed() }
     }
     val page = loaded?.takeIf { it.engine === engine && it.generation == generation }?.page
+    val canPrevious = state.phase == TxtReaderPhase.READY && (page?.range?.start ?: 0) > 0
+    val canNext = state.phase == TxtReaderPhase.READY && page != null && page.range.end < state.cache.committedLength
+    SideEffect { onAvailability(canPrevious, canNext) }
+    LaunchedEffect(step.id) {
+        if (step.id == 0L || state.phase != TxtReaderPhase.READY) return@LaunchedEffect
+        val displayed = page ?: return@LaunchedEffect
+        try {
+            val target = if (step.direction < 0 && displayed.range.start > 0)
+                engine?.previous(displayed.range.start)?.range?.start
+            else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) displayed.range.end else null
+            if (target != null && controller.state.value.restoreGeneration == generation) controller.navigateTo(target)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { controller.contentReadFailed() }
+    }
     Column(modifier) {
         Box(Modifier.weight(1f).fillMaxWidth().testTag("reader_page_viewport").onSizeChanged { size = it }) {
             page?.let { displayed ->
                 // Very large accessibility fonts may exceed the viewport even for one line.
                 // A bounded page stays vertically scrollable instead of clipping that line.
-                Text(displayed.text, style = style, maxLines = displayed.lines,
+                androidx.compose.foundation.text.selection.SelectionContainer { Text(displayed.text, style = style, maxLines = displayed.lines,
                     modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
                         .testTag("reader_page"),
                     onTextLayout = { actual ->
@@ -78,10 +94,10 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
                             actual.getLineEnd(actual.lineCount - 1, visibleEnd = false) == displayed.text.length)
                             controller.restored(generation)
                         else controller.restoreFailed()
-                    })
+                    }) }
             }
         }
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        if (showControls) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             TextButton(enabled = state.phase == TxtReaderPhase.READY && (page?.range?.start ?: 0) > 0,
                 modifier = Modifier.testTag("reader_previous"), onClick = {
                     val current = page ?: return@TextButton

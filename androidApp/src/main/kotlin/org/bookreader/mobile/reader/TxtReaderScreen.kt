@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -81,6 +83,12 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         platformStyle = PlatformTextStyle(includeFontPadding = false), lineBreak = LineBreak.Simple, hyphens = Hyphens.None)
     val scrollMode = settings.readingMode == TxtReadingMode.SCROLL
     var showSettings by remember(controller) { mutableStateOf(false) }
+    var showMenu by remember(controller) { mutableStateOf(false) }
+    var pageStep by remember(controller) { mutableStateOf(PageStepRequest()) }
+    var pageAvailability by remember(controller) { mutableStateOf(false to false) }
+    val seek = remember(controller) { ReaderSeekPreview(controller::seekToFraction) }
+    val touchExploration = readerWindowEffects(settings.window)
+    val showChrome = !settings.window.fullscreen || touchExploration
     var showSearch by remember(controller) { mutableStateOf(false) }
     var showBookmarks by remember(controller) { mutableStateOf(false) }
     val toolsState by controller.tools.state.collectAsStateWithLifecycle()
@@ -93,7 +101,16 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         if (previousTypography[0] != changed) controller.beginReflow()
         previousTypography[0] = changed
     }
-    BackHandler(onBack = onClose)
+    fun move(direction: Int) {
+        if (controller.state.value.phase != TxtReaderPhase.READY) return
+        if (scrollMode) scope.launch {
+            list.animateScrollBy((list.layoutInfo.viewportEndOffset - list.layoutInfo.viewportStartOffset) * .9f * direction)
+        } else pageStep = PageStepRequest(pageStep.id + 1, direction)
+    }
+    BackHandler {
+        if (showMenu || seek.fraction != null) { seek.cancel(); showMenu = false }
+        else onClose()
+    }
     DisposableEffect(controller, lifecycle) {
         // A retained controller returning to a newly measured screen restores its canonical anchor.
         if (controller.state.value.phase == TxtReaderPhase.READY) controller.beginReflow()
@@ -155,11 +172,15 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     }
 
     Column(Modifier.fillMaxSize().testTag("txt_reader")) {
-        Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            TextButton(onClick = onClose, modifier = Modifier.testTag("reader_back")) { Text("서재") }
-            Text(controller.book.title, Modifier.weight(1f), maxLines = 1,
+        if (showChrome) Column(Modifier.fillMaxWidth().padding(horizontal = 8.dp)) {
+            Text(controller.book.title, Modifier.fillMaxWidth(), maxLines = 1,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleMedium)
+            FlowRow(Modifier.fillMaxWidth()) {
+            TextButton(onClick = onClose, modifier = Modifier.testTag("reader_back")) { Text("서재") }
             TextButton(onClick = { showSettings = true }, modifier = Modifier.testTag("reader_settings")) { Text("설정") }
+            TextButton(onClick = { showMenu = true }, modifier = Modifier.testTag("reader_menu")) { Text("메뉴") }
+            }
         }
         if (state.phase == TxtReaderPhase.ERROR) {
             Column(Modifier.weight(1f).fillMaxWidth().padding(24.dp),
@@ -169,10 +190,17 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 Button(onClick = controller::retry, modifier = Modifier.testTag("reader_retry")) { Text("다시 시도") }
             }
         } else {
-            Box(Modifier.weight(1f).fillMaxWidth().testTag(
+            Box(Modifier.weight(1f).fillMaxWidth().readerGestures(
+                enabled = state.phase == TxtReaderPhase.READY && !touchExploration, pageMode = !scrollMode,
+                onTap = { fraction -> when {
+                    fraction < .25f -> move(-1)
+                    fraction > .75f -> move(1)
+                    else -> showMenu = true
+                } }, onDoubleTap = { showMenu = !showMenu }, onPage = ::move).testTag(
                 if (state.phase == TxtReaderPhase.READY) "reader_ready" else "reader_content")) {
                 if (!scrollMode) TxtPageContent(controller, state, typography,
-                    Modifier.fillMaxSize().background(background).padding(horizontal = settings.marginDp.dp, vertical = 12.dp))
+                    Modifier.fillMaxSize().background(background).padding(horizontal = settings.marginDp.dp, vertical = 12.dp),
+                    step = pageStep, showControls = showChrome, onAvailability = { previous, next -> pageAvailability = previous to next })
                 else LazyColumn(state = list, userScrollEnabled = state.phase == TxtReaderPhase.READY,
                     contentPadding = PaddingValues(horizontal = settings.marginDp.dp, vertical = 12.dp),
                     modifier = Modifier.fillMaxSize().testTag("reader_text")
@@ -188,12 +216,14 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                             catch (_: Exception) { controller.contentReadFailed() }
                         }
                         text?.let {
-                            key(state.restoreGeneration) { Text(it, style = typography,
+                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(it, style = typography,
                                 onTextLayout = { result -> layouts[index] = result },
-                                modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index")) }
+                                modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index")) } }
                         }
                     }
                 }
+                if (!showChrome) TextButton(onClick = { showMenu = true },
+                    modifier = Modifier.align(Alignment.TopEnd).testTag("reader_menu")) { Text("메뉴") }
                 if (state.phase != TxtReaderPhase.READY) {
                     Column(Modifier.align(Alignment.Center).padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
@@ -205,7 +235,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
             }
         }
         val offset = state.stableOffset ?: state.targetOffset
-        Row(Modifier.fillMaxWidth()) {
+        if (showChrome) FlowRow(Modifier.fillMaxWidth()) {
             TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showSearch = true },
                 modifier = Modifier.testTag("reader_search")) { Text("본문 검색") }
             TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showBookmarks = true },
@@ -213,7 +243,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
             if (toolsState.returnOffset != null) TextButton(enabled = state.phase == TxtReaderPhase.READY,
                 onClick = controller.tools::returnFromSearch, modifier = Modifier.testTag("reader_search_return")) { Text("검색 전 위치") }
         }
-        Text(if (state.cache.complete) "${(offset * 100.0 / state.cache.committedLength).toInt()}%"
+        if (showChrome) Text(if (state.cache.complete) "${(offset * 100.0 / state.cache.committedLength).toInt()}%"
             else "본문 준비 중",
             Modifier.padding(12.dp).testTag("reader_progress"))
         if (state.saveError) Text("진행도를 저장하지 못했습니다. 다시 시도합니다.",
@@ -224,4 +254,12 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     if (showSettings) ReaderSettingsDialog(controller, state) { showSettings = false }
     if (showSearch) ReaderSearchDialog(controller) { showSearch = false }
     if (showBookmarks) ReaderBookmarksDialog(controller) { showBookmarks = false }
+    if (showMenu) ReaderMenuDialog(state, seek,
+        previous = if (scrollMode) list.canScrollBackward && state.phase == TxtReaderPhase.READY else pageAvailability.first,
+        next = if (scrollMode) list.canScrollForward && state.phase == TxtReaderPhase.READY else pageAvailability.second,
+        onPrevious = { move(-1) }, onNext = { move(1) },
+        onSearch = { showMenu = false; showSearch = true },
+        onBookmarks = { showMenu = false; showBookmarks = true },
+        onSettings = { showMenu = false; showSettings = true }, onExit = onClose,
+        onDismiss = { seek.cancel(); showMenu = false })
 }

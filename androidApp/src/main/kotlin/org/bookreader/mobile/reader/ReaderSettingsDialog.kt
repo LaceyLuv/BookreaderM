@@ -3,6 +3,8 @@ package org.bookreader.mobile.reader
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -24,7 +26,7 @@ fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState,
                     TextButton(onClick = controller::retrySettings) { Text("다시 읽기") }
                 }
                 Text("이 책의 읽기 방식")
-                Row {
+                FlowRow {
                     TxtReadingMode.entries.forEach { mode ->
                         FilterChip(selected = (preferences.readingMode ?: global.readingMode) == mode,
                             onClick = { preferences = preferences.copy(readingMode = mode) },
@@ -34,7 +36,7 @@ fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState,
                 }
                 TextButton(onClick = { preferences = BookReaderPreferences() }) { Text("읽기 방식 기본값 상속") }
                 Text("모든 책의 기본 설정")
-                Row {
+                FlowRow {
                     ReaderFont.entries.forEach { font -> FilterChip(selected = global.font == font,
                         onClick = { global = global.copy(font = font) },
                         modifier = Modifier.testTag("reader_font_${font.name}"),
@@ -65,6 +67,19 @@ fun ReaderSettingsDialog(controller: TxtReaderController, state: TxtReaderState,
                 TxtReadingMode.entries.forEach { mode -> FilterChip(selected = global.readingMode == mode,
                     onClick = { global = global.copy(readingMode = mode) },
                     label = { Text(if (mode == TxtReadingMode.PAGES) "페이지" else "스크롤") }) }
+                Text("Reader 창")
+                WindowToggle("전체화면", "reader_fullscreen_option", global.window.fullscreen) {
+                    global = global.copy(window = global.window.copy(fullscreen = it)) }
+                WindowToggle("읽는 동안 화면 켜짐 유지", "reader_keep_screen_on_option", global.window.keepScreenOn) {
+                    global = global.copy(window = global.window.copy(keepScreenOn = it)) }
+                WindowToggle("현재 방향 유지 요청", "reader_rotation_lock_option", global.window.lockRotation) {
+                    global = global.copy(window = global.window.copy(lockRotation = it)) }
+                Text("큰 화면에서는 기기 설정에 따라 회전 요청이 적용되지 않을 수 있습니다.")
+                SettingStepper("창 밝기", global.window.brightness?.let { "${(it * 100).roundToInt()}%" } ?: "시스템 기본값",
+                    "window_brightness", (global.window.brightness ?: .5f) > .05f, (global.window.brightness ?: .5f) < 1f,
+                    { global = global.copy(window = global.window.copy(brightness = ((global.window.brightness ?: .5f) - .1f).coerceAtLeast(.05f))) },
+                    { global = global.copy(window = global.window.copy(brightness = ((global.window.brightness ?: .5f) + .1f).coerceAtMost(1f))) })
+                TextButton(onClick = { global = global.copy(window = global.window.copy(brightness = null)) }) { Text("시스템 밝기 사용") }
             }
         },
         confirmButton = { TextButton(enabled = loaded != null && !state.settingsError && !state.settingsSaving &&
@@ -78,9 +93,18 @@ private fun SettingStepper(label: String, value: String, tag: String, canDecreas
     decrease: () -> Unit, increase: () -> Unit) {
     Column(Modifier.padding(vertical = 4.dp)) {
         Text("$label $value")
-        Row {
+        FlowRow {
             TextButton(onClick = decrease, enabled = canDecrease, modifier = Modifier.testTag("${tag}_decrease")) { Text("$label 줄이기") }
             TextButton(onClick = increase, enabled = canIncrease, modifier = Modifier.testTag("${tag}_increase")) { Text("$label 늘리기") }
         }
+    }
+}
+
+@Composable
+private fun WindowToggle(label: String, tag: String, checked: Boolean, change: (Boolean) -> Unit) {
+    Row(Modifier.fillMaxWidth().testTag(tag).toggleable(checked, role = Role.Checkbox, onValueChange = change),
+        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+        Checkbox(checked, onCheckedChange = null)
+        Text(label)
     }
 }

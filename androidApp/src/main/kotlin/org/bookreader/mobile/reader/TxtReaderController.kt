@@ -100,12 +100,15 @@ class TxtReaderController(
     private val writerMutex = Mutex()
     private var settingsJob: Job? = null
     private var navigationGeneration: Int? = null
+    private var seekJob: Job? = null
     val tools = TxtReaderTools(book, scope, { state.value }, { session }, ::range, ::navigateTo, bookmarkAccess)
 
     init { retry() }
 
     fun retry() {
         if (closing) return
+        seekJob?.cancel()
+        navigationGeneration = null
         val previousOpen = openJob
         previousOpen?.cancel()
         settleJob?.cancel()
@@ -227,13 +230,29 @@ class TxtReaderController(
     /** Navigation freezes the old anchor until the target's actual measured layout is visible. */
     fun navigateTo(offset: Long) {
         val current = state.value
-        if (closing || current.phase != TxtReaderPhase.READY || !current.cache.complete ||
+        if (closing || session == null || current.phase !in setOf(TxtReaderPhase.READY, TxtReaderPhase.REFLOWING) || !current.cache.complete ||
             offset !in 0..current.cache.committedLength) return
         settleJob?.cancel()
         val generation = current.restoreGeneration + 1
         navigationGeneration = generation
         mutableState.update { it.copy(phase = TxtReaderPhase.REFLOWING, targetOffset = offset,
             restoreGeneration = generation) }
+    }
+
+    fun seekToFraction(fraction: Float) {
+        if (!fraction.isFinite() || closing || session == null || !state.value.cache.complete ||
+            state.value.phase !in setOf(TxtReaderPhase.READY, TxtReaderPhase.REFLOWING)) return
+        seekJob?.cancel()
+        val cacheForRequest = cache
+        val generation = state.value.restoreGeneration
+        val requested = (state.value.cache.committedLength * fraction.coerceIn(0f, 1f).toDouble()).toLong()
+        seekJob = scope.launch {
+            try {
+                val anchor = withContext(Dispatchers.IO) { cacheForRequest.anchorAtOrBefore(requested) }
+                if (cache === cacheForRequest && state.value.restoreGeneration == generation) navigateTo(anchor)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { contentReadFailed() }
+        }
     }
 
     fun restoreFailed() {
@@ -376,6 +395,7 @@ class TxtReaderController(
         openJob?.cancel()
         restoringJob?.cancel()
         settingsJob?.cancel()
+        seekJob?.cancel()
         try {
             openJob?.join()
             restoringJob?.join()

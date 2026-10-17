@@ -12,6 +12,17 @@ import org.junit.rules.TemporaryFolder
 class TxtCanonicalCacheTest {
     @get:Rule val temporary = TemporaryFolder()
 
+    @Test fun percentageSeekSnapsSurrogatesAndCombiningSequencesWithoutChangingEof() {
+        val original = temporary.newFile("seek.txt")
+        original.writeText("a😀e\u0301끝")
+        val cache = TxtCanonicalCache(book(original), temporary.newFolder("seek-cache"))
+        cache.openOrBuild(original, {}) {}
+        assertEquals(1L, cache.anchorAtOrBefore(2))
+        assertEquals(3L, cache.anchorAtOrBefore(4))
+        assertEquals(6L, cache.anchorAtOrBefore(6))
+        assertThrows(IllegalArgumentException::class.java) { cache.anchorAtOrBefore(7) }
+    }
+
     @Test fun canonicalFragmentsCoverCrLfAndSurrogatesWithoutGaps() {
         val original = temporary.newFile("canonical.txt")
         val source = "\uFEFF" + "x".repeat(16_383) + "\r\n😀\r끝\uFEFF  \n\n"

@@ -20,6 +20,8 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.click
+import androidx.compose.ui.test.doubleClick
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.TextLayoutResult
@@ -1044,6 +1046,125 @@ class TxtReaderFlowTest {
                 } else observerDatabase.readerSettingsDao().putGlobal(originalSettings)
                 }
             }
+            }
+        }
+    }
+
+    @Test fun menuSeekCancellationGesturesAndWindowExitPreserveCanonicalProgress() {
+        val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
+        val initialBrightness = compose.activity.window.attributes.screenBrightness
+        val initialFlags = compose.activity.window.attributes.flags
+        val initialOrientation = compose.activity.requestedOrientation
+        try {
+            sendFixture("reader-pages")
+            waitFor("reader_ready")
+            val active = reader()
+            val book = active.book
+            repeat(2) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+            compose.waitUntil(10_000) { saved(book)?.let { offset(it) == active.state.value.stableOffset && offset(it) > 0 } == true }
+            val before = requireNotNull(saved(book))
+            compose.onNodeWithTag("reader_menu").performClick()
+            compose.onNodeWithTag("reader_seek").performTouchInput {
+                down(center)
+                moveTo(androidx.compose.ui.geometry.Offset(width * .8f, centerY), 100)
+            }
+            compose.waitForIdle()
+            assertEquals(before, saved(book))
+            compose.onNodeWithTag("reader_seek").performTouchInput { cancel() }
+            compose.waitForIdle()
+            SystemClock.sleep(400)
+            assertEquals(before, saved(book))
+            assertEquals(offset(before), active.state.value.stableOffset)
+            compose.onNodeWithTag("reader_seek").performSemanticsAction(SemanticsActions.SetProgress) { it(.7f) }
+            compose.waitUntil(15_000) { active.state.value.let {
+                it.phase == TxtReaderPhase.READY && (it.stableOffset ?: 0) > it.cache.committedLength * .65
+            } }
+            val target = requireNotNull(active.state.value.stableOffset)
+            compose.waitUntil(10_000) { saved(book)?.let { offset(it) == target } == true }
+            compose.onNodeWithTag("reader_menu_close").performClick()
+            assertAnchorInFirstMeasuredLine(active, target)
+            compose.onNodeWithTag("reader_settings").performClick()
+            compose.onNodeWithTag("reader_mode_PAGES").performClick()
+            compose.onNodeWithTag("reader_settings_apply").performClick()
+            waitFor("reader_ready")
+            compose.onNodeWithTag("reader_next").assertIsEnabled()
+            val pageAnchor = active.state.value.stableOffset
+            compose.onNodeWithTag("reader_ready").performTouchInput {
+                doubleClick(androidx.compose.ui.geometry.Offset(width * .85f, height * .4f))
+            }
+            waitFor("reader_seek")
+            assertEquals(pageAnchor, active.state.value.stableOffset)
+            compose.onNodeWithTag("reader_menu_close").performClick()
+            compose.onNodeWithTag("reader_ready").performTouchInput {
+                click(androidx.compose.ui.geometry.Offset(width * .85f, height * .4f))
+            }
+            compose.waitUntil(10_000) { active.state.value.phase == TxtReaderPhase.READY && active.state.value.stableOffset != pageAnchor }
+            val moved = active.state.value.stableOffset
+            compose.onNodeWithTag("reader_settings").performClick()
+            for (tag in listOf("reader_fullscreen_option", "reader_keep_screen_on_option", "reader_rotation_lock_option", "window_brightness_increase"))
+                compose.onNodeWithTag(tag).performScrollTo().performClick()
+            compose.onNodeWithTag("reader_settings_apply").performClick()
+            compose.waitUntil(15_000) { active.state.value.settings.window.fullscreen && active.state.value.phase == TxtReaderPhase.READY }
+            assertEquals(moved, active.state.value.stableOffset)
+            compose.runOnIdle {
+                assertEquals(.6f, compose.activity.window.attributes.screenBrightness, .001f)
+                assertTrue(compose.activity.window.attributes.flags and android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON != 0)
+                assertEquals(ActivityInfo.SCREEN_ORIENTATION_LOCKED, compose.activity.requestedOrientation)
+            }
+            compose.onNodeWithTag("reader_menu").performClick()
+            compose.onNodeWithTag("reader_menu_exit").performScrollTo().performClick()
+            waitFor("library_content")
+            compose.runOnIdle {
+                assertEquals(initialBrightness, compose.activity.window.attributes.screenBrightness, .001f)
+                val flag = android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                assertEquals(initialFlags and flag, compose.activity.window.attributes.flags and flag)
+                assertEquals(initialOrientation, compose.activity.requestedOrientation)
+            }
+        } finally { restoreReaderGlobalSettings(originalSettings) }
+    }
+
+    @Test fun readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor() {
+        val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
+        val originalScale = uiShell("settings get system font_scale").trim().toFloatOrNull()
+        val initialScale = compose.activity.resources.configuration.fontScale
+        try {
+            sendFixture("reader-pages")
+            waitFor("reader_ready")
+            val active = reader()
+            repeat(2) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+            val anchor = measuredVisibleLine(active)
+            compose.waitUntil(10_000) { saved(active.book)?.let { offset(it) == anchor } == true }
+            val before = requireNotNull(saved(active.book))
+            for (scale in listOf(1f, 1.3f, 2f)) {
+                uiShell("settings put system font_scale $scale")
+                compose.waitUntil(30_000) { kotlin.math.abs(compose.activity.resources.configuration.fontScale - scale) < .01f &&
+                    active.state.value.phase == TxtReaderPhase.READY }
+                compose.onNodeWithTag("reader_menu").assertIsDisplayed().performClick()
+                compose.onNodeWithTag("reader_seek").assertIsDisplayed().assertIsEnabled()
+                compose.onNodeWithTag("reader_menu_close").performClick()
+                compose.onNodeWithTag("reader_settings").assertIsDisplayed().performClick()
+                compose.onNodeWithTag("reader_rotation_lock_option").performScrollTo().assertIsDisplayed()
+                compose.onNodeWithTag("reader_settings_apply").assertIsDisplayed().performClick()
+                waitFor("reader_ready")
+                assertEquals(anchor, active.state.value.stableOffset)
+                assertEquals(before, saved(active.book))
+                assertAnchorInFirstMeasuredLine(active, anchor)
+            }
+        } finally {
+            try {
+                uiShell(if (originalScale == null) "settings delete system font_scale" else "settings put system font_scale $originalScale")
+                compose.waitUntil(30_000) { kotlin.math.abs(compose.activity.resources.configuration.fontScale - initialScale) < .01f }
+            } finally { restoreReaderGlobalSettings(originalSettings) }
+        }
+    }
+
+    private fun restoreReaderGlobalSettings(original: org.bookreader.mobile.database.ReaderGlobalSettingsEntity?) {
+        var current: TxtReaderController? = null
+        compose.activityRule.scenario.onActivity { current = ViewModelProvider(it)[AppViewModel::class.java].state.value.reader }
+        runBlocking {
+            try { current?.close() } finally {
+                if (original == null) observerDatabase.useWriterConnection { it.execSQL("DELETE FROM reader_global_settings WHERE id = 'global'") }
+                else observerDatabase.readerSettingsDao().putGlobal(original)
             }
         }
     }

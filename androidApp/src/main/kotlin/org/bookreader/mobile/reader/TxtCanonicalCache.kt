@@ -41,6 +41,18 @@ class TxtCanonicalCache(private val book: Book, private val directory: File) {
 
     @Synchronized fun snapshot(): TxtCacheSnapshot = current
 
+    /** A percentage seek lands on the same bounded grapheme boundaries as the canonical fragments. */
+    @Synchronized fun anchorAtOrBefore(offset: Long): Long {
+        require(current.complete && offset in 0..current.committedLength)
+        if (offset == current.committedLength) return offset
+        val index = fragmentFor(offset)
+        val fragment = current.fragments[index]
+        val relative = (offset - fragment.start).toInt()
+        val text = readFragment(index)
+        val iterator = BreakIterator.getCharacterInstance(Locale.ROOT).apply { setText(text) }
+        return fragment.start + if (iterator.isBoundary(relative)) relative else iterator.preceding(relative).coerceAtLeast(0)
+    }
+
     /** Bounded canonical window; a cache fragment never inserts a paragraph boundary. */
     @Synchronized fun readRange(start: Long, maxUnits: Int): String {
         require(maxUnits in 1..65_536 && start in 0..current.committedLength)

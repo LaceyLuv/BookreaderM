@@ -8,6 +8,16 @@ import kotlinx.serialization.json.Json
 @Serializable enum class ReaderTheme { LIGHT, SEPIA, DARK, OLED }
 
 @Serializable
+data class ReaderWindowOptions(
+    val brightness: Float? = null,
+    val keepScreenOn: Boolean = false,
+    val lockRotation: Boolean = false,
+    val fullscreen: Boolean = false,
+) {
+    init { require(brightness == null || brightness.isFinite() && brightness in .05f..1f) }
+}
+
+@Serializable
 data class ReaderSettings(
     val readingMode: TxtReadingMode = TxtReadingMode.SCROLL,
     val font: ReaderFont = ReaderFont.SANS,
@@ -16,6 +26,7 @@ data class ReaderSettings(
     val letterSpacingEm: Float = 0f,
     val marginDp: Int = 16,
     val theme: ReaderTheme = ReaderTheme.LIGHT,
+    val window: ReaderWindowOptions = ReaderWindowOptions(),
 ) {
     init {
         require(fontSizeSp.isFinite() && fontSizeSp in 12f..36f)

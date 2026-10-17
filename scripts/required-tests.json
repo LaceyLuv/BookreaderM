@@ -219,6 +219,22 @@
     [
       "org.bookreader.mobile.reader.TxtReaderToolsTest",
       "bookmarkReadFailureKeepsVisibleRecordsAndReaderErrorBlocksMutations"
+    ],
+    [
+      "org.bookreader.mobile.reader.ReaderSeekPreviewTest",
+      "cancelledDragAndLateFinishNeverCommitPreview"
+    ],
+    [
+      "org.bookreader.mobile.reader.ReaderSeekPreviewTest",
+      "releaseCommitsOnceAndNextAccessibleActionCanCommit"
+    ],
+    [
+      "org.bookreader.mobile.reader.ReaderSeekPreviewTest",
+      "replacedPreviewRejectsOldFinishAndDismissDiscardsNewValue"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtCanonicalCacheTest",
+      "percentageSeekSnapsSurrogatesAndCombiningSequencesWithoutChangingEof"
     ]
   ],
   "shared-jvm": [
@@ -643,6 +659,14 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "invalidManualEncodingKeepsOriginalBookProgressAndManagedBytes"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "menuSeekCancellationGesturesAndWindowExitPreserveCanonicalProgress"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor"
     ]
   ],
   "android-host": [
