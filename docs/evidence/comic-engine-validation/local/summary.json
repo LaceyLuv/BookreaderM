@@ -1,0 +1,20 @@
+{
+  "manifest_source": "79bbbe0",
+  "decoder_source": "1ee3a9e",
+  "main_commit": "30853c6",
+  "commands": [
+    {
+      "command": "./gradlew :epubAndroid:testDebugUnitTest :epubAndroid:lintDebug",
+      "exit_code": 0,
+      "tests": 11
+    },
+    {
+      "command": "./gradlew :androidApp:assembleDebugAndroidTest :androidApp:lintDebug :epubAndroid:lintDebug",
+      "exit_code": 0
+    }
+  ],
+  "initial_lint": "FAIL android.media.ExifInterface replaced with verified androidx.exifinterface 1.4.2",
+  "android_decoder": "NOT_RUN",
+  "physical_performance": "NOT_RUN",
+  "product_reader": "NOT_IMPLEMENTED"
+}
