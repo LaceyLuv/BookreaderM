@@ -372,8 +372,10 @@ device-control/UI tests, accessibility checklist, API behavior notes
 
 # M08 — `epub-product-integration`
 
-**상태:** TODO  
+**상태:** IN_PROGRESS  
 **선행 조건:** M07 및 M01 EPUB gate 해소
+
+**2026-10-17:** main 22526d3 제품 EPUB 통합. 실제 API36 52/기존 TXT host 2 PASS. EPUB 자체 외부 host와 추가 hardening은 후속 브랜치에서 검증 중이며 실기기/출시 완료가 아니다. [보고서](M08_EPUB_PRODUCT.md).
 
 ## 구현 범위
 검증된 Readium adapter를 import/library/ReaderSession/progress/bookmark/search/TOC/설정/Back에 연결한다. 보안 resource 경로와 내부 링크 돌아오기를 제품 경로에서 재검증한다.

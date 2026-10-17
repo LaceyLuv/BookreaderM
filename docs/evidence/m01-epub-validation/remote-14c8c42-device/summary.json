@@ -1,0 +1,2013 @@
+{
+  "source_sha": "14c8c42e6ed955882212db403cb9e9d5fe41633b",
+  "workflow_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/39014599770",
+  "artifact_id": 12094209532,
+  "archive_sha256": "363cd4cca305a0630243c5f126cfa45d9462919b7400a8f6e96ef6c95383130c",
+  "status": "PASS",
+  "suites": {
+    "android-device": {
+      "tests": 49,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "android-host": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "host": {
+    "old_pid": "6186",
+    "cold_launcher_pid": "6233",
+    "status": "PASS"
+  },
+  "screenshots": [
+    {
+      "name": "m02-library.png",
+      "sha256": "d5c18d456affb105b3fe89374e24c48d4d5d719158f1afc8b4c5e81c10776b1a",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "txt-reader-generated-host.png",
+      "sha256": "f3605c0a591a29cba0ccd593d7b82f206aa6467db294f3a7416c1c2c0356a2ff",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "m03-reader.png",
+      "sha256": "5e3381df8e9ceb9981a326c530ce4868500f02ee9a8dc78e2dd7b18e4d1d29a2",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "txt-reader-generated-pages.png",
+      "sha256": "e8c7ce5f2e4a367a0b3c4fc9a7dc3b4549aca83683aa9cf99df748877c24218d",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "txt-reader-generated-scroll.png",
+      "sha256": "1674391539da5d50c3c8d666804685228bccfd50208faaea9f00a08317368048",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "name": "txt-reader-generated-page-reflow.png",
+      "sha256": "ba20ea2c7df0712a9c001968129c50455315a4d46f2e4de92144d86f6d4a0508",
+      "size": [
+        1080,
+        1920
+      ]
+    }
+  ],
+  "reports": {
+    "reader-reflow-stop-report": {
+      "status": "PASS",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "fixture_sha256": "da86407e37f58e79c01efc84bb6722779019267ff7cbb6d1dff5e48eb2abc39c",
+      "original_offset": 6240,
+      "pending_offset": 4680,
+      "initial_orientation": 1,
+      "changed_orientation": 2,
+      "initial_generation": 1,
+      "final_generation": 2,
+      "writer_epoch": 1,
+      "mechanism": "Actual Activity orientation change and ON_STOP with pending native writer; not process death or an isolated ON_STOP-only trigger"
+    },
+    "sqlite-full-report": {
+      "fixture_id": "reader-full",
+      "fixture_sha256": "2a60740d85202c12c334a9a0f17924b21ee56552e4473b4183dacc887b81fcfb",
+      "fixture_bytes": 611999,
+      "other_fixture_sha256": "410e497bd48ed1048c8880390d580b9b13ccdc2e9f650bf2dcdfe581e982e078",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "mechanism": "Native SQLite max_page_count plus test-only growth trigger; not filesystem ENOSPC",
+      "initial_offset": 4134,
+      "initial_sequence": 1,
+      "writer_epoch": 1,
+      "page_limit": 27,
+      "page_size": 4096,
+      "growth_bytes": 118784,
+      "native_probe_code": 13,
+      "native_probe_type": "SQLException",
+      "pending_offset": 5512,
+      "save_error_visible": true,
+      "records_preserved_on_failure": true,
+      "managed_files_preserved": true,
+      "retry_offset": 5512,
+      "retry_sequence": 3,
+      "retry_cleared_error": true,
+      "other_book_preserved_after_retry": true,
+      "fixture_limit_and_schema_restored": true,
+      "status": "PASS"
+    },
+    "reader-query-error-report": {
+      "fixture_id": "reader-query-error",
+      "fixture_sha256": "bf691ba827f091530990d040f4ac0ae8a4f913b73cf1d004e08f87cdc91d3e9b",
+      "fixture_bytes": 653999,
+      "other_fixture_sha256": "11b3c4b9b7013e9512c538d3584bb82d45c07cc4bd6c0c8b437207a4230e97e4",
+      "api": 36,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "mechanism": "temporary query-column rename; native SQLite query failure",
+      "initial_offset": 4680,
+      "initial_sequence": 1,
+      "initial_epoch": 1,
+      "native_probe_code": 1,
+      "native_probe_type": "SQLException",
+      "failed_retries": 2,
+      "error_ui_visible": true,
+      "all_records_preserved_on_error": true,
+      "managed_files_preserved": true,
+      "bookmarks_preserved": true,
+      "restored_offset": 4680,
+      "restored_epoch": 2,
+      "retry_cleared_error": true,
+      "progress_unchanged_after_restore": true,
+      "other_book_preserved_after_retry": true,
+      "new_offset": 6240,
+      "new_epoch": 2,
+      "save_after_retry": true,
+      "fixture_restored": true,
+      "status": "PASS"
+    },
+    "reader-locator-error-report": {
+      "fixture_id": "reader-locator-error",
+      "fixture_sha256": "61294ec66e23db2e5ce1bd362e5273a884f37af09a7dedf6af69cda34ef0a259",
+      "fixture_bytes": 665999,
+      "other_fixture_sha256": "11b3c4b9b7013e9512c538d3584bb82d45c07cc4bd6c0c8b437207a4230e97e4",
+      "api": 36,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "mechanism": "test-only malformed locator JSON; real Room repository decoding",
+      "initial_offset": 4836,
+      "initial_sequence": 1,
+      "initial_epoch": 1,
+      "failed_retries": 2,
+      "error_ui_visible": true,
+      "all_records_preserved_on_error": true,
+      "managed_files_preserved": true,
+      "bookmarks_preserved": true,
+      "restored_offset": 4836,
+      "restored_epoch": 2,
+      "retry_cleared_error": true,
+      "progress_unchanged_after_restore": true,
+      "other_book_preserved_after_retry": true,
+      "new_offset": 6448,
+      "new_epoch": 2,
+      "save_after_retry": true,
+      "fixture_restored": true,
+      "status": "PASS"
+    },
+    "reader-reopen-report": {
+      "status": "PASS",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "fixture_sha256": "ea8c58dc2b158279528548d9a9a2ddc5330e71046949937e537dfd61134bc516",
+      "cancelled_openings": 5,
+      "original_offset": 4290,
+      "original_epoch": 1,
+      "mechanism": "Native writer held through five actual UI open/restore/close cycles; release then reopen and save"
+    },
+    "reader-delete-decoding-report": {
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "mechanism": "Real 32MiB managed TXT decode; AppViewModel deletion request during partial cache; not a visible Reader delete-button flow",
+      "fixture_sha256": "926591212b3ea4a32d012d54e0ad620097754e2e3f727bfc0036a93df6f5a950",
+      "fixture_bytes": 33554432,
+      "partial_utf16_length": 16384,
+      "book_and_progress_absent": true,
+      "managed_copy_absent": true,
+      "partial_cache_removed": true,
+      "other_book_preserved": true,
+      "status": "PASS"
+    },
+    "reader-switch-report": {
+      "status": "PASS",
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "fixture_sha256": [
+        "4b9d6419658a1c7a7705aed5d95fee8755ea065df0db3841851c0964fc2d9877",
+        "ae24850d9f674654e59de6fb6af6cb17c51a3c4e142f31360c3afce63007e3bc"
+      ],
+      "events": [
+        {
+          "iteration": 0,
+          "fixture_id": "reader-switch-a",
+          "previous_offset": 5928,
+          "committed_offset": 7410,
+          "epoch": 2,
+          "sequence": 1,
+          "backward": false,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 1,
+          "fixture_id": "reader-switch-b",
+          "previous_offset": 5928,
+          "committed_offset": 7410,
+          "epoch": 2,
+          "sequence": 1,
+          "backward": false,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 2,
+          "fixture_id": "reader-switch-a",
+          "previous_offset": 7410,
+          "committed_offset": 5908,
+          "epoch": 3,
+          "sequence": 1,
+          "backward": true,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 3,
+          "fixture_id": "reader-switch-b",
+          "previous_offset": 7410,
+          "committed_offset": 5908,
+          "epoch": 3,
+          "sequence": 1,
+          "backward": true,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 4,
+          "fixture_id": "reader-switch-a",
+          "previous_offset": 5908,
+          "committed_offset": 7390,
+          "epoch": 4,
+          "sequence": 1,
+          "backward": false,
+          "close_waited_for_writer": true
+        },
+        {
+          "iteration": 5,
+          "fixture_id": "reader-switch-b",
+          "previous_offset": 5908,
+          "committed_offset": 7390,
+          "epoch": 4,
+          "sequence": 1,
+          "backward": false,
+          "close_waited_for_writer": true
+        }
+      ],
+      "mechanism": "Held production Room writer connection; actual UI scroll/back/open; no fake save result"
+    },
+    "continuous-progress-report": {
+      "fixture_id": "reader-continuous",
+      "fixture_sha256": "e094cb17995b2aafccd165a47013ccd3f8a9b91190c2b9209a0635432872b951",
+      "fixture_bytes": 647999,
+      "build_fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+      "api": 36,
+      "abi": "x86_64",
+      "app_version": "0.2.0",
+      "writer_epoch": 1,
+      "initial_sequence": 1,
+      "commits": [
+        {
+          "elapsed_ms": 168,
+          "sequence": 2,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 1168,
+          "sequence": 3,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 2168,
+          "sequence": 4,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 3167,
+          "sequence": 5,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 4170,
+          "sequence": 6,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 5184,
+          "sequence": 7,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 6184,
+          "sequence": 8,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 7184,
+          "sequence": 9,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 8184,
+          "sequence": 10,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 9185,
+          "sequence": 11,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 10184,
+          "sequence": 12,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 11184,
+          "sequence": 13,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 12184,
+          "sequence": 14,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 13184,
+          "sequence": 15,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 14184,
+          "sequence": 16,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 15184,
+          "sequence": 17,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 16251,
+          "sequence": 18,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 17167,
+          "sequence": 19,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 18184,
+          "sequence": 20,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 19184,
+          "sequence": 21,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 20189,
+          "sequence": 22,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 21184,
+          "sequence": 23,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 22200,
+          "sequence": 24,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 23201,
+          "sequence": 25,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 24200,
+          "sequence": 26,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 25300,
+          "sequence": 27,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 26284,
+          "sequence": 28,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 27284,
+          "sequence": 29,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 28284,
+          "sequence": 30,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 29284,
+          "sequence": 31,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 30284,
+          "sequence": 32,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 31234,
+          "sequence": 33,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 32234,
+          "sequence": 34,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 33251,
+          "sequence": 35,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 34251,
+          "sequence": 36,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 35351,
+          "sequence": 37,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 36267,
+          "sequence": 38,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 37267,
+          "sequence": 39,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 38367,
+          "sequence": 40,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 39367,
+          "sequence": 41,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 40367,
+          "sequence": 42,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 41385,
+          "sequence": 43,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 42384,
+          "sequence": 44,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 43317,
+          "sequence": 45,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 44317,
+          "sequence": 46,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 45319,
+          "sequence": 47,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 46317,
+          "sequence": 48,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 47417,
+          "sequence": 49,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 48417,
+          "sequence": 50,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 49334,
+          "sequence": 51,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 50335,
+          "sequence": 52,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 51435,
+          "sequence": 53,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 52350,
+          "sequence": 54,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 53350,
+          "sequence": 55,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 54452,
+          "sequence": 56,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 55450,
+          "sequence": 57,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 56367,
+          "sequence": 58,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 57384,
+          "sequence": 59,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 58401,
+          "sequence": 60,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 59418,
+          "sequence": 61,
+          "offset": 12369
+        }
+      ],
+      "anchors": [
+        {
+          "elapsed_ms": 466,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 666,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 966,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 1265,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 1566,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 1866,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 2365,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 2665,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 2966,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 3165,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 3466,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 3766,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 4066,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 4168,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 4466,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 4682,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 4983,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 5282,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 5582,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 5782,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 6382,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 6682,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 6882,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 7182,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 7482,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 7782,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 8082,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 8182,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 8382,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 8682,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 8982,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 9282,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 9582,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 9782,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 10382,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 10682,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 10882,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 11182,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 11482,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 11783,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 12084,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 12182,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 12382,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 12682,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 12982,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 13282,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 13584,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 13782,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 14382,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 14682,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 14883,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 15182,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 15482,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 15815,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 16032,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 16146,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 16449,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 16749,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 16949,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 17266,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 17566,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 17882,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 18382,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 18682,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 18882,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 19182,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 19482,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 19782,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 20082,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 20182,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 20382,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 20682,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 20982,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 21282,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 21582,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 21782,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 22399,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 22599,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 22899,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 23199,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 23499,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 23800,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 24399,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 24699,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 24999,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 25299,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 25599,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 25799,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 26382,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 26682,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 26882,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 27183,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 27499,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 27799,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 28382,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 28683,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 28982,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 29282,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 29582,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 29782,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 30393,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 30615,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 30915,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 31232,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 31532,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 31732,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 32032,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 32132,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 32432,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 32751,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 32949,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 33249,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 33550,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 33849,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 34349,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 34649,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 34949,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 35249,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 35449,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 35749,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 36049,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 36149,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 36466,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 36666,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 36965,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 37265,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 37566,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 37865,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 38365,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 38666,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 38966,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 39166,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 39466,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 39766,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 40066,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 40166,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 40466,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 40666,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 40965,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 41276,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 41582,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 41782,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 42382,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 42699,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 42899,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 43216,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 43516,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 43816,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 44016,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 44115,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 44416,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 44715,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 45016,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 45316,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 45515,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 45816,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 46316,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 46616,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 46916,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 47216,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 47516,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 47816,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 48016,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 48116,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 48416,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 48715,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 49016,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 49332,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 49532,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 49832,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 50333,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 50633,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 50932,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 51232,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 51532,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 51732,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 52032,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 52132,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 52449,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 52749,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 52949,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 53249,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 53549,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 53849,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 54349,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 54649,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 54949,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 55249,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 55449,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 55749,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 56049,
+          "offset": 12272
+        },
+        {
+          "elapsed_ms": 56149,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 56466,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 56666,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 56965,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 57282,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 57583,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 57782,
+          "offset": 12487
+        },
+        {
+          "elapsed_ms": 58399,
+          "offset": 12449
+        },
+        {
+          "elapsed_ms": 58616,
+          "offset": 12428
+        },
+        {
+          "elapsed_ms": 58916,
+          "offset": 12390
+        },
+        {
+          "elapsed_ms": 59216,
+          "offset": 12369
+        },
+        {
+          "elapsed_ms": 59516,
+          "offset": 12331
+        },
+        {
+          "elapsed_ms": 59817,
+          "offset": 12310
+        },
+        {
+          "elapsed_ms": 60017,
+          "offset": 12272
+        }
+      ],
+      "input_elapsed_ms": [
+        51,
+        136,
+        235,
+        335,
+        435,
+        535,
+        635,
+        734,
+        835,
+        935,
+        1035,
+        1134,
+        1235,
+        1335,
+        1434,
+        1535,
+        1634,
+        1736,
+        1835,
+        1935,
+        2034,
+        2134,
+        2235,
+        2335,
+        2435,
+        2535,
+        2635,
+        2734,
+        2835,
+        2936,
+        3035,
+        3135,
+        3235,
+        3335,
+        3435,
+        3535,
+        3635,
+        3735,
+        3836,
+        3934,
+        4035,
+        4136,
+        4234,
+        4335,
+        4435,
+        4535,
+        4637,
+        4751,
+        4851,
+        4952,
+        5052,
+        5151,
+        5252,
+        5351,
+        5451,
+        5552,
+        5651,
+        5751,
+        5851,
+        5951,
+        6051,
+        6151,
+        6252,
+        6352,
+        6451,
+        6551,
+        6652,
+        6751,
+        6852,
+        6952,
+        7051,
+        7152,
+        7251,
+        7351,
+        7451,
+        7551,
+        7651,
+        7752,
+        7851,
+        7951,
+        8051,
+        8152,
+        8252,
+        8352,
+        8451,
+        8551,
+        8651,
+        8751,
+        8851,
+        8951,
+        9051,
+        9151,
+        9252,
+        9352,
+        9452,
+        9552,
+        9651,
+        9752,
+        9851,
+        9951,
+        10051,
+        10152,
+        10251,
+        10352,
+        10451,
+        10552,
+        10652,
+        10751,
+        10851,
+        10951,
+        11051,
+        11152,
+        11251,
+        11352,
+        11452,
+        11551,
+        11651,
+        11752,
+        11851,
+        11951,
+        12053,
+        12152,
+        12251,
+        12352,
+        12451,
+        12551,
+        12652,
+        12751,
+        12851,
+        12952,
+        13051,
+        13151,
+        13251,
+        13351,
+        13451,
+        13552,
+        13651,
+        13752,
+        13852,
+        13951,
+        14051,
+        14151,
+        14251,
+        14352,
+        14451,
+        14551,
+        14651,
+        14751,
+        14852,
+        14951,
+        15051,
+        15151,
+        15251,
+        15351,
+        15452,
+        15551,
+        15652,
+        15753,
+        15885,
+        15985,
+        16101,
+        16218,
+        16318,
+        16419,
+        16518,
+        16618,
+        16718,
+        16818,
+        16918,
+        17018,
+        17118,
+        17235,
+        17334,
+        17435,
+        17536,
+        17635,
+        17735,
+        17842,
+        17951,
+        18051,
+        18151,
+        18252,
+        18351,
+        18451,
+        18551,
+        18651,
+        18751,
+        18851,
+        18951,
+        19051,
+        19152,
+        19251,
+        19351,
+        19452,
+        19551,
+        19651,
+        19751,
+        19851,
+        19951,
+        20051,
+        20152,
+        20251,
+        20352,
+        20451,
+        20551,
+        20652,
+        20751,
+        20851,
+        20952,
+        21051,
+        21151,
+        21251,
+        21351,
+        21451,
+        21552,
+        21651,
+        21751,
+        21851,
+        21951,
+        22051,
+        22151,
+        22267,
+        22369,
+        22468,
+        22568,
+        22668,
+        22768,
+        22869,
+        22968,
+        23068,
+        23168,
+        23268,
+        23368,
+        23468,
+        23568,
+        23668,
+        23769,
+        23868,
+        23968,
+        24068,
+        24168,
+        24268,
+        24369,
+        24468,
+        24568,
+        24668,
+        24768,
+        24868,
+        24968,
+        25068,
+        25168,
+        25268,
+        25368,
+        25468,
+        25568,
+        25668,
+        25768,
+        25868,
+        25968,
+        26067,
+        26151,
+        26251,
+        26352,
+        26451,
+        26551,
+        26651,
+        26751,
+        26852,
+        26951,
+        27051,
+        27151,
+        27251,
+        27351,
+        27469,
+        27568,
+        27668,
+        27768,
+        27868,
+        27968,
+        28067,
+        28151,
+        28251,
+        28352,
+        28451,
+        28551,
+        28652,
+        28751,
+        28851,
+        28952,
+        29051,
+        29151,
+        29252,
+        29351,
+        29451,
+        29551,
+        29651,
+        29752,
+        29851,
+        29952,
+        30051,
+        30151,
+        30251,
+        30351,
+        30468,
+        30570,
+        30684,
+        30785,
+        30885,
+        30984,
+        31085,
+        31185,
+        31301,
+        31401,
+        31501,
+        31601,
+        31702,
+        31801,
+        31901,
+        32001,
+        32101,
+        32201,
+        32301,
+        32401,
+        32501,
+        32601,
+        32718,
+        32818,
+        32918,
+        33018,
+        33118,
+        33218,
+        33318,
+        33418,
+        33519,
+        33618,
+        33718,
+        33818,
+        33918,
+        34018,
+        34118,
+        34218,
+        34318,
+        34418,
+        34518,
+        34618,
+        34718,
+        34818,
+        34918,
+        35018,
+        35118,
+        35218,
+        35318,
+        35418,
+        35518,
+        35618,
+        35718,
+        35818,
+        35918,
+        36018,
+        36118,
+        36218,
+        36335,
+        36435,
+        36534,
+        36635,
+        36734,
+        36834,
+        36935,
+        37034,
+        37134,
+        37235,
+        37335,
+        37435,
+        37535,
+        37634,
+        37734,
+        37835,
+        37934,
+        38035,
+        38134,
+        38235,
+        38335,
+        38435,
+        38535,
+        38635,
+        38734,
+        38835,
+        38935,
+        39034,
+        39135,
+        39234,
+        39334,
+        39435,
+        39534,
+        39634,
+        39735,
+        39834,
+        39934,
+        40035,
+        40135,
+        40234,
+        40334,
+        40434,
+        40534,
+        40635,
+        40734,
+        40835,
+        40935,
+        41035,
+        41135,
+        41235,
+        41351,
+        41451,
+        41552,
+        41651,
+        41752,
+        41851,
+        41951,
+        42051,
+        42151,
+        42251,
+        42352,
+        42451,
+        42551,
+        42653,
+        42768,
+        42868,
+        42968,
+        43068,
+        43170,
+        43284,
+        43384,
+        43485,
+        43585,
+        43685,
+        43785,
+        43884,
+        43985,
+        44085,
+        44184,
+        44284,
+        44384,
+        44484,
+        44584,
+        44685,
+        44784,
+        44884,
+        44985,
+        45084,
+        45184,
+        45285,
+        45384,
+        45484,
+        45584,
+        45685,
+        45785,
+        45885,
+        45984,
+        46084,
+        46184,
+        46284,
+        46385,
+        46484,
+        46585,
+        46684,
+        46784,
+        46885,
+        46984,
+        47084,
+        47185,
+        47285,
+        47385,
+        47484,
+        47585,
+        47685,
+        47785,
+        47884,
+        47984,
+        48084,
+        48184,
+        48284,
+        48384,
+        48484,
+        48584,
+        48685,
+        48784,
+        48884,
+        48985,
+        49084,
+        49184,
+        49285,
+        49401,
+        49502,
+        49601,
+        49701,
+        49801,
+        49901,
+        50001,
+        50101,
+        50201,
+        50301,
+        50401,
+        50501,
+        50602,
+        50701,
+        50801,
+        50901,
+        51001,
+        51101,
+        51201,
+        51301,
+        51401,
+        51501,
+        51601,
+        51701,
+        51801,
+        51901,
+        52002,
+        52101,
+        52201,
+        52301,
+        52418,
+        52518,
+        52618,
+        52718,
+        52818,
+        52918,
+        53018,
+        53118,
+        53218,
+        53317,
+        53417,
+        53518,
+        53618,
+        53718,
+        53818,
+        53918,
+        54018,
+        54118,
+        54218,
+        54318,
+        54418,
+        54517,
+        54618,
+        54718,
+        54818,
+        54918,
+        55017,
+        55118,
+        55218,
+        55318,
+        55418,
+        55518,
+        55618,
+        55718,
+        55818,
+        55918,
+        56018,
+        56118,
+        56218,
+        56317,
+        56435,
+        56535,
+        56635,
+        56734,
+        56835,
+        56935,
+        57035,
+        57135,
+        57236,
+        57352,
+        57451,
+        57551,
+        57651,
+        57751,
+        57851,
+        57951,
+        58052,
+        58151,
+        58251,
+        58353,
+        58468,
+        58569,
+        58685,
+        58784,
+        58885,
+        58984,
+        59084,
+        59185,
+        59284,
+        59384,
+        59485,
+        59585,
+        59685,
+        59784,
+        59884,
+        59985
+      ],
+      "measurement": "Monotonic real-time touch and independent Room observations; not SQL write-ack latency",
+      "movement_duration_ms": 60069,
+      "max_input_gap_ms": 132,
+      "gesture_end_to_settled_observation_ms": 264,
+      "final_offset": 12272,
+      "final_sequence": 62,
+      "max_observed_commit_gap_ms": 1102,
+      "status": "PASS"
+    }
+  }
+}
