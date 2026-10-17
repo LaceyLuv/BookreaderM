@@ -62,7 +62,7 @@ for report in reports.rglob('TEST-*.xml'):
     removed += 1
 print(f'Removed {removed} old generated connected-test XML reports')
 PY
-host_class=org.bookreader.mobile.reader.TxtReaderHostProcessTest
+host_class=org.bookreader.mobile.reader.TxtReaderHostProcessTest,org.bookreader.mobile.reader.EpubReaderHostProcessTest,org.bookreader.mobile.reader.ComicReaderHostProcessTest
 fixture_output=/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence
 test_arguments=("-Pandroid.testInstrumentationRunnerArguments.notClass=$host_class")
 if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
@@ -179,6 +179,10 @@ PY_RACES
 run_logged host-process-tests python3 scripts/reader-process-check.py "$evidence_dir/reader-host-process"
 run_logged verified-host-results python3 scripts/check-test-results.py \
   android-host "$evidence_dir/reader-host-process"
+for archive_format in epub comic; do
+  run_logged "$archive_format-host-process-tests" python3 scripts/reader-process-check.py "$evidence_dir/$archive_format-host-process" "$archive_format"
+  run_logged "verified-$archive_format-host-results" python3 scripts/check-test-results.py "android-host-$archive_format" "$evidence_dir/$archive_format-host-process"
+done
 if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
   run_logged fixture-screenshots adb pull "$fixture_output" "$evidence_dir/fixture-screenshots"
   run_logged verified-fixture-screenshots python3 - "$evidence_dir/fixture-screenshots" <<'PY'

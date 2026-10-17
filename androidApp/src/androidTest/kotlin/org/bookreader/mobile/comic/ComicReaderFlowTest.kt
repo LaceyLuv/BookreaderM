@@ -3,6 +3,7 @@ package org.bookreader.mobile.comic
 import android.content.ComponentName
 import android.content.Intent
 import androidx.compose.ui.test.*
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.useWriterConnection
@@ -68,6 +69,11 @@ class ComicReaderFlowTest {
             active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         waitFor("comic_ready")
         compose.onNodeWithTag("comic_image").performTouchInput { doubleClick(center) }
+        compose.onNodeWithTag("comic_image").performTouchInput {
+            down(0, center - Offset(30f, 0f)); down(1, center + Offset(30f, 0f))
+            moveTo(0, center - Offset(100f, 0f)); moveTo(1, center + Offset(100f, 0f))
+            up(0); up(1)
+        }
         compose.onNodeWithTag("comic_image").performTouchInput { swipeLeft() }
         assertEquals("01.png", active.state.value.manifest!!.entryKeys[active.state.value.index])
         compose.onNodeWithTag("comic_next").performClick()
@@ -91,8 +97,15 @@ class ComicReaderFlowTest {
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.SCROLL &&
             active.state.value.settings.comicGapDp == 0 && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         waitFor("comic_ready")
+        compose.onNodeWithTag("comic_enlarge_04.png").performClick()
+        waitFor("comic_zoom_dialog")
+        compose.onNodeWithTag("comic_zoom_close").performClick()
+        waitFor("comic_ready")
         compose.onNodeWithTag("comic_continuous").performTouchInput { swipeUp() }
-        compose.waitUntil(15_000) { (saved(book)?.payload?.normalizedY ?: 0.0) > 0 }
+        compose.waitForIdle()
+        val settled = active.progress.state.value.accepted as ComicLocator
+        assertTrue(settled.payload.normalizedY > 0)
+        compose.waitUntil(15_000) { saved(book) == settled }
         val anchor = saved(book)
         compose.activityRule.scenario.recreate(); waitFor("comic_ready")
         assertEquals(anchor, saved(book))

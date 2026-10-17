@@ -9,7 +9,10 @@ import sys
 import xml.etree.ElementTree as ET
 
 PACKAGE = "org.bookreader.mobile"
-CLASS = PACKAGE + ".reader.TxtReaderHostProcessTest"
+FORMAT = sys.argv[2] if len(sys.argv) > 2 else "txt"
+if FORMAT not in ("txt", "epub", "comic"):
+    raise SystemExit("Unsupported host fixture format")
+CLASS = PACKAGE + ".reader." + {"txt": "Txt", "epub": "Epub", "comic": "Comic"}[FORMAT] + "ReaderHostProcessTest"
 RUNNER = PACKAGE + ".test/androidx.test.runner.AndroidJUnitRunner"
 
 
@@ -68,8 +71,8 @@ def run(evidence: Path) -> None:
         stage("prepareDurableReader")
         # This is fixture-only expected state, written after the actual durable Room acknowledgement.
         proof = adb("committed-fixture-proof", "shell", "run-as", PACKAGE, "cat",
-                    "files/txt-host-committed.properties")
-        if not all(f"{key}=" in proof for key in ("bookId", "revision", "utf16Offset", "sequence", "epoch")):
+                    f"files/{FORMAT}-host-committed.properties")
+        if not all(f"{key}=" in proof for key in ("bookId", "revision", "utf16Offset" if FORMAT == "txt" else "locator", "sequence", "epoch")):
             raise ValueError("prepare stage did not persist its expected fixture proof")
         # Instrumentation completion may end its target process. Launch a live app
         # first so force-stop demonstrably kills an existing process.
@@ -89,7 +92,8 @@ def run(evidence: Path) -> None:
             raise ValueError("cold launcher did not create a different app process")
         stage("verifyColdLibraryContinue")
         summary = {"status": "PASS", "old_pid": previous_pid, "cold_launcher_pid": new_pid,
-                   "claim": "durably acknowledged TXT anchor survives external force-stop; cold library Continue restores it",
+                   "format": FORMAT,
+                   "claim": f"durably acknowledged {FORMAT} anchor survives external force-stop; cold library Continue restores it",
                    "limitation": "verification instrumentation may start another target process; this does not prove uncommitted scroll durability",
                    "commands": commands, "cases": cases}
         (evidence / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")

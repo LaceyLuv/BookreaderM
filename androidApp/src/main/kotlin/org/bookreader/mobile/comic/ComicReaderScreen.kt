@@ -12,6 +12,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.layout.onSizeChanged
@@ -159,6 +162,7 @@ private fun ComicPage(controller: ComicReaderController, entry: String, viewport
         finally { image = null }
     }
     val current = image
+    var enlarged by remember(entry) { mutableStateOf(false) }
     DisposableEffect(current) { onDispose { current?.let { leases.remove(it); it.close() } } }
     val pageHeight = if (!continuous || current == null) viewport.height.toFloat() else when (state.settings.comicFit) {
         ComicFit.WIDTH -> viewport.width.toFloat() * current.bitmap.height / current.bitmap.width
@@ -175,6 +179,18 @@ private fun ComicPage(controller: ComicReaderController, entry: String, viewport
         else {
             LaunchedEffect(current, pageHeight) { withFrameNanos { }; onHeight(pageHeight.roundToInt()); onReady(entry) }
             ComicCanvas(controller, current, IntSize(viewport.width, pageHeight.roundToInt().coerceAtLeast(1)), continuous, exploration, onMenu)
+            if (continuous) TextButton(onClick = { enlarged = true }, modifier = Modifier.align(Alignment.TopEnd).testTag("comic_enlarge_$entry")) { Text("확대") }
+            if (enlarged) Dialog(onDismissRequest = { enlarged = false; controller.reflow() },
+                properties = DialogProperties(usePlatformDefaultWidth = false)) {
+                Surface(Modifier.fillMaxSize().testTag("comic_zoom_dialog")) {
+                    Column {
+                        TextButton(onClick = { enlarged = false; controller.reflow() }, modifier = Modifier.testTag("comic_zoom_close")) { Text("확대 보기 닫기") }
+                        Box(Modifier.weight(1f).fillMaxWidth()) {
+                            ComicCanvas(controller, current, viewport, false, exploration, {}, navigation = false)
+                        }
+                    }
+                }
+            }
             if (current.limitedResolution) Text("메모리 보호를 위해 해상도를 낮춰 표시합니다.", Modifier.align(Alignment.BottomCenter).testTag("comic_resolution_limit"))
         }
     }
@@ -182,7 +198,7 @@ private fun ComicPage(controller: ComicReaderController, entry: String, viewport
 
 @Composable
 private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, viewport: IntSize,
-    continuous: Boolean, exploration: Boolean, onMenu: () -> Unit) {
+    continuous: Boolean, exploration: Boolean, onMenu: () -> Unit, navigation: Boolean = true) {
     val readerState by controller.state.collectAsStateWithLifecycle()
     val settings = readerState.settings
     val bitmap = remember(image) { image.bitmap.asImageBitmap() }
@@ -203,12 +219,12 @@ private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, vi
     fun save() { controller.visible(image.entryKey, (-origin.x / (bitmap.width * base * zoom)).toDouble(),
         (-origin.y / (bitmap.height * base * zoom)).toDouble(), true) }
     val direction = if (settings.comicDirection == ComicDirection.LTR) 1 else -1
-    var modifier = Modifier.fillMaxSize().semantics { contentDescription = "만화 이미지" }.testTag("comic_image")
+    var modifier = Modifier.fillMaxSize().clipToBounds().semantics { contentDescription = "만화 이미지" }.testTag("comic_image")
     if (!continuous && !exploration) modifier = modifier.pointerInput(image) {
         detectTapGestures(onDoubleTap = { point ->
             val next = if (zoom > 1f) 1f else 2.5f
             origin = clamp(point - (point - origin) * (next / zoom), next); zoom = next; save()
-        }, onTap = { point -> when {
+        }, onTap = { point -> if (navigation) when {
             point.x < size.width * .25f -> controller.move(-direction)
             point.x > size.width * .75f -> controller.move(direction)
             else -> onMenu()
@@ -233,7 +249,7 @@ private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, vi
                     }
                 }
             } while (event.changes.any { it.pressed })
-            if (!multiple && !transformed && zoom == 1f && abs(total.x) > 64.dp.toPx() && abs(total.x) > abs(total.y))
+            if (navigation && !multiple && !transformed && zoom == 1f && abs(total.x) > 64.dp.toPx() && abs(total.x) > abs(total.y))
                 controller.move(if (total.x < 0) direction else -direction)
         }
     }

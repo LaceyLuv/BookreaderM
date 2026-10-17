@@ -395,6 +395,11 @@ private fun SettingsBody(state: AppUiState, onThemeSelected: (ThemeMode) -> Unit
                 )
             }
         }
+        item { OpenSourceNotices() }
+        item {
+            Text("지원 형식", style = MaterialTheme.typography.titleMedium)
+            Text("TXT, 암호화되지 않은 EPUB2/3, 정적 JPEG·PNG·WebP를 담은 ZIP/CBZ를 읽습니다. DRM·고정 레이아웃 EPUB, RAR/CBR, 애니메이션 이미지는 지원하지 않습니다. 큰 이미지는 해상도를 낮춰 표시할 수 있습니다.")
+        }
         item {
             Text("데이터 보관", style = MaterialTheme.typography.titleMedium)
             Text(

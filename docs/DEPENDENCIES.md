@@ -1,5 +1,13 @@
 # Dependency and toolchain record
 
+## M08/M09 제품 브랜치 갱신
+
+제품 브랜치는 `epubAndroid`/Fragment KTX 1.8.7을 implementation으로 연결하며 공식 `fragment-compose` 1.8.7로 stable Fragment를 호스팅한다. 아래 probe의 debugImplementation 설명은 과거 범위다.
+`releaseRuntimeClasspath`의 실제 resolved component 158개(BOM/metadata 포함)를 조사했다. Guava 3개는 정확 parent POM까지 따라갔고 미확인 license metadata는 0개다. [inventory](evidence/m10-dependencies/release-runtime-components.json)는 좌표·라이선스·POM SHA256을 보존한다.
+Apache-2.0/Readium BSD-3-Clause/jsoup MIT 원문과 SDK에 포함된 두 font license를 [앱 notices](../androidApp/src/main/assets/third-party-notices.txt)에 묶고 설정에서 오프라인으로 읽게 했다. SDK에 원래 포함된 font license asset도 보존한다. 이 목록은 자동 취약점 검사나 독립 법률 검토의 PASS가 아니다.
+초기 Gradle resolvedArtifacts 수집은 Android project variant ambiguity로 실패했다. configuration을 바꾸지 않고 `incoming.resolutionResult.allComponents`의 실제 선택된 외부 component를 읽어 수집했다. [실패/후속 로그](evidence/m10-dependencies/)를 보존한다.
+
+
 ## 2026-10-17 EPUB/Comic probe 의존성 갱신
 
 이 절이 아래 M00/M04 시점의 “Readium 미추가” 안내보다 우선한다.

@@ -1,0 +1,186 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/workspace/toolchains/cacerts -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080
+> Task :androidApp:reportRuntimeCoordinates FAILED
+
+[Incubating] Problems report is available at: file:///workspace/bookreader-mobile-comic-product/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Initialization script '/workspace/scratch/m01/report-runtime.init.gradle' line: 5
+
+* What went wrong:
+Execution failed for task ':androidApp:reportRuntimeCoordinates'.
+> Could not resolve all artifacts for configuration ':androidApp:releaseRuntimeClasspath'.
+   > The consumer was configured to find a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm'. However we cannot choose between the following variants of project :shared:
+       - Configuration ':shared:releaseRuntimeElements' variant android-aar-metadata declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-aar-metadata' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-art-profile declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-art-profile' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-assets declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-assets' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-classes-directory-Aorg.gradle.libraryelements=classes declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-classes-directory' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+               - Provides its elements preferably in the form of class files but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-classes-jar declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-classes-jar' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+               - Provides its elements packaged as a jar but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-compiled-dependencies-resources declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-compiled-dependencies-resources' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-consumer-proguard-rules declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-consumer-proguard-rules' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-java-res declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-java-res' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-jni declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-jni' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-lint declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-lint' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+               - Provides its elements packaged as a jar but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-lint-local-aar declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-lint-local-aar' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-manifest declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-manifest' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-navigation-json declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-navigation-json' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-public-res declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-public-res' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-res declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-res' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-symbol declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-symbol' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant android-symbol-with-package-name declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-symbol-with-package-name' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant jar declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'jar' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+               - Provides its elements packaged as a jar but the consumer didn't ask for it
+       - Configuration ':shared:releaseRuntimeElements' variant supported-locale-list declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'supported-locale-list' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+   > The consumer was configured to find a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm'. However we cannot choose between the following variants of project :epubAndroid:
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-aar-metadata declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-aar-metadata' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-art-profile declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-art-profile' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-assets declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-assets' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-classes-directory-Aorg.gradle.libraryelements=classes declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-classes-directory' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+               - Provides its elements preferably in the form of class files but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-classes-jar declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-classes-jar' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+               - Provides its elements packaged as a jar but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-compiled-dependencies-resources declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-compiled-dependencies-resources' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-consumer-proguard-rules declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-consumer-proguard-rules' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-java-res declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-java-res' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-jni declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-jni' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-lint declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-lint' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+               - Provides its elements packaged as a jar but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-lint-local-aar declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-lint-local-aar' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-manifest declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-manifest' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-navigation-json declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-navigation-json' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-public-res declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-public-res' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-res declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-res' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-symbol declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-symbol' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant android-symbol-with-package-name declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'android-symbol-with-package-name' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant jar declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'jar' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+               - Provides its elements packaged as a jar but the consumer didn't ask for it
+       - Configuration ':epubAndroid:releaseRuntimeElements' variant supported-locale-list declares a library for use during runtime, preferably optimized for Android, as well as attribute 'com.android.build.api.attributes.AgpVersionAttr' with value '8.11.1', attribute 'com.android.build.api.attributes.BuildTypeAttr' with value 'release', attribute 'org.jetbrains.kotlin.platform.type' with value 'androidJvm':
+           - Unmatched attributes:
+               - Provides attribute 'artifactType' with value 'supported-locale-list' but the consumer didn't ask for it
+               - Provides attribute 'com.android.build.gradle.internal.attributes.VariantAttr' with value 'release' but the consumer didn't ask for it
+
+* Try:
+> Ambiguity errors are explained in more detail at https://docs.gradle.org/8.13/userguide/variant_model.html#sub:variant-ambiguity.
+> Review the variant matching algorithm at https://docs.gradle.org/8.13/userguide/variant_attributes.html#sec:abm_algorithm.
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 2s
+1 actionable task: 1 executed
