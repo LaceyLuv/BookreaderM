@@ -1,5 +1,24 @@
 # Dependency and toolchain record
 
+## 2026-10-17 EPUB/Comic probe 의존성 갱신
+
+이 절이 아래 M00/M04 시점의 “Readium 미추가” 안내보다 우선한다.
+
+| 구성요소 | 고정 버전 | 범위·공식 근거 |
+|---|---|---|
+| Readium shared/streamer/navigator | 3.1.2 | stable Fragment probe; [ADR-0005](adr/0005-epub-stable-navigator-and-content-policy.md) |
+| Fragment KTX | 1.8.7 | SDK 요구와 호환되는 host |
+| desugar_jdk_libs | 2.1.5 | Readium Java API 지원 |
+| AndroidX ExifInterface | 1.4.2 | 정적 Comic JPEG orientation; 공식 Maven metadata/POM/source 확인 |
+
+Readium 3.4.0의 minCompileSdk 37/Kotlin 2.4.20 요구 때문에 현재 SDK36/Kotlin2.2.20에 맞는
+3.1.2를 선택했다. 최신 버전이라는 주장이 아니다. [BSD 원문](../epubAndroid/src/main/assets/readium-license.txt)을 번들에 보존한다.
+ExifInterface는 기본 android.media 구현의 lint 보안 오류 후 교체했다.
+공식 source JAR의 [Apache-2.0 원문](../epubAndroid/src/main/assets/androidx-exifinterface-license.txt)을 그대로 번들에 포함한다.
+최종 release dependency 전체의 전이 라이선스/취약점 감사는 M10에서 수행하며 이 두 원문만으로 완료 처리하지 않는다.
+앱의 epubAndroid 연결은 현재 debugImplementation이며 제품 EPUB/Comic UI 지원과 구분한다.
+
+
 2026-10-09 갱신. 정확 버전은 catalog/build scripts/wrapper에 고정했다.
 공식 release/호환표/API 확인과 실제 resolved graph·compile·runtime 결과를 구분한다.
 
