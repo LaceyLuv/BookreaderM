@@ -3,6 +3,18 @@
 제품 UI 연결 전 Readium 3.1.2의 공개 Fragment Navigator를 검증했다. 현재 도구와의 호환성 및
 보안 경계는 [ADR-0005](adr/0005-epub-stable-navigator-and-content-policy.md)에 기록한다. EPUB 제품 지원 완료가 아니다.
 
+## 최신 probe 결과
+
+`7eaa0f5`의 실제 API36 EPUB 5개는 모두 PASS다. EPUB2/3, 정상 이미지/CSS,
+SDK Locator roundtrip, TOC, script/외부 이미지/위장 markup 거부, WebView CSP,
+foreign resource 차단, 실제 bounded SearchService의 50개 paging/360 matches/큰 chapter 명시적 오류를 확인했다.
+전체 suite는 TXT 회전/저장 acknowledgement 1 FAIL이므로 49-case 전체 PASS가 아니다.
+[원본 XML](evidence/m01-epub-validation/remote-7eaa0f5-device-failed/native-android-device/)을 따른다.
+M08 제품 브랜치 bcc2081의 native 51개 중 50 PASS, 검색 locator에 highlight 문구가 남아 있을 것이라는
+잘못된 test expectation 1 FAIL을 보존했다. 후속은 실제 progression/SDK rendered locator를 비교하며 실행 중이다.
+
+## 이전 실행 이력
+
 main `6b59093` 및 `46da7fa`의 API36 원격 실행에서 EPUB native 3개는 모두 PASS다.
 자체 EPUB2/3의 한글·이미지 naturalWidth·중첩 목차·chapter 이동·전체 SDK Locator JSON roundtrip,
 글자/테마 변경·Activity 재생성, script/external image의 preflight 거부와 실제 WebView CSP 위반을 확인했다.

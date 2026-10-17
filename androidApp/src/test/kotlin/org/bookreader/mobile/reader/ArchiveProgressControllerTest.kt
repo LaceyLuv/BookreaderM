@@ -73,6 +73,31 @@ class ArchiveProgressControllerTest {
         assertEquals(0, memory.starts); assertTrue(memory.events.isEmpty())
         assertEquals(ArchiveReaderPhase.CLOSED, controller.state.value.phase)
     }
+    @Test fun repeatedInputCannotCancelCommittedAcknowledgementAndDuplicateArchiveSave() = runTest {
+        val memory = Memory()
+        val acknowledge = CompletableDeferred<Unit>()
+        val access = object : ReaderProgressAccess by memory {
+            override suspend fun save(event: ProgressWriteEvent): ProgressWriteResult {
+                val result = memory.save(event)
+                if (memory.events.size == 1) acknowledge.await()
+                return result
+            }
+        }
+        val controller = ArchiveProgressController(book(), access, this)
+        try {
+            runCurrent(); controller.restored(0); runCurrent()
+            val locator = epub("chapter-two.xhtml")
+            controller.userAnchor(0, locator, 40.0)
+            advanceTimeBy(251); runCurrent()
+            assertEquals(1, memory.events.size)
+            controller.userAnchor(0, locator, 40.0)
+            acknowledge.complete(Unit); runCurrent()
+            controller.flush()
+            assertEquals(1, memory.events.size)
+            assertFalse(controller.state.value.saveError)
+        } finally { acknowledge.complete(Unit); controller.close() }
+    }
+
     @Test fun continuousMovesPersistPeriodicallyAndRetryKeepsSessionSequenceAndComicIdentity() = runTest {
         val memory = Memory()
         val controller = ArchiveProgressController(book(BookFormat.COMIC), memory, this)
