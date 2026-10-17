@@ -18,3 +18,11 @@ Readium은 글자·여백을 배율로 받으므로 EPUB 설정에는 배율을 
 암호화/DRM/고정 레이아웃/active script 및 외부 자동 리소스는 지원하지 않는다. EPUB2/3 자체 fixture의 정상 이미지/CSS/TOC·검색·CSP enforcement/위장 markup 거부는 실제 WebView에서 검증했다. 개인 도서/URI는 CI 자료로 사용하지 않는다.
 
 추가 corpus, malformed archive 위치/리소스 UI, 독립 SAFE review, 실제 TalkBack·성능과 지원 OS 전체 회귀는 후속 gate다. M08 전체/출시 승인 판정은 아니다.
+
+## 후속 exact restore 검증
+
+강화한 964f8cc 실제 문단 viewport 검증에서 글자 크기 변경 후 위치 이탈을 발견했다.
+a5a7a31은 SDK precise text/first-visible-element locator를 보존하지만 후속 native는
+progression 근접 assertion 1 FAIL(53 중 52 PASS)이다. 제품 exact restore 완료를 주장하지 않는다.
+9dfb884는 출판사 스타일 기본 유지/명시적 opt-out과 취소 가능한 seek를 보완했고 최신 native 결과는 확인 중이다.
+자세한 실패 수치·재개 절차는 [전달서](SESSION_HANDOFF.md)를 따른다.

@@ -1,5 +1,12 @@
 # ADR-0005 — EPUB 안정 Navigator 및 콘텐츠 경계
 
+## 2026-10-17 제품 통합 후속
+
+Readium 3.1.2 feasibility는 실제 native probe로 통과했다. 제품은 implementation과 Fragment Compose 1.8.7 wrapper를 사용한다. 아래 debug-only 문구는 초기 probe 이력이다. aggregate markup/보호 출력 32MiB와 spine 2,048개·반복 resource 입력 합계를 제한하여 SDK eager positions의 작업량을 제한한다. 기본 publisherStyles=true를 유지하고 사용자 설정에서 명시적으로 끌 수 있다.
+
+page callback의 progression-only Locator는 글자 크기 변경 후 같은 문단을 보장하지 못했다(964f8cc 실제 FAIL). 공개 firstVisibleElementLocator()와 사용자가 선택한 search text/fragment를 보존하고, 실제 viewport 문단 검증으로 후속 판정한다. 해당 메서드는 3.1.2의 ExperimentalReadiumApi opt-in이 필요하지만 새 alpha renderer를 채택한 것은 아니다. 큰 HTML block은 exact CSS selector를 보존하고 과도한 highlight text를 기록에 넣지 않는다. 기존 raw progress는 복원 실패 시 유지한다.
+
+
 상태: 검증 중, 2026-10-17. M01 probe이며 EPUB 제품 지원 또는 출시 승인 기록이 아니다.
 
 ## 버전 결정
