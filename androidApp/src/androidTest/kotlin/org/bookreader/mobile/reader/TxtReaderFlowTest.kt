@@ -903,6 +903,7 @@ class TxtReaderFlowTest {
         waitFor("reader_ready")
         val active = reader()
         val book = active.book
+        val initialFontSize = active.state.value.settings.fontSizeSp
         repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
         compose.waitForIdle()
         val anchor = measuredVisibleLine(active)
@@ -920,6 +921,7 @@ class TxtReaderFlowTest {
         }
         settings { compose.onNodeWithTag("reader_mode_PAGES").performClick() }
         compose.onNodeWithTag("reader_page").assertIsDisplayed()
+        ReaderFixtureScreenshot.capture("txt-reader-generated-pages.png")
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(before, saved(book))
         val pageStarts = mutableListOf(anchor)
@@ -943,6 +945,7 @@ class TxtReaderFlowTest {
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == anchor } == true }
         val returned = requireNotNull(saved(book))
         settings { compose.onNodeWithTag("font_size_increase").performClick() }
+        ReaderFixtureScreenshot.capture("txt-reader-generated-page-reflow.png")
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(returned, saved(book))
         settings { compose.onNodeWithTag("reader_mode_SCROLL").performClick() }
@@ -952,7 +955,7 @@ class TxtReaderFlowTest {
         waitFor("library_content")
         compose.onNodeWithTag("read_${book.id}").performClick()
         waitFor("reader_ready")
-        assertEquals(19f, reader().state.value.settings.fontSizeSp)
+        assertEquals((initialFontSize + 1).coerceAtMost(36f), reader().state.value.settings.fontSizeSp)
         assertEquals(org.bookreader.mobile.settings.TxtReadingMode.SCROLL, reader().state.value.settings.readingMode)
         assertAnchorInFirstMeasuredLine(reader(), anchor)
         assertEquals(returned, saved(book))

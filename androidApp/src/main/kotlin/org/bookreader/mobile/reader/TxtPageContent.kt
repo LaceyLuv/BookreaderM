@@ -25,6 +25,7 @@ private data class TxtPageLayoutKey(
     val revision: String, val engine: String = "compose-1.9.3-page-1",
     val style: TextStyle, val resolvedFont: Any, val density: Float, val fontScale: Float,
     val viewport: IntSize, val margin: Int, val insets: List<Int>, val locale: String,
+    val direction: androidx.compose.ui.unit.LayoutDirection,
 )
 private data class LoadedPage(val engine: TxtPageEngine, val generation: Int, val page: TxtMeasuredPage)
 
@@ -43,7 +44,7 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
         resolvedFont = font, density = density.density, fontScale = density.fontScale, viewport = size,
         margin = state.settings.marginDp, insets = listOf(insets.getLeft(density, direction),
             insets.getTop(density), insets.getRight(density, direction), insets.getBottom(density)),
-        locale = configuration.locales.toLanguageTags())
+        locale = configuration.locales.toLanguageTags(), direction = direction)
     val engine = remember(key, state.cache.complete) {
         if (size.width > 0 && size.height > 0 && state.cache.complete)
             TxtPageEngine(state.cache.committedLength, size.height, controller::range) { text ->

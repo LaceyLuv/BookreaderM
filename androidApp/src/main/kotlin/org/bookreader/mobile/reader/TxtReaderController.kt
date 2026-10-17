@@ -253,7 +253,11 @@ class TxtReaderController(
             setOf(TxtReaderPhase.RESTORING, TxtReaderPhase.REFLOWING)) return
         displayedGeneration = generation
         // Early prefix display is allowed; integrity/strict decoding must finish before durable writes.
-        if (!before.cache.complete || restoringJob?.isActive == true) return
+        if (!before.cache.complete) return
+        // Reflow already has an activated session. Its callback must not be lost
+        // while the preceding activation coroutine is finishing after publishing READY.
+        if (session != null) { finishRestoration(generation); return }
+        if (restoringJob?.isActive == true) return
         // Claim activation before its body can run or another completion callback can enter.
         // Lazy start also prevents an immediate/reentrant callback from observing a missing job.
         restoringJob = scope.launch(start = CoroutineStart.LAZY) {
@@ -279,17 +283,22 @@ class TxtReaderController(
                     while (true) { delay(1_000); persistStable() }
                 }
             }
-            if (!closing && mutableState.value.restoreGeneration == generation &&
-                mutableState.value.phase in setOf(TxtReaderPhase.RESTORING, TxtReaderPhase.REFLOWING)) {
-                mutableState.update { it.copy(phase = TxtReaderPhase.READY) }
-                if (navigationGeneration == generation) {
-                    navigationGeneration = null
-                    visibleAnchor(mutableState.value.targetOffset, true)
-                    scope.launch { persistStable() }
-                }
-            }
+            finishRestoration(generation)
         }
         restoringJob?.start()
+    }
+
+    @Synchronized
+    private fun finishRestoration(generation: Int) {
+        val current = mutableState.value
+        if (closing || current.restoreGeneration != generation || current.phase !in
+            setOf(TxtReaderPhase.RESTORING, TxtReaderPhase.REFLOWING)) return
+        val navigated = navigationGeneration == generation
+        if (navigated) navigationGeneration = null
+        // Publish READY and the newly measured navigation anchor as one state change.
+        mutableState.update { it.copy(phase = TxtReaderPhase.READY,
+            stableOffset = if (navigated) it.targetOffset else it.stableOffset) }
+        if (navigated) scope.launch { persistStable() }
     }
 
     fun beginReflow() {
