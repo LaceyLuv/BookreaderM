@@ -78,15 +78,16 @@
 
 | run ID | 소스 / 범위 | 마지막 확인 |
 |---|---|---|
-| **39017137521** | 9dfb884 build | IN_PROGRESS |
+| **39017137521** | 9dfb884 build | workflow SUCCESS, artifact 미회수/미검증 |
 | **39017137527** | 9dfb884 API26/34/36 device | IN_PROGRESS |
-| **39016647039** | c1ab039 API26/34/36 device | 전체 IN_PROGRESS; API36 job 117350023250 FAIL, API26 117350023245/34 117350023052 실행 중 |
+| **39016647039** | c1ab039 API26/34/36 device | 전체 FAIL; API26 job 117350023245 SUCCESS, API34 117350023052/API36 117350023250 FAIL; artifact 미회수 |
 | 39016613335 | a5a7a31 build | PASS, artifact 미회수 |
 | 39016613293 | a5a7a31 device | FAIL, 위 원본 회수/검증 완료 |
 | 39016454188 | 3a629a4 build | PASS, artifact 미회수 |
 | 39016454202 | 3a629a4 device | FAIL, artifact 미회수/실패 원인 미확인 |
 
-원격 작업은 취소하거나 성공으로 간주하지 않았다. 최신 결과를 먼저 조회하고 모든 실패를 보존한다.
+마지막 [CI 상태 스냅샷](evidence/session-handoff-2026-10-17/ci-status.json)을 보존했다. 새로 완료된 job의 SUCCESS는 metadata이며 아직 artifact/host proof를 직접 검증하지 않았다.
+원격 작업은 취소하지 않았다. 최신 결과를 먼저 조회하고 모든 실패를 보존한다.
 matrix artifact 이름은 **mobile-device-evidence-api-26/34/36**이며 이전에는 mobile-device-evidence 하나였다.
 전체 workflow FAIL이어도 각 API job을 따로 판정한다. ZIP digest, source.log, source별 required-tests.json,
 XML case identity/count/failure/error/skip, 실제 host PID 종료/새 PID를 확인한다.

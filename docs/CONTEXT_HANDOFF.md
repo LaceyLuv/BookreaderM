@@ -7,7 +7,7 @@
 - main 제품 기준은 EPUB 22526d3이며, 후속 Comic·precise EPUB·공통 seek·그리드 코드는 `codex/comic-product`의 9dfb884 및 문서 merge에 있다. 전체 native 검증 전 main 제품 통합은 하지 않았다.
 - 최신 local full CI는 Android 66/shared 74/EPUB 16, APK/test APK/lint/schema 5 PASS다. 원본은 `docs/evidence/m10-local-validation/source-9dfb884/`.
 - a5a7a31 device 39016613293은 53 중 52 PASS/1 FAIL(EPUB progression expected .9264910536779324 vs actual .9565038378966562, tolerance .03). 실제 문단과 precise locator 관계 확인이 필요하다. host 6단계 NOT_RUN.
-- 9dfb884 build 39017137521 및 API26/34/36 device 39017137527은 마지막 조회에서 실행 중이다. 다음 세션은 이 결과 확인부터 시작한다. 원격 작업은 취소하지 않았다.
+- 9dfb884 build 39017137521은 workflow SUCCESS(artifact 미회수), API26/34/36 device 39017137527은 실행 중이다. 이전 c1ab039 matrix는 전체 FAIL(API26 job SUCCESS, API34/36 FAIL; artifact 미회수)이다. 다음 세션은 이 결과 확인부터 시작한다. 원격 작업은 취소하지 않았다.
 - unsigned release c1ab039 APK/AAB와 정적 감사 PASS를 별도 hash로 보존했다. 최종 소스 release 실행·물리 성능/16KB/TalkBack·독립 리뷰·출시 승인은 미완료다.
 
 아래 절은 이전 시점 이력이다. 최신 전달서의 범위/실패/브랜치 정보를 우선한다.
