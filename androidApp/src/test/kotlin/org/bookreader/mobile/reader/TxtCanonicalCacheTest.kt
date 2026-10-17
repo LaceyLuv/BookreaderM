@@ -23,6 +23,48 @@ class TxtCanonicalCacheTest {
         assertThrows(IllegalArgumentException::class.java) { cache.anchorAtOrBefore(7) }
     }
 
+    @Test fun fiftyMiBTxtBuildSearchAndArbitraryAnchorsStayBounded() = kotlinx.coroutines.runBlocking {
+        val original = temporary.newFile("large-generated.txt")
+        val size = 50L * 1024 * 1024
+        val needle = "END-OF-GENERATED-TXT"
+        original.outputStream().buffered().use { output ->
+            val block = ByteArray(16 * 1024) { 'x'.code.toByte() }
+            var remaining = size - needle.length
+            while (remaining > 0) {
+                val count = minOf(remaining, block.size.toLong()).toInt()
+                output.write(block, 0, count); remaining -= count
+            }
+            output.write(needle.toByteArray())
+        }
+        val metadata = book(original)
+        val cache = TxtCanonicalCache(metadata, temporary.newFolder("large-generated-cache"))
+        var prefixSeen = false
+        val buildStart = System.nanoTime()
+        cache.openOrBuild(original, {}) { snapshot ->
+            if (!snapshot.complete && snapshot.committedLength > 0) prefixSeen = true
+        }
+        val buildMs = (System.nanoTime() - buildStart) / 1_000_000
+        assertTrue(prefixSeen)
+        assertEquals(size, cache.snapshot().committedLength)
+        assertTrue(cache.snapshot().fragments.all { it.length <= TxtCanonicalCache.MAX_FRAGMENT })
+        var maxRead = 0
+        var reads = 0
+        val searchStart = System.nanoTime()
+        val result = org.bookreader.mobile.search.TxtLiteralSearch.find(needle, false, size) { offset, count ->
+            maxRead = maxOf(maxRead, count); reads++
+            cache.readRange(offset, count)
+        }
+        val searchMs = (System.nanoTime() - searchStart) / 1_000_000
+        assertEquals(listOf(size - needle.length), result.offsets)
+        assertEquals(size, result.scannedUntil)
+        assertNull(result.nextOffset)
+        assertTrue(maxRead <= org.bookreader.mobile.search.TxtLiteralSearch.WINDOW)
+        for (offset in listOf(0L, size / 2, size - needle.length, size))
+            assertEquals(offset, cache.anchorAtOrBefore(offset))
+        assertEquals(metadata.sourceSha256, digest(original))
+        println("LARGE_TXT {\"source_bytes\":$size,\"canonical_utf16\":$size,\"build_ms\":$buildMs,\"search_ms\":$searchMs,\"read_windows\":$reads,\"max_window_utf16\":$maxRead,\"status\":\"PASS\",\"physical_performance\":\"NOT_RUN\"}")
+    }
+
     @Test fun canonicalFragmentsCoverCrLfAndSurrogatesWithoutGaps() {
         val original = temporary.newFile("canonical.txt")
         val source = "\uFEFF" + "x".repeat(16_383) + "\r\n😀\r끝\uFEFF  \n\n"
