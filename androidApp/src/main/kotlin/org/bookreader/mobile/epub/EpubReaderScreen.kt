@@ -106,11 +106,13 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     if (toc) {
         val links = remember(controller) { flattenToc(controller.publication?.tableOfContents.orEmpty()) }
         AlertDialog(onDismissRequest = { toc = false }, title = { Text("목차") }, text = {
-            LazyColumn(Modifier.heightIn(max = 400.dp)) { items(links) { (link, depth) ->
+            LazyColumn(Modifier.heightIn(max = 400.dp)) { items(links.first) { (link, depth) ->
                 TextButton(onClick = { controller.publication?.locatorFromLink(link)?.let { controller.navigate(it) }; toc = false }, modifier = Modifier.padding(start = (depth * 8).dp).testTag("epub_toc_item")) {
                     Text(link.title ?: "이름 없는 장", maxLines = 2, overflow = TextOverflow.Ellipsis)
                 }
-            } }
+            }
+                if (links.second) item { Text("목차 표시 한도에 도달했습니다. 일부 항목은 본문 이동으로 확인할 수 있습니다.") }
+            }
         }, confirmButton = { TextButton(onClick = { toc = false }) { Text("닫기") } })
     }
     if (bookmarks) AlertDialog(onDismissRequest = { bookmarks = false }, title = { Text("북마크") }, text = {
@@ -135,13 +137,15 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
         }) { Text("브라우저로 열기") } }, dismissButton = { TextButton(onClick = controller::dismissExternal) { Text("취소") } }) }
 }
 
-private fun flattenToc(links: List<Link>): List<Pair<Link, Int>> {
+private fun flattenToc(links: List<Link>): Pair<List<Pair<Link, Int>>, Boolean> {
     val pending = ArrayDeque<Pair<Link, Int>>()
     links.asReversed().forEach { pending.addLast(it to 0) }
     val result = mutableListOf<Pair<Link, Int>>()
+    var truncated = false
     while (pending.isNotEmpty() && result.size < 1000) {
         val entry = pending.removeLast(); result += entry
         if (entry.second < 32) entry.first.children.asReversed().forEach { pending.addLast(it to entry.second + 1) }
+        else if (entry.first.children.isNotEmpty()) truncated = true
     }
-    return result
+    return result to (truncated || pending.isNotEmpty())
 }

@@ -45,8 +45,11 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     val progress = ArchiveProgressController(book, access, scope)
     private val mutableState = MutableStateFlow(EpubReaderUi())
     val state = mutableState.asStateFlow()
-    var publication: Publication? = null
-        private set
+    private val ownedPublication = java.util.concurrent.atomic.AtomicReference<Publication?>(null)
+    var publication: Publication?
+        get() = ownedPublication.get()
+        private set(value) { ownedPublication.set(value) }
+    init { lifetime.invokeOnCompletion { ownedPublication.getAndSet(null)?.close() } }
     private var settingsLoaded: LoadedReaderSettings? = null
     private var host: EpubNavigatorFragment? = null
     private var detachHost: (() -> Unit)? = null
@@ -74,7 +77,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
             mutableState.update { it.copy(opened = true) }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { fail("EPUB 또는 저장된 위치를 열지 못했습니다. 기존 기록은 보존됩니다.") }
-        finally { if (!state.value.opened) { publication?.close(); publication = null } }
+        finally { if (!state.value.opened) { ownedPublication.getAndSet(null)?.close() } }
     }
 
     val loadedSettings: LoadedReaderSettings? get() = settingsLoaded
@@ -239,6 +242,6 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         openJob.cancel(); searchJob?.cancel(); settingsJob?.cancel()
         detachHost?.invoke(); detachHost = null; host = null
         try { openJob.join(); searchJob?.join(); settingsJob?.join(); progress.close() }
-        finally { publication?.close(); publication = null; lifetime.cancel() }
+        finally { ownedPublication.getAndSet(null)?.close(); lifetime.cancel() }
     }
 }
