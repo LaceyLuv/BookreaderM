@@ -14,7 +14,8 @@ data class LoadedReaderSettings(
     val book: BookReaderPreferences,
     val rows: ReaderSettingsRows,
 ) {
-    val effective: ReaderSettings get() = global.copy(readingMode = book.readingMode ?: global.readingMode)
+    val effective: ReaderSettings get() = global.copy(readingMode = book.readingMode ?: global.readingMode,
+        comicDirection = book.comicDirection ?: global.comicDirection, comicFit = book.comicFit ?: global.comicFit)
 }
 
 sealed interface ReaderSettingsRead {
@@ -37,7 +38,7 @@ class ReaderSettingsRepository(private val database: BookReaderDatabase) {
     suspend fun save(expected: LoadedReaderSettings, global: ReaderSettings, book: BookReaderPreferences): ReaderSettingsWrite = try {
         val updated = database.readerSettingsDao().save(expected.bookId, expected.rows,
             ReaderGlobalSettingsEntity(schemaVersion = ReaderSettingsCodec.VERSION, settingsJson = ReaderSettingsCodec.write(global)),
-            if (book.readingMode == null) null else BookReaderPreferencesEntity(expected.bookId,
+            if (book == BookReaderPreferences()) null else BookReaderPreferencesEntity(expected.bookId,
                 ReaderSettingsCodec.VERSION, ReaderSettingsCodec.write(book)))
         if (updated) ReaderSettingsWrite.SAVED else ReaderSettingsWrite.CONFLICT
     } catch (cancelled: CancellationException) { throw cancelled }

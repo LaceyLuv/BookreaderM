@@ -34,6 +34,7 @@ class MainActivity : FragmentActivity() {
                     management = AndroidBookManagement(applicationContext),
                     readerFactory = androidReaderFactory(applicationContext),
                     epubFactory = org.bookreader.mobile.ui.androidEpubReaderFactory(applicationContext),
+                    comicFactory = org.bookreader.mobile.ui.androidComicReaderFactory(applicationContext),
                 ) as T
             }
         }

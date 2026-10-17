@@ -4,6 +4,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 @Serializable enum class TxtReadingMode { SCROLL, PAGES }
+@Serializable enum class ComicDirection { LTR, RTL }
+@Serializable enum class ComicFit { WIDTH, HEIGHT, CONTAIN }
 @Serializable enum class ReaderFont { SANS, SERIF }
 @Serializable enum class ReaderTheme { LIGHT, SEPIA, DARK, OLED }
 
@@ -27,17 +29,22 @@ data class ReaderSettings(
     val marginDp: Int = 16,
     val theme: ReaderTheme = ReaderTheme.LIGHT,
     val window: ReaderWindowOptions = ReaderWindowOptions(),
+    val comicDirection: ComicDirection = ComicDirection.LTR,
+    val comicFit: ComicFit = ComicFit.CONTAIN,
+    val comicGapDp: Int = 8,
 ) {
     init {
         require(fontSizeSp.isFinite() && fontSizeSp in 12f..36f)
         require(lineHeight.isFinite() && lineHeight in 1f..2f)
         require(letterSpacingEm.isFinite() && letterSpacingEm in -0.02f..0.10f)
         require(marginDp in 8..40)
+        require(comicGapDp in 0..32)
     }
 }
 
 @Serializable
-data class BookReaderPreferences(val readingMode: TxtReadingMode? = null)
+data class BookReaderPreferences(val readingMode: TxtReadingMode? = null,
+    val comicDirection: ComicDirection? = null, val comicFit: ComicFit? = null)
 
 /** Unknown versions/fields and invalid values stay errors; decoding never rewrites stored bytes. */
 object ReaderSettingsCodec {

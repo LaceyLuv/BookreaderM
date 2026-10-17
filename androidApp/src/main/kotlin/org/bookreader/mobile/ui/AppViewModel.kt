@@ -53,6 +53,7 @@ data class AppUiState(
     val deletingBook: Book? = null,
     val reader: TxtReaderController? = null,
     val epubReader: org.bookreader.mobile.epub.EpubReaderController? = null,
+    val comicReader: org.bookreader.mobile.comic.ComicReaderController? = null,
     val notice: String? = null,
     val continuePercent: Double? = null,
     val encodingChange: BookEncodingUi? = null,
@@ -64,6 +65,7 @@ class AppViewModel(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val management: BookManagement? = null,
     private val readerFactory: ((Book, CoroutineScope) -> TxtReaderController)? = null,
+    private val comicFactory: ((Book, CoroutineScope) -> org.bookreader.mobile.comic.ComicReaderController)? = null,
     private val epubFactory: ((Book, CoroutineScope) -> org.bookreader.mobile.epub.EpubReaderController)? = null,
 ) : ViewModel() {
     private val mutableState = MutableStateFlow(AppUiState())
@@ -316,7 +318,7 @@ class AppViewModel(
                     management?.delete(book.id) {
                         // The coordinator has durably marked DELETING and invalidated the epoch.
                         withContext(Dispatchers.Main.immediate) {
-                            if (state.value.reader?.book?.id == book.id || state.value.epubReader?.book?.id == book.id) closeReader()
+                            if (state.value.reader?.book?.id == book.id || state.value.epubReader?.book?.id == book.id || state.value.comicReader?.book?.id == book.id) closeReader()
                         }
                     }
                 }
@@ -331,11 +333,9 @@ class AppViewModel(
     private val readerMutex = Mutex()
     private var readerObserver: Job? = null
     fun openBook(book: Book) {
-        if (book.format == org.bookreader.mobile.model.BookFormat.COMIC) {
-            mutableState.update { it.copy(notice = "이 버전에서는 Comic 독서 화면을 지원하지 않습니다.") }; return
-        }
         if (book.format == org.bookreader.mobile.model.BookFormat.TXT && readerFactory == null ||
-            book.format == org.bookreader.mobile.model.BookFormat.EPUB && epubFactory == null) return
+            book.format == org.bookreader.mobile.model.BookFormat.EPUB && epubFactory == null ||
+            book.format == org.bookreader.mobile.model.BookFormat.COMIC && comicFactory == null) return
         if (book.availability != BookAvailability.READY || book.id in pendingDeletions || book.id in pendingInterpretations) return
         viewModelScope.launch {
             try {
@@ -344,8 +344,13 @@ class AppViewModel(
                 if (book.id in pendingDeletions || book.id in pendingInterpretations) return@withLock
                 readerObserver?.cancel()
                 state.value.reader?.close()
-                state.value.epubReader?.close()
-                mutableState.update { it.copy(reader = null, epubReader = null) }
+                state.value.epubReader?.close(); state.value.comicReader?.close()
+                mutableState.update { it.copy(reader = null, epubReader = null, comicReader = null) }
+                if (book.format == org.bookreader.mobile.model.BookFormat.COMIC) {
+                    val comic = requireNotNull(comicFactory)(book, viewModelScope)
+                    mutableState.update { it.copy(comicReader = comic, selectedBook = null) }
+                    return@withLock
+                }
                 if (book.format == org.bookreader.mobile.model.BookFormat.EPUB) {
                     val epub = requireNotNull(epubFactory)(book, viewModelScope)
                     mutableState.update { it.copy(epubReader = epub, selectedBook = null) }
@@ -368,7 +373,7 @@ class AppViewModel(
             }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
-                mutableState.update { it.copy(reader = null, epubReader = null, importing = ImportUiState.Error("책을 열지 못했습니다. 원본과 마지막 저장된 독서 기록은 유지됩니다.")) }
+                mutableState.update { it.copy(reader = null, epubReader = null, comicReader = null, importing = ImportUiState.Error("책을 열지 못했습니다. 원본과 마지막 저장된 독서 기록은 유지됩니다.")) }
                 refreshLibrary()
             }
         }
@@ -377,10 +382,10 @@ class AppViewModel(
     private suspend fun closeReader() {
         readerMutex.withLock {
             readerObserver?.cancel()
-            try { state.value.reader?.close(); state.value.epubReader?.close() }
+            try { state.value.reader?.close(); state.value.epubReader?.close(); state.value.comicReader?.close() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutableState.update { it.copy(notice = "독서를 종료하는 동안 오류가 발생했습니다. 마지막 저장된 독서 기록은 유지됩니다.") } }
-            finally { mutableState.update { it.copy(reader = null, epubReader = null) } }
+            finally { mutableState.update { it.copy(reader = null, epubReader = null, comicReader = null) } }
         }
         refreshLibrary()
     }

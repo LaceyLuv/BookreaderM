@@ -58,6 +58,24 @@ class ReaderSettingsRepositoryTest {
         assertEquals(saved.rows.global, db.readerSettingsDao().global())
     }
 
+    @Test fun comicOnlyOverridesRoundTripWithoutErasingInheritedReadingModeOrProgress() = fixture { db ->
+        val repository = ReaderSettingsRepository(db)
+        val before = assertIs<ReaderSettingsRead.Ready>(repository.load("a")).value
+        val progress = db.progressDao().findProgress("a", "revision")
+        val override = BookReaderPreferences(comicDirection = ComicDirection.RTL, comicFit = ComicFit.WIDTH)
+        assertEquals(ReaderSettingsWrite.SAVED, repository.save(before, ReaderSettings(), override))
+        val read = assertIs<ReaderSettingsRead.Ready>(repository.load("a")).value
+        assertEquals(override, read.book)
+        assertEquals(TxtReadingMode.SCROLL, read.effective.readingMode)
+        assertEquals(ComicDirection.RTL, read.effective.comicDirection)
+        assertEquals(ComicFit.WIDTH, read.effective.comicFit)
+        assertNotNull(db.readerSettingsDao().book("a"))
+        assertEquals(progress, db.progressDao().findProgress("a", "revision"))
+        assertEquals(ReaderSettingsWrite.SAVED, repository.save(read, ReaderSettings(), BookReaderPreferences()))
+        assertNull(db.readerSettingsDao().book("a"))
+        assertEquals(ReaderSettings(), ReaderSettingsCodec.readGlobal(1, "{}"))
+    }
+
     private fun fixture(block: suspend (BookReaderDatabase) -> Unit) = runBlocking {
         val folder = Files.createTempDirectory("reader-settings-")
         val db = createJvmDatabase(folder.resolve("reader.db"))

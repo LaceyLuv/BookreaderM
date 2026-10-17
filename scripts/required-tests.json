@@ -541,6 +541,10 @@
     [
       "org.bookreader.mobile.database.MigrationTest",
       "exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt"
+    ],
+    [
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "comicOnlyOverridesRoundTripWithoutErasingInheritedReadingModeOrProgress"
     ]
   ],
   "android-device": [
@@ -747,6 +751,10 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "sliderSeeksRestoreUncomposedDistantScrollFragmentsInBothDirections"
+    ],
+    [
+      "org.bookreader.mobile.comic.ComicReaderFlowTest",
+      "managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity"
     ]
   ],
   "android-host": [

@@ -20,7 +20,7 @@ public final class TestSenderActivity extends Activity {
         if (action == null) action = Intent.ACTION_VIEW;
         Intent incoming = new Intent(action);
         incoming.setComponent(new ComponentName("org.bookreader.mobile", "org.bookreader.mobile.MainActivity"));
-        String mime = fixture.startsWith("epub-") ? "application/epub+zip" : "text/plain";
+        String mime = fixture.startsWith("epub-") ? "application/epub+zip" : fixture.startsWith("comic-") ? "application/zip" : "text/plain";
         if (Intent.ACTION_SEND.equals(action)) {
             incoming.setType(mime);
             incoming.putExtra(Intent.EXTRA_STREAM, uri);

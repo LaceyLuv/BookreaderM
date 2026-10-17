@@ -66,6 +66,18 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
             }
         }
     }
+    state.comicReader?.let { reader ->
+        MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
+            Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
+                Column(Modifier.fillMaxSize().safeDrawingPadding()) {
+                    if (state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
+                        model::dismissImport, model::cancelImport, model::selectImportEncoding, model::openBook)
+                    androidx.compose.runtime.key(reader) { org.bookreader.mobile.comic.ComicReaderScreen(reader, model::leaveReader) { model.openBook(reader.book) } }
+                }
+            }
+        }
+        return
+    }
     state.epubReader?.let { reader ->
         MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {

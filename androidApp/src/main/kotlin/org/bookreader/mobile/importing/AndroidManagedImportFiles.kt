@@ -60,7 +60,11 @@ class AndroidManagedImportFiles(private val context: Context) : ManagedImportFil
         catch (_: SecurityException) { currentCoroutineContext().ensureActive(); throw ImportFailure(ImportErrorCode.PERMISSION_DENIED) }
         catch (_: Exception) { throw ImportFailure(ImportErrorCode.SOURCE_UNAVAILABLE) }
         return ImportRequest(document.uri.toString(), name, size, encodingId,
-            format = if (name.endsWith(".epub", ignoreCase = true)) org.bookreader.mobile.model.BookFormat.EPUB else org.bookreader.mobile.model.BookFormat.TXT)
+            format = when (name.substringAfterLast('.', "").lowercase(java.util.Locale.ROOT)) {
+                "epub" -> org.bookreader.mobile.model.BookFormat.EPUB
+                "zip", "cbz" -> org.bookreader.mobile.model.BookFormat.COMIC
+                else -> org.bookreader.mobile.model.BookFormat.TXT
+            })
     }
 
     private fun requireAccess(uri: Uri) {
@@ -155,6 +159,14 @@ class AndroidManagedImportFiles(private val context: Context) : ManagedImportFil
         }
 
     override suspend fun validateArchive(relativePath: String, fingerprint: FileFingerprint, format: org.bookreader.mobile.model.BookFormat) {
+        if (format == org.bookreader.mobile.model.BookFormat.COMIC) {
+            try {
+                val context = currentCoroutineContext()
+                org.bookreader.mobile.comic.ComicManifest.inspect(owned(relativePath), fingerprint.sha256, context::ensureActive)
+                return
+            } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+            catch (_: Exception) { throw ImportFailure(ImportErrorCode.UNSUPPORTED_FORMAT) }
+        }
         if (format != org.bookreader.mobile.model.BookFormat.EPUB) throw ImportFailure(ImportErrorCode.UNSUPPORTED_FORMAT)
         try {
             val publication = org.bookreader.mobile.epub.SafeEpub.open(owned(relativePath))

@@ -71,10 +71,10 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 switch (columns[index]) {
                     case DocumentsContract.Document.COLUMN_DOCUMENT_ID: values[index] = id; break;
                     case DocumentsContract.Document.COLUMN_DISPLAY_NAME:
-                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.startsWith("epub-") ? ".epub" : ".txt");
+                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.startsWith("epub-") ? ".epub" : id.startsWith("comic-") ? ".cbz" : ".txt");
                         break;
                     case DocumentsContract.Document.COLUMN_MIME_TYPE:
-                        values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : id.startsWith("epub-") ? "application/epub+zip" : "text/plain";
+                        values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : id.startsWith("epub-") ? "application/epub+zip" : id.startsWith("comic-") ? "application/zip" : "text/plain";
                         break;
                     case DocumentsContract.Document.COLUMN_SIZE:
                         if ("unknown".equals(id) || "stalled".equals(id)) values[index] = null;
@@ -126,16 +126,17 @@ public final class TestDocumentsProvider extends DocumentsProvider {
     }
 
     private byte[] bytes(String id) {
-        if (id.startsWith("epub-")) {
+        if (id.startsWith("epub-") || id.equals("comic-product")) {
             String name;
             switch (id) {
+                case "comic-product": name = "comic-product"; break;
                 case "epub-product": name = "epub3"; break;
                 case "epub-unsafe": name = "active-script"; break;
                 case "epub-disguised": name = "disguised-markup"; break;
                 default: throw new IllegalArgumentException("Unknown EPUB fixture");
             }
             try (java.io.InputStream input = getContext().createPackageContext("org.bookreader.mobile", 0)
-                    .getAssets().open("epub-fixtures/" + name + ".epub");
+                    .getAssets().open(name.equals("comic-product") ? "comic-fixtures/product.cbz" : "epub-fixtures/" + name + ".epub");
                  java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream()) {
                 byte[] buffer = new byte[4096]; int count;
                 while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);

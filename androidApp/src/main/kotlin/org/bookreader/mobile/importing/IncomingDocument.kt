@@ -18,7 +18,7 @@ object DocumentIntents {
     fun pickerIntent(): Intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
         type = "*/*"
-        putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/plain", "application/epub+zip", "application/octet-stream"))
+        putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/plain", "application/epub+zip", "application/zip", "application/vnd.comicbook+zip", "application/x-cbz", "application/octet-stream"))
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
 
