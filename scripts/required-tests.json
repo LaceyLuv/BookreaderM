@@ -191,6 +191,10 @@
     [
       "org.bookreader.mobile.reader.TxtReaderControllerTest",
       "restorationCallbackDuringPendingActivationStartsOnlyOneSession"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderControllerTest",
+      "closeCancelsPendingActivationBeforeWaitingForProgressFlush"
     ]
   ],
   "shared-jvm": [
@@ -523,6 +527,22 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "malformedLocatorShowsRetryWithoutReplacingStoredRecord"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "alternatingBooksWaitForPendingNativeWritesAndKeepBackwardProgress"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "repeatedCloseDuringRestorationCancelsBeforeSameBookCanActivate"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "actualRotationAndStopPreservePendingAnchorWithoutAnotherActivation"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "deletingDuringRealDecodeCancelsPartialIndexAndQueuedReopen"
     ]
   ],
   "android-host": [

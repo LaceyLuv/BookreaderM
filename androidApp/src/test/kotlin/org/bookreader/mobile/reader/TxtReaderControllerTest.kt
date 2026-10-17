@@ -12,6 +12,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -63,6 +65,39 @@ class TxtReaderControllerTest {
         } finally {
             allowActivation.complete(Unit)
             active.close()
+            owner.cancel()
+        }
+    }
+
+    @Test fun closeCancelsPendingActivationBeforeWaitingForProgressFlush() = runBlocking {
+        val owner = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        val memory = MemoryProgress()
+        val entered = CompletableDeferred<Unit>()
+        val release = CompletableDeferred<Unit>()
+        val databaseMutex = Mutex()
+        val access = object : ReaderProgressAccess by memory {
+            override suspend fun startReadySession(bookId: String, revision: String,
+                restoredLocator: ContentLocator?): ReadySessionResult = databaseMutex.withLock {
+                entered.complete(Unit)
+                // Model AndroidReaderProgressAccess holding its mutex while waiting for Room.
+                release.await()
+                memory.startReadySession(bookId, revision, restoredLocator)
+            }
+            override suspend fun flush() { databaseMutex.withLock { } }
+        }
+        val active = controller(fixture(), access, owner)
+        try {
+            active.restored(await(active, TxtReaderPhase.RESTORING).restoreGeneration)
+            withTimeout(5_000) { entered.await() }
+            // Close must cancel the pending activation, not require external DB contention to end.
+            withTimeout(3_000) { active.close() }
+            assertFalse(release.isCompleted)
+            assertEquals(0, memory.started)
+            assertTrue(memory.events.isEmpty())
+            release.complete(Unit)
+            assertNotEquals(TxtReaderPhase.READY, active.state.value.phase)
+        } finally {
+            release.complete(Unit)
             owner.cancel()
         }
     }

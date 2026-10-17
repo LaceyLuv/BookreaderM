@@ -2,6 +2,8 @@ package org.bookreader.mobile.reader
 
 import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.os.Build
 import android.os.SystemClock
 import android.view.InputDevice
@@ -14,9 +16,11 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Lifecycle
 import androidx.room.execSQL
 import androidx.room.useWriterConnection
 import androidx.sqlite.SQLiteException
@@ -25,6 +29,16 @@ import java.io.File
 import java.security.MessageDigest
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -560,6 +574,348 @@ class TxtReaderFlowTest {
                 report.put("status", if (passed && report.optBoolean("fixture_restored")) "PASS" else "FAIL")
                 reportFile.writeText(report.toString(2))
             }
+        }
+    }
+
+    @Test fun alternatingBooksWaitForPendingNativeWritesAndKeepBackwardProgress() {
+        val reportFile = File(target.filesDir, "reader-switch-report.json")
+        if (reportFile.exists()) assertTrue(reportFile.delete())
+        val fixtures = listOf("reader-switch-a", "reader-switch-b")
+        val selected = fixtures.map { fixture ->
+            sendFixture(fixture)
+            waitFor("reader_ready")
+            val book = reader().book
+            repeat(4) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+            compose.onNodeWithTag("reader_back").performClick()
+            waitFor("library_content")
+            book
+        }
+        val files = selected.map { File(File(target.filesDir, "managed"), it.managedRelativePath) }
+        val hashes = files.map(::digest)
+        val expected = selected.associate { it.id to requireNotNull(saved(it)) }.toMutableMap()
+        val events = JSONArray()
+        var passed = false
+        try {
+            repeat(6) { iteration ->
+                val book = selected[iteration % 2]
+                val other = selected[(iteration + 1) % 2]
+                val previous = requireNotNull(expected[book.id])
+                val otherBook = books().single { it.id == other.id }
+                compose.onNodeWithTag("read_${book.id}").performClick()
+                waitFor("reader_ready")
+                val active = reader()
+                assertEquals(book.id, active.book.id)
+                assertEquals(offset(previous), measuredVisibleLine(active))
+                assertEquals(previous, saved(book))
+                val epoch = books().single { it.id == book.id }.activeSessionEpoch
+                val backward = iteration >= 2 && iteration < 4
+                var pending = -1L
+                withHeldNativeWriter { release ->
+                    compose.onNodeWithTag("reader_text").performTouchInput {
+                        if (backward) swipeDown() else swipeUp()
+                    }
+                    compose.waitForIdle()
+                    pending = measuredVisibleLine(active)
+                    assertEquals(pending, active.state.value.stableOffset)
+                    if (backward) assertTrue(pending < offset(previous))
+                    else assertTrue(pending > offset(previous))
+                    // Real 250ms settled save reaches the occupied production Room writer.
+                    SystemClock.sleep(350)
+                    compose.onNodeWithTag("reader_back").performClick()
+                    compose.waitForIdle()
+                    // The library cannot expose another book before close's flush finishes.
+                    compose.onNodeWithTag("library_content").assertDoesNotExist()
+                    assertSame(active, reader())
+                    assertEquals(previous, saved(book))
+                    assertEquals(expected[other.id], saved(other))
+                    assertEquals(otherBook, books().single { it.id == other.id })
+                    release()
+                    waitFor("library_content")
+                }
+                val committed = requireNotNull(saved(book))
+                assertEquals(pending, offset(committed))
+                assertEquals(epoch, committed.writerSessionEpoch)
+                assertTrue(committed.writerSequence > 0)
+                assertEquals(expected[other.id], saved(other))
+                assertEquals(otherBook, books().single { it.id == other.id })
+                assertEquals(hashes, files.map(::digest))
+                expected[book.id] = committed
+                events.put(JSONObject().put("iteration", iteration).put("fixture_id", fixtures[iteration % 2])
+                    .put("previous_offset", offset(previous)).put("committed_offset", pending)
+                    .put("epoch", epoch).put("sequence", committed.writerSequence)
+                    .put("backward", backward).put("close_waited_for_writer", true))
+            }
+            // Reopen both actual screens after all delayed writes and compare measured positions.
+            for (book in selected) {
+                compose.onNodeWithTag("read_${book.id}").performClick()
+                waitFor("reader_ready")
+                assertEquals(offset(requireNotNull(expected[book.id])), measuredVisibleLine(reader()))
+                assertEquals(expected[book.id], saved(book))
+                compose.onNodeWithTag("reader_back").performClick()
+                waitFor("library_content")
+            }
+            passed = true
+        } finally {
+            reportFile.writeText(JSONObject().put("status", if (passed) "PASS" else "FAIL")
+                .put("build_fingerprint", Build.FINGERPRINT).put("api", Build.VERSION.SDK_INT)
+                .put("fixture_sha256", JSONArray(hashes)).put("events", events)
+                .put("mechanism", "Held production Room writer connection; actual UI scroll/back/open; no fake save result")
+                .toString(2))
+        }
+    }
+
+    @Test fun repeatedCloseDuringRestorationCancelsBeforeSameBookCanActivate() {
+        val reportFile = File(target.filesDir, "reader-reopen-report.json")
+        if (reportFile.exists()) assertTrue(reportFile.delete())
+        sendFixture("reader-reopen")
+        waitFor("reader_ready")
+        val book = reader().book
+        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        val committed = requireNotNull(saved(book))
+        val beforeBooks = books()
+        val beforeEpoch = beforeBooks.single { it.id == book.id }.activeSessionEpoch
+        val original = File(File(target.filesDir, "managed"), book.managedRelativePath)
+        val hash = digest(original)
+        val closed = mutableListOf<TxtReaderController>()
+        var passed = false
+        try {
+            withHeldNativeWriter {
+                repeat(5) {
+                    compose.onNodeWithTag("read_${book.id}").performClick()
+                    waitFor("txt_reader")
+                    val opening = reader()
+                    assertTrue(closed.none { it === opening })
+                    compose.waitUntil(10_000) {
+                        opening.state.value.let { it.phase == TxtReaderPhase.RESTORING && it.cache.complete }
+                    }
+                    compose.waitForIdle()
+                    compose.onNodeWithTag("reader_ready").assertDoesNotExist()
+                    compose.onNodeWithTag("reader_back").performClick()
+                    waitFor("library_content")
+                    closed += opening
+                    assertEquals(committed, saved(book))
+                    assertTrue("Cancelled openings must not change book metadata", beforeBooks == books())
+                    assertEquals(hash, digest(original))
+                }
+            }
+            // After releasing the real writer, cancelled activations must stay cancelled.
+            SystemClock.sleep(1_250)
+            assertEquals(committed, saved(book))
+            assertTrue("No delayed activation after release", beforeBooks == books())
+            assertTrue(closed.all { it.state.value.phase != TxtReaderPhase.READY })
+            compose.onNodeWithTag("read_${book.id}").performClick()
+            waitFor("reader_ready")
+            assertEquals(offset(committed), measuredVisibleLine(reader()))
+            assertEquals(committed, saved(book))
+            assertEquals(beforeEpoch + 1, books().single { it.id == book.id }.activeSessionEpoch)
+            compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+            compose.waitForIdle()
+            val moved = measuredVisibleLine(reader())
+            compose.waitUntil(10_000) { saved(book)?.let {
+                offset(it) == moved && it.writerSessionEpoch == beforeEpoch + 1
+            } == true }
+            assertTrue(moved > offset(committed))
+            assertEquals(hash, digest(original))
+            passed = true
+        } finally {
+            reportFile.writeText(JSONObject().put("status", if (passed) "PASS" else "FAIL")
+                .put("build_fingerprint", Build.FINGERPRINT).put("api", Build.VERSION.SDK_INT)
+                .put("fixture_sha256", hash).put("cancelled_openings", closed.size)
+                .put("original_offset", offset(committed)).put("original_epoch", beforeEpoch)
+                .put("mechanism", "Native writer held through five actual UI open/restore/close cycles; release then reopen and save")
+                .toString(2))
+        }
+    }
+
+    @Test fun actualRotationAndStopPreservePendingAnchorWithoutAnotherActivation() {
+        val reportFile = File(target.filesDir, "reader-reflow-stop-report.json")
+        if (reportFile.exists()) assertTrue(reportFile.delete())
+        sendFixture("reader-reflow-stop")
+        waitFor("reader_ready")
+        val active = reader()
+        val book = active.book
+        repeat(4) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        compose.waitForIdle()
+        val originalOffset = measuredVisibleLine(active)
+        compose.waitUntil(10_000) { saved(book)?.let { offset(it) == originalOffset } == true }
+        val committed = requireNotNull(saved(book))
+        val beforeBook = books().single { it.id == book.id }
+        val original = File(File(target.filesDir, "managed"), book.managedRelativePath)
+        val hash = digest(original)
+        var priorOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        var initialConfiguration = Configuration.ORIENTATION_UNDEFINED
+        compose.activityRule.scenario.onActivity {
+            priorOrientation = it.requestedOrientation
+            initialConfiguration = it.resources.configuration.orientation
+        }
+        val destination = if (initialConfiguration == Configuration.ORIENTATION_PORTRAIT)
+            Configuration.ORIENTATION_LANDSCAPE else Configuration.ORIENTATION_PORTRAIT
+        val request = if (destination == Configuration.ORIENTATION_LANDSCAPE)
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE else ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        val generation = active.state.value.restoreGeneration
+        var pending = -1L
+        var passed = false
+        try {
+            withHeldNativeWriter { release ->
+                compose.onNodeWithTag("reader_text").performTouchInput { swipeDown() }
+                compose.waitForIdle()
+                pending = measuredVisibleLine(active)
+                assertTrue(pending < originalOffset)
+                assertEquals(pending, active.state.value.stableOffset)
+                compose.activityRule.scenario.onActivity { it.requestedOrientation = request }
+                compose.waitUntil(30_000) {
+                    var configuration = Configuration.ORIENTATION_UNDEFINED
+                    compose.activityRule.scenario.onActivity { configuration = it.resources.configuration.orientation }
+                    configuration == destination && active.state.value.restoreGeneration > generation &&
+                        active.state.value.phase == TxtReaderPhase.READY
+                }
+                assertSame(active, reader())
+                assertEquals(pending, active.state.value.targetOffset)
+                assertAnchorInFirstMeasuredLine(active, pending)
+                assertEquals(committed, saved(book))
+                // Actual Activity ON_STOP, distinct from calling controller.flush() directly.
+                compose.activityRule.scenario.moveToState(Lifecycle.State.CREATED)
+                assertEquals(Lifecycle.State.CREATED, compose.activityRule.scenario.state)
+                assertEquals(committed, saved(book))
+                release()
+                runBlocking { withTimeout(10_000) {
+                    while (saved(book)?.let { offset(it) == pending } != true) delay(25)
+                } }
+                val stopped = requireNotNull(saved(book))
+                assertEquals(committed.writerSessionEpoch, stopped.writerSessionEpoch)
+                assertTrue(stopped.writerSequence > committed.writerSequence)
+                assertEquals(beforeBook, books().single { it.id == book.id })
+                compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
+                waitFor("reader_ready")
+                assertSame(active, reader())
+                assertAnchorInFirstMeasuredLine(active, pending)
+                assertEquals(stopped, saved(book))
+                assertEquals(hash, digest(original))
+            }
+            passed = true
+        } finally {
+            try {
+                compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
+                compose.activityRule.scenario.onActivity { it.requestedOrientation = priorOrientation }
+            } finally {
+                reportFile.writeText(JSONObject().put("status", if (passed) "PASS" else "FAIL")
+                    .put("build_fingerprint", Build.FINGERPRINT).put("api", Build.VERSION.SDK_INT)
+                    .put("fixture_sha256", hash).put("original_offset", originalOffset).put("pending_offset", pending)
+                    .put("initial_orientation", initialConfiguration).put("changed_orientation", destination)
+                    .put("initial_generation", generation).put("final_generation", active.state.value.restoreGeneration)
+                    .put("writer_epoch", beforeBook.activeSessionEpoch)
+                    .put("mechanism", "Actual Activity orientation change and ON_STOP with pending native writer; not process death or an isolated ON_STOP-only trigger")
+                    .toString(2))
+            }
+        }
+    }
+
+    private fun assertAnchorInFirstMeasuredLine(controller: TxtReaderController, anchor: Long) {
+        val measured = measuredVisibleLine(controller)
+        val index = controller.cache.fragmentFor(measured)
+        assertEquals(index, controller.cache.fragmentFor(anchor))
+        val layouts = mutableListOf<TextLayoutResult>()
+        compose.onNodeWithTag("reader_fragment_$index").performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
+            it(layouts)
+        }
+        val layout = layouts.single()
+        val start = controller.state.value.cache.fragments[index].start
+        assertEquals(layout.getLineForOffset((measured - start).toInt()), layout.getLineForOffset((anchor - start).toInt()))
+    }
+
+    @Test fun deletingDuringRealDecodeCancelsPartialIndexAndQueuedReopen() {
+        val reportFile = File(target.filesDir, "reader-delete-decoding-report.json")
+        if (reportFile.exists()) assertTrue(reportFile.delete())
+        sendFixture("reader-switch-a")
+        waitFor("reader_ready")
+        val other = reader().book
+        compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+        compose.onNodeWithTag("reader_back").performClick()
+        waitFor("library_content")
+        val otherProgress = requireNotNull(saved(other))
+        val otherRecord = books().single { it.id == other.id }
+        val otherFile = File(File(target.filesDir, "managed"), other.managedRelativePath)
+        val otherHash = digest(otherFile)
+        lateinit var model: AppViewModel
+        compose.activityRule.scenario.onActivity { model = ViewModelProvider(it)[AppViewModel::class.java] }
+        val owner = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        val report = JSONObject().put("build_fingerprint", Build.FINGERPRINT).put("api", Build.VERSION.SDK_INT)
+            .put("mechanism", "Real 32MiB managed TXT decode; AppViewModel deletion request during partial cache; not a visible Reader delete-button flow")
+        var passed = false
+        val deletion = owner.async {
+            val active = withTimeout(60_000) { model.state.map { it.reader }.filterNotNull().first {
+                it.book.originalDisplayName == "../../reader-delete-decoding.txt"
+            } }
+            val partial = withTimeout(10_000) { active.state.first {
+                it.cache.committedLength > 0 && !it.cache.complete
+            } }
+            assertFalse(active.state.value.cache.complete)
+            assertNotEquals(TxtReaderPhase.READY, active.state.value.phase)
+            report.put("fixture_sha256", active.book.sourceSha256).put("fixture_bytes", active.book.sourceByteSize)
+                .put("partial_utf16_length", partial.cache.committedLength)
+            // The UI model uses the real coordinator: durable DELETING -> close -> file/row removal.
+            model.requestDelete(active.book)
+            model.confirmDelete()
+            model.openBook(active.book) // Already-queued stale navigation must be rejected.
+            withTimeout(30_000) {
+                while (withContext(Dispatchers.IO) { observerDatabase.bookDao().findBook(active.book.id) } != null) delay(25)
+                model.state.first { it.reader == null }
+            }
+            active
+        }
+        try {
+            sendFixture("reader-delete-decoding")
+            val deleted = runBlocking { withTimeout(90_000) { deletion.await() } }
+            waitFor("library_content")
+            val book = deleted.book
+            assertEquals(32L * 1024 * 1024, book.sourceByteSize)
+            assertFalse(deleted.state.value.cache.complete)
+            assertFalse(File(File(target.filesDir, "managed"), book.managedRelativePath).exists())
+            val key = MessageDigest.getInstance("SHA-256").digest(requireNotNull(book.currentRevision).toByteArray())
+                .joinToString("") { "%02x".format(it) }
+            assertTrue(File(target.cacheDir, "txt").listFiles().orEmpty().none { it.name.startsWith(key) })
+            assertEquals(ProgressReadResult.Missing, runBlocking {
+                RoomProgressRepository(observerDatabase).loadProgress(book.id, requireNotNull(book.currentRevision))
+            })
+            // Resume queued dispatcher work and sample beyond the ordinary save interval.
+            SystemClock.sleep(1_250)
+            assertFalse(books().any { it.id == book.id })
+            assertEquals(otherProgress, saved(other))
+            assertEquals(otherRecord, books().single { it.id == other.id })
+            assertEquals(otherHash, digest(otherFile))
+            report.put("book_and_progress_absent", true).put("managed_copy_absent", true)
+                .put("partial_cache_removed", true).put("other_book_preserved", true)
+            passed = true
+        } finally {
+            owner.cancel()
+            runBlocking { withTimeout(10_000) { deletion.join() } }
+            report.put("status", if (passed) "PASS" else "FAIL")
+            reportFile.writeText(report.toString(2))
+        }
+    }
+
+    /** A test-owned coroutine borrows the production writer; it never closes the application DB. */
+    private fun withHeldNativeWriter(action: (release: () -> Unit) -> Unit) {
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        val entered = CompletableDeferred<Unit>()
+        val released = CompletableDeferred<Unit>()
+        val held = scope.async {
+            AndroidDatabaseOwner.borrow(target).useWriterConnection {
+                entered.complete(Unit)
+                released.await()
+            }
+        }
+        fun release() {
+            released.complete(Unit)
+            runBlocking { withTimeout(10_000) { held.await() } }
+        }
+        try {
+            runBlocking { withTimeout(10_000) { entered.await() } }
+            action(::release)
+        } finally {
+            try { release() } finally { scope.cancel() }
         }
     }
 

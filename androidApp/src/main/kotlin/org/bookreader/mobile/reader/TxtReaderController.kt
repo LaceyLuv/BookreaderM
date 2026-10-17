@@ -285,11 +285,15 @@ class TxtReaderController(
         closing = true
         settleJob?.cancel()
         sampler?.cancel()
-        try { flush() }
-        finally {
-            openJob?.cancelAndJoin()
-            restoringJob?.cancelAndJoin()
-            lifetime.cancel()
-        }
+        // A pending activation can hold progress access's mutex while waiting for Room.
+        // Cancel opening/restoration before flush waits for that same mutex. Already
+        // accepted READY/REFLOWING anchors and in-flight saves still use the flush barrier.
+        openJob?.cancel()
+        restoringJob?.cancel()
+        try {
+            openJob?.join()
+            restoringJob?.join()
+            flush()
+        } finally { lifetime.cancel() }
     }
 }

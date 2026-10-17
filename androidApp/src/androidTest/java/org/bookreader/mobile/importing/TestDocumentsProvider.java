@@ -78,6 +78,7 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                         break;
                     case DocumentsContract.Document.COLUMN_SIZE:
                         if ("unknown".equals(id) || "stalled".equals(id)) values[index] = null;
+                        else if ("reader-delete-decoding".equals(id)) values[index] = 32L * 1024 * 1024;
                         else if ("oversize".equals(id)) values[index] = 256L * 1024 * 1024 + 1;
                         else values[index] = (long) bytes(id).length;
                         break;
@@ -112,7 +113,14 @@ public final class TestDocumentsProvider extends DocumentsProvider {
             }
         }
         File file = new File(getContext().getCacheDir(), "fixture-" + documentId);
-        try (FileOutputStream output = new FileOutputStream(file)) { output.write(bytes(documentId)); }
+        try (FileOutputStream output = new FileOutputStream(file)) {
+            if ("reader-delete-decoding".equals(documentId)) {
+                byte[] block = new byte[4096];
+                java.util.Arrays.fill(block, (byte) 'x');
+                block[4095] = (byte) '\n';
+                for (int index = 0; index < 8192; index++) output.write(block);
+            } else output.write(bytes(documentId));
+        }
         catch (IOException failure) { throw new java.io.FileNotFoundException("Unable to create TXT fixture"); }
         return ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
     }
@@ -121,6 +129,8 @@ public final class TestDocumentsProvider extends DocumentsProvider {
         switch (id) {
             case "reader-scroll": case "reader-host": case "reader-failure": case "reader-continuous":
             case "reader-full": case "reader-full-other":
+            case "reader-reflow-stop":
+            case "reader-switch-a": case "reader-switch-b": case "reader-reopen":
             case "reader-query-error": case "reader-locator-error": case "reader-read-other":
                 StringBuilder text = new StringBuilder();
                 for (int line = 0; line < 6000; line++) {
