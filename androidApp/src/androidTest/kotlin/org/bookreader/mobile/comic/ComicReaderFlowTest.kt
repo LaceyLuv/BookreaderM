@@ -61,51 +61,53 @@ class ComicReaderFlowTest {
         assertEquals(BookFormat.COMIC, book.format)
         val source = target.assets.open("comic-fixtures/product.cbz").use { it.readBytes() }
         assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
-        compose.onNodeWithTag("comic_settings").performClick()
-        compose.onNodeWithTag("comic_mode_PAGES").performClick()
-        compose.onNodeWithTag("comic_direction_RTL").performClick()
-        compose.onNodeWithTag("comic_settings_apply").performClick()
+        click("comic_settings")
+        click("comic_mode_PAGES")
+        click("comic_direction_RTL")
+        click("comic_settings_apply")
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
             active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         waitFor("comic_ready")
-        compose.onNodeWithTag("comic_image").performTouchInput { swipeRight() }
+        touch("comic_image") { b -> swipe(Offset(b.left + b.width * .1f, b.center.y), Offset(b.right - b.width * .1f, b.center.y)) }
         compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "02.png" && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
-        compose.onNodeWithTag("comic_image").performTouchInput { swipeLeft() }
+        touch("comic_image") { b -> swipe(Offset(b.right - b.width * .1f, b.center.y), Offset(b.left + b.width * .1f, b.center.y)) }
         compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "01.png" && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
-        compose.onNodeWithTag("comic_image").performTouchInput { doubleClick(center) }
-        compose.onNodeWithTag("comic_image").performTouchInput {
-            down(0, center - Offset(30f, 0f)); down(1, center + Offset(30f, 0f))
-            moveTo(0, center - Offset(100f, 0f)); moveTo(1, center + Offset(100f, 0f))
+        touch("comic_image") { b ->
+            down(0, b.center); up(0); android.os.SystemClock.sleep(80); down(0, b.center); up(0)
+        }
+        touch("comic_image") { b ->
+            down(0, b.center - Offset(30f, 0f)); down(1, b.center + Offset(30f, 0f))
+            moveTo(0, b.center - Offset(100f, 0f)); moveTo(1, b.center + Offset(100f, 0f))
             up(0); up(1)
         }
-        compose.onNodeWithTag("comic_image").performTouchInput { swipeLeft() }
+        touch("comic_image") { b -> swipe(Offset(b.right - b.width * .1f, b.center.y), Offset(b.left + b.width * .1f, b.center.y)) }
         assertEquals("01.png", active.state.value.manifest!!.entryKeys[active.state.value.index])
-        compose.onNodeWithTag("comic_next").performClick()
+        click("comic_next")
         waitFor("comic_ready")
         compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "02.png" }
         val beforeBroken = saved(book)
-        compose.onNodeWithTag("comic_next").performClick()
+        click("comic_next")
         waitFor("comic_image_error")
         assertEquals(beforeBroken, saved(book))
-        compose.onNodeWithTag("comic_skip").performClick()
+        click("comic_skip")
         waitFor("comic_ready")
         compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "04.png" }
         compose.onNodeWithTag("comic_resolution_limit").assertIsDisplayed()
-        compose.onNodeWithTag("comic_bookmarks").performClick()
-        compose.onNodeWithTag("comic_bookmark_add").performClick()
+        click("comic_bookmarks")
+        click("comic_bookmark_add")
         waitFor("comic_bookmark_item")
-        compose.onNodeWithText("닫기").performClick()
-        compose.onNodeWithTag("comic_settings").performClick()
-        compose.onNodeWithTag("comic_webtoon").performClick()
-        compose.onNodeWithTag("comic_settings_apply").performClick()
+        clickNode(compose.onAllNodesWithText("닫기").fetchSemanticsNodes().single())
+        click("comic_settings")
+        click("comic_webtoon")
+        click("comic_settings_apply")
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.SCROLL &&
             active.state.value.settings.comicGapDp == 0 && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         waitFor("comic_ready")
-        compose.onNodeWithTag("comic_enlarge_04.png").performClick()
+        click("comic_enlarge_04.png")
         waitFor("comic_zoom_dialog")
-        compose.onNodeWithTag("comic_zoom_close").performClick()
+        click("comic_zoom_close")
         waitFor("comic_ready")
-        compose.onNodeWithTag("comic_continuous").performTouchInput { swipeUp() }
+        touch("comic_continuous") { b -> swipe(Offset(b.center.x, b.bottom - b.height * .1f), Offset(b.center.x, b.top + b.height * .1f)) }
         compose.waitForIdle()
         val settled = active.progress.state.value.accepted as ComicLocator
         assertTrue(settled.payload.normalizedY > 0)
@@ -113,21 +115,77 @@ class ComicReaderFlowTest {
         val anchor = saved(book)
         compose.activityRule.scenario.recreate(); waitFor("comic_ready")
         assertEquals(anchor, saved(book))
-        compose.onNodeWithTag("comic_back").performClick(); waitFor("continue_reading")
-        compose.onNodeWithTag("continue_reading").performClick(); waitFor("comic_ready")
+        click("comic_back"); waitFor("continue_reading")
+        click("continue_reading"); waitFor("comic_ready")
         assertEquals(anchor, saved(book))
-        compose.onNodeWithTag("comic_menu").performClick()
-        compose.onNodeWithTag("comic_seek").performTouchInput {
-            down(center); moveTo(androidx.compose.ui.geometry.Offset(width * .1f, centerY)); cancel()
+        click("comic_menu")
+        touch("comic_seek") { b ->
+            down(0, b.center); moveTo(0, Offset(b.left + b.width * .1f, b.center.y)); cancel()
         }
         compose.waitForIdle(); android.os.SystemClock.sleep(400)
         assertEquals(anchor, saved(book))
-        compose.onNodeWithTag("comic_seek").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetProgress) { it(0f) }
+        val seekNode = compose.onAllNodesWithTag("comic_seek").fetchSemanticsNodes().single()
+        compose.runOnIdle { assertTrue(seekNode.config[androidx.compose.ui.semantics.SemanticsActions.SetProgress].action!!.invoke(0f)) }
         compose.waitUntil(20_000) { saved(book)?.payload?.entryKey == "01.png" }
-        compose.onNodeWithTag("comic_menu_close").performClick()
-        compose.onNodeWithTag("comic_return").performClick()
+        click("comic_menu_close")
+        click("comic_return")
         compose.waitUntil(20_000) { saved(book) == anchor }
         assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
+    }
+    // Compose 1.9.3 fetchSemanticsNode prints the live tree again on the test thread.
+    // Fetch collections (selection on Main), then read properties/actions only on Main.
+    private fun click(tag: String) = clickNode(compose.onAllNodesWithTag(tag).fetchSemanticsNodes().single())
+    private fun clickNode(node: androidx.compose.ui.semantics.SemanticsNode) {
+        compose.runOnIdle { assertTrue(node.config[androidx.compose.ui.semantics.SemanticsActions.OnClick].action!!.invoke()) }
+    }
+    private fun touch(tag: String, gesture: FixtureTouch.(androidx.compose.ui.geometry.Rect) -> Unit) {
+        val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().single()
+        val bounds = compose.runOnIdle {
+            val view = (node.root as androidx.compose.ui.platform.ViewRootForTest).view
+            val screen = IntArray(2); view.getLocationOnScreen(screen)
+            node.boundsInRoot.translate(Offset(screen[0].toFloat(), screen[1].toFloat()))
+        }
+        assertTrue("Gesture target must be visible", bounds.width > 0 && bounds.height > 0)
+        FixtureTouch(instrumentation.uiAutomation).gesture(bounds)
+        compose.waitForIdle()
+    }
+    /** Actual Android touch events keep swipe, pinch, double-tap and cancel coverage. */
+    private class FixtureTouch(private val automation: android.app.UiAutomation) {
+        private val points = linkedMapOf<Int, Offset>()
+        private var started = 0L
+        fun down(id: Int, point: Offset) {
+            if (points.isEmpty()) started = android.os.SystemClock.uptimeMillis()
+            points[id] = point
+            send(if (points.size == 1) android.view.MotionEvent.ACTION_DOWN else
+                android.view.MotionEvent.ACTION_POINTER_DOWN or (points.keys.indexOf(id) shl android.view.MotionEvent.ACTION_POINTER_INDEX_SHIFT))
+        }
+        fun moveTo(id: Int, point: Offset) { points[id] = point; send(android.view.MotionEvent.ACTION_MOVE) }
+        fun up(id: Int) {
+            send(if (points.size == 1) android.view.MotionEvent.ACTION_UP else
+                android.view.MotionEvent.ACTION_POINTER_UP or (points.keys.indexOf(id) shl android.view.MotionEvent.ACTION_POINTER_INDEX_SHIFT))
+            points.remove(id)
+        }
+        fun cancel() { send(android.view.MotionEvent.ACTION_CANCEL); points.clear() }
+        fun swipe(from: Offset, to: Offset) {
+            down(0, from)
+            for (step in 1..16) {
+                android.os.SystemClock.sleep(16)
+                moveTo(0, from + (to - from) * (step / 16f))
+            }
+            up(0)
+        }
+        private fun send(action: Int) {
+            val properties = points.keys.map { id -> android.view.MotionEvent.PointerProperties().apply {
+                this.id = id; toolType = android.view.MotionEvent.TOOL_TYPE_FINGER
+            } }.toTypedArray()
+            val coordinates = points.values.map { point -> android.view.MotionEvent.PointerCoords().apply {
+                x = point.x; y = point.y; pressure = 1f; size = 1f
+            } }.toTypedArray()
+            val event = android.view.MotionEvent.obtain(started, android.os.SystemClock.uptimeMillis(), action,
+                points.size, properties, coordinates, 0, 0, 1f, 1f, 0, 0, android.view.InputDevice.SOURCE_TOUCHSCREEN, 0)
+            try { assertTrue("Android must accept the fixture touch event", automation.injectInputEvent(event, true)) }
+            finally { event.recycle() }
+        }
     }
     private fun reader(): ComicReaderController {
         var owner: ComicReaderController? = null

@@ -110,27 +110,35 @@ class ManagedImportAndroidTest {
 
     private fun clickSystemNode(label: String, description: Boolean = false) {
         val deadline = SystemClock.uptimeMillis() + 15_000
+        var lastVisible = emptyList<String>()
         while (SystemClock.uptimeMillis() < deadline) {
             val root = instrumentation.uiAutomation.rootInActiveWindow
             val pending = java.util.ArrayDeque<AccessibilityNodeInfo>()
             if (root != null) pending.add(root)
             var inspected = 0
+            val visible = mutableListOf<String>()
             while (pending.isNotEmpty() && inspected++ < 1000) {
                 val node = pending.removeFirst()
                 val value = if (description) node.contentDescription else node.text
-                if (value?.toString() == label) {
+                if (node.isVisibleToUser && visible.size < 50) {
+                    visible.add("${node.text ?: node.contentDescription} [${node.viewIdResourceName}]".take(160))
+                }
+                if (node.isVisibleToUser && node.isEnabled && value?.toString() == label) {
                     var clickable: AccessibilityNodeInfo? = node
                     repeat(6) {
                         val current = clickable
-                        if (current != null && current.performAction(AccessibilityNodeInfo.ACTION_CLICK)) return
+                        // ACTION_CLICK can be accepted for a label without activating its row.
+                        if (current != null && current.isClickable && current.isEnabled && current.isVisibleToUser &&
+                            current.performAction(AccessibilityNodeInfo.ACTION_CLICK)) return
                         clickable = current?.parent
                     }
                 }
                 for (child in 0 until node.childCount) node.getChild(child)?.let(pending::addLast)
             }
+            lastVisible = visible
             SystemClock.sleep(100)
         }
-        error("System DocumentsUI did not expose selectable node: $label")
+        error("System DocumentsUI did not expose selectable node: $label; visible=$lastVisible")
     }
 
     @Test fun externalViewReceivesTemporaryGrantAndOpensActualReader() {

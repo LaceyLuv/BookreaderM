@@ -53,8 +53,9 @@ class EpubProbeTest {
                 assertTrue(publication.tableOfContents.first().children.isNotEmpty())
                 assertTrue(requireNotNull(activity.navigator).go(publication.readingOrder[1], animated = false))
             }
-            waitFor(scenario) { it.navigator?.currentLocator?.value?.href?.toString()?.endsWith("two.xhtml") == true && it.loadedPages >= 2 }
+            waitFor(scenario) { it.renderedLocator?.href?.toString()?.endsWith("two.xhtml") == true }
             var serialized = ""
+            var beforePreferences = 0
             scenario.onActivity { activity ->
                 val navigator = requireNotNull(activity.navigator)
                 serialized = navigator.currentLocator.value.toJSON().toString()
@@ -62,11 +63,16 @@ class EpubProbeTest {
                 val roundTrip = JSONObject(EpubSdkProbe.roundTrip(serialized))
                 assertEquals(original.getString("href"), roundTrip.getString("href"))
                 assertEquals(original.getJSONObject("locations").toString(), roundTrip.getJSONObject("locations").toString())
-                navigator.submitPreferences(EpubPreferences(fontSize = 1.3, theme = Theme.DARK))
+                beforePreferences = activity.renderedPages
+                activity.submitPreferences(EpubPreferences(fontSize = 1.3, theme = Theme.DARK))
             }
-            waitFor(scenario) { it.navigator?.currentLocator?.value?.href?.toString()?.endsWith("two.xhtml") == true }
+            waitFor(scenario) { it.renderedPages > beforePreferences &&
+                it.renderedLocator?.href?.toString()?.endsWith("two.xhtml") == true &&
+                it.navigator?.settings?.value?.let { settings -> settings.fontSize == 1.3 && settings.theme == Theme.DARK } == true }
             scenario.recreate()
-            waitFor(scenario) { it.loadedPages > 0 && it.navigator?.currentLocator?.value?.href?.toString()?.endsWith("two.xhtml") == true }
+            waitFor(scenario) { it.renderedLocator?.href?.toString()?.endsWith("two.xhtml") == true &&
+                kotlin.math.abs((it.renderedLocator?.locations?.progression ?: 0.0) -
+                    JSONObject(serialized).getJSONObject("locations").optDouble("progression", 0.0)) <= .03 }
             assertEquals("true", js(scenario, "two", "document.body.innerText.includes('two 문단')"))
             scenario.onActivity { activity ->
                 val restored = requireNotNull(activity.navigator).currentLocator.value.toJSON()
@@ -103,7 +109,7 @@ class EpubProbeTest {
             assertTrue(match.href.toString().endsWith("two.xhtml"))
             assertTrue(match.locations.progression!! > .5)
             scenario.onActivity { assertTrue(requireNotNull(it.navigator).go(match, animated = false)) }
-            waitFor(scenario) { it.navigator?.currentLocator?.value?.href?.toString()?.endsWith("two.xhtml") == true && it.loadedPages >= 2 }
+            waitFor(scenario) { it.renderedLocator?.href?.toString()?.endsWith("two.xhtml") == true }
             assertEquals("true", js(scenario, "two", "document.body.innerText.includes('two 문단 0179')"))
         }
     }

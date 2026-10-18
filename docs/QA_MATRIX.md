@@ -1,5 +1,13 @@
 # Android 검증 매트릭스 — 2026-10-17
 
+## 2026-10-18 최신: Native UI 비동기 경계 보완
+
+`dc06d3e` build 원본은 66/74/16 + ENOSPC 3 PASS다. device는 API26 54개 중 2 FAIL,
+API34/36 각각 54개 중 1 FAIL이며 세 API host는 NOT_RUN이다. API26의 제품 EPUB flow는 동일 viewport에서 PASS다.
+새 실패는 Comic semantics 스레드 접근, SDK probe 전환, Readium 지연 위치 알림, 시스템 picker 탐색이다.
+기존 assertion·54개 manifest·6개 host를 유지한 후속 변경과 원본은 [Native UI 동기화](NATIVE_UI_SYNCHRONIZATION.md)에 정리했다.
+main 통합은 아직 하지 않았다. 아래 내용은 이전 시점 이력이다.
+
 ## 2026-10-18 현재 검증 상태
 
 제품 수정 `98d7f0f`는 EPUB 검색 요청을 화면 교체 동안 보존한다.

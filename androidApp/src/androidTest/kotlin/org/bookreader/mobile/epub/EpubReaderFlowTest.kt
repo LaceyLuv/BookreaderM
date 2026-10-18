@@ -111,8 +111,8 @@ class EpubReaderFlowTest {
         compose.activityRule.scenario.recreate()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
-        val beforeFontChange = recordRestoreObservation("recreation", original)
         assertRenderedNear(original)
+        val beforeFontChange = recordRestoreObservation("recreation", original)
         assertParagraphVisible("two", "p179")
         val beforeSettings = reader().state.value
         compose.onNodeWithTag("epub_settings").performClick()
@@ -121,20 +121,20 @@ class EpubReaderFlowTest {
         waitForSettingsApplied(beforeSettings.hostVersion,
             beforeSettings.settings.copy(fontSizeSp = beforeSettings.settings.fontSizeSp + 1))
         assertEquals(original, saved(book))
+        assertRenderedNear(original)
         val afterFontChange = recordRestoreObservation("font-size", original)
         fun fontPixels(observation: org.json.JSONObject) = observation.getJSONObject("viewport")
             .getString("fontSize").removeSuffix("px").toDouble()
         assertTrue("The displayed paragraph must use the increased font size",
             fontPixels(afterFontChange) > fontPixels(beforeFontChange))
-        assertRenderedNear(original)
         assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_back").performClick()
         waitFor("continue_reading")
         compose.onNodeWithTag("continue_reading").performClick()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
-        recordRestoreObservation("reopen", original)
         assertRenderedNear(original)
+        recordRestoreObservation("reopen", original)
         assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_bookmarks").performClick()
         waitFor("epub_bookmark_item")
@@ -297,11 +297,27 @@ class EpubReaderFlowTest {
         assertEquals("The searched paragraph must be in the visible viewport", "true", visible)
     }
     private fun assertRenderedNear(locator: EpubLocator) {
+        val expected = org.json.JSONObject(locator.payload.locator.toString())
+        // DOM scrolling and the SDK's debounced currentLocator notification finish separately.
+        // Keep the exact same assertion, but wait for that asynchronous notification first.
+        compose.waitUntil(10_000) {
+            var settled = false
+            compose.activityRule.scenario.onActivity { activity ->
+                val wrapper = activity.supportFragmentManager.fragments.filterIsInstance<EpubHostFragment>().singleOrNull()
+                val navigator = wrapper?.childFragmentManager?.fragments
+                    ?.filterIsInstance<org.readium.r2.navigator.epub.EpubNavigatorFragment>()?.singleOrNull()
+                navigator?.currentLocator?.value?.toJSON()?.let { actual ->
+                    settled = actual.getString("href") == expected.getString("href") &&
+                        kotlin.math.abs(actual.getJSONObject("locations").optDouble("progression", 0.0) -
+                            expected.getJSONObject("locations").optDouble("progression", 0.0)) <= .03
+                }
+            }
+            settled
+        }
         compose.activityRule.scenario.onActivity { activity ->
             val wrapper = activity.supportFragmentManager.fragments.filterIsInstance<EpubHostFragment>().single()
             val navigator = wrapper.childFragmentManager.fragments.filterIsInstance<org.readium.r2.navigator.epub.EpubNavigatorFragment>().single()
             val actual = navigator.currentLocator.value.toJSON()
-            val expected = org.json.JSONObject(locator.payload.locator.toString())
             assertEquals(expected.getString("href"), actual.getString("href"))
             assertEquals(expected.getJSONObject("locations").optDouble("progression", 0.0),
                 actual.getJSONObject("locations").optDouble("progression", 0.0), .03)

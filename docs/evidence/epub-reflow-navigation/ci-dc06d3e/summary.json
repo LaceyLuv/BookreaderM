@@ -1,0 +1,58 @@
+{
+  "source_sha": "dc06d3e61f8af45d0d03258b9941bf7dc714d851",
+  "build": {
+    "android-unit": 66,
+    "shared-jvm": 74,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device": {
+    "26": {
+      "tests": 54,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.comic.ComicReaderFlowTest",
+          "name": "managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity",
+          "trace": "java.lang.IllegalArgumentException: Detected multithreaded access to SnapshotStateObserver: previousThreadId=229), currentThread={id=2, name=main}. Note that observation on multiple threads in layout/draw is not supported. Make sure your measure/layout/draw for each Owner (AndroidComposeView) is executed on the same thread.\nat androidx.compose.runtime.PreconditionsKt.throwIllegalArgumentException(Preconditions.kt:26)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads(SnapshotStateObserver.kt:649)\nat androidx.compose.ui.node.OwnerSnapshotObserver.observeReads$ui_release(OwnerSnapshotObserver.kt:124)\nat androidx.compose.ui.node.OwnerSnapshotObserver.observeSemanticsReads$ui_release(OwnerSnapshotObserver.kt:112)\nat androidx.compose.ui.node.LayoutNode.calculateSemanticsConfiguration(LayoutNode.kt:480)\nat androidx.compose.ui.node.LayoutNode.invalidateSemantics$ui_release(LayoutNode.kt:445)\nat androidx.compose.ui.node.OwnerSnapshotObserver$onCommitAffectingSemantics$1.invoke(OwnerSnapshotObserver.kt:44)\nat androidx.compose.ui.node.OwnerSnapshotObserver$onCommitAffectingSemantics$1.invoke(OwnerSnapshotObserver.kt:42)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver$ObservedScopeMap.notifyInvalidatedScopes(SnapshotStateObserver.kt:1085)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.sendNotifications$lambda$5(SnapshotStateObserver.kt:90)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.$r8$lambda$ixPG648P5-VaQ02MYRr6d3rd0Xo(Unknown Source:0)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)\nat androidx.compose.ui.platform.AndroidComposeView$snapshotObserver$1.invoke(AndroidComposeView.android.kt:614)\nat androidx.compose.ui.platform.AndroidComposeView$snapshotObserver$1.invoke(AndroidComposeView.android.kt:612)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.sendNotifications(SnapshotStateObserver.kt:83)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.applyObserver$lambda$0(SnapshotStateObserver.kt:51)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.$r8$lambda$O21urw2Cx4LPNsPHLB96kXfU0Q8(Unknown Source:0)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)\nat androidx.compose.runtime.snapshots.SnapshotKt.advanceGlobalSnapshot(Snapshot.kt:1980)\nat androidx.compose.runtime.snapshots.SnapshotKt.advanceGlobalSnapshot(Snapshot.kt:1994)\nat androidx.compose.runtime.snapshots.SnapshotKt.access$advanceGlobalSnapshot(Snapshot.kt:1)\nat androidx.compose.runtime.snapshots.Snapshot$Companion.sendApplyNotifications(Snapshot.kt:680)\nat androidx.compose.ui.platform.GlobalSnapshotManager$ensureStarted$1.invokeSuspend(GlobalSnapshotManager.android.kt:48)\nat kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)\nat kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)\nat androidx.compose.ui.platform.AndroidUiDispatcher.performTrampolineDispatch(AndroidUiDispatcher.android.kt:79)\nat androidx.compose.ui.platform.AndroidUiDispatcher.access$performTrampolineDispatch(AndroidUiDispatcher.android.kt:41)\nat androidx.compose.ui.platform.AndroidUiDispatcher$dispatchCallback$1.run(AndroidUiDispatcher.android.kt:57)\nat android.os.Handler.handleCallback(Handler.java:789)\nat android.os.Handler.dispatchMessage(Handler.java:98)\nat androidx.test.espresso.base.Interrogator.loopAndInterrogate(Interrogator.java:14)\nat androidx.test.espresso.base.UiControllerImpl.loopUntil(UiControllerImpl.java:8)\nat androidx.test.espresso.base.UiControllerImpl.loopMainThreadUntilIdle(UiControllerImpl.java:16)\nat androidx.test.espresso.Espresso$1.run(Espresso.java:1)\nat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)\nat java.util.concurrent.FutureTask.run(FutureTask.java:266)\nat android.os.Handler.handleCallback(Handler.java:789)\nat android.os.Handler.dispatchMessage(Handler.java:98)\nat android.os.Looper.loop(Looper.java:164)\nat android.app.ActivityThread.main(ActivityThread.java:6541)\nat java.lang.reflect.Method.invoke(Native Method)\nat com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)\nat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubProbeTest",
+          "name": "stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator",
+          "trace": "java.lang.AssertionError: expected:<0.0> but was:<0.9523788526830989>\nat org.junit.Assert.fail(Assert.java:89)\nat org.junit.Assert.failNotEquals(Assert.java:835)\nat org.junit.Assert.assertEquals(Assert.java:555)\nat org.junit.Assert.assertEquals(Assert.java:685)\nat org.bookreader.mobile.epub.EpubProbeTest.stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator$lambda$0$6(EpubProbeTest.kt:74)\nat org.bookreader.mobile.epub.EpubProbeTest.$r8$lambda$JOQOjV5YRaOx9pjDI2b5w6fR5J8(Unknown Source:0)\nat org.bookreader.mobile.epub.EpubProbeTest$$ExternalSyntheticLambda3.perform(D8$$SyntheticClass:0)\nat androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)\nat androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)\nat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)\nat java.util.concurrent.FutureTask.run(FutureTask.java:266)\nat android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)\nat android.os.Handler.handleCallback(Handler.java:789)\nat android.os.Handler.dispatchMessage(Handler.java:98)\nat android.os.Looper.loop(Looper.java:164)\nat android.app.ActivityThread.main(ActivityThread.java:6541)\nat java.lang.reflect.Method.invoke(Native Method)\nat com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)\nat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "34": {
+      "tests": 54,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator",
+          "trace": "java.lang.AssertionError: expected:<0.9333897826700537> but was:<0.0>\nat org.junit.Assert.fail(Assert.java:89)\nat org.junit.Assert.failNotEquals(Assert.java:835)\nat org.junit.Assert.assertEquals(Assert.java:555)\nat org.junit.Assert.assertEquals(Assert.java:685)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.assertRenderedNear$lambda$0(EpubReaderFlowTest.kt:306)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.$r8$lambda$ZYNTjpkyj-f8WXneXleXf_PIOwM(Unknown Source:0)\nat org.bookreader.mobile.epub.EpubReaderFlowTest$$ExternalSyntheticLambda10.perform(D8$$SyntheticClass:0)\nat androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)\nat androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)\nat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)\nat java.util.concurrent.FutureTask.run(FutureTask.java:264)\nat android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2420)\nat android.os.Handler.handleCallback(Handler.java:958)\nat android.os.Handler.dispatchMessage(Handler.java:99)\nat android.os.Looper.loopOnce(Looper.java:205)\nat android.os.Looper.loop(Looper.java:294)\nat android.app.ActivityThread.main(ActivityThread.java:8177)\nat java.lang.reflect.Method.invoke(Native Method)\nat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)\nat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "36": {
+      "tests": 54,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "name": "systemDocumentsPickerSelectsTxtFromRealProvider",
+          "trace": "java.lang.IllegalStateException: System DocumentsUI did not expose selectable node: System picker fixture.txt\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode(ManagedImportAndroidTest.kt:133)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode$default(ManagedImportAndroidTest.kt:111)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.systemDocumentsPickerSelectsTxtFromRealProvider(ManagedImportAndroidTest.kt:101)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    }
+  }
+}

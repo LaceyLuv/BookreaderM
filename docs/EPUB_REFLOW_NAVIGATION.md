@@ -74,6 +74,10 @@ DB Locator는 변하지 않았다. 이 .035579 차이는 문단 유실의 증거
 controller READY 및 같은 viewport 크기를 10초 내 확인한 다음 검색 요청을 보낸다.
 기존 .03 수치 검증, font 증가, 실제 p179, DB 동일성 검증을 모두 유지한다.
 검색 요청 직전/직후의 강제 host 교체 회귀도 유지하며, 이 변경은 비교 기준을 고정하는 테스트 설정 변경이다.
+후속 소스는 `dc06d3e61f8af45d0d03258b9941bf7dc714d851`이다.
+[build 39103709384](https://github.com/LaceyLuv/BookreaderM/actions/runs/39103709384)와
+[device 39103709383](https://github.com/LaceyLuv/BookreaderM/actions/runs/39103709383)는 API26/34/36 모두 FAIL이다.
+API26의 제품 EPUB flow는 PASS이며 새 실패와 후속 변경은 [Native UI 동기화 보고서](NATIVE_UI_SYNCHRONIZATION.md)를 따른다.
 세 API의 일반 native 및 host 결과 확인 전 main을 통합하지 않는다.
 
 ## 패키지와 검증 범위
