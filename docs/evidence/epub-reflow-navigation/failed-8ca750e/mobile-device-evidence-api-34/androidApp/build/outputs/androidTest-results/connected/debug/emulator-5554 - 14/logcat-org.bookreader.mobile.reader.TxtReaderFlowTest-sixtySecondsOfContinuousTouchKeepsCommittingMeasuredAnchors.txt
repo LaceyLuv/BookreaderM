@@ -1,0 +1,403 @@
+10-18 05:27:10.202  6112  6134 I TestRunner: started: sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors(org.bookreader.mobile.reader.TxtReaderFlowTest)
+10-18 05:27:10.213  6112  6134 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@eb9e306]
+10-18 05:27:10.219  1753  2992 I A       : Using proto config with mendel
+10-18 05:27:10.220  1753  2992 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-18 05:27:10.224  6112  6134 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-18 05:27:10.226  1753  2992 I A       : Using proto config with mendel
+10-18 05:27:10.252   838   879 D SplashScreenView: Build android.window.SplashScreenView{4a0723a V.E...... ......ID 0,0-0,0}
+10-18 05:27:10.252   838   879 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-18 05:27:10.252   838   879 D SplashScreenView: Branding: view: android.view.View{dfa7eeb G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-18 05:27:10.273   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 05:27:10.279  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: PRE_ON_CREATE
+10-18 05:27:10.280  6112  6112 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-18 05:27:10.295  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: CREATED
+10-18 05:27:10.296  6112  6112 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@b355278
+10-18 05:27:10.300  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: STARTED
+10-18 05:27:10.301  6112  6112 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@b355278
+10-18 05:27:10.302  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: RESUMED
+10-18 05:27:10.305  6112  6112 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@b355278
+10-18 05:27:10.352  6112  6112 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-18 05:27:10.451   838   884 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-18 05:27:10.535  1109  1870 D EGL_emulation: app_time_stats: avg=121.72ms min=17.80ms max=385.06ms count=10
+10-18 05:27:10.858  6112  6134 W SurfaceComposerClient: Sync transaction timed out waiting for commit callback.
+10-18 05:27:10.860   521   540 W ziparchive: Unable to open '/data/app/~~wEoGKxkEzxqyqXFjuapIwA==/org.bookreader.mobile-PmrA3BHRxEjVs4Mc03vkUg==/base.dm': No such file or directory
+10-18 05:27:10.861   521   540 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +620ms
+10-18 05:27:10.880   838   890 D EGL_emulation: app_time_stats: avg=423.95ms min=219.49ms max=781.72ms count=3
+10-18 05:27:10.883  1109  2274 D OneSearchSuggestProvider: Shut down the binder channel
+10-18 05:27:10.889  1753  2908 I PBSessionCacheImpl: Deleted sessionId[7711567834729070] from persistence.
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: *~*~*~ Channel {0} was not shutdown properly!!! ~*~*~*
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1:     Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: java.lang.RuntimeException: ManagedChannel allocation site
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at io.grpc.internal.y1.<init>(Unknown Source:20)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at io.grpc.internal.z1.<init>(Unknown Source:9)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at io.grpc.binder.d.a(Unknown Source:211)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.d(Unknown Source:88)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.c(Unknown Source:0)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.A0.run(Unknown Source:22)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at com.android.launcher3.util.LooperExecutor.execute(Unknown Source:12)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.y0.apply(Unknown Source:34)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:966)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:950)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:486)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.H0.onResult(Unknown Source:59)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.lambda$onResult$0(SearchSessionUtil.java:129)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.$r8$lambda$_nlk9WiPjSfaAsqKYmp0aPvSRC0(SearchSessionUtil.java:1)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1$$ExternalSyntheticLambda0.run(R8$$SyntheticClass:13)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at android.os.Looper.loop(Looper.java:294)
+10-18 05:27:10.893  1109  2274 E io.grpc.internal.z1: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-18 05:27:10.902  1109  1815 I IPCThreadState: oneway function results for code 2 on binder at 0x78b5fd98a1f0 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-18 05:27:10.902   838   878 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@787e651
+10-18 05:27:10.903  1109  1139 I ImeTracker: com.google.android.apps.nexuslauncher:ebae279: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-18 05:27:10.905   521  1809 I ImeTracker: org.bookreader.mobile:f3f20457: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-18 05:27:10.905   521  1809 I ImeTracker: org.bookreader.mobile:f3f20457: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 05:27:10.912  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-18 05:27:10.917  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-18 05:27:10.918  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-18 05:27:10.920  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-18 05:27:10.937  1753  2992 W SearchServiceCore: Abort, client detached.
+10-18 05:27:10.943   521  1841 W InputManager-JNI: Input channel object '1f0eaf2 Splash Screen org.bookreader.mobile (client)' was disposed without first being removed with the input manager!
+10-18 05:27:10.947  1029  1328 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-18 05:27:10.947  1029  1328 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-18 05:27:10.949   521  2541 I ImeTracker: com.google.android.apps.nexuslauncher:ebae279: onCancelled at PHASE_SERVER_CLIENT_FOCUSED
+10-18 05:27:10.950  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: PAUSED
+10-18 05:27:10.950  6112  6112 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@b355278
+10-18 05:27:10.965  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-18 05:27:10.971   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 05:27:10.994   838   879 D SplashScreenView: Build android.window.SplashScreenView{b244899 V.E...... ......ID 0,0-0,0}
+10-18 05:27:10.994   838   879 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-18 05:27:10.994   838   879 D SplashScreenView: Branding: view: android.view.View{be7b75e G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-18 05:27:11.043   838   906 I OpenGLRenderer: Davey! duration=772ms; Flags=0, FrameTimelineVsyncId=46095, IntendedVsync=509219576969, Vsync=509652910285, InputEventId=0, HandleInputStart=509680686588, AnimationStart=509680687109, PerformTraversalsStart=509681019409, DrawStart=509937251553, FrameDeadline=509236243635, FrameInterval=509657782153, FrameStartTime=16666666, SyncQueued=509937295916, SyncStart=509970395887, IssueDrawCommandsStart=509970476798, SwapBuffers=509971859696, FrameCompleted=510024766301, DequeueBufferDuration=5380, QueueBufferDuration=33143395, GpuCompleted=510024334086, SwapBuffersCompleted=510024766301, DisplayPresentTime=72057628414509145, CommandSubmissionCompleted=509971859696,
+10-18 05:27:11.082  6112  6119 I okreader.mobile: Background concurrent copying GC freed 228623(8673KB) AllocSpace objects, 97(3436KB) LOS objects, 49% free, 14MB/29MB, paused 49us,18us total 864.322ms
+10-18 05:27:11.183   521   914 W InputManager-JNI: Input channel object '6a6c913 Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-18 05:27:11.199  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: RESUMED
+10-18 05:27:11.199  6112  6112 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@b355278
+10-18 05:27:11.206   838   878 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@652a8d5
+10-18 05:27:11.215   521  2541 I ImeTracker: org.bookreader.mobile:e66f1301: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR
+10-18 05:27:11.215   521  2541 I ImeTracker: org.bookreader.mobile:e66f1301: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 05:27:11.216  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-18 05:27:11.223  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-18 05:27:11.224  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-18 05:27:11.224  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-18 05:27:11.226  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-18 05:27:11.558  6112  6112 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-18 05:27:11.558  6112  6112 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-18 05:27:12.238  6112  6143 D EGL_emulation: app_time_stats: avg=130.99ms min=29.99ms max=355.70ms count=11
+10-18 05:27:13.368  6112  6143 D EGL_emulation: app_time_stats: avg=113.00ms min=77.53ms max=147.97ms count=10
+10-18 05:27:13.674  1109  1109 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=1198.4004, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=512638, downTime=512637, deviceId=-1, source=0x1002, displayId=0, eventId=-900897160 }
+10-18 05:27:14.412  6112  6143 D EGL_emulation: app_time_stats: avg=94.90ms min=22.69ms max=198.94ms count=11
+10-18 05:27:15.445  6112  6143 D EGL_emulation: app_time_stats: avg=79.45ms min=21.37ms max=100.50ms count=13
+10-18 05:27:16.496  6112  6143 D EGL_emulation: app_time_stats: avg=80.76ms min=21.17ms max=101.32ms count=13
+10-18 05:27:16.827   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 05:27:17.148   521   914 D WifiNl80211Manager: Scan result ready event
+10-18 05:27:17.149   521   914 D WifiNative: Scan result ready event
+10-18 05:27:17.198   838   838 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-18 05:27:17.512  6112  6143 D EGL_emulation: app_time_stats: avg=72.54ms min=22.72ms max=101.19ms count=14
+10-18 05:27:18.528  6112  6143 D EGL_emulation: app_time_stats: avg=92.33ms min=24.77ms max=183.09ms count=11
+10-18 05:27:19.548  6112  6143 D EGL_emulation: app_time_stats: avg=71.89ms min=15.32ms max=100.96ms count=14
+10-18 05:27:20.562  6112  6143 D EGL_emulation: app_time_stats: avg=84.52ms min=18.32ms max=107.08ms count=12
+10-18 05:27:20.892  1753  2992 I WorkerManager: dispose()
+10-18 05:27:20.893  1753  2992 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-18 05:27:21.578  6112  6143 D EGL_emulation: app_time_stats: avg=72.52ms min=19.84ms max=105.67ms count=14
+10-18 05:27:22.598  6112  6143 D EGL_emulation: app_time_stats: avg=72.84ms min=19.58ms max=103.40ms count=14
+10-18 05:27:23.644  6112  6143 D EGL_emulation: app_time_stats: avg=74.73ms min=20.11ms max=101.61ms count=14
+10-18 05:27:24.744  6112  6143 D EGL_emulation: app_time_stats: avg=78.56ms min=24.27ms max=103.17ms count=14
+10-18 05:27:25.016   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 05:27:25.762  6112  6143 D EGL_emulation: app_time_stats: avg=72.69ms min=18.32ms max=103.51ms count=14
+10-18 05:27:26.796  6112  6143 D EGL_emulation: app_time_stats: avg=73.82ms min=21.60ms max=100.99ms count=14
+10-18 05:27:27.198   838   838 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-18 05:27:27.861  6112  6143 D EGL_emulation: app_time_stats: avg=81.95ms min=19.06ms max=113.70ms count=13
+10-18 05:27:28.928  6112  6143 D EGL_emulation: app_time_stats: avg=76.17ms min=17.96ms max=132.65ms count=14
+10-18 05:27:29.961  6112  6143 D EGL_emulation: app_time_stats: avg=73.38ms min=18.11ms max=103.02ms count=14
+10-18 05:27:30.978  6112  6143 D EGL_emulation: app_time_stats: avg=72.60ms min=18.70ms max=102.42ms count=14
+10-18 05:27:31.996  6112  6143 D EGL_emulation: app_time_stats: avg=84.84ms min=24.35ms max=100.79ms count=12
+10-18 05:27:32.952   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 05:27:33.011  6112  6143 D EGL_emulation: app_time_stats: avg=72.49ms min=18.32ms max=103.63ms count=14
+10-18 05:27:34.045  6112  6143 D EGL_emulation: app_time_stats: avg=73.87ms min=20.39ms max=101.72ms count=14
+10-18 05:27:35.078  6112  6143 D EGL_emulation: app_time_stats: avg=73.76ms min=21.93ms max=102.11ms count=14
+10-18 05:27:36.111  6112  6143 D EGL_emulation: app_time_stats: avg=79.48ms min=22.60ms max=103.17ms count=13
+10-18 05:27:37.146  6112  6143 D EGL_emulation: app_time_stats: avg=79.54ms min=24.33ms max=102.26ms count=13
+10-18 05:27:37.200   838   838 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-18 05:27:38.245  6112  6143 D EGL_emulation: app_time_stats: avg=68.72ms min=21.99ms max=103.36ms count=16
+10-18 05:27:39.278  6112  6143 D EGL_emulation: app_time_stats: avg=73.78ms min=19.71ms max=113.61ms count=14
+10-18 05:27:40.280  6112  6143 D EGL_emulation: app_time_stats: avg=83.09ms min=16.18ms max=101.93ms count=12
+10-18 05:27:40.888   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 05:27:40.963   521  1809 D ConnectivityService: requestNetwork for uid/pid:10128/2906 activeRequest: null callbackRequest: 177 [NetworkRequest [ REQUEST id=178, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10128 RequestorUid: 10128 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647
+10-18 05:27:40.964   521   766 D ConnectivityService: NetReassign [178 : null → 100] [c 0] [a 1] [i 1]
+10-18 05:27:40.965   521   759 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=178, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10128 RequestorUid: 10128 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-18 05:27:40.965   521   759 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=178, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10128 RequestorUid: 10128 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-18 05:27:40.965   521   759 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=178, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10128 RequestorUid: 10128 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-18 05:27:40.965   521   759 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=178, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10128 RequestorUid: 10128 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-18 05:27:40.969  2906  2906 I DialerConstellationSyncWorker: com.android.dialer.businessvoice.control.worker.ConstellationSyncWorker.startWork:66 starting work
+10-18 05:27:40.974  2906  3032 I DialerCountryCodeProvider: com.android.dialer.businessvoice.verifiedcall.impl.i18n.CountryCodeProvider.getSimCountryCodeInternal:85 returning Redacted-2-chars
+10-18 05:27:40.975  5314  7269 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.auth.account.be.legacy.AuthCronService started execution. cause:4 exec_start_elapsed_seconds: 539 [CONTEXT service_id=218 ]
+10-18 05:27:40.976  2906  3045 I DialerCachedVerifiedNumberProvider: com.android.dialer.businessvoice.verifiedcall.impl.constellation.CachedVerifiedNumberProvider.refreshConstellationInfo:190 Retrieving constellation info and refreshing the cache.
+10-18 05:27:40.998  5396  5396 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-18 05:27:40.998  5396  5396 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-18 05:27:41.000  5396  5396 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-18 05:27:41.002  5396  5463 E constellation: [api_verify_phone_operation] Failed to generate Client Signature
+10-18 05:27:41.002  5396  5463 E constellation: acwp: Stored private key deleted
+10-18 05:27:41.002  5396  5463 E constellation: 	at acos.e(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+10-18 05:27:41.002  5396  5463 E constellation: 	at acos.d(:com.google.android.gms@231818047@23.18.18 (190800-535401451):1)
+10-18 05:27:41.002  5396  5463 E constellation: 	at acoa.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):22)
+10-18 05:27:41.002  5396  5463 E constellation: 	at acoa.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):12)
+10-18 05:27:41.002  5396  5463 E constellation: 	at avsy.eo(:com.google.android.gms@231818047@23.18.18 (190800-535401451):1)
+10-18 05:27:41.002  5396  5463 E constellation: 	at avtf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):14)
+10-18 05:27:41.002  5396  5463 E constellation: 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+10-18 05:27:41.002  5396  5463 E constellation: 	at aced.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+10-18 05:27:41.002  5396  5463 E constellation: 	at aced.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-18 05:27:41.002  5396  5463 E constellation: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-18 05:27:41.002  5396  5463 E constellation: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-18 05:27:41.002  5396  5463 E constellation: 	at acjn.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-18 05:27:41.002  5396  5463 E constellation: 	at java.lang.Thread.run(Thread.java:1012)
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: com.android.dialer.businessvoice.verifiedcall.impl.constellation.VerifiedNumberProvider.lambda$getConstellationResponse$1:155 Failed to get constellation token.
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: nkq: 5004:
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: 	at nov.au(PG:1)
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: 	at nnf.g(PG:2)
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: 	at npo.a(Unknown Source:2)
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: 	at npy.dm(PG:9)
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: 	at ncz.onTransact(PG:4)
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+10-18 05:27:41.004  2906  3032 W DialerVerifiedNumberProvider: 	at android.os.Binder.execTransact(Binder.java:1275)
+10-18 05:27:41.009  2906  3045 W DialerConstellationSyncWorker: com.android.dialer.businessvoice.control.worker.ConstellationSyncWorker.lambda$syncConstellation$2:110 Constellation api request failed, status code: 5004
+10-18 05:27:41.009  2906  3029 I WM-WorkerWrapper: Worker result RETRY for Work [ id=c5d03543-a60f-4901-b741-816e5ee3b138, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker, TikTokWorker#com.android.dialer.businessvoice.control.worker.ConstellationSyncWorker } ]
+10-18 05:27:41.065   335  7275 I resolv  : GetAddrInfoHandler::run: {100 786532 100 983140 10131 0}
+10-18 05:27:41.066  3347  7271 D TrafficStats: tagSocket(103) with statsTag=0x1809, statsUid=-1
+10-18 05:27:41.075  3347  7271 W libc    : Access denied finding property "persist.adb.tls_server.enable"
+10-18 05:27:41.075  3347  7271 W libc    : Access denied finding property "service.adb.tls.port"
+10-18 05:27:41.072  3347  3347 W binder:3347_C: type=1400 audit(0.0:205): avc:  denied  { read } for  name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=292 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+10-18 05:27:41.072  3347  3347 W binder:3347_C: type=1400 audit(0.0:206): avc:  denied  { read } for  name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=60 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+10-18 05:27:41.088  5314  5800 W GmsUrlRequestImpl: Content-Type header is overwritten.
+10-18 05:27:41.090   335  7276 I resolv  : GetAddrInfoHandler::run: {100 786532 100 983140 10131 0}
+10-18 05:27:41.090   335  7277 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+10-18 05:27:41.091   335  7278 I resolv  : res_nmkquery: (QUERY, IN, A)
+10-18 05:27:41.207   335  7277 I resolv  : res_nsend: used send_dg 264 terrno: 0
+10-18 05:27:41.208   335  7277 I resolv  : doQuery: rcode=0, ancount=8, return value=264
+10-18 05:27:41.208   335  7278 I resolv  : res_nsend: used send_dg 168 terrno: 0
+10-18 05:27:41.208   335  7278 I resolv  : doQuery: rcode=0, ancount=8, return value=168
+10-18 05:27:41.209  5314  5534 D TrafficStats: tagSocket(214) with statsTag=0x401, statsUid=10131
+10-18 05:27:41.345  6112  6143 D EGL_emulation: app_time_stats: avg=75.44ms min=22.81ms max=101.48ms count=14
+10-18 05:27:41.780  5314  5800 W GLSUser : [AppCertManager] Exception while requesting key:
+10-18 05:27:41.780  5314  5800 W GLSUser : java.util.concurrent.ExecutionException: avvw: Parse Proto Exception.
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dlnv.s(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dlnv.get(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at oub.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):78)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at otz.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at otu.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at otx.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at lzq.call(:com.google.android.gms@231818047@23.18.18 (190800-535401451):14)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at aced.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at aced.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at acjn.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at java.lang.Thread.run(Thread.java:1012)
+10-18 05:27:41.780  5314  5800 W GLSUser : Caused by: avvw: Parse Proto Exception.
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at avwn.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):5)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at avxk.onSucceeded(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at jf.onSucceeded(:com.google.android.gms.dynamite_cronetdynamite@231818047@23.18.18 (190800-0):0)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at ie.run(:com.google.android.gms.dynamite_cronetdynamite@231818047@23.18.18 (190800-0):4)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	... 6 more
+10-18 05:27:41.780  5314  5800 W GLSUser : Caused by: dzfz: Protocol message contained an invalid tag (zero).
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dzdb.k(:com.google.android.gms@231818047@23.18.18 (190800-535401451):13)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dzha.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):47)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dzha.h(:com.google.android.gms@231818047@23.18.18 (190800-535401451):45)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dzfd.A(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dzex.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dzcx.d(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dzcx.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at dzcx.n(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at avwn.h(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	at avwn.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):1)
+10-18 05:27:41.780  5314  5800 W GLSUser : 	... 9 more
+10-18 05:27:41.785  5314  7269 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.auth.account.be.legacy.AuthCronService finished executing. cause:4 result: 3 elapsed_millis: 816 uptime_millis: 816 exec_start_elapsed_seconds: 539 [CONTEXT service_id=218 ]
+10-18 05:27:42.365  6112  6143 D EGL_emulation: app_time_stats: avg=72.77ms min=22.88ms max=102.05ms count=14
+10-18 05:27:43.013   838   838 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-18 05:27:43.395  6112  6143 D EGL_emulation: app_time_stats: avg=73.58ms min=18.85ms max=101.16ms count=14
+10-18 05:27:44.495  6112  6143 D EGL_emulation: app_time_stats: avg=78.54ms min=25.73ms max=103.26ms count=14
+10-18 05:27:45.511  6112  6143 D EGL_emulation: app_time_stats: avg=72.60ms min=25.21ms max=101.73ms count=14
+10-18 05:27:46.013   838   838 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-18 05:27:46.527  6112  6143 D EGL_emulation: app_time_stats: avg=83.99ms min=25.58ms max=103.28ms count=12
+10-18 05:27:47.198   838   838 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-18 05:27:47.528  6112  6143 D EGL_emulation: app_time_stats: avg=71.42ms min=16.35ms max=102.91ms count=14
+10-18 05:27:48.544  6112  6143 D EGL_emulation: app_time_stats: avg=84.72ms min=23.31ms max=102.01ms count=12
+10-18 05:27:49.017   838   838 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-18 05:27:49.086   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 05:27:49.595  6112  6143 D EGL_emulation: app_time_stats: avg=73.82ms min=18.20ms max=101.57ms count=14
+10-18 05:27:50.612  6112  6143 D EGL_emulation: app_time_stats: avg=72.62ms min=24.22ms max=104.34ms count=14
+10-18 05:27:51.648  6112  6143 D EGL_emulation: app_time_stats: avg=73.96ms min=15.29ms max=102.44ms count=14
+10-18 05:27:52.021   838   838 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-18 05:27:52.695  6112  6143 D EGL_emulation: app_time_stats: avg=80.55ms min=23.07ms max=101.72ms count=13
+10-18 05:27:53.762  6112  6143 D EGL_emulation: app_time_stats: avg=76.13ms min=21.58ms max=101.17ms count=14
+10-18 05:27:54.778  6112  6143 D EGL_emulation: app_time_stats: avg=72.50ms min=23.29ms max=100.75ms count=14
+10-18 05:27:55.025   838   838 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-18 05:27:55.878  6112  6143 D EGL_emulation: app_time_stats: avg=78.61ms min=17.43ms max=101.57ms count=14
+10-18 05:27:56.894  6112  6143 D EGL_emulation: app_time_stats: avg=72.53ms min=23.16ms max=102.47ms count=14
+10-18 05:27:57.017   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 05:27:57.199   838   838 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-18 05:27:57.894  6112  6143 D EGL_emulation: app_time_stats: avg=71.45ms min=23.50ms max=103.28ms count=14
+10-18 05:27:58.030   838   838 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-18 05:27:58.895  6112  6143 D EGL_emulation: app_time_stats: avg=76.97ms min=23.50ms max=101.50ms count=13
+10-18 05:28:00.014  6112  6143 D EGL_emulation: app_time_stats: avg=86.04ms min=24.72ms max=185.57ms count=13
+10-18 05:28:00.038  1640  1868 I AiAiEcho: Predicting[0]:
+10-18 05:28:00.039  1640  1868 I AiAiEcho: EchoTargets:
+10-18 05:28:00.039  1640  1868 I AiAiEcho: Filtered by AiAi flag check:
+10-18 05:28:00.039  1640  1868 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-18 05:28:00.040  1640  1868 I AiAiEcho: Predicting[0]:
+10-18 05:28:00.044  1640  1868 I AiAiEcho: EchoTargets:
+10-18 05:28:00.044  1640  1868 I AiAiEcho: Filtered by AiAi flag check:
+10-18 05:28:00.045  1640  1868 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-18 05:28:00.045  1640  1868 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+10-18 05:28:00.046  1640  1868 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+10-18 05:28:00.058   838   890 D EGL_emulation: app_time_stats: avg=16392.54ms min=17.39ms max=49007.45ms count=3
+10-18 05:28:00.059   838   838 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-18 05:28:00.059   838   838 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-18 05:28:01.028  6112  6143 D EGL_emulation: app_time_stats: avg=72.38ms min=21.72ms max=103.08ms count=14
+10-18 05:28:02.029  6112  6143 D EGL_emulation: app_time_stats: avg=71.49ms min=16.62ms max=101.76ms count=14
+10-18 05:28:03.078  6112  6143 D EGL_emulation: app_time_stats: avg=74.88ms min=20.19ms max=100.76ms count=14
+10-18 05:28:04.096  6112  6143 D EGL_emulation: app_time_stats: avg=78.29ms min=20.47ms max=100.99ms count=13
+10-18 05:28:04.952   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 05:28:05.145  6112  6143 D EGL_emulation: app_time_stats: avg=80.67ms min=19.31ms max=103.23ms count=13
+10-18 05:28:06.178  6112  6143 D EGL_emulation: app_time_stats: avg=68.81ms min=19.17ms max=100.96ms count=15
+10-18 05:28:07.195  6112  6143 D EGL_emulation: app_time_stats: avg=78.27ms min=20.06ms max=101.62ms count=13
+10-18 05:28:07.200   838   838 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-18 05:28:08.247  6112  6143 D EGL_emulation: app_time_stats: avg=80.91ms min=20.21ms max=103.87ms count=13
+10-18 05:28:09.278  6112  6143 D EGL_emulation: app_time_stats: avg=73.59ms min=19.60ms max=100.76ms count=14
+10-18 05:28:10.278  6112  6143 D EGL_emulation: app_time_stats: avg=71.45ms min=20.60ms max=100.65ms count=14
+10-18 05:28:11.280  6112  6143 D EGL_emulation: app_time_stats: avg=71.59ms min=22.70ms max=103.16ms count=14
+10-18 05:28:12.295  6112  6143 D EGL_emulation: app_time_stats: avg=84.55ms min=18.07ms max=102.97ms count=12
+10-18 05:28:12.888   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 05:28:13.328  6112  6143 D EGL_emulation: app_time_stats: avg=73.76ms min=17.81ms max=102.23ms count=14
+10-18 05:28:13.744  1109  1109 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=1194.0732, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=572742, downTime=512637, deviceId=-1, source=0x1002, displayId=0, eventId=-648259144 }
+10-18 05:28:14.052   838   879 D SplashScreenView: Build android.window.SplashScreenView{3dce24c V.E...... ......ID 0,0-0,0}
+10-18 05:28:14.052   838   879 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-18 05:28:14.052   838   879 D SplashScreenView: Branding: view: android.view.View{4c7b295 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-18 05:28:14.055  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: PAUSED
+10-18 05:28:14.056  6112  6112 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@b355278
+10-18 05:28:14.070   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 05:28:14.078  1753  1753 I BgTaskExecutorImpl: Starting EXCLUSIVE background task UPLOAD_ASSISTANT_DEVICE_SETTINGS.
+10-18 05:28:14.100  1753  2992 I A       : Using proto config with mendel
+10-18 05:28:14.101  1753  2992 I A       : Using proto config with mendel
+10-18 05:28:14.102  1753  2992 I A       : Using proto config with mendel
+10-18 05:28:14.119  1753  2992 I A       : Merging legacy hotword config map with new proto.
+10-18 05:28:14.127  1753  2992 I A       : Adding from config to map. Locale: cmn-Hant-TW modelPrefix: x_google Location:4e7cae00daee30ec565c34e3aa67a51f isSpeakerIdSupported: true
+10-18 05:28:14.127  1753  2992 I A       : Adding from config to map. Locale: id-ID modelPrefix: x_google Location:cfffcc1a4c1c084c003c8eb27f73d770 isSpeakerIdSupported: true
+10-18 05:28:14.127  1753  2992 I A       : Adding from config to map. Locale: ko-KR modelPrefix: x_google Location:0b132163a2eb2c1194b202067475724b isSpeakerIdSupported: true
+10-18 05:28:14.128  1753  2992 I A       : Skipping. Expected model: 2 Found: 1
+10-18 05:28:14.128  1753  2992 I A       : Adding from config to map. Locale: zh-TW modelPrefix: x_google Location:4e7cae00daee30ec565c34e3aa67a51f isSpeakerIdSupported: true
+10-18 05:28:14.129  1753  2992 I A       : Using proto config with mendel
+10-18 05:28:14.130  1753  2992 I A       : Using proto config with mendel
+10-18 05:28:14.130  1753  2992 I A       : Using proto config with mendel
+10-18 05:28:14.131  1753  2992 I MicroDetectionState: Should stop hotword detection immediately - true
+10-18 05:28:14.133  1753  2908 W LocationOracle: getBestLocation(): no location is available
+10-18 05:28:14.134  1753  7133 I NetworkRecognitionRnr: Using pair HTTP connection
+10-18 05:28:14.169  1753  3162 I A       : [Upload] Connected
+10-18 05:28:14.192  1753  2420 W CronetNetworkRqstWrppr: Upload request without a content type.
+10-18 05:28:14.202  6165  6184 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-18 05:28:14.207  1753  2399 W LocationOracle: No location returned by GMS core getLastLocation()
+10-18 05:28:14.216  1753  1753 E A       : onError
+10-18 05:28:14.216  1753  1753 E A       : com.google.android.apps.gsa.shared.speech.a.m: errorCode: 65561, engine: 2
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.staticplugins.dc.a.e.a(PG:3)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.s3.n.hh(PG:1)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.cd.g.a.f.e(PG:2)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.speech.k.a.g.d(PG:22)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.speech.k.a.g.ks(PG:6)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.s3.o.e(PG:14)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.s3.p.run(PG:1)
+10-18 05:28:14.216  1753  1753 E A       : 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+10-18 05:28:14.216  1753  1753 E A       : 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.shared.util.c.a.e.run(PG:2)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.shared.util.c.a.bi.run(PG:1)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.shared.util.c.a.bi.run(PG:1)
+10-18 05:28:14.216  1753  1753 E A       : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-18 05:28:14.216  1753  1753 E A       : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-18 05:28:14.216  1753  1753 E A       : 	at java.lang.Thread.run(Thread.java:1012)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.shared.util.c.a.l.run(PG:5)
+10-18 05:28:14.216  1753  1753 E A       : Caused by: com.google.android.apps.gsa.shared.speech.a.o: errorCode: 65586, engine: 2
+10-18 05:28:14.216  1753  1753 E A       : 	... 15 more
+10-18 05:28:14.216  1753  1753 E A       : Caused by: com.google.android.apps.gsa.shared.speech.a.k: errorCode: 401, engine: 2
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.assistant.shared.n.h.a(PG:5)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.s3.producers.j.hE(PG:2)
+10-18 05:28:14.216  1753  1753 E A       : 	at com.google.android.apps.gsa.speech.k.a.g.d(PG:16)
+10-18 05:28:14.216  1753  1753 E A       : 	... 12 more
+10-18 05:28:14.219  1753  3162 I NetworkRecognitionRnr: Using pair HTTP connection
+10-18 05:28:14.222  1753  2908 I A       : [Upload] Connected
+10-18 05:28:14.235  1753  1753 W A       : Failed to sync device settings.
+10-18 05:28:14.237  1753  1753 I A       : Retrying to sync device settings.
+10-18 05:28:14.436   521   540 W ziparchive: Unable to open '/data/app/~~yc1fWP1LPjNgcwjDYUsMuQ==/org.bookreader.mobile.test-joLeUJafGppNgU84oFmghA==/base.dm': No such file or directory
+10-18 05:28:14.449   838   878 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@21bd738
+10-18 05:28:14.463  1029  1328 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-18 05:28:14.463  1029  1328 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-18 05:28:14.464   521  1679 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-18 05:28:14.470   400   400 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 05:28:14.477  1109  2274 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=133, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@f30deae
+10-18 05:28:14.480   521  2333 W InputManager-JNI: Input channel object 'ad7b3ca Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-18 05:28:14.526   521   540 I ActivityTaskManager: Displayed org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +399ms
+10-18 05:28:14.527  1640  1868 I AiAiEcho: Predicting[0]:
+10-18 05:28:14.527  1640  1868 I AiAiEcho: EchoTargets:
+10-18 05:28:14.527  1640  1868 I AiAiEcho: Filtered by AiAi flag check:
+10-18 05:28:14.527  1640  1868 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-18 05:28:14.528  1640  1868 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-18 05:28:14.532  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: STOPPED
+10-18 05:28:14.532  6112  6112 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@b355278
+10-18 05:28:14.633  6112  6112 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@b355278 in: DESTROYED
+10-18 05:28:14.633  6112  6112 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 05:28:14.639  6112  6112 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@6a79281
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: Invalid input from icing corpus JSON flag.
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: android.util.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 123 column 2
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at android.util.JsonReader.syntaxError(JsonReader.java:1162)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at android.util.JsonReader.checkLenient(JsonReader.java:840)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at android.util.JsonReader.nextInArray(JsonReader.java:615)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at android.util.JsonReader.peek(JsonReader.java:345)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at android.util.JsonReader.hasNext(JsonReader.java:321)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.c(PG:7)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.<init>(PG:5)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.features.n.a.c.<init>(PG:16)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.b.a(PG:14)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.x.<init>(PG:7)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.akd.b(PG:15)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at dagger.a.e.b(PG:1)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.a.a.a(PG:3)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.f(Unknown Source:2541)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.b(PG:1)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.apps.gsa.search.core.service.g.a.c.a(PG:2)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.libraries.gsa.k.a.f.a(PG:2)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dx.a(PG:1)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.common.util.concurrent.cv.run(PG:4)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dz.run(PG:1)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.libraries.i.ae.run(PG:1)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.libraries.i.k.run(PG:2)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at com.google.android.libraries.i.p.run(PG:4)
+10-18 05:28:14.642  1753  2475 W CorpusConfigHelper: 	at java.lang.Thread.run(Thread.java:1012)
+10-18 05:28:14.664  5396  5482 I Icing   : IndexChimeraService.getServiceInterface callingPackage=com.google.android.googlequicksearchbox componentName=null serviceId=36
+10-18 05:28:14.672  1753  2492 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-18 05:28:14.672  1753  2992 I A       : Using proto config with mendel
+10-18 05:28:14.679  1753  2992 I A       : Using proto config with mendel
+10-18 05:28:14.682   521  1754 W InputManager-JNI: Input channel object 'b0dfcf9 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-18 05:28:14.694  1109  1109 D SearchTargetUtil:  query= size=15
+10-18 05:28:14.695  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=starbucks winnie the pooh collection,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=starbucks winnie the pooh collection searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 9ca8ac1f-3c49-4d03-9463-d7c14023e956
+10-18 05:28:14.695  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=super mario galaxy android port,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=super mario galaxy android port searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 43dc4ad5-8425-4942-b521-56678707ffed
+10-18 05:28:14.695  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=dunkin bat cup sleeve,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=dunkin bat cup sleeve searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: e04dec00-af78-430d-bc08-df4dfe94ebbf
+10-18 05:28:14.696  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=king ramses ii statues discovered egypt,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=king ramses ii statues discovered egypt searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 6976f3b1-c281-40b7-8399-0d0e5083f39d
+10-18 05:28:14.696  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=big bear bald eagles jackie,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=big bear bald eagles jackie searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: b0d1b5ac-2171-49bc-9d55-03c190c46d02
+10-18 05:28:14.696  1109  1109 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/png;base64,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
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=doomsday glacier melting rate study,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=doomsday glacier melting rate study searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 4cd38f31-a3ab-460e-9785-fd7d2d67b8fc
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=nick swardson horror short,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=nick swardson horror short searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: a2592bb4-9cba-4ba6-acad-a635ae3428e5
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=nhtsa toyota rav4 recall notice,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=nhtsa toyota rav4 recall notice searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: e13292ec-45ed-4358-a918-470765df8607
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=burmese pythons in florida,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=burmese pythons in florida searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 61f2eed6-5973-4d9a-8587-9a77e86c9937
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=pokemon 30th upc release date,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=pokemon 30th upc release date searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 1b4bb495-944a-4fd5-9dbc-17720af52805
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=ranabaali movie review,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=ranabaali movie review searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 503d6298-0a24-4112-a0ae-f322b5ffa13d
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=stefan milicevic tennis,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=stefan milicevic tennis searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 4900c98e-611e-44a7-b436-46c54f0450f5
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=spacex stocks,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=spacex stocks searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 024c4495-2281-40a0-b8d3-33f9a9761617
+10-18 05:28:14.697  1109  1109 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=cologne airport venomous snakes seized,group_id=web507833,response_id=4a45b993-6b71-433d-a685-3456c01ac6b1,support_query_builder=false,} searchAction=cologne airport venomous snakes seized searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 1ef43c0b-ed27-47f2-8960-d16e79c6018e
+10-18 05:28:14.708  6112  6134 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@eb9e306]
+10-18 05:28:14.711   521  1754 I ImeTracker: com.google.android.apps.nexuslauncher:bee41f90: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-18 05:28:14.712   521  1754 I ImeTracker: com.google.android.apps.nexuslauncher:bee41f90: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 05:28:14.713  1566  1566 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-18 05:28:14.727  6112  6134 I TestRunner: finished: sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors(org.bookreader.mobile.reader.TxtReaderFlowTest)

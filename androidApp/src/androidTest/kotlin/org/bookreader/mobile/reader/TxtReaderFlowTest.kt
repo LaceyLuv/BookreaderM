@@ -842,7 +842,7 @@ class TxtReaderFlowTest {
         val index = controller.cache.fragmentFor(measured)
         assertEquals(index, controller.cache.fragmentFor(anchor))
         val layouts = mutableListOf<TextLayoutResult>()
-        compose.onNodeWithTag("reader_fragment_$index").performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
+        compose.onNodeWithTag("reader_fragment_$index", useUnmergedTree = true).performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
             it(layouts)
         }
         val layout = layouts.single()
@@ -1358,14 +1358,15 @@ class TxtReaderFlowTest {
     }
 
     private fun measuredVisibleLine(controller: TxtReaderController): Long {
-        val viewport = compose.onNodeWithTag("reader_text").fetchSemanticsNode().positionInRoot.y
+        // Measure the actual layout nodes even when a clickable ancestor merges their semantics.
+        val viewport = compose.onNodeWithTag("reader_text", useUnmergedTree = true).fetchSemanticsNode().positionInRoot.y
         val state = controller.state.value
         for (index in state.cache.fragments.indices) {
-            val nodes = compose.onAllNodesWithTag("reader_fragment_$index").fetchSemanticsNodes()
+            val nodes = compose.onAllNodesWithTag("reader_fragment_$index", useUnmergedTree = true).fetchSemanticsNodes()
             if (nodes.isEmpty()) continue
             val node = nodes.single()
             val layouts = mutableListOf<TextLayoutResult>()
-            compose.onNodeWithTag("reader_fragment_$index").performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
+            compose.onNodeWithTag("reader_fragment_$index", useUnmergedTree = true).performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
                 it(layouts)
             }
             val layout = layouts.single()

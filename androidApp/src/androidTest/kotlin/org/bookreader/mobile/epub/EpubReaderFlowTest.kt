@@ -31,6 +31,7 @@ class EpubReaderFlowTest {
     private val database by lazy { createAndroidDatabase(target) }
     private var existing: Set<String>? = null
     private var originalGlobal: org.bookreader.mobile.database.ReaderGlobalSettingsEntity? = null
+    private var observationFileName = "epub-restore-observations.json"
     @Before fun preserveExistingBooks() { existing = books().map { it.id }.toSet(); originalGlobal = runBlocking { database.readerSettingsDao().global() } }
     @After fun cleanupOwnedFixtures() {
         try {
@@ -74,12 +75,16 @@ class EpubReaderFlowTest {
         compose.onNodeWithTag("epub_search_query").performTextInput("two 문단 0179")
         compose.onNodeWithTag("epub_search_start").performClick()
         waitFor("epub_search_result")
-        compose.onNodeWithTag("epub_search_result").performClick()
-        compose.waitUntil(20_000) {
-            val locator = saved(book)?.payload?.locator ?: return@waitUntil false
-            val json = org.json.JSONObject(locator.toString())
-            json.getString("href").endsWith("two.xhtml") && json.getJSONObject("locations").optDouble("progression", 0.0) > .5
+        val requested = active.state.value.results.single()
+        compose.onNodeWithTag("epub_search_result").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { click ->
+            val accepted = active.progress.state.value.accepted
+            active.reflowViewport()
+            assertEquals(org.bookreader.mobile.reader.ArchiveReaderPhase.REFLOWING, active.progress.state.value.phase)
+            assertTrue(click())
+            assertEquals("A request must not save before the replacement host renders it", accepted, active.progress.state.value.accepted)
+            assertEquals(requested, active.initialLocator())
         }
+        waitForSearchCommit(book)
         assertParagraphVisible("two", "p179")
         val original = requireNotNull(saved(book))
         recordRestoreObservation("search", original)
@@ -121,6 +126,44 @@ class EpubReaderFlowTest {
         waitFor("epub_ready")
         assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
     }
+    @Test fun searchJumpSurvivesHostReplacementAfterRequestWithoutPrematureProgressWrite() {
+        observationFileName = "epub-search-reflow-observations.json"
+        File(target.filesDir, observationFileName).writeText("[]")
+        send("epub-product"); waitFor("epub_ready")
+        val active = reader(); val book = active.book
+        compose.activityRule.scenario.onActivity { active.search("two 문단 0179") }
+        compose.waitUntil(20_000) { !active.state.value.searching && active.state.value.results.size == 1 }
+        val requested = active.state.value.results.single()
+        compose.activityRule.scenario.onActivity {
+            assertEquals(org.bookreader.mobile.reader.ArchiveReaderPhase.READY, active.progress.state.value.phase)
+            val accepted = active.progress.state.value.accepted
+            active.navigate(requested)
+            active.reflowViewport()
+            assertEquals(org.bookreader.mobile.reader.ArchiveReaderPhase.REFLOWING, active.progress.state.value.phase)
+            assertEquals(accepted, active.progress.state.value.accepted)
+            assertEquals(requested, active.initialLocator())
+        }
+        waitForSearchCommit(book)
+        recordRestoreObservation("search-after-reflow", requireNotNull(saved(book)))
+        assertParagraphVisible("two", "p179")
+        val locator = org.json.JSONObject(requireNotNull(saved(book)).payload.locator.toString())
+        assertEquals(requested.text.highlight, locator.getJSONObject("text").getString("highlight"))
+    }
+
+    private fun waitForSearchCommit(book: Book) {
+        try {
+            compose.waitUntil(20_000) {
+                val locator = saved(book)?.payload?.locator ?: return@waitUntil false
+                val json = org.json.JSONObject(locator.toString())
+                json.getString("href").endsWith("two.xhtml") && json.getJSONObject("locations").optDouble("progression", 0.0) > .5
+            }
+        } catch (failure: Throwable) {
+            // Preserve the original timeout and capture fixture state even before search succeeds.
+            runCatching { recordRestoreObservation("search-timeout", saved(book)) }
+                .onFailure { failure.addSuppressed(it) }
+            throw failure
+        }
+    }
     @Test fun unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy() {
         send("epub-product"); waitFor("epub_ready")
         val book = reader().book
@@ -160,11 +203,17 @@ class EpubReaderFlowTest {
         assertEquals(storedSettings, runBlocking { database.readerSettingsDao().global() })
     }
     /** Fixture-only observations survive cleanup even when the following assertion fails. */
-    private fun recordRestoreObservation(stage: String, expected: EpubLocator): org.json.JSONObject {
+    private fun recordRestoreObservation(stage: String, expected: EpubLocator?): org.json.JSONObject {
         val completed = java.util.concurrent.CountDownLatch(1)
         val observation = org.json.JSONObject().put("stage", stage)
-            .put("expected", org.json.JSONObject(expected.payload.locator.toString()))
+            .put("expected", expected?.let { org.json.JSONObject(it.payload.locator.toString()) } ?: org.json.JSONObject.NULL)
         compose.activityRule.scenario.onActivity { activity ->
+            val owner = ViewModelProvider(activity)[AppViewModel::class.java].state.value.epubReader!!
+            observation.put("phase", owner.progress.state.value.phase.name)
+                .put("hostVersion", owner.state.value.hostVersion)
+                .put("generation", owner.progress.state.value.generation)
+                .put("initialLocator", owner.initialLocator()?.toJSON())
+                .put("error", owner.state.value.error)
             val wrapper = activity.supportFragmentManager.fragments.filterIsInstance<EpubHostFragment>().single()
             val navigator = wrapper.childFragmentManager.fragments.filterIsInstance<org.readium.r2.navigator.epub.EpubNavigatorFragment>().single()
             observation.put("actual", navigator.currentLocator.value.toJSON())
@@ -173,7 +222,12 @@ class EpubReaderFlowTest {
                 is android.view.ViewGroup -> (0 until view.childCount).flatMap { webViews(view.getChildAt(it)) }
                 else -> emptyList()
             }
-            val web = webViews(activity.window.decorView).first { it.isShown && it.url?.contains("/two.xhtml") == true }
+            val web = webViews(activity.window.decorView).firstOrNull { it.isShown && it.url?.contains("/two.xhtml") == true }
+            if (web == null) {
+                observation.put("viewportUnavailable", true)
+                completed.countDown()
+                return@onActivity
+            }
             web.evaluateJavascript("""
                 (() => {
                     const p = document.getElementById('p179');
@@ -194,7 +248,7 @@ class EpubReaderFlowTest {
             }
         }
         assertTrue("Fixture viewport observation must complete", completed.await(10, java.util.concurrent.TimeUnit.SECONDS))
-        val report = File(target.filesDir, "epub-restore-observations.json")
+        val report = File(target.filesDir, observationFileName)
         val observations = if (stage == "search" || !report.exists()) org.json.JSONArray()
             else org.json.JSONArray(report.readText())
         observations.put(observation)

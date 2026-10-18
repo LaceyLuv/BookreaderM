@@ -1,0 +1,49 @@
+{
+  "source_sha": "8ca750efe07f12c5f7f0d79980868919ba9f88b7",
+  "apis": {
+    "26": {
+      "tests": 53,
+      "failed": 1,
+      "failures": [
+        {
+          "case": [
+            "org.bookreader.mobile.epub.EpubReaderFlowTest",
+            "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator"
+          ],
+          "status": "failure",
+          "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator(EpubReaderFlowTest.kt:78)\n"
+        }
+      ],
+      "host": "NOT_RUN"
+    },
+    "34": {
+      "tests": 53,
+      "failed": 2,
+      "failures": [
+        {
+          "case": [
+            "org.bookreader.mobile.epub.EpubReaderFlowTest",
+            "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator"
+          ],
+          "status": "failure",
+          "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator(EpubReaderFlowTest.kt:78)\n"
+        },
+        {
+          "case": [
+            "org.bookreader.mobile.reader.TxtReaderFlowTest",
+            "pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor"
+          ],
+          "status": "failure",
+          "message": "java.lang.AssertionError: Failed: assertExists.\nReason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'reader_text')\nHowever, the unmerged tree contains '1' node that matches. Are you missing `useUnmergedNode = true` in your finder?\n\nat androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)\nat androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)\nat androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)\nat androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode$default(SemanticsNodeInteraction.kt:83)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.measuredVisibleLine(TxtReaderFlowTest.kt:1361)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.assertAnchorInFirstMeasuredLine(TxtReaderFlowTest.kt:841)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor(TxtReaderFlowTest.kt:1019)\n"
+        }
+      ],
+      "host": "NOT_RUN"
+    },
+    "36": {
+      "tests": 53,
+      "failed": 0,
+      "failures": [],
+      "host": "PASS (original host proof retained)"
+    }
+  }
+}

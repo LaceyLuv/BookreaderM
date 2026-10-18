@@ -90,6 +90,7 @@ for fixture in reader-query-error reader-locator-error reader-switch reader-reop
 done
 epub_report_exit=0
 run_logged epub-restore-observations adb shell run-as org.bookreader.mobile cat files/epub-restore-observations.json || epub_report_exit=$?
+run_logged epub-search-reflow-observations adb shell run-as org.bookreader.mobile cat files/epub-search-reflow-observations.json || epub_report_exit=$?
 if (( connected_exit != 0 )); then exit "$connected_exit"; fi
 if (( report_exit != 0 )); then exit "$report_exit"; fi
 if (( full_report_exit != 0 )); then exit "$full_report_exit"; fi

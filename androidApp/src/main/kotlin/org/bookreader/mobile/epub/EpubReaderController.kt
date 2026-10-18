@@ -57,6 +57,9 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     private var generation = 0
     private var userMovement = false
     private var jumpTarget: Locator? = null
+    // A requested jump is not an accepted reading position until a live host renders it.
+    // Keep it across the host replacement caused by dismissing a search dialog/IME.
+    private var pendingJump: Locator? = null
     private var captureJob: Job? = null
     private var seekJob: Job? = null
     private var returnTo: Locator? = null
@@ -99,7 +102,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
             ReaderSettingsRead.Error -> mutableState.update { it.copy(settingsError = true) }
         }
     } }
-    fun initialLocator(): Locator? = (progress.state.value.accepted as? EpubLocator)?.let(::sdk)
+    fun initialLocator(): Locator? = pendingJump ?: (progress.state.value.accepted as? EpubLocator)?.let(::sdk)
     fun preferences(): EpubPreferences = state.value.settings.let {
         EpubPreferences(scroll = it.readingMode == TxtReadingMode.SCROLL, fontSize = it.fontSizeSp / 18.0,
             lineHeight = it.lineHeight.toDouble(), publisherStyles = it.epubPublisherStyles,
@@ -129,7 +132,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         if (host === navigator) { captureJob?.cancel(); restoreTimeout?.cancel(); host = null; detachHost = null; userMovement = false }
     }
     fun pageChanged(navigator: EpubNavigatorFragment, token: Int, locator: Locator) {
-        if (closing || host !== navigator || token != generation) return
+        if (closing || host !== navigator || token != generation || token != progress.state.value.generation) return
         try {
             validate(locator)
             val before = progress.state.value
@@ -138,9 +141,15 @@ class EpubReaderController(val book: Book, private val file: File, private val v
                 if (target != null && target.href.removeFragment().removeQuery() != locator.href.removeFragment().removeQuery()) return
                 restoreTimeout?.cancel()
                 progress.restored(token)
-            } else if (userMovement && before.phase == ArchiveReaderPhase.READY) {
+            }
+            if ((userMovement || pendingJump != null) && progress.state.value.let {
+                    it.phase == ArchiveReaderPhase.READY && it.generation == token
+                }) {
                 captureJob?.cancel()
-                val target = jumpTarget?.takeIf { it.href.removeFragment().removeQuery() == locator.href.removeFragment().removeQuery() }
+                val requested = pendingJump
+                // Ignore callbacks from the old chapter while a jump is still in flight.
+                if (requested != null && requested.href.removeFragment().removeQuery() != locator.href.removeFragment().removeQuery()) return
+                val target = (requested ?: jumpTarget)?.takeIf { it.href.removeFragment().removeQuery() == locator.href.removeFragment().removeQuery() }
                 captureJob = scope.launch {
                     try {
                         // The page callback contains progression only. Preserve the user's search
@@ -155,13 +164,14 @@ class EpubReaderController(val book: Book, private val file: File, private val v
                             // A very large HTML block still has its exact SDK CSS selector.
                             text = if ((precise.text.highlight?.length ?: 0) > 4096) Locator.Text() else precise.text)
                         progress.userAnchor(token, canonical(anchored), locator.locations.totalProgression?.times(100))
+                        if (pendingJump === requested) pendingJump = null
                     } catch (cancelled: CancellationException) { throw cancelled }
                     catch (_: Exception) { fail("표시 위치를 읽지 못했습니다. 기존 독서 기록은 보존됩니다.") }
                 }
             }
         } catch (_: Exception) { fail("독서 위치를 복원하지 못했습니다. 기존 기록은 보존됩니다.") }
     }
-    fun armMovement() { if (progress.state.value.phase == ArchiveReaderPhase.READY) { userMovement = true; jumpTarget = null } }
+    fun armMovement() { if (progress.state.value.phase == ArchiveReaderPhase.READY) { userMovement = true; jumpTarget = null; pendingJump = null } }
     fun next(direction: Int) { armMovement(); if (direction > 0) host?.goForward(animated = false) else host?.goBackward(animated = false) }
     fun seek(fraction: Float) {
         if (!fraction.isFinite() || progress.state.value.phase != ArchiveReaderPhase.READY) return
@@ -177,15 +187,25 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         }
     }
     fun navigate(locator: Locator, rememberOrigin: Boolean = true) {
-        if (progress.state.value.phase != ArchiveReaderPhase.READY) return
+        if (closing || progress.state.value.phase !in setOf(ArchiveReaderPhase.READY, ArchiveReaderPhase.REFLOWING)) return
         try {
             validate(locator)
             if (rememberOrigin && returnTo == null) returnTo = initialLocator() ?: host?.currentLocator?.value
+            captureJob?.cancel()
             armMovement()
             jumpTarget = locator
-            check(host?.go(locator, animated = false) == true)
-            mutableState.update { it.copy(canReturn = returnTo != null) }
-        } catch (_: Exception) { mutableState.update { it.copy(error = "이 위치로 이동할 수 없습니다. 현재 기록은 유지됩니다.") } }
+            pendingJump = locator
+            if (progress.state.value.phase == ArchiveReaderPhase.REFLOWING) {
+                // The old host is being removed. Let its replacement start at this request.
+                mutableState.update { it.copy(hostVersion = it.hostVersion + 1, canReturn = returnTo != null) }
+            } else {
+                check(host?.go(locator, animated = false) == true)
+                mutableState.update { it.copy(canReturn = returnTo != null) }
+            }
+        } catch (_: Exception) {
+            pendingJump = null
+            mutableState.update { it.copy(error = "이 위치로 이동할 수 없습니다. 현재 기록은 유지됩니다.") }
+        }
     }
     fun returnFromJump() { val target = returnTo ?: return; returnTo = null; navigate(target, false); mutableState.update { it.copy(canReturn = false) } }
     fun beforeInternalLink() { if (returnTo == null) returnTo = initialLocator() ?: host?.currentLocator?.value; armMovement(); mutableState.update { it.copy(canReturn = returnTo != null) } }

@@ -1,5 +1,28 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## 2026-10-18 EPUB 검색 이동과 화면 교체 경쟁 수정
+
+`8ca750e`의 차단됐던 artifact를 회수해 ZIP digest를 검증했다.
+API26은 53개 중 검색 저장 timeout 1 FAIL, API34는 같은 timeout 및 TXT 측정 semantics 조회 총 2 FAIL,
+API36은 ordinary 53 PASS다. [실패 XML·관찰·logcat 원본](evidence/epub-reflow-navigation/)을 보존했다.
+검색 실패는 설정 변경 이전 단계이므로 지난 설정 대기 보완과 구분한다.
+
+`EpubReaderController.navigate`는 REFLOWING 중 요청을 버렸고 `attach`는 미완료 jump target을 초기화했다.
+검색/키보드 닫힘으로 host가 교체되는 경로에서 요청을 잃지 않도록 별도 `pendingJump`를 보존한다.
+새 host는 보류 요청에서 시작하되, 현재 host/generation의 실제 표시 callback과 READY 확인 뒤에만
+`progress.userAnchor`를 호출한다. 이전 generation 콜백은 진입점에서 거부하며 새 사용자 이동은 보류 요청을 취소한다.
+완료된 위치의 순수 font/recreation 복원은 사용자 이동으로 새로 저장하지 않는다.
+
+기존 검색 UI test는 실제 click handler 직전에 강제로 reflow하고, 새 native test는 요청 직후 강제로 reflow한다.
+두 경우 모두 렌더 전 accepted 위치 불변, 이후 실제 p179 표시 및 저장 text anchor를 확인한다.
+기존 .03 오차/문단/DB 불변 검증을 유지했다. ordinary 필수 목록은 54개로 갱신했고 host는 총 6단계다.
+실패 시에도 search timeout 관찰을 남기며 새 독립 회귀 관찰 파일을 device-check가 회수한다.
+TXT 측정 helper는 unmerged semantics의 실제 viewport/text layout을 사용하며 줄·anchor 일치 assertion은 유지한다.
+
+`./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest :androidApp:lintDebug :androidApp:testDebugUnitTest`
+exit 0, shell 문법/변경 코드 whitespace PASS다. native 재검증은 push 후 진행한다.
+이 단계에서 제품 오류 해결·main 통합·최종 release 검증 완료를 주장하지 않는다.
+
 ## 2026-10-18 최신: 설정 대기 보완 검증 및 실패 원본 접근 차단
 
 검증 소스는 `8ca750efe07f12c5f7f0d79980868919ba9f88b7`, 현재 브랜치는 `codex/comic-product`다.
