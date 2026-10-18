@@ -1,0 +1,170 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :epubAndroid:preBuild UP-TO-DATE
+> Task :shared:preBuild UP-TO-DATE
+> Task :shared:preReleaseBuild UP-TO-DATE
+> Task :androidApp:preBuild UP-TO-DATE
+> Task :androidApp:preReleaseBuild UP-TO-DATE
+> Task :epubAndroid:preReleaseBuild UP-TO-DATE
+> Task :shared:mergeReleaseJniLibFolders
+> Task :androidApp:mergeReleaseJniLibFolders
+> Task :epubAndroid:mergeReleaseJniLibFolders
+> Task :shared:mergeReleaseNativeLibs NO-SOURCE
+> Task :epubAndroid:mergeReleaseNativeLibs NO-SOURCE
+> Task :epubAndroid:copyReleaseJniLibsProjectOnly
+> Task :shared:copyReleaseJniLibsProjectOnly
+> Task :shared:prepareReleaseArtProfile
+> Task :epubAndroid:prepareReleaseArtProfile
+> Task :epubAndroid:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :epubAndroid:generateReleaseResValues
+> Task :epubAndroid:generateReleaseResources
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:generateReleaseResValues
+> Task :shared:generateReleaseResources
+> Task :shared:packageReleaseResources
+> Task :epubAndroid:packageReleaseResources
+> Task :shared:parseReleaseLocalResources
+> Task :epubAndroid:parseReleaseLocalResources
+> Task :epubAndroid:generateReleaseRFile
+> Task :shared:generateReleaseRFile
+> Task :shared:javaPreCompileRelease
+> Task :androidApp:checkReleaseDuplicateClasses
+> Task :androidApp:mergeReleaseNativeLibs
+> Task :androidApp:mergeReleaseArtProfile
+
+> Task :androidApp:stripReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libsqliteJni.so. Run with --info option to learn more.
+
+> Task :shared:writeReleaseAarMetadata
+> Task :shared:extractDeepLinksRelease
+> Task :shared:processReleaseManifest
+> Task :shared:compileReleaseLibraryResources
+> Task :epubAndroid:javaPreCompileRelease
+> Task :epubAndroid:writeReleaseAarMetadata
+> Task :epubAndroid:extractDeepLinksRelease
+> Task :epubAndroid:processReleaseManifest
+> Task :epubAndroid:compileReleaseLibraryResources
+> Task :epubAndroid:mergeReleaseShaders
+> Task :epubAndroid:compileReleaseShaders NO-SOURCE
+> Task :epubAndroid:generateReleaseAssets UP-TO-DATE
+> Task :epubAndroid:mergeReleaseAssets
+> Task :shared:mergeReleaseShaders
+> Task :shared:compileReleaseShaders NO-SOURCE
+> Task :shared:generateReleaseAssets UP-TO-DATE
+> Task :shared:releaseAssetsCopyForAGP NO-SOURCE
+> Task :shared:mergeReleaseAssets
+> Task :epubAndroid:extractProguardFiles UP-TO-DATE
+> Task :epubAndroid:prepareLintJarForPublish UP-TO-DATE
+> Task :shared:extractProguardFiles UP-TO-DATE
+> Task :shared:prepareLintJarForPublish UP-TO-DATE
+> Task :shared:stripReleaseDebugSymbols NO-SOURCE
+> Task :shared:copyReleaseJniLibsProjectAndLocalJars
+> Task :shared:extractDeepLinksForAarRelease
+> Task :epubAndroid:stripReleaseDebugSymbols NO-SOURCE
+> Task :epubAndroid:copyReleaseJniLibsProjectAndLocalJars
+> Task :epubAndroid:extractDeepLinksForAarRelease
+> Task :epubAndroid:writeReleaseLintModelMetadata
+> Task :shared:writeReleaseLintModelMetadata
+> Task :androidApp:extractReleaseNativeSymbolTables
+> Task :androidApp:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :androidApp:expandReleaseL8ArtProfileWildcards
+> Task :androidApp:buildKotlinToolingMetadata
+> Task :androidApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :androidApp:generateReleaseResValues
+> Task :androidApp:checkReleaseAarMetadata
+> Task :androidApp:mapReleaseSourceSetPaths
+> Task :androidApp:generateReleaseResources
+> Task :androidApp:packageReleaseResources
+> Task :androidApp:parseReleaseLocalResources
+> Task :androidApp:createReleaseCompatibleScreenManifests
+> Task :androidApp:extractDeepLinksRelease
+> Task :androidApp:mergeReleaseResources
+> Task :androidApp:processReleaseMainManifest
+> Task :androidApp:processReleaseManifest
+> Task :androidApp:javaPreCompileRelease
+> Task :androidApp:desugarReleaseFileDependencies
+> Task :androidApp:mergeReleaseStartupProfile
+> Task :epubAndroid:compileReleaseKotlin
+> Task :epubAndroid:compileReleaseJavaWithJavac NO-SOURCE
+> Task :shared:kspReleaseKotlinAndroid
+> Task :androidApp:processReleaseManifestForPackage
+> Task :androidApp:mergeExtDexRelease
+> Task :epubAndroid:bundleLibRuntimeToDirRelease
+> Task :shared:compileReleaseKotlinAndroid
+> Task :epubAndroid:bundleLibCompileToJarRelease
+> Task :epubAndroid:bundleLibRuntimeToJarRelease
+> Task :epubAndroid:processReleaseJavaRes
+> Task :epubAndroid:createFullJarRelease
+> Task :epubAndroid:generateReleaseLintModel
+> Task :epubAndroid:extractReleaseAnnotations
+> Task :epubAndroid:mergeReleaseGeneratedProguardFiles
+> Task :epubAndroid:mergeReleaseConsumerProguardFiles
+> Task :epubAndroid:mergeReleaseJavaResource
+> Task :epubAndroid:syncReleaseLibJars
+> Task :epubAndroid:bundleReleaseLocalLintAar
+> Task :androidApp:mergeReleaseShaders
+> Task :androidApp:compileReleaseShaders NO-SOURCE
+> Task :androidApp:generateReleaseAssets UP-TO-DATE
+> Task :androidApp:mergeReleaseAssets
+> Task :androidApp:compressReleaseAssets
+> Task :androidApp:extractReleaseVersionControlInfo
+> Task :androidApp:extractProguardFiles UP-TO-DATE
+> Task :epubAndroid:generateReleaseLintVitalModel
+
+> Task :shared:compileReleaseKotlinAndroid
+w: file:///workspace/BookreaderM/shared/build/generated/ksp/android/androidRelease/kotlin/org/bookreader/mobile/database/BookReaderDatabaseConstructor.kt:5:8 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///workspace/BookreaderM/shared/src/commonMain/kotlin/org/bookreader/mobile/database/BookReaderDatabase.kt:58:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :androidApp:processReleaseResources
+> Task :shared:compileReleaseJavaWithJavac NO-SOURCE
+> Task :shared:copyRoomSchemas NO-SOURCE
+> Task :shared:bundleLibCompileToJarRelease
+> Task :shared:bundleLibRuntimeToJarRelease
+> Task :androidApp:collectReleaseDependencies
+> Task :shared:bundleLibRuntimeToDirRelease
+> Task :shared:processReleaseJavaRes
+> Task :shared:createFullJarRelease
+> Task :shared:generateReleaseLintModel
+> Task :shared:extractReleaseAnnotations
+> Task :shared:mergeReleaseGeneratedProguardFiles
+> Task :shared:mergeReleaseConsumerProguardFiles
+> Task :shared:mergeReleaseJavaResource
+> Task :shared:syncReleaseLibJars
+> Task :shared:bundleReleaseLocalLintAar
+> Task :shared:generateReleaseLintVitalModel
+> Task :androidApp:optimizeReleaseResources
+> Task :androidApp:sdkReleaseDependencyData
+> Task :androidApp:writeReleaseAppMetadata
+> Task :androidApp:writeReleaseSigningConfigVersions
+> Task :androidApp:processApplicationManifestReleaseForBundle
+> Task :androidApp:bundleReleaseResources
+> Task :androidApp:configureReleaseDependencies
+> Task :androidApp:parseReleaseIntegrityConfig
+> Task :epubAndroid:lintVitalAnalyzeRelease
+> Task :shared:lintVitalAnalyzeRelease
+> Task :androidApp:compileReleaseKotlin
+> Task :androidApp:compileReleaseJavaWithJavac NO-SOURCE
+> Task :androidApp:dexBuilderRelease
+> Task :androidApp:mergeReleaseGlobalSynthetics
+> Task :androidApp:generateReleaseLintVitalReportModel
+> Task :androidApp:processReleaseJavaRes
+> Task :androidApp:mergeReleaseJavaResource
+> Task :androidApp:mergeDexRelease
+> Task :androidApp:lintVitalAnalyzeRelease
+> Task :androidApp:lintVitalReportRelease
+> Task :androidApp:lintVitalRelease
+> Task :androidApp:l8DexDesugarLibRelease
+> Task :androidApp:buildReleasePreBundle
+> Task :androidApp:compileReleaseArtProfile
+> Task :androidApp:packageReleaseBundle
+> Task :androidApp:packageRelease
+> Task :androidApp:createReleaseApkListingFileRedirect
+> Task :androidApp:assembleRelease
+> Task :androidApp:signReleaseBundle
+> Task :androidApp:produceReleaseBundleIdeListingFile
+> Task :androidApp:createReleaseBundleListingFileRedirect
+> Task :androidApp:bundleRelease
+
+BUILD SUCCESSFUL in 2m 57s
+130 actionable tasks: 125 executed, 5 up-to-date

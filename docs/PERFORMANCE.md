@@ -1,5 +1,13 @@
 # 성능 측정 — 2026-10-17
 
+## 2026-10-18 검증 갱신
+
+`8ca750e` unsigned APK/AAB 생성 및 APK 정적 감사는 PASS다.
+[정확 source/hash·감사 원본](evidence/archive-resume-verified/release-8ca750e/)을 보존한다.
+최신 device matrix는 API26/34 FAIL, API36 SUCCESS(metadata)로 main 통합 전이다.
+물리 release 성능·PSS/GPU·실제 16KB OS·TalkBack·전체 보안 corpus·최종 서명/출시 검증은 여전히 미완료다.
+[최신 검증 보고서](RESUME_VALIDATION_2026-10-18.md)를 우선하며 아래 자료는 이전 소스의 이력이다.
+
 기준 물리 Android 기기는 이 환경에 연결돼 있지 않다. 계획 §25의 제품 성능 판정은 BLOCKED_ENV다.
 JVM/에뮬레이터 측정을 실기기 release 성능으로 바꾸어 적지 않는다.
 

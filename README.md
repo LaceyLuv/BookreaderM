@@ -1,10 +1,12 @@
 # BookreaderM
 
-## 현재 구현 (2026-10-17)
+## 현재 구현 (2026-10-18)
 
 main은 TXT의 스크롤·페이지 독서와 EPUB2/3 가져오기·목차·본문 검색·북마크·설정·이어읽기를 지원하는 내부 알파다. `책 추가`에서 파일을 고르며, 원본을 바꾸지 않고 앱 내부 관리 복사본을 읽는다. 일반 새 프로세스는 서재에서 시작한다.
 
 `22526d3`의 실제 API36 회귀 52개와 기존 TXT 외부 종료 검증 2단계가 PASS다. [EPUB 제품 범위](docs/M08_EPUB_PRODUCT.md), [최신 인계](docs/CONTEXT_HANDOFF.md), [검증 원본](docs/evidence/m01-epub-validation/remote-22526d3-device/)을 따른다. Comic 제품 화면은 별도 브랜치에서 검증 중이다. 실기기 성능·TalkBack·최종 출시 검증은 완료되지 않았다.
+
+후속 제품 브랜치 `8ca750e`의 설정 적용 테스트를 보완했다. 최신 API26/34 job 실패와 API36 성공을 확인했으며 main 통합은 보류했다. 로컬 필수 검사와 unsigned APK/AAB 정적 감사는 PASS다. [최신 검증과 접근 차단](docs/RESUME_VALIDATION_2026-10-18.md)을 따른다.
 
 ## 이전 TXT 내부 알파 기록
 북리더 모바일

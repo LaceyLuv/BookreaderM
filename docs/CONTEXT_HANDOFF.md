@@ -1,5 +1,24 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## 2026-10-18 최신: 설정 대기 보완 검증 및 실패 원본 접근 차단
+
+검증 소스는 `8ca750efe07f12c5f7f0d79980868919ba9f88b7`, 현재 브랜치는 `codex/comic-product`다.
+설정 테스트가 저장 완료·예상 설정·새 hostVersion·READY를 기다리며 실제 글자 크기 증가도 확인한다.
+로컬 full CI **Android 66/shared 74/EPUB 16 + 실제 ENOSPC 3 PASS**, APK/test APK/lint/schema 5 PASS다.
+원격 build 39100038796은 SUCCESS, device 39100038799는 **API26 FAIL / API34 FAIL / API36 SUCCESS**다.
+이는 최신 job metadata이며 새 native XML의 건수/실패 원인은 아직 확인하지 못했다.
+새 artifact 호스트 `productionresultssa0.blob.core.windows.net`(device),
+`productionresultssa7.blob.core.windows.net`(build)의 프록시 403으로 원본 접근이 **BLOCKED_ENV**다.
+두 호스트를 환경 초안에 추가했다. 환경 설정에서 검토·저장·게시한 뒤 다운로드를 다시 진행한다.
+
+이전 `8bced5f`의 세 API 각각 **53 ordinary + 6 host PASS**는 원본 검증된 별도 성공 이력이다.
+이번 실패를 이전 성공으로 덮어쓰지 않으며, 새 실패가 과거와 같은 원인이라고 단정하지 않는다.
+`8ca750e` unsigned release APK/AAB 생성·APK 정적 감사 PASS, 실제 서명은 **NOT_SIGNED**다.
+release 실행/물리 성능/16KB OS/TalkBack/출시 승인은 미완료다. **main 통합은 하지 않았다.**
+[최신 summary](evidence/archive-resume-verified/summary-8ca750e.json),
+[패키지 hash·감사](evidence/archive-resume-verified/release-8ca750e/),
+[전체 검증 보고서](RESUME_VALIDATION_2026-10-18.md)를 따른다. 아래 절은 이전 시점 이력이다.
+
 ## 2026-10-18 원본 회수 완료 및 설정 적용 대기 보완
 
 원격 artifact 다운로드가 성공했다. ZIP SHA256을 GitHub digest와 비교했고,

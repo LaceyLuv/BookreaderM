@@ -1,5 +1,51 @@
 # 2026-10-18 재개 검증 결과
 
+## 2026-10-18 최신: 설정 대기 보완 검증 및 실패 원본 접근 차단
+
+검증 소스는 `8ca750efe07f12c5f7f0d79980868919ba9f88b7`, 현재 브랜치는 `codex/comic-product`다.
+설정 테스트가 저장 완료·예상 설정·새 hostVersion·READY를 기다리며 실제 글자 크기 증가도 확인한다.
+로컬 full CI **Android 66/shared 74/EPUB 16 + 실제 ENOSPC 3 PASS**, APK/test APK/lint/schema 5 PASS다.
+원격 build 39100038796은 SUCCESS, device 39100038799는 **API26 FAIL / API34 FAIL / API36 SUCCESS**다.
+이는 최신 job metadata이며 새 native XML의 건수/실패 원인은 아직 확인하지 못했다.
+새 artifact 호스트 `productionresultssa0.blob.core.windows.net`(device),
+`productionresultssa7.blob.core.windows.net`(build)의 프록시 403으로 원본 접근이 **BLOCKED_ENV**다.
+두 호스트를 환경 초안에 추가했다. 환경 설정에서 검토·저장·게시한 뒤 다운로드를 다시 진행한다.
+
+이전 `8bced5f`의 세 API 각각 **53 ordinary + 6 host PASS**는 원본 검증된 별도 성공 이력이다.
+이번 실패를 이전 성공으로 덮어쓰지 않으며, 새 실패가 과거와 같은 원인이라고 단정하지 않는다.
+`8ca750e` unsigned release APK/AAB 생성·APK 정적 감사 PASS, 실제 서명은 **NOT_SIGNED**다.
+release 실행/물리 성능/16KB OS/TalkBack/출시 승인은 미완료다. **main 통합은 하지 않았다.**
+[최신 summary](evidence/archive-resume-verified/summary-8ca750e.json),
+[패키지 hash·감사](evidence/archive-resume-verified/release-8ca750e/),
+[전체 검증 보고서](RESUME_VALIDATION_2026-10-18.md)를 따른다. 아래 절은 이전 시점 이력이다.
+
+### 이번 실행 명령과 판정
+
+```bash
+source /workspace/toolchains/mobile-env.sh
+BOOKREADER_EVIDENCE_DIR=build/resume-final-ci ./scripts/ci-check.sh
+./scripts/enospc-check.sh
+./gradlew --no-daemon --console=plain :androidApp:assembleRelease :androidApp:bundleRelease
+python3 scripts/audit-apk.py androidApp/build/outputs/apk/release/androidApp-release-unsigned.apk \
+  --source-sha 8ca750efe07f12c5f7f0d79980868919ba9f88b7 --unsigned \
+  --output /workspace/scratch/resume-ci/release-audit-8ca750e.json
+jarsigner -verify androidApp/build/outputs/bundle/release/androidApp-release.aab
+```
+
+위 명령은 모두 exit 0이다. jarsigner 출력은 `jar is unsigned`이며 서명 PASS가 아니다.
+APK SHA256 `c821bdbb4db77a9c9f5ce6af04eabd961ce34f8e07048bde3e06678a4198c0a9`,
+AAB SHA256 `b89428e7cbe2ea8fdfd99f551528f00edf77898e3d1239c3909bc5e8f2620554`다.
+APK 감사는 4 ABI, native 8개 ELF/ZIP 16KB 정렬, backup/cleartext 비활성 및 요청 권한을 검사했다.
+이는 실제 16KB OS 실행이나 release 기기 검증을 대신하지 않는다.
+
+최신 device [39100038799](https://github.com/LaceyLuv/BookreaderM/actions/runs/39100038799)는 완료/FAIL이다.
+API26 check annotation은 일반적인 `/usr/bin/sh` exit 1만 제공하므로 assertion 원인을 추정하지 않는다.
+다음 작업은 두 새 호스트가 적용된 환경에서
+`python3 /workspace/scratch/resume-ci/fetch.py 39100038796 39100038799 --download`를 실행해
+ZIP digest/source/필수 case/관찰 JSON/실패 XML을 확인하는 것이다.
+확인된 원인만 수정하고 세 API ordinary·host 검증이 통과한 뒤 main 통합을 진행한다.
+현재 main `d775783`은 제품 브랜치의 조상이지만 실패가 남아 fast-forward를 실행하지 않았다.
+
 ## 2026-10-18 원본 회수 완료 및 설정 적용 대기 보완
 
 원격 artifact 다운로드가 성공했다. ZIP SHA256을 GitHub digest와 비교했고,

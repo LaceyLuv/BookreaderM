@@ -1,0 +1,44 @@
+{
+  "source_sha": "8ca750efe07f12c5f7f0d79980868919ba9f88b7",
+  "observed_at_utc": "2026-10-18T05:31:16.583166+00:00",
+  "local": {
+    "status": "PASS",
+    "ci_exit": 0,
+    "enospc_exit": 0,
+    "counts": {
+      "android-unit": 66,
+      "shared-jvm": 74,
+      "epub-unit": 16,
+      "shared-enospc": 3
+    },
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "remote_build": {
+    "run_id": 39100038796,
+    "metadata_conclusion": "success",
+    "artifact_verified": false
+  },
+  "remote_device": {
+    "run_id": 39100038799,
+    "metadata_conclusion": "failure",
+    "api_jobs": {
+      "26": "failure",
+      "34": "failure",
+      "36": "success"
+    },
+    "artifact_verified": false,
+    "case_counts": null
+  },
+  "blocked_download_hosts": [
+    "productionresultssa0.blob.core.windows.net",
+    "productionresultssa7.blob.core.windows.net"
+  ],
+  "download_error": "Tunnel connection failed: 403 Forbidden",
+  "release_static_audit": "PASS",
+  "release_signature": "NOT_SIGNED",
+  "release_execution": "NOT_RUN",
+  "main_integrated": false,
+  "historical_success_summary": "summary-8bced5f.json"
+}
