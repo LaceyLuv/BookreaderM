@@ -90,15 +90,21 @@ class EpubReaderFlowTest {
         compose.activityRule.scenario.recreate()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
-        recordRestoreObservation("recreation", original)
+        val beforeFontChange = recordRestoreObservation("recreation", original)
         assertRenderedNear(original)
         assertParagraphVisible("two", "p179")
+        val beforeSettings = reader().state.value
         compose.onNodeWithTag("epub_settings").performClick()
         compose.onNodeWithTag("font_size_increase").performScrollTo().performClick()
         compose.onNodeWithTag("reader_settings_apply").performClick()
-        waitFor("epub_ready")
+        waitForSettingsApplied(beforeSettings.hostVersion,
+            beforeSettings.settings.copy(fontSizeSp = beforeSettings.settings.fontSizeSp + 1))
         assertEquals(original, saved(book))
-        recordRestoreObservation("font-size", original)
+        val afterFontChange = recordRestoreObservation("font-size", original)
+        fun fontPixels(observation: org.json.JSONObject) = observation.getJSONObject("viewport")
+            .getString("fontSize").removeSuffix("px").toDouble()
+        assertTrue("The displayed paragraph must use the increased font size",
+            fontPixels(afterFontChange) > fontPixels(beforeFontChange))
         assertRenderedNear(original)
         assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_back").performClick()
@@ -141,10 +147,11 @@ class EpubReaderFlowTest {
         assertEquals(0.0, requireNotNull(reader().preferences().letterSpacing), 0.0)
         assertEquals(true, reader().preferences().publisherStyles)
         assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
+        val beforeSettings = reader().state.value
         compose.onNodeWithTag("epub_settings").performClick()
         compose.onNodeWithTag("epub_publisher_styles").performScrollTo().performClick()
         compose.onNodeWithTag("reader_settings_apply").performClick()
-        waitFor("epub_ready")
+        waitForSettingsApplied(beforeSettings.hostVersion, value.copy(epubPublisherStyles = false))
         assertEquals(false, reader().preferences().publisherStyles)
         assertEquals(-.02f, reader().state.value.settings.letterSpacingEm)
         val storedSettings = requireNotNull(runBlocking { database.readerSettingsDao().global() })
@@ -153,7 +160,7 @@ class EpubReaderFlowTest {
         assertEquals(storedSettings, runBlocking { database.readerSettingsDao().global() })
     }
     /** Fixture-only observations survive cleanup even when the following assertion fails. */
-    private fun recordRestoreObservation(stage: String, expected: EpubLocator) {
+    private fun recordRestoreObservation(stage: String, expected: EpubLocator): org.json.JSONObject {
         val completed = java.util.concurrent.CountDownLatch(1)
         val observation = org.json.JSONObject().put("stage", stage)
             .put("expected", org.json.JSONObject(expected.payload.locator.toString()))
@@ -192,6 +199,20 @@ class EpubReaderFlowTest {
             else org.json.JSONArray(report.readText())
         observations.put(observation)
         report.writeText(observations.toString(2))
+        return observation
+    }
+
+    private fun waitForSettingsApplied(previousHostVersion: Int, expected: org.bookreader.mobile.settings.ReaderSettings) {
+        val owner = reader()
+        // The old READY node remains visible while the asynchronous settings write runs.
+        // Require the new settings/host and its completed restoration, not just that node.
+        compose.waitUntil(40_000) {
+            val state = owner.state.value
+            !state.settingsSaving && !state.settingsError && state.settings == expected &&
+                state.hostVersion > previousHostVersion &&
+                owner.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY
+        }
+        waitFor("epub_ready")
     }
 
     private fun assertParagraphVisible(chapter: String, id: String) {

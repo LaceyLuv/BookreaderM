@@ -1,5 +1,29 @@
 # BookReader Mobile — Codex 작업표
 
+## 2026-10-18 원본 회수 완료 및 설정 적용 대기 보완
+
+원격 artifact 다운로드가 성공했다. ZIP SHA256을 GitHub digest와 비교했고,
+`8bced5f`의 source/필수 case 목록/native XML/host PID 원본을 검증했다.
+**API26·34·36 각각 ordinary 53 + TXT/EPUB/Comic 외부 host 총 6단계 PASS**, failure/error/skip 0이다.
+원격 build Android 66/shared 74/EPUB 16/실제 ENOSPC 3도 PASS다.
+[검증 summary](evidence/archive-resume-verified/summary-8bced5f.json)와
+[원본](evidence/archive-resume-verified/)을 보존한다. 이전 403 blocker는 이번 다운로드에서 해소됐다.
+
+세 API 모두 recreation 뒤 16px, font-size/reopen 뒤 16.8896px이며 모든 관찰에서 p179가 표시됐다.
+글자 크기 변경 뒤 progression은 약 .0273~.0275 달라졌고 기존 .03 비교도 통과했다.
+과거 `9dfb884` API26은 검색 결과 클릭 후 저장 progression 대기 20초 초과,
+`c1ab039` API34는 progression 비교 FAIL, API36은 SDK probe 중 instrumentation process crash였다.
+이전 실패를 지우거나 이번 성공으로 원인 해결이라고 바꾸지 않는다.
+
+코드에서 설정 저장 중 기존 READY node가 남는 대기 조건 문제를 확인했다.
+EPUB 두 설정 테스트가 저장 완료/예상 설정/hostVersion 증가/복원 READY를 함께 기다리게 했다.
+실제 문단 computed font-size 증가 검증도 추가했으며 기존 .03/문단 표시/DB 불변 검증은 유지했다.
+제품 코드는 변경하지 않았다. 이 수정으로 과거 검색 timeout/crash가 해결됐다고 주장하지 않는다.
+`./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest :androidApp:lintDebug`
+exit 0, 변경 Kotlin whitespace 검사 PASS. 새 native 검증은 push 후 진행한다.
+원본 로그의 CRLF/공백은 보존하며 문서·코드 whitespace 검사와 구분한다.
+main 통합은 보완된 테스트 결과 확인 후 판단한다.
+
 ## 2026-10-18 재개 후 최신 상태
 
 사용자가 후속 개발 재개를 승인했다. 현재 저장소는 `/workspace/BookreaderM`,
