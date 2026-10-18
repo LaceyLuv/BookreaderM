@@ -1,6 +1,6 @@
 # EPUB 검색 이동과 화면 교체 경쟁 — 2026-10-18
 
-제품 수정 소스: `98d7f0faa5af37fdce8ac3d8d3b00c87eab05bdb`. 후속 테스트 동기화 보완은 다음 CI로 검증한다.
+제품 수정 소스: `98d7f0faa5af37fdce8ac3d8d3b00c87eab05bdb`. 후속 테스트 동기화 보완 소스는 `1622bb6c73fc2ccfa9c1eca7161b92236b8ba797`이다.
 
 검색 결과를 누를 때 검색창과 키보드가 닫히면서 viewport가 바뀐다. 기존 controller는
 REFLOWING 상태의 `navigate` 요청을 버렸으며, 이동 직후 host가 교체되는 경우에도
@@ -58,7 +58,23 @@ CSP 위반 이벤트·이미지 naturalWidth·문단 표시·.03 progression ass
 
 API26은 검색 저장 대기 직후 보이는 WebView가 없었다. 검색 저장 대기는 기존 href/progression에 더해
 실제 요청의 highlight와 controller READY도 요구한다. 문단 검사는 현재 READY host의 준비된 문서를 조회한다.
-이 변경의 native 결과 확인 전 main 통합을 하지 않는다.
+테스트 APK compile/lint exit 0 PASS. [build 39102758695](https://github.com/LaceyLuv/BookreaderM/actions/runs/39102758695)는
+원본 XML 기준 66/74/16/ENOSPC 3 PASS다. [device 39102758575](https://github.com/LaceyLuv/BookreaderM/actions/runs/39102758575)의
+API26에서 후속 progression 비교 실패를 확인했다. API34/36은 각각 ordinary 54 + host 6 PASS이며
+[소스별 원본과 요약](evidence/epub-reflow-navigation/ci-1622bb6/summary.json)을 보존했다.
+
+### API26: 키보드와 비교 기준 viewport
+
+`1622bb6`의 검색 관찰은 높이 234, progression .9706122448979592이며,
+재생성 관찰은 높이 516, progression .9350331316623451이다. 두 viewport 모두 p179가 실제로 보이고
+DB Locator는 변하지 않았다. 이 .035579 차이는 문단 유실의 증거가 아니라 키보드가 차지한 높이 차이와 일치한다.
+10초 준비 대기 보완 후 DOM 조회는 정상 동작했고, 기존 .03 assertion이 이 비교 조건 차이를 드러냈다.
+
+후속 flow는 검색 UI를 열기 전 viewport 크기를 기억하고 결과 선택 전 실제 키보드를 닫는다.
+controller READY 및 같은 viewport 크기를 10초 내 확인한 다음 검색 요청을 보낸다.
+기존 .03 수치 검증, font 증가, 실제 p179, DB 동일성 검증을 모두 유지한다.
+검색 요청 직전/직후의 강제 host 교체 회귀도 유지하며, 이 변경은 비교 기준을 고정하는 테스트 설정 변경이다.
+세 API의 일반 native 및 host 결과 확인 전 main을 통합하지 않는다.
 
 ## 패키지와 검증 범위
 

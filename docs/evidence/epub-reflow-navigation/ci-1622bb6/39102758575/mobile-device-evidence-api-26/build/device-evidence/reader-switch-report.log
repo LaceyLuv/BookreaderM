@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "build_fingerprint": "Android\/sdk_gphone_x86_64\/generic_x86_64:8.0.0\/OSR1.180418.026\/6741039:userdebug\/dev-keys",
+  "api": 26,
+  "fixture_sha256": [
+    "4b9d6419658a1c7a7705aed5d95fee8755ea065df0db3841851c0964fc2d9877",
+    "ae24850d9f674654e59de6fb6af6cb17c51a3c4e142f31360c3afce63007e3bc"
+  ],
+  "events": [
+    {
+      "iteration": 0,
+      "fixture_id": "reader-switch-a",
+      "previous_offset": 5529,
+      "committed_offset": 6897,
+      "epoch": 2,
+      "sequence": 1,
+      "backward": false,
+      "close_waited_for_writer": true
+    },
+    {
+      "iteration": 1,
+      "fixture_id": "reader-switch-b",
+      "previous_offset": 5529,
+      "committed_offset": 6897,
+      "epoch": 2,
+      "sequence": 1,
+      "backward": false,
+      "close_waited_for_writer": true
+    },
+    {
+      "iteration": 2,
+      "fixture_id": "reader-switch-a",
+      "previous_offset": 6897,
+      "committed_offset": 5509,
+      "epoch": 3,
+      "sequence": 1,
+      "backward": true,
+      "close_waited_for_writer": true
+    },
+    {
+      "iteration": 3,
+      "fixture_id": "reader-switch-b",
+      "previous_offset": 6897,
+      "committed_offset": 5509,
+      "epoch": 3,
+      "sequence": 1,
+      "backward": true,
+      "close_waited_for_writer": true
+    },
+    {
+      "iteration": 4,
+      "fixture_id": "reader-switch-a",
+      "previous_offset": 5509,
+      "committed_offset": 6877,
+      "epoch": 4,
+      "sequence": 1,
+      "backward": false,
+      "close_waited_for_writer": true
+    },
+    {
+      "iteration": 5,
+      "fixture_id": "reader-switch-b",
+      "previous_offset": 5509,
+      "committed_offset": 6877,
+      "epoch": 4,
+      "sequence": 1,
+      "backward": false,
+      "close_waited_for_writer": true
+    }
+  ],
+  "mechanism": "Held production Room writer connection; actual UI scroll\/back\/open; no fake save result"
+}

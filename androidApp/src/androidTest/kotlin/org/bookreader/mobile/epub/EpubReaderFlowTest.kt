@@ -71,10 +71,26 @@ class EpubReaderFlowTest {
         compose.onNodeWithTag("epub_toc").performClick()
         compose.onAllNodesWithTag("epub_toc_item")[1].performClick()
         compose.waitUntil(20_000) { saved(book)?.payload?.locator?.get("href")?.toString()?.contains("two.xhtml") == true }
+        waitFor("epub_ready")
+        val searchViewport = compose.onNodeWithTag("epub_ready").fetchSemanticsNode().boundsInRoot.size
         compose.onNodeWithTag("epub_search").performClick()
         compose.onNodeWithTag("epub_search_query").performTextInput("two 문단 0179")
         compose.onNodeWithTag("epub_search_start").performClick()
         waitFor("epub_search_result")
+        // Numeric progression describes the viewport start. Compare recreation/font reflow
+        // from the full viewport, not a keyboard-shortened one (234 vs 516 CSS px on API 26).
+        // The forced replacements below and in the next test still exercise in-flight jumps.
+        var imeVisible = false
+        compose.activityRule.scenario.onActivity {
+            imeVisible = androidx.core.view.ViewCompat.getRootWindowInsets(it.window.decorView)
+                ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true
+        }
+        if (imeVisible) instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
+        compose.waitUntil(10_000) {
+            active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY &&
+                compose.onAllNodesWithTag("epub_ready").fetchSemanticsNodes()
+                    .singleOrNull()?.boundsInRoot?.size == searchViewport
+        }
         val requested = active.state.value.results.single()
         compose.onNodeWithTag("epub_search_result").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { click ->
             val accepted = active.progress.state.value.accepted

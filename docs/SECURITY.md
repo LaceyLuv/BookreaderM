@@ -1,5 +1,15 @@
 # 입력·데이터 보호 검토 — 2026-10-17
 
+## 2026-10-18 현재 검증 상태
+
+제품 수정 `98d7f0f`는 EPUB 검색 요청을 화면 교체 동안 보존한다.
+원본 확인 결과 build는 Android 66/shared 74/EPUB 16/ENOSPC 3 PASS,
+API36은 native 54 + TXT/EPUB/Comic host 6 PASS다. API26/34는 각각 native 1 FAIL이며 host는 NOT_RUN이다.
+문서 조회 시점을 보완한 `1622bb6`의 build 및 API34/36 각각 native 54 + host 6은 PASS다. API26은 키보드 전후 viewport가 달라 .03 progression 비교가 실패했고, 동일 viewport에서 비교하도록 후속 테스트를 보완 중이다.
+과거 artifact 접근 차단은 이번 원본 다운로드에서 해소됐으며 ZIP digest를 확인했다.
+[현재 분석·원본·후속 CI](EPUB_REFLOW_NAVIGATION.md)를 우선한다. 아래 절은 이전 시점 이력이다.
+main 통합과 출시 승인은 미완료다.
+
 ## 2026-10-18 검증 갱신
 
 `8ca750e` unsigned APK/AAB 생성 및 APK 정적 감사는 PASS다.

@@ -1,5 +1,16 @@
 # BookReader Mobile — Codex 작업표
 
+## 2026-10-18 최신: API26 키보드 높이와 복원 비교 기준
+
+`1622bb6` build는 원본 XML 기준 66/74/16 + 실제 ENOSPC 3 PASS다.
+API34/36은 각각 ordinary 54 + host 6 PASS다. API26은 54개 중 기존 EPUB flow의 .03 progression 비교 1 FAIL이다.
+검색 당시 viewport 높이 234와 재생성 후 516에서 p179는 모두 표시됐고 DB 위치도 불변이었다.
+progression .970612 → .935033의 차이를 확인해, 검색 결과 선택 전 키보드를 닫고
+원래 viewport 크기와 READY를 확인하도록 테스트 설정을 보완했다.
+문단·font·DB·.03 assertion과 검색 요청 전/후 강제 reflow 회귀는 유지한다.
+후속 테스트 APK compile/lint exit 0 PASS. push 후 전체 matrix를 확인한다.
+[상세 관찰·CI·증거](EPUB_REFLOW_NAVIGATION.md)를 따른다. main 통합은 전체 native/host 통과 후 진행한다.
+
 ## 2026-10-18 최신: EPUB 대상 문서 준비 동기화 보완
 
 제품 수정 `98d7f0f`의 CI 원본을 회수했다. build PASS(66/74/16 + ENOSPC 3),

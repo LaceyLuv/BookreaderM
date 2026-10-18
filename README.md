@@ -6,7 +6,7 @@ main은 TXT의 스크롤·페이지 독서와 EPUB2/3 가져오기·목차·본�
 
 `22526d3`의 실제 API36 회귀 52개와 기존 TXT 외부 종료 검증 2단계가 PASS다. [EPUB 제품 범위](docs/M08_EPUB_PRODUCT.md), [최신 인계](docs/CONTEXT_HANDOFF.md), [검증 원본](docs/evidence/m01-epub-validation/remote-22526d3-device/)을 따른다. Comic 제품 화면은 별도 브랜치에서 검증 중이다. 실기기 성능·TalkBack·최종 출시 검증은 완료되지 않았다.
 
-후속 제품 브랜치 `8ca750e`의 설정 적용 테스트를 보완했다. 최신 API26/34 job 실패와 API36 성공을 확인했으며 main 통합은 보류했다. 로컬 필수 검사와 unsigned APK/AAB 정적 감사는 PASS다. [최신 검증과 접근 차단](docs/RESUME_VALIDATION_2026-10-18.md)을 따른다.
+후속 제품 브랜치에서 EPUB 검색 중 화면 교체 시 요청이 사라지는 문제를 수정했다. `98d7f0f`는 API36 전체 검사를 통과했고 문서 조회 시점을 보완한 `1622bb6`의 API26에서는 키보드 전후 화면 높이가 달라 복원 수치 비교가 실패했다. 동일 화면 크기에서 비교하도록 테스트를 보완 중이다. main 통합은 보류했다. [최신 검증과 원본](docs/EPUB_REFLOW_NAVIGATION.md)을 따른다.
 
 ## 이전 TXT 내부 알파 기록
 북리더 모바일
@@ -68,7 +68,7 @@ DEPENDENCIES·TESTING·ADR-0006에 별도로 기록한다.
 
 ## TXT 예제 직접 읽기
 
-현재 [0.2.0 debug APK](/workspace/bookreader-mobile-0.2.0-debug.apk)는 `2be610a`의 Room 공유/진단 변경을 포함한 로컬 빌드다.
+이전 0.2.0 debug APK는 `2be610a`의 Room 공유/진단 변경을 포함한 로컬 빌드였다. 당시 `/workspace/bookreader-mobile-0.2.0-debug.apk`는 현재 작업 환경에 없으며, 아래 hash와 설치 명령은 이력이다.
 SHA-256은 `021ec47de8311435f6becd0eb5b6e677ed22312b6ef3740b86d86b60d10a6e5e`이다. 같은 source의 실제 Android 25/host 2 stages는 PASS다.
 기기 job은 설치 APK hash를 보존하지 않아 이 로컬 APK와 기기 설치본의 byte 동일성은 확인하지 않았다. GitHub release는 만들지 않았다.
 

@@ -1,0 +1,81 @@
+{
+  "source_sha": "1622bb6c73fc2ccfa9c1eca7161b92236b8ba797",
+  "build": {
+    "android-unit": 66,
+    "shared-jvm": 74,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device": {
+    "26": {
+      "tests": 54,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator",
+          "trace": "java.lang.AssertionError: expected:<0.9706122448979592> but was:<0.9350331316623451>\nat org.junit.Assert.fail(Assert.java:89)\nat org.junit.Assert.failNotEquals(Assert.java:835)\nat org.junit.Assert.assertEquals(Assert.java:555)\nat org.junit.Assert.assertEquals(Assert.java:685)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.assertRenderedNear$lambda$0(EpubReaderFlowTest.kt:290)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.$r8$lambda$ZYNTjpkyj-f8WXneXleXf_PIOwM(Unknown Source:0)\nat org.bookreader.mobile.epub.EpubReaderFlowTest$$ExternalSyntheticLambda8.perform(D8$$SyntheticClass:0)\nat androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)\nat androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)\nat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)\nat java.util.concurrent.FutureTask.run(FutureTask.java:266)\nat android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)\nat android.os.Handler.handleCallback(Handler.java:789)\nat android.os.Handler.dispatchMessage(Handler.java:98)\nat android.os.Looper.loop(Looper.java:164)\nat android.app.ActivityThread.main(ActivityThread.java:6541)\nat java.lang.reflect.Method.invoke(Native Method)\nat com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)\nat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "34": {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "host_status": "PASS",
+      "hosts": {
+        "reader": {
+          "count": 2,
+          "old_pid": "8015",
+          "new_pid": "8064",
+          "absent_after_stop": true
+        },
+        "epub": {
+          "count": 2,
+          "old_pid": "8295",
+          "new_pid": "8343",
+          "absent_after_stop": true
+        },
+        "comic": {
+          "count": 2,
+          "old_pid": "8567",
+          "new_pid": "8619",
+          "absent_after_stop": true
+        }
+      }
+    },
+    "36": {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "host_status": "PASS",
+      "hosts": {
+        "reader": {
+          "count": 2,
+          "old_pid": "6466",
+          "new_pid": "6513",
+          "absent_after_stop": true
+        },
+        "epub": {
+          "count": 2,
+          "old_pid": "6722",
+          "new_pid": "6767",
+          "absent_after_stop": true
+        },
+        "comic": {
+          "count": 2,
+          "old_pid": "6972",
+          "new_pid": "7023",
+          "absent_after_stop": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,452 @@
+10-18 06:11:06.603  5270  5286 I TestRunner: started: stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator(org.bookreader.mobile.epub.EpubProbeTest)
+10-18 06:11:06.605  5270  5286 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-18 06:11:06.606  2566  2566 I MicroDetectionWorker: onReady
+10-18 06:11:06.607  2566  2684 I MicroRecognitionRunner: Detection finished
+10-18 06:11:06.607  2566  2684 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-18 06:11:06.609  2566  2832 I MicroRecognitionRunner: Stopping hotword detection.
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-18 06:11:06.615  2566  2684 W ErrorProcessor: 	... 9 more
+10-18 06:11:06.615  2566  2684 I AudioController: internalShutdown
+10-18 06:11:06.617  2566  2566 I MicroDetector: Keeping mic open: false
+10-18 06:11:06.617  2566  2566 I MicroDetectionWorker: #onError(false)
+10-18 06:11:06.618  2566  2741 W DeviceStateChecker: stopped because hotword detection is stopped but cancel is not called.
+10-18 06:11:06.683  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@c15dab6 in: PRE_ON_CREATE
+10-18 06:11:06.683  5270  5270 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-18 06:11:06.685  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:06.689  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@c15dab6 in: CREATED
+10-18 06:11:06.689  5270  5270 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@c15dab6
+10-18 06:11:06.689  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@c15dab6 in: STARTED
+10-18 06:11:06.690  5270  5270 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@c15dab6
+10-18 06:11:06.690  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@c15dab6 in: RESUMED
+10-18 06:11:06.690  5270  5270 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@c15dab6
+10-18 06:11:06.719  2487  2656 D EGL_emulation: eglMakeCurrent: 0x7e484d63cc80: ver 3 0 (tinfo 0x7e484d60de60)
+10-18 06:11:06.720  2566  2729 D EGL_emulation: eglMakeCurrent: 0xd20fdfc0: ver 3 0 (tinfo 0xd2da5700)
+10-18 06:11:06.751  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:06.757  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:11:06.762  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:06.789  1808  2132 D EGL_emulation: eglMakeCurrent: 0x7e4840b13940: ver 3 0 (tinfo 0x7e4840ade280)
+10-18 06:11:06.796  1808  2132 D EGL_emulation: eglMakeCurrent: 0x7e4840b13940: ver 3 0 (tinfo 0x7e4840ade280)
+10-18 06:11:06.797  2566  2694 E ContentStoreEUAS: Failed to commit the deferred actions
+10-18 06:11:06.814  5270  5295 D EGL_emulation: eglMakeCurrent: 0x7e484d634ea0: ver 3 0 (tinfo 0x7e484d60d5a0)
+10-18 06:11:06.836  1647  1673 I ActivityManager: Displayed org.bookreader.mobile/.epub.EpubProbeActivity: +203ms (total +500ms)
+10-18 06:11:06.839  5270  5281 I zygote64: Background concurrent copying GC freed 50458(3MB) AllocSpace objects, 100(2MB) LOS objects, 44% free, 7MB/13MB, paused 833us total 125.463ms
+10-18 06:11:06.917  1808  2132 D EGL_emulation: eglMakeCurrent: 0x7e4840b13940: ver 3 0 (tinfo 0x7e4840ade280)
+10-18 06:11:06.918  5458  5458 E /system/bin/webview_zygote32: failed to make and chown /acct/uid_99001: Permission denied
+10-18 06:11:06.918  5458  5458 E Zygote  : createProcessGroup(99001, 0) failed: Permission denied
+10-18 06:11:06.921  5458  5458 W /system/bin/webview_zygote32: Unexpected CPU variant for X86 using defaults: x86_64
+10-18 06:11:06.931  5458  5458 I SamplingProfilerIntegration: Profiling disabled.
+10-18 06:11:06.968  5270  5275 I zygote64: Do full code cache collection, code=2013KB, data=1561KB
+10-18 06:11:06.968  5472  5472 E asset   : setgid: Operation not permitted
+10-18 06:11:06.985  5270  5275 I zygote64: After code cache collection, code=1931KB, data=1326KB
+10-18 06:11:06.987  1400  1400 W SurfaceFlinger: couldn't log to binary event log: overflow.
+10-18 06:11:06.992  5458  5458 I cr_ChildProcessService: Creating new ChildProcessService pid=5458
+10-18 06:11:07.005  5458  5474 I cr_LibraryLoader: Time to load native libraries: 0 ms (timestamps 9638-9638)
+10-18 06:11:07.006  5458  5474 I chromium: [INFO:library_loader_hooks.cc(36)] Chromium logging enabled: level = 0, default verbosity = 0
+10-18 06:11:07.006  5458  5474 I cr_LibraryLoader: Expected native library version number "69.0.3497.100", actual native library version number "69.0.3497.100"
+10-18 06:11:07.018  2168  5475 I Vision  : Requesting optional module download of ocr.
+10-18 06:11:07.018  2168  5475 I Vision  : Checking for download completion for 309650 -- ocr
+10-18 06:11:07.067  2566  2566 W SearchService: Abort, client detached.
+10-18 06:11:07.071  5270  5415 D EGL_emulation: eglCreateContext: 0x7e483daab080: maj 3 min 0 rcv 3
+10-18 06:11:07.072  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daab080: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:07.281  5270  5270 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-18 06:11:07.281  5270  5270 I chromium: ", source: https://readium/publication/OPS/one.xhtml (0)
+10-18 06:11:07.308  5270  5270 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-18 06:11:07.308  5270  5270 I chromium: ", source: https://readium/publication/OPS/two.xhtml (0)
+10-18 06:11:07.377  2260  3348 I Dialer  : OmtpVvmCarrierCfgHlpr - OmtpEvent:CONFIG_STATUS_SMS_TIME_OUT
+10-18 06:11:07.377  2260  2260 I Dialer  : RetryPolicy - discarding deferred status: configuration_state=4
+10-18 06:11:07.380  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:07.380  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:07.384  2260  2260 I Dialer  : VvmTaskExecutor - no more tasks, stopping service if no task are added in 5000 millis
+10-18 06:11:07.386  2260  2260 I Dialer  : VvmTaskReceiver - task received
+10-18 06:11:07.386  2260  2260 I Dialer  : VvmTaskReceiver - TaskExecutor already running
+10-18 06:11:07.386  2260  2260 I Dialer  : Task.createTask - create task:com.android.voicemail.impl.ActivationTask
+10-18 06:11:07.386  2260  2260 I Dialer  : RetryPolicy - retry #4 for com.android.voicemail.impl.ActivationTask@b6a166a queued, executing in 5000
+10-18 06:11:07.386  2260  2260 I Dialer  : VvmTaskExecutor - com.android.voicemail.impl.ActivationTask@b6a166a added
+10-18 06:11:07.386  2260  2260 I Dialer  : VvmTaskExecutor - minimal wait time:5000
+10-18 06:11:07.386  2260  2260 I Dialer  : VvmTaskExecutor - sleep for 5000 millis
+10-18 06:11:07.533  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:08.046  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 12 lines
+10-18 06:11:08.046  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:08.150  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@c15dab6 in: PAUSED
+10-18 06:11:08.150  5270  5270 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@c15dab6
+10-18 06:11:08.151  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@c15dab6 in: STOPPED
+10-18 06:11:08.151  5270  5270 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@c15dab6
+10-18 06:11:08.158  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@c15dab6 in: DESTROYED
+10-18 06:11:08.158  5270  5270 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 06:11:08.159  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:08.159  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:08.164  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@1a90c28 in: PRE_ON_CREATE
+10-18 06:11:08.164  5270  5270 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+10-18 06:11:08.167  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@1a90c28 in: CREATED
+10-18 06:11:08.167  5270  5270 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@1a90c28
+10-18 06:11:08.168  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@1a90c28 in: STARTED
+10-18 06:11:08.168  5270  5270 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@1a90c28
+10-18 06:11:08.168  5270  5270 W PhoneWindow: Previously focused view reported id 2131231071 during save, but can't be found during restore.
+10-18 06:11:08.169  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@1a90c28 in: RESUMED
+10-18 06:11:08.169  5270  5270 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@1a90c28
+10-18 06:11:08.211  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:08.288  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 6 lines
+10-18 06:11:08.288  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:08.304  1399  1399 E lowmemorykiller: Error writing /proc/5458/oom_score_adj; errno=22
+10-18 06:11:08.305  1647  1667 W zygote64: failed to open /acct/uid_99001/pid_5458/cgroup.procs: No such file or directory
+10-18 06:11:08.308  5270  5367 W cr_ChildProcessConn: onServiceDisconnected (crash or killed by oom): pid=5458
+10-18 06:11:08.313  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daab080: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:08.322  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daab080: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:08.375  5486  5486 E /system/bin/webview_zygote32: failed to make and chown /acct/uid_99002: Permission denied
+10-18 06:11:08.375  5486  5486 E Zygote  : createProcessGroup(99002, 0) failed: Permission denied
+10-18 06:11:08.375  5486  5486 W /system/bin/webview_zygote32: Unexpected CPU variant for X86 using defaults: x86_64
+10-18 06:11:08.378  5486  5486 I SamplingProfilerIntegration: Profiling disabled.
+10-18 06:11:08.389  5501  5501 E asset   : setgid: Operation not permitted
+10-18 06:11:08.395  5486  5486 I cr_ChildProcessService: Creating new ChildProcessService pid=5486
+10-18 06:11:08.416  5486  5502 I cr_LibraryLoader: Time to load native libraries: 0 ms (timestamps 1048-1048)
+10-18 06:11:08.416  5486  5502 I chromium: [INFO:library_loader_hooks.cc(36)] Chromium logging enabled: level = 0, default verbosity = 0
+10-18 06:11:08.416  5486  5502 I cr_LibraryLoader: Expected native library version number "69.0.3497.100", actual native library version number "69.0.3497.100"
+10-18 06:11:08.492  5270  5415 D EGL_emulation: eglCreateContext: 0x7e483daaaf40: maj 3 min 0 rcv 3
+10-18 06:11:08.493  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daaaf40: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:08.687  5270  5270 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-18 06:11:08.687  5270  5270 I chromium: ", source: https://readium/publication/OPS/two.xhtml (0)
+10-18 06:11:08.692  5270  5270 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-18 06:11:08.692  5270  5270 I chromium: ", source: https://readium/publication/OPS/one.xhtml (0)
+10-18 06:11:08.784  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:09.118  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 4 lines
+10-18 06:11:09.161  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:09.227  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@1a90c28 in: PAUSED
+10-18 06:11:09.227  5270  5270 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@1a90c28
+10-18 06:11:09.250  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:09.250  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.254  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:09.281  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.289  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:11:09.296  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.298  5270  5295 D EGL_emulation: eglMakeCurrent: 0x7e484d634ea0: ver 3 0 (tinfo 0x7e484d60d5a0)
+10-18 06:11:09.302  1808  2132 D EGL_emulation: eglMakeCurrent: 0x7e4840b13940: ver 3 0 (tinfo 0x7e4840ade280)
+10-18 06:11:09.309  5302  5345 D EGL_emulation: eglMakeCurrent: 0x7e484d639820: ver 3 0 (tinfo 0x7e484d60d280)
+10-18 06:11:09.352  2487  2656 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+10-18 06:11:09.371  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.380  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:11:09.381  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.394  1400  1400 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-18 06:11:09.399  2566  2729 D EGL_emulation: eglMakeCurrent: 0xd20fdfc0: ver 3 0 (tinfo 0xd2da5700)
+10-18 06:11:09.417  2566  2566 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-18 06:11:09.424  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.427  2566  2566 I MicroDetectionWorker: #updateMicroDetector [detectionMode: [mDetectionMode: [1]]]
+10-18 06:11:09.427  2566  2566 I MicroDetectionWorker: #startMicroDetector [speakerMode: 0]
+10-18 06:11:09.427  2566  2566 I AudioController: Using mInputStreamFactoryBuilder
+10-18 06:11:09.428  2566  2566 I MicroDetectionWorker: onReady
+10-18 06:11:09.428  2566  2684 I MicroRecognitionRunner: Starting detection.
+10-18 06:11:09.429  2566  2694 I MicrophoneInputStream: mic_starting com.google.android.apps.gsa.staticplugins.aa.c@d60c057
+10-18 06:11:09.429  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.430  1511  1511 E AudioFlinger: not enough memory for AudioTrack size=131296
+10-18 06:11:09.430  1511  1511 D MemoryDealer:   AudioTrack (0xec1122d0, size=4194304)
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     0: 0xec1122e0 | 0x00000000 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     1: 0xec112300 | 0x000200E0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     2: 0xec112460 | 0x000401C0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     3: 0xec112620 | 0x000602A0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     4: 0xec1127a0 | 0x00080380 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     5: 0xebdf8230 | 0x000A0460 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     6: 0xebdf8400 | 0x000C0540 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     7: 0xebdf8590 | 0x000E0620 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     8: 0xebdf8760 | 0x00100700 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:     9: 0xebdf88f0 | 0x001207E0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    10: 0xebdf8ab0 | 0x001408C0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    11: 0xec112010 | 0x001609A0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    12: 0xec1128f0 | 0x00180A80 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    13: 0xebdf8ef0 | 0x001A0B60 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    14: 0xec112b00 | 0x001C0C40 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    15: 0xebdf8f60 | 0x001E0D20 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    16: 0xeb17d150 | 0x00200E00 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    17: 0xebdf8c90 | 0x00220EE0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    18: 0xec112fd0 | 0x00240FC0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:    19: 0xeb5ff150 | 0x002610A0 | 0x000200E0 | A
+10-18 06:11:09.430  1511  1511 D MemoryDealer:
+10-18 06:11:09.430  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.430  1511  1511 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+10-18 06:11:09.430  2566  2694 E AudioRecord: AudioFlinger could not create record track, status: -12
+10-18 06:11:09.432  1511  5516 I AudioFlinger: AudioFlinger's thread 0xe8603f40 tid=5516 ready to run
+10-18 06:11:09.432  2566  2694 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+10-18 06:11:09.433  2566  2694 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+10-18 06:11:09.433  2566  2694 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@d60c057
+10-18 06:11:09.439  2566  2694 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@d60c057
+10-18 06:11:09.440  2566  2684 I MicroRecognitionRunner: Detection finished
+10-18 06:11:09.440  2566  2684 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-18 06:11:09.440  2566  2832 I MicroRecognitionRunner: Stopping hotword detection.
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-18 06:11:09.441  2566  2684 W ErrorProcessor: 	... 9 more
+10-18 06:11:09.441  2566  2684 I AudioController: internalShutdown
+10-18 06:11:09.444  2487  2656 D EGL_emulation: eglMakeCurrent: 0x7e484d63cc80: ver 3 0 (tinfo 0x7e484d60de60)
+10-18 06:11:09.454  2566  2566 I MicroDetectionWorker: onReady
+10-18 06:11:09.454  2566  2566 I MicroDetector: Keeping mic open: false
+10-18 06:11:09.454  2566  2566 I MicroDetectionWorker: #onError(false)
+10-18 06:11:09.454  2566  2666 I DeviceStateChecker: DeviceStateChecker cancelled
+10-18 06:11:09.485  5302  5345 D EGL_emulation: eglMakeCurrent: 0x7e484d639820: ver 3 0 (tinfo 0x7e484d60d280)
+10-18 06:11:09.493  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@1a90c28 in: STOPPED
+10-18 06:11:09.493  5270  5270 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@1a90c28
+10-18 06:11:09.527  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:09.640  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 2 lines
+10-18 06:11:09.641  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:09.672  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@1a90c28 in: DESTROYED
+10-18 06:11:09.672  5270  5270 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 06:11:09.674  5270  5286 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-18 06:11:09.784  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:09.796  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 2 lines
+10-18 06:11:09.796  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:09.813  5270  5367 W cr_ChildProcessConn: onServiceDisconnected (crash or killed by oom): pid=5486
+10-18 06:11:09.816  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daaaf40: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:09.824  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@a789e3e in: PRE_ON_CREATE
+10-18 06:11:09.824  5270  5270 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-18 06:11:09.827  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@a789e3e in: CREATED
+10-18 06:11:09.827  5270  5270 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@a789e3e
+10-18 06:11:09.827  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@a789e3e in: STARTED
+10-18 06:11:09.827  5270  5270 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@a789e3e
+10-18 06:11:09.828  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@a789e3e in: RESUMED
+10-18 06:11:09.828  5270  5270 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@a789e3e
+10-18 06:11:09.828  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daaaf40: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:09.848  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.862  1647  1667 W zygote64: failed to open /acct/uid_99002/pid_5486/cgroup.procs: No such file or directory
+10-18 06:11:09.882  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.883  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:11:09.884  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:09.907  2487  2656 D EGL_emulation: eglMakeCurrent: 0x7e484d63cc80: ver 3 0 (tinfo 0x7e484d60de60)
+10-18 06:11:09.910  2566  2729 D EGL_emulation: eglMakeCurrent: 0xd20fdfc0: ver 3 0 (tinfo 0xd2da5700)
+10-18 06:11:09.915  1808  2132 D EGL_emulation: eglMakeCurrent: 0x7e4840b13940: ver 3 0 (tinfo 0x7e4840ade280)
+10-18 06:11:09.935  5519  5519 E /system/bin/webview_zygote32: failed to make and chown /acct/uid_99003: Permission denied
+10-18 06:11:09.935  5519  5519 E Zygote  : createProcessGroup(99003, 0) failed: Permission denied
+10-18 06:11:09.935  5519  5519 W /system/bin/webview_zygote32: Unexpected CPU variant for X86 using defaults: x86_64
+10-18 06:11:09.940  2566  5452 E ContentStoreEUAS: Failed to commit the deferred actions
+10-18 06:11:09.940  5519  5519 I SamplingProfilerIntegration: Profiling disabled.
+10-18 06:11:09.961  5270  5295 D EGL_emulation: eglMakeCurrent: 0x7e484d634ea0: ver 3 0 (tinfo 0x7e484d60d5a0)
+10-18 06:11:09.961  5270  5281 I zygote64: Background concurrent copying GC freed 112620(5MB) AllocSpace objects, 142(3MB) LOS objects, 42% free, 8MB/14MB, paused 1.227ms total 111.436ms
+10-18 06:11:09.961  5533  5533 E asset   : setgid: Operation not permitted
+10-18 06:11:09.976  5519  5519 I cr_ChildProcessService: Creating new ChildProcessService pid=5519
+10-18 06:11:09.995  5519  5534 I cr_LibraryLoader: Time to load native libraries: 0 ms (timestamps 2628-2628)
+10-18 06:11:09.998  5519  5534 I chromium: [INFO:library_loader_hooks.cc(36)] Chromium logging enabled: level = 0, default verbosity = 0
+10-18 06:11:09.998  5519  5534 I cr_LibraryLoader: Expected native library version number "69.0.3497.100", actual native library version number "69.0.3497.100"
+10-18 06:11:10.003  1647  1673 I ActivityManager: Displayed org.bookreader.mobile/.epub.EpubProbeActivity: +181ms
+10-18 06:11:10.008  2487  2656 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+10-18 06:11:10.054  1400  1400 W SurfaceFlinger: couldn't log to binary event log: overflow.
+10-18 06:11:10.102  5270  5415 D EGL_emulation: eglCreateContext: 0x7e483daab080: maj 3 min 0 rcv 3
+10-18 06:11:10.103  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daab080: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:10.129  2566  2566 W SearchService: Abort, client detached.
+10-18 06:11:10.263  5270  5270 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-18 06:11:10.263  5270  5270 I chromium: ", source: https://readium/publication/OPS/one.xhtml (0)
+10-18 06:11:10.296  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:10.296  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:10.538  5270  5270 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-18 06:11:10.538  5270  5270 I chromium: ", source: https://readium/publication/OPS/two.xhtml (0)
+10-18 06:11:10.574  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:10.815  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 6 lines
+10-18 06:11:10.815  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:10.822  5270  5275 I zygote64: Do partial code cache collection, code=2010KB, data=1438KB
+10-18 06:11:10.826  5270  5275 I zygote64: After code cache collection, code=2010KB, data=1438KB
+10-18 06:11:10.827  5270  5275 I zygote64: Increasing code cache capacity to 5MB
+10-18 06:11:10.882  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:11.153  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 12 lines
+10-18 06:11:11.153  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:11.205  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@a789e3e in: PAUSED
+10-18 06:11:11.205  5270  5270 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@a789e3e
+10-18 06:11:11.209  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@a789e3e in: STOPPED
+10-18 06:11:11.209  5270  5270 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@a789e3e
+10-18 06:11:11.231  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@a789e3e in: DESTROYED
+10-18 06:11:11.232  5270  5270 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 06:11:11.234  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@12c2470 in: PRE_ON_CREATE
+10-18 06:11:11.234  5270  5270 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+10-18 06:11:11.235  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:11.236  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:11.248  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@12c2470 in: CREATED
+10-18 06:11:11.248  5270  5270 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@12c2470
+10-18 06:11:11.248  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@12c2470 in: STARTED
+10-18 06:11:11.248  5270  5270 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@12c2470
+10-18 06:11:11.249  5270  5270 W PhoneWindow: Previously focused view reported id 2131231071 during save, but can't be found during restore.
+10-18 06:11:11.250  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@12c2470 in: RESUMED
+10-18 06:11:11.250  5270  5270 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@12c2470
+10-18 06:11:11.279  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:11.372  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 6 lines
+10-18 06:11:11.372  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:11.384  1647  1667 W zygote64: failed to open /acct/uid_99003/pid_5519/cgroup.procs: No such file or directory
+10-18 06:11:11.393  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daab080: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:11.429  5545  5545 E /system/bin/webview_zygote32: failed to make and chown /acct/uid_99004: Permission denied
+10-18 06:11:11.429  5545  5545 E Zygote  : createProcessGroup(99004, 0) failed: Permission denied
+10-18 06:11:11.438  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daab080: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:11.449  5270  5367 W cr_ChildProcessConn: onServiceDisconnected (crash or killed by oom): pid=5519
+10-18 06:11:11.463  5545  5545 W /system/bin/webview_zygote32: Unexpected CPU variant for X86 using defaults: x86_64
+10-18 06:11:11.473  5545  5545 I SamplingProfilerIntegration: Profiling disabled.
+10-18 06:11:11.482  5560  5560 E asset   : setgid: Operation not permitted
+10-18 06:11:11.500  5545  5545 I cr_ChildProcessService: Creating new ChildProcessService pid=5545
+10-18 06:11:11.507  5545  5561 I cr_LibraryLoader: Time to load native libraries: 0 ms (timestamps 4139-4139)
+10-18 06:11:11.508  5545  5561 I chromium: [INFO:library_loader_hooks.cc(36)] Chromium logging enabled: level = 0, default verbosity = 0
+10-18 06:11:11.508  5545  5561 I cr_LibraryLoader: Expected native library version number "69.0.3497.100", actual native library version number "69.0.3497.100"
+10-18 06:11:11.554  5270  5415 D EGL_emulation: eglCreateContext: 0x7e483daaaf40: maj 3 min 0 rcv 3
+10-18 06:11:11.554  5270  5415 D EGL_emulation: eglMakeCurrent: 0x7e483daaaf40: ver 3 0 (tinfo 0x7e483dc3a5e0)
+10-18 06:11:11.753  5270  5270 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-18 06:11:11.753  5270  5270 I chromium: ", source: https://readium/publication/OPS/two.xhtml (0)
+10-18 06:11:11.757  5270  5270 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-18 06:11:11.757  5270  5270 I chromium: ", source: https://readium/publication/OPS/one.xhtml (0)
+10-18 06:11:11.799  1786  5324 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:11:11.837  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:11.837  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:11.863  1786  5334 I LogUtils: [Places]: ?: PlacesBleScanner stop() [CONTEXT service_id=253 ]
+10-18 06:11:11.863  1786  1786 I BeaconBle: Scan : No clients left, canceling alarm. [CONTEXT service_id=111 ]
+10-18 06:11:11.864  1786  1786 I BeaconBle: Scan canceled successfully. [CONTEXT service_id=111 ]
+10-18 06:11:11.867  1786  5334 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 0 [CONTEXT service_id=253 ]
+10-18 06:11:12.005  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:12.162  5270  5295 I chatty  : uid=10077(u0_a77) RenderThread identical 2 lines
+10-18 06:11:12.162  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:12.303  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@12c2470 in: PAUSED
+10-18 06:11:12.303  5270  5270 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@12c2470
+10-18 06:11:12.321  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:12.322  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:12.322  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:12.367  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-18 06:11:12.378  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:12.388  2260  3348 I Dialer  : VvmTaskExecutor - executing task com.android.voicemail.impl.ActivationTask@b6a166a
+10-18 06:11:12.389  2260  3348 I Dialer  : PreOMigrationHandler - ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, [e2f7d48dd2b5ca523e7313cf4ba0f6ea830b6281], UserHandle{0} already migrated
+10-18 06:11:12.400  1808  2132 D EGL_emulation: eglMakeCurrent: 0x7e4840b13940: ver 3 0 (tinfo 0x7e4840ade280)
+10-18 06:11:12.401  5302  5345 D EGL_emulation: eglMakeCurrent: 0x7e484d639820: ver 3 0 (tinfo 0x7e484d60d280)
+10-18 06:11:12.433  5270  5295 D EGL_emulation: eglMakeCurrent: 0x7e484d634ea0: ver 3 0 (tinfo 0x7e484d60d5a0)
+10-18 06:11:12.440  2260  3348 I Dialer  : VvmActivationTask - VVM content provider configured - vvm_type_cvvm
+10-18 06:11:12.443  2260  3348 I Dialer  : OmtpVvmCarrierCfgHlpr - OmtpEvent:CONFIG_ACTIVATING
+10-18 06:11:12.456  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:12.467  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:12.472  1400  1400 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-18 06:11:12.475  2260  3348 I Dialer  : TelephonyMangerCompat.setVisualVoicemailSmsFilterSettings - using TelephonyManager
+10-18 06:11:12.476  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:12.481  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:11:12.482  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:12.487  2566  2729 D EGL_emulation: eglMakeCurrent: 0xd20fdfc0: ver 3 0 (tinfo 0xd2da5700)
+10-18 06:11:12.496  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:11:12.507  2487  2656 D EGL_emulation: eglMakeCurrent: 0x7e484d63cc80: ver 3 0 (tinfo 0x7e484d60de60)
+10-18 06:11:12.512  2260  3348 I Dialer  : TelephonyMangerCompat.sendVisualVoicemailSms - using TelephonyManager
+10-18 06:11:12.544  5302  5345 D EGL_emulation: eglMakeCurrent: 0x7e484d639820: ver 3 0 (tinfo 0x7e484d60d280)
+10-18 06:11:12.566  2566  2566 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-18 06:11:12.569  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@12c2470 in: STOPPED
+10-18 06:11:12.570  5270  5270 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@12c2470
+10-18 06:11:12.571  2566  2566 I OptInState: There is a new client and it does not support opt-in. Dropping request.
+10-18 06:11:12.593  2566  2669 W LocationOracle: No location history returned by ContextManager
+10-18 06:11:12.595  2566  2566 I zygote  : Deoptimizing void com.google.android.apps.gsa.shared.searchbox.components.a.am(java.lang.Object) due to JIT inline cache
+10-18 06:11:12.603  2566  2566 I MicroDetectionWorker: #updateMicroDetector [detectionMode: [mDetectionMode: [1]]]
+10-18 06:11:12.604  2566  2566 I MicroDetectionWorker: #startMicroDetector [speakerMode: 0]
+10-18 06:11:12.604  2566  2566 I AudioController: Using mInputStreamFactoryBuilder
+10-18 06:11:12.607  2566  2670 I MicroRecognitionRunner: Starting detection.
+10-18 06:11:12.608  2566  2668 I MicrophoneInputStream: mic_starting com.google.android.apps.gsa.staticplugins.aa.c@f9c2e23
+10-18 06:11:12.609  2566  2566 I MicroDetectionWorker: onReady
+10-18 06:11:12.611  1511  1571 E AudioFlinger: not enough memory for AudioTrack size=131296
+10-18 06:11:12.611  1511  1571 D MemoryDealer:   AudioTrack (0xec1122d0, size=4194304)
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     0: 0xec1122e0 | 0x00000000 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     1: 0xec112300 | 0x000200E0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     2: 0xec112460 | 0x000401C0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     3: 0xec112620 | 0x000602A0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     4: 0xec1127a0 | 0x00080380 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     5: 0xebdf8230 | 0x000A0460 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     6: 0xebdf8400 | 0x000C0540 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     7: 0xebdf8590 | 0x000E0620 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     8: 0xebdf8760 | 0x00100700 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:     9: 0xebdf88f0 | 0x001207E0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    10: 0xebdf8ab0 | 0x001408C0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    11: 0xec112010 | 0x001609A0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    12: 0xec1128f0 | 0x00180A80 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    13: 0xebdf8ef0 | 0x001A0B60 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    14: 0xec112b00 | 0x001C0C40 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    15: 0xebdf8f60 | 0x001E0D20 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    16: 0xeb17d150 | 0x00200E00 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    17: 0xebdf8c90 | 0x00220EE0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    18: 0xec112fd0 | 0x00240FC0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:    19: 0xeb5ff150 | 0x002610A0 | 0x000200E0 | A
+10-18 06:11:12.611  1511  1571 D MemoryDealer:
+10-18 06:11:12.611  1511  1571 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+10-18 06:11:12.612  2566  2668 E AudioRecord: AudioFlinger could not create record track, status: -12
+10-18 06:11:12.636  1511  5577 I AudioFlinger: AudioFlinger's thread 0xe86031c0 tid=5577 ready to run
+10-18 06:11:12.638  2566  2668 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+10-18 06:11:12.638  2566  2668 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+10-18 06:11:12.638  2566  2668 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@f9c2e23
+10-18 06:11:12.639  2566  2566 I MicroDetectionWorker: onReady
+10-18 06:11:12.643  2566  2670 I MicroRecognitionRunner: Detection finished
+10-18 06:11:12.643  2566  2670 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-18 06:11:12.649  2566  2668 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@f9c2e23
+10-18 06:11:12.651  2566  2832 I MicroRecognitionRunner: Stopping hotword detection.
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-18 06:11:12.651  2566  2670 W ErrorProcessor: 	... 9 more
+10-18 06:11:12.651  2566  2670 I AudioController: internalShutdown
+10-18 06:11:12.661  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:12.661  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:12.663  2566  2740 I DeviceStateChecker: DeviceStateChecker cancelled
+10-18 06:11:12.663  2566  2566 I MicroDetector: Keeping mic open: false
+10-18 06:11:12.665  2566  2566 I MicroDetectionWorker: #onError(false)
+10-18 06:11:12.686  2566  2669 E PlaceStateUpdater: Received no places
+10-18 06:11:12.701  2566  2684 E PlaceStateUpdater: Received no places
+10-18 06:11:12.721  1786  4958 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:11:12.746  1786  5334 I LogUtils: [Places]: ?: PlacesBleScanner start() with priority 2 [CONTEXT service_id=253 ]
+10-18 06:11:12.747  1786  5334 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 1 [CONTEXT service_id=253 ]
+10-18 06:11:12.761  1786  1786 I BeaconBle: Client requested scan, settings=BleSettings [scanMode=ZERO_POWER, callbackType=ALL_MATCHES, reportDelayMillis=0, 1 filters, 0 clients, callingClientName=Places] [CONTEXT service_id=111 ]
+10-18 06:11:12.761  1786  5334 I Places  : Converted 0 out of 1 WiFi scans
+10-18 06:11:12.762  1786  1786 I BeaconBle: Scan : No clients left, canceling alarm. [CONTEXT service_id=111 ]
+10-18 06:11:12.764  1786  1786 E BeaconBle: Scan couldn't start for Places [CONTEXT service_id=111 ]
+10-18 06:11:12.764  1786  1786 W Places  : BLE failure while scanning - code 5
+10-18 06:11:12.768  1786  5332 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:11:12.768  1786  5334 I zygote64: Deoptimizing java.util.List bjpr.a(bjpm, int) due to JIT inline cache
+10-18 06:11:12.769  1786  4958 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:11:12.770  1786  2241 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:11:12.774  1786  5334 I PlacesLogger: [PlaceInferenceEngine]: Too few candidate results: percentageOfMissingArea 100 [CONTEXT service_id=253 ]
+10-18 06:11:12.778  1786  4958 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:11:12.784  5362  5375 W zygote  : Suspending all threads took: 11.294ms
+10-18 06:11:12.785  1786  5332 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:11:12.809  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:12.810  5270  5295 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-18 06:11:12.827  2566  2670 E PlaceStateUpdater: Received no places
+10-18 06:11:12.830  2566  2670 E PlaceStateUpdater: Received no places
+10-18 06:11:12.857  5270  5270 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@12c2470 in: DESTROYED
+10-18 06:11:12.860  5270  5270 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 06:11:12.863  5270  5286 I TestRunner: finished: stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator(org.bookreader.mobile.epub.EpubProbeTest)
