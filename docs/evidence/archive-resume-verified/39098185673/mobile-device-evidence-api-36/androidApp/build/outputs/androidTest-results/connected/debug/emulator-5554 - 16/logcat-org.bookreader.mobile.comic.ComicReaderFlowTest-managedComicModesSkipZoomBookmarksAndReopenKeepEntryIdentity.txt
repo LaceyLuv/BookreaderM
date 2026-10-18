@@ -1,0 +1,886 @@
+10-18 04:50:58.164  4994  5007 I TestRunner: started: managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity(org.bookreader.mobile.comic.ComicReaderFlowTest)
+10-18 04:50:58.180  4994  5007 W FileTestStorage: Output properties is not supported.
+10-18 04:50:58.180  4994  5007 I Tracing : Tracer added: class androidx.test.platform.tracing.AndroidXTracer
+10-18 04:50:58.182  4994  4994 D EventInjectionStrategy: Creating injection strategy with input manager.
+10-18 04:50:58.184  4994  4994 I okreader.mobile: hiddenapi: Accessing hidden method Landroid/hardware/input/InputManager;->getInstance()Landroid/hardware/input/InputManager; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+10-18 04:50:58.185  4994  4994 I okreader.mobile: hiddenapi: Accessing hidden method Landroid/hardware/input/InputManager;->injectInputEvent(Landroid/view/InputEvent;I)Z (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+10-18 04:50:58.185  4994  4994 I okreader.mobile: hiddenapi: Accessing hidden field Landroid/hardware/input/InputManager;->INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH:I (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/InputManagerEventInjectionStrategy; (domain=app) using reflection: allowed
+10-18 04:50:58.186  4994  4994 I okreader.mobile: hiddenapi: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+10-18 04:50:58.186  4994  4994 I okreader.mobile: hiddenapi: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+10-18 04:50:58.186  4994  4994 I okreader.mobile: hiddenapi: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/test/espresso/base/Interrogator; (domain=app) using reflection: allowed
+10-18 04:50:58.187  4994  5007 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@9a15ab5]
+10-18 04:50:58.192  4994  5007 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-18 04:50:58.194  4994  5007 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+10-18 04:50:58.206   641  1209 I system_server: AssetManager2(0x74844b030f78) locale list changing from [] to [en-US]
+10-18 04:50:58.206   641  1209 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@87cb489, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-18 04:50:58.221   517   620 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:50:58.231  1256  1256 W SplitSelectStateCtor: Missing session instanceIds
+10-18 04:50:58.231  1256  1256 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+10-18 04:50:58.244  1001  1109 I ndroid.systemui: AssetManager2(0x74844b06a638) locale list changing from [] to [en-US]
+10-18 04:50:58.274  1001  1112 D SplashScreenView: Build android.window.SplashScreenView{ba45b20 V.E...... ......ID 0,0-0,0}
+10-18 04:50:58.274  1001  1112 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-18 04:50:58.274  1001  1112 D SplashScreenView: Branding: view: android.view.View{37ebcd9 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-18 04:50:58.290   582  4993 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:50:58.292   517   517 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: Failed to set whitelist for augmented autofill service.
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: java.lang.SecurityException: caller is not user's Augmented Autofill Service
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at android.view.autofill.AutofillManager.setAugmentedAutofillWhitelist(AutofillManager.java:3039)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at esa.c(PG:66)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at ete.h(PG:86)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at ets.a(PG:191)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at sym.a(PG:5)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at szc.a(PG:59)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at abvn.a(PG:5)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at abvm.a(PG:130)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at tjq.b(PG:82)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at tjq.a(PG:3)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at abtp.g(PG:290)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at abto.b(PG:13)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at abge.g(PG:11)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at kotlinx.coroutines.DispatchedTask.run(PG:112)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:524)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at xjo.a(PG:3)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at xir.run(PG:19)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at xjp.run(PG:5)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:524)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:348)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at hxw.run(PG:221)
+10-18 04:50:58.315  1697  2051 W AiAiAutofill: 	at java.lang.Thread.run(Thread.java:1119)
+10-18 04:50:58.324   441   467 I netd    : tetherGetStats() -> {[]} <0.34ms>
+10-18 04:50:58.332  4994  4994 I okreader.mobile: AssetManager2(0x74844b023af8) locale list changing from [] to [en-US]
+10-18 04:50:58.345  4994  5014 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+10-18 04:50:58.345  4994  5014 I EGL_emulation: Opening libGLESv2_emulation.so
+10-18 04:50:58.351  4994  5014 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-18 04:50:58.470  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: PRE_ON_CREATE
+10-18 04:50:58.470  4994  4994 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-18 04:50:58.523  1256  1256 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-18 04:50:58.525  1256  1256 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+10-18 04:50:58.526  4994  4994 D CompatChangeReporter: Compat change id reported: 377864165; UID 10216; state: ENABLED
+10-18 04:50:58.527  4994  4994 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+10-18 04:50:58.548  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: CREATED
+10-18 04:50:58.549  4994  4994 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@7645687
+10-18 04:50:58.554  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: STARTED
+10-18 04:50:58.554  4994  4994 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@7645687
+10-18 04:50:58.606  4994  5011 D nativeloader: Load /data/app/~~5FbaPBs1aSm8oMKUIQ8YpA==/org.bookreader.mobile-9gEpKtU8GfRBBo00ZdvNtw==/base.apk!/lib/x86_64/libsqliteJni.so using class loader ns clns-9 (caller=/data/app/~~5FbaPBs1aSm8oMKUIQ8YpA==/org.bookreader.mobile-9gEpKtU8GfRBBo00ZdvNtw==/base.apk!classes17.dex): ok
+10-18 04:50:58.617  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: RESUMED
+10-18 04:50:58.617  4994  4994 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@7645687
+10-18 04:50:58.716  4994  4994 W HWUI    : Unknown dataspace 0
+10-18 04:50:58.845  1181  1396 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+10-18 04:50:58.877  4994  4994 I okreader.mobile: hiddenapi: Accessing hidden method Landroid/os/SystemProperties;->addChangeCallback(Ljava/lang/Runnable;)V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/compose/ui/platform/AndroidComposeView$Companion; (domain=app) using reflection: allowed
+10-18 04:50:58.881  1697  1697 D AugmentedAutofillService: handleOnConnected(): debug=true, verbose=false
+10-18 04:50:58.885  1697  2051 I AiAiAutofill: Connected AiAiAugmentedAutofillService.
+10-18 04:50:58.974  4994  4998 I okreader.mobile: Compiler allocated 5042KB to compile void android.view.ViewRootImpl.performTraversals()
+10-18 04:50:59.029   517   878 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10216 pid=0
+10-18 04:50:59.029   517   878 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10216 => denied (114 us)
+10-18 04:50:59.029   517   878 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10216 pid=0
+10-18 04:50:59.029   517   878 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10216 => denied (310 us)
+10-18 04:50:59.029   517   878 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10216 pid=0
+10-18 04:50:59.029   517   878 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10216 => denied (85 us)
+10-18 04:50:59.277   641  1209 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10216 pid=0
+10-18 04:50:59.277   641  1209 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10216 => denied (96 us)
+10-18 04:50:59.277   641  1209 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10216 pid=0
+10-18 04:50:59.277   641  1209 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10216 => denied (9 us)
+10-18 04:50:59.277   641  1209 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10216 pid=0
+10-18 04:50:59.277   641  1209 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10216 => denied (6 us)
+10-18 04:50:59.277  4994  4994 I Choreographer: Skipped 30 frames!  The application may be doing too much work on its main thread.
+10-18 04:50:59.280   641   662 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +1s80ms
+10-18 04:50:59.284  1256  1256 D BaseDepthController: setSurface:
+10-18 04:50:59.284  1256  1256 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+10-18 04:50:59.284  1256  1256 D BaseDepthController: 	mBaseSurface: null
+10-18 04:50:59.285  1256  1256 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+10-18 04:50:59.285  1256  1256 D StateManager: goToState - fromState: Normal, toState: Normal, partial trace:
+10-18 04:50:59.285  1256  1256 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:4)
+10-18 04:50:59.285  1256  1256 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:1)
+10-18 04:50:59.285  1256  1256 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:34)
+10-18 04:50:59.285  1256  1256 D StatsLog: LAUNCHER_ONSTOP
+10-18 04:50:59.293  1256  1256 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+10-18 04:50:59.295   582  4993 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:50:59.310  1324  1772 I FontLog : Received query Noto Color Emoji Compat, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-18 04:50:59.317   441   467 I netd    : tetherGetStats() -> {[]} <0.65ms>
+10-18 04:50:59.349  1324  1772 I FontLog : Query [emojicompat-emoji-font] resolved to {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false}, isVf false} [CONTEXT service_id=132 ]
+10-18 04:50:59.354  1324  1772 I FontLog : Fetch {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false}, isVf false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-18 04:50:59.363  1324  1772 I FontLog : Pulling font file for id = 14, cache size = 7 [CONTEXT service_id=132 ]
+10-18 04:50:59.368   641   762 I ImeTracker: org.bookreader.mobile:8e70107d: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:50:59.380  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:50:59.380  4994  4994 I ImeTracker: org.bookreader.mobile:8e70107d: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:50:59.391  1324  1772 I FontLog : Pulling font file for id = 14, cache size = 7 [CONTEXT service_id=132 ]
+10-18 04:50:59.407   641  2116 I ImeTracker: system_server:f4a6b02: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:50:59.408  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:50:59.411   641   665 I ImeTracker: system_server:f4a6b02: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:50:59.421  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:50:59.425   641  2116 I system_server: AssetManager2(0x74844b05bef8) locale list changing from [] to [en-US]
+10-18 04:50:59.426  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:50:59.427   641  2116 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@87cb489, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-18 04:50:59.434   517   620 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:50:59.437  1001  1109 I ndroid.systemui: AssetManager2(0x74844b0667b8) locale list changing from [] to [en-US]
+10-18 04:50:59.442  1001  1112 D SplashScreenView: Build android.window.SplashScreenView{f2d727b V.E...... ......ID 0,0-0,0}
+10-18 04:50:59.442  1001  1112 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-18 04:50:59.442  1001  1112 D SplashScreenView: Branding: view: android.view.View{55d6898 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:50:59.447  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:50:59.449   582  4993 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:50:59.451  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:50:59.451  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1329 Reset input view per cached request.
+10-18 04:50:59.452  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.clearInputMethodServiceData():1016 clearInputMethodServiceData for resetInputView
+10-18 04:50:59.458   641   665 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@87cb489, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-18 04:50:59.460   517   517 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:50:59.464  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: PAUSED
+10-18 04:50:59.464  4994  4994 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@7645687
+10-18 04:50:59.466  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.discardAllKeyboardViewAndInputView():1181 discardAllKeyboardViewAndInputView()
+10-18 04:50:59.487  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():537 Destroy existing keyboard group manager in eay
+10-18 04:50:59.489  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():121 Create keyboard group manager listenable future in eay
+10-18 04:50:59.493  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():537 Destroy existing keyboard group manager in fso
+10-18 04:50:59.493  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():121 Create keyboard group manager listenable future in fso
+10-18 04:50:59.497  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():537 Destroy existing keyboard group manager in fve
+10-18 04:50:59.497  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():121 Create keyboard group manager listenable future in fve
+10-18 04:50:59.498  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.initializeInputMethodServiceData():834 initializeInputMethodServiceData for kek{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_app_first_start_timestamp=1792298838122_cache_additional_ime_defs_for_condition_change=false_cache_ime_defs_for_condition_change=false_deprecate_long_press_space_for_ime_picker=false_device=phone_device_size=default_enable_access_points_in_password_number=false_enable_flick_symbols=true_enable_more_candidates_view_for_multilingual=false_enable_number_row=false_enable_preemptive_decode=true_enable_premium_exp_tablet_layout_change=false_enable_secondary_digits=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_layout_9key_split=false_orientation=portrait_physical_keyboard=qwerty_rtl_layout=false_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.libraries.inputmethod.ime.experiment.ExperimentImeWrapper, imeDef.languageTag=en-US}
+10-18 04:50:59.500  1585  5028 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():86 parseKeyboardGroupDef() 2132214028 -> 0_resource_name_obfuscated : WaitTime = 2 ms : RunTime = 1 ms
+10-18 04:50:59.509  1585  5028 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():86 parseKeyboardGroupDef() 2132214032 -> 0_resource_name_obfuscated : WaitTime = 4 ms : RunTime = 9 ms
+10-18 04:50:59.546  1585  5027 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():86 parseKeyboardGroupDef() 2132214031 -> 0_resource_name_obfuscated : WaitTime = 11 ms : RunTime = 42 ms
+10-18 04:50:59.546   444   444 D Zygote  : Forked child process 5030
+10-18 04:50:59.603   641  2100 D FileUtils: Rounded bytes from 2593071104 to 4000000000
+10-18 04:50:59.606  1585  1585 I KeyboardThemeProvider: KeyboardThemeProvider.applyKeyboardTheme():27 Apply keyboard theme: theme_!gsf_!pgsans_!pgsf_!use_system_font_BORDER=true_FLAVOR_DPI=XXHDPI_KEYBOARD_WIDTH_CATEGORY=NORMAL_LIGHT_THEME=true_PHYSICAL_DIAGONAL=5.1148095_SCREEN_SHORTEST_WIDTH=411_SCREEN_SHORTEST_WIDTH_NO_SCALE=411_enable_google_fonts_icons=true_enable_popup_on_keypress=true_keyboard_redesign_google_sans=true_noshadow_overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fffaf8ff-ff495d92-82b625f90d810779661adb8ce93b5ac5_silkpopup_unify_function_key_color=true
+10-18 04:50:59.614  5030  5030 I der.mobile.test: Late-enabling -Xcheck:jni
+10-18 04:50:59.615  1585  1585 I AndroidIME: InputBundleManager.loadActiveInputBundleId():483 loadActiveInputBundleId: und-Latn-x-password, password
+10-18 04:50:59.616  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onCreateInputView():1233 onCreateInputView()
+10-18 04:50:59.628  1001  1064 I ndroid.systemui: AssetManager2(0x74844b064238) locale list changing from [] to [en-US]
+10-18 04:50:59.638  5030  5030 I der.mobile.test: Using CollectorTypeCMC GC.
+10-18 04:50:59.641  5030  5030 W der.mobile.test: Unexpected CPU variant for x86: x86_64.
+10-18 04:50:59.641  5030  5030 W der.mobile.test: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+10-18 04:50:59.644   526   539 I adbd    : jdwp connection from 5030
+10-18 04:50:59.644  1001  1064 I ndroid.systemui: AssetManager2(0x74844b0735f8) locale list changing from [] to [en-US]
+10-18 04:50:59.658  5030  5030 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+10-18 04:50:59.672   641  5041 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+10-18 04:50:59.672   641  5041 I EGL_emulation: Opening libGLESv2_emulation.so
+10-18 04:50:59.677  1585  1585 W StyleResolver: StyleResolver.createParsedStyleRule():233 Only one descendant combinator is supported: .keytop.pill-variant-colored  .label:pressed
+10-18 04:50:59.680   641  5041 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-18 04:50:59.700  4994  4994 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-18 04:50:59.723  1585  1585 I AndroidIME: KeyboardViewManager.updateKeyboardBackgroundFrameVisibility():333 Set background frame visibility. old:8, new:8
+10-18 04:50:59.724  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():555 KeyboardGroupManager destroyed in eay.
+10-18 04:50:59.724  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():555 KeyboardGroupManager destroyed in fso.
+10-18 04:50:59.728  1585  1585 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():555 KeyboardGroupManager destroyed in fve.
+10-18 04:50:59.809  5030  5030 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-18 04:50:59.818  5030  5030 D nativeloader: Configuring clns-9 for other apk /system/framework/android.test.mock.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~zPeewQBBGgTthxjfsQqBUg==/org.bookreader.mobile.test-SySCQrYrRMSATmFb608X9g==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/org.bookreader.mobile.test
+10-18 04:50:59.819  5030  5030 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-18 04:50:59.822  5030  5030 D nativeloader: Configuring clns-10 for other apk /system/framework/android.test.runner.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~zPeewQBBGgTthxjfsQqBUg==/org.bookreader.mobile.test-SySCQrYrRMSATmFb608X9g==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/org.bookreader.mobile.test
+10-18 04:50:59.865  5030  5030 D nativeloader: Configuring clns-11 for other apk /data/app/~~zPeewQBBGgTthxjfsQqBUg==/org.bookreader.mobile.test-SySCQrYrRMSATmFb608X9g==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~zPeewQBBGgTthxjfsQqBUg==/org.bookreader.mobile.test-SySCQrYrRMSATmFb608X9g==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/org.bookreader.mobile.test
+10-18 04:50:59.867  5030  5030 I der.mobile.test: AssetManager2(0x74844b023af8) locale list changing from [] to [en-US]
+10-18 04:50:59.870  5030  5030 V GraphicsEnvironment: Currently set values for:
+10-18 04:50:59.870  5030  5030 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+10-18 04:50:59.871  5030  5030 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+10-18 04:50:59.871  5030  5030 V GraphicsEnvironment: org.bookreader.mobile.test is not listed in per-application setting
+10-18 04:50:59.871  5030  5030 V GraphicsEnvironment: ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+10-18 04:50:59.871  5030  5030 V GraphicsEnvironment: org.bookreader.mobile.test is not listed in ANGLE allowlist or settings, returning default
+10-18 04:50:59.871  5030  5030 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-18 04:50:59.884  5030  5030 I der.mobile.test: AssetManager2(0x74844b024db8) locale list changing from [] to [en-US]
+10-18 04:50:59.887  5030  5030 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+10-18 04:50:59.892   641  2100 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@87cb489, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-18 04:50:59.899   517   620 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:50:59.905  5030  5030 D CompatChangeReporter: Compat change id reported: 377864165; UID 10217; state: ENABLED
+10-18 04:50:59.906  5030  5030 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+10-18 04:50:59.908   517   517 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:50:59.911  1001  1109 V SnapshotDrawerUtils: Drawing snapshot surface sizeMismatch=true
+10-18 04:50:59.923  5030  5030 W HWUI    : Image decoding logging dropped!
+10-18 04:50:59.924  5030  5030 W HWUI    : Image decoding logging dropped!
+10-18 04:50:59.926  5030  5046 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+10-18 04:50:59.927  5030  5046 I EGL_emulation: Opening libGLESv2_emulation.so
+10-18 04:50:59.930  5030  5046 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-18 04:50:59.948  5030  5040 I der.mobile.test: AssetManager2(0x74844b01b498) locale list changing from [] to [en-US]
+10-18 04:50:59.960  5030  5030 W HWUI    : Image decoding logging dropped!
+10-18 04:50:59.967  4994  4994 D VRI[MainActivity]: visibilityChanged oldVisibility=false newVisibility=true
+10-18 04:51:00.034  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: RESUMED
+10-18 04:51:00.035  4994  4994 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@7645687
+10-18 04:51:00.043  4994  5003 E FrameEvents: addRelease: Did not find frame.
+10-18 04:51:00.061   641   662 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +635ms
+10-18 04:51:00.108  1256  1256 D RecentsView: onTaskRemoved: 9, not handling task stack changes
+10-18 04:51:00.109  1256  1256 D RecentsView: onTaskRemoved: 9, not handling task stack changes
+10-18 04:51:00.155   582  4993 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:00.182   641   762 I ImeTracker: org.bookreader.mobile:257712c9: onRequestHide at ORIGIN_SERVER reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR fromUser false
+10-18 04:51:00.183  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:00.184  4994  4994 I ImeTracker: org.bookreader.mobile:257712c9: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:00.189  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:00.189  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:00.190  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:00.191  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:00.199  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:00.401  4994  5012 W HWUI    : Image decoding logging dropped!
+10-18 04:51:00.743   641   909 D WifiClientModeImpl[28851:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+10-18 04:51:00.744   641   909 D WifiDataStall: tx tput in kbps: 11000
+10-18 04:51:00.744   641   909 D WifiDataStall: rx tput in kbps: 11000
+10-18 04:51:00.744   641   909 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+10-18 04:51:00.744   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:00.744   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:00.744   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:00.744   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:00.744   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:00.744   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:00.744   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:00.744   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:00.745   641   909 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 517209005 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-18 04:51:00.745   641   909 D WifiScoreCard: txRate: 2 txSpeed: 1
+10-18 04:51:00.745   641   909 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 1678944855 RSSI -50 txSpeed -1
+10-18 04:51:00.745   641   909 D WifiClientModeImpl[28851:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=1.9, 0.0, 0.0 rx=2.1 bcn=0 [on:0 tx:0 rx:0 period:3003] from screen [on:0 period:1297698313] score=60
+10-18 04:51:00.919   641   762 I ImeTracker: org.bookreader.mobile:c46a2941: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:00.945  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:00.946  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:00.946  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:00.947  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:00.947  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:00.958   641  2116 I ImeTracker: system_server:52f3c55b: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:00.985  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:00.986  4994  4994 I ImeTracker: org.bookreader.mobile:c46a2941: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:00.986   641   665 I ImeTracker: system_server:52f3c55b: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:01.269  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@4c52d90
+10-18 04:51:01.382   641   666 I ImeTracker: system_server:bec2fd3c: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:01.385   641   665 I ImeTracker: system_server:bec2fd3c: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:01.401   641   762 I ImeTracker: org.bookreader.mobile:21df9566: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:01.408  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:01.412  4994  4994 I ImeTracker: org.bookreader.mobile:21df9566: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:01.413  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:01.425  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:01.426  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:01.429   641  2116 I ImeTracker: system_server:612fdc1: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:01.432   641   665 I ImeTracker: system_server:612fdc1: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:01.434  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:01.435  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:01.462  4994  5050 W HWUI    : Image decoding logging dropped!
+10-18 04:51:01.575  1238  1238 D wpa_supplicant: nl80211: Drv Event 64 (NL80211_CMD_NOTIFY_CQM) received for wlan0
+10-18 04:51:01.576  1238  1238 D wpa_supplicant: nl80211: Beacon loss event
+10-18 04:51:01.576  1238  1238 D wpa_supplicant: wlan0: Event BEACON_LOSS (53) received
+10-18 04:51:01.576  1238  1238 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-18 04:51:01.615  4994  5050 W HWUI    : Image decoding logging dropped!
+10-18 04:51:01.625  4994  5054 D ProfileInstaller: Installing profile for org.bookreader.mobile
+10-18 04:51:01.942  4994  5012 W HWUI    : Image decoding logging dropped!
+10-18 04:51:02.448  4994  5050 W HWUI    : Image decoding logging dropped!
+10-18 04:51:03.087  4994  5012 W HWUI    : Image decoding logging dropped!
+10-18 04:51:03.535   641   762 I ImeTracker: org.bookreader.mobile:72924b7b: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:03.536  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:03.536  4994  4994 I ImeTracker: org.bookreader.mobile:72924b7b: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:03.538  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:03.539  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:03.540  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:03.541   641   900 I ImeTracker: system_server:aff046dd: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:03.542  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:03.542  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:03.548   641   665 I ImeTracker: system_server:aff046dd: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:03.756   641   909 D WifiClientModeImpl[28851:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+10-18 04:51:03.756   641   909 D WifiDataStall: tx tput in kbps: 11000
+10-18 04:51:03.756   641   909 D WifiDataStall: rx tput in kbps: 11000
+10-18 04:51:03.756   641   909 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+10-18 04:51:03.756   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:03.756   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:03.756   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:03.756   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:03.757   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:03.757   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:03.757   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:03.757   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:03.757   641   909 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 517209005 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-18 04:51:03.757   641   909 D WifiScoreCard: txRate: 1 txSpeed: 1
+10-18 04:51:03.757   641   909 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 1678944855 RSSI -50 txSpeed -1
+10-18 04:51:03.757   641   909 D WifiClientModeImpl[28851:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.7, 0.0, 0.0 rx=0.7 bcn=0 [on:0 tx:0 rx:0 period:3012] from screen [on:0 period:1297701325] score=60
+10-18 04:51:03.799  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@6df3c15
+10-18 04:51:03.832   641   666 I ImeTracker: system_server:494f26c3: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:03.833   641   665 I ImeTracker: system_server:494f26c3: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:03.849   641   762 I ImeTracker: org.bookreader.mobile:ba3f6484: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:03.855  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:03.855   641  2100 I ImeTracker: system_server:b1d6536a: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:03.856  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:03.856  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:03.857  4994  4994 I ImeTracker: org.bookreader.mobile:ba3f6484: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:03.857  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:03.857   641   665 I ImeTracker: system_server:b1d6536a: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:03.861  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:03.862  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:03.993  1324  3910 I .gms.persistent: AssetManager2(0x74844b02e3b8) locale list changing from [] to [en-US]
+10-18 04:51:04.121   641   762 I ImeTracker: org.bookreader.mobile:7098ffbd: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:04.122  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:04.122  4994  4994 I ImeTracker: org.bookreader.mobile:7098ffbd: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:04.124  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:04.124  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:04.124  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:04.125  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:04.128   641   900 I ImeTracker: system_server:5a3bf9d2: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:04.130  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:04.131   641   665 I ImeTracker: system_server:5a3bf9d2: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:04.172   441   467 I netd    : tetherGetStats() -> {[]} <0.35ms>
+10-18 04:51:04.328  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@a054b79
+10-18 04:51:04.366   641   666 I ImeTracker: system_server:74b14ba8: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:04.368   641   665 I ImeTracker: system_server:74b14ba8: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:04.402   641   762 I ImeTracker: org.bookreader.mobile:79b7839f: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:04.402  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:04.402  4994  4994 I ImeTracker: org.bookreader.mobile:79b7839f: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:04.406  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:04.406   641   900 I ImeTracker: system_server:9428c8d1: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:04.407  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:04.408  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:04.409  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:04.411  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:04.414   641   665 I ImeTracker: system_server:9428c8d1: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:04.576   641   915 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-18 04:51:04.576   641   915 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-18 04:51:04.576   641   915 D InetDiagMessage: Destroyed live tcp sockets for uids={10104} in 1ms
+10-18 04:51:04.576  4994  5013 W HWUI    : Image decoding logging dropped!
+10-18 04:51:04.890   641   762 I ImeTracker: org.bookreader.mobile:50a3d261: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:04.932  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:04.932  4994  4994 I ImeTracker: org.bookreader.mobile:50a3d261: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:04.948  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:04.953  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:04.956  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:04.961   641  2146 I ImeTracker: system_server:a0f872a8: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:04.972   641   665 I ImeTracker: system_server:a0f872a8: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:04.975  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:04.976  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:05.060  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@d491549
+10-18 04:51:05.112   641   666 I ImeTracker: system_server:2d4f0397: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:05.112   641   665 I ImeTracker: system_server:2d4f0397: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:05.115   641   666 W WindowManager: container Window{7650f16 u0 org.bookreader.mobile/org.bookreader.mobile.MainActivity}does not have a surface
+10-18 04:51:05.130   641   762 I ImeTracker: org.bookreader.mobile:3f51117f: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:05.135  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:05.139  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:05.139  4994  4994 I ImeTracker: org.bookreader.mobile:3f51117f: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:05.141   641  2146 I ImeTracker: system_server:38a5b3cd: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:05.145  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:05.146  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:05.148  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:05.148   641   665 I ImeTracker: system_server:38a5b3cd: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:05.149  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:05.371  4994  5013 W HWUI    : Image decoding logging dropped!
+10-18 04:51:05.438   441   467 I netd    : tetherGetStats() -> {[]} <0.46ms>
+10-18 04:51:05.529  4994  4994 I okreader.mobile: hiddenapi: Accessing hidden method Landroid/view/ViewTreeObserver;->dispatchOnScrollChanged()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/compose/ui/platform/AndroidComposeView$Companion; (domain=app) using reflection: allowed
+10-18 04:51:05.620  4994  5013 W HWUI    : Image decoding logging dropped!
+10-18 04:51:05.970  4994  4994 I ActivityThread: Schedule relaunch activity: org.bookreader.mobile.MainActivity
+10-18 04:51:05.971  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: PAUSED
+10-18 04:51:05.971  4994  4994 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@7645687
+10-18 04:51:05.972  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@fd8e7c0
+10-18 04:51:05.973  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: STOPPED
+10-18 04:51:05.973  4994  4994 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@7645687
+10-18 04:51:05.982  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@3af24f8
+10-18 04:51:05.983  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@7645687 in: DESTROYED
+10-18 04:51:05.983  4994  4994 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 04:51:05.985  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d9a7a0d in: PRE_ON_CREATE
+10-18 04:51:05.985  4994  4994 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+10-18 04:51:05.988  4994  4994 D AutofillManager: Fill dialog is enabled:false, hints=[]
+10-18 04:51:06.000  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d9a7a0d in: CREATED
+10-18 04:51:06.000  4994  4994 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@d9a7a0d
+10-18 04:51:06.001  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d9a7a0d in: STARTED
+10-18 04:51:06.001  4994  4994 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@d9a7a0d
+10-18 04:51:06.001  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d9a7a0d in: RESUMED
+10-18 04:51:06.001  4994  4994 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@d9a7a0d
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.022   641   665 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:06.239  4994  5013 W HWUI    : Image decoding logging dropped!
+10-18 04:51:06.335  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@14a9854
+10-18 04:51:06.681  4994  5050 W HWUI    : Image decoding logging dropped!
+10-18 04:51:06.758   641   909 D WifiClientModeImpl[28851:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+10-18 04:51:06.759   641   909 D WifiDataStall: tx tput in kbps: 11000
+10-18 04:51:06.759   641   909 D WifiDataStall: rx tput in kbps: 11000
+10-18 04:51:06.760   641   909 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+10-18 04:51:06.760   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:06.760   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:06.760   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:06.760   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:06.760   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:06.760   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:06.760   641   909 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-18 04:51:06.760   641   909 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-18 04:51:06.761   641   909 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 517209005 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-18 04:51:06.761   641   909 D WifiScoreCard: txRate: 1 txSpeed: 1
+10-18 04:51:06.761   641   909 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 1678944855 RSSI -50 txSpeed -1
+10-18 04:51:06.761   641   909 D WifiClientModeImpl[28851:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.2, 0.0, 0.0 rx=0.2 bcn=0 [on:0 tx:0 rx:0 period:3004] from screen [on:0 period:1297704329] score=60
+10-18 04:51:07.054   641   762 I ImeTracker: org.bookreader.mobile:d66c642a: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:07.072   641  2146 I ImeTracker: system_server:d11897a9: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:07.073  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:07.073  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:07.073  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:07.076   641   665 I ImeTracker: system_server:d11897a9: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:07.078  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:07.080  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:07.087  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:07.088  4994  4994 I ImeTracker: org.bookreader.mobile:d66c642a: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:07.152  1585  1590 I putmethod.latin: JIT allocated 52KB for compiled code of boolean fdo.b(lbg, java.lang.Object[])
+10-18 04:51:07.152  1585  1590 I putmethod.latin: Compiler allocated 4394KB to compile boolean fdo.b(lbg, java.lang.Object[])
+10-18 04:51:07.642  4994  5013 W HWUI    : Image decoding logging dropped!
+10-18 04:51:07.785  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@20f97e4
+10-18 04:51:07.811   641   666 I ImeTracker: system_server:f2cd1fe6: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:07.813   641   665 I ImeTracker: system_server:f2cd1fe6: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:07.835   641   762 I ImeTracker: org.bookreader.mobile:adfff62c: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:07.836  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:07.837  4994  4994 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:07.837  4994  4994 I ImeTracker: org.bookreader.mobile:adfff62c: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:07.838  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:07.839  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:07.839   641  2146 I ImeTracker: system_server:8e98f674: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:07.841  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:07.842   641   665 I ImeTracker: system_server:8e98f674: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:07.845  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:08.068  4994  5013 W HWUI    : Image decoding logging dropped!
+10-18 04:51:08.368   641  1209 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@87cb489, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-18 04:51:08.371   517   878 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:51:08.372  1001  1112 D SplashScreenView: Build android.window.SplashScreenView{9266193 V.E...... ......ID 0,0-0,0}
+10-18 04:51:08.372  1001  1112 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-18 04:51:08.372  1001  1112 D SplashScreenView: Branding: view: android.view.View{1c485d0 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-18 04:51:08.374  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d9a7a0d in: PAUSED
+10-18 04:51:08.374   582  4993 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:08.374  4994  4994 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@d9a7a0d
+10-18 04:51:08.390   441   467 I netd    : tetherGetStats() -> {[]} <0.28ms>
+10-18 04:51:08.392   517   517 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:51:08.448  5030  5030 W HWUI    : Unknown dataspace 0
+10-18 04:51:08.470   517   621 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10217 pid=0
+10-18 04:51:08.470   517   621 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10217 => denied (54 us)
+10-18 04:51:08.470  4994  4994 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-18 04:51:08.470   517   621 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10217 pid=0
+10-18 04:51:08.470   517   621 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10217 => denied (184 us)
+10-18 04:51:08.470   517   621 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10217 pid=0
+10-18 04:51:08.470   517   621 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10217 => denied (53 us)
+10-18 04:51:08.599   641  1077 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10217 pid=0
+10-18 04:51:08.599   641  1077 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10217 => denied (136 us)
+10-18 04:51:08.599   641  1077 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10217 pid=0
+10-18 04:51:08.599   641  1077 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10217 => denied (23 us)
+10-18 04:51:08.599   641  1077 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10217 pid=0
+10-18 04:51:08.599   641  1077 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10217 => denied (25 us)
+10-18 04:51:08.618   641   662 I ActivityTaskManager: Displayed org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +249ms
+10-18 04:51:08.626   517   878 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:51:08.635   582  4993 W IPCThreadState: Sending oneway calls to frozen process.
+10-18 04:51:08.641  1256  1256 D ViewRootImpl: Skipping stats log for color mode
+10-18 04:51:08.641  1256  1256 D StatsLog: LAUNCHER_ONRESUME
+10-18 04:51:08.642   517   517 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-18 04:51:08.642  1256  1256 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=6}
+10-18 04:51:08.655  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@14a9854
+10-18 04:51:08.660  1256  1256 D BaseDepthController: setSurface:
+10-18 04:51:08.660  1256  1256 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+10-18 04:51:08.660  1256  1256 D BaseDepthController: 	mBaseSurface: Surface(name=com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity)/@0xbfc46b3
+10-18 04:51:08.686  1256  1297 D QuickstepModelDelegate: notifyAppTargetEvent action=1 launchLocation=workspace/0/[-1,-1]/[1,1]
+10-18 04:51:08.687  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d9a7a0d in: STOPPED
+10-18 04:51:08.687  4994  4994 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@d9a7a0d
+10-18 04:51:08.739  1256  1256 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+10-18 04:51:08.739  1256  1256 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:22)
+10-18 04:51:08.739  1256  1256 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:11)
+10-18 04:51:08.739  1256  1256 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:339)
+10-18 04:51:08.748  1256  1256 D b/311077782: LauncherAnimationRunner.setAnimation
+10-18 04:51:08.751  1256  1256 D WorkspaceRevealAnim: onAnimationEnd: workspace alpha = 1.0
+10-18 04:51:08.768  1697  1839 I AiAiEcho: Predicting[0]:  [CONTEXT sampling_count=5 ]
+10-18 04:51:08.769  1697  1839 I AiAiEcho: EchoTargets:
+10-18 04:51:08.769  1697  1839 I AiAiEcho: Filtered by AiAi flag check:
+10-18 04:51:08.769  1697  1839 I AiAiEcho: [CONTEXT ratelimit_period="10 SECONDS" ]
+10-18 04:51:08.772  5030  5030 D VRI[InstrumentationActivityInvoker$EmptyActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-18 04:51:08.773  1697  1839 I AiAiEcho: #remoteViewsTwiddler: feature disabled.
+10-18 04:51:08.776   641   762 I ImeTracker: com.google.android.apps.nexuslauncher:10cc97ea: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-18 04:51:08.783  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-18 04:51:08.792   641  1209 I ImeTracker: system_server:5179efb0: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-18 04:51:08.793  4994  4994 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@f36ff10
+10-18 04:51:08.796  5030  5034 I der.mobile.test: Compiler allocated 5042KB to compile void android.view.ViewRootImpl.performTraversals()
+10-18 04:51:08.807  4994  4994 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d9a7a0d in: DESTROYED
+10-18 04:51:08.808  4994  4994 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 04:51:08.816   641   665 I ImeTracker: system_server:5179efb0: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-18 04:51:08.832  1697  1839 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-18 04:51:08.868  1256  1256 D InsetsController: hide(ime(), fromIme=false)
+10-18 04:51:08.868  1256  1256 I ImeTracker: com.google.android.apps.nexuslauncher:10cc97ea: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-18 04:51:08.874  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-18 04:51:08.874  1585  1585 W NotificationCenter: NotificationCenter$NotificationQueue.notifyPendingNotificationsOnExecutor():877 Heavy notify work detected on UI thread: [kig->ilu, kig->ilu, kig->ilu, kig->lux, kig->jnx, kig->ilu, kig->ilu, kig->fef, kig->ilu, kig->ilu, kig->fro, kig->khc, kig->ilu, kig->ilu, kig->ilu, kig->ijm, kig->ilu, kig->khg, kig->fcb, kig->imt, kig->ilu, kig->ilu] takes 91ms
+10-18 04:51:08.874  1585  1585 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-18 04:51:08.905  1256  1256 D SsBaseTemplateCard: No text view can be set up
+10-18 04:51:08.905  1256  1256 D SsBaseTemplateCard: Passed-in item info is null
+10-18 04:51:08.905  1256  1256 D SsBaseTemplateCard: Passed-in item info is null
+10-18 04:51:08.905  1256  1256 D SsBaseTemplateCard: Passed-in item info is null
+10-18 04:51:08.905  1256  1256 I SsBaseTemplateCard: Secondary card pane is null
+10-18 04:51:08.911  1585  1585 W NotificationCenter: NotificationCenter$NotificationQueue.notifyPendingNotificationsOnExecutor():877 Heavy notify work detected on UI thread: [kig->jjs] takes 37ms
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at asx.p(PG:6)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at axb.b(PG:13)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at nco.v(PG:13)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-18 04:51:08.911  1585  1585 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-18 04:51:08.916  4994  4994 D ViewRootImpl: Skipping stats log for color mode
+10-18 04:51:08.923  1256  1256 D RecentsView: onTaskRemoved: 8, not handling task stack changes
+10-18 04:51:08.923  1256  1256 D RecentsView: onTaskRemoved: 8, not handling task stack changes
+10-18 04:51:08.924  5030  5030 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@a124b4f
+10-18 04:51:08.926  5030  5030 D ViewRootImpl: Skipping stats log for color mode
+10-18 04:51:08.927  1585  1585 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-18 04:51:08.955  1181  1396 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+10-18 04:51:09.020  1256  1256 D RecentsView: onTaskRemoved: 10, not handling task stack changes
+10-18 04:51:09.020  1256  1256 D RecentsView: onTaskRemoved: 10, not handling task stack changes
+10-18 04:51:09.097  4994  5007 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@9a15ab5]
+10-18 04:51:09.112  4994  5007 I TestRunner: finished: managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity(org.bookreader.mobile.comic.ComicReaderFlowTest)
