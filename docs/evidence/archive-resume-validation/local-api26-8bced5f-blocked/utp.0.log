@@ -1,0 +1,31 @@
+INFO: Constructing runner from config.
+INFO: Configuring Android Instrumentation driver: android_instrumentation_runtime {
+  instrumentation_info {
+    app_package: "org.bookreader.mobile"
+    test_package: "org.bookreader.mobile.test"
+    test_runner_class: "androidx.test.runner.AndroidJUnitRunner"
+  }
+  instrumentation_args {
+    args_map {
+      key: "class"
+      value: "org.bookreader.mobile.epub.EpubReaderFlowTest#managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator"
+    }
+  }
+}
+am_instrument_timeout: 31536000
+
+INFO: Configuring AndroidTestApkInstallerPlugin: apks_to_install {
+  apk_paths: "/workspace/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+  install_options {
+  }
+}
+apks_to_install {
+  apk_paths: "/workspace/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk"
+  install_options {
+  }
+}
+
+INFO: No installables found in test fixture. Nothing to install.
+INFO: Installing [/workspace/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk] on device emulator-5556.
+SEVERE: Test execution failed with fatal error!
+INFO: Stop logcat streaming.

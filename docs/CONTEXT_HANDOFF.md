@@ -1,5 +1,16 @@
 # BookReader Mobile 새 컨텍스트 인계 — 2026-10-17
 
+## 2026-10-18 재개 후 최신 상태
+
+사용자가 후속 개발 재개를 승인했다. 현재 저장소는 `/workspace/BookreaderM`,
+`codex/comic-product`이며 관찰 코드 소스 `8bced5f`를 push했다.
+최신 build 39098185637 및 device 39098185673의 API26/34/36 job은 모두 **SUCCESS(metadata)**다.
+로컬 unit 66/74/16, ENOSPC 3, APK/lint도 PASS다.
+원격 원본은 프록시 403으로 **BLOCKED_ENV**, 로컬 API26은 APK 설치 시간 초과로 **0 tests/BLOCKED_ENV**다.
+관찰 추가로 제품 오류가 해결됐다고 판단하지 않으며 main 통합은 상세 증거 확인 전까지 보류한다.
+[검증 보고서와 정확 명령·다음 절차](RESUME_VALIDATION_2026-10-18.md)를 우선한다.
+아래 중단 지시/실행 중 표기는 이전 세션 이력이다.
+
 ## 최신: 사용자 요청으로 현재 작업을 정리하고 다음 세션으로 인계
 
 **[SESSION_HANDOFF.md](SESSION_HANDOFF.md)를 먼저 읽는다.** 사용자는 현재 작업까지만 마무리하고 전달서를 작성하도록 요청했다. 새 구현은 중단하고 코드/증거/원격 진행 상태를 보존했다.

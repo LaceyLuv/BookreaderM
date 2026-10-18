@@ -1,0 +1,34 @@
+{
+  "observed_at_utc": "2026-10-18T05:02:03.391229+00:00",
+  "source_sha": "8bced5f4ff3136af2dc002d3c457397b7853bfe6",
+  "remote_build": {
+    "run_id": 39098185637,
+    "metadata_conclusion": "success",
+    "artifact_content_verified": false
+  },
+  "remote_device": {
+    "run_id": 39098185673,
+    "metadata_conclusion": "success",
+    "api_job_conclusions": {
+      "26": "success",
+      "34": "success",
+      "36": "success"
+    },
+    "artifact_content_verified": false,
+    "native_case_counts": null,
+    "host_stage_counts": null
+  },
+  "local_api26": {
+    "status": "BLOCKED_ENV",
+    "command_exit": 1,
+    "tests_executed": 0,
+    "error": "APK install commit ShellCommandUnresponsiveException",
+    "acceleration": "off; /dev/kvm unavailable",
+    "emulator_version": "37.1.11 (15917651)",
+    "serial": "emulator-5556",
+    "emulator_stopped": true
+  },
+  "remaining_blocker": "Artifact Azure redirect hosts return proxy HTTP 403; custom network draft has not been applied to this runtime.",
+  "product_bug_fixed": false,
+  "main_integrated": false
+}
