@@ -2,13 +2,8 @@ package org.bookreader.mobile.epub
 
 import android.content.Intent
 import android.os.SystemClock
-import android.view.View
-import android.view.ViewGroup
-import android.webkit.WebView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 import org.json.JSONObject
 import org.readium.r2.navigator.epub.EpubPreferences
 import org.readium.r2.navigator.preferences.Theme
@@ -40,18 +35,10 @@ class EpubProbeTest {
         fail("EPUB probe timed out")
     }
     private fun js(scenario: ActivityScenario<EpubProbeActivity>, chapter: String, expression: String): String {
-        var value = "null"
-        val completed = CountDownLatch(1)
-        scenario.onActivity { activity ->
-            fun views(view: View): List<WebView> = if (view is WebView) listOf(view)
-                else if (view is ViewGroup) (0 until view.childCount).flatMap { views(view.getChildAt(it)) } else emptyList()
-            val candidates = views(activity.window.decorView).filter { it.url?.contains("/$chapter.xhtml") == true }
-            val web = candidates.firstOrNull { it.isShown } ?: candidates.firstOrNull()
-            assertNotNull("Loaded chapter WebView", web)
-            web!!.evaluateJavascript(expression) { value = it; completed.countDown() }
+        return evaluateLoadedChapter(scenario, chapter, expression) {
+            assertNull("Probe host failed", it.failure)
+            true
         }
-        assertTrue(completed.await(10, TimeUnit.SECONDS))
-        return value
     }
     @Test fun stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator() {
         for (fixture in listOf("epub2", "epub3")) launch(fixture).use { scenario ->

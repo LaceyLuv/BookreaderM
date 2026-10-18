@@ -84,7 +84,7 @@ class EpubReaderFlowTest {
             assertEquals("A request must not save before the replacement host renders it", accepted, active.progress.state.value.accepted)
             assertEquals(requested, active.initialLocator())
         }
-        waitForSearchCommit(book)
+        waitForSearchCommit(book, requested)
         assertParagraphVisible("two", "p179")
         val original = requireNotNull(saved(book))
         recordRestoreObservation("search", original)
@@ -143,19 +143,22 @@ class EpubReaderFlowTest {
             assertEquals(accepted, active.progress.state.value.accepted)
             assertEquals(requested, active.initialLocator())
         }
-        waitForSearchCommit(book)
-        recordRestoreObservation("search-after-reflow", requireNotNull(saved(book)))
+        waitForSearchCommit(book, requested)
         assertParagraphVisible("two", "p179")
+        recordRestoreObservation("search-after-reflow", requireNotNull(saved(book)))
         val locator = org.json.JSONObject(requireNotNull(saved(book)).payload.locator.toString())
         assertEquals(requested.text.highlight, locator.getJSONObject("text").getString("highlight"))
     }
 
-    private fun waitForSearchCommit(book: Book) {
+    private fun waitForSearchCommit(book: Book, requested: org.readium.r2.shared.publication.Locator) {
+        val owner = reader()
         try {
             compose.waitUntil(20_000) {
                 val locator = saved(book)?.payload?.locator ?: return@waitUntil false
                 val json = org.json.JSONObject(locator.toString())
-                json.getString("href").endsWith("two.xhtml") && json.getJSONObject("locations").optDouble("progression", 0.0) > .5
+                json.getString("href").endsWith("two.xhtml") && json.getJSONObject("locations").optDouble("progression", 0.0) > .5 &&
+                    json.optJSONObject("text")?.optString("highlight") == requested.text.highlight &&
+                    owner.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY
             }
         } catch (failure: Throwable) {
             // Preserve the original timeout and capture fixture state even before search succeeds.
@@ -270,20 +273,11 @@ class EpubReaderFlowTest {
     }
 
     private fun assertParagraphVisible(chapter: String, id: String) {
-        val completed = java.util.concurrent.CountDownLatch(1)
-        var visible = "null"
-        compose.activityRule.scenario.onActivity { activity ->
-            fun webViews(view: android.view.View): List<android.webkit.WebView> = when (view) {
-                is android.webkit.WebView -> listOf(view)
-                is android.view.ViewGroup -> (0 until view.childCount).flatMap { webViews(view.getChildAt(it)) }
-                else -> emptyList()
-            }
-            val web = webViews(activity.window.decorView).first { it.isShown && it.url?.contains("/$chapter.xhtml") == true }
-            web.evaluateJavascript("(() => { const r = document.getElementById('$id').getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth; })()") {
-                visible = it; completed.countDown()
-            }
+        val visible = evaluateLoadedChapter(compose.activityRule.scenario, chapter,
+            "(() => { const r = document.getElementById('$id').getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth; })()") { activity ->
+            ViewModelProvider(activity)[AppViewModel::class.java].state.value.epubReader
+                ?.progress?.state?.value?.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY
         }
-        assertTrue(completed.await(10, java.util.concurrent.TimeUnit.SECONDS))
         assertEquals("The searched paragraph must be in the visible viewport", "true", visible)
     }
     private fun assertRenderedNear(locator: EpubLocator) {

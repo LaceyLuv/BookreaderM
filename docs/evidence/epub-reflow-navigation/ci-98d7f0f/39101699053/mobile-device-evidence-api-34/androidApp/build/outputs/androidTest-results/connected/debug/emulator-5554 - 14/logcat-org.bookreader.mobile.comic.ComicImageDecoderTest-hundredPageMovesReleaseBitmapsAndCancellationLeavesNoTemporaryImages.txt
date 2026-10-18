@@ -1,0 +1,20 @@
+10-18 05:53:06.980  6024  6043 I TestRunner: started: hundredPageMovesReleaseBitmapsAndCancellationLeavesNoTemporaryImages(org.bookreader.mobile.comic.ComicImageDecoderTest)
+10-18 05:53:06.984  6024  6043 I okreader.mobile: Using smaps_rollup for pss collection
+10-18 05:53:07.001   995  6046 D NetworkMonitor/100: PROBE_HTTPS https://www.google.com/generate_204 time=425ms ret=204 request={Connection=[close], User-Agent=[Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.32 Safari/537.36]} headers={null=[HTTP/1.1 204 No Content], Alt-Svc=[h3=":443"; ma=2592000,h3-29=":443"; ma=2592000], Connection=[close], Content-Length=[0], Cross-Origin-Resource-Policy=[cross-origin], Date=[Sun, 18 Oct 2026 05:53:07 GMT], X-Android-Received-Millis=[1792302787000], X-Android-Response-Source=[NETWORK 204], X-Android-Selected-Protocol=[http/1.1], X-Android-Sent-Millis=[1792302786987]}
+10-18 05:53:07.002   995  6045 D NetworkMonitor/100: isCaptivePortal: isSuccessful()=true isPortal()=false RedirectUrl=null isPartialConnectivity()=false Time=629ms
+10-18 05:53:07.003   518   762 D ConnectivityService: [100 WIFI] validation passed
+10-18 05:53:07.631  2771  4082 I DialerOmtpVvmCarrierConfigHelper: com.android.voicemail.impl.OmtpVvmCarrierConfigHelper.handleEvent:527 OmtpEvent:CONFIG_STATUS_SMS_TIME_OUT PhoneAccountHandle: [ComponentName: com.android.phone/com.android.services.telephony.TelephonyConnectionService subId: 1] [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.631  2771  2771 I DialerRetryPolicy: com.android.voicemail.impl.scheduling.RetryPolicy.onCompleted:118 discarding deferred status [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.632  2771  2771 I DialerTaskExecutor: com.android.voicemail.impl.scheduling.TaskExecutor.prepareStop:371 no more tasks, stopping service if no task are added in 5000 millis [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.633  2771  2771 I DialerLogcatLoggingBindings: com.android.dialer.logging.logcat.LogcatLoggingBindings.logImpression:41 Impression: VVM_AUTO_RETRY_ACTIVATION
+10-18 05:53:07.634  2771  2771 I DialerTaskReceiver: com.android.voicemail.impl.scheduling.TaskReceiver.onReceive:68 task received [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.634  2771  2771 I DialerTaskReceiver: com.android.voicemail.impl.scheduling.TaskReceiver.onReceive:73 TaskExecutor already running [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.634  2771  2771 I DialerTasks: com.android.voicemail.impl.scheduling.Tasks.createTask:59 Task.createTask create task:com.android.voicemail.impl.ActivationTask [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.635  2771  2771 I DialerRetryPolicy: com.android.voicemail.impl.scheduling.RetryPolicy.onCreate:81 retry #4 for com.android.voicemail.impl.ActivationTask@5fa137b queued, executing in 5000 [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.637  2771  2771 I DialerTaskExecutor: com.android.voicemail.impl.scheduling.TaskExecutor.addTask:299 com.android.voicemail.impl.ActivationTask@5fa137b added [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.637  2771  2771 I DialerTaskExecutor: com.android.voicemail.impl.scheduling.TaskExecutor.runNextTask:345 minimal wait time:4998 [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.638  2771  2771 I DialerTaskExecutor: com.android.voicemail.impl.scheduling.TaskExecutor.sleep:355 sleep for 4998 millis [CONTEXT enable_persistent_logger=true ]
+10-18 05:53:07.915  1695  2829 W A       : [Download] response code: 400
+10-18 05:53:08.622   834   834 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-18 05:53:09.613  6024  6043 I System.out: COMIC_MEMORY {"moves":100,"maximum_bitmap_bytes":1728000,"budget_bytes":13421772,"initial_pss_kib":122396,"maximum_pss_kib":146511,"physical_performance":"NOT_RUN"}
+10-18 05:53:09.615  6024  6043 I TestRunner: finished: hundredPageMovesReleaseBitmapsAndCancellationLeavesNoTemporaryImages(org.bookreader.mobile.comic.ComicImageDecoderTest)

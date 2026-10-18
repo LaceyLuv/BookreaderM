@@ -1,5 +1,18 @@
 # M00 작업 기록
 
+## 2026-10-18 최신: EPUB 대상 문서 준비 동기화 보완
+
+제품 수정 `98d7f0f`의 CI 원본을 회수했다. build PASS(66/74/16 + ENOSPC 3),
+API36 ordinary 54 + host 6 PASS다. API26/34는 각각 54개 실행 중 1 FAIL이며 host는 NOT_RUN이다.
+새 검색 직후 reflow 회귀는 세 API 모두 PASS, API34의 기존 EPUB flow와 TXT 회귀도 PASS다.
+API26은 표시 WebView 조회, API34는 미완성 DOM의 이미지 조회에서 실패했다.
+[원본·분석·후속 변경](EPUB_REFLOW_NAVIGATION.md)에 근거를 남긴다.
+
+후속 변경은 테스트의 대상 문서/현재 host 준비를 기다리고 검색 저장 highlight 일치를 추가한다.
+기존 시간 한도·CSP·이미지·문단·progression·DB assertion을 유지한다.
+테스트 APK compile/lint exit 0 PASS. 후속 native matrix를 검증한다. main 통합은 세 API의 ordinary 54 + host 6 모두 PASS가 선행 조건이다.
+unsigned 패키지 정적 감사는 PASS지만 서명·실기기·출시 검증은 미완료다.
+
 ## 2026-10-18 EPUB 검색 이동과 화면 교체 경쟁 수정
 
 `8ca750e`의 차단됐던 artifact를 회수해 ZIP digest를 검증했다.

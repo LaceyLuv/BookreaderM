@@ -1,0 +1,67 @@
+{
+  "source_sha": "98d7f0faa5af37fdce8ac3d8d3b00c87eab05bdb",
+  "build": {
+    "android-unit": 66,
+    "shared-jvm": 74,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device": {
+    "26": {
+      "tests": 54,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator",
+          "trace": "java.util.NoSuchElementException: Collection contains no element matching the predicate.\nat org.bookreader.mobile.epub.EpubReaderFlowTest.assertParagraphVisible$lambda$0(EpubReaderFlowTest.kt:383)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.$r8$lambda$avI1GgwaKLt4f02fe6qZh6WwYT4(Unknown Source:0)\nat org.bookreader.mobile.epub.EpubReaderFlowTest$$ExternalSyntheticLambda1.perform(D8$$SyntheticClass:0)\nat androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)\nat androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)\nat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)\nat java.util.concurrent.FutureTask.run(FutureTask.java:266)\nat android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2092)\nat android.os.Handler.handleCallback(Handler.java:789)\nat android.os.Handler.dispatchMessage(Handler.java:98)\nat android.os.Looper.loop(Looper.java:164)\nat android.app.ActivityThread.main(ActivityThread.java:6541)\nat java.lang.reflect.Method.invoke(Native Method)\nat com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)\nat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "34": {
+      "tests": 54,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubProbeTest",
+          "name": "cspBlocksExternalCssResourcesWhileEngineCanNavigateOffline",
+          "trace": "org.junit.ComparisonFailure: expected:<[true]> but was:<[null]>\nat org.junit.Assert.assertEquals(Assert.java:117)\nat org.junit.Assert.assertEquals(Assert.java:146)\nat org.bookreader.mobile.epub.EpubProbeTest.cspBlocksExternalCssResourcesWhileEngineCanNavigateOffline(EpubProbeTest.kt:182)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "36": {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "host_status": "PASS",
+      "hosts": {
+        "reader": {
+          "count": 2,
+          "old_pid": "6438",
+          "new_pid": "6488",
+          "absent_after_stop": true
+        },
+        "epub": {
+          "count": 2,
+          "old_pid": "6695",
+          "new_pid": "6742",
+          "absent_after_stop": true
+        },
+        "comic": {
+          "count": 2,
+          "old_pid": "6943",
+          "new_pid": "6989",
+          "absent_after_stop": true
+        }
+      }
+    }
+  }
+}
