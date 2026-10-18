@@ -1,0 +1,58 @@
+{
+  "source_sha": "9a96ac5442ff5ed5969533d3311e1e4f6442dcdc",
+  "build": {
+    "android-unit": 66,
+    "shared-jvm": 74,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device": {
+    "26": {
+      "tests": 54,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubProbeTest",
+          "name": "stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator",
+          "trace": "java.lang.AssertionError: EPUB probe timed out\nat org.junit.Assert.fail(Assert.java:89)\nat org.bookreader.mobile.epub.EpubProbeTest.waitFor(EpubProbeTest.kt:35)\nat org.bookreader.mobile.epub.EpubProbeTest.stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator(EpubProbeTest.kt:69)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "name": "systemDocumentsPickerSelectsTxtFromRealProvider",
+          "trace": "java.lang.IllegalStateException: System DocumentsUI did not expose selectable node: System picker fixture.txt; visible=[null [null], null [null], null [android:id/statusBarBackground], null [android:id/navigationBarBackground], null [android:id/content], null [com.android.documentsui:id/coordinator_layout], null [com.android.documentsui:id/drawer_layout], null [null], null [com.android.documentsui:id/toolbar], null [null], Show roots [null], BookReader test TXT [null], null [null], null [null], null [com.android.documentsui:id/drawer_edge], List view [com.android.documentsui:id/menu_list], More options [null], null [com.android.documentsui:id/dropdown_sort_widget], null [com.android.documentsui:id/container_directory], Name [com.android.documentsui:id/sort_dimen_dropdown], Ascending [com.android.documentsui:id/sort_arrow], null [null], null [com.android.documentsui:id/refresh_layout], null [null], null [com.android.documentsui:id/file_list], null [com.android.documentsui:id/dir_list], null [null], null [null], null [null], null [null], null [null], null [null], null [null], null [null], null [null], null [null], null [null], null [com.android.documentsui:id/thumbnail], null [com.android.documentsui:id/nameplate], null [null], null [com.android.documentsui:id/thumbnail], null [com.android.documentsui:id/nameplate], null [null], null [com.android.documentsui:id/thumbnail], null [com.android.documentsui:id/nameplate], null [null], null [com.android.documentsui:id/thumbnail], null [com.android.documentsui:id/nameplate], null [null], null [com.android.documentsui:id/thumbnail]]\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode(ManagedImportAndroidTest.kt:141)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode$default(ManagedImportAndroidTest.kt:111)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.systemDocumentsPickerSelectsTxtFromRealProvider(ManagedImportAndroidTest.kt:101)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "34": {
+      "tests": 54,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubProbeTest",
+          "name": "stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator",
+          "trace": "java.lang.AssertionError: EPUB probe timed out\nat org.junit.Assert.fail(Assert.java:89)\nat org.bookreader.mobile.epub.EpubProbeTest.waitFor(EpubProbeTest.kt:35)\nat org.bookreader.mobile.epub.EpubProbeTest.stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator(EpubProbeTest.kt:69)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "36": {
+      "tests": 54,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubProbeTest",
+          "name": "stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator",
+          "trace": "java.lang.AssertionError: EPUB probe timed out\nat org.junit.Assert.fail(Assert.java:89)\nat org.bookreader.mobile.epub.EpubProbeTest.waitFor(EpubProbeTest.kt:35)\nat org.bookreader.mobile.epub.EpubProbeTest.stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator(EpubProbeTest.kt:69)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    }
+  }
+}

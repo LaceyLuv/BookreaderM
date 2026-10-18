@@ -23,16 +23,29 @@ class EpubProbeTest {
         Intent(instrumentation.targetContext, EpubProbeActivity::class.java).putExtra("fixture", name))
     private fun waitFor(scenario: ActivityScenario<EpubProbeActivity>, condition: (EpubProbeActivity) -> Boolean) {
         val deadline = SystemClock.uptimeMillis() + 30_000
+        var lastState = "activity unavailable"
         while (SystemClock.uptimeMillis() < deadline) {
             var done = false
             scenario.onActivity { activity ->
                 assertNull("Probe host failed", activity.failure)
                 done = condition(activity)
+                lastState = "loaded=${activity.loadedPages}, rendered=${activity.renderedPages}, " +
+                    "href=${activity.navigator?.currentLocator?.value?.href}, " +
+                    "locations=${activity.navigator?.currentLocator?.value?.locations}, " +
+                    "font=${activity.navigator?.settings?.value?.fontSize}, theme=${activity.navigator?.settings?.value?.theme}"
             }
             if (done) return
             SystemClock.sleep(100)
         }
-        fail("EPUB probe timed out")
+        fail("EPUB probe timed out: $lastState")
+    }
+    private fun chapterWebView(activity: EpubProbeActivity, chapter: String): android.webkit.WebView? {
+        fun views(view: android.view.View): List<android.webkit.WebView> = when (view) {
+            is android.webkit.WebView -> listOf(view)
+            is android.view.ViewGroup -> (0 until view.childCount).flatMap { views(view.getChildAt(it)) }
+            else -> emptyList()
+        }
+        return views(activity.window.decorView).firstOrNull { it.isShown && it.url?.endsWith("/$chapter.xhtml") == true }
     }
     private fun js(scenario: ActivityScenario<EpubProbeActivity>, chapter: String, expression: String): String {
         return evaluateLoadedChapter(scenario, chapter, expression) {
@@ -55,7 +68,6 @@ class EpubProbeTest {
             }
             waitFor(scenario) { it.renderedLocator?.href?.toString()?.endsWith("two.xhtml") == true }
             var serialized = ""
-            var beforePreferences = 0
             scenario.onActivity { activity ->
                 val navigator = requireNotNull(activity.navigator)
                 serialized = navigator.currentLocator.value.toJSON().toString()
@@ -63,12 +75,21 @@ class EpubProbeTest {
                 val roundTrip = JSONObject(EpubSdkProbe.roundTrip(serialized))
                 assertEquals(original.getString("href"), roundTrip.getString("href"))
                 assertEquals(original.getJSONObject("locations").toString(), roundTrip.getJSONObject("locations").toString())
-                beforePreferences = activity.renderedPages
                 activity.submitPreferences(EpubPreferences(fontSize = 1.3, theme = Theme.DARK))
             }
-            waitFor(scenario) { it.renderedPages > beforePreferences &&
-                it.renderedLocator?.href?.toString()?.endsWith("two.xhtml") == true &&
+            // Readium applies font size through WebSettings.textZoom; that does not
+            // guarantee another page-change notification when the position stays put.
+            waitFor(scenario) { chapterWebView(it, "two")?.settings?.textZoom == 130 &&
                 it.navigator?.settings?.value?.let { settings -> settings.fontSize == 1.3 && settings.theme == Theme.DARK } == true }
+            val painted = java.util.concurrent.CountDownLatch(1)
+            scenario.onActivity {
+                requireNotNull(chapterWebView(it, "two")).postVisualStateCallback(1,
+                    object : android.webkit.WebView.VisualStateCallback() {
+                        override fun onComplete(requestId: Long) { painted.countDown() }
+                    })
+            }
+            assertTrue("The configured WebView must finish its pending visual update",
+                painted.await(10, java.util.concurrent.TimeUnit.SECONDS))
             scenario.recreate()
             waitFor(scenario) { it.renderedLocator?.href?.toString()?.endsWith("two.xhtml") == true &&
                 kotlin.math.abs((it.renderedLocator?.locations?.progression ?: 0.0) -

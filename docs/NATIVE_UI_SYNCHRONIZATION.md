@@ -35,3 +35,26 @@ API36도 제품 EPUB 전체 flow는 PASS다. 이 개별 성공을 전체 suite �
 
 의존성 버전·테스트 개수·skip 정책을 바꾸지 않았다. [확인한 고정 버전 소스 hash](evidence/epub-reflow-navigation/ci-dc06d3e/diagnostic-sources.json)를 남긴다.
 후속 테스트 APK compile/lint exit 0 PASS. 세 API matrix 결과를 확인한 뒤에만 main 통합을 진행한다.
+
+후속 검증 소스: `9a96ac5442ff5ed5969533d3311e1e4f6442dcdc`.
+[build 39105037444](https://github.com/LaceyLuv/BookreaderM/actions/runs/39105037444),
+[device 39105037355](https://github.com/LaceyLuv/BookreaderM/actions/runs/39105037355) 결과 확인 중이다.
+
+## 9a96ac5 결과와 실제 설정 완료 신호
+
+[원본과 요약](evidence/epub-reflow-navigation/ci-9a96ac5/summary.json)을 보존했다.
+Build는 66/74/16 + ENOSPC 3 PASS다. API26은 54개 중 2 FAIL, API34/36은 각각 54개 중 1 FAIL,
+세 API host는 NOT_RUN이다. EPUB 제품 flow와 Comic flow는 세 API 모두 PASS다.
+
+새로 추가한 probe의 `renderedPages > beforePreferences` 조건은 잘못된 대기 조건이었다.
+Readium 3.1.2의 `onSettingsChange` → `R2EpubPageFragment.setFontSize`는 WebSettings.textZoom을 바꾸며,
+위치가 그대로인 경우 새 페이지 콜백은 보장하지 않는다. 실제 settings 값과 표시 WebView의 textZoom 130을
+확인한 뒤 `postVisualStateCallback` 완료를 기다리도록 교정했다. Locator .03 assertion은 유지한다.
+
+API26 picker의 구조 로그는 fixture 폴더 진입 및 file_list/nameplate가 존재하지만 파일 선택 label 탐색이
+끝나지 않았음을 보여 준다. 해당 테스트 동안 `FLAG_INCLUDE_NOT_IMPORTANT_VIEWS`를 명시하고 종료 시
+원래 flags를 복원한다. 살아 있는 window의 text 검색도 함께 사용해 RecyclerView의 캐시된 자식 목록에만
+의존하지 않는다. 실제 URI grant·파일명·본문 확인은 그대로다. 실패 진단은 개인 문서명을 기록하지 않는
+구조 정보와 기존 fixture screenshot 정책을 사용한다.
+
+후속 테스트 APK compile/lint exit 0 PASS. 다음 push의 세 API native/host 결과를 확인한다.

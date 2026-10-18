@@ -1,0 +1,271 @@
+10-18 06:49:37.242  5330  5347 I TestRunner: started: managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity(org.bookreader.mobile.comic.ComicReaderFlowTest)
+10-18 06:49:37.287  5330  5347 W FileTestStorage: Output properties is not supported.
+10-18 06:49:37.287  5330  5347 I Tracing : Tracer added: class androidx.test.platform.tracing.AndroidXTracer
+10-18 06:49:37.291  5330  5330 D EventInjectionStrategy: Creating injection strategy with input manager.
+10-18 06:49:37.298  5330  5347 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@8409589]
+10-18 06:49:37.307  5330  5347 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-18 06:49:37.335  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: PRE_ON_CREATE
+10-18 06:49:37.336  5330  5330 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-18 06:49:37.341  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:37.389  5330  5335 I zygote64: Do partial code cache collection, code=122KB, data=92KB
+10-18 06:49:37.389  5330  5335 I zygote64: After code cache collection, code=122KB, data=92KB
+10-18 06:49:37.390  5330  5335 I zygote64: Increasing code cache capacity to 512KB
+10-18 06:49:37.393  2407  2558 D EGL_emulation: eglMakeCurrent: 0x7f927fbb82a0: ver 3 0 (tinfo 0x7f9275cab600)
+10-18 06:49:37.402  2483  2782 D EGL_emulation: eglMakeCurrent: 0xd9586200: ver 3 0 (tinfo 0xd9583b00)
+10-18 06:49:37.453  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: CREATED
+10-18 06:49:37.463  5330  5330 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:37.465  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: STARTED
+10-18 06:49:37.465  5330  5330 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:37.468  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: RESUMED
+10-18 06:49:37.468  5330  5330 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:37.474  1400  2015 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+10-18 06:49:37.474  5330  5360 D OpenGLRenderer: HWUI GL Pipeline
+10-18 06:49:37.493  2188  5260 I Vision  : Requesting optional module download of ocr.
+10-18 06:49:37.495  2188  5260 I Vision  : Checking for download completion for 329960 -- ocr
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: Error inserting period=2000 target_class=com.google.android.gms.phenotype.service.sync.PhenotypeConfigurator required_network_type=0 runtime=1792305908366 required_idleness_state=0 extras={"fetchReason":{"6":0},"fetchPackage":{"com.google.android.gms.people":4}} source=16 service_kind=0 target_package=com.google.android.gms persistence_level=1 source_version=202414000 last_runtime=0 user_id=0 job_id=-1 requires_charging=0 tag=PhenotypeSyncImmediately flex_time=1000 task_type=0 retry_strategy={"maximum_backoff_seconds":{"3600":0},"initial_backoff_seconds":{"30":0},"retry_policy":{"0":0}}
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: pending_ops.tag, pending_ops.target_class, pending_ops.target_package, pending_ops.user_id (code 2067)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForLastInsertedRowId(Native Method)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.database.sqlite.SQLiteConnection.executeForLastInsertedRowId(SQLiteConnection.java:782)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.database.sqlite.SQLiteSession.executeForLastInsertedRowId(SQLiteSession.java:788)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.database.sqlite.SQLiteStatement.executeInsert(SQLiteStatement.java:86)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.database.sqlite.SQLiteDatabase.insertWithOnConflict(SQLiteDatabase.java:1474)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.database.sqlite.SQLiteDatabase.insert(SQLiteDatabase.java:1343)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at aqui.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):175)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at aqtk.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):182)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at aqtk.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):23)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at aqtk.c(:com.google.android.gms@202414023@20.24.14 (040800-319035315):9)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at aqtk.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):94)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at aqtg.handleMessage(:com.google.android.gms@202414023@20.24.14 (040800-319035315):16)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.os.Handler.dispatchMessage(Handler.java:105)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at aekz.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at aekz.dispatchMessage(:com.google.android.gms@202414023@20.24.14 (040800-319035315):14)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.os.Looper.loop(Looper.java:164)
+10-18 06:49:37.501  1769  3127 E SQLiteDatabase: 	at android.os.HandlerThread.run(HandlerThread.java:65)
+10-18 06:49:37.554  2483  2577 E SQLiteLog: (1) no such table: blob_table
+10-18 06:49:37.555  2483  2577 E ContentStoreEUAS: Failed to commit the deferred actions
+10-18 06:49:37.752  5330  5341 I zygote64: Background concurrent copying GC freed 8843(888KB) AllocSpace objects, 0(0B) LOS objects, 50% free, 2MB/5MB, paused 517us total 121.358ms
+10-18 06:49:37.790  1769  4814 I zygote64: Deoptimizing void aoob.a(android.content.Context, long, java.lang.Exception) due to JIT same target
+10-18 06:49:37.858  5330  5360 D         : HostConnection::get() New Host Connection established 0x7f928bdcea60, tid 5360
+10-18 06:49:37.858  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:37.867  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:49:37.871  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:37.877  5330  5360 I OpenGLRenderer: Initialized EGL, version 1.4
+10-18 06:49:37.877  5330  5360 D OpenGLRenderer: Swap behavior 1
+10-18 06:49:37.878  5330  5360 D EGL_emulation: eglCreateContext: 0x7f928bda7dc0: maj 3 min 0 rcv 3
+10-18 06:49:37.880  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:37.923  1769  2747 W GLSUser : [AppCertManager] Failed to get security token.
+10-18 06:49:37.923  1769  2747 W GLSUser : java.io.IOException: Invalid scope
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at adiw.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):23)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at adiw.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):18)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at adiw.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):11)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at hwy.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):17)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at hww.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):45)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at hwr.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at hwu.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):10)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at gbi.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-18 06:49:37.923  1769  2747 W GLSUser : 	at java.lang.Thread.run(Thread.java:764)
+10-18 06:49:37.967  1769  2747 W GLSUser : [AppCertManager] IOException while requesting key:
+10-18 06:49:37.967  1769  2747 W GLSUser : java.io.IOException: Invalid device key response.
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at hwy.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):49)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at hww.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):45)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at hwr.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at hwu.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):10)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at gbi.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-18 06:49:37.967  1769  2747 W GLSUser : 	at java.lang.Thread.run(Thread.java:764)
+10-18 06:49:37.996  1769  4814 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+10-18 06:49:37.996  1769  4814 W Conscrypt: 	at com.google.android.gms.org.conscrypt.Platform.setSocketWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-18 06:49:37.996  1769  4814 W Conscrypt: 	at com.google.android.gms.org.conscrypt.ConscryptFileDescriptorSocket.setSoWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-18 06:49:38.007  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:38.012  1769  4814 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+10-18 06:49:38.012  1769  4814 W Conscrypt: 	at com.google.android.gms.org.conscrypt.Platform.setSocketWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-18 06:49:38.012  1769  4814 W Conscrypt: 	at com.google.android.gms.org.conscrypt.ConscryptFileDescriptorSocket.setSoWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-18 06:49:38.297  1769  4814 I aopq    : Scheduling adaptive one off task with window [14400, 604800] in seconds [CONTEXT service_id=51 ]
+10-18 06:49:38.392  1648  1679 I ActivityManager: Displayed org.bookreader.mobile/.MainActivity: +1s72ms
+10-18 06:49:38.429  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:38.447  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:38.451  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: PAUSED
+10-18 06:49:38.451  5330  5330 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:38.473  5372  5372 I zygote64: Late-enabling -Xcheck:jni
+10-18 06:49:38.483  5372  5372 W zygote64: Unexpected CPU variant for X86 using defaults: x86_64
+10-18 06:49:38.486  1400  1400 W SurfaceFlinger: couldn't log to binary event log: overflow.
+10-18 06:49:38.487  1400  1400 W SurfaceFlinger: couldn't log to binary event log: overflow.
+10-18 06:49:38.540  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:38.572  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: RESUMED
+10-18 06:49:38.572  5330  5330 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:38.582  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: PAUSED
+10-18 06:49:38.582  5330  5330 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:38.592  2483  2483 I zygote  : Deoptimizing boolean com.google.android.apps.gsa.shared.util.BitFlags.m(long, long) due to JIT inline cache
+10-18 06:49:38.605  5372  5383 I zygote64: Background concurrent copying GC freed 10838(2MB) AllocSpace objects, 0(0B) LOS objects, 72% free, 587KB/2MB, paused 6.934ms total 51.073ms
+10-18 06:49:38.623  2483  2483 W SearchService: Abort, client detached.
+10-18 06:49:38.629  2483  2483 E WorkerRegistryImpl: getWorker() is called after WorkerRegistry disposal.
+10-18 06:49:38.629  2483  2483 E WorkerRegistryImpl: getWorker() is called after WorkerRegistry disposal.
+10-18 06:49:38.646  1769  3200 I zygote64: Deoptimizing void aabu.a(aabp) due to JIT inline cache
+10-18 06:49:38.661  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: RESUMED
+10-18 06:49:38.661  5330  5330 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:38.672  5330  5335 I zygote64: Do full code cache collection, code=245KB, data=230KB
+10-18 06:49:38.672  5330  5335 I zygote64: After code cache collection, code=191KB, data=129KB
+10-18 06:49:38.697  1769  4814 I zygote64: Deoptimizing boolean caao.c(java.util.Map$Entry) due to JIT inline cache
+10-18 06:49:38.723  1769  4183 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:49:38.731  1769  5389 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:49:38.748  5330  5335 I zygote64: Do partial code cache collection, code=211KB, data=170KB
+10-18 06:49:38.752  5330  5335 I zygote64: After code cache collection, code=211KB, data=172KB
+10-18 06:49:38.752  5330  5335 I zygote64: Increasing code cache capacity to 1024KB
+10-18 06:49:38.790  1769  3134 I zygote64: Deoptimizing void com.google.android.gms.common.api.internal.BasePendingResult.<init>(rlc) due to JIT inline cache
+10-18 06:49:38.791  1769  3134 I LogUtils: [Places]: ?: PlacesBleScanner stop() [CONTEXT service_id=253 ]
+10-18 06:49:38.792  1769  1769 I BeaconBle: Scan : No clients left, canceling alarm. [CONTEXT service_id=111 ]
+10-18 06:49:38.792  1769  1769 I BeaconBle: Scan canceled successfully. [CONTEXT service_id=111 ]
+10-18 06:49:38.815  1769  3134 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 0 [CONTEXT service_id=253 ]
+10-18 06:49:38.833  1769  3185 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:49:38.834  1769  3184 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-18 06:49:38.873  5330  5335 I zygote64: Compiler allocated 4MB to compile void org.bookreader.mobile.ui.BookReaderAppKt.BookReaderApp(org.bookreader.mobile.ui.AppViewModel, kotlin.jvm.functions.Function0, androidx.compose.runtime.Composer, int, int)
+10-18 06:49:38.904  1769  1769 I GeofencerStateMachine: removeGeofences: removeRequest=RemoveGeofencingRequest[REMOVE_BY_PENDING_INTENT pendingIntent=PendingIntent[creatorPackage=com.google.android.gms], packageName=com.google.android.gms]
+10-18 06:49:39.222  5330  5335 I zygote64: Compiler allocated 8MB to compile void org.bookreader.mobile.comic.ComicReaderScreenKt.ComicReaderScreen(org.bookreader.mobile.comic.ComicReaderController, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function0, androidx.compose.runtime.Composer, int)
+10-18 06:49:39.269  5330  5335 I zygote64: Do full code cache collection, code=484KB, data=465KB
+10-18 06:49:39.270  5330  5335 I zygote64: After code cache collection, code=473KB, data=384KB
+10-18 06:49:39.438  5330  5335 I zygote64: Do partial code cache collection, code=500KB, data=409KB
+10-18 06:49:39.438  5330  5335 I zygote64: After code cache collection, code=500KB, data=409KB
+10-18 06:49:39.438  5330  5335 I zygote64: Increasing code cache capacity to 2MB
+10-18 06:49:39.456  1400  1400 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+10-18 06:49:39.459  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4476928
+10-18 06:49:39.460  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:49:39.461  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4476928
+10-18 06:49:39.505  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:39.579  5330  5393 D ProfileInstaller: Installing profile for org.bookreader.mobile
+10-18 06:49:39.676  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:39.920  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:39.979  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:39.987  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:39.991  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:40.162  5330  5341 I zygote64: NativeAllocBackground concurrent copying GC freed 29172(1207KB) AllocSpace objects, 6(124KB) LOS objects, 49% free, 3MB/7MB, paused 2.442ms total 105.532ms
+10-18 06:49:43.109  5330  5335 I zygote64: Do full code cache collection, code=1005KB, data=815KB
+10-18 06:49:43.110  5330  5335 I zygote64: After code cache collection, code=945KB, data=670KB
+10-18 06:49:43.794  1769  1769 I BeaconBle: Scan : No clients left, canceling alarm. [CONTEXT service_id=111 ]
+10-18 06:49:44.079  1400  1400 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+10-18 06:49:44.082  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 3112960
+10-18 06:49:44.085  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:49:44.094  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 3112960
+10-18 06:49:44.117  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:44.234  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:44.244  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:44.262  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:44.271  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 3981312
+10-18 06:49:44.281  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:44.301  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 3981312
+10-18 06:49:44.438  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:44.458  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:44.462  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:44.539  5330  5335 I zygote64: Do partial code cache collection, code=1002KB, data=783KB
+10-18 06:49:44.541  5330  5335 I zygote64: After code cache collection, code=1002KB, data=784KB
+10-18 06:49:44.541  5330  5335 I zygote64: Increasing code cache capacity to 3MB
+10-18 06:49:44.625  1400  1400 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+10-18 06:49:44.633  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4476928
+10-18 06:49:44.641  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:49:44.644  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4476928
+10-18 06:49:44.687  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:44.812  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:44.819  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:44.936  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:44.982  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:45.010  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:45.014  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:45.022  1400  1733 E SurfaceFlinger: Failed to find layer (org.bookreader.mobile/org.bookreader.mobile.MainActivity#1) in layer parent (no-parent).
+10-18 06:49:45.492  1400  1400 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+10-18 06:49:45.494  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+10-18 06:49:45.495  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:49:45.496  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+10-18 06:49:45.509  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:45.607  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:45.656  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:45.744  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:45.796  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:45.807  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:45.824  1400  1423 E SurfaceFlinger: Failed to find layer (org.bookreader.mobile/org.bookreader.mobile.MainActivity#1) in layer parent (no-parent).
+10-18 06:49:45.837  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:47.289  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: PAUSED
+10-18 06:49:47.290  5330  5330 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:47.292  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: STOPPED
+10-18 06:49:47.292  5330  5330 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@ebf15c0
+10-18 06:49:47.297  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@ebf15c0 in: DESTROYED
+10-18 06:49:47.298  5330  5330 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 06:49:47.301  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e37d0b1 in: PRE_ON_CREATE
+10-18 06:49:47.301  5330  5330 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+10-18 06:49:47.314  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e37d0b1 in: CREATED
+10-18 06:49:47.315  5330  5330 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@e37d0b1
+10-18 06:49:47.315  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e37d0b1 in: STARTED
+10-18 06:49:47.315  5330  5330 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@e37d0b1
+10-18 06:49:47.317  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e37d0b1 in: RESUMED
+10-18 06:49:47.317  5330  5330 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@e37d0b1
+10-18 06:49:47.334  1648  1663 E memtrack: Couldn't load memtrack module
+10-18 06:49:47.334  1648  1663 W android.os.Debug: failed to get memory consumption info: -1
+10-18 06:49:47.464  5330  5335 I zygote64: Compiler allocated 6MB to compile void android.view.ViewRootImpl.performTraversals()
+10-18 06:49:47.508  5330  5335 I zygote64: Compiler allocated 4MB to compile void org.bookreader.mobile.epub.BoundedZip.<init>(java.io.File, long, kotlin.jvm.functions.Function0)
+10-18 06:49:47.519  2188  5402 I Vision  : Requesting optional module download of ocr.
+10-18 06:49:47.520  2188  5402 I Vision  : Checking for download completion for 339986 -- ocr
+10-18 06:49:47.952  5330  5335 I zygote64: Do full code cache collection, code=1508KB, data=1196KB
+10-18 06:49:47.953  5330  5335 I zygote64: After code cache collection, code=1494KB, data=1061KB
+10-18 06:49:48.427  1400  1400 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+10-18 06:49:48.430  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 3686400
+10-18 06:49:48.432  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-18 06:49:48.433  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 3686400
+10-18 06:49:48.457  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:48.585  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:48.598  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:48.625  5330  5335 I zygote64: Do partial code cache collection, code=1503KB, data=1120KB
+10-18 06:49:48.625  5330  5335 I zygote64: After code cache collection, code=1503KB, data=1120KB
+10-18 06:49:48.625  5330  5335 I zygote64: Increasing code cache capacity to 4MB
+10-18 06:49:49.126  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:49.260  5330  5360 I chatty  : uid=10077(u0_a77) RenderThread identical 1 line
+10-18 06:49:49.336  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:49.349  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:49.360  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:49.428  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:50.003  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e37d0b1 in: PAUSED
+10-18 06:49:50.003  5330  5330 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@e37d0b1
+10-18 06:49:50.024  1400  1423 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+10-18 06:49:50.024  5372  5404 D OpenGLRenderer: HWUI GL Pipeline
+10-18 06:49:50.034  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:50.071  5372  5404 D         : HostConnection::get() New Host Connection established 0x7f928203f3c0, tid 5404
+10-18 06:49:50.072  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:50.075  5372  5404 I OpenGLRenderer: Initialized EGL, version 1.4
+10-18 06:49:50.075  5372  5404 D OpenGLRenderer: Swap behavior 1
+10-18 06:49:50.076  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:50.078  5372  5404 D EGL_emulation: eglCreateContext: 0x7f9282039820: maj 3 min 0 rcv 3
+10-18 06:49:50.078  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:50.080  5372  5404 D EGL_emulation: eglMakeCurrent: 0x7f9282039820: ver 3 0 (tinfo 0x7f928200d6e0)
+10-18 06:49:50.131  1400  1400 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-18 06:49:50.137  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:50.140  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:50.142  5372  5404 D EGL_emulation: eglMakeCurrent: 0x7f9282039820: ver 3 0 (tinfo 0x7f928200d6e0)
+10-18 06:49:50.143  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:50.149  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-18 06:49:50.163  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-18 06:49:50.220  2407  2558 D EGL_emulation: eglMakeCurrent: 0x7f927fbb82a0: ver 3 0 (tinfo 0x7f9275cab600)
+10-18 06:49:50.220  2483  2782 D EGL_emulation: eglMakeCurrent: 0xd9586200: ver 3 0 (tinfo 0xd9583b00)
+10-18 06:49:50.300  5372  5404 D EGL_emulation: eglMakeCurrent: 0x7f9282039820: ver 3 0 (tinfo 0x7f928200d6e0)
+10-18 06:49:50.327  5330  5360 D EGL_emulation: eglMakeCurrent: 0x7f928bda7dc0: ver 3 0 (tinfo 0x7f927f570420)
+10-18 06:49:50.346  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:50.349  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e37d0b1 in: STOPPED
+10-18 06:49:50.349  5330  5330 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@e37d0b1
+10-18 06:49:50.358  2483  2483 I zygote  : Deoptimizing void com.google.android.apps.gsa.search.core.service.worker.a.a.a(com.google.android.apps.gsa.search.core.state.qc) due to JIT inline cache
+10-18 06:49:50.358  1805  2137 D EGL_emulation: eglMakeCurrent: 0x7f92750bec20: ver 3 0 (tinfo 0x7f9275026fc0)
+10-18 06:49:50.364  2483  2483 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-18 06:49:50.365  2483  2483 I zygote  : Deoptimizing com.google.common.collect.dk com.google.common.collect.dk.c(int, java.lang.Object[]) due to JIT inline cache
+10-18 06:49:50.368  2483  2483 I OptInState: There is a new client and it does not support opt-in. Dropping request.
+10-18 06:49:50.370  2483  2483 I zygote  : Deoptimizing int[] com.google.common.collect.gx.b(java.lang.Object[], int, int, int) due to JIT inline cache
+10-18 06:49:50.370  5330  5330 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e37d0b1 in: DESTROYED
+10-18 06:49:50.370  5330  5330 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-18 06:49:50.421  2483  2876 W LocationOracle: No location history returned by ContextManager
+10-18 06:49:50.429  5330  5347 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@8409589]
+10-18 06:49:50.431  5330  5347 I TestRunner: finished: managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity(org.bookreader.mobile.comic.ComicReaderFlowTest)

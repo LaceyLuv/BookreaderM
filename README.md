@@ -6,7 +6,7 @@ main은 TXT의 스크롤·페이지 독서와 EPUB2/3 가져오기·목차·본�
 
 `22526d3`의 실제 API36 회귀 52개와 기존 TXT 외부 종료 검증 2단계가 PASS다. [EPUB 제품 범위](docs/M08_EPUB_PRODUCT.md), [최신 인계](docs/CONTEXT_HANDOFF.md), [검증 원본](docs/evidence/m01-epub-validation/remote-22526d3-device/)을 따른다. Comic 제품 화면은 별도 브랜치에서 검증 중이다. 실기기 성능·TalkBack·최종 출시 검증은 완료되지 않았다.
 
-후속 제품 브랜치에서 EPUB 검색 요청 유실을 수정했고, `dc06d3e`의 API26 제품 EPUB flow도 통과했다. 전체 native suite에는 별도 UI 비동기 실패가 남아 보완 중이며 main 통합은 보류했다. [최신 검증과 원본](docs/NATIVE_UI_SYNCHRONIZATION.md)을 따른다.
+후속 제품 브랜치 `9a96ac5`의 EPUB·Comic 제품 회귀는 세 API에서 통과했다. 전체 suite의 SDK probe·파일 선택기 대기를 보완 중이며 main 통합은 보류했다. [최신 검증과 원본](docs/NATIVE_UI_SYNCHRONIZATION.md)을 따른다.
 
 ## 이전 TXT 내부 알파 기록
 북리더 모바일
