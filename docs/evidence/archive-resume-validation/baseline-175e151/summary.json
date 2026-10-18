@@ -1,0 +1,39 @@
+{
+  "source_sha": "175e1512d6863bcac545f7af76e55daa5025df85",
+  "product_source_sha": "9dfb884b40b50163e001612d55ffb961898e93ad",
+  "command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=build/resume-baseline-ci ./scripts/ci-check.sh",
+  "runner_results": [
+    "PASS doctor exit=0",
+    "PASS gradle-version exit=0",
+    "PASS projects exit=0",
+    "PASS android-tasks exit=0",
+    "PASS shared-tasks exit=0",
+    "PASS epub-tasks exit=0",
+    "PASS clear-old-test-results exit=0",
+    "PASS build-and-tests exit=0",
+    "PASS android-unit-results exit=0",
+    "PASS shared-test-results exit=0",
+    "PASS epub-test-results exit=0",
+    "PASS room-schema exit=0"
+  ],
+  "suites": {
+    "android-unit": {
+      "tests": 66,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 74,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "epub-unit": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  }
+}

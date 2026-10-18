@@ -49,6 +49,7 @@ class EpubReaderFlowTest {
         }
     }
     @Test fun managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator() {
+        File(target.filesDir, "epub-restore-observations.json").writeText("[]")
         send("epub-product"); waitFor("epub_ready")
         val active = reader(); val book = active.book
         assertEquals(BookFormat.EPUB, book.format)
@@ -81,6 +82,7 @@ class EpubReaderFlowTest {
         }
         assertParagraphVisible("two", "p179")
         val original = requireNotNull(saved(book))
+        recordRestoreObservation("search", original)
         compose.onNodeWithTag("epub_bookmarks").performClick()
         compose.onNodeWithTag("epub_bookmark_add").performClick()
         waitFor("epub_bookmark_item")
@@ -88,6 +90,7 @@ class EpubReaderFlowTest {
         compose.activityRule.scenario.recreate()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
+        recordRestoreObservation("recreation", original)
         assertRenderedNear(original)
         assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_settings").performClick()
@@ -95,6 +98,7 @@ class EpubReaderFlowTest {
         compose.onNodeWithTag("reader_settings_apply").performClick()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
+        recordRestoreObservation("font-size", original)
         assertRenderedNear(original)
         assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_back").performClick()
@@ -102,6 +106,7 @@ class EpubReaderFlowTest {
         compose.onNodeWithTag("continue_reading").performClick()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
+        recordRestoreObservation("reopen", original)
         assertRenderedNear(original)
         assertParagraphVisible("two", "p179")
         compose.onNodeWithTag("epub_bookmarks").performClick()
@@ -147,6 +152,48 @@ class EpubReaderFlowTest {
         compose.onNodeWithTag("epub_back").performClick(); waitFor("continue_reading")
         assertEquals(storedSettings, runBlocking { database.readerSettingsDao().global() })
     }
+    /** Fixture-only observations survive cleanup even when the following assertion fails. */
+    private fun recordRestoreObservation(stage: String, expected: EpubLocator) {
+        val completed = java.util.concurrent.CountDownLatch(1)
+        val observation = org.json.JSONObject().put("stage", stage)
+            .put("expected", org.json.JSONObject(expected.payload.locator.toString()))
+        compose.activityRule.scenario.onActivity { activity ->
+            val wrapper = activity.supportFragmentManager.fragments.filterIsInstance<EpubHostFragment>().single()
+            val navigator = wrapper.childFragmentManager.fragments.filterIsInstance<org.readium.r2.navigator.epub.EpubNavigatorFragment>().single()
+            observation.put("actual", navigator.currentLocator.value.toJSON())
+            fun webViews(view: android.view.View): List<android.webkit.WebView> = when (view) {
+                is android.webkit.WebView -> listOf(view)
+                is android.view.ViewGroup -> (0 until view.childCount).flatMap { webViews(view.getChildAt(it)) }
+                else -> emptyList()
+            }
+            val web = webViews(activity.window.decorView).first { it.isShown && it.url?.contains("/two.xhtml") == true }
+            web.evaluateJavascript("""
+                (() => {
+                    const p = document.getElementById('p179');
+                    const rect = r => ({left:r.left, top:r.top, right:r.right, bottom:r.bottom});
+                    const visible = r => r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth;
+                    return JSON.stringify({width:innerWidth, height:innerHeight, scrollX, scrollY,
+                        scrollHeight:document.documentElement.scrollHeight,
+                        fontSize:getComputedStyle(p).fontSize, lineHeight:getComputedStyle(p).lineHeight,
+                        target:rect(p.getBoundingClientRect()), fragments:Array.from(p.getClientRects(), rect),
+                        visibleParagraphs:Array.from(document.querySelectorAll('p[id]'))
+                            .filter(e => Array.from(e.getClientRects()).some(visible)).map(e => e.id)});
+                })()
+            """.trimIndent()) { result ->
+                try {
+                    val json = org.json.JSONTokener(result).nextValue() as String
+                    observation.put("viewport", org.json.JSONObject(json))
+                } finally { completed.countDown() }
+            }
+        }
+        assertTrue("Fixture viewport observation must complete", completed.await(10, java.util.concurrent.TimeUnit.SECONDS))
+        val report = File(target.filesDir, "epub-restore-observations.json")
+        val observations = if (stage == "search" || !report.exists()) org.json.JSONArray()
+            else org.json.JSONArray(report.readText())
+        observations.put(observation)
+        report.writeText(observations.toString(2))
+    }
+
     private fun assertParagraphVisible(chapter: String, id: String) {
         val completed = java.util.concurrent.CountDownLatch(1)
         var visible = "null"

@@ -1,5 +1,29 @@
 # M00 작업 기록
 
+## 재개: 최신 CI 확인 및 EPUB 복원 관찰
+
+`175e151`(제품 코드 `9dfb884`와 동일)에서 로컬 full CI를 다시 실행했다.
+Android unit 66/shared JVM 74/EPUB unit 16, 실패·오류·skip 0이며 APK/test APK/lint/schema 5 PASS다.
+현재 권한 환경에서 별도 실제 ENOSPC 3개도 exit 0, tmpfs 정리 exit 0으로 통과했다.
+[이번 로컬 원본](evidence/archive-resume-validation/baseline-175e151/summary.json)과
+[ENOSPC 원본](evidence/archive-resume-validation/enospc-175e151/check.log)을 보존한다.
+
+GitHub API로 조회한 `9dfb884` build 39017137521은 SUCCESS이며 device 39017137527은
+API34/36 job SUCCESS, API26 job FAIL이다. 이는 metadata 판정이며 아직 native XML/host proof를
+회수하지 못했다. artifact redirect의 `productionresultssa4.blob.core.windows.net` 및
+`productionresultssa11.blob.core.windows.net`가 현재 프록시에서 403으로 차단된다.
+[원격 원본 metadata](evidence/archive-resume-validation/remote-metadata/)를 보존했고 필요한 호스트를
+환경 설정 초안에 추가했다. 저장된 초안과 실행 중 네트워크 적용은 구분한다.
+
+`EpubReaderFlowTest`에 자체 fixture의 search/recreation/font-size/reopen 시점의 저장·현재 Locator,
+viewport/글자 크기/문단 client rect/visible paragraph ID 관찰을 추가했다.
+기존 `.03` progression 비교, 실제 문단 표시, DB 불변 assertion은 유지한다.
+`device-check.sh`가 실패 시에도 `epub-restore-observations.json`을 회수하고 원래 test exit를 보존한다.
+`./gradlew --no-daemon --console=plain :androidApp:assembleDebugAndroidTest :androidApp:lintDebug`
+exit 0, `bash -n scripts/device-check.sh`, `git diff --check` PASS다.
+[컴파일·lint 로그](evidence/archive-resume-validation/observation-compile/compile-and-lint.log)를 보존한다.
+새 native 관찰과 API26 원인 확인은 진행 중이다. 제품 오류 해결·전체 native PASS·main 통합은 아직 주장하지 않는다.
+
 ## 2026-10-17 archive 진행도·bounded SDK 검색 기반
 
 main `6ee9d4f`까지 local full CI Android 64/shared 71/archive·EPUB·Comic 13 PASS다.

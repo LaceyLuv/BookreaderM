@@ -88,10 +88,13 @@ read_report_exit=0
 for fixture in reader-query-error reader-locator-error reader-switch reader-reopen reader-reflow-stop reader-delete-decoding; do
   run_logged "$fixture-report" adb shell run-as org.bookreader.mobile cat "files/$fixture-report.json" || read_report_exit=$?
 done
+epub_report_exit=0
+run_logged epub-restore-observations adb shell run-as org.bookreader.mobile cat files/epub-restore-observations.json || epub_report_exit=$?
 if (( connected_exit != 0 )); then exit "$connected_exit"; fi
 if (( report_exit != 0 )); then exit "$report_exit"; fi
 if (( full_report_exit != 0 )); then exit "$full_report_exit"; fi
 if (( read_report_exit != 0 )); then exit "$read_report_exit"; fi
+if (( epub_report_exit != 0 )); then exit "$epub_report_exit"; fi
 run_logged verified-test-results python3 scripts/check-test-results.py \
   android-device androidApp/build/outputs/androidTest-results/connected
 run_logged verified-continuous-progress python3 - "$evidence_dir/continuous-progress-report.log" <<'PY'
