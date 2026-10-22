@@ -1,0 +1,236 @@
+10-22 09:34:10.376  5203  5218 I TestRunner: started: eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid(org.bookreader.mobile.reader.TxtReaderBoundaryTest)
+10-22 09:34:10.378  2701  3184 D WM-NetworkStateTracker: Network capabilities changed: [ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED LinkUpBandwidth>=12000Kbps LinkDnBandwidth>=30000Kbps TransportInfo: <SSID: <unknown ssid>, BSSID: 02:00:00:00:00:00, MAC: 02:00:00:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: -1, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: -1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none><none>MLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>> SignalStrength: -50 UnderlyingNetworks: Null]
+10-22 09:34:10.380   597   929 D ConnectivityService: NetReassign [252 : null → 100] [c 0] [a 1] [i 2]
+10-22 09:34:10.383   597   923 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=252, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-22 09:34:10.383   597   923 V WifiNetworkFactory: Accepted network request NetworkRequest [ REQUEST id=252, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-22 09:34:10.383   597   923 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=252, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-22 09:34:10.383   597   923 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=252, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-22 09:34:10.383   597   923 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=252, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+10-22 09:34:10.398  1293  1293 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+10-22 09:34:10.398  1293  1293 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:22)
+10-22 09:34:10.398  1293  1293 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:11)
+10-22 09:34:10.398  1293  1293 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:339)
+10-22 09:34:10.398  1293  1293 D b/311077782: LauncherAnimationRunner.setAnimation
+10-22 09:34:10.400  1293  1293 D WorkspaceRevealAnim: onAnimationEnd: workspace alpha = 1.0
+10-22 09:34:10.404  1703  1867 I AiAiEcho: Predicting[0]:  [CONTEXT sampling_count=5 ]
+10-22 09:34:10.404  1703  1867 I AiAiEcho: EchoTargets:
+10-22 09:34:10.404  1703  1867 I AiAiEcho: Filtered by AiAi flag check:
+10-22 09:34:10.404  1703  1867 I AiAiEcho: [CONTEXT ratelimit_period="10 SECONDS" ]
+10-22 09:34:10.404  1703  1867 I AiAiEcho: #remoteViewsTwiddler: feature disabled.
+10-22 09:34:10.404  1703  1867 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-22 09:34:10.448  5203  5218 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@2c060ba]
+10-22 09:34:10.468  1293  1293 D SsBaseTemplateCard: No text view can be set up
+10-22 09:34:10.469  1293  1293 D SsBaseTemplateCard: Passed-in item info is null
+10-22 09:34:10.469  1293  1293 D SsBaseTemplateCard: Passed-in item info is null
+10-22 09:34:10.469  1293  1293 D SsBaseTemplateCard: Passed-in item info is null
+10-22 09:34:10.469  1293  1293 I SsBaseTemplateCard: Secondary card pane is null
+10-22 09:34:10.472  2701  2758 D WM-Processor: fgy: processing WorkGenerationalId(workSpecId=5a7b120e-cb70-43da-9567-ebe66279cfd1, generation=0)
+10-22 09:34:10.477  5203  5218 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-22 09:34:10.537   597   677 W system_server: Long monitor contention with owner android.anim (678) at void com.android.server.wm.WindowAnimator.lambda$new$1(long)(WindowAnimator.java:118) waiters=1 in void com.android.server.wm.WindowManagerService$H.handleMessage(android.os.Message) for 163ms
+10-22 09:34:10.541   597  1770 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@baeb7df, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-22 09:34:10.552   597   776 I ImeTracker: com.google.android.apps.nexuslauncher:ff814c9c: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-22 09:34:10.557  1293  1293 W SplitSelectStateCtor: Missing session instanceIds
+10-22 09:34:10.557  1293  1293 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+10-22 09:34:10.566  1534  1534 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-22 09:34:10.567   597  1114 I ImeTracker: system_server:7fb1c4e9: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-22 09:34:10.567  1534  1534 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-22 09:34:10.569  2701  2701 D WM-WorkerWrapper: Starting work for com.google.apps.tiktok.contrib.work.TikTokListenableWorker
+10-22 09:34:10.570  2701  2823 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TIKTOK_WORK_EXECUTION_MONITOR_ON_WORK_STARTED, function parameters: [5a7b120e-cb70-43da-9567-ebe66279cfd1,com.android.dialer.voicemail.service.impl.VvmTaskWorker], return value: <empty>
+10-22 09:34:10.571  1534  1534 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-22 09:34:10.574  5244  5244 D VRI[InstrumentationActivityInvoker$EmptyActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-22 09:34:10.576  1534  1534 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-22 09:34:10.580  2701  2758 D WM-GreedyScheduler: Constraints met: Scheduling work ID WorkGenerationalId(workSpecId=5a7b120e-cb70-43da-9567-ebe66279cfd1, generation=0)
+10-22 09:34:10.582  2701  2758 D WM-Processor: Work WorkGenerationalId(workSpecId=5a7b120e-cb70-43da-9567-ebe66279cfd1, generation=0) is already enqueued for processing
+10-22 09:34:10.591  5203  5203 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@3526c6a in: PRE_ON_CREATE
+10-22 09:34:10.591  5203  5203 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-22 09:34:10.592  2701  2823 I DialerVvmTaskWorkerDelegate: com.android.dialer.voicemail.service.impl.scheduler.VvmTaskWorker$VvmTaskWorkerDelegate.executeVvmJob:191 Beginning execution of job ID: 2
+10-22 09:34:10.592  2701  2823 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:66 event: VVM_TASK_WORKER_EXECUTE_VVM_JOB, function parameters: [2], return value: <empty> [CONTEXT enable_persistent_logger=true ]
+10-22 09:34:10.601  5203  5203 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@3526c6a in: CREATED
+10-22 09:34:10.601  5203  5203 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@3526c6a
+10-22 09:34:10.603  5203  5203 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@3526c6a in: STARTED
+10-22 09:34:10.603  5203  5203 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@3526c6a
+10-22 09:34:10.604  5203  5203 D AutofillManager: Fill dialog is enabled:false, hints=[]
+10-22 09:34:10.606  5203  5203 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@3526c6a in: RESUMED
+10-22 09:34:10.606  5203  5203 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@3526c6a
+10-22 09:34:10.696  2701  5959 I DialerVvmCarrierIdentifierImpl: com.android.dialer.voicemail.service.impl.carriermapping.VvmCarrierIdentifierImpl.getVvmCarrierNameBlocking:120 Looking up carrier name for phone account handle: 1 [CONTEXT ratelimit_period="1 MINUTES" skipped=35 ]
+10-22 09:34:10.699  2701  2823 I DialerRestVoicemailEnabledFn: com.android.dialer.voicemail.service.impl.vvmclients.rest.RestVoicemailEnabledFn.isEnabled:67 device is supported, enabling. [CONTEXT ratelimit_period="1 MINUTES" skipped=215 ]
+10-22 09:34:10.713  1293  1293 D InsetsController: hide(ime(), fromIme=false)
+10-22 09:34:10.713  1293  1293 I ImeTracker: com.google.android.apps.nexuslauncher:ff814c9c: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-22 09:34:10.717   597   677 I ImeTracker: system_server:7fb1c4e9: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-22 09:34:10.725   532   532 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:34:10.825  1018  1134 D SplashScreenView: Build android.window.SplashScreenView{4aa523e V.E...... ......ID 0,0-0,0}
+10-22 09:34:10.825  1018  1134 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-22 09:34:10.825  1018  1134 D SplashScreenView: Branding: view: android.view.View{b88189f G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-22 09:34:10.829   532   621 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:34:10.914   597   674 I ActivityTaskManager: Displayed org.bookreader.mobile/androidx.activity.ComponentActivity for user 0: +294ms
+10-22 09:34:10.937  5244  5244 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@5fcfed3
+10-22 09:34:10.939   597   776 I ImeTracker: org.bookreader.mobile:b3701d3c: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-22 09:34:10.940  5203  5203 D InsetsController: hide(ime(), fromIme=false)
+10-22 09:34:10.940  5203  5203 I ImeTracker: org.bookreader.mobile:b3701d3c: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-22 09:34:10.951  1534  1534 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-22 09:34:10.952  1534  1534 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-22 09:34:10.952  1534  1534 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-22 09:34:10.952  1534  1534 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-22 09:34:10.954   597  1915 I ImeTracker: system_server:c3cb5cfd: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-22 09:34:10.957   597   677 I ImeTracker: system_server:c3cb5cfd: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-22 09:34:11.016  5244  5244 D ViewRootImpl: Skipping stats log for color mode
+10-22 09:34:11.050  2701  2769 I DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.execute:229 Beginning VVM action: SYNC with retryCount: 3 for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0} [CONTEXT enable_persistent_logger=true ]
+10-22 09:34:11.079   457   491 I netd    : tetherGetStats() -> {[]} <0.48ms>
+10-22 09:34:11.087  1018  1131 E WindowManager: Couldn't add view: android.widget.FrameLayout{82dc6ee V.E...... ......I. 0,0-0,0}
+10-22 09:34:11.087  1018  1131 E WindowManager: android.view.WindowManager$BadTokenException: Unable to add window -- window android.view.ViewRootImpl$W@2219c69 has already been added
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at android.view.ViewRootImpl.setView(ViewRootImpl.java:1701)
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:490)
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at com.android.wm.shell.startingsurface.SplashscreenWindowCreator.addWindow(go/retraceme 5ef7505f3172d45c77e95a8eba788f1ba3487bafbb4dd5bf3a1ad9be0371fc04:38)
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at com.android.wm.shell.startingsurface.StartingWindowController$$ExternalSyntheticLambda3.run(go/retraceme 5ef7505f3172d45c77e95a8eba788f1ba3487bafbb4dd5bf3a1ad9be0371fc04:1257)
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at android.os.Handler.handleCallback(Handler.java:995)
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:103)
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at android.os.Looper.loop(Looper.java:338)
+10-22 09:34:11.087  1018  1131 E WindowManager: 	at android.os.HandlerThread.run(HandlerThread.java:85)
+10-22 09:34:11.099  1293  1824 D SharedPreferencesImpl: Time required to fsync /data/user/0/com.google.android.apps.nexuslauncher/shared_prefs/com.android.launcher3.prefs.xml: [<1: 0, <2: 11, <4: 12, <8: 9, <16: 14, <32: 14, <64: 4, <128: 10, <256: 12, <512: 7, <1024: 0, <2048: 0, <4096: 0, <8192: 0, <16384: 0, >=16384: 0]
+10-22 09:34:11.111  1293  1293 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-22 09:34:11.136  1293  1293 D BaseDepthController: setSurface:
+10-22 09:34:11.136  1293  1293 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+10-22 09:34:11.136  1293  1293 D BaseDepthController: 	mBaseSurface: null
+10-22 09:34:11.136  1293  1293 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+10-22 09:34:11.136  1293  1293 D StateManager: goToState - fromState: Normal, toState: Normal, partial trace:
+10-22 09:34:11.136  1293  1293 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:4)
+10-22 09:34:11.136  1293  1293 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:1)
+10-22 09:34:11.136  1293  1293 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:34)
+10-22 09:34:11.137  1293  1293 D StatsLog: LAUNCHER_ONSTOP
+10-22 09:34:11.137  1293  1293 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+10-22 09:34:11.137  1293  1293 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+10-22 09:34:11.153  1293  1293 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+10-22 09:34:11.167   597  1209 W HWUI    : Image decoding logging dropped!
+10-22 09:34:11.176  1293  1293 D RecentsView: onTaskRemoved: 72, not handling task stack changes
+10-22 09:34:11.176  1293  1293 D RecentsView: onTaskRemoved: 72, not handling task stack changes
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: com.android.dialer.voicemail.service.impl.vvmclients.rest.RestVvmCarrierService.getMsisdn:420 Retrieved phone number in an unexpected format: +15551234567 [CONTEXT disable_client_error_logging=true ]
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: zxo: MEDIUM
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at a.cN(PG:15)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at pxq.apply(PG:489)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at zcp.apply(PG:13)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at aaka.d(PG:3)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at aakb.run(PG:38)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at umz.run(PG:7)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at aadu.run(PG:44)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at tdt.run(PG:78)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at cp.run(PG:143)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at java.lang.Thread.run(Thread.java:1119)
+10-22 09:34:11.181  2701  2769 E DialerRestVvmCarrierService: 	at uoe.run(PG:61)
+10-22 09:34:11.184  2701  2769 I DialerLogcatLoggingBindings: com.android.dialer.logging.logcat.LogcatLoggingBindings.logImpression:54 Impression: ANDROID_API_UNEXPECTED_PHONE_NUMBER_FORMAT
+10-22 09:34:11.188  2701  2769 I DialerLogcatLoggingBindings: com.android.dialer.logging.logcat.LogcatLoggingBindings.logImpression:47 Impression: VVM_SYNC_STARTED
+10-22 09:34:11.198  2701  2823 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+10-22 09:34:11.199  2701  2823 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+10-22 09:34:11.205  2701  2769 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TELEPHONY_BOOTSTRAP_AUTHENTICATION_REQUEST, function parameters: [], return value: Default
+10-22 09:34:11.207  2701  2769 W DialerGbaCredentialProvider: com.android.dialer.voicemail.service.impl.vvmclients.rest.GbaCredentialProvider$1.onAuthenticationFailure:93 GBA failed with reason: 1 [CONTEXT disable_client_error_logging=true ]
+10-22 09:34:11.215  2701  2769 I DialerVoicemailLogger: com.android.dialer.voicemail.service.impl.logger.VoicemailLogger.commitMetrics:169 VVM failure reason: 0
+10-22 09:34:11.216  2701  2769 W DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.executeWorkOnCarrierService:444 Could not complete vvm work with action: SYNC. Error: [GeneralFailureReason: UNSPECIFIED, RestFailureReason: GBA_AUTHENTICATION_FAILURE_FEATURE_NOT_SUPPORTED, OmtpFailureReason: OMTP_UNSPECIFIED] for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0} [CONTEXT disable_client_error_logging=true enable_persistent_logger=true ]
+10-22 09:34:11.217   597  1915 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10096, packageName = null, attributionTag = null, token = android.os.Binder@baeb7df, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-22 09:34:11.218  2701  2769 I DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.executeWork:204 VvmResult is: # pug@1db0ddb for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0}
+10-22 09:34:11.221  2701  2823 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TIKTOK_WORK_EXECUTION_MONITOR_ON_WORK_FINISHED, function parameters: [5a7b120e-cb70-43da-9567-ebe66279cfd1,com.android.dialer.voicemail.service.impl.VvmTaskWorker], return value: Failure
+10-22 09:34:11.224  2701  2769 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+10-22 09:34:11.226  2701  2769 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+10-22 09:34:11.227  2701  2771 I WM-WorkerWrapper: Worker result FAILURE for Work [ id=5a7b120e-cb70-43da-9567-ebe66279cfd1, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker,1,SYNC,TikTokWorker#com.android.dialer.voicemail.service.impl.VvmTaskWorker } ]
+10-22 09:34:11.228   460   460 D Zygote  : Forked child process 5963
+10-22 09:34:11.229  2701  2701 D WM-Processor: fgy 5a7b120e-cb70-43da-9567-ebe66279cfd1 executed; reschedule = false
+10-22 09:34:11.229  2701  2701 D WM-GreedyScheduler: Stopping tracking for WorkGenerationalId(workSpecId=5a7b120e-cb70-43da-9567-ebe66279cfd1, generation=0)
+10-22 09:34:11.229  2701  2701 D WM-SystemJobService: 5a7b120e-cb70-43da-9567-ebe66279cfd1 executed on JobScheduler
+10-22 09:34:11.233  2701  2790 D WM-GreedyScheduler: Cancelling work ID 5a7b120e-cb70-43da-9567-ebe66279cfd1
+10-22 09:34:11.234  2701  2790 D WM-GreedyScheduler: Ignoring {WorkSpec: 7f5ae6a0-d80c-433b-98d2-80f3edc7dea4}. Requires device idle.
+10-22 09:34:11.234  2701  2790 D WM-GreedyScheduler: Ignoring {WorkSpec: 2cf73d35-7a48-4456-8c5c-d6a882ee4547}. Requires device idle.
+10-22 09:34:11.234  2701  2790 D WM-GreedyScheduler: Ignoring {WorkSpec: 0c2f8010-2e1d-4858-a43b-1905ca1a57fc}. Requires device idle.
+10-22 09:34:11.235  2701  2790 D WM-GreedyScheduler: Ignoring {WorkSpec: 7c6b648f-c12b-4cf3-bd61-cd0a8c4cb82d}. Requires device idle.
+10-22 09:34:11.235  2701  2790 D WM-GreedyScheduler: Ignoring {WorkSpec: 152766f5-ca8d-45ba-83da-11bc59062702}. Requires device idle.
+10-22 09:34:11.235  2701  2790 D WM-GreedyScheduler: Ignoring {WorkSpec: f3130a6b-c930-4909-ad5f-fcb7c7a6891d}. Requires device idle.
+10-22 09:34:11.235  2701  2790 D WM-GreedyScheduler: Ignoring {WorkSpec: 7ad0b467-0a0b-4541-92e1-1f867b9a98cd}. Requires device idle.
+10-22 09:34:11.235  2701  2790 D WM-NetworkStateTracker: Unregistering network callback
+10-22 09:34:11.250  5963  5963 I d.process.acore: Using CollectorTypeCMC GC.
+10-22 09:34:11.251  5963  5963 W d.process.acore: Unexpected CPU variant for x86: x86_64.
+10-22 09:34:11.251  5963  5963 W d.process.acore: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+10-22 09:34:11.256  5963  5963 E d.process.acore: Not starting debugger since process cannot load the jdwp agent.
+10-22 09:34:11.261  5963  5963 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+10-22 09:34:11.286  5963  5963 D nativeloader: Configuring clns-shared-9 for other apk /system/priv-app/ContactsProvider/ContactsProvider.apk. target_sdk_version=36, uses_libraries=, library_path=/system/priv-app/ContactsProvider/lib/x86_64:/system/lib64:/system_ext/lib64, permitted_path=/data:/mnt/expand:/data/user/0/com.android.providers.contacts:/system/priv-app/ContactsProvider:/system/lib64:/system_ext/lib64
+10-22 09:34:11.292  5963  5963 I d.process.acore: AssetManager2(0x78d5e9e25898) locale list changing from [] to [en-US]
+10-22 09:34:11.299  5963  5963 V GraphicsEnvironment: Currently set values for:
+10-22 09:34:11.299  5963  5963 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+10-22 09:34:11.299  5963  5963 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+10-22 09:34:11.299  5963  5963 V GraphicsEnvironment: com.android.providers.contacts is not listed in per-application setting
+10-22 09:34:11.299  5963  5963 V GraphicsEnvironment: ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+10-22 09:34:11.299  5963  5963 V GraphicsEnvironment: com.android.providers.contacts is not listed in ANGLE allowlist or settings, returning default
+10-22 09:34:11.299  5963  5963 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-22 09:34:11.304  1018  1027 I ndroid.systemui: NativeAlloc concurrent mark compact GC freed 4640KB AllocSpace bytes, 2(40KB) LOS objects, 49% free, 24MB/48MB, paused 155us,567us total 431.395ms
+10-22 09:34:11.307  5963  5963 I d.process.acore: AssetManager2(0x78d5e9e25578) locale list changing from [] to [en-US]
+10-22 09:34:11.311  5963  5963 D nativeloader: Configuring clns-shared-10 for other apk /system/priv-app/UserDictionaryProvider/UserDictionaryProvider.apk. target_sdk_version=36, uses_libraries=, library_path=/system/priv-app/UserDictionaryProvider/lib/x86_64:/system/lib64:/system_ext/lib64, permitted_path=/data:/mnt/expand:/data/user/0/com.android.providers.userdictionary:/system/priv-app/UserDictionaryProvider:/system/lib64:/system_ext/lib64
+10-22 09:34:11.322  5963  5963 I d.process.acore: AssetManager2(0x78d5e9e277d8) locale list changing from [] to [en-US]
+10-22 09:34:11.330  5963  5963 D nativeloader: Configuring clns-shared-11 for other apk /system/priv-app/BlockedNumberProvider/BlockedNumberProvider.apk. target_sdk_version=36, uses_libraries=, library_path=/system/priv-app/BlockedNumberProvider/lib/x86_64:/system/lib64:/system_ext/lib64, permitted_path=/data:/mnt/expand:/data/user_de/0/com.android.providers.blockednumber:/system/priv-app/BlockedNumberProvider:/system/lib64:/system_ext/lib64
+10-22 09:34:11.346  5963  5963 I ContactsPerf: VoicemailContentProvider.onCreate start
+10-22 09:34:11.348  5963  5963 I ContactsPerf: VoicemailContentProvider.onCreate finish
+10-22 09:34:11.349  5963  5977 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+10-22 09:34:11.351  5963  5963 I d.process.acore: AssetManager2(0x78d5e9e25ed8) locale list changing from [] to [en-US]
+10-22 09:34:11.355  5963  5963 D nativeloader: Configuring clns-shared-12 for other apk /system/priv-app/E2eeContactKeysProvider/E2eeContactKeysProvider.apk. target_sdk_version=36, uses_libraries=, library_path=/system/priv-app/E2eeContactKeysProvider/lib/x86_64:/system/lib64:/system_ext/lib64, permitted_path=/data:/mnt/expand:/data/user/0/com.android.providers.contactkeys:/system/priv-app/E2eeContactKeysProvider:/system/lib64:/system_ext/lib64
+10-22 09:34:11.360  5963  5979 I PhoneAccountHandleMigrationUtils_CallLogDatabaseHelper: updatePhoneAccountHandleMigrationPendingStatus false
+10-22 09:34:11.366  5963  5981 I PhoneAccountHandleMigrationUtils_CallLogDatabaseHelper: updatePhoneAccountHandleMigrationPendingStatus false
+10-22 09:34:11.372  5963  5979 I CallLogProvider: syncEntriesFrom: fromUserId=0, srcIsShadow=true, forAllUsers=false; previousTimeStamp=0, newTimeStamp=0, entries=0
+10-22 09:34:11.381  5963  5979 I CallLogProvider: delete uid/pid=10096/5963, uri=content://call_log_shadow/calls, numChanged=0
+10-22 09:34:11.382  5963  5979 I CallLogProvider: Syncing call composer pics -- source user=0, isShadow=true, forAllUser=false
+10-22 09:34:11.382  5963  5979 I CallLogProvider: Fetching list of Uris to sync
+10-22 09:34:11.387  5963  5979 I CallLogProvider: Will sync following Uris:[]
+10-22 09:34:11.387  5963  5979 I CallLogProvider: Syncing call composer pics -- got []
+10-22 09:34:11.390  5963  5963 I ContactsDatabaseHelper: updateUseStrictPhoneNumberComparison: US
+10-22 09:34:11.398  5963  5963 I ContactsDatabaseHelper: updateUseStrictPhoneNumberComparison: US
+10-22 09:34:11.414  5963  5982 D ContactsDatabaseHelper: WAL enabled for contacts2.db: true
+10-22 09:34:11.424  5963  5982 I PhoneAccountHandleMigrationUtils_ContactsDatabaseHelper: updatePhoneAccountHandleMigrationPendingStatus false
+10-22 09:34:11.436   597   735 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@baeb7df, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-22 09:34:11.449   532   622 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:34:11.450  1018  1131 I ndroid.systemui: AssetManager2(0x78d5e9e62ab8) locale list changing from [] to [en-US]
+10-22 09:34:11.453  1018  1134 D SplashScreenView: Build android.window.SplashScreenView{68f810d V.E...... ......ID 0,0-0,0}
+10-22 09:34:11.453  1018  1134 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-22 09:34:11.453  1018  1134 D SplashScreenView: Branding: view: android.view.View{17a18c2 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-22 09:34:11.459   532   532 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:34:11.469  5203  5203 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@3526c6a in: PAUSED
+10-22 09:34:11.469  5203  5203 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@3526c6a
+10-22 09:34:11.474  5244  5260 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+10-22 09:34:11.474  5244  5260 I EGL_emulation: Opening libGLESv2_emulation.so
+10-22 09:34:11.509  5244  5260 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-22 09:34:11.519  5244  5244 D AutofillManager: Fill dialog is enabled:false, hints=[]
+10-22 09:34:11.539  1018  1066 I ndroid.systemui: AssetManager2(0x78d5e9e5a458) locale list changing from [] to [en-US]
+10-22 09:34:11.554  5963  5982 I ContactLocale: AddressBook Labels [[en_US]]: […, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, Α, Β, Γ, Δ, Ε, Ζ, Η, Θ, Ι, Κ, Λ, Μ, Ν, Ξ, Ο, Π, Ρ, Σ, Τ, Υ, Φ, Χ, Ψ, Ω, …, А, Б, В, Г, Д, Ђ, Е, Є, Ж, З, И, І, Й, Ј, К, Л, Љ, М, Н, Њ, О, П, Р, С, Т, Ћ, У, Ф, Х, Ц, Ч, Џ, Ш, Щ, Ю, Я, …, א, ב, ג, ד, ה, ו, ז, ח, ט, י, כ, ל, מ, נ, ס, ע, פ, צ, ק, ר, ש, ת, …, ا, ب, ت, ث, ج, ح, خ, د, ذ, ر, ز, س, ش, ص, ض, ط, ظ, ع, غ, ف, ق, ك, ل, م, ن, ه, و, ي, …, ก, ข, ฃ, ค, ฅ, ฆ, ง, จ, ฉ, ช, ซ, ฌ, ญ, ฎ, ฏ, ฐ, ฑ, ฒ, ณ, ด, ต, ถ, ท, ธ, น, บ, ป, ผ, ฝ, พ, ฟ, ภ, ม, ย, ร, ฤ, ล, ฦ, ว, ศ, ษ, ส, ห, ฬ, อ, ฮ, …, ㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅅ, ㅇ, ㅈ, ㅊ, ㅋ, ㅌ, ㅍ, ㅎ, …, あ, か, さ, た, な, は, ま, や, ら, わ, #, …]
+10-22 09:34:11.557  1018  1066 I ndroid.systemui: AssetManager2(0x78d5e9e6cd38) locale list changing from [] to [en-US]
+10-22 09:34:11.580  5963  5982 D ContactsDatabaseHelper: WAL enabled for profile.db: false
+10-22 09:34:11.601  5203  5203 D VRI[ComponentActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-22 09:34:11.727  5963  5982 V ContactsProvider: 0 Dangling Contacts have been cleaned up.
+10-22 09:34:11.741   597   674 I ActivityTaskManager: Displayed org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +296ms
+10-22 09:34:11.753   532   557 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:34:11.758   532   532 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:34:11.769  1293  1305 W System  : A resource failed to call release.
+10-22 09:34:11.771  1293  1305 W System  : A resource failed to call release.
+10-22 09:34:11.771  1293  1305 W System  : A resource failed to call release.
+10-22 09:34:11.772  5203  5203 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@d0c27f0
+10-22 09:34:11.773  5203  5203 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@3526c6a in: STOPPED
+10-22 09:34:11.773  5203  5203 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@3526c6a
+10-22 09:34:11.789  1293  1293 D StatsLog: LAUNCHER_ONRESUME
+10-22 09:34:11.796  1293  1293 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=6}
+10-22 09:34:11.801  5203  5203 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@440e2c5
+10-22 09:34:11.804  1293  1293 D BaseDepthController: setSurface:
+10-22 09:34:11.804  1293  1293 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+10-22 09:34:11.804  1293  1293 D BaseDepthController: 	mBaseSurface: Surface(name=com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity)/@0x5527e25
+10-22 09:34:11.807  5203  5203 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@3526c6a in: DESTROYED
+10-22 09:34:11.807  5203  5203 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-22 09:34:11.828  5203  5218 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@2c060ba]
+10-22 09:34:11.833  1293  1325 D QuickstepModelDelegate: notifyAppTargetEvent action=1 launchLocation=workspace/0/[-1,-1]/[1,1]
+10-22 09:34:11.838  1703  1867 I AiAiEcho: Predicting[0]:  [CONTEXT sampling_count=5 ]
+10-22 09:34:11.838  1703  1867 I AiAiEcho: EchoTargets:
+10-22 09:34:11.838  1703  1867 I AiAiEcho: Filtered by AiAi flag check:
+10-22 09:34:11.838  1703  1867 I AiAiEcho: [CONTEXT ratelimit_period="10 SECONDS" ]
+10-22 09:34:11.838  1703  1867 I AiAiEcho: #remoteViewsTwiddler: feature disabled.
+10-22 09:34:11.839  1703  1867 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-22 09:34:11.847  5203  5203 D ViewRootImpl: Skipping stats log for color mode
+10-22 09:34:11.849   597  1915 I ImeTracker: system_server:40991d2: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-22 09:34:11.850   597   677 I ImeTracker: system_server:40991d2: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-22 09:34:11.931  1293  1293 D SsBaseTemplateCard: No text view can be set up
+10-22 09:34:11.931  1293  1293 D SsBaseTemplateCard: Passed-in item info is null
+10-22 09:34:11.931  1293  1293 D SsBaseTemplateCard: Passed-in item info is null
+10-22 09:34:11.931  1293  1293 D SsBaseTemplateCard: Passed-in item info is null
+10-22 09:34:11.931  1293  1293 I SsBaseTemplateCard: Secondary card pane is null
+10-22 09:34:11.934  2827  5031 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.icing.proxy.IcingInternalCorporaUpdateService started execution. cause:9 exec_start_elapsed_seconds: 492 [CONTEXT service_id=218 ]
+10-22 09:34:11.940  5203  5218 I TestRunner: finished: eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid(org.bookreader.mobile.reader.TxtReaderBoundaryTest)

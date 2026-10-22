@@ -1,0 +1,81 @@
+{
+  "source_sha": "277469db4d2030b3bbb30d5401dc9b44ea692eb5",
+  "build": {
+    "android-unit": 66,
+    "shared-jvm": 74,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device": {
+    "26": {
+      "tests": 54,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "name": "systemDocumentsPickerSelectsTxtFromRealProvider",
+          "trace": "java.lang.IllegalStateException: System DocumentsUI did not expose selectable node: System picker fixture.txt; visible=[target=true, id=android:id/title, clickable=false, target=false, id=null, clickable=true, target=false, id=null, clickable=false, target=false, id=com.android.documentsui:id/menu_list, clickable=true, target=false, id=null, clickable=true, target=false, id=com.android.documentsui:id/sort_dimen_dropdown, clickable=true, target=false, id=com.android.documentsui:id/sort_arrow, clickable=true, target=false, id=android:id/title, clickable=false, target=false, id=com.android.documentsui:id/details, clickable=false, target=false, id=android:id/title, clickable=false, target=false, id=com.android.documentsui:id/details, clickable=false, target=false, id=android:id/title, clickable=false, target=false, id=android:id/title, clickable=false, target=false, id=com.android.documentsui:id/details, clickable=false, target=true, id=android:id/title, clickable=false, target=false, id=com.android.documentsui:id/details, clickable=false]\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode(ManagedImportAndroidTest.kt:164)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.clickSystemNode$default(ManagedImportAndroidTest.kt:120)\nat org.bookreader.mobile.importing.ManagedImportAndroidTest.systemDocumentsPickerSelectsTxtFromRealProvider(ManagedImportAndroidTest.kt:107)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "34": {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "host_status": "PASS",
+      "hosts": {
+        "reader": {
+          "count": 2,
+          "old_pid": "7765",
+          "new_pid": "7815",
+          "absent_after_stop": true
+        },
+        "epub": {
+          "count": 2,
+          "old_pid": "8054",
+          "new_pid": "8105",
+          "absent_after_stop": true
+        },
+        "comic": {
+          "count": 2,
+          "old_pid": "8329",
+          "new_pid": "8386",
+          "absent_after_stop": true
+        }
+      }
+    },
+    "36": {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "host_status": "PASS",
+      "hosts": {
+        "reader": {
+          "count": 2,
+          "old_pid": "6578",
+          "new_pid": "6625",
+          "absent_after_stop": true
+        },
+        "epub": {
+          "count": 2,
+          "old_pid": "6843",
+          "new_pid": "6890",
+          "absent_after_stop": true
+        },
+        "comic": {
+          "count": 2,
+          "old_pid": "7087",
+          "new_pid": "7134",
+          "absent_after_stop": true
+        }
+      }
+    }
+  }
+}

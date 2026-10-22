@@ -89,3 +89,21 @@ API26/34는 각각 54개 중 2 FAIL, API36은 54개 중 1 FAIL이며 host는 모
 진단 다운로드 실패와 관계없이 원래 connected test 실패 exit code를 반환한다.
 후속 APK/test APK compile 및 lint exit 0 PASS. 로컬 로그는
 [evidence/epub-reflow-navigation/local-native-css-scroll-check.log](evidence/epub-reflow-navigation/local-native-css-scroll-check.log).
+
+후속 소스 `277469db4d2030b3bbb30d5401dc9b44ea692eb5`:
+[build 39755195304](https://github.com/LaceyLuv/BookreaderM/actions/runs/39755195304),
+[device 39755195311](https://github.com/LaceyLuv/BookreaderM/actions/runs/39755195311) 검증 중이다.
+
+## 277469d 결과 및 API26 실제 문서 터치
+
+[277469d 원본](evidence/epub-reflow-navigation/ci-277469d/summary.json): build 66/74/16 + ENOSPC 3 PASS.
+API34/36 각각 native 54 + TXT/EPUB/Comic host 6 PASS이며 source/digest/XML/PID 종료·교체를 확인했다.
+API26은 54개 중 picker 1 FAIL, host NOT_RUN이다. 모든 API의 SDK probe 및 제품 EPUB 회귀가 PASS다.
+API34 TXT 측정 재진입은 이번 실행에서 재발하지 않았지만 원인 해결을 주장하지 않는다.
+
+API26 스크린샷과 구조 원본은 스크롤 후 목표 파일이 표시되지만 제목과 그 상위 행 모두
+clickable=false임을 보여 준다. 접근성 clickable 조상을 찾는 방식만으로는 파일을 열지 못한다.
+정확한 파일명으로 찾은 visible/enabled 노드에 clickable 조상이 없으면, 노드와 창의 교차 영역 중앙에
+실제 touch DOWN/UP을 보낸다. 좌표를 하드코딩하지 않으며 두 이벤트 모두 주입 성공을 확인한다.
+실제 DocumentsUI 선택·URI grant·파일명·본문 검증은 그대로다.
+후속 테스트 APK compile/lint exit 0 PASS. main 통합은 후속 전체 matrix 성공 후 진행한다.

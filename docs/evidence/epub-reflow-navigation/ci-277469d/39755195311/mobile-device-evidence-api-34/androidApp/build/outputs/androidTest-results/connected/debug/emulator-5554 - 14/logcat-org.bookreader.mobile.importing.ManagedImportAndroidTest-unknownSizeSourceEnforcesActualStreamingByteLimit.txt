@@ -1,0 +1,80 @@
+10-22 09:31:07.785  5995  6014 I TestRunner: started: unknownSizeSourceEnforcesActualStreamingByteLimit(org.bookreader.mobile.importing.ManagedImportAndroidTest)
+10-22 09:31:07.790  5995  6014 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@3925610]
+10-22 09:31:07.799  5995  6014 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-22 09:31:07.813   836   902 D SplashScreenView: Build android.window.SplashScreenView{a6fc14d V.E...... ......ID 0,0-0,0}
+10-22 09:31:07.813   836   902 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-22 09:31:07.813   836   902 D SplashScreenView: Branding: view: android.view.View{d08f402 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-22 09:31:07.917  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: PRE_ON_CREATE
+10-22 09:31:07.919  5995  5995 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-22 09:31:08.034   836   910 D EGL_emulation: app_time_stats: avg=420.25ms min=177.95ms max=754.22ms count=3
+10-22 09:31:08.183   836   916 W ndroid.systemui: Long monitor contention with owner wmshell.main (870) at android.content.res.XmlBlock android.content.res.AssetManager.openXmlBlockAsset(int, java.lang.String)(AssetManager.java:1128) waiters=0 in java.lang.CharSequence android.content.res.AssetManager.getResourceText(int) for 178ms
+10-22 09:31:08.223  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: CREATED
+10-22 09:31:08.224  5995  5995 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@bc31b7d
+10-22 09:31:08.226  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: STARTED
+10-22 09:31:08.226  5995  5995 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@bc31b7d
+10-22 09:31:08.227  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: RESUMED
+10-22 09:31:08.228  5995  5995 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@bc31b7d
+10-22 09:31:08.240  5995  5995 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-22 09:31:08.486  1093  1138 I ImeTracker: com.google.android.apps.nexuslauncher:a16cd09d: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-22 09:31:08.487   527  2186 I ImeTracker: com.google.android.apps.nexuslauncher:a16cd09d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-22 09:31:08.489  1093  2268 D OneSearchSuggestProvider: Shut down the binder channel
+10-22 09:31:08.491  6055  6055 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@81b537
+10-22 09:31:08.493   527  2002 W InputManager-JNI: Input channel object '8d51cd1 org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity (client)' was disposed without first being removed with the input manager!
+10-22 09:31:08.495  1093  1117 I IPCThreadState: oneway function results for code 2 on binder at 0x757066903b10 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-22 09:31:08.499  1947  2458 W SearchServiceCore: Abort, client detached.
+10-22 09:31:08.503  1947  3051 I PBSessionCacheImpl: Deleted sessionId[8564789218313521] from persistence.
+10-22 09:31:08.517   836   901 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@2b4b113
+10-22 09:31:08.518   527   544 W ziparchive: Unable to open '/data/app/~~JYfQgs18oriHq1-9ImVbww==/org.bookreader.mobile-4UdP-wLb_x0JzLxhmsy1Lg==/base.dm': No such file or directory
+10-22 09:31:08.526   527  2002 W InputManager-JNI: Input channel object '5a994ef Splash Screen org.bookreader.mobile (client)' was disposed without first being removed with the input manager!
+10-22 09:31:08.531   527   544 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +695ms
+10-22 09:31:08.563   527  2002 I ImeTracker: org.bookreader.mobile:6de2cfa0: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-22 09:31:08.563   527  2002 I ImeTracker: org.bookreader.mobile:6de2cfa0: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-22 09:31:08.564  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-22 09:31:08.566  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-22 09:31:08.566  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-22 09:31:08.566  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-22 09:31:08.567  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-22 09:31:08.643  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: PAUSED
+10-22 09:31:08.643  5995  5995 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@bc31b7d
+10-22 09:31:08.657   406   406 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:31:08.703  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: RESUMED
+10-22 09:31:08.704  5995  5995 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@bc31b7d
+10-22 09:31:08.774   527  1647 I ImeTracker: org.bookreader.mobile:565c0902: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR
+10-22 09:31:08.775   527  1647 I ImeTracker: org.bookreader.mobile:565c0902: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-22 09:31:08.776  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-22 09:31:08.777  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-22 09:31:08.780  5021  5030 W System  : A resource failed to call close.
+10-22 09:31:08.780  5021  5030 W System  : A resource failed to call close.
+10-22 09:31:08.780  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-22 09:31:08.780  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-22 09:31:08.783  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-22 09:31:08.933   836   902 D SplashScreenView: Build android.window.SplashScreenView{9572d4f V.E...... ......ID 0,0-0,0}
+10-22 09:31:08.933   836   902 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-22 09:31:08.933   836   902 D SplashScreenView: Branding: view: android.view.View{4068cdc G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-22 09:31:08.936  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: PAUSED
+10-22 09:31:08.936  5995  5995 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@bc31b7d
+10-22 09:31:08.972   406   406 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:31:09.121   406   406 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-22 09:31:09.124   527  1674 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-22 09:31:09.125  1093  2268 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=69, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@cf27367
+10-22 09:31:09.162  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: STOPPED
+10-22 09:31:09.162  5995  5995 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@bc31b7d
+10-22 09:31:09.164  1623  1850 I AiAiEcho: Predicting[0]:
+10-22 09:31:09.165  1623  1850 I AiAiEcho: EchoTargets:
+10-22 09:31:09.165  1623  1850 I AiAiEcho: Filtered by AiAi flag check:
+10-22 09:31:09.169  1623  1850 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-22 09:31:09.169  1623  1850 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-22 09:31:09.184  5995  5995 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@bc31b7d in: DESTROYED
+10-22 09:31:09.184  5995  5995 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-22 09:31:09.185   836   910 D EGL_emulation: app_time_stats: avg=365.19ms min=15.63ms max=984.79ms count=4
+10-22 09:31:09.185  5995  5995 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@51082e2
+10-22 09:31:09.198   527  2186 W InputManager-JNI: Input channel object '74a30c7 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-22 09:31:09.277   527  2186 I ImeTracker: com.google.android.apps.nexuslauncher:eda2a57f: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-22 09:31:09.277   527  2186 I ImeTracker: com.google.android.apps.nexuslauncher:eda2a57f: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-22 09:31:09.279  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-22 09:31:09.282  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-22 09:31:09.282  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.google.android.apps.nexuslauncher fieldId=0 fieldName=null extras=null}, false)
+10-22 09:31:09.282  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-22 09:31:09.285  1528  1528 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-22 09:31:09.291  5995  6014 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@3925610]
+10-22 09:31:09.294  5995  6014 I TestRunner: finished: unknownSizeSourceEnforcesActualStreamingByteLimit(org.bookreader.mobile.importing.ManagedImportAndroidTest)

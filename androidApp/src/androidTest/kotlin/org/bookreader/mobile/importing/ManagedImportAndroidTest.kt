@@ -151,6 +151,19 @@ class ManagedImportAndroidTest {
                             current.performAction(AccessibilityNodeInfo.ACTION_CLICK)) return
                         clickable = current?.parent
                     }
+                    // API26 DocumentsUI can expose both the title and its row as
+                    // non-clickable even when the document is visible and enabled.
+                    // Tap only the exact, visible fixture label selected above.
+                    if (scrollDocuments) {
+                        val bounds = android.graphics.Rect()
+                        node.getBoundsInScreen(bounds)
+                        val windowBounds = android.graphics.Rect()
+                        root?.getBoundsInScreen(windowBounds)
+                        if (bounds.intersect(windowBounds) && !bounds.isEmpty) {
+                            tapSystemPoint(bounds.exactCenterX(), bounds.exactCenterY())
+                            return
+                        }
+                    }
                 }
                 for (child in 0 until node.childCount) node.getChild(child)?.let(pending::addLast)
             }
@@ -162,6 +175,19 @@ class ManagedImportAndroidTest {
         }
         captureFailureDiagnostics("system-picker-node", "missing fixture selector=$label; visible=$lastVisible")
         error("System DocumentsUI did not expose selectable node: $label; visible=$lastVisible")
+    }
+
+    private fun tapSystemPoint(x: Float, y: Float) {
+        val downTime = SystemClock.uptimeMillis()
+        for (action in listOf(android.view.MotionEvent.ACTION_DOWN, android.view.MotionEvent.ACTION_UP)) {
+            val event = android.view.MotionEvent.obtain(downTime, SystemClock.uptimeMillis(), action, x, y, 0)
+            event.source = android.view.InputDevice.SOURCE_TOUCHSCREEN
+            try {
+                assertTrue("DocumentsUI fixture touch must be delivered",
+                    instrumentation.uiAutomation.injectInputEvent(event, true))
+            } finally { event.recycle() }
+            if (action == android.view.MotionEvent.ACTION_DOWN) SystemClock.sleep(50)
+        }
     }
 
     @Test fun externalViewReceivesTemporaryGrantAndOpensActualReader() {
