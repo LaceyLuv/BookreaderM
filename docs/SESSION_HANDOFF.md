@@ -1,3 +1,31 @@
+# 후속 작업 전달서 — 2026-10-22
+
+## 2026-10-22 현재: 검증된 소스 main 통합 및 unsigned 재생성 완료
+
+`bb0f537`의 build 66/74/16 + 실제 ENOSPC 3, API26/34/36 각각 native 54 + 세 포맷 host 6이 모두 PASS다.
+기존 `.03` 및 실제 `p179` 표시 assertion을 유지했고 ZIP digest·필수 XML·PID 교체 원본을 확인했다.
+원격 main에 이력을 보존하여 반영했으며, 같은 소스로 unsigned APK/AAB 재생성·정적 감사도 PASS다.
+[최종 결과·hash·원본·미완료 범위](RESUME_COMPLETION_2026-10-22.md)를 현재 기준으로 따른다.
+API34의 과거 TXT 측정 재진입은 후속 두 소스에서 재발하지 않았으나 원인 미확정이다.
+실기기 성능·TalkBack·16KB OS·OEM backup·전체 corpus·독립 리뷰·서명/출시 gate는 남아 있다.
+
+
+작업 위치는 `/workspace/BookreaderM`, 현재 브랜치는 `main`이다.
+제품/테스트 기준 SHA는 `bb0f53787d2e26a0fcc321af31cf033d935eaed6`; 이후 commit은 문서/증거만 포함한다.
+사용자가 승인한 재개 순서(CI → 수정 → 전체 검증 → main 통합 → unsigned 패키지 → 문서)를 완료했다.
+[최종 보고서](RESUME_COMPLETION_2026-10-22.md)에 정확한 CI run, 명령, hash 및 원본 경로가 있다.
+
+다음 세션은 `git status --short`, `git log -3 --oneline`, `AGENTS.md`와 최종 보고서를 확인한다.
+`source /workspace/toolchains/mobile-env.sh` 후 필요한 검증만 실행한다. 검증된 파일·캐시와 사용자 변경을 보존한다.
+기존 체크아웃을 사용하고 요청 없는 worktree 생성·reset/clean·강제 push를 하지 않는다.
+
+다음 개발은 TASKS의 잔여 gate에서 환경과 선행 조건을 충족하는 항목을 고른다.
+실기기·서명·배포 등 제공되지 않은 자원이나 별도 승인을 자동 완료하지 않는다.
+TXT 측정 재진입이 재발하면 원인을 조사하며 skip/예외 무시/허용 오차 완화로 우회하지 않는다.
+
+<details>
+<summary>이전 전달서 이력 — 아래 대기·미통합 상태는 당시 기록</summary>
+
 # 다음 세션 작업 전달서 — 2026-10-17
 
 ## 2026-10-22 현재: 환경 연결 복구, native 후속 검증
@@ -230,3 +258,5 @@ M11 BLOCKED다. 기존 M02/M03의 TXT 내부 알파 완료 범위를 세 포맷 
 새 독립 리뷰, 최종 서명·설치/업데이트 검증은 아직 미완료다.
 배포/스토어 제출/서명키 업로드는 수행하지 않았다. 물리 환경이나 별도 승인이 필요한 항목을
 자동 완료하지 말고 구체적인 blocker로 유지한다.
+
+</details>

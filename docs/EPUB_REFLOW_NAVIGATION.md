@@ -1,5 +1,17 @@
 # EPUB 검색 이동과 화면 교체 경쟁 — 2026-10-18
 
+## 2026-10-22 현재: 검증된 소스 main 통합 및 unsigned 재생성 완료
+
+`bb0f537`의 build 66/74/16 + 실제 ENOSPC 3, API26/34/36 각각 native 54 + 세 포맷 host 6이 모두 PASS다.
+기존 `.03` 및 실제 `p179` 표시 assertion을 유지했고 ZIP digest·필수 XML·PID 교체 원본을 확인했다.
+원격 main에 이력을 보존하여 반영했으며, 같은 소스로 unsigned APK/AAB 재생성·정적 감사도 PASS다.
+[최종 결과·hash·원본·미완료 범위](RESUME_COMPLETION_2026-10-22.md)를 현재 기준으로 따른다.
+API34의 과거 TXT 측정 재진입은 후속 두 소스에서 재발하지 않았으나 원인 미확정이다.
+실기기 성능·TalkBack·16KB OS·OEM backup·전체 corpus·독립 리뷰·서명/출시 gate는 남아 있다.
+
+아래 내용은 이전 검증 시점의 이력이다. 당시의 main 미통합·CI 대기 표시는 현재 상태가 아니다.
+
+
 제품 수정 소스: `98d7f0faa5af37fdce8ac3d8d3b00c87eab05bdb`. 후속 테스트 동기화 보완 소스는 `1622bb6c73fc2ccfa9c1eca7161b92236b8ba797`이다.
 
 검색 결과를 누를 때 검색창과 키보드가 닫히면서 viewport가 바뀐다. 기존 controller는

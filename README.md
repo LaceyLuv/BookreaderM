@@ -1,12 +1,15 @@
 # BookreaderM
 
-## 현재 구현 (2026-10-18)
+## 현재 구현 (2026-10-22)
 
-main은 TXT의 스크롤·페이지 독서와 EPUB2/3 가져오기·목차·본문 검색·북마크·설정·이어읽기를 지원하는 내부 알파다. `책 추가`에서 파일을 고르며, 원본을 바꾸지 않고 앱 내부 관리 복사본을 읽는다. 일반 새 프로세스는 서재에서 시작한다.
+Android 우선 로컬 전자책 리더 내부 알파다. main에서 TXT 스크롤·페이지 독서, EPUB2/3의 목차·검색·북마크·설정,
+ZIP/CBZ Comic의 한 장·연속·웹툰 보기, 서재 그리드와 이어읽기를 지원한다.
+`책 추가`에서 고른 원본을 변경하지 않고 앱 내부 관리 복사본을 읽는다. 일반 새 프로세스는 서재에서 시작한다.
 
-`22526d3`의 실제 API36 회귀 52개와 기존 TXT 외부 종료 검증 2단계가 PASS다. [EPUB 제품 범위](docs/M08_EPUB_PRODUCT.md), [최신 인계](docs/CONTEXT_HANDOFF.md), [검증 원본](docs/evidence/m01-epub-validation/remote-22526d3-device/)을 따른다. Comic 제품 화면은 별도 브랜치에서 검증 중이다. 실기기 성능·TalkBack·최종 출시 검증은 완료되지 않았다.
-
-후속 제품 브랜치 `277469d`에서 SDK probe의 CSS 적용 대기와 시스템 파일 목록 스크롤을 보완했고 전체 CI를 실행 중이다. 이전 `49d1a04`의 native 실패는 원본 보존했으며, API34 TXT 측정 재진입 원인은 미확정이다. main 통합은 전체 통과 후 진행한다. [최신 검증과 원본](docs/NATIVE_UI_SYNCHRONIZATION.md)을 따른다.
+검증 소스 `bb0f537`: 빌드 검사 159개와 API26/34/36 각각 native 54개 + TXT·EPUB·Comic 강제 종료·복원 6단계 PASS.
+같은 소스로 unsigned release APK/AAB를 재생성했고 APK 정적 감사도 통과했다.
+[최종 결과·패키지 hash](docs/RESUME_COMPLETION_2026-10-22.md), [다음 작업 전달서](docs/SESSION_HANDOFF.md)를 따른다.
+실기기 성능·TalkBack·16KB OS·최종 서명/출시 검증은 미완료다. 과거 TXT 측정 재진입의 원인은 미확정이다.
 
 ## 이전 TXT 내부 알파 기록
 북리더 모바일

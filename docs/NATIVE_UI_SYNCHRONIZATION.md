@@ -1,5 +1,17 @@
 # Native UI 검증의 비동기 경계 — 2026-10-18
 
+## 2026-10-22 현재: 검증된 소스 main 통합 및 unsigned 재생성 완료
+
+`bb0f537`의 build 66/74/16 + 실제 ENOSPC 3, API26/34/36 각각 native 54 + 세 포맷 host 6이 모두 PASS다.
+기존 `.03` 및 실제 `p179` 표시 assertion을 유지했고 ZIP digest·필수 XML·PID 교체 원본을 확인했다.
+원격 main에 이력을 보존하여 반영했으며, 같은 소스로 unsigned APK/AAB 재생성·정적 감사도 PASS다.
+[최종 결과·hash·원본·미완료 범위](RESUME_COMPLETION_2026-10-22.md)를 현재 기준으로 따른다.
+API34의 과거 TXT 측정 재진입은 후속 두 소스에서 재발하지 않았으나 원인 미확정이다.
+실기기 성능·TalkBack·16KB OS·OEM backup·전체 corpus·독립 리뷰·서명/출시 gate는 남아 있다.
+
+아래 내용은 이전 검증 시점의 이력이다. 당시의 main 미통합·CI 대기 표시는 현재 상태가 아니다.
+
+
 `dc06d3e61f8af45d0d03258b9941bf7dc714d851`의 [build 39103709384](https://github.com/LaceyLuv/BookreaderM/actions/runs/39103709384)는
 Android 66/shared 74/EPUB 16/실제 ENOSPC 3 PASS다.
 [device 39103709383](https://github.com/LaceyLuv/BookreaderM/actions/runs/39103709383)는 전체 FAIL이다.
@@ -107,3 +119,7 @@ clickable=false임을 보여 준다. 접근성 clickable 조상을 찾는 방식
 실제 touch DOWN/UP을 보낸다. 좌표를 하드코딩하지 않으며 두 이벤트 모두 주입 성공을 확인한다.
 실제 DocumentsUI 선택·URI grant·파일명·본문 검증은 그대로다.
 후속 테스트 APK compile/lint exit 0 PASS. main 통합은 후속 전체 matrix 성공 후 진행한다.
+
+후속 소스 `bb0f53787d2e26a0fcc321af31cf033d935eaed6`:
+[build 39757163283](https://github.com/LaceyLuv/BookreaderM/actions/runs/39757163283),
+[device 39757163184](https://github.com/LaceyLuv/BookreaderM/actions/runs/39757163184) 검증 중이다.

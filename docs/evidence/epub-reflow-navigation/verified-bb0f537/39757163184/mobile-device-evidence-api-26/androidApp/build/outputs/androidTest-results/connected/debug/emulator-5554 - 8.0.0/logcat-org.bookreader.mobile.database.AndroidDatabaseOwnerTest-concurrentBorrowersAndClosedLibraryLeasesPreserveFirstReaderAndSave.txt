@@ -1,0 +1,70 @@
+10-22 09:47:07.101  5332  5349 I TestRunner: started: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
+10-22 09:47:07.103  1512  4674 E AudioFlinger: not enough memory for AudioTrack size=131296
+10-22 09:47:07.103  1512  4674 D MemoryDealer:   AudioTrack (0xede7c240, size=4194304)
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     0: 0xede7c250 | 0x00000000 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     1: 0xede7c270 | 0x000200E0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     2: 0xede991f0 | 0x000401C0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     3: 0xede99370 | 0x000602A0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     4: 0xede99530 | 0x00080380 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     5: 0xede7c4a0 | 0x000A0460 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     6: 0xede7c630 | 0x000C0540 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     7: 0xede996f0 | 0x000E0620 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     8: 0xede998b0 | 0x00100700 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:     9: 0xede99a30 | 0x001207E0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    10: 0xede7c850 | 0x001408C0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    11: 0xede7c900 | 0x001609A0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    12: 0xede7cbf0 | 0x00180A80 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    13: 0xede7cd90 | 0x001A0B60 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    14: 0xede7cde0 | 0x001C0C40 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    15: 0xec97e0f0 | 0x001E0D20 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    16: 0xec97e2d0 | 0x00200E00 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    17: 0xede998a0 | 0x00220EE0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    18: 0xede99af0 | 0x00240FC0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:    19: 0xede99db0 | 0x002610A0 | 0x000200E0 | A
+10-22 09:47:07.103  1512  4674 D MemoryDealer:
+10-22 09:47:07.103  1512  4674 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+10-22 09:47:07.103  2660  2711 E AudioRecord: AudioFlinger could not create record track, status: -12
+10-22 09:47:07.103  1512  5427 I AudioFlinger: AudioFlinger's thread 0xea003b80 tid=5427 ready to run
+10-22 09:47:07.117  2660  2711 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+10-22 09:47:07.117  2660  2711 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+10-22 09:47:07.117  2660  2711 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@28b63b0
+10-22 09:47:07.120  2660  2660 I MicroDetectionWorker: onReady
+10-22 09:47:07.120  1814  1829 D         : HostConnection::get() New Host Connection established 0x7005ba43f660, tid 1829
+10-22 09:47:07.134  2660  2711 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@28b63b0
+10-22 09:47:07.145  2660  2729 I MicroRecognitionRunner: Detection finished
+10-22 09:47:07.145  2660  2729 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-22 09:47:07.162  1653  1955 I GnssLocationProvider: WakeLock acquired by sendMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@439ee27)
+10-22 09:47:07.163  1653  1663 I zygote64: NativeAllocBackground concurrent copying GC freed 15339(1239KB) AllocSpace objects, 1(20KB) LOS objects, 40% free, 8MB/14MB, paused 629us total 123.653ms
+10-22 09:47:07.163  2660  2917 I MicroRecognitionRunner: Stopping hotword detection.
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-22 09:47:07.163  2660  2729 W ErrorProcessor: 	... 9 more
+10-22 09:47:07.163  2660  2729 I AudioController: internalShutdown
+10-22 09:47:07.165  1653  1679 I GnssLocationProvider: WakeLock released by handleMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@439ee27)
+10-22 09:47:07.166  2660  2660 I MicroDetector: Keeping mic open: false
+10-22 09:47:07.166  2660  2660 I MicroDetectionWorker: #onError(false)
+10-22 09:47:07.166  2660  2845 I DeviceStateChecker: DeviceStateChecker cancelled
+10-22 09:47:07.227  1775  3403 I zygote64: Deoptimizing boolean caao.c(java.util.Map$Entry) due to JIT inline cache
+10-22 09:47:07.246  1814  2107 D EGL_emulation: eglMakeCurrent: 0x7005ba43ae00: ver 3 0 (tinfo 0x7005ba40db40)
+10-22 09:47:07.325  1775  4416 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-22 09:47:07.377  1775  1775 I GeofencerStateMachine: removeGeofences: removeRequest=RemoveGeofencingRequest[REMOVE_BY_PENDING_INTENT pendingIntent=PendingIntent[creatorPackage=com.google.android.gms], packageName=com.google.android.gms]
+10-22 09:47:07.378  1775  2208 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-22 09:47:07.382  1775  1775 I GeofencerStateMachine: removeGeofences: removeRequest=RemoveGeofencingRequest[REMOVE_BY_PENDING_INTENT pendingIntent=PendingIntent[creatorPackage=com.google.android.gms], packageName=com.google.android.gms]
+10-22 09:47:07.386  5332  5349 I TestRunner: finished: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)

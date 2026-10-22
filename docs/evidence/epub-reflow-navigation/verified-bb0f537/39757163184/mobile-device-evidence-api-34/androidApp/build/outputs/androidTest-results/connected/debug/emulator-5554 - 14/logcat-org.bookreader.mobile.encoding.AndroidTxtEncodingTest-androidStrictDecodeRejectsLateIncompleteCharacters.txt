@@ -1,0 +1,51 @@
+10-22 09:46:16.062  6029  6047 I TestRunner: started: androidStrictDecodeRejectsLateIncompleteCharacters(org.bookreader.mobile.encoding.AndroidTxtEncodingTest)
+10-22 09:46:16.063  1707  1707 W A       : Failed RenderableStream callback; SubscriptionCallbacks#onError(Throwable) called.
+10-22 09:46:16.063  1707  1707 W A       : com.google.android.apps.search.googleapp.discover.v.i: DiscoverPrecheckException(precheckFailureReason=com.google.android.apps.search.googleapp.discover.w.a.c@2a6f71a)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.v.ak.a(PG:1)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.v.am.invokeSuspend(PG:17)
+10-22 09:46:16.063  1707  1707 W A       : 	at i.c.b.a.a.resumeWith(PG:4)
+10-22 09:46:16.063  1707  1707 W A       : 	at kotlinx.coroutines.bk.run(PG:14)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.apps.tiktok.coroutines.f.run(PG:1)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.libraries.i.ae.run(PG:1)
+10-22 09:46:16.063  1707  1707 W A       : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-22 09:46:16.063  1707  1707 W A       : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.libraries.i.k.run(PG:2)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.libraries.i.p.run(PG:4)
+10-22 09:46:16.063  1707  1707 W A       : 	at java.lang.Thread.run(Thread.java:1012)
+10-22 09:46:16.063  1707  1707 W A       : Caused by: DiscoverPrecheckException(precheckFailureReason=com.google.android.apps.search.googleapp.discover.w.a.c@2a6f71a)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.w.bb.d(PG:16)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.w.ax.invokeSuspend(PG:5)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.w.ax.invoke(PG:1)
+10-22 09:46:16.063  1707  1707 W A       : 	at kotlinx.coroutines.f.b.a(PG:1)
+10-22 09:46:16.063  1707  1707 W A       : 	at kotlinx.coroutines.m.a(PG:11)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.w.bb.c(PG:2)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.v.am.invokeSuspend(PG:5)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.v.am.invoke(PG:1)
+10-22 09:46:16.063  1707  1707 W A       : 	at kotlinx.coroutines.f.b.a(PG:1)
+10-22 09:46:16.063  1707  1707 W A       : 	at kotlinx.coroutines.m.a(PG:11)
+10-22 09:46:16.063  1707  1707 W A       : 	at com.google.android.apps.search.googleapp.discover.v.al.invokeSuspend(PG:4)
+10-22 09:46:16.063  1707  1707 W A       : 	... 9 more
+10-22 09:46:16.071  1707  2352 I A       : Creating in-process transport to InProcessServerAddress[com.google.android.googlequicksearchbox/OnDeviceServer[Hash:166594073]]
+10-22 09:46:16.093  1707  1707 W FontsContract: Platform version of downloadable fonts is deprecated. Please use androidx version instead.
+10-22 09:46:16.101  1707  2351 I A       : group apa_head_suggest present without account in *
+10-22 09:46:16.102  1707  2351 I A       : incrementApaDataDownloadStoreStatus(latency = PT0.029S, appVersion = 13.17.16.23, status = OK, locale = *, fileGroupnames = apa_head_suggest, accountScoped = false, localGroupsAvailable = false, timeSinceSearchBoot = Optional[PT4M19.322S] (ONE_TO_FIVE_MINUTES), timeSinceDataDownloadInit = PT3M36.284S (ONE_TO_FIVE_MINUTES))
+10-22 09:46:16.104  5088  5299 I NearbyDiscovery: FastPair: isDestroyable: Scanner is alive. [CONTEXT service_id=265 ]
+10-22 09:46:16.104  5088  5420 I FontLog : Received query Google Sans:500, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-22 09:46:16.105  5088  5420 I FontLog : Query [Google Sans:500] resolved to {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-22 09:46:16.105  5088  5420 I FontLog : Font PFD returned from cache for {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-22 09:46:16.108  5088  5420 I FontLog : Fetch {Google Sans, wdth 100.0, wght 500, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-22 09:46:16.110  5156  5344 I FastPair: ServiceBindHelper: auto unpin triggered, uri = content://com.google.android.gms.nearby.fastpair/method_bind_service_for_discovery_item?is_bind=false
+10-22 09:46:16.110  5088  5299 I NearbyDiscovery: DiscoveryService: Skip stopSelf(), fast pair controller is not destroyable. [CONTEXT service_id=265 ]
+10-22 09:46:16.110  5156  5344 I FastPair: ServiceBindHelper.onSliceUnpinned, unpin slice, uri = content://com.google.android.gms.nearby.fastpair/method_bind_service_for_discovery_item?is_bind=false
+10-22 09:46:16.115  5088  5354 I FontLog : Pulling font file for id = 4, cache size = 4 [CONTEXT service_id=132 ]
+10-22 09:46:16.129  1707  1707 W View    : requestLayout() improperly called by android.widget.FrameLayout{8816607 V.E...... ......ID 0,0-1080,525 #7f0b0fee app:id/googleapp_discover_header_container} during layout: running second layout pass
+10-22 09:46:16.132  1707  1707 I A       : Successfully updated last shown time for signed out error.
+10-22 09:46:16.182  1707  2351 I A       : GMSCore Auth returned 0 accounts.
+10-22 09:46:16.182  1707  2351 I A       : GoogleOwnersProvider returned 0 accounts.
+10-22 09:46:16.196  1707  2351 I A       : GMSCore Auth returned 0 accounts.
+10-22 09:46:16.197  1707  2351 I A       : GoogleOwnersProvider returned 0 accounts.
+10-22 09:46:16.271  1089  1089 D SearchTargetUtil:  query= size=15
+10-22 09:46:16.273  1089  1089 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=clancy's cheesy garlic bread potato chips,group_id=web276112,response_id=d7d4a045-1cad-4d8a-8d1d-9bec38be44f7,support_query_builder=false,} searchAction=clancy's cheesy garlic bread potato chips searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 181520e0-bdb2-4417-b8ad-52e199952c02
+10-22 09:46:16.273  1089  1089 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=universal orlando resort,group_id=web276112,response_id=d7d4a045-1cad-4d8a-8d1d-9bec38be44f7,support_query_builder=false,} searchAction=universal orlando resort searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 932a6ca6-2c23-4c12-a181-c852e98b07d6
+10-22 09:46:16.274  1089  1089 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=bambu lab printer upgrades,group_id=web276112,response_id=d7d4a045-1cad-4d8a-8d1d-9bec38be44f7,support_query_builder=false,} searchAction=bambu lab printer upgrades searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 32dfa188-bd8c-41f2-8aec-8cc0b5628547
+10-22 09:46:16.274  6029  6047 I TestRunner: finished: androidStrictDecodeRejectsLateIncompleteCharacters(org.bookreader.mobile.encoding.AndroidTxtEncodingTest)
