@@ -104,7 +104,7 @@ class ManagedImportAndroidTest {
             compose.onNodeWithTag("add_txt").performClick()
             clickSystemNode("Show roots", description = true)
             clickSystemNode("BookReader test TXT")
-            clickSystemNode("System picker fixture.txt")
+            clickSystemNode("System picker fixture.txt", scrollDocuments = true)
             waitFor("import_success")
             assertEquals(android.content.pm.PackageManager.PERMISSION_GRANTED,
                 target.checkUriPermission(uri, android.os.Process.myPid(), android.os.Process.myUid(), Intent.FLAG_GRANT_READ_URI_PERMISSION))
@@ -117,7 +117,7 @@ class ManagedImportAndroidTest {
         }
     }
 
-    private fun clickSystemNode(label: String, description: Boolean = false) {
+    private fun clickSystemNode(label: String, description: Boolean = false, scrollDocuments: Boolean = false) {
         val deadline = SystemClock.uptimeMillis() + 15_000
         var lastVisible = emptyList<String>()
         while (SystemClock.uptimeMillis() < deadline) {
@@ -132,8 +132,11 @@ class ManagedImportAndroidTest {
             }
             var inspected = 0
             val visible = mutableListOf<String>()
+            var documentList: AccessibilityNodeInfo? = null
             while (pending.isNotEmpty() && inspected++ < 1000) {
                 val node = pending.removeFirst()
+                if (scrollDocuments && node.isScrollable && node.isVisibleToUser && node.isEnabled &&
+                    node.viewIdResourceName?.endsWith(":id/dir_list") == true) documentList = node
                 val value = if (description) node.contentDescription else node.text
                 if (node.isVisibleToUser && visible.size < 80 && (node.text != null || node.contentDescription != null)) {
                     // Keep diagnostics structural; other DocumentsUI roots can contain private names.
@@ -152,7 +155,10 @@ class ManagedImportAndroidTest {
                 for (child in 0 until node.childCount) node.getChild(child)?.let(pending::addLast)
             }
             lastVisible = visible
-            SystemClock.sleep(100)
+            // DocumentsUI only exposes bound RecyclerView rows. The fixture sorts after
+            // the other test documents and can be below the API26 grid viewport.
+            val scrolled = documentList?.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD) == true
+            SystemClock.sleep(if (scrolled) 250 else 100)
         }
         captureFailureDiagnostics("system-picker-node", "missing fixture selector=$label; visible=$lastVisible")
         error("System DocumentsUI did not expose selectable node: $label; visible=$lastVisible")

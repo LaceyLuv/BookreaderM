@@ -77,10 +77,19 @@ class EpubProbeTest {
                 assertEquals(original.getJSONObject("locations").toString(), roundTrip.getJSONObject("locations").toString())
                 activity.submitPreferences(EpubPreferences(fontSize = 1.3, theme = Theme.DARK))
             }
-            // Readium applies font size through WebSettings.textZoom; that does not
-            // guarantee another page-change notification when the position stays put.
-            waitFor(scenario) { chapterWebView(it, "two")?.settings?.textZoom == 130 &&
-                it.navigator?.settings?.value?.let { settings -> settings.fontSize == 1.3 && settings.theme == Theme.DARK } == true }
+            // The default Readium configuration uses CSS, not WebSettings.textZoom.
+            // Observe the applied DOM property as well as the requested SDK setting.
+            waitFor(scenario) { it.navigator?.settings?.value?.let { settings ->
+                settings.fontSize == 1.3 && settings.theme == Theme.DARK
+            } == true }
+            val cssDeadline = SystemClock.uptimeMillis() + 10_000
+            var cssApplied = false
+            while (!cssApplied && SystemClock.uptimeMillis() < cssDeadline) {
+                cssApplied = js(scenario, "two",
+                    "parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--USER__fontSize')) === 130") == "true"
+                if (!cssApplied) SystemClock.sleep(100)
+            }
+            assertTrue("Readium CSS must apply the requested 130% font size", cssApplied)
             val painted = java.util.concurrent.CountDownLatch(1)
             scenario.onActivity {
                 requireNotNull(chapterWebView(it, "two")).postVisualStateCallback(1,

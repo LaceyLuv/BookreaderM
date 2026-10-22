@@ -91,7 +91,13 @@ done
 epub_report_exit=0
 run_logged epub-restore-observations adb shell run-as org.bookreader.mobile cat files/epub-restore-observations.json || epub_report_exit=$?
 run_logged epub-search-reflow-observations adb shell run-as org.bookreader.mobile cat files/epub-search-reflow-observations.json || epub_report_exit=$?
-if (( connected_exit != 0 )); then exit "$connected_exit"; fi
+if (( connected_exit != 0 )); then
+  if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
+    # Retain existing fixture-only diagnostics before returning the original test failure.
+    run_logged failed-fixture-output adb pull "$fixture_output" "$evidence_dir/fixture-screenshots" || true
+  fi
+  exit "$connected_exit"
+fi
 if (( report_exit != 0 )); then exit "$report_exit"; fi
 if (( full_report_exit != 0 )); then exit "$full_report_exit"; fi
 if (( read_report_exit != 0 )); then exit "$read_report_exit"; fi

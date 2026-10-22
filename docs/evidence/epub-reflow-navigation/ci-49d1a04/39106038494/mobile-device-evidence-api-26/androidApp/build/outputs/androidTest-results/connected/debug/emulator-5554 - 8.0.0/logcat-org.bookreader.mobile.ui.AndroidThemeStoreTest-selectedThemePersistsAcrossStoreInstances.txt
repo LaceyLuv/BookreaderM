@@ -1,0 +1,32 @@
+10-18 07:11:41.840  5370  5387 I TestRunner: started: selectedThemePersistsAcrossStoreInstances(org.bookreader.mobile.ui.AndroidThemeStoreTest)
+10-18 07:11:41.842  2581  2581 I MicroDetectionWorker: onReady
+10-18 07:11:41.843  2581  2701 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@42cacb7
+10-18 07:11:41.843  2581  6491 I MicroRecognitionRunner: Detection finished
+10-18 07:11:41.844  2581  6491 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-18 07:11:41.844  2581  6491 W ErrorProcessor: 	... 9 more
+10-18 07:11:41.844  2581  6491 I AudioController: internalShutdown
+10-18 07:11:41.844  2581  2822 I MicroRecognitionRunner: Stopping hotword detection.
+10-18 07:11:41.846  2581  6504 W LocationOracle: No location history returned by ContextManager
+10-18 07:11:41.849  2581  2581 I MicroDetector: Keeping mic open: false
+10-18 07:11:41.849  2581  2581 I MicroDetectionWorker: #onError(false)
+10-18 07:11:41.849  2581  6106 I DeviceStateChecker: DeviceStateChecker cancelled
+10-18 07:11:41.853  5370  5387 I TestRunner: finished: selectedThemePersistsAcrossStoreInstances(org.bookreader.mobile.ui.AndroidThemeStoreTest)

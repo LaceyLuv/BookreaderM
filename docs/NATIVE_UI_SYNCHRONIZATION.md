@@ -58,3 +58,34 @@ API26 picker의 구조 로그는 fixture 폴더 진입 및 file_list/nameplate�
 구조 정보와 기존 fixture screenshot 정책을 사용한다.
 
 후속 테스트 APK compile/lint exit 0 PASS. 다음 push의 세 API native/host 결과를 확인한다.
+
+후속 검증 소스: `49d1a0421b4170a12678dcfaaf0ac6143b43754e`.
+[build 39106038482](https://github.com/LaceyLuv/BookreaderM/actions/runs/39106038482),
+[device 39106038494](https://github.com/LaceyLuv/BookreaderM/actions/runs/39106038494) 결과 확인 중이다.
+
+`49d1a04` build 원본 회수 및 ZIP SHA-256 검증 완료: Android 66/shared 74/EPUB 16/실제 ENOSPC 3 PASS.
+Device matrix는 아직 실행 중이며 전체 성공 판정은 보류한다.
+
+## 2026-10-22 연결 복구 후 49d1a04 결과
+
+환경은 connected이며 Git 조회·GitHub API·CI ZIP 다운로드가 실제 성공했다.
+[원본과 요약](evidence/epub-reflow-navigation/ci-49d1a04/summary.json)의 소스 SHA,
+ZIP digest, 필수 테스트 이름을 확인했다. Build 66/74/16 + ENOSPC 3 PASS.
+API26/34는 각각 54개 중 2 FAIL, API36은 54개 중 1 FAIL이며 host는 모두 NOT_RUN이다.
+
+- 공통 probe 실패: 앞서 분석에서 `R2PagerAdapter.setFontSize`의
+  `if (config.useReadiumCssFontSize) return`을 놓쳤다. 기본값은 true이며 실제 경로는
+  `EpubSettings.toCss`의 `--USER__fontSize`다. textZoom=130 대기는 잘못된 조건이었다.
+  기본 설정을 바꾸지 않고 현재 DOM의 CSS 130% 적용을 기다린 뒤 visual callback을 확인한다.
+  기존 .03 Locator 비교와 모든 publication 검증을 유지한다.
+- API26 picker: 보이는 목록에 제목 노드 4개가 있지만 제공자는 파일 5개를 반환한다.
+  fixture는 다른 파일 뒤로 정렬될 수 있다. 실제 `dir_list`의 접근성 스크롤로 화면 밖 행도 탐색한다.
+  정확한 파일명 선택, 실제 URI grant, 관리 복사본 및 본문 assertion을 유지한다.
+- API34 TXT: 초기 reader_ready 대기 중 Compose 측정 재진입 예외가 발생했다.
+  원인과 재현 조건은 아직 확정하지 못했다. assertion을 완화하거나 예외를 삼키지 않고
+  후속 전체 matrix에서 재발 여부를 확인한다. 해결 완료로 기록하지 않는다.
+
+실패 시 기존 fixture 진단을 host로 가져오기 전에 device-check가 종료하던 경로를 보완했다.
+진단 다운로드 실패와 관계없이 원래 connected test 실패 exit code를 반환한다.
+후속 APK/test APK compile 및 lint exit 0 PASS. 로컬 로그는
+[evidence/epub-reflow-navigation/local-native-css-scroll-check.log](evidence/epub-reflow-navigation/local-native-css-scroll-check.log).

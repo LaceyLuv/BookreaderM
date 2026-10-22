@@ -1,5 +1,14 @@
 # Android 검증 매트릭스 — 2026-10-17
 
+## 2026-10-22 현재: 환경 연결 복구, native 후속 검증
+
+환경 연결과 Git/CI 다운로드를 실제 확인했다. `49d1a04` build 66/74/16 + ENOSPC 3 PASS.
+Native는 API26/34 각각 54개 중 2 FAIL, API36 1 FAIL이며 host는 NOT_RUN이다.
+probe의 기본 CSS 경로와 picker의 화면 밖 파일 탐색을 보완했다. API34 TXT 측정 재진입은 원인 미확정이다.
+[현재 변경·실패 원본](NATIVE_UI_SYNCHRONIZATION.md)을 따른다. main 통합은 전체 native/host 통과 후 진행한다.
+아래 절은 이전 검증 시점의 기록이다.
+
+
 ## 2026-10-18 최신: probe 설정 완료 신호와 picker 조회 교정
 
 `9a96ac5` build는 66/74/16 + ENOSPC 3 PASS, 제품 EPUB/Comic 회귀는 세 API 모두 PASS다.
