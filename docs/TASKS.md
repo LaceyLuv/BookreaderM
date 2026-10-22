@@ -1,5 +1,13 @@
 # BookReader Mobile — Codex 작업표
 
+## 설치 패키지 수정 (2026-10-22)
+
+사용자 설치 오류에 대해 기존 unsigned APK의 서명 누락을 재현했다.
+동일 release 내용을 기존 개발용 키로 서명한 APK를 생성했고 v2/v3 서명·정적 감사 PASS다.
+실제 기기 설치는 연결 기기 부재로 NOT_RUN이다. [설치용 APK 및 증거](INSTALLABLE_APK.md)를 우선한다.
+이후 업데이트에서도 같은 키를 보존하며, 서명 충돌 때문에 기존 앱을 임의 삭제하지 않는다.
+
+
 ## 2026-10-22 현재: 검증된 소스 main 통합 및 unsigned 재생성 완료
 
 `bb0f537`의 build 66/74/16 + 실제 ENOSPC 3, API26/34/36 각각 native 54 + 세 포맷 host 6이 모두 PASS다.

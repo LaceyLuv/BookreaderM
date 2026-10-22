@@ -11,6 +11,9 @@ ZIP/CBZ Comic의 한 장·연속·웹툰 보기, 서재 그리드와 이어읽�
 [최종 결과·패키지 hash](docs/RESUME_COMPLETION_2026-10-22.md), [다음 작업 전달서](docs/SESSION_HANDOFF.md)를 따른다.
 실기기 성능·TalkBack·16KB OS·최종 서명/출시 검증은 미완료다. 과거 TXT 측정 재진입의 원인은 미확정이다.
 
+설치 시험에는 [서명된 APK 안내](docs/INSTALLABLE_APK.md)의 `BookreaderM-0.2.0-test-signed.apk`를 사용한다.
+앞서 제공한 unsigned APK와 AAB는 휴대폰에 직접 설치하는 파일이 아니다. Android 8.0 이상이 필요하다.
+
 ## 이전 TXT 내부 알파 기록
 북리더 모바일
 
