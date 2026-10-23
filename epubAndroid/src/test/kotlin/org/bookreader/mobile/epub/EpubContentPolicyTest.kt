@@ -9,6 +9,13 @@ class EpubContentPolicyTest {
         val result = EpubContentPolicy.protectXhtml(html("<p id=\"anchor\">한글😀</p><img src=\"image.png\"/><a href=\"#anchor\">이동</a>")).toString(Charsets.UTF_8)
         assertTrue(result.contains("Content-Security-Policy")); assertTrue(result.contains("한글")); assertTrue(result.contains("image.png"))
         assertTrue(result.indexOf("Content-Security-Policy") < result.indexOf("<style>"))
+        val directives = EpubContentPolicy.CSP.split(';').map(String::trim)
+        val fonts = directives.single { it.startsWith("font-src ") }.split(' ').drop(1)
+        assertEquals(setOf("https://readium/publication/", "https://readium/assets/readium/",
+            "https://readium/assets/reader-fonts/NanumGothic-Regular.ttf",
+            "https://readium/assets/reader-fonts/NanumMyeongjo-Regular.ttf"), fonts.toSet())
+        assertTrue(directives.contains("connect-src 'none'"))
+        assertEquals("script-src https://readium/assets/readium/scripts/", directives.single { it.startsWith("script-src ") })
     }
     @Test fun activeMarkupExternalImagesAndTraversalAreRejected() {
         for (body in listOf("<script>alert(1)</script>", "<p onclick=\"alert(1)\">x</p>", "<iframe src=\"x\"/>",

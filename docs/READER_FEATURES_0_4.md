@@ -30,6 +30,7 @@ Google Fonts `e7db6ca603fd4862010383ff17ffd6cc4ffac1c0`의 변경하지 않은 N
 NanumMyeongjo-Regular.ttf를 사용한다. 파일별 URL/hash는 [sources.json](../androidApp/src/main/assets/reader-fonts/sources.json),
 SIL Open Font License 원문은 같은 폴더와 앱의 오프라인 제3자 고지에 포함했다.
 EPUB은 Readium 3.1.2의 `servedAssets`/`addFontFamilyDeclaration` 공식 API로 font face를 제공한다.
+CSP의 font-src에는 번들 글꼴 두 파일의 정확한 내부 URL만 추가한다. script/connect/image 정책은 그대로다.
 EPUB에서 글꼴을 직접 선택하면 출판사 스타일 우선을 해제해 선택 결과가 본문에 반영되게 한다.
 설정 JSON의 기존 값은 보존하며 새 전환 필드가 없는 0.3.0 설정도 읽는다.
 

@@ -1,5 +1,16 @@
 # BookReader Mobile — Codex 작업표
 
+## 0.4.0 EPUB 번들 글꼴 CSP 경로 수정 (2026-10-23)
+
+`bd6b456` build 39961544520 PASS. Device 39961544257의 API26/34/36은 각각 native 58 중
+EPUB 실제 font 적용 1 FAIL, 나머지 57 PASS이며 host NOT_RUN이다.
+logcat에서 `https://readium/assets/reader-fonts/NanumGothic-Regular.ttf`와 명조 파일의 font-src 거부를 확인했다.
+CSP에 두 정적 번들 파일의 정확한 내부 URL을 허용한다. 외부 네트워크/script/connect/image 허용은 추가하지 않는다.
+기존 EPUB 실제 CSS family와 document.fonts.check assertion을 유지했다.
+`./gradlew :epubAndroid:testDebugUnitTest :epubAndroid:lintDebug :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug --console=plain` exit 0.
+추가로 `0aeba65`는 전환이 끝난 다음 TXT 측정/Comic 렌더 위치를 확정하며 실제 frame 검사에 시점 assertion을 추가했다.
+최종 전체 native/host 판정은 새 소스로 이어간다.
+
 ## 0.4.0 글꼴·페이지 전환·쪽수·서재 카드 (2026-10-23, 검증 중)
 
 나눔고딕/나눔명조 원본과 OFL 고지를 번들에 추가했다. 같은 레이아웃의 TXT 페이지와 Comic 한 장 보기는

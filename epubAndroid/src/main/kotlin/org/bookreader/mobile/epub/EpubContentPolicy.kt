@@ -20,7 +20,9 @@ object EpubContentPolicy {
     const val MAX_MARKUP = 16 * 1024 * 1024
     const val CSP = "default-src 'none'; script-src https://readium/assets/readium/scripts/; " +
         "style-src 'unsafe-inline' https://readium/publication/ https://readium/assets/readium/; " +
-        "img-src https://readium/publication/; font-src https://readium/publication/ https://readium/assets/readium/; " +
+        "img-src https://readium/publication/; font-src https://readium/publication/ https://readium/assets/readium/ " +
+        "https://readium/assets/reader-fonts/NanumGothic-Regular.ttf " +
+        "https://readium/assets/reader-fonts/NanumMyeongjo-Regular.ttf; " +
         "connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'"
     private val forbidden = setOf("script", "iframe", "object", "embed", "form", "input", "button", "textarea", "select",
         "audio", "video", "canvas", "foreignobject", "animate", "animatemotion", "animatetransform", "set", "base")
