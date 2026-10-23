@@ -1,0 +1,67 @@
+{
+  "source_sha": "9f99b2c7019c781de7f946f97a2a3811c9e0fbb2",
+  "build": {
+    "android-unit": 66,
+    "shared-jvm": 74,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device": {
+    "26": {
+      "tests": 57,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator",
+          "trace": "java.lang.IllegalStateException: Chapter two did not become ready within 10 seconds: host restoring\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:63)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.assertParagraphVisible(EpubReaderFlowTest.kt:339)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator(EpubReaderFlowTest.kt:106)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "34": {
+      "tests": 57,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen",
+          "trace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen(TxtReaderFlowTest.kt:1244)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "36": {
+      "tests": 57,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "host_status": "PASS",
+      "hosts": {
+        "reader": {
+          "count": 2,
+          "old_pid": "6884",
+          "new_pid": "6934",
+          "absent_after_stop": true
+        },
+        "epub": {
+          "count": 2,
+          "old_pid": "7137",
+          "new_pid": "7184",
+          "absent_after_stop": true
+        },
+        "comic": {
+          "count": 2,
+          "old_pid": "7378",
+          "new_pid": "7424",
+          "absent_after_stop": true
+        }
+      }
+    }
+  }
+}

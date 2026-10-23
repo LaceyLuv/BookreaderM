@@ -1128,6 +1128,7 @@ class TxtReaderFlowTest {
             compose.waitUntil(10_000) { active.state.value.phase == TxtReaderPhase.READY && active.state.value.stableOffset != pageAnchor }
             val moved = active.state.value.stableOffset
             compose.readerControl("reader_settings").performClick()
+            compose.waitForIdle()
             ReaderFixtureScreenshot.capture("txt-settings.png")
             for (tag in listOf("reader_fullscreen_option", "reader_keep_screen_on_option", "reader_rotation_lock_option", "window_brightness_increase"))
                 compose.onNodeWithTag(tag).performScrollTo().performClick()
@@ -1240,7 +1241,12 @@ class TxtReaderFlowTest {
         assertEquals(origin, (bookmark.locator as TxtLocator).payload.utf16Offset)
         compose.onNodeWithTag("reader_bookmark_close").performClick()
         compose.readerControl("reader_search").performClick()
-        compose.onNodeWithTag("reader_search_query").performTextInput("경계검색😀")
+        compose.onNodeWithTag("reader_search_query").performClick()
+        compose.onNodeWithTag("reader_search_query").performSemanticsAction(SemanticsActions.SetText) { setText ->
+            active.beginReflow()
+            assertEquals(TxtReaderPhase.REFLOWING, active.state.value.phase)
+            assertTrue(setText(androidx.compose.ui.text.AnnotatedString("경계검색😀")))
+        }
         compose.waitUntil(15_000) { active.tools.state.value.searchComplete }
         assertEquals(listOf(16382L), active.tools.state.value.hits.map { it.offset })
         compose.onNodeWithTag("reader_search_hit_16382").performClick()

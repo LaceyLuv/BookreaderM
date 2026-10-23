@@ -35,7 +35,7 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
     val font = LocalFontFamilyResolver.current.resolve(style.fontFamily).value
-    val insets = WindowInsets.safeDrawing
+    val insets = WindowInsets.systemBars.union(WindowInsets.displayCutout)
     val direction = androidx.compose.ui.platform.LocalLayoutDirection.current
     val measurer = rememberTextMeasurer(cacheSize = 4)
     var size by remember(controller) { mutableStateOf(IntSize.Zero) }

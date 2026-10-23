@@ -32,7 +32,7 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
     var preferences by remember(loaded) { mutableStateOf(loaded?.book ?: BookReaderPreferences()) }
     AlertDialog(onDismissRequest = onDismiss, title = { Column {
         Text("읽기 설정")
-        Text("책은 편안하게, 도구는 분명하게", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("글자·색상·읽기 방식을 조절하세요", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     } }, modifier = Modifier.widthIn(max = 560.dp).fillMaxWidth(.94f),
         properties = DialogProperties(usePlatformDefaultWidth = false),
         text = {

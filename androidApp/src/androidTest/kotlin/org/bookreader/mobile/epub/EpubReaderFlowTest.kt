@@ -204,6 +204,7 @@ class EpubReaderFlowTest {
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("epub_chrome").fetchSemanticsNodes().isEmpty() }
         compose.readerControl("epub_settings").performClick()
         compose.onNodeWithTag("reader_mode_PAGES").performClick()
+        compose.waitForIdle()
         org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("epub-settings.png")
         compose.onNodeWithTag("reader_settings_apply").performClick()
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&

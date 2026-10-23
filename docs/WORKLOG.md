@@ -1,5 +1,27 @@
 # M00 작업 기록
 
+## 키보드 전환과 본문 viewport 분리 (2026-10-23)
+
+`9f99b2c` build 39944478518 PASS. Device 39944478507: API36 native 57 + host 6 PASS,
+API26/34는 각각 native 57 중 1 FAIL이며 host NOT_RUN이다.
+[두 번째 원본](evidence/reader-design/ci-9f99b2c/summary.json)을 보존한다.
+API26은 검색창을 닫은 뒤 EPUB host가 재복원되어 문단 확인을 마치지 못했고,
+API34는 TXT 검색 입력 당시 REFLOWING이어서 검색 시작이 보류된 채 재개되지 않았다.
+
+Compose 1.9.3 공식 소스에서 safeDrawing = systemBars.union(ime).union(displayCutout)를 확인했다.
+Reader 뒤쪽 본문은 IME를 제외한 시스템 바/컷아웃 여백만 쓰고, Activity의 soft input은
+독서 중 ADJUST_NOTHING으로 설정한 뒤 종료 시 원래 값을 복원한다. 검색 Dialog 자체의
+키보드 처리는 유지한다. TXT는 재배치 중 받은 최신 검색어를 READY 이후 시작하며,
+기존 경계 검색 native에 REFLOWING 중 실제 SetText를 전달하는 회귀를 추가했다.
+Android 8/9 탐색 바에는 명시적 남색 배경을 주어 흰 시스템 버튼 대비를 확보하고 종료 시 복원한다.
+
+재배치 숫자 원본은 API34/36에서 progression 0.915608 → 약 0.95043,
+scrollHeight 8099 → 13786/13789, 같은 p179 전체 표시와 원본 locator 불변을 확인했다.
+이 수치는 앞 절의 레이아웃별 geometry 비교가 필요한 이유를 뒷받침한다.
+설정 캡처 직전 Compose frame도 진행시켜 화면 이름과 실제 dialog 표시를 일치시킨다.
+다음 소스의 전체 native/host 결과는 아직 검증 중이다.
+
+
 ## 몰입형 UI 첫 native 검증 및 후속 (2026-10-23)
 
 `2b24f7d` 원격 build 39941859801: Android 66/shared 74/EPUB 16/실제 ENOSPC 3 PASS.

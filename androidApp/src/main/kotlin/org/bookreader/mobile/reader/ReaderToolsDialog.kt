@@ -14,6 +14,14 @@ import org.bookreader.mobile.locator.TxtLocator
 @Composable
 fun ReaderSearchDialog(controller: TxtReaderController, onDismiss: () -> Unit) {
     val state = controller.tools.state.collectAsStateWithLifecycle().value
+    val reader = controller.state.collectAsStateWithLifecycle().value
+    // Text can arrive while a rotation/font/viewport change is restoring its anchor.
+    // Keep the latest query and start it once the readable content is ready again.
+    LaunchedEffect(reader.phase, reader.cache.complete, state.query, state.ignoreAsciiCase) {
+        if (reader.phase == TxtReaderPhase.READY && reader.cache.complete && state.query.isNotEmpty() &&
+            state.nextSearchOffset == 0L && !state.searching && !state.searchComplete && !state.searchError)
+            controller.tools.moreSearch()
+    }
     AlertDialog(onDismissRequest = onDismiss, title = { Text("책 안에서 찾기") }, text = {
         Column {
             OutlinedTextField(value = state.query, onValueChange = { controller.tools.search(it.take(257), state.ignoreAsciiCase) },

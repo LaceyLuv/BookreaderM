@@ -13,7 +13,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.union
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -38,6 +42,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
@@ -58,10 +63,28 @@ import org.bookreader.mobile.model.Book
 import org.bookreader.mobile.repository.LibraryState
 
 @Composable
+@Suppress("DEPRECATION") // Android 8/9 need an explicit bar color; newer edge-to-edge uses the surface.
 fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
     val state by model.state.collectAsStateWithLifecycle()
     val dark = state.theme.isDark(isSystemInDarkTheme())
     val view = LocalView.current
+    val reading = state.reader != null || state.epubReader != null || state.comicReader != null
+    DisposableEffect(view, reading) {
+        val window = (view.context as? Activity)?.window
+        val legacy = reading && android.os.Build.VERSION.SDK_INT < 29 && window != null
+        val previousColor = window?.navigationBarColor
+        val previousInputMode = window?.attributes?.softInputMode
+        // Search/edit fields live in their own dialogs. The publication behind them must
+        // keep its viewport while the IME transfers between dialog and activity windows.
+        if (reading && previousInputMode != null) window?.setSoftInputMode(
+            (previousInputMode and android.view.WindowManager.LayoutParams.SOFT_INPUT_MASK_ADJUST.inv()) or
+                android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        if (legacy) window?.navigationBarColor = 0xFF101720.toInt()
+        onDispose {
+            if (legacy && previousColor != null) window?.navigationBarColor = previousColor
+            if (reading && previousInputMode != null) window?.setSoftInputMode(previousInputMode)
+        }
+    }
     SideEffect {
         (view.context as? Activity)?.let { activity ->
             WindowCompat.getInsetsController(activity.window, view).apply {
@@ -73,7 +96,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
     state.comicReader?.let { reader ->
         ReaderControlTheme {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
-                Column(Modifier.fillMaxSize().safeDrawingPadding()) {
+                Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
                     if (state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
                         model::dismissImport, model::cancelImport, model::selectImportEncoding, model::openBook)
                     androidx.compose.runtime.key(reader) { org.bookreader.mobile.comic.ComicReaderScreen(reader, model::leaveReader) { model.openBook(reader.book) } }
@@ -85,7 +108,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
     state.epubReader?.let { reader ->
         ReaderControlTheme {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
-                Column(Modifier.fillMaxSize().safeDrawingPadding()) {
+                Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
                     if (state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
                         model::dismissImport, model::cancelImport, model::selectImportEncoding, model::openBook)
                     androidx.compose.runtime.key(reader) { org.bookreader.mobile.epub.EpubReaderScreen(reader, model::leaveReader) { model.openBook(reader.book) } }
@@ -97,7 +120,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
     state.reader?.let { reader ->
         ReaderControlTheme {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
-            Column(Modifier.fillMaxSize().safeDrawingPadding()) {
+            Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
                 state.notice?.let { Text(it, modifier = Modifier.testTag("import_notice"), color = MaterialTheme.colorScheme.error) }
                 if (state.importing is ImportUiState.ConfirmShare || state.importing is ImportUiState.SelectEncoding ||
                     state.importing is ImportUiState.Working || state.importing is ImportUiState.Complete || state.importing is ImportUiState.Error) {

@@ -1,0 +1,372 @@
+10-23 11:24:23.060  5958  5977 I TestRunner: started: alternatingBooksWaitForPendingNativeWritesAndKeepBackwardProgress(org.bookreader.mobile.reader.TxtReaderFlowTest)
+10-23 11:24:23.065  5958  5977 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@4ae5511]
+10-23 11:24:23.072  5958  5977 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-23 11:24:23.092   836   909 D SplashScreenView: Build android.window.SplashScreenView{f1ea893 V.E...... ......ID 0,0-0,0}
+10-23 11:24:23.092   836   909 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 11:24:23.092   836   909 D SplashScreenView: Branding: view: android.view.View{c1cc0d0 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 11:24:23.098   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:24:23.128  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: PRE_ON_CREATE
+10-23 11:24:23.128  5958  5958 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-23 11:24:23.206  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: CREATED
+10-23 11:24:23.207  5958  5958 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:23.211  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: STARTED
+10-23 11:24:23.211  5958  5958 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:23.214  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: RESUMED
+10-23 11:24:23.214  5958  5958 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:23.271  5958  5958 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-23 11:24:23.512  1097  2091 D OneSearchSuggestProvider: Shut down the binder channel
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: *~*~*~ Channel {0} was not shutdown properly!!! ~*~*~*
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1:     Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: java.lang.RuntimeException: ManagedChannel allocation site
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at io.grpc.internal.y1.<init>(Unknown Source:20)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at io.grpc.internal.z1.<init>(Unknown Source:9)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at io.grpc.binder.d.a(Unknown Source:211)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.d(Unknown Source:88)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.c(Unknown Source:0)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.A0.run(Unknown Source:22)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at android.os.Looper.loop(Looper.java:294)
+10-23 11:24:23.512  1097  2091 E io.grpc.internal.z1: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: *~*~*~ Channel {0} was not shutdown properly!!! ~*~*~*
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1:     Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: java.lang.RuntimeException: ManagedChannel allocation site
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at io.grpc.internal.y1.<init>(Unknown Source:20)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at io.grpc.internal.z1.<init>(Unknown Source:9)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at io.grpc.binder.d.a(Unknown Source:211)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.d(Unknown Source:88)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.c(Unknown Source:0)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.A0.run(Unknown Source:22)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at com.android.launcher3.util.LooperExecutor.execute(Unknown Source:12)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.y0.apply(Unknown Source:34)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:966)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:950)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:486)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.H0.onResult(Unknown Source:59)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.lambda$onResult$0(SearchSessionUtil.java:129)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.$r8$lambda$_nlk9WiPjSfaAsqKYmp0aPvSRC0(SearchSessionUtil.java:1)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1$$ExternalSyntheticLambda0.run(R8$$SyntheticClass:13)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at android.os.Looper.loop(Looper.java:294)
+10-23 11:24:23.515  1097  2091 E io.grpc.internal.z1: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: *~*~*~ Channel {0} was not shutdown properly!!! ~*~*~*
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1:     Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: java.lang.RuntimeException: ManagedChannel allocation site
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at io.grpc.internal.y1.<init>(Unknown Source:20)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at io.grpc.internal.z1.<init>(Unknown Source:9)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at io.grpc.binder.d.a(Unknown Source:211)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.d(Unknown Source:88)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.c(Unknown Source:0)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.A0.run(Unknown Source:22)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at com.android.launcher3.util.LooperExecutor.execute(Unknown Source:12)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.y0.apply(Unknown Source:34)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:966)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:950)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:486)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.H0.onResult(Unknown Source:59)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.lambda$onResult$0(SearchSessionUtil.java:129)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.$r8$lambda$_nlk9WiPjSfaAsqKYmp0aPvSRC0(SearchSessionUtil.java:1)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1$$ExternalSyntheticLambda0.run(R8$$SyntheticClass:13)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at android.os.Looper.loop(Looper.java:294)
+10-23 11:24:23.516  1097  2091 E io.grpc.internal.z1: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-23 11:24:23.516  1097  7028 I IPCThreadState: oneway function results for code 2 on binder at 0x7e170cf6a5f0 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-23 11:24:23.522   519   532 I ImeTracker: org.bookreader.mobile:1748b84a: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 11:24:23.523   519   532 I ImeTracker: org.bookreader.mobile:1748b84a: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:24:23.537   519   538 W ziparchive: Unable to open '/data/app/~~fD4v96aaGUm2M657t7bT2w==/org.bookreader.mobile-oHfenQy2CgKGD-EDIsQcHQ==/base.dm': No such file or directory
+10-23 11:24:23.544  1772  3043 I PBSessionCacheImpl: Deleted sessionId[7795131171754792] from persistence.
+10-23 11:24:23.550  1097  1143 I ImeTracker: com.google.android.apps.nexuslauncher:e464c4b1: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-23 11:24:23.550  1097  1143 I ImeTracker: com.google.android.apps.nexuslauncher:e464c4b1: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-23 11:24:23.550  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 11:24:23.556   836   919 D EGL_emulation: app_time_stats: avg=311.85ms min=16.79ms max=721.87ms count=4
+10-23 11:24:23.570  1772  2358 W SearchServiceCore: Abort, client detached.
+10-23 11:24:23.571  1024  1232 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-23 11:24:23.572  1024  1232 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-23 11:24:23.578  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 11:24:23.578   519   538 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +424ms
+10-23 11:24:23.581  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 11:24:23.581  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 11:24:23.597  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 11:24:23.642   836   919 D EGL_emulation: app_time_stats: avg=571.72ms min=283.76ms max=859.68ms count=2
+10-23 11:24:23.651   836   909 D SplashScreenView: Build android.window.SplashScreenView{85c92e V.E...... ......ID 0,0-0,0}
+10-23 11:24:23.651   836   909 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 11:24:23.651   836   909 D SplashScreenView: Branding: view: android.view.View{3d6dccf G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 11:24:23.653  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: PAUSED
+10-23 11:24:23.654  5958  5958 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:23.687   836   908 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@a813aef
+10-23 11:24:23.689   519  2563 W InputManager-JNI: Input channel object 'a10f0ba Splash Screen org.bookreader.mobile (client)' was disposed without first being removed with the input manager!
+10-23 11:24:23.719   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:24:23.773  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: RESUMED
+10-23 11:24:23.773  5958  5958 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:23.808   519  2230 W InputManager-JNI: Input channel object 'da8356c Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-23 11:24:23.878   836   908 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@470d863
+10-23 11:24:23.884   519   592 I ImeTracker: org.bookreader.mobile:7d4d7f5a: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR
+10-23 11:24:23.884   519   592 I ImeTracker: org.bookreader.mobile:7d4d7f5a: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:24:23.885  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 11:24:23.885  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 11:24:23.885  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 11:24:23.885  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 11:24:23.885  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 11:24:24.216  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:24.216  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:24.397  5958  5965 I okreader.mobile: Background young concurrent copying GC freed 331734(10MB) AllocSpace objects, 97(3580KB) LOS objects, 32% free, 24MB/36MB, paused 133us,1.366ms total 127.498ms
+10-23 11:24:24.780  5958  5986 D EGL_emulation: app_time_stats: avg=90.62ms min=21.74ms max=268.93ms count=14
+10-23 11:24:25.532  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=629872, downTime=629872, deviceId=-1, source=0x1002, displayId=0, eventId=-695441925 }
+10-23 11:24:25.589  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=629951, downTime=629872, deviceId=-1, source=0x1002, displayId=0, eventId=-700810775 }
+10-23 11:24:25.638   819   819 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-23 11:24:25.993  5958  5986 D EGL_emulation: app_time_stats: avg=173.17ms min=69.48ms max=568.72ms count=7
+10-23 11:24:26.132   836   919 D EGL_emulation: app_time_stats: avg=643.86ms min=7.84ms max=1865.26ms count=4
+10-23 11:24:26.183   836   909 D SplashScreenView: Build android.window.SplashScreenView{f91bfb7 V.E...... ......ID 0,0-0,0}
+10-23 11:24:26.183   836   909 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 11:24:26.183   836   909 D SplashScreenView: Branding: view: android.view.View{8029324 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 11:24:26.189  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: PAUSED
+10-23 11:24:26.190  5958  5958 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:26.194   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:24:26.269  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: RESUMED
+10-23 11:24:26.269  5958  5958 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:26.276   519  1093 W InputManager-JNI: Input channel object '782d9cc Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-23 11:24:26.292   836   919 D EGL_emulation: app_time_stats: avg=1324.96ms min=704.15ms max=1945.77ms count=2
+10-23 11:24:26.313   836   908 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@b91768e
+10-23 11:24:26.328   519  2230 I ImeTracker: org.bookreader.mobile:9c8318c2: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR
+10-23 11:24:26.335   519  2230 I ImeTracker: org.bookreader.mobile:9c8318c2: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:24:26.344  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 11:24:26.345  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 11:24:26.345  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 11:24:26.346  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 11:24:26.347  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 11:24:26.350  6027  6035 W der.mobile.test: Cleared Reference was only reachable from finalizer (only reported once)
+10-23 11:24:26.674  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:26.674  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:26.786  5958  5965 I okreader.mobile: Background concurrent copying GC freed 467404(15MB) AllocSpace objects, 116(4580KB) LOS objects, 49% free, 21MB/42MB, paused 86us,72us total 213.452ms
+10-23 11:24:27.074  5958  5986 D EGL_emulation: app_time_stats: avg=96.87ms min=11.92ms max=212.49ms count=11
+10-23 11:24:27.770  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=632106, downTime=632106, deviceId=-1, source=0x1002, displayId=0, eventId=-1016790649 }
+10-23 11:24:27.824  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=632186, downTime=632106, deviceId=-1, source=0x1002, displayId=0, eventId=-258436316 }
+10-23 11:24:28.226  5958  5986 D EGL_emulation: app_time_stats: avg=164.51ms min=66.08ms max=556.48ms count=7
+10-23 11:24:28.371   836   919 D EGL_emulation: app_time_stats: avg=558.44ms min=16.26ms max=1613.06ms count=4
+10-23 11:24:28.445   836   919 D EGL_emulation: app_time_stats: avg=1075.16ms min=584.95ms max=1565.37ms count=2
+10-23 11:24:28.478  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:28.478  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:29.447  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=633790, downTime=633790, deviceId=-1, source=0x1002, displayId=0, eventId=-956594521 }
+10-23 11:24:29.504  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=633866, downTime=633790, deviceId=-1, source=0x1002, displayId=0, eventId=-566905572 }
+10-23 11:24:29.911  5958  5986 D EGL_emulation: app_time_stats: avg=210.57ms min=36.40ms max=978.00ms count=8
+10-23 11:24:30.192   836   919 D EGL_emulation: app_time_stats: avg=454.86ms min=9.19ms max=1601.22ms count=4
+10-23 11:24:30.262   836   919 D EGL_emulation: app_time_stats: avg=908.45ms min=201.53ms max=1615.36ms count=2
+10-23 11:24:30.293  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:30.293  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:31.254  4484  4527 W TimedProcessReaper: Memory state is: 125
+10-23 11:24:31.272  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=635607, downTime=635607, deviceId=-1, source=0x1002, displayId=0, eventId=-42898849 }
+10-23 11:24:31.326  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=635688, downTime=635607, deviceId=-1, source=0x1002, displayId=0, eventId=-407144412 }
+10-23 11:24:31.683   836   836 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-23 11:24:31.697   836   919 D EGL_emulation: app_time_stats: avg=376.35ms min=7.76ms max=1277.56ms count=4
+10-23 11:24:31.757  5958  5986 D EGL_emulation: app_time_stats: avg=167.67ms min=22.44ms max=999.16ms count=11
+10-23 11:24:32.128   836   919 D EGL_emulation: app_time_stats: avg=933.11ms min=224.54ms max=1641.67ms count=2
+10-23 11:24:32.181  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:32.181  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:33.135  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=637473, downTime=637473, deviceId=-1, source=0x1002, displayId=0, eventId=-868671367 }
+10-23 11:24:33.191  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=637552, downTime=637473, deviceId=-1, source=0x1002, displayId=0, eventId=-817748223 }
+10-23 11:24:33.574   819   819 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-23 11:24:33.607  5958  5986 D EGL_emulation: app_time_stats: avg=152.56ms min=25.70ms max=994.93ms count=12
+10-23 11:24:33.900   836   919 D EGL_emulation: app_time_stats: avg=440.55ms min=21.91ms max=1597.04ms count=5
+10-23 11:24:33.973   836   919 D EGL_emulation: app_time_stats: avg=922.48ms min=223.24ms max=1621.71ms count=2
+10-23 11:24:34.055  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:34.055  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:34.999  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=639340, downTime=639340, deviceId=-1, source=0x1002, displayId=0, eventId=-444306990 }
+10-23 11:24:35.055  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=639417, downTime=639340, deviceId=-1, source=0x1002, displayId=0, eventId=-278260903 }
+10-23 11:24:35.456  5958  5986 D EGL_emulation: app_time_stats: avg=153.20ms min=22.76ms max=972.40ms count=12
+10-23 11:24:35.700   836   919 D EGL_emulation: app_time_stats: avg=446.27ms min=3.36ms max=1511.38ms count=4
+10-23 11:24:35.787   836   919 D EGL_emulation: app_time_stats: avg=906.38ms min=275.16ms max=1537.60ms count=2
+10-23 11:24:35.864  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:35.864  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:36.726   836   836 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-23 11:24:36.835  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=641173, downTime=641173, deviceId=-1, source=0x1002, displayId=0, eventId=-867919218 }
+10-23 11:24:36.892  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=641254, downTime=641173, deviceId=-1, source=0x1002, displayId=0, eventId=-705013485 }
+10-23 11:24:37.305  5958  5986 D EGL_emulation: app_time_stats: avg=151.24ms min=22.26ms max=992.17ms count=12
+10-23 11:24:37.576   836   919 D EGL_emulation: app_time_stats: avg=467.55ms min=18.19ms max=1586.05ms count=4
+10-23 11:24:37.662   836   919 D EGL_emulation: app_time_stats: avg=937.86ms min=308.47ms max=1567.25ms count=2
+10-23 11:24:37.733  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:37.733  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:38.696  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=643040, downTime=643040, deviceId=-1, source=0x1002, displayId=0, eventId=-1052207505 }
+10-23 11:24:38.753  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=643115, downTime=643040, deviceId=-1, source=0x1002, displayId=0, eventId=-244124 }
+10-23 11:24:39.155  5958  5986 D EGL_emulation: app_time_stats: avg=152.56ms min=22.35ms max=965.04ms count=12
+10-23 11:24:39.398   836   919 D EGL_emulation: app_time_stats: avg=449.70ms min=1.98ms max=1562.92ms count=4
+10-23 11:24:39.486   836   919 D EGL_emulation: app_time_stats: avg=912.00ms min=299.23ms max=1524.77ms count=2
+10-23 11:24:39.573  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:39.573  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:39.728   836   836 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-23 11:24:39.903  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=644240, downTime=644240, deviceId=-1, source=0x1002, displayId=0, eventId=-565689186 }
+10-23 11:24:39.957  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=644318, downTime=644240, deviceId=-1, source=0x1002, displayId=0, eventId=-802585890 }
+10-23 11:24:40.339  5958  5986 D EGL_emulation: app_time_stats: avg=117.77ms min=26.00ms max=607.09ms count=10
+10-23 11:24:40.483   836   919 D EGL_emulation: app_time_stats: avg=271.12ms min=25.47ms max=782.88ms count=4
+10-23 11:24:40.562   836   919 D EGL_emulation: app_time_stats: avg=537.35ms min=307.91ms max=766.80ms count=2
+10-23 11:24:40.586  5958  5958 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 11:24:40.586  5958  5958 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 11:24:40.932  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=645273, downTime=645273, deviceId=-1, source=0x1002, displayId=0, eventId=-825985388 }
+10-23 11:24:40.990  1097  1097 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=870.2998, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=645352, downTime=645273, deviceId=-1, source=0x1002, displayId=0, eventId=-854500723 }
+10-23 11:24:41.372  5958  5986 D EGL_emulation: app_time_stats: avg=172.03ms min=36.02ms max=606.63ms count=6
+10-23 11:24:41.511   819   819 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-23 11:24:41.529   836   919 D EGL_emulation: app_time_stats: avg=261.48ms min=20.53ms max=822.30ms count=4
+10-23 11:24:41.558   836   909 D SplashScreenView: Build android.window.SplashScreenView{16d4395 V.E...... ......ID 0,0-0,0}
+10-23 11:24:41.558   836   909 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 11:24:41.558   836   909 D SplashScreenView: Branding: view: android.view.View{5b5caa G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 11:24:41.567  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: PAUSED
+10-23 11:24:41.568  5958  5958 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:41.594   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:24:41.624   519   550 I libprocessgroup: Successfully killed process cgroup uid 10119 pid 1570 in 0ms
+10-23 11:24:41.683   836   919 D EGL_emulation: app_time_stats: avg=560.75ms min=219.41ms max=902.08ms count=2
+10-23 11:24:41.689   836   836 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-23 11:24:41.744   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:24:41.752  6027  6048 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-23 11:24:41.890   336   336 I Zygote  : Process 4766 exited due to signal 9 (Killed)
+10-23 11:24:41.919   336   336 I Zygote  : Process 1990 exited due to signal 9 (Killed)
+10-23 11:24:41.923  1557  2566 I PhenotypeProcessReaper: Memory state is: 200
+10-23 11:24:41.939   336   336 I Zygote  : Process 3586 exited due to signal 9 (Killed)
+10-23 11:24:41.939   336   336 I Zygote  : Process 1343 exited due to signal 9 (Killed)
+10-23 11:24:41.942   336   336 I Zygote  : Process 3678 exited due to signal 9 (Killed)
+10-23 11:24:41.942   336   336 I Zygote  : Process 3390 exited due to signal 9 (Killed)
+10-23 11:24:41.955   336   336 I Zygote  : Process 1127 exited due to signal 9 (Killed)
+10-23 11:24:41.955   336   336 I Zygote  : Process 1857 exited due to signal 9 (Killed)
+10-23 11:24:41.956   336   336 I Zygote  : Process 3501 exited due to signal 9 (Killed)
+10-23 11:24:41.956   336   336 I Zygote  : Process 3316 exited due to signal 9 (Killed)
+10-23 11:24:41.992   519  1680 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-23 11:24:41.993  1683  2032 I AiAiEcho: Predicting[0]:
+10-23 11:24:41.993  1683  2032 I AiAiEcho: EchoTargets:
+10-23 11:24:41.993  1683  2032 I AiAiEcho: Filtered by AiAi flag check:
+10-23 11:24:41.994  1683  2032 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-23 11:24:41.994  1683  2032 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-23 11:24:41.994  1097  2091 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=157, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@eaf937b
+10-23 11:24:41.999   336   336 I Zygote  : Process 3440 exited due to signal 9 (Killed)
+10-23 11:24:42.001   336   336 I Zygote  : Process 1050 exited due to signal 9 (Killed)
+10-23 11:24:42.001   336   336 I Zygote  : Process 1929 exited due to signal 9 (Killed)
+10-23 11:24:42.007  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: STOPPED
+10-23 11:24:42.007  5958  5958 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@5dcb15a
+10-23 11:24:42.023   519   763 D ConnectivityService: releasing NetworkRequest [ REQUEST id=62, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10156 RequestorUid: 10156 RequestorPkg: com.google.android.apps.youtube.music UnderlyingNetworks: Null] ] (release request)
+10-23 11:24:42.023   519   763 D ConnectivityService: releasing NetworkRequest [ REQUEST id=66, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10156 RequestorUid: 10156 RequestorPkg: com.google.android.apps.youtube.music UnderlyingNetworks: Null] ] (release request)
+10-23 11:24:42.038   336   336 I Zygote  : Process 4146 exited due to signal 9 (Killed)
+10-23 11:24:42.042   336   336 I Zygote  : Process 3868 exited due to signal 9 (Killed)
+10-23 11:24:42.042   336   336 I Zygote  : Process 1766 exited due to signal 9 (Killed)
+10-23 11:24:42.060   336   336 I Zygote  : Process 1619 exited due to signal 9 (Killed)
+10-23 11:24:42.060   336   336 I Zygote  : Process 1833 exited due to signal 9 (Killed)
+10-23 11:24:42.060   336   336 I Zygote  : Process 1951 exited due to signal 9 (Killed)
+10-23 11:24:42.061   336   336 I Zygote  : Process 2081 exited due to signal 9 (Killed)
+10-23 11:24:42.061   336   336 I Zygote  : Process 4150 exited due to signal 9 (Killed)
+10-23 11:24:42.061   336   336 I Zygote  : Process 4151 exited due to signal 9 (Killed)
+10-23 11:24:42.071   519   763 D ConnectivityService: releasing NetworkRequest [ REQUEST id=79, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10156 RequestorUid: 10156 RequestorPkg: com.google.android.apps.youtube.music UnderlyingNetworks: Null] ] (release request)
+10-23 11:24:42.099   336   336 I Zygote  : Process 2324 exited due to signal 9 (Killed)
+10-23 11:24:42.099   336   336 I Zygote  : Process 3773 exited due to signal 9 (Killed)
+10-23 11:24:42.103  1024  1024 V MediaPlayerList: onActiveSessionsChanged: number of controllers: 1
+10-23 11:24:42.103  1024  1024 D MediaPlayerList: onActiveSessionsChanged: controller: com.google.android.googlequicksearchbox
+10-23 11:24:42.106   336   336 I Zygote  : Process 2738 exited due to signal 9 (Killed)
+10-23 11:24:42.129  1024  1024 V MediaPlayerList: onActiveSessionsChanged: number of controllers: 1
+10-23 11:24:42.132  1024  1024 D MediaPlayerList: onActiveSessionsChanged: controller: com.google.android.googlequicksearchbox
+10-23 11:24:42.135   336   336 I Zygote  : Process 2182 exited due to signal 9 (Killed)
+10-23 11:24:42.140   336   336 I Zygote  : Process 1298 exited due to signal 9 (Killed)
+10-23 11:24:42.140   336   336 I Zygote  : Process 2706 exited due to signal 9 (Killed)
+10-23 11:24:42.143   336   336 I Zygote  : Process 3671 exited due to signal 9 (Killed)
+10-23 11:24:42.144   519   763 D ConnectivityService: releasing NetworkRequest [ REQUEST id=45, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10139 RequestorUid: 10139 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+10-23 11:24:42.144   519   763 D ConnectivityService: releasing NetworkRequest [ REQUEST id=47, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10139 RequestorUid: 10139 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+10-23 11:24:42.144   519   763 D ConnectivityService: releasing NetworkRequest [ REQUEST id=49, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10139 RequestorUid: 10139 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+10-23 11:24:42.144   519   763 D ConnectivityService: releasing NetworkRequest [ REQUEST id=59, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10139 RequestorUid: 10139 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+10-23 11:24:42.150   336   336 I Zygote  : Process 1740 exited due to signal 9 (Killed)
+10-23 11:24:42.150   336   336 I Zygote  : Process 1825 exited due to signal 9 (Killed)
+10-23 11:24:42.150   336   336 I Zygote  : Process 2174 exited due to signal 9 (Killed)
+10-23 11:24:42.150   336   336 I Zygote  : Process 2342 exited due to signal 9 (Killed)
+10-23 11:24:42.150   336   336 I Zygote  : Process 3651 exited due to signal 9 (Killed)
+10-23 11:24:42.150   336   336 I Zygote  : Process 2387 exited due to signal 9 (Killed)
+10-23 11:24:42.151   336   336 I Zygote  : Process 1450 exited due to signal 9 (Killed)
+10-23 11:24:42.151   519   763 D ConnectivityService: releasing NetworkRequest [ REQUEST id=116, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10130 RequestorUid: 10130 RequestorPkg: com.google.android.apps.messaging UnderlyingNetworks: Null] ] (release request)
+10-23 11:24:42.164   519   550 I libprocessgroup: Successfully killed process cgroup uid 10094 pid 3773 in 0ms
+10-23 11:24:42.164   519   550 I libprocessgroup: Successfully killed process cgroup uid 10149 pid 2706 in 0ms
+10-23 11:24:42.164   519   550 I libprocessgroup: Successfully killed process cgroup uid 10156 pid 1766 in 0ms
+10-23 11:24:42.164   519   550 I libprocessgroup: Successfully killed process cgroup uid 10155 pid 2081 in 0ms
+10-23 11:24:42.166   519   550 I libprocessgroup: Successfully killed process cgroup uid 10130 pid 4148 in 0ms
+10-23 11:24:42.166   519   550 I libprocessgroup: Successfully killed process cgroup uid 10173 pid 3671 in 0ms
+10-23 11:24:42.166   519   550 I libprocessgroup: Successfully killed process cgroup uid 10121 pid 2174 in 0ms
+10-23 11:24:42.166   519   550 I libprocessgroup: Successfully killed process cgroup uid 10129 pid 3678 in 0ms
+10-23 11:24:42.166   519   550 I libprocessgroup: Successfully killed process cgroup uid 10141 pid 3868 in 0ms
+10-23 11:24:42.166   519   550 I libprocessgroup: Successfully killed process cgroup uid 10124 pid 1929 in 0ms
+10-23 11:24:42.166   519   550 I libprocessgroup: Successfully killed process cgroup uid 10150 pid 2738 in 0ms
+10-23 11:24:42.166   519   550 I libprocessgroup: Successfully killed process cgroup uid 10139 pid 1825 in 0ms
+10-23 11:24:42.170   336   336 I Zygote  : Process 1570 exited due to signal 9 (Killed)
+10-23 11:24:42.170   519   550 I libprocessgroup: Successfully killed process cgroup uid 10138 pid 4151 in 0ms
+10-23 11:24:42.171   519   550 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 1050 in 0ms
+10-23 11:24:42.171   519   550 I libprocessgroup: Successfully killed process cgroup uid 10134 pid 4766 in 0ms
+10-23 11:24:42.171   519   550 I libprocessgroup: Successfully killed process cgroup uid 10161 pid 2342 in 0ms
+10-23 11:24:42.171   519   550 I libprocessgroup: Successfully killed process cgroup uid 10184 pid 4150 in 0ms
+10-23 11:24:42.174   519   550 I libprocessgroup: Successfully killed process cgroup uid 10188 pid 1298 in 0ms
+10-23 11:24:42.174   519   550 I libprocessgroup: Successfully killed process cgroup uid 10116 pid 3316 in 0ms
+10-23 11:24:42.174   519   550 I libprocessgroup: Successfully killed process cgroup uid 10164 pid 4146 in 0ms
+10-23 11:24:42.174   519   550 I libprocessgroup: Successfully killed process cgroup uid 10089 pid 2387 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 10189 pid 1990 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 2000 pid 3651 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 3586 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 10117 pid 2182 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 3501 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 10146 pid 3440 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 10099 pid 1740 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 10126 pid 3390 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 10107 pid 1619 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 10103 pid 1951 in 0ms
+10-23 11:24:42.175   519   550 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 2324 in 0ms
+10-23 11:24:42.176   519   550 I libprocessgroup: Successfully killed process cgroup uid 1002 pid 1127 in 0ms
+10-23 11:24:42.176   519   550 I libprocessgroup: Successfully killed process cgroup uid 10158 pid 1833 in 0ms
+10-23 11:24:42.176   519   550 I libprocessgroup: Successfully killed process cgroup uid 10091 pid 1343 in 0ms
+10-23 11:24:42.176   519   550 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 1857 in 0ms
+10-23 11:24:42.176   519   550 I libprocessgroup: Successfully killed process cgroup uid 10165 pid 1450 in 0ms
+10-23 11:24:42.202   519  2085 I ImeTracker: com.google.android.apps.nexuslauncher:60f50331: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 11:24:42.204  1024  1024 I MediaPlayerList: sendMediaUpdate: Creating a one item queue for a player with no queue
+10-23 11:24:42.204  1024  1024 D MediaPlayerList: sendMediaUpdate state=PlaybackState {state=NONE(0), position=0, buffered position=0, speed=0.0, updated=46450, actions=2409991, custom actions=[Action:mName='Rewind 10 seconds, mIcon=2131234345, mExtras=null, Action:mName='Fast forward 30 second, mIcon=2131234125, mExtras=null, Action:mName='Skip to next episode, mIcon=2131234405, mExtras=null], active item id=-1, error=null}
+10-23 11:24:42.209   336   336 I Zygote  : Process 4148 exited due to signal 9 (Killed)
+10-23 11:24:42.229  5958  5958 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5dcb15a in: DESTROYED
+10-23 11:24:42.229  5958  5958 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 11:24:42.231  5958  5958 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@5ca213b
+10-23 11:24:42.253   519  2085 I ImeTracker: com.google.android.apps.nexuslauncher:60f50331: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:24:42.272  1024  1024 D AvrcpTargetJni: sendMediaUpdateNative
+10-23 11:24:42.344  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 11:24:42.387   519   815 W InputManager-JNI: Input channel object '693ad99 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-23 11:24:42.402  1097  1097 D SearchTargetUtil:  query= size=15
+10-23 11:24:42.402  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=heated rivalry movie theater release,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=heated rivalry movie theater release searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: e52db3bb-2438-4d7f-b522-bb89496d30dc
+10-23 11:24:42.402  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=planet fitness closing locations,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=planet fitness closing locations searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: d4d820bd-dde5-4550-b7dc-02cac5a96a97
+10-23 11:24:42.402  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=shamonda viruses,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=shamonda viruses searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 24bec976-af6b-4339-a6da-61f6e8e1513e
+10-23 11:24:42.405  1097  1097 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/jpeg;base64,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
+10-23 11:24:42.405  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=blue bell christmas cookies flavor,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=blue bell christmas cookies flavor searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: e74a7275-fee8-46c0-a900-f3203d2366f0
+10-23 11:24:42.405  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=swatch group padel watches,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=swatch group padel watches searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 74fdda4d-42f6-4e65-87a6-329621d0dfb7
+10-23 11:24:42.405  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=flash flooding hurricane utah,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=flash flooding hurricane utah searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: b866d889-f6f8-409d-962c-98adb7f5d02b
+10-23 11:24:42.406  1097  1097 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/jpeg;base64,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,suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=true,is_personal=false,suggest_raw_text=bioware games mass effect,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=bioware games mass effect searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: b25bc776-ecc0-4ce6-927e-0bd76236529e
+10-23 11:24:42.406  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=cracker barrel,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=cracker barrel searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 4d45f765-5a7b-45b4-9066-3e5e0c08e1cf
+10-23 11:24:42.406  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=catholic priest killed crucifix,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=catholic priest killed crucifix searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: d0d42b5a-ef4d-450a-b165-456bfec86a01
+10-23 11:24:42.406  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=wnba finals national anthem,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=wnba finals national anthem searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 0ba97fa0-6f85-4794-b201-c27fc98a2cee
+10-23 11:24:42.406  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=manifest netflix spin off 2027,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=manifest netflix spin off 2027 searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 80adb4c6-d57d-4bcf-944b-810974287d11
+10-23 11:24:42.407  1097  1097 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=,suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=true,is_personal=false,suggest_raw_text=30th celebration elite trainer box,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=30th celebration elite trainer box searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 9ea59e72-836c-4117-ac0e-5d2ae9ceca83
+10-23 11:24:42.407  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=daylight savings time,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=daylight savings time searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: a78fab65-1a62-475f-ab46-a4875d1882fc
+10-23 11:24:42.407  1097  1097 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=royal caribbean bahamas cruise rerouted,group_id=web549900,response_id=0d4b6c08-951e-4a07-b208-6a3ef6d089a1,support_query_builder=false,} searchAction=royal caribbean bahamas cruise rerouted searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 231bf03b-618c-4848-8872-70e14423ac64
+10-23 11:24:42.416  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 11:24:42.416  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.google.android.apps.nexuslauncher fieldId=0 fieldName=null extras=null}, false)
+10-23 11:24:42.416  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 11:24:42.417  1557  1557 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 11:24:42.491   836   908 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@79203e4
+10-23 11:24:42.503   519   533 W InputManager-JNI: Input channel object 'b917060 Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-23 11:24:42.523  1772  2358 I A       : Using proto config with mendel
+10-23 11:24:42.523  1772  2358 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-23 11:24:42.525  1772  2358 I A       : Using proto config with mendel
+10-23 11:24:42.667  1024  1024 I bt_stack: [INFO:avrcp_service.cc(515)] virtual void bluetooth::avrcp::AvrcpService::SendMediaUpdate(bool, bool, bool) track_changed=0 :  play_state=0 :  queue=0
+10-23 11:24:42.675  1024  1024 V MediaPlayerList: onActiveSessionsChanged: number of controllers: 1
+10-23 11:24:42.676  1024  1024 D MediaPlayerList: onActiveSessionsChanged: controller: com.google.android.googlequicksearchbox
+10-23 11:24:42.676  1024  1024 V MediaPlayerList: onActiveSessionsChanged: number of controllers: 1
+10-23 11:24:42.676  1024  1024 D MediaPlayerList: onActiveSessionsChanged: controller: com.google.android.googlequicksearchbox
+10-23 11:24:42.680   519   548 W system_server: Long monitor contention with owner binder:519_1B (2237) at void com.android.server.am.ActivityManagerService$AppDeathRecipient.binderDied()(ActivityManagerService.java:1584) waiters=21 in void com.android.server.am.BroadcastQueueModernImpl.updateRunningList() for 514ms
+10-23 11:24:42.680  1024  1024 I MediaPlayerList: sendMediaUpdate: Creating a one item queue for a player with no queue
+10-23 11:24:42.680  1024  1024 D MediaPlayerList: sendMediaUpdate state=PlaybackState {state=NONE(0), position=0, buffered position=0, speed=0.0, updated=46450, actions=2409991, custom actions=[Action:mName='Rewind 10 seconds, mIcon=2131234345, mExtras=null, Action:mName='Fast forward 30 second, mIcon=2131234125, mExtras=null, Action:mName='Skip to next episode, mIcon=2131234405, mExtras=null], active item id=-1, error=null}
+10-23 11:24:42.680  1024  1024 D AvrcpTargetJni: sendMediaUpdateNative
+10-23 11:24:42.680  1024  1024 I bt_stack: [INFO:avrcp_service.cc(515)] virtual void bluetooth::avrcp::AvrcpService::SendMediaUpdate(bool, bool, bool) track_changed=0 :  play_state=0 :  queue=0
+10-23 11:24:42.699  6027  6027 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@877807e
+10-23 11:24:42.701   519  2154 W InputManager-JNI: Input channel object '682aa89 org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity (client)' was disposed without first being removed with the input manager!
+10-23 11:24:42.734   519   528 I system_server: NativeAlloc concurrent copying GC freed 233679(7790KB) AllocSpace objects, 11(220KB) LOS objects, 46% free, 27MB/51MB, paused 49us,65us total 949.895ms
+10-23 11:24:42.743  5958  5977 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@4ae5511]
+10-23 11:24:42.748  5958  5977 I TestRunner: finished: alternatingBooksWaitForPendingNativeWritesAndKeepBackwardProgress(org.bookreader.mobile.reader.TxtReaderFlowTest)
