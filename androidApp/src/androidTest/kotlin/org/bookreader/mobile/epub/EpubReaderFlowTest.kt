@@ -123,8 +123,8 @@ class EpubReaderFlowTest {
         waitForSettingsApplied(beforeSettings.hostVersion,
             beforeSettings.settings.copy(fontSizeSp = beforeSettings.settings.fontSizeSp + 1))
         assertEquals(original, saved(book))
-        assertRenderedNear(original)
-        val afterFontChange = recordRestoreObservation("font-size", original)
+        val afterFontChange = recordReflowObservation("font-size", original)
+        assertReflowedSearchAnchor(original, afterFontChange)
         fun fontPixels(observation: org.json.JSONObject) = observation.getJSONObject("viewport")
             .getString("fontSize").removeSuffix("px").toDouble()
         assertTrue("The displayed paragraph must use the increased font size",
@@ -135,8 +135,8 @@ class EpubReaderFlowTest {
         compose.onNodeWithTag("continue_reading").performClick()
         waitFor("epub_ready")
         assertEquals(original, saved(book))
-        assertRenderedNear(original)
-        recordRestoreObservation("reopen", original)
+        val reopened = recordReflowObservation("reopen", original)
+        assertReflowedSearchAnchor(original, reopened)
         assertParagraphVisible("two", "p179")
         compose.readerControl("epub_bookmarks").performClick()
         waitFor("epub_bookmark_item")
@@ -209,17 +209,24 @@ class EpubReaderFlowTest {
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
             active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         compose.readerControl("epub_hide").performClick()
-        val before = requireNotNull(active.progress.state.value.accepted) as EpubLocator
+        var before: org.json.JSONObject? = null
+        compose.activityRule.scenario.onActivity { activity ->
+            val wrapper = activity.supportFragmentManager.fragments.filterIsInstance<EpubHostFragment>().single()
+            before = wrapper.childFragmentManager.fragments.filterIsInstance<org.readium.r2.navigator.epub.EpubNavigatorFragment>().single().currentLocator.value.toJSON()
+        }
+        assertNull("Opening and changing layout must not create a reading record", saved(active.book))
         compose.tapReader("epub", .9f)
-        compose.waitUntil(20_000) { active.progress.state.value.accepted != before && saved(active.book) == active.progress.state.value.accepted }
+        compose.waitUntil(20_000) { active.progress.state.value.accepted != null && saved(active.book) == active.progress.state.value.accepted }
         val next = requireNotNull(active.progress.state.value.accepted)
         compose.onNodeWithTag("epub_chrome").assertDoesNotExist()
         compose.tapReader("epub", .1f)
         compose.waitUntil(20_000) { active.progress.state.value.accepted != next && saved(active.book) == active.progress.state.value.accepted }
         val returned = active.progress.state.value.accepted as EpubLocator
         fun progression(locator: EpubLocator) = org.json.JSONObject(locator.payload.locator.toString()).getJSONObject("locations").optDouble("progression", 0.0)
-        assertEquals(before.payload.locator["href"], returned.payload.locator["href"])
-        assertEquals(progression(before), progression(returned), .03)
+        val initial = requireNotNull(before)
+        assertEquals(initial.getString("href"), org.json.JSONObject(returned.payload.locator.toString()).getString("href"))
+        assertTrue("Right tap must advance the rendered page", progression(next as EpubLocator) > initial.getJSONObject("locations").optDouble("progression", 0.0))
+        assertEquals(initial.getJSONObject("locations").optDouble("progression", 0.0), progression(returned), .03)
     }
 
     @Test fun unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy() {
@@ -261,7 +268,7 @@ class EpubReaderFlowTest {
         assertEquals(storedSettings, runBlocking { database.readerSettingsDao().global() })
     }
     /** Fixture-only observations survive cleanup even when the following assertion fails. */
-    private fun recordRestoreObservation(stage: String, expected: EpubLocator?): org.json.JSONObject {
+    private fun recordRestoreObservation(stage: String, expected: EpubLocator?, persist: Boolean = true): org.json.JSONObject {
         val completed = java.util.concurrent.CountDownLatch(1)
         val observation = org.json.JSONObject().put("stage", stage)
             .put("expected", expected?.let { org.json.JSONObject(it.payload.locator.toString()) } ?: org.json.JSONObject.NULL)
@@ -306,6 +313,7 @@ class EpubReaderFlowTest {
             }
         }
         assertTrue("Fixture viewport observation must complete", completed.await(10, java.util.concurrent.TimeUnit.SECONDS))
+        if (!persist) return observation
         val report = File(target.filesDir, observationFileName)
         val observations = if (stage == "search" || !report.exists()) org.json.JSONArray()
             else org.json.JSONArray(report.readText())
@@ -335,6 +343,49 @@ class EpubReaderFlowTest {
         }
         assertEquals("The searched paragraph must be in the visible viewport", "true", visible)
     }
+    private fun recordReflowObservation(stage: String, expected: EpubLocator): org.json.JSONObject {
+        val measured = recordRestoreObservation(stage, expected, persist = false)
+        val viewport = measured.getJSONObject("viewport")
+        val height = viewport.getDouble("scrollHeight")
+        val top = viewport.getDouble("scrollY") + viewport.getJSONObject("target").getDouble("top")
+        val expectedProgress = top.coerceIn(0.0, (height - viewport.getDouble("height")).coerceAtLeast(0.0)) / height
+        val href = org.json.JSONObject(expected.payload.locator.toString()).getString("href")
+        try {
+            compose.waitUntil(10_000) {
+                var settled = false
+                compose.activityRule.scenario.onActivity { activity ->
+                    val wrapper = activity.supportFragmentManager.fragments.filterIsInstance<EpubHostFragment>().single()
+                    val sdk = wrapper.childFragmentManager.fragments.filterIsInstance<org.readium.r2.navigator.epub.EpubNavigatorFragment>().single().currentLocator.value.toJSON()
+                    settled = sdk.getString("href") == href && kotlin.math.abs(sdk.getJSONObject("locations").optDouble("progression", 0.0) - expectedProgress) <= .03
+                }
+                settled
+            }
+        } catch (failure: Throwable) {
+            recordRestoreObservation("$stage-timeout", expected)
+            throw failure
+        }
+        return recordRestoreObservation(stage, expected)
+    }
+
+    private fun assertReflowedSearchAnchor(expected: EpubLocator, observation: org.json.JSONObject) {
+        val stored = org.json.JSONObject(expected.payload.locator.toString())
+        val actual = observation.getJSONObject("actual")
+        val viewport = observation.getJSONObject("viewport")
+        val target = viewport.getJSONObject("target")
+        assertEquals(stored.getString("href"), actual.getString("href"))
+        assertEquals("two 문단 0179", stored.getJSONObject("text").getString("highlight"))
+        // Numeric progression is scrollY / scrollHeight. Font reflow changes scrollHeight;
+        // comparing to its old value confuses geometry with a stable content location.
+        // Independently derive the SDK's target from the same paragraph in the new layout,
+        // including the natural clamp at the end of the chapter. Keep the .03 tolerance.
+        val height = viewport.getDouble("height")
+        val contentHeight = viewport.getDouble("scrollHeight")
+        val absoluteTop = viewport.getDouble("scrollY") + target.getDouble("top")
+        val expectedScroll = absoluteTop.coerceIn(0.0, (contentHeight - height).coerceAtLeast(0.0))
+        assertEquals(expectedScroll / contentHeight, actual.getJSONObject("locations").getDouble("progression"), .03)
+        assertTrue("The entire searched paragraph must remain visible after reflow", target.getDouble("top") >= -1 && target.getDouble("bottom") <= height + 1)
+    }
+
     private fun assertRenderedNear(locator: EpubLocator) {
         val expected = org.json.JSONObject(locator.payload.locator.toString())
         // DOM scrolling and the SDK's debounced currentLocator notification finish separately.

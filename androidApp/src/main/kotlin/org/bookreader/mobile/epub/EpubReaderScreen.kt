@@ -3,6 +3,7 @@ package org.bookreader.mobile.epub
 import android.content.Intent
 import androidx.core.net.toUri
 import androidx.activity.compose.BackHandler
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,7 +34,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current
     val exploration = readerWindowEffects(state.settings.window)
-    var controlsVisible by remember(controller) { mutableStateOf(false) }
+    var controlsVisible by rememberSaveable(controller.book.id) { mutableStateOf(false) }
     val chrome = controlsVisible || exploration
     var menu by remember(controller) { mutableStateOf(false) }
     val seek = remember(controller) { ReaderSeekPreview(controller::seek) }

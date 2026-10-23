@@ -38,6 +38,7 @@ fun AndroidComposeTestRule<*, *>.tapReader(prefix: String, fraction: Float, vert
         event.source = InputDevice.SOURCE_TOUCHSCREEN
         try { assertTrue("Android must accept the reader tap", automation.injectInputEvent(event, true)) }
         finally { event.recycle() }
+        if (action == MotionEvent.ACTION_DOWN) SystemClock.sleep(50)
     }
     waitForIdle()
 }

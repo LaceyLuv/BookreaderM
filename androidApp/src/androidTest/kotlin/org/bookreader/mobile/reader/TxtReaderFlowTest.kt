@@ -1371,23 +1371,31 @@ class TxtReaderFlowTest {
     }
 
     private fun measuredVisibleLine(controller: TxtReaderController): Long {
-        // Measure the actual layout nodes even when a clickable ancestor merges their semantics.
-        val viewport = compose.onNodeWithTag("reader_text", useUnmergedTree = true).fetchSemanticsNode().positionInRoot.y
-        val state = controller.state.value
-        for (index in state.cache.fragments.indices) {
-            val nodes = compose.onAllNodesWithTag("reader_fragment_$index", useUnmergedTree = true).fetchSemanticsNodes()
-            if (nodes.isEmpty()) continue
-            val node = nodes.single()
-            val layouts = mutableListOf<TextLayoutResult>()
-            compose.onNodeWithTag("reader_fragment_$index", useUnmergedTree = true).performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
-                it(layouts)
+        // A larger viewport also exposes prefetched semantics nodes with no measured text yet.
+        // Read bounds and layout actions together on Main; only actual visible layout is evidence.
+        var measured: Long? = null
+        compose.waitUntil(5_000) {
+            val viewportNode = compose.onAllNodesWithTag("reader_text", useUnmergedTree = true).fetchSemanticsNodes().single()
+            val state = controller.state.value
+            val nodes = compose.onAllNodes(androidx.compose.ui.test.SemanticsMatcher("TXT fragment") {
+                it.config.getOrElseNullable(androidx.compose.ui.semantics.SemanticsProperties.TestTag) { null }?.startsWith("reader_fragment_") == true
+            }, useUnmergedTree = true).fetchSemanticsNodes()
+            measured = compose.runOnIdle {
+                val viewport = viewportNode.boundsInRoot
+                nodes.sortedBy { it.positionInRoot.y }.firstNotNullOfOrNull { node ->
+                    if (node.boundsInRoot.height <= 0 || node.boundsInRoot.bottom <= viewport.top || node.boundsInRoot.top >= viewport.bottom)
+                        return@firstNotNullOfOrNull null
+                    val layouts = mutableListOf<TextLayoutResult>()
+                    node.config.getOrElseNullable(SemanticsActions.GetTextLayoutResult) { null }?.action?.invoke(layouts)
+                    val layout = layouts.singleOrNull() ?: return@firstNotNullOfOrNull null
+                    val index = node.config[androidx.compose.ui.semantics.SemanticsProperties.TestTag].removePrefix("reader_fragment_").toInt()
+                    val line = layout.getLineForVerticalPosition((viewport.top - node.positionInRoot.y).coerceAtLeast(0f))
+                    state.cache.fragments[index].start + layout.getLineStart(line)
+                }
             }
-            val layout = layouts.single()
-            if (node.positionInRoot.y + layout.size.height <= viewport) continue
-            val line = layout.getLineForVerticalPosition((viewport - node.positionInRoot.y).coerceAtLeast(0f))
-            return state.cache.fragments[index].start + layout.getLineStart(line)
+            measured != null
         }
-        error("No measured visible TXT fragment")
+        return requireNotNull(measured)
     }
 
     private fun reader(): TxtReaderController {

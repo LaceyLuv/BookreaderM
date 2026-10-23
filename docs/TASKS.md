@@ -1,5 +1,25 @@
 # BookReader Mobile — Codex 작업표
 
+## 몰입형 UI 첫 native 검증 및 후속 (2026-10-23)
+
+`2b24f7d` 원격 build 39941859801: Android 66/shared 74/EPUB 16/실제 ENOSPC 3 PASS.
+Device 39941859677: API26 57 중 5 FAIL, API34 7 FAIL, API36 6 FAIL; host는 모두 NOT_RUN.
+[실패 원본과 전체 사례](evidence/reader-design/ci-2b24f7d/summary.json)를 보존한다.
+신규 TXT 제스처 2개와 기존 TXT 메뉴/seek, Comic 제품 경로는 세 API에서 PASS다.
+
+후속은 오류 상태의 비활성 도구 표시, 화면 설정 변경 중 도구 표시 상태 보존,
+실제 50ms tap 주입, prefetched TXT semantics와 실제 화면의 측정을 구별하는 Main 관측,
+첫 EPUB 이동 전에는 accepted/saved가 null일 수 있다는 저장 금지 계약을 반영한다.
+설정 캡처는 compositor frame까지 기다려 실제 dialog를 기록한다.
+
+EPUB 확대 전후의 raw progression은 scrollY/scrollHeight이므로, 본문 viewport 확대와
+글자 줄바꿈 변경 후 같은 문단을 가리켜도 값이 달라질 수 있다. 저장된 전체 locator 불변과
+같은 레이아웃에서의 기존 `.03` 비교를 유지한다. 폰트 재배치/그 설정으로 재열기에서는
+독립 DOM 문단 위치와 장 끝 clamp로 예상 progression을 계산해 `.03`으로 검사하고,
+기존 일부 표시보다 강한 **검색 문단 전체 표시** 조건을 추가한다. 허용 오차를 넓히지 않는다.
+추가 실행에서 원본/현재 숫자와 DOM을 함께 기록해 이 판단을 확인하며 아직 PASS로 보고하지 않는다.
+
+
 ## 몰입형 독서 화면 개편 (2026-10-23, 검증 진행 중)
 
 사용자가 요청한 디자인/좌우 터치 동작을 서브에이전트 없이 직접 구현한다.

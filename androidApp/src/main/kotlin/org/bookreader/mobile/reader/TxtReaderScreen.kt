@@ -1,6 +1,7 @@
 package org.bookreader.mobile.reader
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
@@ -85,8 +86,8 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     var pageAvailability by remember(controller) { mutableStateOf(false to false) }
     val seek = remember(controller) { ReaderSeekPreview(controller::seekToFraction) }
     val touchExploration = readerWindowEffects(settings.window)
-    var controlsVisible by remember(controller) { mutableStateOf(false) }
-    val showChrome = controlsVisible || touchExploration
+    var controlsVisible by rememberSaveable(controller.book.id) { mutableStateOf(false) }
+    val showChrome = controlsVisible || touchExploration || state.phase == TxtReaderPhase.ERROR
     var showSearch by remember(controller) { mutableStateOf(false) }
     var showBookmarks by remember(controller) { mutableStateOf(false) }
     val toolsState = controller.tools.state.collectAsStateWithLifecycle().value

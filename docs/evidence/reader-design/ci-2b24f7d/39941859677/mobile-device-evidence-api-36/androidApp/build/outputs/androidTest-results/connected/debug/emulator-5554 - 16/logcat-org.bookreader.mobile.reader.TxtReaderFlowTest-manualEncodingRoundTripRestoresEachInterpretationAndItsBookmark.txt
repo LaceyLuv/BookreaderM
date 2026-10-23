@@ -1,0 +1,369 @@
+10-23 11:00:56.228  5120  5147 I TestRunner: started: manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark(org.bookreader.mobile.reader.TxtReaderFlowTest)
+10-23 11:00:56.234  1299  1299 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+10-23 11:00:56.234  1299  1299 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:22)
+10-23 11:00:56.234  1299  1299 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:11)
+10-23 11:00:56.234  1299  1299 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:339)
+10-23 11:00:56.235  1299  1299 D b/311077782: LauncherAnimationRunner.setAnimation
+10-23 11:00:56.237  1299  1299 D WorkspaceRevealAnim: onAnimationEnd: workspace alpha = 1.0
+10-23 11:00:56.295   637   787 I ImeTracker: com.google.android.apps.nexuslauncher:bb31877e: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:00:56.297  5167  5167 D VRI[InstrumentationActivityInvoker$EmptyActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-23 11:00:56.319  5120  5147 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@37e5441]
+10-23 11:00:56.326  5120  5147 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-23 11:00:56.330   637  2122 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@fedd734, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-23 11:00:56.343  1299  1299 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:00:56.343  1299  1299 I ImeTracker: com.google.android.apps.nexuslauncher:bb31877e: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:00:56.355  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:00:56.393  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:00:56.393  1536  1536 W NotificationCenter: NotificationCenter$NotificationQueue.notifyPendingNotificationsOnExecutor():877 Heavy notify work detected on UI thread: [kig->khg, kig->fef, kig->lux, kig->gkl, kig->khc, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ijm, kig->fcb, kig->ilu, kig->fro, kig->ilu, kig->ilu, kig->jvb, kig->imt, kig->ilu, kig->jnx] takes 38ms
+10-23 11:00:56.393  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:00:56.413   637  2694 I ImeTracker: system_server:df7d34b8: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:00:56.429  5167  5167 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@8bbb6c3
+10-23 11:00:56.430  5167  5167 D ViewRootImpl: Skipping stats log for color mode
+10-23 11:00:56.430  1029  1162 D SplashScreenView: Build android.window.SplashScreenView{ece1d8a V.E...... ......ID 0,0-0,0}
+10-23 11:00:56.430  1029  1162 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 11:00:56.430  1029  1162 D SplashScreenView: Branding: view: android.view.View{d7ecffb G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 11:00:56.432  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:00:56.432  1536  1536 W NotificationCenter: NotificationCenter$NotificationQueue.notifyPendingNotificationsOnExecutor():877 Heavy notify work detected on UI thread: [kig->khg, kig->fef, kig->lux, kig->gkl, kig->khc, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ijm, kig->fcb, kig->ilu, kig->fro, kig->ilu, kig->ilu, kig->jvb, kig->imt, kig->ilu, kig->jnx] takes 33ms
+10-23 11:00:56.435   637   686 I ImeTracker: system_server:df7d34b8: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:00:56.437   538   538 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:00:56.470  1299  1299 W SplitSelectStateCtor: Missing session instanceIds
+10-23 11:00:56.470  1299  1299 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+10-23 11:00:56.524   538   646 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:00:56.533   608   654 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:00:56.565  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: PRE_ON_CREATE
+10-23 11:00:56.567  5120  5120 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-23 11:00:56.573  1299  1299 D RecentsView: onTaskRemoved: 87, not handling task stack changes
+10-23 11:00:56.578  1299  1299 D RecentsView: onTaskRemoved: 87, not handling task stack changes
+10-23 11:00:56.665  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: CREATED
+10-23 11:00:56.665  5120  5120 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@f691258
+10-23 11:00:56.666  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: STARTED
+10-23 11:00:56.666  5120  5120 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@f691258
+10-23 11:00:56.669  5120  5120 D AutofillManager: Fill dialog is enabled:false, hints=[]
+10-23 11:00:56.669  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: RESUMED
+10-23 11:00:56.669  5120  5120 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@f691258
+10-23 11:00:56.741  1299  1299 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-23 11:00:56.753  1299  1299 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+10-23 11:00:56.944   637   683 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +612ms
+10-23 11:00:56.955   608   654 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:00:56.972   461   490 I netd    : tetherGetStats() -> {[]} <4.90ms>
+10-23 11:00:56.978  1299  1299 D BaseDepthController: setSurface:
+10-23 11:00:56.978  1299  1299 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+10-23 11:00:56.978  1299  1299 D BaseDepthController: 	mBaseSurface: null
+10-23 11:00:56.979  1299  1299 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+10-23 11:00:56.979  1299  1299 D StateManager: goToState - fromState: Normal, toState: Normal, partial trace:
+10-23 11:00:56.979  1299  1299 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:4)
+10-23 11:00:56.979  1299  1299 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:1)
+10-23 11:00:56.979  1299  1299 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:34)
+10-23 11:00:56.980  1299  1299 D StatsLog: LAUNCHER_ONSTOP
+10-23 11:00:56.983   637   787 I ImeTracker: org.bookreader.mobile:7761caab: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:00:56.984  1299  1299 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+10-23 11:00:56.986  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:00:56.987  5120  5120 I ImeTracker: org.bookreader.mobile:7761caab: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:00:56.989  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:00:56.991  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:00:56.992  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:00:56.993  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:00:56.994   637  2762 I ImeTracker: system_server:88631a7b: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:00:56.996   637   686 I ImeTracker: system_server:88631a7b: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:00:57.060   637  2121 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@fedd734, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-23 11:00:57.065   538   645 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:00:57.070  1029  1162 D SplashScreenView: Build android.window.SplashScreenView{12ded51 V.E...... ......ID 0,0-0,0}
+10-23 11:00:57.070  1029  1162 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 11:00:57.070  1029  1162 D SplashScreenView: Branding: view: android.view.View{c82e9b6 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 11:00:57.072   538   538 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:00:57.074  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: PAUSED
+10-23 11:00:57.074  5120  5120 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@f691258
+10-23 11:00:57.082   608   654 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:00:57.083  5167  5185 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+10-23 11:00:57.084  5167  5185 I EGL_emulation: Opening libGLESv2_emulation.so
+10-23 11:00:57.097  5167  5185 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-23 11:00:57.113   637   748 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@fedd734, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-23 11:00:57.143  5167  5167 W HWUI    : Image decoding logging dropped!
+10-23 11:00:57.145  5167  5167 W HWUI    : Image decoding logging dropped!
+10-23 11:00:57.154  1299  1305 W System  : A resource failed to call release.
+10-23 11:00:57.157  1299  1305 W System  : A resource failed to call release.
+10-23 11:00:57.157  1299  1305 W System  : A resource failed to call release.
+10-23 11:00:57.157  1299  1305 W System  : A resource failed to call release.
+10-23 11:00:57.165  5167  5167 W HWUI    : Image decoding logging dropped!
+10-23 11:00:57.205  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: RESUMED
+10-23 11:00:57.205  5120  5120 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@f691258
+10-23 11:00:57.231  1299  1299 D RecentsView: onTaskRemoved: 89, not handling task stack changes
+10-23 11:00:57.231  1299  1299 D RecentsView: onTaskRemoved: 89, not handling task stack changes
+10-23 11:00:57.233   608   654 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:00:57.242   637   787 I ImeTracker: org.bookreader.mobile:70e96ca9: onRequestHide at ORIGIN_SERVER reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR fromUser false
+10-23 11:00:57.247  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:00:57.248  5120  5120 I ImeTracker: org.bookreader.mobile:70e96ca9: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:00:57.254  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:00:57.258  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:00:57.260  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:00:57.262  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:00:58.265   637   936 D WifiClientModeImpl[42579:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+10-23 11:00:58.265   637   936 D WifiDataStall: tx tput in kbps: 11000
+10-23 11:00:58.265   637   936 D WifiDataStall: rx tput in kbps: 11000
+10-23 11:00:58.266   637   936 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+10-23 11:00:58.266   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:00:58.266   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:00:58.266   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:00:58.266   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:00:58.266   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:00:58.266   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:00:58.266   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:00:58.266   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:00:58.267   637   936 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 8594396 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-23 11:00:58.267   637   936 D WifiScoreCard: txRate: 1 txSpeed: 1
+10-23 11:00:58.267   637   936 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 37585624 RSSI -50 txSpeed -1
+10-23 11:00:58.267   637   936 D WifiClientModeImpl[42579:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3004] from screen [on:0 period:1751895835] score=60
+10-23 11:00:59.076   637   787 I ImeTracker: org.bookreader.mobile:4a50e7de: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:00:59.101  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:00:59.101  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:00:59.102  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:00:59.102   637  2121 I ImeTracker: system_server:3dd6f0b0: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:00:59.102  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:00:59.104   637   686 I ImeTracker: system_server:3dd6f0b0: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:00:59.110  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:00:59.110  5120  5120 I ImeTracker: org.bookreader.mobile:4a50e7de: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:00:59.414  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@f15389a
+10-23 11:00:59.457   637   687 I ImeTracker: system_server:59c2d2a8: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:00:59.458   637   686 I ImeTracker: system_server:59c2d2a8: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:00:59.473   538   564 W TransactionTracing: Could not find layer id 1168
+10-23 11:00:59.496   637   787 I ImeTracker: org.bookreader.mobile:4f14a8db: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:00:59.497  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:00:59.498  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:00:59.499   637   748 I ImeTracker: system_server:f7c2425c: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:00:59.500   637   686 I ImeTracker: system_server:f7c2425c: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:00:59.502  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:00:59.507  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:00:59.507  5120  5120 I ImeTracker: org.bookreader.mobile:4f14a8db: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:00:59.510  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:00:59.611  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@47738ac
+10-23 11:00:59.947   637   787 I ImeTracker: org.bookreader.mobile:5a337afe: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:00:59.948  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:00:59.948  5120  5120 I ImeTracker: org.bookreader.mobile:5a337afe: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:00:59.950  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:00:59.950  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:00:59.951  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:00:59.951   637   748 I ImeTracker: system_server:f161937d: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:00:59.956   637   686 I ImeTracker: system_server:f161937d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:00:59.957  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:01:00.206  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@4f8bfff
+10-23 11:01:00.249   637   702 I WifiService: isFeatureSupported uid=1000 returns [WIFI_FEATURE_INFRA, WIFI_FEATURE_P2P, WIFI_FEATURE_MOBILE_HOTSPOT, WIFI_FEATURE_WPA3_SAE, WIFI_FEATURE_WPA3_SUITE_B, WIFI_FEATURE_OWE, WIFI_FEATURE_DPP, WIFI_FEATURE_AP_RAND_MAC, WIFI_FEATURE_MBO, WIFI_FEATURE_FILS_SHA256, WIFI_FEATURE_FILS_SHA384, WIFI_FEATURE_SAE_PK, WIFI_FEATURE_DPP_ENROLLEE_RESPONDER, WIFI_FEATURE_PASSPOINT_TERMS_AND_CONDITIONS, WIFI_FEATURE_WFD_R2, WIFI_FEATURE_DECORATED_IDENTITY, WIFI_FEATURE_TRUST_ON_FIRST_USE, WIFI_FEATURE_SET_TLS_MINIMUM_VERSION, WIFI_FEATURE_TLS_V1_3, WIFI_FEATURE_WEP, WIFI_FEATURE_WPA_PERSONAL]
+10-23 11:01:00.271   637   687 I ImeTracker: system_server:302591b3: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:00.272   637   686 I ImeTracker: system_server:302591b3: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:00.729   637   787 I ImeTracker: org.bookreader.mobile:7079272e: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:01:00.752   637  2694 I ImeTracker: system_server:452f0e35: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:00.753  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:01:00.753  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:01:00.754  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:01:00.754  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:01:00.755   637   686 I ImeTracker: system_server:452f0e35: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:00.830  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:01:00.830  5120  5120 I ImeTracker: org.bookreader.mobile:7079272e: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:01:01.263  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@7666826
+10-23 11:01:01.276   637   936 D WifiClientModeImpl[42579:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+10-23 11:01:01.276   637   936 D WifiDataStall: tx tput in kbps: 11000
+10-23 11:01:01.276   637   936 D WifiDataStall: rx tput in kbps: 11000
+10-23 11:01:01.276   637   936 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+10-23 11:01:01.276   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:01:01.276   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:01:01.276   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:01:01.276   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:01:01.276   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:01:01.276   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:01:01.276   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:01:01.276   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:01:01.276   637   936 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 8594396 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-23 11:01:01.276   637   936 D WifiScoreCard: txRate: 1 txSpeed: 1
+10-23 11:01:01.276   637   936 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 37585624 RSSI -50 txSpeed -1
+10-23 11:01:01.276   637   936 D WifiClientModeImpl[42579:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3009] from screen [on:0 period:1751898844] score=60
+10-23 11:01:01.318  1279  1279 D wpa_supplicant: nl80211: Drv Event 64 (NL80211_CMD_NOTIFY_CQM) received for wlan0
+10-23 11:01:01.318  1279  1279 D wpa_supplicant: nl80211: Beacon loss event
+10-23 11:01:01.318  1279  1279 D wpa_supplicant: wlan0: Event BEACON_LOSS (53) received
+10-23 11:01:01.318  1279  1279 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-23 11:01:01.325   637   687 I ImeTracker: system_server:60c4b45e: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:01.329   637   686 I ImeTracker: system_server:60c4b45e: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:01.443   637   787 I ImeTracker: org.bookreader.mobile:2fb3c2b4: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:01:01.446  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:01:01.446   637  2694 I ImeTracker: system_server:e4dbaea4: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:01.446  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:01:01.448  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:01:01.448  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:01:01.449   637   686 I ImeTracker: system_server:e4dbaea4: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:01.461  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:01:01.461  5120  5120 I ImeTracker: org.bookreader.mobile:2fb3c2b4: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:01:01.737  1219  1443 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+10-23 11:01:02.914  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@47738ac
+10-23 11:01:03.212   637   787 I ImeTracker: org.bookreader.mobile:ac3456f3: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:01:03.217  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:01:03.222  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:01:03.222  5120  5120 I ImeTracker: org.bookreader.mobile:ac3456f3: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:01:03.228  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:01:03.229  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:01:03.229   637  1376 I ImeTracker: system_server:ab68d51f: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:03.230   637   686 I ImeTracker: system_server:ab68d51f: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:03.234  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:01:03.302  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@77ecc44
+10-23 11:01:03.338   461   490 I netd    : tetherGetStats() -> {[]} <0.33ms>
+10-23 11:01:03.363   637   687 I ImeTracker: system_server:5828dcad: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:03.369   637   686 I ImeTracker: system_server:5828dcad: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:03.751  5120  5125 I okreader.mobile: Background concurrent mark compact GC freed 10MB AllocSpace bytes, 48(1612KB) LOS objects, 49% free, 11MB/22MB, paused 326us,24.990ms total 350.269ms
+10-23 11:01:03.779   637   787 I ImeTracker: org.bookreader.mobile:57f524dc: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:01:03.781   637  2122 I ImeTracker: system_server:5f470a31: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:03.781  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:01:03.783  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:01:03.783  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:01:03.784  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:01:03.787   637   686 I ImeTracker: system_server:5f470a31: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:03.856  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:01:03.856  5120  5120 I ImeTracker: org.bookreader.mobile:57f524dc: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:01:04.105  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@a478cde
+10-23 11:01:04.157   637   687 I ImeTracker: system_server:5f5a3ef8: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:04.157   637   686 I ImeTracker: system_server:5f5a3ef8: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:04.158   637   687 W WindowManager: container Window{5fa3330 u0 org.bookreader.mobile/org.bookreader.mobile.MainActivity}does not have a surface
+10-23 11:01:04.212   637   787 I ImeTracker: org.bookreader.mobile:ad974a3e: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:01:04.214   637  2122 I ImeTracker: system_server:8b83f08d: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:04.214  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:01:04.215  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:01:04.215  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:01:04.215  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:01:04.216   637   686 I ImeTracker: system_server:8b83f08d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:04.247  5120  5120 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:01:04.247  5120  5120 I ImeTracker: org.bookreader.mobile:ad974a3e: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:01:04.283   637   936 D WifiClientModeImpl[42579:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+10-23 11:01:04.284   637   936 D WifiDataStall: tx tput in kbps: 11000
+10-23 11:01:04.285   637   936 D WifiDataStall: rx tput in kbps: 11000
+10-23 11:01:04.285   637   936 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+10-23 11:01:04.285   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:01:04.285   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:01:04.285   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:01:04.285   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:01:04.285   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:01:04.287   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:01:04.287   637   936 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-23 11:01:04.287   637   936 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+10-23 11:01:04.300   637   936 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 8594396 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-23 11:01:04.300   637   936 D WifiScoreCard: txRate: 1 txSpeed: 1
+10-23 11:01:04.300   637   936 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 37585624 RSSI -50 txSpeed -1
+10-23 11:01:04.300   637   936 D WifiClientModeImpl[42579:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3024] from screen [on:0 period:1751901868] score=60
+10-23 11:01:05.360   637   748 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@fedd734, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-23 11:01:05.363   538   646 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:01:05.369  1029  1162 D SplashScreenView: Build android.window.SplashScreenView{aa8a96f V.E...... ......ID 0,0-0,0}
+10-23 11:01:05.369  1029  1162 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 11:01:05.369  1029  1162 D SplashScreenView: Branding: view: android.view.View{84a267c G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 11:01:05.375  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: PAUSED
+10-23 11:01:05.375  5120  5120 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@f691258
+10-23 11:01:05.376   608   654 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:05.386   538   538 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:01:05.393   461   490 I netd    : tetherGetStats() -> {[]} <0.30ms>
+10-23 11:01:05.420  5167  5167 D AutofillManager: Fill dialog is enabled:false, hints=[]
+10-23 11:01:05.477   608   654 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:05.482  5120  5120 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-23 11:01:05.483  5120  5120 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-23 11:01:05.483  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@47738ac
+10-23 11:01:05.631  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: STOPPED
+10-23 11:01:05.637  5120  5120 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@f691258
+10-23 11:01:05.657   538   538 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:01:05.668  1299  1299 D ViewRootImpl: Skipping stats log for color mode
+10-23 11:01:05.681   538   645 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 11:01:05.681  1299  1303 I s.nexuslauncher: NativeAlloc concurrent mark compact GC freed 2473KB AllocSpace bytes, 22(1144KB) LOS objects, 49% free, 6649KB/12MB, paused 546us,567us total 203.945ms
+10-23 11:01:05.682  1299  1299 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=6}
+10-23 11:01:05.703  5120  5125 W okreader.mobile: Suspending all threads took: 5.564ms
+10-23 11:01:05.748  1299  1299 D BaseDepthController: setSurface:
+10-23 11:01:05.748  1299  1299 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+10-23 11:01:05.748  1299  1299 D BaseDepthController: 	mBaseSurface: Surface(name=com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity)/@0x939c20c
+10-23 11:01:05.772  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@8e64b88
+10-23 11:01:05.819  5120  5120 D ViewRootImpl: Skipping stats log for color mode
+10-23 11:01:05.821  1299  1299 D StatsLog: LAUNCHER_ONRESUME
+10-23 11:01:05.860  1299  1299 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+10-23 11:01:05.860  1299  1299 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:22)
+10-23 11:01:05.860  1299  1299 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:11)
+10-23 11:01:05.860  1299  1299 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:339)
+10-23 11:01:05.864  1299  1299 D b/311077782: LauncherAnimationRunner.setAnimation
+10-23 11:01:05.932  1647  1932 I AiAiEcho: Predicting[0]:  [CONTEXT sampling_count=5 ]
+10-23 11:01:05.932  1647  1932 I AiAiEcho: EchoTargets:
+10-23 11:01:05.932  1647  1932 I AiAiEcho: Filtered by AiAi flag check:
+10-23 11:01:05.932  1647  1932 I AiAiEcho: [CONTEXT ratelimit_period="10 SECONDS" ]
+10-23 11:01:05.932  1647  1932 I AiAiEcho: #remoteViewsTwiddler: feature disabled.
+10-23 11:01:05.932  1647  1932 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-23 11:01:05.935  1299  1336 D QuickstepModelDelegate: notifyAppTargetEvent action=1 launchLocation=workspace/0/[-1,-1]/[1,1]
+10-23 11:01:05.939  1299  1299 D WorkspaceRevealAnim: onAnimationEnd: workspace alpha = 1.0
+10-23 11:01:05.959  5120  5120 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@79dd07
+10-23 11:01:05.965  5120  5120 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@f691258 in: DESTROYED
+10-23 11:01:05.965  5120  5120 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 11:01:05.984  5167  5167 D VRI[InstrumentationActivityInvoker$EmptyActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-23 11:01:05.994  1299  1299 D SsBaseTemplateCard: No text view can be set up
+10-23 11:01:05.994  1299  1299 D SsBaseTemplateCard: Passed-in item info is null
+10-23 11:01:05.994  1299  1299 D SsBaseTemplateCard: Passed-in item info is null
+10-23 11:01:05.994  1299  1299 D SsBaseTemplateCard: Passed-in item info is null
+10-23 11:01:05.994  1299  1299 I SsBaseTemplateCard: Secondary card pane is null
+10-23 11:01:06.003   637   787 I ImeTracker: com.google.android.apps.nexuslauncher:20641726: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:01:06.005   637  2755 I ImeTracker: system_server:5f7d931a: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:01:06.005  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:01:06.005  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:01:06.006  1536  1536 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:01:06.006  1536  1536 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.013   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.014   637   686 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.015   637   686 I ImeTracker: system_server:5f7d931a: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:01:06.055  5120  5120 D ViewRootImpl: Skipping stats log for color mode
+10-23 11:01:06.059  5120  5120 I Choreographer: Skipped 34 frames!  The application may be doing too much work on its main thread.
+10-23 11:01:06.094  5167  5167 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@c4f5cef
+10-23 11:01:06.145  1299  1299 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:01:06.149  1299  1299 I ImeTracker: com.google.android.apps.nexuslauncher:20641726: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:01:06.149  1299  1299 D RecentsView: onTaskRemoved: 88, not handling task stack changes
+10-23 11:01:06.149  1299  1299 D RecentsView: onTaskRemoved: 88, not handling task stack changes
+10-23 11:01:06.168   637  2755 W system_server: Long monitor contention with owner binder:637_16 (2125) at void com.android.server.wm.ActivityClientController.activityDestroyed(android.os.IBinder)(ActivityClientController.java:305) waiters=1 in int com.android.server.wm.WindowManagerService$LocalService.getDisplayIdForWindow(android.os.IBinder) for 105ms
+10-23 11:01:06.199  5167  5167 D ViewRootImpl: Skipping stats log for color mode
+10-23 11:01:06.293   608   654 W IPCThreadState: Sending oneway calls to frozen process.
+10-23 11:01:06.402  1299  1299 D RecentsView: onTaskRemoved: 90, not handling task stack changes
+10-23 11:01:06.402  1299  1299 D RecentsView: onTaskRemoved: 90, not handling task stack changes
+10-23 11:01:06.415  5120  5147 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@37e5441]
+10-23 11:01:06.417  5120  5147 I TestRunner: finished: manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark(org.bookreader.mobile.reader.TxtReaderFlowTest)

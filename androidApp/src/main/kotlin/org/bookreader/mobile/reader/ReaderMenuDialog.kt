@@ -35,7 +35,7 @@ fun ReaderMenuDialog(state: TxtReaderState, seek: ReaderSeekPreview, previous: B
             TextButton(onClick = onBookmarks, enabled = state.phase == TxtReaderPhase.READY) { Text("북마크") }
             TextButton(onClick = onSettings) { Text("읽기 설정") }
             TextButton(onClick = onExit, modifier = Modifier.testTag("reader_menu_exit")) { Text("서재로 나가기") }
-            Text("좌우 탭: 이전·다음 · 가운데 탭: 메뉴", Modifier.padding(top = 8.dp))
+            Text("좌우 탭: 이전·다음 · 가운데 탭: 도구", Modifier.padding(top = 8.dp))
         }
     }, confirmButton = { TextButton(onClick = onDismiss, modifier = Modifier.testTag("reader_menu_close")) { Text("닫기 / 이동 취소") } })
 }

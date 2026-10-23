@@ -1,0 +1,40 @@
+10-23 10:57:12.749  5409  5426 I TestRunner: started: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
+10-23 10:57:12.761  2578  2926 I MicroRecognitionRunner: Stopping hotword detection.
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-23 10:57:12.762  2578  2819 W ErrorProcessor: 	... 9 more
+10-23 10:57:12.762  2578  2819 I AudioController: internalShutdown
+10-23 10:57:12.774  1646  4907 I GnssLocationProvider: WakeLock acquired by sendMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@81683aa)
+10-23 10:57:12.778  1646  1665 I GnssLocationProvider: WakeLock released by handleMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@81683aa)
+10-23 10:57:12.791  1402  2028 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+10-23 10:57:12.799  1646  5492 D         : HostConnection::get() New Host Connection established 0x70349e4565e0, tid 5492
+10-23 10:57:12.806  1814  2107 D EGL_emulation: eglMakeCurrent: 0x703490aba5e0: ver 3 0 (tinfo 0x703490ab6a20)
+10-23 10:57:12.808  1646  5492 I OpenGLRenderer: Initialized EGL, version 1.4
+10-23 10:57:12.808  1646  5492 D OpenGLRenderer: Swap behavior 1
+10-23 10:57:12.813  2578  2578 I MicroDetector: Keeping mic open: false
+10-23 10:57:12.813  2578  2578 I MicroDetectionWorker: #onError(false)
+10-23 10:57:12.814  2578  2694 I DeviceStateChecker: DeviceStateChecker cancelled
+10-23 10:57:12.826  1646  5492 D EGL_emulation: eglCreateContext: 0x70349e45d500: maj 3 min 0 rcv 3
+10-23 10:57:12.837  1646  5492 D EGL_emulation: eglMakeCurrent: 0x70349e45d500: ver 3 0 (tinfo 0x70349e4df140)
+10-23 10:57:12.905  1646  1660 I zygote64: NativeAllocBackground concurrent copying GC freed 8635(616KB) AllocSpace objects, 0(0B) LOS objects, 40% free, 8MB/14MB, paused 675us total 224.926ms
+10-23 10:57:12.928  1787  1799 I zygote64: Background concurrent copying GC freed 54446(2MB) AllocSpace objects, 0(0B) LOS objects, 44% free, 7MB/13MB, paused 16.754ms total 149.137ms
+10-23 10:57:12.934  2578  2590 I zygote  : Background concurrent copying GC freed 5705(514KB) AllocSpace objects, 2(696KB) LOS objects, 49% free, 4MB/8MB, paused 19.291ms total 171.044ms
+10-23 10:57:12.941  1787  3367 I zygote64: Deoptimizing boolean caao.c(java.util.Map$Entry) due to JIT inline cache
+10-23 10:57:12.951  5409  5426 I TestRunner: finished: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)

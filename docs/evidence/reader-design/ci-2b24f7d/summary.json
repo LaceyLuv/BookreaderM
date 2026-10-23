@@ -1,0 +1,128 @@
+{
+  "source_sha": "2b24f7dfd7e49cba24a055692eb68e0bc3fa4ddb",
+  "build": {
+    "android-unit": 66,
+    "shared-jvm": 74,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device": {
+    "26": {
+      "tests": 57,
+      "failures": 5,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator",
+          "trace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.assertRenderedNear(EpubReaderFlowTest.kt:342)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator(EpubReaderFlowTest.kt:126)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages",
+          "trace": "java.lang.IllegalArgumentException: Required value was null.\nat org.bookreader.mobile.epub.EpubReaderFlowTest.centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages(EpubReaderFlowTest.kt:212)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.measuredVisibleLine(TxtReaderFlowTest.kt:1385)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors(TxtReaderFlowTest.kt:222)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "nativeProgressQueryFailureShowsRetryWithoutChangingRecords",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader(ReaderControlTestActions.kt:26)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader$default(ReaderControlTestActions.kt:25)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:19)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure$assertPreservedError(TxtReaderFlowTest.kt:533)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure(TxtReaderFlowTest.kt:535)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.nativeProgressQueryFailureShowsRetryWithoutChangingRecords(TxtReaderFlowTest.kt:410)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "malformedLocatorShowsRetryWithoutReplacingStoredRecord",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader(ReaderControlTestActions.kt:26)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader$default(ReaderControlTestActions.kt:25)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:19)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure$assertPreservedError(TxtReaderFlowTest.kt:533)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure(TxtReaderFlowTest.kt:535)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.malformedLocatorShowsRetryWithoutReplacingStoredRecord(TxtReaderFlowTest.kt:414)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "34": {
+      "tests": 57,
+      "failures": 7,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator",
+          "trace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.assertRenderedNear(EpubReaderFlowTest.kt:342)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator(EpubReaderFlowTest.kt:126)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages",
+          "trace": "java.lang.IllegalArgumentException: Required value was null.\nat org.bookreader.mobile.epub.EpubReaderFlowTest.centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages(EpubReaderFlowTest.kt:212)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor",
+          "trace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:20)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor(TxtReaderFlowTest.kt:1192)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.measuredVisibleLine(TxtReaderFlowTest.kt:1385)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors(TxtReaderFlowTest.kt:222)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor",
+          "trace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:20)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor(TxtReaderFlowTest.kt:1012)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "nativeProgressQueryFailureShowsRetryWithoutChangingRecords",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader(ReaderControlTestActions.kt:26)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader$default(ReaderControlTestActions.kt:25)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:19)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure$assertPreservedError(TxtReaderFlowTest.kt:533)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure(TxtReaderFlowTest.kt:535)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.nativeProgressQueryFailureShowsRetryWithoutChangingRecords(TxtReaderFlowTest.kt:410)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "malformedLocatorShowsRetryWithoutReplacingStoredRecord",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader(ReaderControlTestActions.kt:26)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader$default(ReaderControlTestActions.kt:25)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:19)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure$assertPreservedError(TxtReaderFlowTest.kt:533)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure(TxtReaderFlowTest.kt:535)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.malformedLocatorShowsRetryWithoutReplacingStoredRecord(TxtReaderFlowTest.kt:414)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    },
+    "36": {
+      "tests": 57,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator",
+          "trace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.assertRenderedNear(EpubReaderFlowTest.kt:342)\nat org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator(EpubReaderFlowTest.kt:126)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages",
+          "trace": "java.lang.IllegalArgumentException: Required value was null.\nat org.bookreader.mobile.epub.EpubReaderFlowTest.centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages(EpubReaderFlowTest.kt:212)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.measuredVisibleLine(TxtReaderFlowTest.kt:1385)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors(TxtReaderFlowTest.kt:222)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor",
+          "trace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:20)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor(TxtReaderFlowTest.kt:1012)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "nativeProgressQueryFailureShowsRetryWithoutChangingRecords",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader(ReaderControlTestActions.kt:26)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader$default(ReaderControlTestActions.kt:25)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:19)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure$assertPreservedError(TxtReaderFlowTest.kt:533)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure(TxtReaderFlowTest.kt:535)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.nativeProgressQueryFailureShowsRetryWithoutChangingRecords(TxtReaderFlowTest.kt:410)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "malformedLocatorShowsRetryWithoutReplacingStoredRecord",
+          "trace": "java.util.NoSuchElementException: List is empty.\nat kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader(ReaderControlTestActions.kt:26)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.tapReader$default(ReaderControlTestActions.kt:25)\nat org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:19)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure$assertPreservedError(TxtReaderFlowTest.kt:533)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.verifyProgressReadFailure(TxtReaderFlowTest.kt:535)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.malformedLocatorShowsRetryWithoutReplacingStoredRecord(TxtReaderFlowTest.kt:414)\n"
+        }
+      ],
+      "host_status": "NOT_RUN"
+    }
+  }
+}

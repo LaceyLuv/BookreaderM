@@ -12,6 +12,8 @@ internal object ReaderFixtureScreenshot {
         val directory = File(arguments.getString("additionalTestOutputDir")
             ?: File(instrumentation.targetContext.getExternalFilesDir(null), "test-evidence").absolutePath)
         check(directory.isDirectory || directory.mkdirs())
+        instrumentation.waitForIdleSync()
+        android.os.SystemClock.sleep(250) // Wait for the rendered frame, not just Compose semantics.
         val bitmap = checkNotNull(instrumentation.uiAutomation.takeScreenshot())
         try {
             File(directory, name).outputStream().use { output ->

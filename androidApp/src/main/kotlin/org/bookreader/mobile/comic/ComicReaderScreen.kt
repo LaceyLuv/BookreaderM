@@ -1,6 +1,7 @@
 package org.bookreader.mobile.comic
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.rememberScrollState
@@ -51,7 +52,7 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
     val seek = remember(controller) { ReaderSeekPreview(controller::seek) }
     var viewport by remember { mutableStateOf(IntSize.Zero) }
     val exploration = readerWindowEffects(state.settings.window)
-    var controlsVisible by remember(controller) { mutableStateOf(false) }
+    var controlsVisible by rememberSaveable(controller.book.id) { mutableStateOf(false) }
     val chrome = controlsVisible || exploration
     val ready = progress.phase == ArchiveReaderPhase.READY
     BackHandler { when { settings -> settings = false; bookmarks -> bookmarks = false; menu -> menu = false; controlsVisible -> controlsVisible = false; else -> onClose() } }
