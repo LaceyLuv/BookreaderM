@@ -1,0 +1,733 @@
+10-23 11:40:16.701  5342  5358 I TestRunner: started: sdkSearchReturnsFullLocatorAndContainerCannotReadOutsideBook(org.bookreader.mobile.epub.EpubProbeTest)
+10-23 11:40:16.707  5342  5358 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-23 11:40:16.736  5342  5342 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@f1191cc in: PRE_ON_CREATE
+10-23 11:40:16.736  5342  5342 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-23 11:40:16.750  5342  5342 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@f1191cc in: CREATED
+10-23 11:40:16.750  5342  5342 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@f1191cc
+10-23 11:40:16.751  5342  5342 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@f1191cc in: STARTED
+10-23 11:40:16.751  5342  5342 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@f1191cc
+10-23 11:40:16.755  5342  5342 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@f1191cc in: RESUMED
+10-23 11:40:16.755  5342  5342 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@f1191cc
+10-23 11:40:16.756  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:40:16.783  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-23 11:40:16.786  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:40:16.809  2582  2790 D EGL_emulation: eglMakeCurrent: 0xe0685ea0: ver 3 0 (tinfo 0xe06837a0)
+10-23 11:40:16.810  5342  5373 D EGL_emulation: eglMakeCurrent: 0x7615b4e3a860: ver 3 0 (tinfo 0x7615b4e18ca0)
+10-23 11:40:16.812  2532  2643 D EGL_emulation: eglMakeCurrent: 0x7615b23e3ce0: ver 3 0 (tinfo 0x7615a8b1d3a0)
+10-23 11:40:16.842  1650  1684 I ActivityManager: Displayed org.bookreader.mobile/.epub.EpubProbeActivity: +112ms
+10-23 11:40:16.891  2170  5446 I Vision  : Requesting optional module download of ocr.
+10-23 11:40:16.892  2170  5446 I Vision  : Checking for download completion for 381969 -- ocr
+10-23 11:40:16.919  2582  5451 E ContentStoreEUAS: Failed to commit the deferred actions
+10-23 11:40:16.924  1650  5396 I OpenGLRenderer: Initialized EGL, version 1.4
+10-23 11:40:16.924  1650  5396 D OpenGLRenderer: Swap behavior 1
+10-23 11:40:16.925  1650  5396 D EGL_emulation: eglCreateContext: 0x7615a1df8ea0: maj 3 min 0 rcv 3
+10-23 11:40:16.926  1650  5396 D EGL_emulation: eglMakeCurrent: 0x7615a1df8ea0: ver 3 0 (tinfo 0x7615a49d4020)
+10-23 11:40:16.928  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2076672
+10-23 11:40:16.977  2582  2582 W SearchService: Abort, client detached.
+10-23 11:40:17.134  5342  5342 I WebViewFactory: Loading com.android.chrome version 69.0.3497.100 (code 349710067)
+10-23 11:40:17.226  5342  5342 I zygote64: Rejecting re-init on previously-failed class java.lang.Class<uJ>: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/webkit/TracingController;
+10-23 11:40:17.226  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.226  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.226  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.226  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getProviderClass() (WebViewFactory.java:417)
+10-23 11:40:17.226  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebViewFactory.getProvider() (WebViewFactory.java:211)
+10-23 11:40:17.226  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebView.getFactory() (WebView.java:2467)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.webkit.WebView.ensureProviderCreated() (WebView.java:2462)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.webkit.WebView.setOverScrollMode(int) (WebView.java:2527)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context) (View.java:4536)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context, android.util.AttributeSet, int, int) (View.java:4668)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.view.ViewGroup.<init>(android.content.Context, android.util.AttributeSet, int, int) (ViewGroup.java:597)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.widget.AbsoluteLayout.<init>(android.content.Context, android.util.AttributeSet, int, int) (AbsoluteLayout.java:55)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int, java.util.Map, boolean) (WebView.java:636)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int) (WebView.java:581)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int) (WebView.java:564)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet) (WebView.java:551)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2BasicWebView.<init>(android.content.Context, android.util.AttributeSet) (R2BasicWebView.kt:54)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2WebView.<init>(android.content.Context, android.util.AttributeSet) (R2WebView.kt:37)
+10-23 11:40:17.226  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance0(java.lang.Object[]) (Constructor.java:-2)
+10-23 11:40:17.226  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance(java.lang.Object[]) (Constructor.java:334)
+10-23 11:40:17.226  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createView(java.lang.String, java.lang.String, android.util.AttributeSet) (LayoutInflater.java:647)
+10-23 11:40:17.226  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:790)
+10-23 11:40:17.226  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet) (LayoutInflater.java:730)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflate(org.xmlpull.v1.XmlPullParser, android.view.View, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:863)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflateChildren(org.xmlpull.v1.XmlPullParser, android.view.View, android.util.AttributeSet, boolean) (LayoutInflater.java:824)
+10-23 11:40:17.226  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(org.xmlpull.v1.XmlPullParser, android.view.ViewGroup, boolean) (LayoutInflater.java:515)
+10-23 11:40:17.226  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(int, android.view.ViewGroup, boolean) (LayoutInflater.java:423)
+10-23 11:40:17.226  5342  5342 I zygote64:   at org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding.inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean) (ReadiumNavigatorViewpagerFragmentEpubBinding.java:46)
+10-23 11:40:17.226  5342  5342 I zygote64:   at android.view.View org.readium.r2.navigator.pager.R2EpubPageFragment.onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (R2EpubPageFragment.kt:142)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.fragment.app.Fragment.performCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (Fragment.java:3119)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.createView() (FragmentStateManager.java:577)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.moveToExpectedState() (FragmentStateManager.java:286)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.executeOpsTogether(java.util.ArrayList, java.util.ArrayList, int, int) (FragmentManager.java:2214)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(java.util.ArrayList, java.util.ArrayList) (FragmentManager.java:2109)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.execSingleAction(androidx.fragment.app.FragmentManager$OpGenerator, boolean) (FragmentManager.java:2002)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.fragment.app.BackStackRecord.commitNowAllowingStateLoss() (BackStackRecord.java:323)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2FragmentPagerAdapter.finishUpdate(android.view.ViewGroup) (R2FragmentPagerAdapter.kt:115)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.DelegatingPagerAdapter.finishUpdate(android.view.ViewGroup) (DelegatingPagerAdapter.java:68)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate(int) (ViewPager.java:1244)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate() (ViewPager.java:1092)
+10-23 11:40:17.226  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.onMeasure(int, int) (ViewPager.java:1622)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2RTLViewPager.onMeasure(int, int) (R2RTLViewPager.java:227)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout$Measurer.measure(androidx.constraintlayout.core.widgets.ConstraintWidget, androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure) (ConstraintLayout.java:861)
+10-23 11:40:17.227  5342  5342 I zygote64:   at boolean androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measure(androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer, androidx.constraintlayout.core.widgets.ConstraintWidget, int) (BasicMeasure.java:491)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measureChildren(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer) (BasicMeasure.java:140)
+10-23 11:40:17.227  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.solverMeasure(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int, int, int, int, int, int, int) (BasicMeasure.java:285)
+10-23 11:40:17.227  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.measure(int, int, int, int, int, int, int, int, int) (ConstraintWidgetContainer.java:119)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.resolveSystem(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int) (ConstraintLayout.java:1634)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.onMeasure(int, int) (ConstraintLayout.java:1777)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void com.android.internal.policy.DecorView.onMeasure(int, int) (DecorView.java:721)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performMeasure(int, int) (ViewRootImpl.java:2410)
+10-23 11:40:17.227  5342  5342 I zygote64:   at boolean android.view.ViewRootImpl.measureHierarchy(android.view.View, android.view.WindowManager$LayoutParams, android.content.res.Resources, int, int) (ViewRootImpl.java:1498)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performTraversals() (ViewRootImpl.java:1751)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewRootImpl.doTraversal() (ViewRootImpl.java:1386)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewRootImpl$TraversalRunnable.run() (ViewRootImpl.java:6733)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.Choreographer$CallbackRecord.run(long) (Choreographer.java:911)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.Choreographer.doCallbacks(int, long) (Choreographer.java:723)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.Choreographer.doFrame(long, int) (Choreographer.java:658)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.Choreographer$FrameDisplayEventReceiver.run() (Choreographer.java:897)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.os.Handler.handleCallback(android.os.Message) (Handler.java:789)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.os.Handler.dispatchMessage(android.os.Message) (Handler.java:98)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.os.Looper.loop() (Looper.java:164)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.app.ActivityThread.main(java.lang.String[]) (ActivityThread.java:6541)
+10-23 11:40:17.227  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Method.invoke(java.lang.Object, java.lang.Object[]) (Method.java:-2)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void com.android.internal.os.Zygote$MethodAndArgsCaller.run() (Zygote.java:240)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void com.android.internal.os.ZygoteInit.main(java.lang.String[]) (ZygoteInit.java:767)
+10-23 11:40:17.227  5342  5342 I zygote64: Caused by: java.lang.ClassNotFoundException: Didn't find class "android.webkit.TracingController" on path: DexPathList[[zip file "/system/app/Chrome/Chrome.apk"],nativeLibraryDirectories=[/system/app/Chrome/lib/x86_64, /system/app/Chrome/Chrome.apk!/lib/x86_64, /system/lib64, /vendor/lib64, /system/lib64, /vendor/lib64]]
+10-23 11:40:17.227  5342  5342 I zygote64:   at java.lang.Class dalvik.system.BaseDexClassLoader.findClass(java.lang.String) (BaseDexClassLoader.java:93)
+10-23 11:40:17.227  5342  5342 I zygote64:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String, boolean) (ClassLoader.java:379)
+10-23 11:40:17.227  5342  5342 I zygote64:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String) (ClassLoader.java:312)
+10-23 11:40:17.227  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.227  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.227  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.227  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getProviderClass() (WebViewFactory.java:417)
+10-23 11:40:17.227  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebViewFactory.getProvider() (WebViewFactory.java:211)
+10-23 11:40:17.227  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebView.getFactory() (WebView.java:2467)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.webkit.WebView.ensureProviderCreated() (WebView.java:2462)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.webkit.WebView.setOverScrollMode(int) (WebView.java:2527)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context) (View.java:4536)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context, android.util.AttributeSet, int, int) (View.java:4668)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.view.ViewGroup.<init>(android.content.Context, android.util.AttributeSet, int, int) (ViewGroup.java:597)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.widget.AbsoluteLayout.<init>(android.content.Context, android.util.AttributeSet, int, int) (AbsoluteLayout.java:55)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int, java.util.Map, boolean) (WebView.java:636)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int) (WebView.java:581)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int) (WebView.java:564)
+10-23 11:40:17.227  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet) (WebView.java:551)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2BasicWebView.<init>(android.content.Context, android.util.AttributeSet) (R2BasicWebView.kt:54)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2WebView.<init>(android.content.Context, android.util.AttributeSet) (R2WebView.kt:37)
+10-23 11:40:17.228  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance0(java.lang.Object[]) (Constructor.java:-2)
+10-23 11:40:17.228  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance(java.lang.Object[]) (Constructor.java:334)
+10-23 11:40:17.228  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createView(java.lang.String, java.lang.String, android.util.AttributeSet) (LayoutInflater.java:647)
+10-23 11:40:17.228  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:790)
+10-23 11:40:17.228  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet) (LayoutInflater.java:730)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflate(org.xmlpull.v1.XmlPullParser, android.view.View, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:863)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflateChildren(org.xmlpull.v1.XmlPullParser, android.view.View, android.util.AttributeSet, boolean) (LayoutInflater.java:824)
+10-23 11:40:17.228  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(org.xmlpull.v1.XmlPullParser, android.view.ViewGroup, boolean) (LayoutInflater.java:515)
+10-23 11:40:17.228  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(int, android.view.ViewGroup, boolean) (LayoutInflater.java:423)
+10-23 11:40:17.228  5342  5342 I zygote64:   at org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding.inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean) (ReadiumNavigatorViewpagerFragmentEpubBinding.java:46)
+10-23 11:40:17.228  5342  5342 I zygote64:   at android.view.View org.readium.r2.navigator.pager.R2EpubPageFragment.onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (R2EpubPageFragment.kt:142)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.fragment.app.Fragment.performCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (Fragment.java:3119)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.createView() (FragmentStateManager.java:577)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.moveToExpectedState() (FragmentStateManager.java:286)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.executeOpsTogether(java.util.ArrayList, java.util.ArrayList, int, int) (FragmentManager.java:2214)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(java.util.ArrayList, java.util.ArrayList) (FragmentManager.java:2109)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.execSingleAction(androidx.fragment.app.FragmentManager$OpGenerator, boolean) (FragmentManager.java:2002)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.fragment.app.BackStackRecord.commitNowAllowingStateLoss() (BackStackRecord.java:323)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2FragmentPagerAdapter.finishUpdate(android.view.ViewGroup) (R2FragmentPagerAdapter.kt:115)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.DelegatingPagerAdapter.finishUpdate(android.view.ViewGroup) (DelegatingPagerAdapter.java:68)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate(int) (ViewPager.java:1244)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate() (ViewPager.java:1092)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.onMeasure(int, int) (ViewPager.java:1622)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2RTLViewPager.onMeasure(int, int) (R2RTLViewPager.java:227)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout$Measurer.measure(androidx.constraintlayout.core.widgets.ConstraintWidget, androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure) (ConstraintLayout.java:861)
+10-23 11:40:17.228  5342  5342 I zygote64:   at boolean androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measure(androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer, androidx.constraintlayout.core.widgets.ConstraintWidget, int) (BasicMeasure.java:491)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measureChildren(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer) (BasicMeasure.java:140)
+10-23 11:40:17.228  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.solverMeasure(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int, int, int, int, int, int, int) (BasicMeasure.java:285)
+10-23 11:40:17.228  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.measure(int, int, int, int, int, int, int, int, int) (ConstraintWidgetContainer.java:119)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.resolveSystem(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int) (ConstraintLayout.java:1634)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.onMeasure(int, int) (ConstraintLayout.java:1777)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void com.android.internal.policy.DecorView.onMeasure(int, int) (DecorView.java:721)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performMeasure(int, int) (ViewRootImpl.java:2410)
+10-23 11:40:17.228  5342  5342 I zygote64:   at boolean android.view.ViewRootImpl.measureHierarchy(android.view.View, android.view.WindowManager$LayoutParams, android.content.res.Resources, int, int) (ViewRootImpl.java:1498)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performTraversals() (ViewRootImpl.java:1751)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.ViewRootImpl.doTraversal() (ViewRootImpl.java:1386)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.ViewRootImpl$TraversalRunnable.run() (ViewRootImpl.java:6733)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.Choreographer$CallbackRecord.run(long) (Choreographer.java:911)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.Choreographer.doCallbacks(int, long) (Choreographer.java:723)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.Choreographer.doFrame(long, int) (Choreographer.java:658)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.view.Choreographer$FrameDisplayEventReceiver.run() (Choreographer.java:897)
+10-23 11:40:17.228  5342  5342 I zygote64:   at void android.os.Handler.handleCallback(android.os.Message) (Handler.java:789)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.os.Handler.dispatchMessage(android.os.Message) (Handler.java:98)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.os.Looper.loop() (Looper.java:164)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.app.ActivityThread.main(java.lang.String[]) (ActivityThread.java:6541)
+10-23 11:40:17.229  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Method.invoke(java.lang.Object, java.lang.Object[]) (Method.java:-2)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void com.android.internal.os.Zygote$MethodAndArgsCaller.run() (Zygote.java:240)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void com.android.internal.os.ZygoteInit.main(java.lang.String[]) (ZygoteInit.java:767)
+10-23 11:40:17.229  5342  5342 I zygote64:
+10-23 11:40:17.229  5342  5342 I zygote64: Rejecting re-init on previously-failed class java.lang.Class<uJ>: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/webkit/TracingController;
+10-23 11:40:17.229  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.229  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.229  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.229  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getProviderClass() (WebViewFactory.java:417)
+10-23 11:40:17.229  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebViewFactory.getProvider() (WebViewFactory.java:211)
+10-23 11:40:17.229  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebView.getFactory() (WebView.java:2467)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.webkit.WebView.ensureProviderCreated() (WebView.java:2462)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.webkit.WebView.setOverScrollMode(int) (WebView.java:2527)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context) (View.java:4536)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context, android.util.AttributeSet, int, int) (View.java:4668)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.view.ViewGroup.<init>(android.content.Context, android.util.AttributeSet, int, int) (ViewGroup.java:597)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.widget.AbsoluteLayout.<init>(android.content.Context, android.util.AttributeSet, int, int) (AbsoluteLayout.java:55)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int, java.util.Map, boolean) (WebView.java:636)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int) (WebView.java:581)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int) (WebView.java:564)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet) (WebView.java:551)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2BasicWebView.<init>(android.content.Context, android.util.AttributeSet) (R2BasicWebView.kt:54)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2WebView.<init>(android.content.Context, android.util.AttributeSet) (R2WebView.kt:37)
+10-23 11:40:17.229  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance0(java.lang.Object[]) (Constructor.java:-2)
+10-23 11:40:17.229  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance(java.lang.Object[]) (Constructor.java:334)
+10-23 11:40:17.229  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createView(java.lang.String, java.lang.String, android.util.AttributeSet) (LayoutInflater.java:647)
+10-23 11:40:17.229  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:790)
+10-23 11:40:17.229  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet) (LayoutInflater.java:730)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflate(org.xmlpull.v1.XmlPullParser, android.view.View, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:863)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflateChildren(org.xmlpull.v1.XmlPullParser, android.view.View, android.util.AttributeSet, boolean) (LayoutInflater.java:824)
+10-23 11:40:17.229  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(org.xmlpull.v1.XmlPullParser, android.view.ViewGroup, boolean) (LayoutInflater.java:515)
+10-23 11:40:17.229  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(int, android.view.ViewGroup, boolean) (LayoutInflater.java:423)
+10-23 11:40:17.229  5342  5342 I zygote64:   at org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding.inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean) (ReadiumNavigatorViewpagerFragmentEpubBinding.java:46)
+10-23 11:40:17.229  5342  5342 I zygote64:   at android.view.View org.readium.r2.navigator.pager.R2EpubPageFragment.onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (R2EpubPageFragment.kt:142)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void androidx.fragment.app.Fragment.performCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (Fragment.java:3119)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.createView() (FragmentStateManager.java:577)
+10-23 11:40:17.229  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.moveToExpectedState() (FragmentStateManager.java:286)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.executeOpsTogether(java.util.ArrayList, java.util.ArrayList, int, int) (FragmentManager.java:2214)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(java.util.ArrayList, java.util.ArrayList) (FragmentManager.java:2109)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.execSingleAction(androidx.fragment.app.FragmentManager$OpGenerator, boolean) (FragmentManager.java:2002)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.fragment.app.BackStackRecord.commitNowAllowingStateLoss() (BackStackRecord.java:323)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2FragmentPagerAdapter.finishUpdate(android.view.ViewGroup) (R2FragmentPagerAdapter.kt:115)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.DelegatingPagerAdapter.finishUpdate(android.view.ViewGroup) (DelegatingPagerAdapter.java:68)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate(int) (ViewPager.java:1244)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate() (ViewPager.java:1092)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.onMeasure(int, int) (ViewPager.java:1622)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2RTLViewPager.onMeasure(int, int) (R2RTLViewPager.java:227)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout$Measurer.measure(androidx.constraintlayout.core.widgets.ConstraintWidget, androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure) (ConstraintLayout.java:861)
+10-23 11:40:17.230  5342  5342 I zygote64:   at boolean androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measure(androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer, androidx.constraintlayout.core.widgets.ConstraintWidget, int) (BasicMeasure.java:491)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measureChildren(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer) (BasicMeasure.java:140)
+10-23 11:40:17.230  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.solverMeasure(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int, int, int, int, int, int, int) (BasicMeasure.java:285)
+10-23 11:40:17.230  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.measure(int, int, int, int, int, int, int, int, int) (ConstraintWidgetContainer.java:119)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.resolveSystem(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int) (ConstraintLayout.java:1634)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.onMeasure(int, int) (ConstraintLayout.java:1777)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void com.android.internal.policy.DecorView.onMeasure(int, int) (DecorView.java:721)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performMeasure(int, int) (ViewRootImpl.java:2410)
+10-23 11:40:17.230  5342  5342 I zygote64:   at boolean android.view.ViewRootImpl.measureHierarchy(android.view.View, android.view.WindowManager$LayoutParams, android.content.res.Resources, int, int) (ViewRootImpl.java:1498)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performTraversals() (ViewRootImpl.java:1751)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.ViewRootImpl.doTraversal() (ViewRootImpl.java:1386)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.ViewRootImpl$TraversalRunnable.run() (ViewRootImpl.java:6733)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.Choreographer$CallbackRecord.run(long) (Choreographer.java:911)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.Choreographer.doCallbacks(int, long) (Choreographer.java:723)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.Choreographer.doFrame(long, int) (Choreographer.java:658)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.view.Choreographer$FrameDisplayEventReceiver.run() (Choreographer.java:897)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.os.Handler.handleCallback(android.os.Message) (Handler.java:789)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.os.Handler.dispatchMessage(android.os.Message) (Handler.java:98)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.os.Looper.loop() (Looper.java:164)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.app.ActivityThread.main(java.lang.String[]) (ActivityThread.java:6541)
+10-23 11:40:17.230  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Method.invoke(java.lang.Object, java.lang.Object[]) (Method.java:-2)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void com.android.internal.os.Zygote$MethodAndArgsCaller.run() (Zygote.java:240)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void com.android.internal.os.ZygoteInit.main(java.lang.String[]) (ZygoteInit.java:767)
+10-23 11:40:17.230  5342  5342 I zygote64: Caused by: java.lang.ClassNotFoundException: Didn't find class "android.webkit.TracingController" on path: DexPathList[[zip file "/system/app/Chrome/Chrome.apk"],nativeLibraryDirectories=[/system/app/Chrome/lib/x86_64, /system/app/Chrome/Chrome.apk!/lib/x86_64, /system/lib64, /vendor/lib64, /system/lib64, /vendor/lib64]]
+10-23 11:40:17.230  5342  5342 I zygote64:   at java.lang.Class dalvik.system.BaseDexClassLoader.findClass(java.lang.String) (BaseDexClassLoader.java:93)
+10-23 11:40:17.230  5342  5342 I zygote64:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String, boolean) (ClassLoader.java:379)
+10-23 11:40:17.230  5342  5342 I zygote64:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String) (ClassLoader.java:312)
+10-23 11:40:17.230  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.230  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.230  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.230  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getProviderClass() (WebViewFactory.java:417)
+10-23 11:40:17.230  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebViewFactory.getProvider() (WebViewFactory.java:211)
+10-23 11:40:17.230  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebView.getFactory() (WebView.java:2467)
+10-23 11:40:17.230  5342  5342 I zygote64:   at void android.webkit.WebView.ensureProviderCreated() (WebView.java:2462)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.webkit.WebView.setOverScrollMode(int) (WebView.java:2527)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context) (View.java:4536)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context, android.util.AttributeSet, int, int) (View.java:4668)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.ViewGroup.<init>(android.content.Context, android.util.AttributeSet, int, int) (ViewGroup.java:597)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.widget.AbsoluteLayout.<init>(android.content.Context, android.util.AttributeSet, int, int) (AbsoluteLayout.java:55)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int, java.util.Map, boolean) (WebView.java:636)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int) (WebView.java:581)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int) (WebView.java:564)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet) (WebView.java:551)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2BasicWebView.<init>(android.content.Context, android.util.AttributeSet) (R2BasicWebView.kt:54)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2WebView.<init>(android.content.Context, android.util.AttributeSet) (R2WebView.kt:37)
+10-23 11:40:17.231  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance0(java.lang.Object[]) (Constructor.java:-2)
+10-23 11:40:17.231  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance(java.lang.Object[]) (Constructor.java:334)
+10-23 11:40:17.231  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createView(java.lang.String, java.lang.String, android.util.AttributeSet) (LayoutInflater.java:647)
+10-23 11:40:17.231  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:790)
+10-23 11:40:17.231  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet) (LayoutInflater.java:730)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflate(org.xmlpull.v1.XmlPullParser, android.view.View, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:863)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflateChildren(org.xmlpull.v1.XmlPullParser, android.view.View, android.util.AttributeSet, boolean) (LayoutInflater.java:824)
+10-23 11:40:17.231  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(org.xmlpull.v1.XmlPullParser, android.view.ViewGroup, boolean) (LayoutInflater.java:515)
+10-23 11:40:17.231  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(int, android.view.ViewGroup, boolean) (LayoutInflater.java:423)
+10-23 11:40:17.231  5342  5342 I zygote64:   at org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding.inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean) (ReadiumNavigatorViewpagerFragmentEpubBinding.java:46)
+10-23 11:40:17.231  5342  5342 I zygote64:   at android.view.View org.readium.r2.navigator.pager.R2EpubPageFragment.onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (R2EpubPageFragment.kt:142)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.fragment.app.Fragment.performCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (Fragment.java:3119)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.createView() (FragmentStateManager.java:577)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.moveToExpectedState() (FragmentStateManager.java:286)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.executeOpsTogether(java.util.ArrayList, java.util.ArrayList, int, int) (FragmentManager.java:2214)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(java.util.ArrayList, java.util.ArrayList) (FragmentManager.java:2109)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.execSingleAction(androidx.fragment.app.FragmentManager$OpGenerator, boolean) (FragmentManager.java:2002)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.fragment.app.BackStackRecord.commitNowAllowingStateLoss() (BackStackRecord.java:323)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2FragmentPagerAdapter.finishUpdate(android.view.ViewGroup) (R2FragmentPagerAdapter.kt:115)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.DelegatingPagerAdapter.finishUpdate(android.view.ViewGroup) (DelegatingPagerAdapter.java:68)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate(int) (ViewPager.java:1244)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate() (ViewPager.java:1092)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.onMeasure(int, int) (ViewPager.java:1622)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2RTLViewPager.onMeasure(int, int) (R2RTLViewPager.java:227)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout$Measurer.measure(androidx.constraintlayout.core.widgets.ConstraintWidget, androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure) (ConstraintLayout.java:861)
+10-23 11:40:17.231  5342  5342 I zygote64:   at boolean androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measure(androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer, androidx.constraintlayout.core.widgets.ConstraintWidget, int) (BasicMeasure.java:491)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measureChildren(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer) (BasicMeasure.java:140)
+10-23 11:40:17.231  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.solverMeasure(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int, int, int, int, int, int, int) (BasicMeasure.java:285)
+10-23 11:40:17.231  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.measure(int, int, int, int, int, int, int, int, int) (ConstraintWidgetContainer.java:119)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.resolveSystem(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int) (ConstraintLayout.java:1634)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.onMeasure(int, int) (ConstraintLayout.java:1777)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void com.android.internal.policy.DecorView.onMeasure(int, int) (DecorView.java:721)
+10-23 11:40:17.231  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performMeasure(int, int) (ViewRootImpl.java:2410)
+10-23 11:40:17.232  5342  5342 I zygote64:   at boolean android.view.ViewRootImpl.measureHierarchy(android.view.View, android.view.WindowManager$LayoutParams, android.content.res.Resources, int, int) (ViewRootImpl.java:1498)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performTraversals() (ViewRootImpl.java:1751)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.ViewRootImpl.doTraversal() (ViewRootImpl.java:1386)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.ViewRootImpl$TraversalRunnable.run() (ViewRootImpl.java:6733)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.Choreographer$CallbackRecord.run(long) (Choreographer.java:911)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.Choreographer.doCallbacks(int, long) (Choreographer.java:723)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.Choreographer.doFrame(long, int) (Choreographer.java:658)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.Choreographer$FrameDisplayEventReceiver.run() (Choreographer.java:897)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.os.Handler.handleCallback(android.os.Message) (Handler.java:789)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.os.Handler.dispatchMessage(android.os.Message) (Handler.java:98)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.os.Looper.loop() (Looper.java:164)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.app.ActivityThread.main(java.lang.String[]) (ActivityThread.java:6541)
+10-23 11:40:17.232  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Method.invoke(java.lang.Object, java.lang.Object[]) (Method.java:-2)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void com.android.internal.os.Zygote$MethodAndArgsCaller.run() (Zygote.java:240)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void com.android.internal.os.ZygoteInit.main(java.lang.String[]) (ZygoteInit.java:767)
+10-23 11:40:17.232  5342  5342 I zygote64:
+10-23 11:40:17.232  5342  5342 I zygote64: Rejecting re-init on previously-failed class java.lang.Class<uJ>: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/webkit/TracingController;
+10-23 11:40:17.232  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.232  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.232  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.232  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getProviderClass() (WebViewFactory.java:417)
+10-23 11:40:17.232  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebViewFactory.getProvider() (WebViewFactory.java:211)
+10-23 11:40:17.232  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebView.getFactory() (WebView.java:2467)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.webkit.WebView.ensureProviderCreated() (WebView.java:2462)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.webkit.WebView.setOverScrollMode(int) (WebView.java:2527)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context) (View.java:4536)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context, android.util.AttributeSet, int, int) (View.java:4668)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.view.ViewGroup.<init>(android.content.Context, android.util.AttributeSet, int, int) (ViewGroup.java:597)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.widget.AbsoluteLayout.<init>(android.content.Context, android.util.AttributeSet, int, int) (AbsoluteLayout.java:55)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int, java.util.Map, boolean) (WebView.java:636)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int) (WebView.java:581)
+10-23 11:40:17.232  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int) (WebView.java:564)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet) (WebView.java:551)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2BasicWebView.<init>(android.content.Context, android.util.AttributeSet) (R2BasicWebView.kt:54)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2WebView.<init>(android.content.Context, android.util.AttributeSet) (R2WebView.kt:37)
+10-23 11:40:17.233  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance0(java.lang.Object[]) (Constructor.java:-2)
+10-23 11:40:17.233  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance(java.lang.Object[]) (Constructor.java:334)
+10-23 11:40:17.233  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createView(java.lang.String, java.lang.String, android.util.AttributeSet) (LayoutInflater.java:647)
+10-23 11:40:17.233  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:790)
+10-23 11:40:17.233  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet) (LayoutInflater.java:730)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflate(org.xmlpull.v1.XmlPullParser, android.view.View, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:863)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflateChildren(org.xmlpull.v1.XmlPullParser, android.view.View, android.util.AttributeSet, boolean) (LayoutInflater.java:824)
+10-23 11:40:17.233  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(org.xmlpull.v1.XmlPullParser, android.view.ViewGroup, boolean) (LayoutInflater.java:515)
+10-23 11:40:17.233  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(int, android.view.ViewGroup, boolean) (LayoutInflater.java:423)
+10-23 11:40:17.233  5342  5342 I zygote64:   at org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding.inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean) (ReadiumNavigatorViewpagerFragmentEpubBinding.java:46)
+10-23 11:40:17.233  5342  5342 I zygote64:   at android.view.View org.readium.r2.navigator.pager.R2EpubPageFragment.onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (R2EpubPageFragment.kt:142)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.fragment.app.Fragment.performCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (Fragment.java:3119)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.createView() (FragmentStateManager.java:577)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.moveToExpectedState() (FragmentStateManager.java:286)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.executeOpsTogether(java.util.ArrayList, java.util.ArrayList, int, int) (FragmentManager.java:2214)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(java.util.ArrayList, java.util.ArrayList) (FragmentManager.java:2109)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.execSingleAction(androidx.fragment.app.FragmentManager$OpGenerator, boolean) (FragmentManager.java:2002)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.fragment.app.BackStackRecord.commitNowAllowingStateLoss() (BackStackRecord.java:323)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2FragmentPagerAdapter.finishUpdate(android.view.ViewGroup) (R2FragmentPagerAdapter.kt:115)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.DelegatingPagerAdapter.finishUpdate(android.view.ViewGroup) (DelegatingPagerAdapter.java:68)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate(int) (ViewPager.java:1244)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate() (ViewPager.java:1092)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.onMeasure(int, int) (ViewPager.java:1622)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2RTLViewPager.onMeasure(int, int) (R2RTLViewPager.java:227)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout$Measurer.measure(androidx.constraintlayout.core.widgets.ConstraintWidget, androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure) (ConstraintLayout.java:861)
+10-23 11:40:17.233  5342  5342 I zygote64:   at boolean androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measure(androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer, androidx.constraintlayout.core.widgets.ConstraintWidget, int) (BasicMeasure.java:491)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measureChildren(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer) (BasicMeasure.java:140)
+10-23 11:40:17.233  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.solverMeasure(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int, int, int, int, int, int, int) (BasicMeasure.java:285)
+10-23 11:40:17.233  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.measure(int, int, int, int, int, int, int, int, int) (ConstraintWidgetContainer.java:119)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.resolveSystem(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int) (ConstraintLayout.java:1634)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.onMeasure(int, int) (ConstraintLayout.java:1777)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void com.android.internal.policy.DecorView.onMeasure(int, int) (DecorView.java:721)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performMeasure(int, int) (ViewRootImpl.java:2410)
+10-23 11:40:17.233  5342  5342 I zygote64:   at boolean android.view.ViewRootImpl.measureHierarchy(android.view.View, android.view.WindowManager$LayoutParams, android.content.res.Resources, int, int) (ViewRootImpl.java:1498)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performTraversals() (ViewRootImpl.java:1751)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.ViewRootImpl.doTraversal() (ViewRootImpl.java:1386)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.ViewRootImpl$TraversalRunnable.run() (ViewRootImpl.java:6733)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.Choreographer$CallbackRecord.run(long) (Choreographer.java:911)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.Choreographer.doCallbacks(int, long) (Choreographer.java:723)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.Choreographer.doFrame(long, int) (Choreographer.java:658)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.view.Choreographer$FrameDisplayEventReceiver.run() (Choreographer.java:897)
+10-23 11:40:17.233  5342  5342 I zygote64:   at void android.os.Handler.handleCallback(android.os.Message) (Handler.java:789)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.os.Handler.dispatchMessage(android.os.Message) (Handler.java:98)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.os.Looper.loop() (Looper.java:164)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.app.ActivityThread.main(java.lang.String[]) (ActivityThread.java:6541)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Method.invoke(java.lang.Object, java.lang.Object[]) (Method.java:-2)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void com.android.internal.os.Zygote$MethodAndArgsCaller.run() (Zygote.java:240)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void com.android.internal.os.ZygoteInit.main(java.lang.String[]) (ZygoteInit.java:767)
+10-23 11:40:17.234  5342  5342 I zygote64: Caused by: java.lang.ClassNotFoundException: Didn't find class "android.webkit.TracingController" on path: DexPathList[[zip file "/system/app/Chrome/Chrome.apk"],nativeLibraryDirectories=[/system/app/Chrome/lib/x86_64, /system/app/Chrome/Chrome.apk!/lib/x86_64, /system/lib64, /vendor/lib64, /system/lib64, /vendor/lib64]]
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Class dalvik.system.BaseDexClassLoader.findClass(java.lang.String) (BaseDexClassLoader.java:93)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String, boolean) (ClassLoader.java:379)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String) (ClassLoader.java:312)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Class android.webkit.WebViewFactory.getProviderClass() (WebViewFactory.java:417)
+10-23 11:40:17.234  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebViewFactory.getProvider() (WebViewFactory.java:211)
+10-23 11:40:17.234  5342  5342 I zygote64:   at android.webkit.WebViewFactoryProvider android.webkit.WebView.getFactory() (WebView.java:2467)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.webkit.WebView.ensureProviderCreated() (WebView.java:2462)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.webkit.WebView.setOverScrollMode(int) (WebView.java:2527)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context) (View.java:4536)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.view.View.<init>(android.content.Context, android.util.AttributeSet, int, int) (View.java:4668)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.view.ViewGroup.<init>(android.content.Context, android.util.AttributeSet, int, int) (ViewGroup.java:597)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.widget.AbsoluteLayout.<init>(android.content.Context, android.util.AttributeSet, int, int) (AbsoluteLayout.java:55)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int, java.util.Map, boolean) (WebView.java:636)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int, int) (WebView.java:581)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet, int) (WebView.java:564)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.webkit.WebView.<init>(android.content.Context, android.util.AttributeSet) (WebView.java:551)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2BasicWebView.<init>(android.content.Context, android.util.AttributeSet) (R2BasicWebView.kt:54)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void org.readium.r2.navigator.R2WebView.<init>(android.content.Context, android.util.AttributeSet) (R2WebView.kt:37)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance0(java.lang.Object[]) (Constructor.java:-2)
+10-23 11:40:17.234  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Constructor.newInstance(java.lang.Object[]) (Constructor.java:334)
+10-23 11:40:17.234  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createView(java.lang.String, java.lang.String, android.util.AttributeSet) (LayoutInflater.java:647)
+10-23 11:40:17.234  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:790)
+10-23 11:40:17.234  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.createViewFromTag(android.view.View, java.lang.String, android.content.Context, android.util.AttributeSet) (LayoutInflater.java:730)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflate(org.xmlpull.v1.XmlPullParser, android.view.View, android.content.Context, android.util.AttributeSet, boolean) (LayoutInflater.java:863)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.view.LayoutInflater.rInflateChildren(org.xmlpull.v1.XmlPullParser, android.view.View, android.util.AttributeSet, boolean) (LayoutInflater.java:824)
+10-23 11:40:17.234  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(org.xmlpull.v1.XmlPullParser, android.view.ViewGroup, boolean) (LayoutInflater.java:515)
+10-23 11:40:17.234  5342  5342 I zygote64:   at android.view.View android.view.LayoutInflater.inflate(int, android.view.ViewGroup, boolean) (LayoutInflater.java:423)
+10-23 11:40:17.234  5342  5342 I zygote64:   at org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding org.readium.r2.navigator.databinding.ReadiumNavigatorViewpagerFragmentEpubBinding.inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean) (ReadiumNavigatorViewpagerFragmentEpubBinding.java:46)
+10-23 11:40:17.234  5342  5342 I zygote64:   at android.view.View org.readium.r2.navigator.pager.R2EpubPageFragment.onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (R2EpubPageFragment.kt:142)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.fragment.app.Fragment.performCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle) (Fragment.java:3119)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.createView() (FragmentStateManager.java:577)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentStateManager.moveToExpectedState() (FragmentStateManager.java:286)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.executeOpsTogether(java.util.ArrayList, java.util.ArrayList, int, int) (FragmentManager.java:2214)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(java.util.ArrayList, java.util.ArrayList) (FragmentManager.java:2109)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.fragment.app.FragmentManager.execSingleAction(androidx.fragment.app.FragmentManager$OpGenerator, boolean) (FragmentManager.java:2002)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.fragment.app.BackStackRecord.commitNowAllowingStateLoss() (BackStackRecord.java:323)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2FragmentPagerAdapter.finishUpdate(android.view.ViewGroup) (R2FragmentPagerAdapter.kt:115)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.DelegatingPagerAdapter.finishUpdate(android.view.ViewGroup) (DelegatingPagerAdapter.java:68)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate(int) (ViewPager.java:1244)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.populate() (ViewPager.java:1092)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.viewpager.widget.ViewPager.onMeasure(int, int) (ViewPager.java:1622)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void org.readium.r2.navigator.pager.R2RTLViewPager.onMeasure(int, int) (R2RTLViewPager.java:227)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout$Measurer.measure(androidx.constraintlayout.core.widgets.ConstraintWidget, androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure) (ConstraintLayout.java:861)
+10-23 11:40:17.234  5342  5342 I zygote64:   at boolean androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measure(androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer, androidx.constraintlayout.core.widgets.ConstraintWidget, int) (BasicMeasure.java:491)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.measureChildren(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer) (BasicMeasure.java:140)
+10-23 11:40:17.234  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.analyzer.BasicMeasure.solverMeasure(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int, int, int, int, int, int, int) (BasicMeasure.java:285)
+10-23 11:40:17.234  5342  5342 I zygote64:   at long androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.measure(int, int, int, int, int, int, int, int, int) (ConstraintWidgetContainer.java:119)
+10-23 11:40:17.234  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.resolveSystem(androidx.constraintlayout.core.widgets.ConstraintWidgetContainer, int, int, int) (ConstraintLayout.java:1634)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void androidx.constraintlayout.widget.ConstraintLayout.onMeasure(int, int) (ConstraintLayout.java:1777)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.ViewGroup.measureChildWithMargins(android.view.View, int, int, int, int) (ViewGroup.java:6580)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.widget.FrameLayout.onMeasure(int, int) (FrameLayout.java:185)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void com.android.internal.policy.DecorView.onMeasure(int, int) (DecorView.java:721)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.View.measure(int, int) (View.java:22002)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performMeasure(int, int) (ViewRootImpl.java:2410)
+10-23 11:40:17.235  5342  5342 I zygote64:   at boolean android.view.ViewRootImpl.measureHierarchy(android.view.View, android.view.WindowManager$LayoutParams, android.content.res.Resources, int, int) (ViewRootImpl.java:1498)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.ViewRootImpl.performTraversals() (ViewRootImpl.java:1751)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.ViewRootImpl.doTraversal() (ViewRootImpl.java:1386)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.ViewRootImpl$TraversalRunnable.run() (ViewRootImpl.java:6733)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.Choreographer$CallbackRecord.run(long) (Choreographer.java:911)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.Choreographer.doCallbacks(int, long) (Choreographer.java:723)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.Choreographer.doFrame(long, int) (Choreographer.java:658)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.view.Choreographer$FrameDisplayEventReceiver.run() (Choreographer.java:897)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.os.Handler.handleCallback(android.os.Message) (Handler.java:789)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.os.Handler.dispatchMessage(android.os.Message) (Handler.java:98)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.os.Looper.loop() (Looper.java:164)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void android.app.ActivityThread.main(java.lang.String[]) (ActivityThread.java:6541)
+10-23 11:40:17.235  5342  5342 I zygote64:   at java.lang.Object java.lang.reflect.Method.invoke(java.lang.Object, java.lang.Object[]) (Method.java:-2)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void com.android.internal.os.Zygote$MethodAndArgsCaller.run() (Zygote.java:240)
+10-23 11:40:17.235  5342  5342 I zygote64:   at void com.android.internal.os.ZygoteInit.main(java.lang.String[]) (ZygoteInit.java:767)
+10-23 11:40:17.235  5342  5342 I zygote64:
+10-23 11:40:17.258  5342  5342 I cr_LibraryLoader: Time to load native libraries: 8 ms (timestamps 2327-2335)
+10-23 11:40:17.272  5342  5456 E cr_VariationsUtils: Failed reading seed file "/data/user/0/org.bookreader.mobile/app_webview/variations_seed_new": /data/user/0/org.bookreader.mobile/app_webview/variations_seed_new (No such file or directory)
+10-23 11:40:17.272  5342  5456 E cr_VariationsUtils: Failed reading seed file "/data/user/0/org.bookreader.mobile/app_webview/variations_seed": /data/user/0/org.bookreader.mobile/app_webview/variations_seed (No such file or directory)
+10-23 11:40:17.283  5457  5457 W zygote  : Unexpected CPU variant for X86 using defaults: x86_64
+10-23 11:40:17.288  5342  5342 I chromium: [INFO:library_loader_hooks.cc(36)] Chromium logging enabled: level = 0, default verbosity = 0
+10-23 11:40:17.288  5342  5342 I cr_LibraryLoader: Expected native library version number "69.0.3497.100", actual native library version number "69.0.3497.100"
+10-23 11:40:17.300  5342  5471 W cr_ChildProcLH: Create a new ChildConnectionAllocator with package name = com.android.chrome, sandboxed = true
+10-23 11:40:17.305  5342  5342 I cr_BrowserStartup: Initializing chromium process, singleProcess=false
+10-23 11:40:17.308  5342  5342 W ResourceType: Failure getting entry for 0x7f1204b0 (t=17 e=1200) (error -2147483647)
+10-23 11:40:17.321  1650  4067 I Zygote  : Process: zygote socket webview_zygote opened, supported ABIS: x86_64,x86
+10-23 11:40:17.321  1650  4067 D WebViewZygote: Preloading package /system/app/Chrome/Chrome.apk /system/app/Chrome/lib/x86:/system/app/Chrome/Chrome.apk!/lib/x86
+10-23 11:40:17.332  1650  4067 I Zygote  : Process: zygote socket webview_zygote opened, supported ABIS: x86_64,x86
+10-23 11:40:17.332  1853  1853 I WebViewZygoteInit: Beginning package preload
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32: Rejecting re-init on previously-failed class java.lang.Class<uJ>: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/webkit/TracingController;
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.WebViewZygoteInit$WebViewZygoteConnection.handlePreloadPackage(java.lang.String, java.lang.String, java.lang.String) (WebViewZygoteInit.java:92)
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.ZygoteConnection.runOnce(com.android.internal.os.ZygoteServer) (ZygoteConnection.java:179)
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.ZygoteServer.runSelectLoop(java.lang.String) (ZygoteServer.java:164)
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.WebViewZygoteInit.main(java.lang.String[]) (WebViewZygoteInit.java:118)
+10-23 11:40:17.337  1853  1853 I /system/bin/webview_zygote32: Caused by: java.lang.ClassNotFoundException: Didn't find class "android.webkit.TracingController" on path: DexPathList[[zip file "/system/app/Chrome/Chrome.apk"],nativeLibraryDirectories=[/system/app/Chrome/lib/x86, /system/app/Chrome/Chrome.apk!/lib/x86, /system/lib, /vendor/lib]]
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class dalvik.system.BaseDexClassLoader.findClass(java.lang.String) (BaseDexClassLoader.java:93)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String, boolean) (ClassLoader.java:379)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String) (ClassLoader.java:312)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.WebViewZygoteInit$WebViewZygoteConnection.handlePreloadPackage(java.lang.String, java.lang.String, java.lang.String) (WebViewZygoteInit.java:92)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.ZygoteConnection.runOnce(com.android.internal.os.ZygoteServer) (ZygoteConnection.java:179)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.ZygoteServer.runSelectLoop(java.lang.String) (ZygoteServer.java:164)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.WebViewZygoteInit.main(java.lang.String[]) (WebViewZygoteInit.java:118)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32: Rejecting re-init on previously-failed class java.lang.Class<uJ>: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/webkit/TracingController;
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.WebViewZygoteInit$WebViewZygoteConnection.handlePreloadPackage(java.lang.String, java.lang.String, java.lang.String) (WebViewZygoteInit.java:92)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.ZygoteConnection.runOnce(com.android.internal.os.ZygoteServer) (ZygoteConnection.java:179)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.ZygoteServer.runSelectLoop(java.lang.String) (ZygoteServer.java:164)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.WebViewZygoteInit.main(java.lang.String[]) (WebViewZygoteInit.java:118)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32: Caused by: java.lang.ClassNotFoundException: Didn't find class "android.webkit.TracingController" on path: DexPathList[[zip file "/system/app/Chrome/Chrome.apk"],nativeLibraryDirectories=[/system/app/Chrome/lib/x86, /system/app/Chrome/Chrome.apk!/lib/x86, /system/lib, /vendor/lib]]
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class dalvik.system.BaseDexClassLoader.findClass(java.lang.String) (BaseDexClassLoader.java:93)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String, boolean) (ClassLoader.java:379)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String) (ClassLoader.java:312)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.WebViewZygoteInit$WebViewZygoteConnection.handlePreloadPackage(java.lang.String, java.lang.String, java.lang.String) (WebViewZygoteInit.java:92)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.ZygoteConnection.runOnce(com.android.internal.os.ZygoteServer) (ZygoteConnection.java:179)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.ZygoteServer.runSelectLoop(java.lang.String) (ZygoteServer.java:164)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.WebViewZygoteInit.main(java.lang.String[]) (WebViewZygoteInit.java:118)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32: Rejecting re-init on previously-failed class java.lang.Class<uJ>: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/webkit/TracingController;
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.WebViewZygoteInit$WebViewZygoteConnection.handlePreloadPackage(java.lang.String, java.lang.String, java.lang.String) (WebViewZygoteInit.java:92)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.ZygoteConnection.runOnce(com.android.internal.os.ZygoteServer) (ZygoteConnection.java:179)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.ZygoteServer.runSelectLoop(java.lang.String) (ZygoteServer.java:164)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.WebViewZygoteInit.main(java.lang.String[]) (WebViewZygoteInit.java:118)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32: Caused by: java.lang.ClassNotFoundException: Didn't find class "android.webkit.TracingController" on path: DexPathList[[zip file "/system/app/Chrome/Chrome.apk"],nativeLibraryDirectories=[/system/app/Chrome/lib/x86, /system/app/Chrome/Chrome.apk!/lib/x86, /system/lib, /vendor/lib]]
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class dalvik.system.BaseDexClassLoader.findClass(java.lang.String) (BaseDexClassLoader.java:93)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String, boolean) (ClassLoader.java:379)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.ClassLoader.loadClass(java.lang.String) (ClassLoader.java:312)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.classForName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:-2)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class java.lang.Class.forName(java.lang.String, boolean, java.lang.ClassLoader) (Class.java:453)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at java.lang.Class android.webkit.WebViewFactory.getWebViewProviderClass(java.lang.ClassLoader) (WebViewFactory.java:150)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.WebViewZygoteInit$WebViewZygoteConnection.handlePreloadPackage(java.lang.String, java.lang.String, java.lang.String) (WebViewZygoteInit.java:92)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at boolean com.android.internal.os.ZygoteConnection.runOnce(com.android.internal.os.ZygoteServer) (ZygoteConnection.java:179)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.ZygoteServer.runSelectLoop(java.lang.String) (ZygoteServer.java:164)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:   at void com.android.internal.os.WebViewZygoteInit.main(java.lang.String[]) (WebViewZygoteInit.java:118)
+10-23 11:40:17.338  1853  1853 I /system/bin/webview_zygote32:
+10-23 11:40:17.365  1853  1853 I WebViewZygoteInit: Package preload done
+10-23 11:40:17.387  5477  5477 E /system/bin/webview_zygote32: failed to make and chown /acct/uid_99000: Permission denied
+10-23 11:40:17.387  5477  5477 E Zygote  : createProcessGroup(99000, 0) failed: Permission denied
+10-23 11:40:17.387  5477  5477 W /system/bin/webview_zygote32: Unexpected CPU variant for X86 using defaults: x86_64
+10-23 11:40:17.417  5477  5477 I SamplingProfilerIntegration: Profiling disabled.
+10-23 11:40:17.459  5505  5505 E asset   : setgid: Operation not permitted
+10-23 11:40:17.477  5477  5477 I cr_ChildProcessService: Creating new ChildProcessService pid=5477
+10-23 11:40:17.480  5342  5488 W cr_media: Requires BLUETOOTH permission
+10-23 11:40:17.489  5342  5508 D         : HostConnection::get() New Host Connection established 0x7615a48592c0, tid 5508
+10-23 11:40:17.491  5342  5508 D EGL_emulation: eglCreateContext: 0x7615a486a220: maj 3 min 0 rcv 3
+10-23 11:40:17.492  5342  5508 D EGL_emulation: eglMakeCurrent: 0x7615a486a220: ver 3 0 (tinfo 0x7615a4842f80)
+10-23 11:40:17.586  5477  5509 I cr_LibraryLoader: Time to load native libraries: 0 ms (timestamps 2664-2664)
+10-23 11:40:17.599  5457  5489 W acm     : copyMemory is missing from platform - proto runtime falling back to safer methods.
+10-23 11:40:17.602  5477  5509 I chromium: [INFO:library_loader_hooks.cc(36)] Chromium logging enabled: level = 0, default verbosity = 0
+10-23 11:40:17.602  5477  5509 I cr_LibraryLoader: Expected native library version number "69.0.3497.100", actual native library version number "69.0.3497.100"
+10-23 11:40:17.608  5342  5508 I VideoCapabilities: Unsupported profile 4 for video/mp4v-es
+10-23 11:40:17.612  5342  5508 W cr_MediaCodecUtil: HW encoder for video/avc is not available on this device.
+10-23 11:40:17.625  5342  5453 W cr_CrashFileManager: /data/user/0/org.bookreader.mobile/cache/WebView/Crash Reports does not exist or is not a directory
+10-23 11:40:17.907  5342  5508 D EGL_emulation: eglCreateContext: 0x7615a48d0440: maj 3 min 0 rcv 3
+10-23 11:40:17.908  5342  5508 D EGL_emulation: eglMakeCurrent: 0x7615a48d0440: ver 3 0 (tinfo 0x7615a4842f80)
+10-23 11:40:18.141  1390  1408 D hwcomposer: hw_composer sent 142 syncs in 62s
+10-23 11:40:18.288  5342  5342 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-23 11:40:18.288  5342  5342 I chromium: ", source: https://readium/publication/OPS/one.xhtml (0)
+10-23 11:40:18.307  5342  5353 I zygote64: Background concurrent copying GC freed 101190(4MB) AllocSpace objects, 77(1868KB) LOS objects, 49% free, 5MB/10MB, paused 517us total 116.601ms
+10-23 11:40:18.373  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:18.374  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:18.467  5342  5342 I chromium: [INFO:CONSOLE(0)] "Refused to load the image 'https://readium/favicon.ico' because it violates the following Content Security Policy directive: "img-src https://readium/publication/".
+10-23 11:40:18.467  5342  5342 I chromium: ", source: https://readium/publication/OPS/two.xhtml (0)
+10-23 11:40:18.490  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:18.490  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:18.686  2252  2252 I Dialer  : VvmTaskExecutor - Stopping service
+10-23 11:40:18.686  2252  2252 I Dialer  : VvmTaskExecutor - finishing Job
+10-23 11:40:18.686  2252  2252 I Dialer  : TaskSchedulerJobService - finishing job
+10-23 11:40:18.692  2252  2252 I Dialer  : JobFinishedPoller.run - Job finished
+10-23 11:40:18.692  2252  2252 I Dialer  : VvmTaskExecutor - terminated
+10-23 11:40:18.812  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:18.977  5342  5373 I chatty  : uid=10077(u0_a77) RenderThread identical 4 lines
+10-23 11:40:18.984  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:19.056  5342  5347 I zygote64: Do full code cache collection, code=2009KB, data=1585KB
+10-23 11:40:19.058  5342  5347 I zygote64: After code cache collection, code=1945KB, data=1369KB
+10-23 11:40:19.141  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:19.267  5342  5373 I chatty  : uid=10077(u0_a77) RenderThread identical 4 lines
+10-23 11:40:19.267  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:19.321  5342  5342 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@f1191cc in: PAUSED
+10-23 11:40:19.321  5342  5342 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@f1191cc
+10-23 11:40:19.348  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:40:19.377  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-23 11:40:19.382  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:40:19.403  5379  5425 D EGL_emulation: eglMakeCurrent: 0x7615b4e3dea0: ver 3 0 (tinfo 0x7615b4e18700)
+10-23 11:40:19.423  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:19.424  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:19.457  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:40:19.462  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-23 11:40:19.466  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:40:19.486  1399  1399 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-23 11:40:19.487  2582  2790 D EGL_emulation: eglMakeCurrent: 0xe0685ea0: ver 3 0 (tinfo 0xe06837a0)
+10-23 11:40:19.490  5342  5373 D EGL_emulation: eglMakeCurrent: 0x7615b4e3a860: ver 3 0 (tinfo 0x7615b4e18ca0)
+10-23 11:40:19.493  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:40:19.502  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-23 11:40:19.507  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:40:19.512  2582  2582 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-23 11:40:19.524  2532  2643 D EGL_emulation: eglMakeCurrent: 0x7615b23e3ce0: ver 3 0 (tinfo 0x7615a8b1d3a0)
+10-23 11:40:19.545  2582  2582 I MicroDetectionWorker: #updateMicroDetector [detectionMode: [mDetectionMode: [1]]]
+10-23 11:40:19.545  2582  2582 I MicroDetectionWorker: #startMicroDetector [speakerMode: 0]
+10-23 11:40:19.545  2582  2582 I AudioController: Using mInputStreamFactoryBuilder
+10-23 11:40:19.547  2582  2833 I MicroRecognitionRunner: Starting detection.
+10-23 11:40:19.547  2582  2582 I MicroDetectionWorker: onReady
+10-23 11:40:19.549  2582  2718 I MicrophoneInputStream: mic_starting com.google.android.apps.gsa.staticplugins.aa.c@effee89
+10-23 11:40:19.567  1510  5158 E AudioFlinger: not enough memory for AudioTrack size=131296
+10-23 11:40:19.567  1510  5158 D MemoryDealer:   AudioTrack (0xe51fc2d0, size=4194304)
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     0: 0xe51fc2e0 | 0x00000000 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     1: 0xe51fc300 | 0x000200E0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     2: 0xe51fc490 | 0x000401C0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     3: 0xe51fc620 | 0x000602A0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     4: 0xe53191f0 | 0x00080380 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     5: 0xe51fc7f0 | 0x000A0460 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     6: 0xe51fc9c0 | 0x000C0540 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     7: 0xe53193f0 | 0x000E0620 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     8: 0xe5319560 | 0x00100700 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:     9: 0xe5319720 | 0x001207E0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    10: 0xe53198a0 | 0x001408C0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    11: 0xe51fcbe0 | 0x001609A0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    12: 0xe51fcde0 | 0x00180A80 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    13: 0xe51fcf60 | 0x001A0B60 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    14: 0xe427e120 | 0x001C0C40 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    15: 0xe427e270 | 0x001E0D20 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    16: 0xe5319910 | 0x00200E00 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    17: 0xe5319550 | 0x00220EE0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    18: 0xe5319ce0 | 0x00240FC0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:    19: 0xe5319eb0 | 0x002610A0 | 0x000200E0 | A
+10-23 11:40:19.567  1510  5158 D MemoryDealer:
+10-23 11:40:19.568  1510  5158 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+10-23 11:40:19.569  2582  2718 E AudioRecord: AudioFlinger could not create record track, status: -12
+10-23 11:40:19.571  5379  5425 D EGL_emulation: eglMakeCurrent: 0x7615b4e3dea0: ver 3 0 (tinfo 0x7615b4e18700)
+10-23 11:40:19.572  1510  5531 I AudioFlinger: AudioFlinger's thread 0xe1983f80 tid=5531 ready to run
+10-23 11:40:19.573  2582  2718 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+10-23 11:40:19.574  2582  2718 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+10-23 11:40:19.574  2582  2718 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@effee89
+10-23 11:40:19.579  5342  5342 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@f1191cc in: STOPPED
+10-23 11:40:19.579  5342  5342 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.epub.EpubProbeActivity@f1191cc
+10-23 11:40:19.582  2582  2582 I MicroDetectionWorker: onReady
+10-23 11:40:19.607  2582  2718 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@effee89
+10-23 11:40:19.608  2582  2833 I MicroRecognitionRunner: Detection finished
+10-23 11:40:19.608  2582  2833 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-23 11:40:19.623  2582  2846 I MicroRecognitionRunner: Stopping hotword detection.
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-23 11:40:19.624  2582  2833 W ErrorProcessor: 	... 9 more
+10-23 11:40:19.624  2582  2833 I AudioController: internalShutdown
+10-23 11:40:19.626  2582  2582 I MicroDetector: Keeping mic open: false
+10-23 11:40:19.626  2582  2582 I MicroDetectionWorker: #onError(false)
+10-23 11:40:19.626  2582  2834 I DeviceStateChecker: DeviceStateChecker cancelled
+10-23 11:40:19.651  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:19.674  5342  5373 I chatty  : uid=10077(u0_a77) RenderThread identical 2 lines
+10-23 11:40:19.674  5342  5373 E eglCodecCommon: glUtilsParamSize: unknow param 0x000085b5
+10-23 11:40:19.683  5342  5342 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.epub.EpubProbeActivity@f1191cc in: DESTROYED
+10-23 11:40:19.684  5342  5342 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 11:40:19.690  5342  5358 I TestRunner: finished: sdkSearchReturnsFullLocatorAndContainerCannotReadOutsideBook(org.bookreader.mobile.epub.EpubProbeTest)

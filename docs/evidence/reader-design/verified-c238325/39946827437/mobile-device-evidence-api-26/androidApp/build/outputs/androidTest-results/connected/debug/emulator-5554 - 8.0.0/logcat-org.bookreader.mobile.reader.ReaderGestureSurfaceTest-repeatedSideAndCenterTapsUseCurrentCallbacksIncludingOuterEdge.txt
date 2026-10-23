@@ -1,0 +1,73 @@
+10-23 11:41:26.166  5342  5358 I TestRunner: started: repeatedSideAndCenterTapsUseCurrentCallbacksIncludingOuterEdge(org.bookreader.mobile.reader.ReaderGestureSurfaceTest)
+10-23 11:41:26.173  5342  5358 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@8ce5ffe]
+10-23 11:41:26.177  5342  5358 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-23 11:41:26.178  2582  5913 W ErrorProcessor: 	... 9 more
+10-23 11:41:26.178  2582  5913 I AudioController: internalShutdown
+10-23 11:41:26.184  2582  2582 I MicroDetector: Keeping mic open: false
+10-23 11:41:26.184  2582  2582 I MicroDetectionWorker: #onError(false)
+10-23 11:41:26.185  2582  5998 I DeviceStateChecker: DeviceStateChecker cancelled
+10-23 11:41:26.211  5342  5342 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c43a9f3 in: PRE_ON_CREATE
+10-23 11:41:26.211  5342  5342 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-23 11:41:26.217  1650  1661 I zygote64: NativeAllocBackground concurrent copying GC freed 30891(2MB) AllocSpace objects, 10(200KB) LOS objects, 40% free, 8MB/14MB, paused 13.229ms total 94.474ms
+10-23 11:41:26.220  5342  5342 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c43a9f3 in: CREATED
+10-23 11:41:26.221  5342  5342 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@c43a9f3
+10-23 11:41:26.221  5342  5342 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c43a9f3 in: STARTED
+10-23 11:41:26.221  5342  5342 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@c43a9f3
+10-23 11:41:26.223  5342  5342 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c43a9f3 in: RESUMED
+10-23 11:41:26.223  5342  5342 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@c43a9f3
+10-23 11:41:26.312  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.324  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.324  2582  5451 E ContentStoreEUAS: Failed to commit the deferred actions
+10-23 11:41:26.331  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.344  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.358  5342  5373 D EGL_emulation: eglMakeCurrent: 0x7615b4e3a860: ver 3 0 (tinfo 0x7615b4e18ca0)
+10-23 11:41:26.379  1650  1684 I ActivityManager: Displayed org.bookreader.mobile/androidx.activity.ComponentActivity: +171ms
+10-23 11:41:26.388  2532  2643 D EGL_emulation: eglMakeCurrent: 0x7615b23e3ce0: ver 3 0 (tinfo 0x7615a8b1d3a0)
+10-23 11:41:26.388  2582  2790 D EGL_emulation: eglMakeCurrent: 0xe0685ea0: ver 3 0 (tinfo 0xe06837a0)
+10-23 11:41:26.529  2582  2582 W SearchService: Abort, client detached.
+10-23 11:41:26.701  5342  5342 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c43a9f3 in: PAUSED
+10-23 11:41:26.701  5342  5342 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@c43a9f3
+10-23 11:41:26.730  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.760  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-23 11:41:26.761  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.769  5342  5373 D EGL_emulation: eglMakeCurrent: 0x7615b4e3a860: ver 3 0 (tinfo 0x7615b4e18ca0)
+10-23 11:41:26.779  5379  5425 D EGL_emulation: eglMakeCurrent: 0x7615b4e3dea0: ver 3 0 (tinfo 0x7615b4e18700)
+10-23 11:41:26.832  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.835  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-23 11:41:26.837  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.847  1399  1399 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-23 11:41:26.858  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.864  2582  2790 D EGL_emulation: eglMakeCurrent: 0xe0685ea0: ver 3 0 (tinfo 0xe06837a0)
+10-23 11:41:26.868  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.870  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 11:41:26.880  2582  2582 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-23 11:41:26.893  2532  2643 D EGL_emulation: eglMakeCurrent: 0x7615b23e3ce0: ver 3 0 (tinfo 0x7615a8b1d3a0)
+10-23 11:41:26.921  5379  5425 D EGL_emulation: eglMakeCurrent: 0x7615b4e3dea0: ver 3 0 (tinfo 0x7615b4e18700)
+10-23 11:41:26.923  5342  5342 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c43a9f3 in: STOPPED
+10-23 11:41:26.923  5342  5342 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@c43a9f3
+10-23 11:41:26.926  5342  5342 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@c43a9f3 in: DESTROYED
+10-23 11:41:26.926  5342  5342 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 11:41:26.927  5342  5358 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@8ce5ffe]
+10-23 11:41:26.931  2582  2582 I MicroDetectionWorker: #updateMicroDetector [detectionMode: [mDetectionMode: [1]]]
+10-23 11:41:26.931  2582  2582 I MicroDetectionWorker: #startMicroDetector [speakerMode: 0]
+10-23 11:41:26.932  2582  2582 I AudioController: Using mInputStreamFactoryBuilder
+10-23 11:41:26.936  5342  5358 I TestRunner: finished: repeatedSideAndCenterTapsUseCurrentCallbacksIncludingOuterEdge(org.bookreader.mobile.reader.ReaderGestureSurfaceTest)

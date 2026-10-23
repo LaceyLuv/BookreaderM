@@ -1,5 +1,22 @@
 # BookReader Mobile — Codex 작업표
 
+## 2026-10-23 완료: 독서 화면 개편·전체 회귀 PASS·main 반영
+
+제품/테스트 기준 소스는 `c2383259eb1c15794e4c1f6ecfdbb198c6c6f968`이다.
+중앙 탭으로 도구 표시/숨김, 방향에 맞는 좌우 이동, 남색 설정/도구와 본문 색상 구분,
+키보드 전환 중 본문 크기 보존을 완료했다. main에 이력을 보존해 반영했다.
+후속 문서/증거 commit은 이 소스의 구현을 변경하지 않는다.
+
+- Build [39946827381](https://github.com/LaceyLuv/BookreaderM/actions/runs/39946827381): Android 66/shared 74/EPUB 16/실제 ENOSPC 3 PASS.
+- Device [39946827437](https://github.com/LaceyLuv/BookreaderM/actions/runs/39946827437): API26/34/36 각각 native 57 + TXT/EPUB/Comic host 6 PASS. 누락·실패·오류·skip 0.
+- 각 host force-stop 후 PID 소멸과 새 PID, 원본 XML/필수 사례, artifact ZIP digest, 동일 source SHA를 대조했다.
+- 기존 개발용 서명키를 보존한 **0.3.0 설치 APK** 생성·v2/v3 서명·정적 감사 PASS. [설치 안내](INSTALLABLE_APK.md).
+- [최종 디자인·화면·범위](READER_DESIGN_2026-10-23.md), [전체 원본](evidence/reader-design/verified-c238325/summary.json), [패키지 원본](evidence/reader-design/verified-c238325/package/summary.json).
+
+실기기 설치·성능·TalkBack 수동 검증·16KB OS·정식 배포/승인은 NOT_RUN이다.
+후속 작업은 실제 기기와 해당 검증 조건을 확보한 뒤 진행한다. 기존 앱/책/진행도/서명키를 보존한다.
+아래 검증 대기·실패 기록은 각 시점의 이력이며 최종 상태는 이 절을 따른다.
+
 ## 키보드 전환과 본문 viewport 분리 (2026-10-23)
 
 `9f99b2c` build 39944478518 PASS. Device 39944478507: API36 native 57 + host 6 PASS,

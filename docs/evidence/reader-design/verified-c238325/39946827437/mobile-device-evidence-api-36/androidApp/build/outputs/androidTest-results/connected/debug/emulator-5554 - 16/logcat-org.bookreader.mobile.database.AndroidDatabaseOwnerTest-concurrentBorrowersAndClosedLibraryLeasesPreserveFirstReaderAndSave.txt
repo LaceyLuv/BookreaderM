@@ -1,0 +1,52 @@
+10-23 11:39:29.918  5191  5205 I TestRunner: started: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
+10-23 11:39:29.965   649   791 I ImeTracker: com.google.android.apps.nexuslauncher:c925df08: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-23 11:39:29.965   649  1018 W system_server: Long monitor contention with owner android.anim (697) at void com.android.server.wm.WindowAnimator.lambda$new$1(long)(WindowAnimator.java:118) waiters=0 in android.app.ActivityTaskManager$RootTaskInfo com.android.server.wm.ActivityTaskManagerService.getRootTaskInfo(int, int) for 155ms
+10-23 11:39:29.968   649  1966 W system_server: Long monitor contention with owner android.anim (697) at void com.android.server.wm.WindowAnimator.lambda$new$1(long)(WindowAnimator.java:118) waiters=3 in android.app.ActivityTaskManager$RootTaskInfo com.android.server.wm.ActivityTaskManagerService.getFocusedRootTaskInfo() for 137ms
+10-23 11:39:29.981  1599  1599 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-23 11:39:29.985  5227  5227 D VRI[InstrumentationActivityInvoker$EmptyActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-23 11:39:29.990  1599  1599 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-23 11:39:29.990  1599  1599 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-23 11:39:29.994   649  1950 I ImeTracker: system_server:b1468760: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-23 11:39:29.998  1599  1599 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at asx.p(PG:6)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at axb.b(PG:13)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at nco.v(PG:13)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-23 11:39:29.998  1599  1599 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-23 11:39:30.009  2770  2923 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+10-23 11:39:30.072  5227  5231 I der.mobile.test: Compiler allocated 5042KB to compile void android.view.ViewRootImpl.performTraversals()
+10-23 11:39:30.105   649   696 I ImeTracker: system_server:b1468760: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 11:39:30.107  5227  5227 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@af57a37
+10-23 11:39:30.152  1313  1313 D SsBaseTemplateCard: No text view can be set up
+10-23 11:39:30.153  1313  1313 D SsBaseTemplateCard: Passed-in item info is null
+10-23 11:39:30.153  1313  1313 D SsBaseTemplateCard: Passed-in item info is null
+10-23 11:39:30.153  1313  1313 D SsBaseTemplateCard: Passed-in item info is null
+10-23 11:39:30.153  1313  1313 I SsBaseTemplateCard: Secondary card pane is null
+10-23 11:39:30.153  1313  1313 D InsetsController: hide(ime(), fromIme=false)
+10-23 11:39:30.153  1313  1313 I ImeTracker: com.google.android.apps.nexuslauncher:c925df08: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-23 11:39:30.188  5227  5227 D ViewRootImpl: Skipping stats log for color mode
+10-23 11:39:30.284  1313  1313 D RecentsView: onTaskRemoved: 10, not handling task stack changes
+10-23 11:39:30.284  1313  1313 D RecentsView: onTaskRemoved: 10, not handling task stack changes
+10-23 11:39:30.477  5191  5205 I TestRunner: finished: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
