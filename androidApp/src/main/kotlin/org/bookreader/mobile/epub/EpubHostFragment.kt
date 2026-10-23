@@ -13,6 +13,10 @@ import org.bookreader.mobile.ui.AppViewModel
 import org.readium.r2.navigator.epub.EpubNavigatorFactory
 import org.readium.r2.navigator.epub.EpubNavigatorFragment
 import org.readium.r2.navigator.HyperlinkNavigator
+import org.readium.r2.navigator.input.InputListener
+import org.readium.r2.navigator.input.TapEvent
+import org.readium.r2.navigator.preferences.ReadingProgression
+import org.bookreader.mobile.reader.ArchiveReaderPhase
 import org.readium.r2.shared.ExperimentalReadiumApi
 import org.readium.r2.shared.publication.Link
 import org.readium.r2.shared.publication.Locator
@@ -23,10 +27,29 @@ import org.readium.r2.shared.util.data.ReadError
 /** Default-constructible wrapper installs the stable SDK factory before child restoration. */
 @OptIn(ExperimentalReadiumApi::class)
 class EpubHostFragment : Fragment() {
+    var onCenterTap: () -> Unit = {}
+    var touchExploration = false
     private var controller: EpubReaderController? = null
     private var navigator: EpubNavigatorFragment? = null
     private var token = 0
     private var lastRendered: Locator? = null
+    private val inputListener = object : InputListener {
+        override fun onTap(event: TapEvent): Boolean {
+            val owner = controller ?: return false
+            val host = navigator ?: return false
+            if (touchExploration || owner.progress.state.value.phase != ArchiveReaderPhase.READY) return false
+            val width = host.publicationView.width.coerceAtLeast(1)
+            val fraction = event.point.x / width
+            // Readium dispatches this only after links, selection and publication handlers.
+            // Physical left/right follow the publication's reading direction, including RTL.
+            if (fraction < .25f || fraction > .75f) {
+                val right = fraction > .75f
+                val forward = right == (host.overflow.value.readingProgression == ReadingProgression.LTR)
+                owner.next(if (forward) 1 else -1)
+            } else onCenterTap()
+            return true
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         val current = ViewModelProvider(requireActivity())[AppViewModel::class.java].state.value.epubReader
         controller = current
@@ -70,6 +93,7 @@ class EpubHostFragment : Fragment() {
         val fragment = existing ?: childFragmentManager.fragmentFactory.instantiate(
             requireContext().classLoader, EpubNavigatorFragment::class.java.name) as EpubNavigatorFragment
         navigator = fragment
+        fragment.addInputListener(inputListener)
         token = owner.attach(fragment) {
             if (!childFragmentManager.isDestroyed) childFragmentManager.beginTransaction().remove(fragment).commitNowAllowingStateLoss()
         }
@@ -77,7 +101,8 @@ class EpubHostFragment : Fragment() {
         if (existing == null) childFragmentManager.beginTransaction().replace(R.id.epub_product_navigator, fragment, "epub-navigator").commitNow()
     }
     override fun onDestroyView() {
-        navigator?.let { controller?.detach(it) }
+        navigator?.let { it.removeInputListener(inputListener); controller?.detach(it) }
+        onCenterTap = {}
         navigator = null
         super.onDestroyView()
     }

@@ -172,7 +172,11 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         } catch (_: Exception) { fail("독서 위치를 복원하지 못했습니다. 기존 기록은 보존됩니다.") }
     }
     fun armMovement() { if (progress.state.value.phase == ArchiveReaderPhase.READY) { userMovement = true; jumpTarget = null; pendingJump = null } }
-    fun next(direction: Int) { armMovement(); if (direction > 0) host?.goForward(animated = false) else host?.goBackward(animated = false) }
+    fun next(direction: Int) {
+        if (progress.state.value.phase != ArchiveReaderPhase.READY) return
+        armMovement()
+        if (direction > 0) host?.goForward(animated = true) else host?.goBackward(animated = true)
+    }
     fun seek(fraction: Float) {
         if (!fraction.isFinite() || progress.state.value.phase != ArchiveReaderPhase.READY) return
         val opened = publication ?: return

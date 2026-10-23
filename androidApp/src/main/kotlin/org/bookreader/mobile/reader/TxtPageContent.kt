@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
@@ -18,7 +17,6 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.launch
 
 /** Style includes font/size/line/letter/locale/break/hyphenation/font-padding policy. */
 private data class TxtPageLayoutKey(
@@ -32,7 +30,7 @@ data class PageStepRequest(val id: Long = 0, val direction: Int = 0)
 
 @Composable
 fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style: TextStyle,
-    modifier: Modifier = Modifier, step: PageStepRequest = PageStepRequest(), showControls: Boolean = true,
+    modifier: Modifier = Modifier, step: PageStepRequest = PageStepRequest(),
     onAvailability: (Boolean, Boolean) -> Unit = { _, _ -> }) {
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
@@ -40,7 +38,6 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     val insets = WindowInsets.safeDrawing
     val direction = androidx.compose.ui.platform.LocalLayoutDirection.current
     val measurer = rememberTextMeasurer(cacheSize = 4)
-    val scope = rememberCoroutineScope()
     var size by remember(controller) { mutableStateOf(IntSize.Zero) }
     val key = TxtPageLayoutKey(requireNotNull(controller.book.currentRevision), style = style,
         resolvedFont = font, density = density.density, fontScale = density.fontScale, viewport = size,
@@ -96,25 +93,6 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
                         else controller.restoreFailed()
                     }) }
             }
-        }
-        if (showControls) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextButton(enabled = state.phase == TxtReaderPhase.READY && (page?.range?.start ?: 0) > 0,
-                modifier = Modifier.testTag("reader_previous"), onClick = {
-                    val current = page ?: return@TextButton
-                    scope.launch {
-                        try {
-                            val previous = engine?.previous(current.range.start) ?: return@launch
-                            if (controller.state.value.restoreGeneration == generation)
-                                controller.navigateTo(previous.range.start)
-                        } catch (cancelled: CancellationException) { throw cancelled }
-                        catch (_: Exception) { controller.contentReadFailed() }
-                    }
-                }) { Text("이전") }
-            TextButton(enabled = state.phase == TxtReaderPhase.READY && page != null &&
-                requireNotNull(page).range.end < state.cache.committedLength,
-                modifier = Modifier.testTag("reader_next"), onClick = {
-                    page?.let { controller.navigateTo(it.range.end) }
-                }) { Text("다음") }
         }
     }
 }

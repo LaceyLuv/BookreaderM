@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,10 +43,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.LineBreak
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.em
 import org.bookreader.mobile.settings.ReaderFont
-import org.bookreader.mobile.settings.ReaderTheme
 import org.bookreader.mobile.settings.TxtReadingMode
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -74,14 +71,8 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     var viewport by remember(controller) { mutableStateOf(IntSize.Zero) }
     val density = LocalDensity.current
     val settings = state.settings
-    val foreground = when (settings.theme) {
-        ReaderTheme.LIGHT, ReaderTheme.SEPIA -> Color(0xFF202020)
-        ReaderTheme.DARK, ReaderTheme.OLED -> Color(0xFFE8E8E8)
-    }
-    val background = when (settings.theme) {
-        ReaderTheme.LIGHT -> Color(0xFFFFFDF8); ReaderTheme.SEPIA -> Color(0xFFF1E5CA)
-        ReaderTheme.DARK -> Color(0xFF222222); ReaderTheme.OLED -> Color.Black
-    }
+    val foreground = settings.theme.inkColor()
+    val background = settings.theme.paperColor()
     val typography = MaterialTheme.typography.bodyLarge.copy(
         color = foreground, fontFamily = if (settings.font == ReaderFont.SANS) FontFamily.SansSerif else FontFamily.Serif,
         fontSize = settings.fontSizeSp.sp, lineHeight = (settings.fontSizeSp * settings.lineHeight).sp,
@@ -94,7 +85,8 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     var pageAvailability by remember(controller) { mutableStateOf(false to false) }
     val seek = remember(controller) { ReaderSeekPreview(controller::seekToFraction) }
     val touchExploration = readerWindowEffects(settings.window)
-    val showChrome = !settings.window.fullscreen || touchExploration
+    var controlsVisible by remember(controller) { mutableStateOf(false) }
+    val showChrome = controlsVisible || touchExploration
     var showSearch by remember(controller) { mutableStateOf(false) }
     var showBookmarks by remember(controller) { mutableStateOf(false) }
     val toolsState = controller.tools.state.collectAsStateWithLifecycle().value
@@ -115,6 +107,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     }
     BackHandler {
         if (showMenu || seek.fraction != null) { seek.cancel(); showMenu = false }
+        else if (controlsVisible) controlsVisible = false
         else onClose()
     }
     DisposableEffect(controller, lifecycle) {
@@ -181,36 +174,26 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         }
     }
 
-    Column(Modifier.fillMaxSize().testTag("txt_reader")) {
-        if (showChrome) Column(Modifier.fillMaxWidth().padding(horizontal = 8.dp)) {
-            Text(controller.book.title, Modifier.fillMaxWidth(), maxLines = 1,
-                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.titleMedium)
-            FlowRow(Modifier.fillMaxWidth()) {
-            TextButton(onClick = onClose, modifier = Modifier.testTag("reader_back")) { Text("서재") }
-            TextButton(onClick = { showSettings = true }, modifier = Modifier.testTag("reader_settings")) { Text("설정") }
-            TextButton(onClick = { showMenu = true }, modifier = Modifier.testTag("reader_menu")) { Text("메뉴") }
-            }
-        }
+    Box(Modifier.fillMaxSize().background(background).testTag("txt_reader")) {
         if (state.phase == TxtReaderPhase.ERROR) {
-            Column(Modifier.weight(1f).fillMaxWidth().padding(24.dp),
+            Column(Modifier.fillMaxSize().padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
-                Text(state.error.orEmpty(), modifier = Modifier.testTag("reader_error"))
+                Text(state.error.orEmpty(), modifier = Modifier.testTag("reader_error"), color = foreground)
                 Button(onClick = controller::retry, modifier = Modifier.testTag("reader_retry")) { Text("다시 시도") }
             }
         } else {
-            Box(Modifier.weight(1f).fillMaxWidth().readerGestures(
+            Box(Modifier.fillMaxSize().readerGestures(
                 enabled = state.phase == TxtReaderPhase.READY && !touchExploration, pageMode = !scrollMode,
                 onTap = { fraction -> when {
                     fraction < .25f -> move(-1)
                     fraction > .75f -> move(1)
-                    else -> showMenu = true
+                    else -> controlsVisible = !controlsVisible
                 } }, onDoubleTap = { showMenu = !showMenu }, onPage = ::move).testTag(
                 if (state.phase == TxtReaderPhase.READY) "reader_ready" else "reader_content")) {
                 if (!scrollMode) TxtPageContent(controller, state, typography,
                     Modifier.fillMaxSize().background(background).padding(horizontal = settings.marginDp.dp, vertical = 12.dp),
-                    step = pageStep, showControls = showChrome, onAvailability = { previous, next -> pageAvailability = previous to next })
+                    step = pageStep, onAvailability = { previous, next -> pageAvailability = previous to next })
                 else LazyColumn(state = list, userScrollEnabled = state.phase == TxtReaderPhase.READY,
                     contentPadding = PaddingValues(horizontal = settings.marginDp.dp, vertical = 12.dp),
                     modifier = Modifier.fillMaxSize().testTag("reader_text")
@@ -237,34 +220,39 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                         }
                     }
                 }
-                if (!showChrome) TextButton(onClick = { showMenu = true },
-                    modifier = Modifier.align(Alignment.TopEnd).testTag("reader_menu")) { Text("메뉴") }
                 if (state.phase != TxtReaderPhase.READY) {
                     Column(Modifier.align(Alignment.Center).padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
                         CircularProgressIndicator()
                         Text(if (state.targetOffset > state.cache.committedLength)
-                            "저장된 위치까지 본문을 준비하는 중" else "독서 위치를 복원하는 중")
+                            "저장된 위치까지 본문을 준비하는 중" else "독서 위치를 복원하는 중", color = foreground)
                     }
                 }
             }
         }
+        if (!showChrome && state.phase != TxtReaderPhase.READY) ReaderLoadingExit("reader", onClose, Modifier.align(Alignment.TopStart))
         val offset = state.stableOffset ?: state.targetOffset
-        if (showChrome) FlowRow(Modifier.fillMaxWidth()) {
-            TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showSearch = true },
-                modifier = Modifier.testTag("reader_search")) { Text("본문 검색") }
-            TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showBookmarks = true },
-                modifier = Modifier.testTag("reader_bookmarks")) { Text("북마크") }
-            if (toolsState.returnOffset != null) TextButton(enabled = state.phase == TxtReaderPhase.READY,
-                onClick = controller.tools::returnFromSearch, modifier = Modifier.testTag("reader_search_return")) { Text("검색 전 위치") }
+        if (showChrome) ReaderChrome(controller.book.title, if (scrollMode) "TXT · 스크롤" else "TXT · 페이지", "reader",
+            if (state.cache.complete) "${(offset * 100.0 / state.cache.committedLength.coerceAtLeast(1)).toInt()}%" else "본문 준비 중",
+            onClose, { controlsVisible = false }, !touchExploration,
+            previous = if (scrollMode) list.canScrollBackward && state.phase == TxtReaderPhase.READY else pageAvailability.first,
+            next = if (scrollMode) list.canScrollForward && state.phase == TxtReaderPhase.READY else pageAvailability.second,
+            onPrevious = { move(-1) }, onNext = { move(1) }) {
+            FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                TextButton(onClick = { showSettings = true }, modifier = Modifier.testTag("reader_settings")) { Text("글자·화면") }
+                TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showSearch = true }, modifier = Modifier.testTag("reader_search")) { Text("검색") }
+                TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showBookmarks = true }, modifier = Modifier.testTag("reader_bookmarks")) { Text("북마크") }
+                TextButton(onClick = { showMenu = true }, modifier = Modifier.testTag("reader_menu")) { Text("위치 이동") }
+                if (toolsState.returnOffset != null) TextButton(enabled = state.phase == TxtReaderPhase.READY,
+                    onClick = controller.tools::returnFromSearch, modifier = Modifier.testTag("reader_search_return")) { Text("검색 전 위치") }
+            }
         }
-        if (showChrome) Text(if (state.cache.complete) "${(offset * 100.0 / state.cache.committedLength).toInt()}%"
-            else "본문 준비 중",
-            Modifier.padding(12.dp).testTag("reader_progress"))
-        if (state.saveError) Text("진행도를 저장하지 못했습니다. 다시 시도합니다.",
-            Modifier.padding(8.dp).testTag("reader_save_error"))
-        if (state.settingsError) Text("읽기 설정 오류: 기존 설정은 보존됩니다. 설정에서 다시 읽어 주세요.",
-            Modifier.padding(8.dp).testTag("reader_settings_error"))
+        Column(Modifier.align(Alignment.Center).padding(16.dp)) {
+            if (state.saveError) Text("진행도를 저장하지 못했습니다. 다시 시도합니다.",
+                Modifier.testTag("reader_save_error"), color = MaterialTheme.colorScheme.error)
+            if (state.settingsError) Text("읽기 설정 오류: 기존 설정은 보존됩니다. 설정에서 다시 읽어 주세요.",
+                Modifier.testTag("reader_settings_error"), color = MaterialTheme.colorScheme.error)
+        }
     }
     if (showSettings) ReaderSettingsDialog(controller, state) { showSettings = false }
     if (showSearch) ReaderSearchDialog(controller) { showSearch = false }

@@ -71,7 +71,10 @@ if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
   run_logged clear-old-fixture-screenshots adb shell rm -f \
     "$fixture_output/m02-library.png" "$fixture_output/m03-reader.png" \
     "$fixture_output/txt-reader-generated-scroll.png" "$fixture_output/txt-reader-generated-host.png" \
-    "$fixture_output/txt-reader-generated-pages.png" "$fixture_output/txt-reader-generated-page-reflow.png"
+    "$fixture_output/txt-reader-generated-pages.png" "$fixture_output/txt-reader-generated-page-reflow.png" \
+    "$fixture_output/txt-immersive.png" "$fixture_output/txt-controls.png" "$fixture_output/txt-settings.png" \
+    "$fixture_output/epub-immersive.png" "$fixture_output/epub-controls.png" "$fixture_output/epub-settings.png" \
+    "$fixture_output/comic-immersive.png" "$fixture_output/comic-controls.png"
   test_arguments+=("-Pandroid.testInstrumentationRunnerArguments.captureFixtureScreenshots=true"
     "-Pandroid.testInstrumentationRunnerArguments.additionalTestOutputDir=$fixture_output")
 fi
@@ -200,7 +203,10 @@ from pathlib import Path
 import sys
 root = Path(sys.argv[1])
 for name in ('m02-library.png', 'm03-reader.png', 'txt-reader-generated-scroll.png', 'txt-reader-generated-host.png',
-             'txt-reader-generated-pages.png', 'txt-reader-generated-page-reflow.png'):
+             'txt-reader-generated-pages.png', 'txt-reader-generated-page-reflow.png',
+             'txt-immersive.png', 'txt-controls.png', 'txt-settings.png',
+             'epub-immersive.png', 'epub-controls.png', 'epub-settings.png',
+             'comic-immersive.png', 'comic-controls.png'):
     matches = list(root.rglob(name))
     if len(matches) != 1 or matches[0].read_bytes()[:8] != b'\x89PNG\r\n\x1a\n':
         raise SystemExit(f'FAIL missing or invalid generated-fixture screenshot: {name}')

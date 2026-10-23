@@ -10,6 +10,8 @@ import androidx.room.execSQL
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import kotlinx.coroutines.*
+import org.bookreader.mobile.reader.readerControl
+import org.bookreader.mobile.reader.tapReader
 import org.bookreader.mobile.MainActivity
 import org.bookreader.mobile.database.createAndroidDatabase
 import org.bookreader.mobile.importing.DeleteResult
@@ -56,7 +58,7 @@ class EpubReaderFlowTest {
         assertEquals(BookFormat.EPUB, book.format)
         val source = target.assets.open("epub-fixtures/epub3.epub").use { it.readBytes() }
         assertArrayEquals(source, File(target.filesDir, "managed/${book.managedRelativePath}").readBytes())
-        compose.onNodeWithTag("epub_menu").performClick()
+        compose.readerControl("epub_menu").performClick()
         val beforeSeek = saved(book)
         compose.onNodeWithTag("epub_seek").performTouchInput {
             down(center); moveTo(androidx.compose.ui.geometry.Offset(width * .9f, centerY)); cancel()
@@ -66,14 +68,14 @@ class EpubReaderFlowTest {
         compose.onNodeWithTag("epub_seek").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetProgress) { it(.9f) }
         compose.waitUntil(20_000) { saved(book)?.payload?.locator?.get("href")?.toString()?.contains("two.xhtml") == true }
         compose.onNodeWithTag("epub_menu_close").performClick()
-        compose.onNodeWithTag("epub_return").performClick()
+        compose.readerControl("epub_return").performClick()
         compose.waitUntil(20_000) { saved(book)?.payload?.locator?.get("href")?.toString()?.contains("one.xhtml") == true }
-        compose.onNodeWithTag("epub_toc").performClick()
+        compose.readerControl("epub_toc").performClick()
         compose.onAllNodesWithTag("epub_toc_item")[1].performClick()
         compose.waitUntil(20_000) { saved(book)?.payload?.locator?.get("href")?.toString()?.contains("two.xhtml") == true }
         waitFor("epub_ready")
         val searchViewport = compose.onNodeWithTag("epub_ready").fetchSemanticsNode().boundsInRoot.size
-        compose.onNodeWithTag("epub_search").performClick()
+        compose.readerControl("epub_search").performClick()
         compose.onNodeWithTag("epub_search_query").performTextInput("two 문단 0179")
         compose.onNodeWithTag("epub_search_start").performClick()
         waitFor("epub_search_result")
@@ -104,7 +106,7 @@ class EpubReaderFlowTest {
         assertParagraphVisible("two", "p179")
         val original = requireNotNull(saved(book))
         recordRestoreObservation("search", original)
-        compose.onNodeWithTag("epub_bookmarks").performClick()
+        compose.readerControl("epub_bookmarks").performClick()
         compose.onNodeWithTag("epub_bookmark_add").performClick()
         waitFor("epub_bookmark_item")
         compose.onNodeWithText("닫기").performClick()
@@ -115,7 +117,7 @@ class EpubReaderFlowTest {
         val beforeFontChange = recordRestoreObservation("recreation", original)
         assertParagraphVisible("two", "p179")
         val beforeSettings = reader().state.value
-        compose.onNodeWithTag("epub_settings").performClick()
+        compose.readerControl("epub_settings").performClick()
         compose.onNodeWithTag("font_size_increase").performScrollTo().performClick()
         compose.onNodeWithTag("reader_settings_apply").performClick()
         waitForSettingsApplied(beforeSettings.hostVersion,
@@ -128,7 +130,7 @@ class EpubReaderFlowTest {
         assertTrue("The displayed paragraph must use the increased font size",
             fontPixels(afterFontChange) > fontPixels(beforeFontChange))
         assertParagraphVisible("two", "p179")
-        compose.onNodeWithTag("epub_back").performClick()
+        compose.readerControl("epub_back").performClick()
         waitFor("continue_reading")
         compose.onNodeWithTag("continue_reading").performClick()
         waitFor("epub_ready")
@@ -136,7 +138,7 @@ class EpubReaderFlowTest {
         assertRenderedNear(original)
         recordRestoreObservation("reopen", original)
         assertParagraphVisible("two", "p179")
-        compose.onNodeWithTag("epub_bookmarks").performClick()
+        compose.readerControl("epub_bookmarks").performClick()
         waitFor("epub_bookmark_item")
         compose.onNodeWithTag("epub_bookmark_item").performClick()
         waitFor("epub_ready")
@@ -183,12 +185,49 @@ class EpubReaderFlowTest {
             throw failure
         }
     }
+    @Test fun centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages() {
+        send("epub-product"); waitFor("epub_ready")
+        val active = reader()
+        compose.onNodeWithTag("epub_chrome").assertDoesNotExist()
+        val bounds = compose.onNodeWithTag("epub_ready").fetchSemanticsNode().boundsInRoot
+        val generation = active.progress.state.value.generation
+        val anchor = active.progress.state.value.accepted
+        val stored = saved(active.book)
+        org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("epub-immersive.png")
+        compose.tapReader("epub", .5f); waitFor("epub_chrome")
+        assertEquals(bounds, compose.onNodeWithTag("epub_ready").fetchSemanticsNode().boundsInRoot)
+        assertEquals(generation, active.progress.state.value.generation)
+        assertEquals(anchor, active.progress.state.value.accepted)
+        assertEquals(stored, saved(active.book))
+        org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("epub-controls.png")
+        compose.tapReader("epub", .5f)
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("epub_chrome").fetchSemanticsNodes().isEmpty() }
+        compose.readerControl("epub_settings").performClick()
+        compose.onNodeWithTag("reader_mode_PAGES").performClick()
+        org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("epub-settings.png")
+        compose.onNodeWithTag("reader_settings_apply").performClick()
+        compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
+            active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
+        compose.readerControl("epub_hide").performClick()
+        val before = requireNotNull(active.progress.state.value.accepted) as EpubLocator
+        compose.tapReader("epub", .9f)
+        compose.waitUntil(20_000) { active.progress.state.value.accepted != before && saved(active.book) == active.progress.state.value.accepted }
+        val next = requireNotNull(active.progress.state.value.accepted)
+        compose.onNodeWithTag("epub_chrome").assertDoesNotExist()
+        compose.tapReader("epub", .1f)
+        compose.waitUntil(20_000) { active.progress.state.value.accepted != next && saved(active.book) == active.progress.state.value.accepted }
+        val returned = active.progress.state.value.accepted as EpubLocator
+        fun progression(locator: EpubLocator) = org.json.JSONObject(locator.payload.locator.toString()).getJSONObject("locations").optDouble("progression", 0.0)
+        assertEquals(before.payload.locator["href"], returned.payload.locator["href"])
+        assertEquals(progression(before), progression(returned), .03)
+    }
+
     @Test fun unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy() {
         send("epub-product"); waitFor("epub_ready")
         val book = reader().book
-        compose.onNodeWithTag("epub_next").performClick()
+        compose.readerControl("epub_next").performClick()
         compose.waitUntil(20_000) { saved(book) != null }
-        compose.onNodeWithTag("epub_back").performClick(); waitFor("continue_reading")
+        compose.readerControl("epub_back").performClick(); waitFor("continue_reading")
         val record = saved(book)
         val source = File(target.filesDir, "managed/${book.managedRelativePath}").readBytes()
         val ids = books().map { it.id }.toSet()
@@ -210,7 +249,7 @@ class EpubReaderFlowTest {
         assertEquals(true, reader().preferences().publisherStyles)
         assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
         val beforeSettings = reader().state.value
-        compose.onNodeWithTag("epub_settings").performClick()
+        compose.readerControl("epub_settings").performClick()
         compose.onNodeWithTag("epub_publisher_styles").performScrollTo().performClick()
         compose.onNodeWithTag("reader_settings_apply").performClick()
         waitForSettingsApplied(beforeSettings.hostVersion, value.copy(epubPublisherStyles = false))
@@ -218,7 +257,7 @@ class EpubReaderFlowTest {
         assertEquals(-.02f, reader().state.value.settings.letterSpacingEm)
         val storedSettings = requireNotNull(runBlocking { database.readerSettingsDao().global() })
         assertEquals(value.copy(epubPublisherStyles = false), org.bookreader.mobile.settings.ReaderSettingsCodec.readGlobal(storedSettings.schemaVersion, storedSettings.settingsJson))
-        compose.onNodeWithTag("epub_back").performClick(); waitFor("continue_reading")
+        compose.readerControl("epub_back").performClick(); waitFor("continue_reading")
         assertEquals(storedSettings, runBlocking { database.readerSettingsDao().global() })
     }
     /** Fixture-only observations survive cleanup even when the following assertion fails. */

@@ -11,6 +11,8 @@ import androidx.room.execSQL
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import kotlinx.coroutines.*
+import org.bookreader.mobile.reader.readerControl
+import org.bookreader.mobile.reader.tapReader
 import org.bookreader.mobile.MainActivity
 import org.bookreader.mobile.database.createAndroidDatabase
 import org.bookreader.mobile.importing.DeleteResult
@@ -68,6 +70,21 @@ class ComicReaderFlowTest {
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
             active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         waitFor("comic_ready")
+        click("comic_hide")
+        compose.onNodeWithTag("comic_chrome").assertDoesNotExist()
+        val bounds = compose.onAllNodesWithTag("comic_ready").fetchSemanticsNodes().single().let { compose.runOnIdle { it.boundsInRoot } }
+        val generation = active.progress.state.value.generation
+        org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("comic-immersive.png")
+        compose.tapReader("comic", .5f); waitFor("comic_chrome")
+        assertEquals(generation, active.progress.state.value.generation)
+        assertEquals(bounds, compose.onAllNodesWithTag("comic_ready").fetchSemanticsNodes().single().let { compose.runOnIdle { it.boundsInRoot } })
+        org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("comic-controls.png")
+        compose.tapReader("comic", .5f)
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("comic_chrome").fetchSemanticsNodes().isEmpty() }
+        compose.tapReader("comic", .1f)
+        compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "02.png" && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
+        compose.tapReader("comic", .9f)
+        compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "01.png" && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         touch("comic_image") { b -> swipe(Offset(b.left + b.width * .1f, b.center.y), Offset(b.right - b.width * .1f, b.center.y)) }
         compose.waitUntil(15_000) { saved(book)?.payload?.entryKey == "02.png" && active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         touch("comic_image") { b -> swipe(Offset(b.right - b.width * .1f, b.center.y), Offset(b.left + b.width * .1f, b.center.y)) }
@@ -107,6 +124,7 @@ class ComicReaderFlowTest {
         waitFor("comic_zoom_dialog")
         click("comic_zoom_close")
         waitFor("comic_ready")
+        click("comic_hide")
         touch("comic_continuous") { b -> swipe(Offset(b.center.x, b.bottom - b.height * .1f), Offset(b.center.x, b.top + b.height * .1f)) }
         compose.waitForIdle()
         val settled = active.progress.state.value.accepted as ComicLocator
@@ -134,7 +152,13 @@ class ComicReaderFlowTest {
     }
     // Compose 1.9.3 fetchSemanticsNode prints the live tree again on the test thread.
     // Fetch collections (selection on Main), then read properties/actions only on Main.
-    private fun click(tag: String) = clickNode(compose.onAllNodesWithTag(tag).fetchSemanticsNodes().single())
+    private fun click(tag: String) {
+        if (tag in setOf("comic_back", "comic_settings", "comic_menu", "comic_next", "comic_previous", "comic_bookmarks", "comic_return") || tag.startsWith("comic_enlarge_"))
+            compose.readerControl(tag)
+        else if (tag.startsWith("comic_mode_") || tag.startsWith("comic_direction_") || tag.startsWith("comic_fit_") || tag == "comic_webtoon" || tag == "comic_hide")
+            compose.onNodeWithTag(tag).performScrollTo()
+        clickNode(compose.onAllNodesWithTag(tag).fetchSemanticsNodes().single())
+    }
     private fun clickNode(node: androidx.compose.ui.semantics.SemanticsNode) {
         compose.runOnIdle { assertTrue(node.config[androidx.compose.ui.semantics.SemanticsActions.OnClick].action!!.invoke()) }
     }

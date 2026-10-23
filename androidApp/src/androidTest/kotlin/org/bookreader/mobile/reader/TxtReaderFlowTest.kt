@@ -112,7 +112,7 @@ class TxtReaderFlowTest {
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == visible } == true }
         val committed = requireNotNull(saved(book))
         ReaderFixtureScreenshot.capture("txt-reader-generated-scroll.png")
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         // Only this fixture's derived caches are removed. Private original and Room stay intact.
         val key = MessageDigest.getInstance("SHA-256").digest(requireNotNull(book.currentRevision).toByteArray())
@@ -259,7 +259,7 @@ class TxtReaderFlowTest {
         waitFor("reader_ready")
         val other = reader().book
         repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         val otherProgress = requireNotNull(saved(other))
         val otherRecord = books().single { it.id == other.id }
@@ -384,7 +384,7 @@ class TxtReaderFlowTest {
         val controller = reader()
         repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
         compose.waitUntil(10_000) { controller.state.value.stableOffset?.let { it > 0 } == true }
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         val book = controller.book
         val committed = requireNotNull(saved(book))
@@ -422,14 +422,14 @@ class TxtReaderFlowTest {
         waitFor("reader_ready")
         val other = reader().book
         repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         val otherProgress = requireNotNull(saved(other))
         sendFixture(fixture)
         waitFor("reader_ready")
         val book = reader().book
         repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         val committed = requireNotNull(saved(book))
         assertTrue(offset(committed) > 0)
@@ -530,7 +530,7 @@ class TxtReaderFlowTest {
                 assertEquals(beforeOrder, readOrder())
                 assertEquals(hashes, originals.map(::digest))
                 assertTrue("Query errors and retries preserve all bookmark columns", originalBookmarks == bookmarkRows())
-                compose.onNodeWithTag("reader_bookmarks").assertIsNotEnabled()
+                compose.readerControl("reader_bookmarks").assertIsNotEnabled()
             }
             assertPreservedError()
             repeat(2) {
@@ -611,7 +611,7 @@ class TxtReaderFlowTest {
             waitFor("reader_ready")
             val book = reader().book
             repeat(4) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
-            compose.onNodeWithTag("reader_back").performClick()
+            compose.readerControl("reader_back").performClick()
             waitFor("library_content")
             book
         }
@@ -646,7 +646,7 @@ class TxtReaderFlowTest {
                     else assertTrue(pending > offset(previous))
                     // Real 250ms settled save reaches the occupied production Room writer.
                     SystemClock.sleep(350)
-                    compose.onNodeWithTag("reader_back").performClick()
+                    compose.readerControl("reader_back").performClick()
                     compose.waitForIdle()
                     // The library cannot expose another book before close's flush finishes.
                     compose.onNodeWithTag("library_content").assertDoesNotExist()
@@ -676,7 +676,7 @@ class TxtReaderFlowTest {
                 waitFor("reader_ready")
                 assertEquals(offset(requireNotNull(expected[book.id])), measuredVisibleLine(reader()))
                 assertEquals(expected[book.id], saved(book))
-                compose.onNodeWithTag("reader_back").performClick()
+                compose.readerControl("reader_back").performClick()
                 waitFor("library_content")
             }
             passed = true
@@ -696,7 +696,7 @@ class TxtReaderFlowTest {
         waitFor("reader_ready")
         val book = reader().book
         repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         val committed = requireNotNull(saved(book))
         val beforeBooks = books()
@@ -717,7 +717,7 @@ class TxtReaderFlowTest {
                     }
                     compose.waitForIdle()
                     compose.onNodeWithTag("reader_ready").assertDoesNotExist()
-                    compose.onNodeWithTag("reader_back").performClick()
+                    compose.readerControl("reader_back").performClick()
                     waitFor("library_content")
                     closed += opening
                     assertEquals(committed, saved(book))
@@ -857,7 +857,7 @@ class TxtReaderFlowTest {
         waitFor("reader_ready")
         val other = reader().book
         compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         val otherProgress = requireNotNull(saved(other))
         val otherRecord = books().single { it.id == other.id }
@@ -943,7 +943,7 @@ class TxtReaderFlowTest {
         val before = requireNotNull(saved(book))
         fun settings(action: () -> Unit) {
             val generation = active.state.value.restoreGeneration
-            compose.onNodeWithTag("reader_settings").performClick()
+            compose.readerControl("reader_settings").performClick()
             action()
             compose.onNodeWithTag("reader_settings_apply").performClick()
             compose.waitUntil(15_000) {
@@ -954,7 +954,7 @@ class TxtReaderFlowTest {
         settings { compose.onNodeWithTag("reader_mode_PAGES").performClick() }
         compose.onNodeWithTag("reader_page").assertIsDisplayed()
         compose.onNodeWithTag("reader_ready").assertIsDisplayed()
-        compose.onNodeWithTag("reader_next").assertIsEnabled()
+        compose.readerControl("reader_next").assertIsEnabled()
         instrumentation.waitForIdleSync()
         SystemClock.sleep(250) // Allow the ready frame to reach the screenshot surface.
         ReaderFixtureScreenshot.capture("txt-reader-generated-pages.png")
@@ -963,7 +963,7 @@ class TxtReaderFlowTest {
         val pageStarts = mutableListOf(anchor)
         repeat(12) {
             val generation = active.state.value.restoreGeneration
-            compose.onNodeWithTag("reader_next").performClick()
+            compose.readerControl("reader_next").performClick()
             compose.waitUntil(10_000) {
                 active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
             }
@@ -972,7 +972,7 @@ class TxtReaderFlowTest {
         }
         repeat(12) { index ->
             val generation = active.state.value.restoreGeneration
-            compose.onNodeWithTag("reader_previous").performClick()
+            compose.readerControl("reader_previous").performClick()
             compose.waitUntil(10_000) {
                 active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
             }
@@ -980,7 +980,7 @@ class TxtReaderFlowTest {
         }
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == anchor } == true }
         val returned = requireNotNull(saved(book))
-        settings { compose.onNodeWithTag("font_size_increase").performClick() }
+        settings { compose.onNodeWithTag("font_size_increase").performScrollTo().performClick() }
         for (tag in listOf("reader_font_SERIF", "line_height_increase", "letter_spacing_increase", "margin_increase")) {
             settings { compose.onNodeWithTag(tag).performScrollTo().performClick() }
             assertEquals(anchor, active.state.value.targetOffset)
@@ -1009,7 +1009,7 @@ class TxtReaderFlowTest {
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(returned, saved(book))
         compose.onNodeWithTag("reader_ready").assertIsDisplayed()
-        compose.onNodeWithTag("reader_next").assertIsEnabled()
+        compose.readerControl("reader_next").assertIsEnabled()
         instrumentation.waitForIdleSync()
         SystemClock.sleep(250)
         ReaderFixtureScreenshot.capture("txt-reader-generated-page-reflow.png")
@@ -1018,7 +1018,7 @@ class TxtReaderFlowTest {
         settings { compose.onNodeWithTag("reader_mode_SCROLL").performClick() }
         assertAnchorInFirstMeasuredLine(active, anchor)
         assertEquals(returned, saved(book))
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         compose.onNodeWithTag("read_${book.id}").performClick()
         waitFor("reader_ready")
@@ -1068,7 +1068,7 @@ class TxtReaderFlowTest {
             compose.waitUntil(10_000) { saved(book)?.let { offset(it) == settledAnchor && offset(it) > 0 } == true }
             assertEquals(settledAnchor, active.state.value.stableOffset)
             val before = requireNotNull(saved(book))
-            compose.onNodeWithTag("reader_menu").performClick()
+            compose.readerControl("reader_menu").performClick()
             compose.onNodeWithTag("reader_seek").performTouchInput {
                 down(center)
                 moveTo(androidx.compose.ui.geometry.Offset(width * .8f, centerY), 100)
@@ -1097,13 +1097,25 @@ class TxtReaderFlowTest {
             compose.waitUntil(10_000) { saved(book)?.let { offset(it) == target } == true }
             compose.onNodeWithTag("reader_menu_close").performClick()
             assertAnchorInFirstMeasuredLine(active, target)
-            compose.onNodeWithTag("reader_settings").performClick()
+            compose.readerControl("reader_settings").performClick()
             compose.onNodeWithTag("reader_mode_PAGES").performClick()
             compose.onNodeWithTag("reader_settings_apply").performClick()
             compose.waitUntil(15_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
                 active.state.value.phase == TxtReaderPhase.READY }
-            compose.onNodeWithTag("reader_next").assertIsEnabled()
+            compose.readerControl("reader_next").assertIsEnabled()
             val pageAnchor = active.state.value.stableOffset
+            val bounds = compose.onNodeWithTag("reader_ready").fetchSemanticsNode().boundsInRoot
+            val generationBeforeOverlay = active.state.value.restoreGeneration
+            compose.readerControl("reader_hide").performClick()
+            compose.onNodeWithTag("reader_chrome").assertDoesNotExist()
+            ReaderFixtureScreenshot.capture("txt-immersive.png")
+            compose.tapReader("reader", .5f); waitFor("reader_chrome")
+            assertEquals(bounds, compose.onNodeWithTag("reader_ready").fetchSemanticsNode().boundsInRoot)
+            assertEquals(generationBeforeOverlay, active.state.value.restoreGeneration)
+            assertEquals(pageAnchor, active.state.value.stableOffset)
+            ReaderFixtureScreenshot.capture("txt-controls.png")
+            compose.tapReader("reader", .5f)
+            compose.waitUntil(5_000) { compose.onAllNodesWithTag("reader_chrome").fetchSemanticsNodes().isEmpty() }
             compose.onNodeWithTag("reader_ready").performTouchInput {
                 doubleClick(androidx.compose.ui.geometry.Offset(width * .85f, height * .4f))
             }
@@ -1115,7 +1127,8 @@ class TxtReaderFlowTest {
             }
             compose.waitUntil(10_000) { active.state.value.phase == TxtReaderPhase.READY && active.state.value.stableOffset != pageAnchor }
             val moved = active.state.value.stableOffset
-            compose.onNodeWithTag("reader_settings").performClick()
+            compose.readerControl("reader_settings").performClick()
+            ReaderFixtureScreenshot.capture("txt-settings.png")
             for (tag in listOf("reader_fullscreen_option", "reader_keep_screen_on_option", "reader_rotation_lock_option", "window_brightness_increase"))
                 compose.onNodeWithTag(tag).performScrollTo().performClick()
             compose.onNodeWithTag("reader_settings_apply").performClick()
@@ -1130,7 +1143,7 @@ class TxtReaderFlowTest {
             waitFor("reader_ready")
             assertSame(active, reader())
             assertEquals(moved, active.state.value.stableOffset)
-            compose.onNodeWithTag("reader_menu").performClick()
+            compose.readerControl("reader_menu").performClick()
             compose.onNodeWithTag("reader_menu_exit").performScrollTo().performClick()
             waitFor("library_content")
             compose.runOnIdle {
@@ -1146,7 +1159,7 @@ class TxtReaderFlowTest {
         sendFixture("reader-pages")
         waitFor("reader_ready")
         val active = reader()
-        compose.onNodeWithTag("reader_menu").performClick()
+        compose.readerControl("reader_menu").performClick()
         for (fraction in listOf(.7f, .1f, .9f, .3f, .8f, .2f)) {
             compose.onNodeWithTag("reader_seek").performSemanticsAction(SemanticsActions.SetProgress) { assertTrue(it(fraction)) }
             val expected = (active.state.value.cache.committedLength * fraction.toDouble()).toLong()
@@ -1176,10 +1189,10 @@ class TxtReaderFlowTest {
                 uiShell("settings put system font_scale $scale")
                 compose.waitUntil(30_000) { kotlin.math.abs(compose.activity.resources.configuration.fontScale - scale) < .01f &&
                     active.state.value.phase == TxtReaderPhase.READY }
-                compose.onNodeWithTag("reader_menu").assertIsDisplayed().performClick()
+                compose.readerControl("reader_menu").assertIsDisplayed().performClick()
                 compose.onNodeWithTag("reader_seek").assertIsDisplayed().assertIsEnabled()
                 compose.onNodeWithTag("reader_menu_close").performClick()
-                compose.onNodeWithTag("reader_settings").assertIsDisplayed().performClick()
+                compose.readerControl("reader_settings").assertIsDisplayed().performClick()
                 compose.onNodeWithTag("reader_rotation_lock_option").performScrollTo().assertIsDisplayed()
                 compose.onNodeWithTag("reader_settings_apply").assertIsDisplayed().performClick()
                 waitFor("reader_ready")
@@ -1218,7 +1231,7 @@ class TxtReaderFlowTest {
         compose.waitForIdle()
         val origin = measuredVisibleLine(active)
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == origin } == true }
-        compose.onNodeWithTag("reader_bookmarks").performClick()
+        compose.readerControl("reader_bookmarks").performClick()
         compose.waitUntil(10_000) { active.tools.state.value.bookmarksReadReady }
         compose.onNodeWithTag("reader_bookmark_label").performTextInput("돌아갈 곳")
         compose.onNodeWithTag("reader_bookmark_add").performClick()
@@ -1226,7 +1239,7 @@ class TxtReaderFlowTest {
         val bookmark = active.tools.state.value.bookmarks.single()
         assertEquals(origin, (bookmark.locator as TxtLocator).payload.utf16Offset)
         compose.onNodeWithTag("reader_bookmark_close").performClick()
-        compose.onNodeWithTag("reader_search").performClick()
+        compose.readerControl("reader_search").performClick()
         compose.onNodeWithTag("reader_search_query").performTextInput("경계검색😀")
         compose.waitUntil(15_000) { active.tools.state.value.searchComplete }
         assertEquals(listOf(16382L), active.tools.state.value.hits.map { it.offset })
@@ -1234,15 +1247,15 @@ class TxtReaderFlowTest {
         compose.waitUntil(10_000) { active.state.value.let { it.phase == TxtReaderPhase.READY && it.targetOffset == 16382L } }
         assertAnchorInFirstMeasuredLine(active, 16382)
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == 16382L } == true }
-        compose.onNodeWithTag("reader_search_return").performClick()
+        compose.readerControl("reader_search_return").performClick()
         compose.waitUntil(10_000) { active.state.value.let { it.phase == TxtReaderPhase.READY && it.targetOffset == origin } }
         compose.onNodeWithTag("reader_search_return").assertDoesNotExist()
         assertAnchorInFirstMeasuredLine(active, origin)
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         compose.onNodeWithTag("read_${book.id}").performClick()
         waitFor("reader_ready")
-        compose.onNodeWithTag("reader_bookmarks").performClick()
+        compose.readerControl("reader_bookmarks").performClick()
         compose.waitUntil(10_000) { reader().tools.state.value.bookmarks.size == 1 }
         assertEquals(bookmark, reader().tools.state.value.bookmarks.single())
         compose.onNodeWithTag("reader_bookmark_${bookmark.id}").performClick()
@@ -1262,13 +1275,13 @@ class TxtReaderFlowTest {
         val originalOffset = measuredVisibleLine(reader())
         compose.waitUntil(10_000) { saved(originalBook)?.let { offset(it) == originalOffset } == true }
         val originalProgress = requireNotNull(saved(originalBook))
-        compose.onNodeWithTag("reader_bookmarks").performClick()
+        compose.readerControl("reader_bookmarks").performClick()
         compose.waitUntil(10_000) { reader().tools.state.value.bookmarksReadReady }
         compose.onNodeWithTag("reader_bookmark_add").performClick()
         compose.waitUntil(10_000) { reader().tools.state.value.bookmarks.size == 1 }
         val originalBookmark = reader().tools.state.value.bookmarks.single()
         compose.onNodeWithTag("reader_bookmark_close").performClick()
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         changeFixtureEncoding(originalBook.id, "UTF16LE", "utf-16le")
         compose.onNodeWithTag("read_${originalBook.id}").performClick()
@@ -1283,7 +1296,7 @@ class TxtReaderFlowTest {
         val changedOffset = measuredVisibleLine(reader())
         compose.waitUntil(10_000) { saved(changed)?.let { offset(it) == changedOffset } == true }
         val changedProgress = requireNotNull(saved(changed))
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         changeFixtureEncoding(originalBook.id, "UTF8", "utf-8")
         compose.onNodeWithTag("read_${originalBook.id}").performClick()
@@ -1292,7 +1305,7 @@ class TxtReaderFlowTest {
         assertAnchorInFirstMeasuredLine(reader(), originalOffset)
         assertEquals(originalProgress, saved(originalBook))
         assertEquals(changedProgress, saved(changed))
-        compose.onNodeWithTag("reader_bookmarks").performClick()
+        compose.readerControl("reader_bookmarks").performClick()
         compose.waitUntil(10_000) { reader().tools.state.value.bookmarks.size == 1 }
         assertEquals(originalBookmark, reader().tools.state.value.bookmarks.single())
         assertEquals(hash, digest(file))
@@ -1305,7 +1318,7 @@ class TxtReaderFlowTest {
         val file = File(File(target.filesDir, "managed"), book.managedRelativePath)
         val hash = digest(file)
         compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
-        compose.onNodeWithTag("reader_back").performClick()
+        compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         val progress = saved(book)
         val beforeBooks = books()

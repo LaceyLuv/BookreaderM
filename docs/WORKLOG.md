@@ -1,5 +1,20 @@
 # M00 작업 기록
 
+## 몰입형 독서 화면 개편 (2026-10-23, 검증 진행 중)
+
+사용자가 요청한 디자인/좌우 터치 동작을 서브에이전트 없이 직접 구현한다.
+TXT·EPUB·Comic 도구창은 중앙 탭으로 열고 닫는 overlay로 변경하며 본문 viewport를 유지한다.
+남색 도구 패널/민트 강조/본문 색상 미리보기와 설정 구획을 공유한다.
+EPUB은 Readium 3.1.2 InputListener로 링크·선택 처리 뒤 방향에 맞는 좌우 이동을 연결한다.
+TXT 가장자리 탭/최신 callback, Comic RTL·확대·연속 보기의 중앙 탭을 보완한다.
+기존 실제 복원·검색·북마크 assertion을 유지하고 물리 tap helper 및 회귀 3개를 추가한다(일반 native 57 + host 6/API).
+`./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug :androidApp:testDebugUnitTest :shared:testDebugUnitTest :epubAndroid:testDebugUnitTest --console=plain` exit 0.
+`BOOKREADER_EVIDENCE_DIR=build/design-local ./scripts/ci-check.sh` 실행 중; 최종 소스 원격 API26/34/36 결과 및 생성 fixture 스크린샷을 후속 기록한다.
+현재 native/host 실행은 NOT_RUN; 로컬 /dev/kvm·연결 기기가 없어 원격 CI로 검증한다.
+versionCode 3/versionName 0.3.0. 최종 검증 후 기존 개발용 서명키를 재사용한 설치 APK를 생성한다.
+이 변경으로 실기기·TalkBack·출시 gate 완료를 주장하지 않는다.
+
+
 ## 설치 패키지 수정 (2026-10-22)
 
 사용자 설치 오류에 대해 기존 unsigned APK의 서명 누락을 재현했다.

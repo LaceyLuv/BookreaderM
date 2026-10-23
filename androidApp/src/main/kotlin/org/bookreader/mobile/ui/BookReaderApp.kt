@@ -49,6 +49,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.core.view.WindowCompat
+import org.bookreader.mobile.reader.ReaderControlTheme
 import org.bookreader.mobile.reader.TxtReaderScreen
 import org.bookreader.mobile.model.BookAvailability
 import org.bookreader.mobile.importing.ImportPhase
@@ -64,13 +65,13 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
     SideEffect {
         (view.context as? Activity)?.let { activity ->
             WindowCompat.getInsetsController(activity.window, view).apply {
-                isAppearanceLightStatusBars = !dark
-                isAppearanceLightNavigationBars = !dark
+                isAppearanceLightStatusBars = !dark && state.reader == null && state.epubReader == null && state.comicReader == null
+                isAppearanceLightNavigationBars = !dark && state.reader == null && state.epubReader == null && state.comicReader == null
             }
         }
     }
     state.comicReader?.let { reader ->
-        MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
+        ReaderControlTheme {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
                 Column(Modifier.fillMaxSize().safeDrawingPadding()) {
                     if (state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
@@ -82,7 +83,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
         return
     }
     state.epubReader?.let { reader ->
-        MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
+        ReaderControlTheme {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
                 Column(Modifier.fillMaxSize().safeDrawingPadding()) {
                     if (state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
@@ -94,7 +95,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
         return
     }
     state.reader?.let { reader ->
-        MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
+        ReaderControlTheme {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
             Column(Modifier.fillMaxSize().safeDrawingPadding()) {
                 state.notice?.let { Text(it, modifier = Modifier.testTag("import_notice"), color = MaterialTheme.colorScheme.error) }

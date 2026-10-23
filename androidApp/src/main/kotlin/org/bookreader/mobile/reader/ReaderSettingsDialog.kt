@@ -8,6 +8,13 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import org.bookreader.mobile.settings.*
@@ -23,14 +30,18 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
     val loaded = state.settingsLoaded
     var global by remember(loaded) { mutableStateOf(loaded?.global ?: ReaderSettings()) }
     var preferences by remember(loaded) { mutableStateOf(loaded?.book ?: BookReaderPreferences()) }
-    AlertDialog(onDismissRequest = onDismiss, title = { Text("읽기 설정") },
+    AlertDialog(onDismissRequest = onDismiss, title = { Column {
+        Text("읽기 설정")
+        Text("책은 편안하게, 도구는 분명하게", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    } }, modifier = Modifier.widthIn(max = 560.dp).fillMaxWidth(.94f),
+        properties = DialogProperties(usePlatformDefaultWidth = false),
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()).testTag("reader_settings_dialog")) {
                 if (state.settingsError) {
                     Text("설정을 읽거나 저장하지 못했습니다. 기존 설정은 보존됩니다.")
                     TextButton(onClick = onRetry) { Text("다시 읽기") }
                 }
-                Text("이 책의 읽기 방식")
+                ReaderSettingsSection("이 책의 읽기 방식") {
                 FlowRow {
                     TxtReadingMode.entries.forEach { mode ->
                         FilterChip(selected = (preferences.readingMode ?: global.readingMode) == mode,
@@ -40,7 +51,13 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                     }
                 }
                 TextButton(onClick = { preferences = BookReaderPreferences() }) { Text("읽기 방식 기본값 상속") }
-                Text("모든 책의 기본 설정")
+                }
+                ReaderSettingsSection("글자와 간격 · 모든 책의 기본값") {
+                Surface(color = global.theme.paperColor(), contentColor = global.theme.inkColor(), shape = RoundedCornerShape(12.dp)) {
+                    Text("책 속으로, 한 걸음 더.\n편안한 속도로 읽어 보세요.", Modifier.fillMaxWidth().padding(16.dp).testTag("reader_settings_preview"),
+                        fontSize = global.fontSizeSp.sp, lineHeight = (global.fontSizeSp * global.lineHeight).sp,
+                        fontFamily = if (global.font == ReaderFont.SERIF) FontFamily.Serif else FontFamily.SansSerif)
+                }
                 FlowRow {
                     ReaderFont.entries.forEach { font -> FilterChip(selected = global.font == font,
                         onClick = { global = global.copy(font = font) },
@@ -70,16 +87,25 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                     global.marginDp > 8, global.marginDp < 40,
                     { global = global.copy(marginDp = (global.marginDp - 4).coerceAtLeast(8)) },
                     { global = global.copy(marginDp = (global.marginDp + 4).coerceAtMost(40)) })
-                ReaderTheme.entries.forEach { theme ->
-                    FilterChip(selected = global.theme == theme, onClick = { global = global.copy(theme = theme) },
-                        label = { Text(when (theme) { ReaderTheme.LIGHT -> "밝게"; ReaderTheme.SEPIA -> "세피아"
-                            ReaderTheme.DARK -> "어둡게"; ReaderTheme.OLED -> "검정" }) })
                 }
+                ReaderSettingsSection("본문 색상") {
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        ReaderTheme.entries.forEach { theme ->
+                            val label = when (theme) { ReaderTheme.LIGHT -> "밝게"; ReaderTheme.SEPIA -> "세피아"; ReaderTheme.DARK -> "어둡게"; ReaderTheme.OLED -> "검정" }
+                            FilterChip(selected = global.theme == theme, onClick = { global = global.copy(theme = theme) },
+                                modifier = Modifier.testTag("reader_theme_${theme.name}"),
+                                leadingIcon = { Surface(color = theme.paperColor(), contentColor = theme.inkColor(), shape = RoundedCornerShape(4.dp)) {
+                                    Text("가", Modifier.padding(horizontal = 6.dp), style = MaterialTheme.typography.labelMedium)
+                                } }, label = { Text(label) })
+                        }
+                    }
+                }
+                ReaderSettingsSection("기본 동작") {
                 Text("기본 읽기 방식")
-                TxtReadingMode.entries.forEach { mode -> FilterChip(selected = global.readingMode == mode,
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { TxtReadingMode.entries.forEach { mode -> FilterChip(selected = global.readingMode == mode,
                     onClick = { global = global.copy(readingMode = mode) },
-                    label = { Text(if (mode == TxtReadingMode.PAGES) "페이지" else "스크롤") }) }
-                Text("Reader 창")
+                    label = { Text(if (mode == TxtReadingMode.PAGES) "페이지" else "스크롤") }) } }
+                Text("화면", style = MaterialTheme.typography.titleSmall)
                 WindowToggle("전체화면", "reader_fullscreen_option", global.window.fullscreen) {
                     global = global.copy(window = global.window.copy(fullscreen = it)) }
                 WindowToggle("읽는 동안 화면 켜짐 유지", "reader_keep_screen_on_option", global.window.keepScreenOn) {
@@ -92,9 +118,10 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                     { global = global.copy(window = global.window.copy(brightness = ((global.window.brightness ?: .5f) - .1f).coerceAtLeast(.05f))) },
                     { global = global.copy(window = global.window.copy(brightness = ((global.window.brightness ?: .5f) + .1f).coerceAtMost(1f))) })
                 TextButton(onClick = { global = global.copy(window = global.window.copy(brightness = null)) }) { Text("시스템 밝기 사용") }
+                }
             }
         },
-        confirmButton = { TextButton(enabled = loaded != null && !state.settingsError && !state.settingsSaving &&
+        confirmButton = { Button(enabled = loaded != null && !state.settingsError && !state.settingsSaving &&
             state.phase == TxtReaderPhase.READY, modifier = Modifier.testTag("reader_settings_apply"),
             onClick = { onSave(global, preferences); onDismiss() }) { Text("적용") } },
         dismissButton = { TextButton(onClick = onDismiss) { Text("닫기") } })
@@ -103,11 +130,16 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
 @Composable
 private fun SettingStepper(label: String, value: String, tag: String, canDecrease: Boolean, canIncrease: Boolean,
     decrease: () -> Unit, increase: () -> Unit) {
-    Column(Modifier.padding(vertical = 4.dp)) {
-        Text("$label $value")
-        FlowRow {
-            TextButton(onClick = decrease, enabled = canDecrease, modifier = Modifier.testTag("${tag}_decrease")) { Text("$label 줄이기") }
-            TextButton(onClick = increase, enabled = canIncrease, modifier = Modifier.testTag("${tag}_increase")) { Text("$label 늘리기") }
+    Column(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+        Text(label, style = MaterialTheme.typography.labelLarge)
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            FilledTonalButton(onClick = decrease, enabled = canDecrease,
+                modifier = Modifier.testTag("${tag}_decrease").semantics { contentDescription = "$label 줄이기" },
+                contentPadding = PaddingValues(8.dp)) { Text("−") }
+            Text(value, Modifier.weight(1f), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+            FilledTonalButton(onClick = increase, enabled = canIncrease,
+                modifier = Modifier.testTag("${tag}_increase").semantics { contentDescription = "$label 늘리기" },
+                contentPadding = PaddingValues(8.dp)) { Text("+") }
         }
     }
 }

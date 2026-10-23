@@ -44,11 +44,11 @@ abstract class ArchiveReaderHostProcessTest {
         waitFor("${format}_ready")
         val book = currentBook()
         if (format == "epub") {
-            compose.onNodeWithTag("epub_toc").performClick()
+            compose.readerControl("epub_toc").performClick()
             compose.onAllNodesWithTag("epub_toc_item")[1].performClick()
             compose.waitUntil(20_000) { (saved(book)?.locator as? EpubLocator)?.payload?.locator?.get("href")?.toString()?.contains("two.xhtml") == true }
         } else {
-            compose.onNodeWithTag("comic_next").performClick()
+            compose.readerControl("comic_next").performClick()
             compose.waitUntil(20_000) { (saved(book)?.locator as? ComicLocator)?.payload?.entryKey == "02.png" }
         }
         val committed = requireNotNull(saved(book))

@@ -33,7 +33,8 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current
     val exploration = readerWindowEffects(state.settings.window)
-    val chrome = !state.settings.window.fullscreen || exploration
+    var controlsVisible by remember(controller) { mutableStateOf(false) }
+    val chrome = controlsVisible || exploration
     var menu by remember(controller) { mutableStateOf(false) }
     val seek = remember(controller) { ReaderSeekPreview(controller::seek) }
     var settings by remember(controller) { mutableStateOf(false) }
@@ -44,7 +45,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     val ready = progress.phase == ArchiveReaderPhase.READY
     BackHandler {
         when { settings -> settings = false; search -> { search = false; controller.cancelSearch() }
-            bookmarks -> bookmarks = false; toc -> toc = false; menu -> menu = false; else -> onClose() }
+            bookmarks -> bookmarks = false; toc -> toc = false; menu -> menu = false; controlsVisible -> controlsVisible = false; else -> onClose() }
     }
     DisposableEffect(controller, lifecycle) {
         val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) scope.launch { controller.progress.flush() } }
@@ -53,44 +54,45 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     }
     @Composable fun Controls() {
         FlowRow {
-            TextButton(onClick = onClose, modifier = Modifier.testTag("epub_back")) { Text("서재") }
             TextButton(onClick = { toc = true; menu = false }, enabled = ready, modifier = Modifier.testTag("epub_toc")) { Text("목차") }
             TextButton(onClick = { search = true; menu = false }, enabled = ready, modifier = Modifier.testTag("epub_search")) { Text("검색") }
             TextButton(onClick = { bookmarks = true; menu = false; controller.loadBookmarks() }, enabled = ready, modifier = Modifier.testTag("epub_bookmarks")) { Text("북마크") }
             TextButton(onClick = { settings = true; menu = false }, enabled = ready, modifier = Modifier.testTag("epub_settings")) { Text("설정") }
         }
     }
-    Column(Modifier.fillMaxSize().testTag("epub_reader")) {
-        if (chrome) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(controller.book.title, Modifier.weight(1f).padding(horizontal = 8.dp), maxLines = 1, overflow = TextOverflow.Ellipsis)
-                TextButton(onClick = { menu = true }, modifier = Modifier.testTag("epub_menu")) { Text("메뉴") }
-            }
-            Controls()
-        }
+    Box(Modifier.fillMaxSize().testTag("epub_reader")) {
         if (state.error != null || progress.phase == ArchiveReaderPhase.ERROR) {
-            Column(Modifier.weight(1f).fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.Center) {
+            Column(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.Center) {
                 Text(state.error ?: "저장된 독서 위치를 읽거나 복원하지 못했습니다. 기존 기록은 보존됩니다.", Modifier.testTag("epub_error"))
                 Button(onClick = onRetry, modifier = Modifier.testTag("epub_retry")) { Text("다시 시도") }
                 TextButton(onClick = onClose) { Text("서재로") }
             }
         } else {
-            Box(Modifier.weight(1f).fillMaxWidth().onSizeChanged {
+            Box(Modifier.fillMaxSize().onSizeChanged {
                 if (viewport != IntSize.Zero && viewport != it) controller.reflowViewport()
                 viewport = it
             }.testTag(if (ready) "epub_ready" else "epub_loading")) {
-                if (state.opened) key(controller, state.hostVersion) { AndroidFragment<EpubHostFragment>(Modifier.fillMaxSize()) }
+                if (state.opened) key(controller, state.hostVersion) { AndroidFragment<EpubHostFragment>(Modifier.fillMaxSize(), onUpdate = { fragment ->
+                    fragment.onCenterTap = { controlsVisible = !controlsVisible }
+                    fragment.touchExploration = exploration
+                }) }
                 if (!ready) CircularProgressIndicator(Modifier.align(Alignment.Center))
-                if (!chrome) TextButton(onClick = { menu = true }, modifier = Modifier.align(Alignment.TopEnd).testTag("epub_menu")) { Text("메뉴") }
             }
         }
-        state.notice?.let { Text(it) }
-        if (progress.saveError) Text("독서 위치를 저장하지 못했습니다. 마지막 저장 기록은 유지됩니다.", Modifier.testTag("epub_save_error"))
-        if (chrome) FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextButton(onClick = { controller.next(-1) }, enabled = ready, modifier = Modifier.testTag("epub_previous")) { Text("이전") }
-            if (state.canReturn) TextButton(onClick = controller::returnFromJump, enabled = ready, modifier = Modifier.testTag("epub_return")) { Text("이전 위치로") }
-            TextButton(onClick = { controller.next(1) }, enabled = ready, modifier = Modifier.testTag("epub_next")) { Text("다음") }
+        if (!chrome && !ready) ReaderLoadingExit("epub", onClose, Modifier.align(Alignment.TopStart))
+        if (chrome) ReaderChrome(controller.book.title, "EPUB", "epub",
+            "${(((controller.initialLocator()?.locations?.totalProgression ?: 0.0) * 100).toInt())}%",
+            onClose, { controlsVisible = false }, !exploration, ready, ready,
+            { controller.next(-1) }, { controller.next(1) }) {
+            Controls()
+            FlowRow {
+                TextButton(onClick = { menu = true }, modifier = Modifier.testTag("epub_menu")) { Text("위치 이동") }
+                if (state.canReturn) TextButton(onClick = controller::returnFromJump, enabled = ready, modifier = Modifier.testTag("epub_return")) { Text("이전 위치로") }
+            }
+            state.notice?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
         }
+        if (progress.saveError) Text("독서 위치를 저장하지 못했습니다. 마지막 저장 기록은 유지됩니다.",
+            Modifier.align(Alignment.Center).padding(16.dp).testTag("epub_save_error"), color = MaterialTheme.colorScheme.error)
     }
     if (menu) AlertDialog(onDismissRequest = { menu = false }, title = { Text("독서 메뉴") }, text = {
         Column {
