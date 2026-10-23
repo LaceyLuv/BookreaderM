@@ -1,5 +1,13 @@
 # BookReader Mobile — Codex 작업표
 
+## 0.4.0 하단 쪽수 표시 간격 보완 (2026-10-23)
+
+실제 API26 캡처에서 overlay 하단 패널이 본문 하단 쪽수의 윗부분을 가리는 것을 확인했다.
+패널 하단 여백에 고정 쪽수 영역 높이를 포함했다. 본문 viewport는 도구 표시 여부와 무관하게 유지된다.
+나눔명조 적용 후 계산 완료된 쪽수의 추가 fixture 캡처를 수집한다. compileDebugAndroidTestKotlin/lintDebug exit 0.
+`e883cb7` device 39963715270 API34는 테스트 시작 전 KSP plugin 의존성 조회 실패로 native/host NOT_RUN이다.
+정확한 기존 KSP 버전을 유지하며 후속 소스로 전체 검증한다. 이 환경 실패를 제품 테스트 PASS로 취급하지 않는다.
+
 ## 0.4.0 EPUB 번들 글꼴 CSP 경로 수정 (2026-10-23)
 
 `bd6b456` build 39961544520 PASS. Device 39961544257의 API26/34/36은 각각 native 58 중

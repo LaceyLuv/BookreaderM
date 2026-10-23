@@ -973,6 +973,7 @@ class TxtReaderFlowTest {
         val toolbar = compose.onNodeWithTag("reader_progress").fetchSemanticsNode().config[
             androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
         assertEquals(footer, toolbar)
+        ReaderFixtureScreenshot.capture("txt-page-counts.png")
         val pageStarts = mutableListOf(anchor)
         repeat(12) {
             val generation = active.state.value.restoreGeneration
@@ -999,6 +1000,11 @@ class TxtReaderFlowTest {
             assertEquals(anchor, active.state.value.targetOffset)
             assertEquals(returned, saved(book))
         }
+        compose.waitUntil(30_000) {
+            compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
+                androidx.compose.ui.semantics.SemanticsProperties.Text].single().text.contains(" / ")
+        }
+        ReaderFixtureScreenshot.capture("txt-nanum-page-counts.png")
         val scale = if (kotlin.math.abs(initialScale - 1.3f) > .01f) 1.3f else 1.0f
         var generation = active.state.value.restoreGeneration
         changedScale = true

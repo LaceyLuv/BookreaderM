@@ -66,7 +66,8 @@ fun ReaderChrome(
                     if (canHide) TextButton(onClick = onHide, modifier = Modifier.testTag("${prefix}_hide")) { Text("숨기기") }
                 }
             }
-            Surface(Modifier.align(Alignment.BottomCenter).padding(12.dp).fillMaxWidth(),
+            Surface(Modifier.align(Alignment.BottomCenter)
+                .padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = ReaderPageStatusHeight + 12.dp).fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp), shadowElevation = 12.dp,
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
                 Column(Modifier.heightIn(max = panelHeight).verticalScroll(rememberScrollState()).padding(12.dp),
