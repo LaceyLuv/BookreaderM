@@ -66,6 +66,11 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     val page = visible?.page
     var turnGeneration by remember(controller) { mutableIntStateOf(-1) }
     var turnDirection by remember(controller) { mutableIntStateOf(1) }
+    var measuredGeneration by remember(engine) { mutableIntStateOf(-1) }
+    var settledGeneration by remember(engine) { mutableIntStateOf(-1) }
+    LaunchedEffect(measuredGeneration, settledGeneration, generation) {
+        if (measuredGeneration == generation && settledGeneration == generation) controller.restored(generation)
+    }
     val canPrevious = state.phase == TxtReaderPhase.READY && (page?.range?.start ?: 0) > 0
     val canNext = state.phase == TxtReaderPhase.READY && page != null && page.range.end < state.cache.committedLength
     SideEffect { onAvailability(canPrevious, canNext) }
@@ -89,7 +94,7 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
             visible?.let { prepared ->
                 ReaderPageTransition(prepared,
                     if (prepared.generation == turnGeneration) state.settings.pageTransition else org.bookreader.mobile.settings.PageTransition.NONE,
-                    turnDirection, Modifier.fillMaxSize()) { rendered ->
+                    turnDirection, Modifier.fillMaxSize(), onSettled = { settledGeneration = it.generation }) { rendered ->
                 val displayed = rendered.page
                 // Very large accessibility fonts may exceed the viewport even for one line.
                 // A bounded page stays vertically scrollable instead of clipping that line.
@@ -100,7 +105,7 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
                         if (latestEngine !== rendered.engine || controller.state.value.restoreGeneration != rendered.generation) return@Text
                         if (actual.lineCount == displayed.lines &&
                             actual.getLineEnd(actual.lineCount - 1, visibleEnd = false) == displayed.text.length)
-                            controller.restored(rendered.generation)
+                            measuredGeneration = rendered.generation
                         else controller.restoreFailed()
                     }) }
                 }

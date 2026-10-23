@@ -203,12 +203,9 @@ private fun ComicSinglePage(controller: ComicReaderController, viewport: IntSize
     }
     Box(Modifier.fillMaxSize().testTag("comic_page")) {
         displayed?.let { target ->
-            ReaderPageTransition(target, state.settings.pageTransition, direction, Modifier.fillMaxSize()) { frame ->
+            ReaderPageTransition(target, state.settings.pageTransition, direction, Modifier.fillMaxSize(),
+                onSettled = { controller.renderReady(it.image.entryKey, it.generation) }) { frame ->
                 DisposableEffect(frame.image) { onDispose { leases.remove(frame.image); frame.image.close() } }
-                LaunchedEffect(frame) {
-                    withFrameNanos { }
-                    controller.renderReady(frame.image.entryKey, frame.generation)
-                }
                 Box(Modifier.fillMaxSize().background(Color(0xFF101720))) {
                     ComicCanvas(controller, frame.image, viewport, false,
                         exploration || frame !== target || progress.phase != ArchiveReaderPhase.READY, onMenu)

@@ -26,10 +26,11 @@ class ReaderPageTransitionTest {
         val page = mutableIntStateOf(0)
         val direction = mutableIntStateOf(1)
         val effect = mutableStateOf(PageTransition.SLIDE)
+        val accepted = mutableListOf<Int>()
         compose.mainClock.autoAdvance = false
         compose.setContent {
             Box(Modifier.size(160.dp, 120.dp).background(Color.Green).testTag("deck")) {
-                ReaderPageTransition(page.intValue, effect.value, direction.intValue, Modifier.fillMaxSize()) {
+                ReaderPageTransition(page.intValue, effect.value, direction.intValue, Modifier.fillMaxSize(), onSettled = { accepted += it }) {
                     Box(Modifier.fillMaxSize().background(if (it % 2 == 0) Color.Red else Color.Blue))
                 }
             }
@@ -45,7 +46,14 @@ class ReaderPageTransitionTest {
         assertCovered()
         for (sign in listOf(1, -1)) {
             compose.runOnIdle { direction.intValue = sign; page.intValue++ }
-            repeat(14) { compose.mainClock.advanceTimeByFrame(); assertCovered() }
+            repeat(16) { frame ->
+                compose.mainClock.advanceTimeByFrame()
+                assertCovered()
+                if (frame == 0) compose.runOnIdle {
+                    org.junit.Assert.assertFalse("A turn must not be accepted on its first frame", accepted.contains(page.intValue))
+                }
+            }
+            compose.runOnIdle { assertTrue(accepted.contains(page.intValue)) }
         }
         compose.runOnIdle { effect.value = PageTransition.NONE; page.intValue++ }
         compose.mainClock.advanceTimeByFrame()

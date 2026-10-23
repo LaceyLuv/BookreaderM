@@ -21,6 +21,7 @@ EPUB 전체는 Readium publication position 기준이므로 ‘EPUB 위치 기�
 
 쪽수는 표시용이며 영구 locator로 저장하지 않는다. 기존 TXT UTF-16/EPUB 전체 locator/Comic entry 좌표,
 복원 완료 전 저장 금지와 설정 변경 시 위치 보존 계약을 유지한다.
+TXT는 실제 TextLayout 측정과 전환 완료를 모두 기다리고, Comic도 전환이 끝난 프레임 이후에만 새 위치를 확정한다.
 키보드·도구 표시 때문에 본문 높이가 달라지지 않도록 하단 쪽수 영역은 항상 같은 공간을 사용한다.
 
 ## 글꼴 출처와 호환성
