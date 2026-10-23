@@ -1,3 +1,26 @@
+# 후속 작업 전달서 — 0.4.0 완료, 2026-10-23
+
+사용자 요청의 글꼴·깜빡임 보완·전환 선택·쪽수·서재 카드 작업을 완료했다. 처음부터 반복하지 않는다.
+‘상태바’는 중앙을 탭하면 나타나는 하단 독서 현황을 뜻한다는 사용자 답변을 반영했다.
+서브에이전트는 사용하지 않았다.
+
+작업 위치 `/workspace/BookreaderM`, 브랜치 `main`.
+검증 제품/테스트 소스 `d1570aa92edddb676be3c5bc311d53506f2e9ad9`; 후속 commit은 문서/증거다.
+Build 39964576203의 161개, device 39964576436의 API26/34/36 각각 native 58 + host 6이 모두 PASS다.
+소스/원본 XML/필수 사례/artifact digest 및 실제 force-stop 후 PID 교체를 대조했다.
+[동작과 최종 결과](READER_FEATURES_0_4.md), [설치 안내](INSTALLABLE_APK.md)를 현재 기준으로 따른다.
+
+설치 파일 `/workspace/artifacts/BookreaderM/d1570aa/installable/BookreaderM-0.4.0-test-signed.apk`.
+SHA-256 `cf74e8ea6ede2fa360ddb7d75210b0822b87aa4e512005e78d2a0512582dbdf2`.
+기존 개발용 인증서 유지, v2/v3 서명·정적 감사 PASS. 실기기 설치는 NOT_RUN이다.
+중간 후보 bd6b456/0aeba65의 APK 대신 이 최종 파일을 안내한다. unsigned APK/AAB는 직접 설치용이 아니다.
+
+다음 세션은 git 상태/최근 log/AGENTS.md와 위 최종 문서를 먼저 확인한다.
+`source /workspace/toolchains/mobile-env.sh`로 기존 도구를 사용한다.
+기존 서명키/앱/책/진행도/캐시를 보존하며 요청 없는 reset/clean·강제 push·앱 삭제를 하지 않는다.
+남은 출시 조건은 실기기 성능/TalkBack/16KB OS/OEM backup/전체 corpus/독립 리뷰/정식 서명·출시 승인이다.
+아래는 이전 전달서 이력이며 현재 소스·패키지·검증 상태는 위 기록을 우선한다.
+
 # 후속 작업 전달서 — 2026-10-23
 
 독서 화면 디자인 요청은 구현·검증·main 반영까지 완료했다. 다음 세션에서 같은 작업을 처음부터 반복하지 않는다.

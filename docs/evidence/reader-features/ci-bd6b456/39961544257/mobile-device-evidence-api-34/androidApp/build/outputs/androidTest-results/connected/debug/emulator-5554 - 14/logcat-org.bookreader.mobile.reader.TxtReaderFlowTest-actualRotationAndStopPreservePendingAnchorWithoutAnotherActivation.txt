@@ -1,0 +1,797 @@
+10-23 13:40:16.829  6055  6081 I TestRunner: started: actualRotationAndStopPreservePendingAnchorWithoutAnotherActivation(org.bookreader.mobile.reader.TxtReaderFlowTest)
+10-23 13:40:16.852  6055  6081 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@939d010]
+10-23 13:40:16.865  6055  6081 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-23 13:40:16.870  1793  2761 I A       : Using proto config with mendel
+10-23 13:40:16.870  1793  2761 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-23 13:40:16.887  1793  2761 I A       : Using proto config with mendel
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil:  query= size=15
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=united airlines flight 1157 turbulence,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=united airlines flight 1157 turbulence searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 0f718b57-7380-49d6-bba9-d42b79539421
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=blue bell christmas cookies flavor,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=blue bell christmas cookies flavor searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 2e954f04-5e8f-4cc8-be2e-93b53bbb136e
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=abandoned german shepherd finds home,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=abandoned german shepherd finds home searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 63b49ab3-39f6-49ff-b317-5d585c71e28f
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/png;base64,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,suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=true,is_personal=false,suggest_raw_text=nba basketball,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=nba basketball searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: b8c8dbed-db3e-4c99-9fdc-2bcd30972d3b
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=nintendo switch games,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=nintendo switch games searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 00692b45-0a03-4b4f-a454-ad8d34a51b80
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=anthropic claude duet app,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=anthropic claude duet app searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: bdef3924-ade8-43c9-9a8d-12b420f3975f
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=edward nalwamba ice release colorado,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=edward nalwamba ice release colorado searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 34cfce81-1d35-46e7-9fc4-6a6e2e52ce5a
+10-23 13:40:16.890  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=heated rivalry movie theater release,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=heated rivalry movie theater release searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 9c51ffba-0557-4a10-89ca-334a3837b365
+10-23 13:40:16.893  1094  1094 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAHwAfAMBIgACEQEDEQH/xAAcAAACAwEBAQEAAAAAAAAAAAAGBwMEBQIBCAD/xAA+EAACAQMDAgQEBAQDBgcAAAABAgMEBREAEiEGMRNBUWEHInGBFEKRoRUyUrEjcuEzQ5LB0fAWJVNigqLC/8QAGgEAAgMBAQAAAAAAAAAAAAAAAwQBAgUABv/EACsRAAICAQQBAQYHAAAAAAAAAAECAAMRBBIhMRNBBRQiUWFxMkKBkbHB0f/aAAwDAQACEQMRAD8AErbV08KSSKq5YawF3y3hZWPBftquomZflbA0U/DbpaXqXqSOOfeaGm2y1RTgkZ4XPlnB59A2OcaZUCsSjHcZBcbFcri0U9HQzSxO3hpIFwrPgnaGOATgH9Nadl+FvU11kkRxSUixMok8eU5GRnA2ggkefPfj1x9AVNNTmKKJZZIIYRt8OnOz0AGQMr9iO+vKOKno2xAlU5fALSzPLj7sxxoPvRHwgy3jzzFfL8KLlQW9vwd2iqXxyngGP/8AR0prvRVduuMlNWq0c6H5gT+4I4I9xr6Yvd/sVtroYLnXtT1BX/DjSWQbhn+le/PHPvrE676XtfWNHURQGNLtSDKSK2GjYjIVx6Nxwceo1yNgzmyZ8/rGWXJlb9dRyLtPD/fOvfwskMz09UkkM8bFXjcYZWHcEattaJBT+MW49DpgkDuUwTIY4ldcmT99Ryrt4U5++okQl9udWkoZS3Gqs4U4MkISOJAmzs51zOqIBtHJ7a7mp2ilG9cDOrjy0zRrlQGGp+0ibtq6S/F0KSNMFZhnQ31Hbha6sRBt2ry36rpowlNJ8o8tWoLebtTGsq2BbHAOhPheTLKC3Ag5TCSbAiUltENFDMsADjkHWckyUUx8NRwfTV2nrZZY9xGOdX27uZAYiY0SOQQHxp/fDu1VFr6csT2nwUSsgSruDGDfJOXGR85YBVAPoTxwO50hbZB+KuVNTFsLLMiHn1YDTe6g6xu1g/g/Sdnp4YLhLHg1Dx5WOPe6r4adhwmRngDAx6VuOBJQZjUikLVNSppXiSMjEzFcS5GSRznjtzjWTeeo7ZQmENfbVRv4qmRamoTLR/mAG7v76C06ViuWJupK+vuztgmKaoYRA/5AcfoBq9/4e6do4yIbJboz6tCp/vpLzqOo4NK57mjU9adIPJubqKmBYY/w66RV/RWAGrNt6istcrU9putPWNGpkZI6ozSbR5nLFscjQLdrBZaoFTRxJnziXb/bjQRbYE6X6/tskIbY1Qkas57JJ8jke+GOrV2hziUtoasZhD8TLOtZ1UlfA+0S0yGVdvJYFhk/YAfbQrdp5I4lp1yB56Ler61qPqBIHiKx1KFiSCrZAXOT5/2/voar6ykmULtIbzyMahzYXAAyJKbAhz3MelhXfufH66uUsdxabxoKSWSAfmC8ah3Qb1wflyM/TTSoKylWxKIYlPyeuj2Ej8UCgJOFi7rp4amAgptdeCCMYOsVAobDjjWtdZYTVS7sBifXVWgozcakQU6sxxkhedFUlVzBkZbEi204wAV5OiS2yRpR+Ep78YB1mSdJVclSkNMfmJ5Lfl+utZLHNZ4JDVuHPYEcY0B3FgxDKrVHJmXc6eniHiAjJ1BRSRGHK4AydD9VWySzsSxK54HtratnhtSg8d9HpPGIF+8zPoZlpbhS1Ln5YZ0lbHorAn+2nD1Pa/D6vsV5nVEhWNaMkt/vN0gGOcnO7j6HSoqbRPRUxaqUg9iD3Gi+k6guPUfT8/4qRZa+0yJUKuNolpuFY4GPmRsEt3w51W0F14k1na0ZAr4FmETRTBT/AL1sIv78n7aqdQ3WO104eN44nbkM6lsj25Gqd3tCX1qavEj7WVXQBvlwR2I8+/7alu9HTmkpIZ0MscSkeeR9MdtZfU2FBaY9D1ClxwQkkwLFSTAAMjv76z+s7Y1TFSyQU9N40UoIeVpF2++VYdjjRXSU1JSRb6WADI4J5/fWXemJpZ5CcGNC+cZ5HOu3YOVkMmVw0G+sLY8lfR1FPLmtkgilmlDkqXeIFiBn5fIjHkdBVTSPSTbZJN5bnd66cF8ipaW4U+8BpaqNCG3Z2hYkQ/uMf/E6BesqGGNt0ALHzOnabCLNpiFtYKbhPejOkkvE4qaiUiCM/wAg/MdMN7ZBSxBIiCi8EawOiKKtFrSOhglmYgbtg4GfU9hoti6cvLxcxKh77WlX/kdaD0VMB5GiK32KTsEGusOk6CvtX4mkAWoUZDDjPsdL/p+sezVbusXihhtdC2Dx76dMPTd7IdZIoAhHA8XQpR/D6vo7vV1dypCtJncGV1Zf2Of20K4rWMKciXq3Py3BkFBcTcI/EiURu3bPrrK6jt19kglkMiyJjtrTvJo7bWU0VNIqhmAIXsdbtzZmtxEZBBTtrC1V70WgL0ZrU1pbUS3YiClUo5Vhgg4I1r2tm/Cj/MdQXCiqJLnLDBFJLK78JGpYn7DRpYvh/wBSS29HagEW4k7ZHAOtipsjMzGGDiZ3VdzFfWMIxiLuPfVr4cVVtouo4prpWVFIigrFJGoZCxBBEvntwfIfcYzoeqquKUosQHPGvKV/BqUGQQToqL8G2VJ+KfQcEVNAyUsJj8MoZYgjAqyZ52Y/KCR9MjQ51E07u0SzNGiuHDoSGQDy47j6/fQRaL9LYa9ZIoy8DkF4gcYxnlfIHk5Hn7HBBjUWyy9Qy/xukUVEhXa6uWJQ+hXPH9j31nXUmtsnqamluDDaZLbLtR11OY6OojmEQCsyNnn31xWRCoMNLnBqZki+xPzH7KGP217TUwp0wkXhgfTt5AAcAe2rEy/gEMs3NbMhSGP/ANJD/M59Cew9s+ulwBn6Q1p9BBrrWpmljW60MQMVHlDGn5Yc8Nz+p/ze2h3oi9rdes7fQXekpaiiq5TCUdTkZU7SDnvnGiLqkrS9OXB3OA1OyfdhgfudQfCH4dz1lRTdR3pZaemgdZaKD+V5mByHPonp/V9O7VGGGTEdQNh2jqPKjSGliFPTwRwwJwscahVUfTUxC54JGol12NMRWd8Dsde7zjXGdRyNhGJ4GO510mAHXvw4hu0n8WsA8C5RHe1JuxFUY8h5K3v2Pn6gJrOrIkpJaKrilp6yH5JIJ4yjofQjTerbwiIy0pLkcNIvZfpoWvfT1i6nlinrYvDrosbamPhmA7Bx+YfXkeRGsfU6/SmwIecesdqovVNwE7+FvTsVPQG51cINVUHdlhyB5DTA344AAGg603iCiub2RKunknpwN8SSfOoIByR38xop8TIBzp/T3eQbcYIgLk2nd6GJlPg7VjGapf8Ah/11cg+ElQjq7VCsR/7dOQHXRYAc60/eiPyj9op4h84pZ/hpKEMs9XFHHGMs7jAUepJPGsfpo0UFzrGtNYamCEeC8yriOZu5Cnzxxz554yNZHxr6kuVd1ZWWR52SgpPDWOmU4DsUVtzDzOW49AOPPPvR1xhs3TJpbsjUEhnZk/EoY/EzjBGRz/poGo1DvWRgc/SHoQBwSYy6ap+UMjKM8q20Ej6aqVUK+IZJDuYnJYnOdD1u6gpGlWljqomeVh4S7wd5JwApHfJxwOee2t8WKuncNd7glvgk+WGNcNIzHgZ8gMkcck+2s0VsTHjag5greaNureprd0zSEtAHFRcXQ/7OIY4J9T5e5XTtVFRAqgKoGAB2A9ND/RfSlL0tbmijYz11Q3iV
+10-23 13:40:16.893  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=g shock gmc 2500,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=g shock gmc 2500 searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 230f5140-73ac-450c-8f45-3f1d8d44485a
+10-23 13:40:16.893  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=flash flooding hurricane utah,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=flash flooding hurricane utah searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 8b44fec4-8e6c-47b9-a0f5-e017a3fbfb99
+10-23 13:40:16.893  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=veterinarian warning homemade dog food,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=veterinarian warning homemade dog food searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: feb34f34-2e7e-4519-b4b9-461a0bb64960
+10-23 13:40:16.894  1094  1094 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/jpeg;base64,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
+10-23 13:40:16.894  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=planet fitness closing locations,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=planet fitness closing locations searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: edd04abc-f398-4f4c-99a5-15762aba225c
+10-23 13:40:16.894  1094  1094 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=sony ps5,group_id=web462437,response_id=2e20e843-67e8-42ad-a836-ecebe408c214,support_query_builder=false,} searchAction=sony ps5 searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: d8e56061-8d60-4be0-9b33-d3680a9b3c4d
+10-23 13:40:16.902   836   879 D SplashScreenView: Build android.window.SplashScreenView{c700166 V.E...... ......ID 0,0-0,0}
+10-23 13:40:16.902   836   879 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 13:40:16.902   836   879 D SplashScreenView: Branding: view: android.view.View{701dca7 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 13:40:16.922  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: PRE_ON_CREATE
+10-23 13:40:16.923  6055  6055 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-23 13:40:16.945  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: CREATED
+10-23 13:40:16.953  6055  6055 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@1ab6d7d
+10-23 13:40:16.958  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: STARTED
+10-23 13:40:16.958  6055  6055 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@1ab6d7d
+10-23 13:40:16.962  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: RESUMED
+10-23 13:40:16.963  6055  6055 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@1ab6d7d
+10-23 13:40:16.979  6055  6055 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-23 13:40:17.258   524   543 W ziparchive: Unable to open '/data/app/~~-hin45zZHa12DoshgfuJEQ==/org.bookreader.mobile-GSpf4fy1pmDV4QYeoElNcA==/base.dm': No such file or directory
+10-23 13:40:17.266   524   543 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +378ms
+10-23 13:40:17.280   524  1962 I ImeTracker: org.bookreader.mobile:99b38928: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:40:17.280   524  1962 I ImeTracker: org.bookreader.mobile:99b38928: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:40:17.292  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:40:17.293  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:40:17.294  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:40:17.294  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:17.294  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:17.306   836   878 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@a76aaec
+10-23 13:40:17.306  6123  6123 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@c54ebf
+10-23 13:40:17.314  1094  1094 D TaplTarget: sendStateEventToTest: 0
+10-23 13:40:17.322   524   998 W InputManager-JNI: Input channel object '1459d7f org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:40:17.326  1094  1137 I ImeTracker: com.google.android.apps.nexuslauncher:f757b00c: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-23 13:40:17.327  1094  1137 I ImeTracker: com.google.android.apps.nexuslauncher:f757b00c: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-23 13:40:17.328  1793  2910 I PBSessionCacheImpl: Deleted sessionId[7887490156675317] from persistence.
+10-23 13:40:17.338   524   597 W InputManager-JNI: Input channel object '55a8fe0 Splash Screen org.bookreader.mobile (client)' was disposed without first being removed with the input manager!
+10-23 13:40:17.343   836   879 D SplashScreenView: Build android.window.SplashScreenView{2e8c89b V.E...... ......ID 0,0-0,0}
+10-23 13:40:17.343   836   879 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 13:40:17.343   836   879 D SplashScreenView: Branding: view: android.view.View{d1ed438 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 13:40:17.345  1793  2761 W SearchServiceCore: Abort, client detached.
+10-23 13:40:17.352  1094  1137 I ImeTracker: com.google.android.apps.nexuslauncher:b962ba3c: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-23 13:40:17.352  1094  1137 I ImeTracker: com.google.android.apps.nexuslauncher:b962ba3c: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-23 13:40:17.374  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: PAUSED
+10-23 13:40:17.374  6055  6055 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@1ab6d7d
+10-23 13:40:17.376  1094  2044 D OneSearchSuggestProvider: Shut down the binder channel
+10-23 13:40:17.382   403   403 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:17.388  1094  1410 I IPCThreadState: oneway function results for code 2 on binder at 0x7e20fa6555e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-23 13:40:17.460   836   836 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-23 13:40:17.537  1094  1111 W System  : A resource failed to call release.
+10-23 13:40:17.538  1094  1111 W System  : A resource failed to call release.
+10-23 13:40:17.538  1094  1111 W System  : A resource failed to call release.
+10-23 13:40:17.538  1094  1111 W System  : A resource failed to call release.
+10-23 13:40:17.538  1094  1111 W System  : A resource failed to call release.
+10-23 13:40:17.538  1094  1111 W System  : A resource failed to call release.
+10-23 13:40:17.549   403   403 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:17.599   836   848 I ndroid.systemui: NativeAlloc concurrent copying GC freed 232387(10003KB) AllocSpace objects, 4(80KB) LOS objects, 50% free, 18MB/36MB, paused 43us,31us total 150.865ms
+10-23 13:40:17.637  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: RESUMED
+10-23 13:40:17.638  6055  6055 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@1ab6d7d
+10-23 13:40:17.717   524  3018 I ImeTracker: org.bookreader.mobile:3a47b1cc: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR
+10-23 13:40:17.717   524  3018 I ImeTracker: org.bookreader.mobile:3a47b1cc: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:40:17.719   524  3018 W InputManager-JNI: Input channel object 'd918722 Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-23 13:40:17.720  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:40:17.721  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:40:17.721  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:40:17.721  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:17.722  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:17.735   836   878 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@1015377
+10-23 13:40:17.931  6055  6055 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:40:17.931  6055  6055 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:40:17.993   836   889 D EGL_emulation: app_time_stats: avg=259.27ms min=7.62ms max=990.20ms count=6
+10-23 13:40:18.101   836   889 D EGL_emulation: app_time_stats: avg=498.56ms min=326.92ms max=839.90ms count=3
+10-23 13:40:18.365  6055  6062 I okreader.mobile: Background young concurrent copying GC freed 362414(14MB) AllocSpace objects, 239(8840KB) LOS objects, 31% free, 34MB/50MB, paused 119us,23us total 189.575ms
+10-23 13:40:18.710  6055  6095 D EGL_emulation: app_time_stats: avg=76.96ms min=22.95ms max=140.89ms count=14
+10-23 13:40:18.940  6055  6062 I okreader.mobile: Background concurrent copying GC freed 683607(25MB) AllocSpace objects, 192(5952KB) LOS objects, 46% free, 27MB/51MB, paused 7.585ms,23us total 198.853ms
+10-23 13:40:19.290   524   546 I InputManager-JNI: Viewport [0] to add: local:4619827259835644672, isActive: true
+10-23 13:40:19.298   836   836 I NoBackGesture: NavbarController: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.832 fontWeightAdjustment=0} mTaskbarDelegate initialized=false willApplyConfigToNavbars=false navBarCount=1
+10-23 13:40:19.300   524   626 I InputReader: Reconfiguring input devices, changes=DISPLAY_INFO
+10-23 13:40:19.311   836   836 I NoBackGesture: Config changed: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.832 fontWeightAdjustment=0} lastReportedConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.92 fontWeightAdjustment=0}
+10-23 13:40:19.311   403   623 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:19.311   836   836 D CentralSurfaces: Received new disable state: enaihbcrso.qingr (unchanged)
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_11' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_10' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_9' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_7' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_6' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_5' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_4' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_3' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_2' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.324   524   626 I InputReader: Touch device 'virtio_input_multi_touch_8' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:19.326   524  3018 D CompatibilityChangeReporter: Compat change id reported: 236825255; UID 1000; state: ENABLED
+10-23 13:40:19.341   524  3018 W ImageReader_JNI: Unable to acquire a buffer item, very likely client tried to acquire more than maxImages buffers
+10-23 13:40:19.354  1094  1094 D b/254119092: TaskbarManager#mComponentCallbacks.onConfigurationChanged: {1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.763 fontWeightAdjustment=0}
+10-23 13:40:19.354  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:19.354  1094  1094 D b/254119092: ComponentCallbacks#onConfigurationChanged() configDiffForRecreate={CONFIG_ORIENTATION, CONFIG_SCREEN_LAYOUT, CONFIG_SCREEN_SIZE, CONFIG_WINDOW_CONFIGURATION}
+10-23 13:40:19.354  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:19.354  1094  1094 D b/254119092: destroyExistingTaskbar: null
+10-23 13:40:19.354  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:19.354  1094  1094 D b/254119092: recreateTaskbar: isTaskbarEnabled=false [dp != null (i.e. mUserUnlocked)]=true FLAG_HIDE_NAVBAR_WINDOW=false dp.isTaskbarPresent=false
+10-23 13:40:19.354  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:19.355  1094  1094 D b/254119092: DisplayController#onConfigurationChanged: {1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.763 fontWeightAdjustment=0}
+10-23 13:40:19.360  1094  1094 D b/254119092: DisplayInfoChangeListener#CHANGE_ROTATION
+10-23 13:40:19.360  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:19.361  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.363  1570  1570 W GoogleInputMethodService: GoogleInputMethodService.onConfigurationChanged():1557 onConfigurationChanged() : NewConfig = {1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.763 fontWeightAdjustment=0}
+10-23 13:40:19.363  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onConfigurationChanged():1575 changedMask : 20000580
+10-23 13:40:19.365   403   403 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:19.371  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: PAUSED
+10-23 13:40:19.372  6055  6055 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@1ab6d7d
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: No service published for: ethernet
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-23 13:40:19.376  1000  1025 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-23 13:40:19.382  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in ebn
+10-23 13:40:19.383  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in ebn
+10-23 13:40:19.383  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in eco
+10-23 13:40:19.385  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in eco
+10-23 13:40:19.385  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214027 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 0 ms
+10-23 13:40:19.385  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214024 -> 0_resource_name_obfuscated : WaitTime = 1 ms : RunTime = 1 ms
+10-23 13:40:19.386  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in een
+10-23 13:40:19.386  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in een
+10-23 13:40:19.386  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in csi
+10-23 13:40:19.386  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in csi
+10-23 13:40:19.386  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.386  1570  1570 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=false
+10-23 13:40:19.386  1570  1570 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:40:19.387  1570  1570 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=portrait_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-23 13:40:19.387  1570  1570 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-23 13:40:19.388  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.388  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: STOPPED
+10-23 13:40:19.389  6055  6055 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@1ab6d7d
+10-23 13:40:19.390   836   836 I NoBackGesture: Config changed: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.832 fontWeightAdjustment=0} lastReportedConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.832 fontWeightAdjustment=0}
+10-23 13:40:19.390  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214034 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 0 ms
+10-23 13:40:19.391  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214033 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 0 ms
+10-23 13:40:19.391  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.392  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.393  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.393  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_land
+10-23 13:40:19.394  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.394   403   417 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:19.400  1570  1570 I InputMethodEntryManager: InputMethodEntryManager.startLoadingInputMethodEntrySettings():739 Start loading input method entry settings: [LanguageTagVariantTuple{languageTag=en-US, variant=qwerty}]
+10-23 13:40:19.403  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1ab6d7d in: DESTROYED
+10-23 13:40:19.404  6055  6055 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 13:40:19.404  6055  6055 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@133f52e
+10-23 13:40:19.404  1570  1570 I InputMethodEntryManager: InputMethodEntryManager.updateInputMethodEntrySettingsLoadingTask():826 update loading task with resetImplicitlyEnabledEntries is false
+10-23 13:40:19.406  1570  1570 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:40:19.414   524  3018 W InputManager-JNI: Input channel object '895df55 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:40:19.444  1570  1570 I KeyboardViewUtil: KeyboardViewUtil.getKeyboardHeightRatio():189 systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+10-23 13:40:19.445  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: PRE_ON_CREATE
+10-23 13:40:19.445  6055  6055 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+10-23 13:40:19.459  1570  1570 W StyleResolver: StyleResolver.resolveValue():233 Invalid variable: color_silk_surface_background
+10-23 13:40:19.461  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: CREATED
+10-23 13:40:19.461  6055  6055 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:19.462  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: STARTED
+10-23 13:40:19.463  6055  6055 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:19.464  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: RESUMED
+10-23 13:40:19.464  6055  6055 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:19.468  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, true)
+10-23 13:40:19.469  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:19.473  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:19.476  1570  1570 W SessionManager: SessionManager.beginSession():53 Try to begin an already begun session [INPUT_SESSION], end it first
+10-23 13:40:19.477  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1155 update screenHeightWithoutNaviBar to: 954
+10-23 13:40:19.477  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1161 update max height when insets changes
+10-23 13:40:19.477  6055  6055 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-23 13:40:19.482  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in ebn.
+10-23 13:40:19.483  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in eco.
+10-23 13:40:19.483  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in een.
+10-23 13:40:19.483  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in csi.
+10-23 13:40:19.483  1570  1570 I InputMethodEntryManager: InputMethodEntryManager$5.onSuccess():845 Success load entries: [LanguageTagVariantTuple{languageTag=en-US, variant=qwerty}], resetImplicitlyEnabledEntries=false
+10-23 13:40:19.485  1570  1570 I DictionarySuperpacksManager: DictionarySuperpacksManager$1.onEnabledInputMethodEntriesChanged():61 onEnabledInputMethodEntriesChanged
+10-23 13:40:19.486  1570  2054 I SP      : Registering content_cache.2022112214, url: https://www.gstatic.com/android/keyboard/modelpack/contentcache/202211221443/superpacks_manifest.json, constraints: W:*:*:*, flags: bg, requested: 2022112214, current: 2022112214
+10-23 13:40:19.505  6055  6055 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:40:19.505  6055  6055 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:40:19.506  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in ebn
+10-23 13:40:19.506  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in ebn
+10-23 13:40:19.506  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in eco
+10-23 13:40:19.507  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in eco
+10-23 13:40:19.507  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in een
+10-23 13:40:19.507  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in een
+10-23 13:40:19.508  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in csi
+10-23 13:40:19.508  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in csi
+10-23 13:40:19.508  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.517  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214024 -> 0_resource_name_obfuscated : WaitTime = 10 ms : RunTime = 1 ms
+10-23 13:40:19.522  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214027 -> 0_resource_name_obfuscated : WaitTime = 11 ms : RunTime = 4 ms
+10-23 13:40:19.522  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214034 -> 0_resource_name_obfuscated : WaitTime = 15 ms : RunTime = 0 ms
+10-23 13:40:19.522  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214033 -> 0_resource_name_obfuscated : WaitTime = 14 ms : RunTime = 0 ms
+10-23 13:40:19.539  1570  2054 I SP      : Registering emoticon_content_description.2022081613, url: https://www.gstatic.com/android/keyboard/emoticon_content_desc/202208161305/superpacks_manifest.json, constraints: W:*:*:*, flags: bg, requested: 2022081613, current: 2022081613
+10-23 13:40:19.549  1570  1570 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-23 13:40:19.549  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.549  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.549  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.549  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:19.550  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_land
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: KeyboardDefManager$LoadKeyboardDefTask$1.onFailure():188 Task to load keyboard def was canceled.
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: java.util.concurrent.CancellationException: Task was cancelled.
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at mrp.s(PG:3)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at mrp.get(PG:4)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at mgr.Q(PG:1)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at mfu.V(PG:2)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at mtg.run(PG:4)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at android.os.Looper.loop(Looper.java:294)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+10-23 13:40:19.551  1570  1570 I KeyboardDefManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+10-23 13:40:19.551  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in ebn.
+10-23 13:40:19.551  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in eco.
+10-23 13:40:19.551  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in een.
+10-23 13:40:19.551  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in csi.
+10-23 13:40:19.633  1570  2054 I SP      : Syncing content_cache (2022112214) with slices: [e9a5a2de48a4f8b9a658b411bcfb375d, 8722425f4121ffdea802b1066df73991, fa1da98da1212aad6fb9a8efaff48148], metadata: true
+10-23 13:40:19.635   524  3018 I ImeTracker: org.bookreader.mobile:a6fe34d4: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:40:19.635   524  3018 I ImeTracker: org.bookreader.mobile:a6fe34d4: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:40:19.642  1570  1580 I putmethod.latin: Background young concurrent copying GC freed 259264(10119KB) AllocSpace objects, 16(808KB) LOS objects, 35% free, 16MB/24MB, paused 36us,17us total 185.292ms
+10-23 13:40:19.645  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:40:19.647  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:40:19.648  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:40:19.650  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:19.651  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:19.687  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022051700_2[12]
+10-23 13:40:19.689  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022101700_1[16]
+10-23 13:40:19.691  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_840_2022102600_1[12]
+10-23 13:40:19.692  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022051700_2[12]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022101700_1[16]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_840_2022102600_1[12]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: 2023012316_en[7]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: 2023012316_en[7]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: 2023012316_en[7]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: 2023012316_en[7]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: 2023012316_en[7]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: 2023012316_en[7]
+10-23 13:40:19.693  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022101700_1[16]
+10-23 13:40:19.694  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_840_2022102600_1[12]
+10-23 13:40:19.697  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022101700_1[16]
+10-23 13:40:19.697  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_840_2022102600_1[12]
+10-23 13:40:19.698  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022051700_2[12]
+10-23 13:40:19.698  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022051700_2[12]
+10-23 13:40:19.698  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: tflite-nwp-be541314788c7304827a9710c3ac4edb[5]
+10-23 13:40:19.698  1570  1582 W SP      : File ref is being finalized but wasn't closed, file: tflite-nwp-be541314788c7304827a9710c3ac4edb[5]
+10-23 13:40:19.893  1570  6673 I KeyboardDefManager: KeyboardDefManager.lambda$loadKeyboardDef$2():382 parsing keyboard def from xml failed or task was canceled.
+10-23 13:40:19.960   836   879 D SplashScreenView: Build android.window.SplashScreenView{989f85d V.E...... ......ID 0,0-0,0}
+10-23 13:40:19.960   836   879 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 13:40:19.960   836   879 D SplashScreenView: Branding: view: android.view.View{e5945d2 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 13:40:19.962  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: PAUSED
+10-23 13:40:19.963  6055  6055 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:20.001   403   403 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:20.052  1570  2054 I SP      : Syncing emoticon_content_description (2022081613) with slices: [7a635888cb828dfa2fc744b7b9b50f04], metadata: false
+10-23 13:40:20.085  1570  1570 W GoogleInputMethodService: GoogleInputMethodService.onConfigurationChanged():1557 onConfigurationChanged() : NewConfig = {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.838 fontWeightAdjustment=0}
+10-23 13:40:20.087  1094  1094 D b/254119092: DisplayController#onConfigurationChanged: {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.838 fontWeightAdjustment=0}
+10-23 13:40:20.090  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onConfigurationChanged():1575 changedMask : 20000580
+10-23 13:40:20.091  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in ebn
+10-23 13:40:20.091  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in ebn
+10-23 13:40:20.091  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214024 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 0 ms
+10-23 13:40:20.092  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in eco
+10-23 13:40:20.092   524   546 I InputManager-JNI: Viewport [0] to add: local:4619827259835644672, isActive: true
+10-23 13:40:20.092   524   626 I InputReader: Reconfiguring input devices, changes=DISPLAY_INFO
+10-23 13:40:20.092   524   626 I InputReader: Touch device 'virtio_input_multi_touch_11' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.092   524   626 I InputReader: Touch device 'virtio_input_multi_touch_10' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.092   524   626 I InputReader: Touch device 'virtio_input_multi_touch_9' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.092   524   626 I InputReader: Touch device 'virtio_input_multi_touch_7' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.092   524   626 I InputReader: Touch device 'virtio_input_multi_touch_6' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.093   524   626 I InputReader: Touch device 'virtio_input_multi_touch_5' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.093   524   626 I InputReader: Touch device 'virtio_input_multi_touch_4' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.093   524   626 I InputReader: Touch device 'virtio_input_multi_touch_3' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.093   524   626 I InputReader: Touch device 'virtio_input_multi_touch_2' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.093   524   626 I InputReader: Touch device 'virtio_input_multi_touch_8' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:20.093  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in eco
+10-23 13:40:20.094  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214027 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 0 ms
+10-23 13:40:20.094  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in een
+10-23 13:40:20.095  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in een
+10-23 13:40:20.095  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in csi
+10-23 13:40:20.095  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in csi
+10-23 13:40:20.096  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.096  1570  1570 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=true
+10-23 13:40:20.096  1570  1570 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:40:20.103  1094  1094 D b/254119092: DisplayInfoChangeListener#CHANGE_ROTATION
+10-23 13:40:20.103  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:20.109  1570  1570 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=landscape_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-23 13:40:20.109  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214033 -> 0_resource_name_obfuscated : WaitTime = 1 ms : RunTime = 0 ms
+10-23 13:40:20.109  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214034 -> 0_resource_name_obfuscated : WaitTime = 1 ms : RunTime = 1 ms
+10-23 13:40:20.111  1570  1570 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-23 13:40:20.112   836   836 I NoBackGesture: NavbarController: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.906 fontWeightAdjustment=0} mTaskbarDelegate initialized=false willApplyConfigToNavbars=false navBarCount=1
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: No service published for: ethernet
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-23 13:40:20.112  1000  1025 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-23 13:40:20.113   836   836 I NoBackGesture: Config changed: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.906 fontWeightAdjustment=0} lastReportedConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.832 fontWeightAdjustment=0}
+10-23 13:40:20.114  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.115  1094  1094 D b/254119092: TaskbarManager#mComponentCallbacks.onConfigurationChanged: {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.838 fontWeightAdjustment=0}
+10-23 13:40:20.115  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:20.116  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.116  1094  1094 D b/254119092: ComponentCallbacks#onConfigurationChanged() configDiffForRecreate={CONFIG_ORIENTATION, CONFIG_SCREEN_LAYOUT, CONFIG_SCREEN_SIZE, CONFIG_WINDOW_CONFIGURATION}
+10-23 13:40:20.116  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:20.118  1094  1094 D b/254119092: destroyExistingTaskbar: null
+10-23 13:40:20.118  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:20.118  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.118  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.118  1094  1094 D b/254119092: recreateTaskbar: isTaskbarEnabled=false [dp != null (i.e. mUserUnlocked)]=true FLAG_HIDE_NAVBAR_WINDOW=false dp.isTaskbarPresent=false
+10-23 13:40:20.118  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:20.119   403   573 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:20.120  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.121  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_port
+10-23 13:40:20.119   836   836 D CentralSurfaces: Received new disable state: enaihbcrso.qingr (unchanged)
+10-23 13:40:20.126  1570  2054 I SP      : Sync for content_cache succeeded in 563 ms: no changes
+10-23 13:40:20.126  1570  2054 I SP      : GC for 'content_cache' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:40:20.132   403   403 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:20.134  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.147  1570  2054 I SP      : Sync for emoticon_content_description succeeded in 95 ms: no changes
+10-23 13:40:20.148  1570  2054 I SP      : GC for 'emoticon_content_description' (10) with ttl of 0 ms took 1 ms (0/0/1)
+10-23 13:40:20.148  1570  1570 I InputMethodEntryManager: InputMethodEntryManager.startLoadingInputMethodEntrySettings():739 Start loading input method entry settings: [LanguageTagVariantTuple{languageTag=en-US, variant=qwerty}]
+10-23 13:40:20.149  1570  1570 I InputMethodEntryManager: InputMethodEntryManager.updateInputMethodEntrySettingsLoadingTask():826 update loading task with resetImplicitlyEnabledEntries is false
+10-23 13:40:20.154  1570  1570 I InputMethodEntryManager: InputMethodEntryManager$5.onSuccess():845 Success load entries: [LanguageTagVariantTuple{languageTag=en-US, variant=qwerty}], resetImplicitlyEnabledEntries=false
+10-23 13:40:20.155  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in ebn
+10-23 13:40:20.160  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in ebn
+10-23 13:40:20.160  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in eco
+10-23 13:40:20.160  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in eco
+10-23 13:40:20.161  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in een
+10-23 13:40:20.161  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in een
+10-23 13:40:20.161  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in csi
+10-23 13:40:20.161  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in csi
+10-23 13:40:20.162  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.163  1570  1570 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-23 13:40:20.163  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.164  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.164  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.164  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.165  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.166  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_port
+10-23 13:40:20.168  1570  1570 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:40:20.193   836   836 I NoBackGesture: Config changed: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.906 fontWeightAdjustment=0} lastReportedConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.906 fontWeightAdjustment=0}
+10-23 13:40:20.196  1570  2054 I SP      : Registering emoticon_content_description.2022081613, url: https://www.gstatic.com/android/keyboard/emoticon_content_desc/202208161305/superpacks_manifest.json, constraints: W:*:*:*, flags: bg, requested: 2022081613, current: 2022081613
+10-23 13:40:20.198  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.201  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214024 -> 0_resource_name_obfuscated : WaitTime = 20 ms : RunTime = 22 ms
+10-23 13:40:20.210  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214027 -> 0_resource_name_obfuscated : WaitTime = 48 ms : RunTime = 2 ms
+10-23 13:40:20.228   403   418 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:20.240  6123  6145 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-23 13:40:20.245  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214034 -> 0_resource_name_obfuscated : WaitTime = 83 ms : RunTime = 1 ms
+10-23 13:40:20.245  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214033 -> 0_resource_name_obfuscated : WaitTime = 84 ms : RunTime = 0 ms
+10-23 13:40:20.246  1570  1570 I KeyboardViewUtil: KeyboardViewUtil.getKeyboardHeightRatio():189 systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+10-23 13:40:20.274  1570  2054 I SP      : Syncing emoticon_content_description (2022081613) with slices: [7a635888cb828dfa2fc744b7b9b50f04], metadata: false
+10-23 13:40:20.285  1570  1570 W StyleResolver: StyleResolver.resolveValue():233 Invalid variable: color_silk_surface_background
+10-23 13:40:20.289  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, true)
+10-23 13:40:20.292  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:20.294  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:20.294  1570  1570 W SessionManager: SessionManager.beginSession():53 Try to begin an already begun session [INPUT_SESSION], end it first
+10-23 13:40:20.295  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.301  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in ebn.
+10-23 13:40:20.301  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in eco.
+10-23 13:40:20.301  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in een.
+10-23 13:40:20.301  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in csi.
+10-23 13:40:20.302  1570  1570 I DictionarySuperpacksManager: DictionarySuperpacksManager$1.onEnabledInputMethodEntriesChanged():61 onEnabledInputMethodEntriesChanged
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: KeyboardDefManager$LoadKeyboardDefTask$1.onFailure():188 Task to load keyboard def was canceled.
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: java.util.concurrent.CancellationException: Task was cancelled.
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at mrp.s(PG:3)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at mrp.get(PG:4)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at mgr.Q(PG:1)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at mfu.V(PG:2)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at mtg.run(PG:4)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at android.os.Looper.loop(Looper.java:294)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+10-23 13:40:20.302  1570  1570 I KeyboardDefManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+10-23 13:40:20.302  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onFailure():533 Failed to load KeyboardGroupManager in ebn.
+10-23 13:40:20.302  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onFailure():533 Failed to load KeyboardGroupManager in eco.
+10-23 13:40:20.302  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onFailure():533 Failed to load KeyboardGroupManager in een.
+10-23 13:40:20.302  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onFailure():533 Failed to load KeyboardGroupManager in csi.
+10-23 13:40:20.302  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1155 update screenHeightWithoutNaviBar to: 1794
+10-23 13:40:20.314  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1161 update max height when insets changes
+10-23 13:40:20.325  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1155 update screenHeightWithoutNaviBar to: 1920
+10-23 13:40:20.325  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1161 update max height when insets changes
+10-23 13:40:20.373  1570  6673 I KeyboardDefManager: KeyboardDefManager.lambda$loadKeyboardDef$2():382 parsing keyboard def from xml failed or task was canceled.
+10-23 13:40:20.461   836   836 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-23 13:40:20.480  1570  1578 I putmethod.latin: Compiler allocated 4199KB to compile void nqm.h(java.lang.Object, nqv, nol)
+10-23 13:40:20.495  6055  6062 I okreader.mobile: Background young concurrent copying GC freed 397427(16MB) AllocSpace objects, 213(6928KB) LOS objects, 38% free, 31MB/51MB, paused 43us,32us total 589.194ms
+10-23 13:40:20.593  1570  2054 I SP      : Registering content_cache.2022112214, url: https://www.gstatic.com/android/keyboard/modelpack/contentcache/202211221443/superpacks_manifest.json, constraints: W:*:*:*, flags: bg, requested: 2022112214, current: 2022112214
+10-23 13:40:20.606   524   543 W ziparchive: Unable to open '/data/app/~~WTST10iycC8CnukgpvDd8g==/org.bookreader.mobile.test-RDq3X22JFbXViD9G5c7HAA==/base.dm': No such file or directory
+10-23 13:40:20.619   524   543 I ActivityTaskManager: Displayed org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +651ms
+10-23 13:40:20.620   524   998 I ImeTracker: org.bookreader.mobile.test:9866eee4: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:40:20.620   524   998 I ImeTracker: org.bookreader.mobile.test:9866eee4: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:40:20.620  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: STOPPED
+10-23 13:40:20.630  6055  6055 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:20.631  1570  2054 I SP      : Sync for emoticon_content_description succeeded in 358 ms: no changes
+10-23 13:40:20.632  1570  2054 I SP      : GC for 'emoticon_content_description' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:40:20.643  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:40:20.644  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:40:20.645  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile.test fieldId=0 fieldName=null extras=null}, false)
+10-23 13:40:20.645  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:20.646  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:20.647  1570  1580 I putmethod.latin: Background concurrent copying GC freed 510670(15MB) AllocSpace objects, 13(748KB) LOS objects, 49% free, 12MB/25MB, paused 35us,19us total 435.820ms
+10-23 13:40:20.654   836   878 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@2f2bd59
+10-23 13:40:20.654   524   909 W InputManager-JNI: Input channel object 'f255387 Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-23 13:40:20.682  1570  2054 I SP      : Syncing content_cache (2022112214) with slices: [e9a5a2de48a4f8b9a658b411bcfb375d, 8722425f4121ffdea802b1066df73991, fa1da98da1212aad6fb9a8efaff48148], metadata: true
+10-23 13:40:20.791  1570  2054 I SP      : Sync for content_cache succeeded in 159 ms: no changes
+10-23 13:40:20.791  1570  2054 I SP      : GC for 'content_cache' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:40:20.797  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: RESTARTED
+10-23 13:40:20.797  6055  6055 V ActivityScenario: Update currentActivityStage to RESTARTED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:20.797  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: STARTED
+10-23 13:40:20.798  6055  6055 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:20.799   403   403 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:20.799  6055  6055 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:40:20.799  6055  6055 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:40:20.800  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: RESUMED
+10-23 13:40:20.800  6055  6055 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:20.927  1094  1094 D b/254119092: DisplayController#onConfigurationChanged: {1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.912 fontWeightAdjustment=0}
+10-23 13:40:20.931  1570  1570 W GoogleInputMethodService: GoogleInputMethodService.onConfigurationChanged():1557 onConfigurationChanged() : NewConfig = {1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.912 fontWeightAdjustment=0}
+10-23 13:40:20.950  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onConfigurationChanged():1575 changedMask : 20000580
+10-23 13:40:20.959  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in ebn
+10-23 13:40:20.959  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in ebn
+10-23 13:40:20.962   836   836 I NoBackGesture: NavbarController: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.980 fontWeightAdjustment=0} mTaskbarDelegate initialized=false willApplyConfigToNavbars=false navBarCount=1
+10-23 13:40:20.963   836   836 I NoBackGesture: Config changed: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.980 fontWeightAdjustment=0} lastReportedConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.906 fontWeightAdjustment=0}
+10-23 13:40:20.964   836   836 D CentralSurfaces: Received new disable state: enaihbcrso.qingr (unchanged)
+10-23 13:40:20.965  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in eco
+10-23 13:40:20.965  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in eco
+10-23 13:40:20.965  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in een
+10-23 13:40:20.965  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in een
+10-23 13:40:20.965  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in csi
+10-23 13:40:20.965  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in csi
+10-23 13:40:20.966  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.966  1570  1570 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=false
+10-23 13:40:20.966  1570  1570 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:40:20.966  1570  1570 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=portrait_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-23 13:40:20.966  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214024 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 2 ms
+10-23 13:40:20.966  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214034 -> 0_resource_name_obfuscated : WaitTime = 2 ms : RunTime = 0 ms
+10-23 13:40:20.967  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214033 -> 0_resource_name_obfuscated : WaitTime = 1 ms : RunTime = 0 ms
+10-23 13:40:20.967  1570  1570 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-23 13:40:20.967  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.968  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.968  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.968  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.968  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_land
+10-23 13:40:20.973  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:20.973  1570  1570 I InputMethodEntryManager: InputMethodEntryManager.startLoadingInputMethodEntrySettings():739 Start loading input method entry settings: [LanguageTagVariantTuple{languageTag=en-US, variant=qwerty}]
+10-23 13:40:20.974   403   573 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:20.975  1570  1570 I InputMethodEntryManager: InputMethodEntryManager.updateInputMethodEntrySettingsLoadingTask():826 update loading task with resetImplicitlyEnabledEntries is false
+10-23 13:40:20.975  1570  1570 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:40:20.979  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214027 -> 0_resource_name_obfuscated : WaitTime = 1 ms : RunTime = 14 ms
+10-23 13:40:20.991   524  1955 I ImeTracker: org.bookreader.mobile:60969524: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:40:20.992   524  1955 I ImeTracker: org.bookreader.mobile:60969524: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:40:20.998   524   546 I InputManager-JNI: Viewport [0] to add: local:4619827259835644672, isActive: true
+10-23 13:40:20.999   403   403 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:21.003   524   626 I InputReader: Reconfiguring input devices, changes=DISPLAY_INFO
+10-23 13:40:21.004   524   626 I InputReader: Touch device 'virtio_input_multi_touch_11' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.005   524   626 I InputReader: Touch device 'virtio_input_multi_touch_10' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.005   524   626 I InputReader: Touch device 'virtio_input_multi_touch_9' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.005   524   626 I InputReader: Touch device 'virtio_input_multi_touch_7' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.005   524   626 I InputReader: Touch device 'virtio_input_multi_touch_6' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.005   524   626 I InputReader: Touch device 'virtio_input_multi_touch_5' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.005   524   626 I InputReader: Touch device 'virtio_input_multi_touch_4' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.005   524   626 I InputReader: Touch device 'virtio_input_multi_touch_3' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.006   524   626 I InputReader: Touch device 'virtio_input_multi_touch_2' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.006   524   626 I InputReader: Touch device 'virtio_input_multi_touch_8' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.010  1570  1570 I KeyboardViewUtil: KeyboardViewUtil.getKeyboardHeightRatio():189 systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+10-23 13:40:21.035  1094  1094 D b/254119092: DisplayInfoChangeListener#CHANGE_ROTATION
+10-23 13:40:21.035  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: No service published for: ethernet
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-23 13:40:21.037  1000  1025 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-23 13:40:21.041  1094  1094 D b/254119092: TaskbarManager#mComponentCallbacks.onConfigurationChanged: {1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.912 fontWeightAdjustment=0}
+10-23 13:40:21.041  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.042  1570  1570 W StyleResolver: StyleResolver.resolveValue():233 Invalid variable: color_silk_surface_background
+10-23 13:40:21.043  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile.test fieldId=0 fieldName=null extras=null}, true)
+10-23 13:40:21.043  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:21.045  1094  1094 D b/254119092: ComponentCallbacks#onConfigurationChanged() configDiffForRecreate={CONFIG_ORIENTATION, CONFIG_SCREEN_LAYOUT, CONFIG_SCREEN_SIZE, CONFIG_WINDOW_CONFIGURATION}
+10-23 13:40:21.045  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.045  1094  1094 D b/254119092: destroyExistingTaskbar: null
+10-23 13:40:21.045  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.045  1094  1094 D b/254119092: recreateTaskbar: isTaskbarEnabled=false [dp != null (i.e. mUserUnlocked)]=true FLAG_HIDE_NAVBAR_WINDOW=false dp.isTaskbarPresent=false
+10-23 13:40:21.045  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.046  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:21.048  1570  1570 W SessionManager: SessionManager.beginSession():53 Try to begin an already begun session [INPUT_SESSION], end it first
+10-23 13:40:21.049  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.050  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in ebn.
+10-23 13:40:21.053  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in eco.
+10-23 13:40:21.053  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in een.
+10-23 13:40:21.053  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in csi.
+10-23 13:40:21.053  1570  1570 I InputMethodEntryManager: InputMethodEntryManager$5.onSuccess():845 Success load entries: [LanguageTagVariantTuple{languageTag=en-US, variant=qwerty}], resetImplicitlyEnabledEntries=false
+10-23 13:40:21.054  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:40:21.064  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:40:21.064  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:40:21.064  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:21.065  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:21.065  1570  2054 I SP      : Registering emoticon_content_description.2022081613, url: https://www.gstatic.com/android/keyboard/emoticon_content_desc/202208161305/superpacks_manifest.json, constraints: W:*:*:*, flags: bg, requested: 2022081613, current: 2022081613
+10-23 13:40:21.067  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1155 update screenHeightWithoutNaviBar to: 1080
+10-23 13:40:21.067  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1161 update max height when insets changes
+10-23 13:40:21.081   836   836 I NoBackGesture: Config changed: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.980 fontWeightAdjustment=0} lastReportedConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.980 fontWeightAdjustment=0}
+10-23 13:40:21.081  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1155 update screenHeightWithoutNaviBar to: 954
+10-23 13:40:21.082  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1161 update max height when insets changes
+10-23 13:40:21.083  1570  1570 I DictionarySuperpacksManager: DictionarySuperpacksManager$1.onEnabledInputMethodEntriesChanged():61 onEnabledInputMethodEntriesChanged
+10-23 13:40:21.084  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in ebn
+10-23 13:40:21.085  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in ebn
+10-23 13:40:21.087  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in eco
+10-23 13:40:21.087  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in eco
+10-23 13:40:21.088  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in een
+10-23 13:40:21.088  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in een
+10-23 13:40:21.089  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in csi
+10-23 13:40:21.091  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in csi
+10-23 13:40:21.091  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.094  1570  1570 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-23 13:40:21.102  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.102  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.103  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.104  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.104  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_land
+10-23 13:40:21.107  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in ebn.
+10-23 13:40:21.110  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in eco.
+10-23 13:40:21.110  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in een.
+10-23 13:40:21.110  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in csi.
+10-23 13:40:21.110  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214024 -> 0_resource_name_obfuscated : WaitTime = 2 ms : RunTime = 0 ms
+10-23 13:40:21.111  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214034 -> 0_resource_name_obfuscated : WaitTime = 21 ms : RunTime = 0 ms
+10-23 13:40:21.111  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214033 -> 0_resource_name_obfuscated : WaitTime = 20 ms : RunTime = 0 ms
+10-23 13:40:21.114  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214027 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 1 ms
+10-23 13:40:21.120   403   623 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:21.129  6123  6123 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@8922a2
+10-23 13:40:21.131   524  1955 W InputManager-JNI: Input channel object 'e2abfbd org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:40:21.174  1570  2054 I SP      : Syncing emoticon_content_description (2022081613) with slices: [7a635888cb828dfa2fc744b7b9b50f04], metadata: false
+10-23 13:40:21.230  1570  2054 I SP      : Registering content_cache.2022112214, url: https://www.gstatic.com/android/keyboard/modelpack/contentcache/202211221443/superpacks_manifest.json, constraints: W:*:*:*, flags: bg, requested: 2022112214, current: 2022112214
+10-23 13:40:21.239   824   824 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-23 13:40:21.243  1570  2054 I SP      : Sync for emoticon_content_description succeeded in 174 ms: no changes
+10-23 13:40:21.243  1570  2054 I SP      : GC for 'emoticon_content_description' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:40:21.245  1570  2054 I SP      : Syncing content_cache (2022112214) with slices: [e9a5a2de48a4f8b9a658b411bcfb375d, 8722425f4121ffdea802b1066df73991, fa1da98da1212aad6fb9a8efaff48148], metadata: true
+10-23 13:40:21.292   836   836 I NoBackGesture: NavbarController: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.1054 fontWeightAdjustment=0} mTaskbarDelegate initialized=false willApplyConfigToNavbars=false navBarCount=1
+10-23 13:40:21.293   836   836 I NoBackGesture: Config changed: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.1054 fontWeightAdjustment=0} lastReportedConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w731dp h363dp 420dpi nrml long land finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 1080) mAppBounds=Rect(0, 0 - 1920, 1017) mMaxBounds=Rect(0, 0 - 1920, 1080) mDisplayRotation=ROTATION_90 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_90} as.2 s.980 fontWeightAdjustment=0}
+10-23 13:40:21.293   836   836 D CentralSurfaces: Received new disable state: enaihbcrso.qingr (unchanged)
+10-23 13:40:21.302   403   813 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:21.341   524  2392 W ImageReader_JNI: Unable to acquire a buffer item, very likely client tried to acquire more than maxImages buffers
+10-23 13:40:21.360  1094  1094 D b/254119092: TaskbarManager#mComponentCallbacks.onConfigurationChanged: {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.985 fontWeightAdjustment=0}
+10-23 13:40:21.360  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.360  1094  1094 D b/254119092: ComponentCallbacks#onConfigurationChanged() configDiffForRecreate={CONFIG_ORIENTATION, CONFIG_SCREEN_LAYOUT, CONFIG_SCREEN_SIZE, CONFIG_WINDOW_CONFIGURATION}
+10-23 13:40:21.360  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.360  1094  1094 D b/254119092: destroyExistingTaskbar: null
+10-23 13:40:21.360  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.360  1094  1094 D b/254119092: recreateTaskbar: isTaskbarEnabled=false [dp != null (i.e. mUserUnlocked)]=true FLAG_HIDE_NAVBAR_WINDOW=false dp.isTaskbarPresent=false
+10-23 13:40:21.360  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.364  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.368  1570  1570 W GoogleInputMethodService: GoogleInputMethodService.onConfigurationChanged():1557 onConfigurationChanged() : NewConfig = {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.985 fontWeightAdjustment=0}
+10-23 13:40:21.368  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onConfigurationChanged():1575 changedMask : 20000580
+10-23 13:40:21.368  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in ebn
+10-23 13:40:21.369  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in ebn
+10-23 13:40:21.370  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in eco
+10-23 13:40:21.370  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in eco
+10-23 13:40:21.372  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in een
+10-23 13:40:21.376  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in een
+10-23 13:40:21.378  1094  1094 D b/254119092: DisplayController#onConfigurationChanged: {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.985 fontWeightAdjustment=0}
+10-23 13:40:21.382  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in csi
+10-23 13:40:21.383  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214027 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 12 ms
+10-23 13:40:21.384  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214034 -> 0_resource_name_obfuscated : WaitTime = 1 ms : RunTime = 0 ms
+10-23 13:40:21.384  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in csi
+10-23 13:40:21.385  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.386  1570  1570 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=true
+10-23 13:40:21.390  1570  1570 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:40:21.393   524  1400 W system_server: Long monitor contention with owner binder:524_15 (2392) at android.content.res.Configuration com.android.server.wm.ActivityTaskManagerService.getGlobalConfigurationForPid(int)(ActivityTaskManagerService.java:1133) waiters=0 in android.os.IBinder com.android.server.wm.WindowOrganizerController.startTransition(int, android.os.IBinder, android.window.WindowContainerTransaction) for 113ms
+10-23 13:40:21.399   403   403 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:21.400   524   546 I InputManager-JNI: Viewport [0] to add: local:4619827259835644672, isActive: true
+10-23 13:40:21.401   524   626 I InputReader: Reconfiguring input devices, changes=DISPLAY_INFO
+10-23 13:40:21.401  1570  1570 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=landscape_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-23 13:40:21.401   524   626 I InputReader: Touch device 'virtio_input_multi_touch_11' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.402  1570  1570 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_10' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_9' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_7' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_6' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_5' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_4' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_3' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_2' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.403   524   626 I InputReader: Touch device 'virtio_input_multi_touch_8' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+10-23 13:40:21.405  1570  1647 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214033 -> 0_resource_name_obfuscated : WaitTime = 2 ms : RunTime = 0 ms
+10-23 13:40:21.406  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.407  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.407  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.407  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.408  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.408  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_port
+10-23 13:40:21.408  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214024 -> 0_resource_name_obfuscated : WaitTime = 0 ms : RunTime = 40 ms
+10-23 13:40:21.410  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.414  1094  1094 D b/254119092: DisplayInfoChangeListener#CHANGE_ROTATION
+10-23 13:40:21.414  1094  1094 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-23 13:40:21.414  1570  1570 I InputMethodEntryManager: InputMethodEntryManager.startLoadingInputMethodEntrySettings():739 Start loading input method entry settings: [LanguageTagVariantTuple{languageTag=en-US, variant=qwerty}]
+10-23 13:40:21.419  1570  1570 I InputMethodEntryManager: InputMethodEntryManager.updateInputMethodEntrySettingsLoadingTask():826 update loading task with resetImplicitlyEnabledEntries is false
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: No service published for: ethernet
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:166)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$139.createService(SystemServiceRegistry.java:1872)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:1971)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1645)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2212)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.content.ContextWrapper.getSystemService(ContextWrapper.java:934)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.isEthernetSupported(Tethering.java:1582)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.makeSupportedDownstreams(Tethering.java:2550)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateSupportedDownstreams(Tethering.java:2524)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.updateConfiguration(Tethering.java:546)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering.-$$Nest$mupdateConfiguration(Tethering.java:0)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at com.android.networkstack.tethering.Tethering$StateReceiver.onReceive(Tethering.java:1184)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0(LoadedApk.java:1802)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args.$r8$lambda$gDuJqgxY6Zb-ifyeubKeivTLAwk(Unknown Source:0)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0.run(Unknown Source:2)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:294)
+10-23 13:40:21.420  1000  1025 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-23 13:40:21.421  1570  1570 I InputMethodEntryManager: InputMethodEntryManager$5.onSuccess():845 Success load entries: [LanguageTagVariantTuple{languageTag=en-US, variant=qwerty}], resetImplicitlyEnabledEntries=false
+10-23 13:40:21.422  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in ebn
+10-23 13:40:21.424  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in ebn
+10-23 13:40:21.424  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in eco
+10-23 13:40:21.424  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in eco
+10-23 13:40:21.425  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in een
+10-23 13:40:21.425  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in een
+10-23 13:40:21.425  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.maybeDestroyExistingKeyboardGroupManager():512 Destroy existing keyboard group manager in csi
+10-23 13:40:21.426   836   836 I NoBackGesture: Config changed: newConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.1054 fontWeightAdjustment=0} lastReportedConfig={1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h683dp 420dpi nrml port finger qwerty/v/v -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 1920) mAppBounds=Rect(0, 0 - 1080, 1857) mMaxBounds=Rect(0, 0 - 1080, 1920) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.1054 fontWeightAdjustment=0}
+10-23 13:40:21.426  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension.createKeyboardGroupManagerListenableFuture():124 Create keyboard group manager listenable future in csi
+10-23 13:40:21.426  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.428  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: PAUSED
+10-23 13:40:21.429   403   417 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:40:21.430  6055  6055 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:21.435  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: STOPPED
+10-23 13:40:21.436  1570  1570 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-23 13:40:21.437  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.437  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.438  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.438  6055  6055 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@d3d3f32
+10-23 13:40:21.439  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.439  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.439  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_port
+10-23 13:40:21.442  1570  1570 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:40:21.443  1570  1570 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:40:21.443  1570  1570 I KeyboardViewUtil: KeyboardViewUtil.getKeyboardHeightRatio():189 systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+10-23 13:40:21.456  1570  1570 W StyleResolver: StyleResolver.resolveValue():233 Invalid variable: color_silk_surface_background
+10-23 13:40:21.457  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214024 -> 0_resource_name_obfuscated : WaitTime = 24 ms : RunTime = 10 ms
+10-23 13:40:21.458  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214027 -> 0_resource_name_obfuscated : WaitTime = 33 ms : RunTime = 1 ms
+10-23 13:40:21.458  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, true)
+10-23 13:40:21.458  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:21.458  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:21.458  1570  1570 W SessionManager: SessionManager.beginSession():53 Try to begin an already begun session [INPUT_SESSION], end it first
+10-23 13:40:21.459  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in ebn.
+10-23 13:40:21.459  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in eco.
+10-23 13:40:21.459  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in een.
+10-23 13:40:21.459  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onSuccess():525 KeyboardGroupManager destroyed in csi.
+10-23 13:40:21.460  1570  1570 I DictionarySuperpacksManager: DictionarySuperpacksManager$1.onEnabledInputMethodEntriesChanged():61 onEnabledInputMethodEntriesChanged
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: KeyboardDefManager$LoadKeyboardDefTask$1.onFailure():188 Task to load keyboard def was canceled.
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: java.util.concurrent.CancellationException: Task was cancelled.
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at mrp.s(PG:3)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at mrp.get(PG:4)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at mgr.Q(PG:1)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at mfu.V(PG:2)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at mtg.run(PG:4)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at android.os.Looper.loop(Looper.java:294)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+10-23 13:40:21.460  1570  1570 I KeyboardDefManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+10-23 13:40:21.460  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onFailure():533 Failed to load KeyboardGroupManager in ebn.
+10-23 13:40:21.461  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onFailure():533 Failed to load KeyboardGroupManager in eco.
+10-23 13:40:21.461  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onFailure():533 Failed to load KeyboardGroupManager in een.
+10-23 13:40:21.461  1570  1570 I AbstractOpenableExtension: AbstractOpenableExtension$3.onFailure():533 Failed to load KeyboardGroupManager in csi.
+10-23 13:40:21.461  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214034 -> 0_resource_name_obfuscated : WaitTime = 36 ms : RunTime = 0 ms
+10-23 13:40:21.461  1570  6673 I KeyboardGroupDefParser: KeyboardGroupDefParser.parseKeyboardGroupDef():88 parseKeyboardGroupDef() 2132214033 -> 0_resource_name_obfuscated : WaitTime = 35 ms : RunTime = 0 ms
+10-23 13:40:21.465  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1155 update screenHeightWithoutNaviBar to: 1794
+10-23 13:40:21.465  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@d3d3f32 in: DESTROYED
+10-23 13:40:21.466  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1161 update max height when insets changes
+10-23 13:40:21.466  6055  6055 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 13:40:21.467  6055  6055 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@b77de74
+10-23 13:40:21.468  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1155 update screenHeightWithoutNaviBar to: 1920
+10-23 13:40:21.468  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1161 update max height when insets changes
+10-23 13:40:21.473   524  1400 W InputManager-JNI: Input channel object '2c81fbc org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:40:21.478  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1e2ab13 in: PRE_ON_CREATE
+10-23 13:40:21.479  6055  6055 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+10-23 13:40:21.495  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1e2ab13 in: CREATED
+10-23 13:40:21.495  6055  6055 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@1e2ab13
+10-23 13:40:21.499  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1e2ab13 in: STARTED
+10-23 13:40:21.499  6055  6055 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@1e2ab13
+10-23 13:40:21.503  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1e2ab13 in: RESUMED
+10-23 13:40:21.503  6055  6055 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@1e2ab13
+10-23 13:40:21.540  6055  6055 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-23 13:40:21.544  1570  2054 I SP      : Registering content_cache.2022112214, url: https://www.gstatic.com/android/keyboard/modelpack/contentcache/202211221443/superpacks_manifest.json, constraints: W:*:*:*, flags: bg, requested: 2022112214, current: 2022112214
+10-23 13:40:21.544  1570  2054 I SP      : Registering emoticon_content_description.2022081613, url: https://www.gstatic.com/android/keyboard/emoticon_content_desc/202208161305/superpacks_manifest.json, constraints: W:*:*:*, flags: bg, requested: 2022081613, current: 2022081613
+10-23 13:40:21.557  6055  6055 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:40:21.557  6055  6055 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:40:21.559  1570  2054 I SP      : Sync for content_cache succeeded in 317 ms: no changes
+10-23 13:40:21.559  1570  2054 I SP      : GC for 'content_cache' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:40:21.560  1570  2054 I SP      : Syncing content_cache (2022112214) with slices: [e9a5a2de48a4f8b9a658b411bcfb375d, 8722425f4121ffdea802b1066df73991, fa1da98da1212aad6fb9a8efaff48148], metadata: true
+10-23 13:40:21.562  1570  2054 I SP      : Syncing emoticon_content_description (2022081613) with slices: [7a635888cb828dfa2fc744b7b9b50f04], metadata: false
+10-23 13:40:21.640   524  2410 I ImeTracker: org.bookreader.mobile:70d77b6d: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:40:21.640   524  2410 I ImeTracker: org.bookreader.mobile:70d77b6d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:40:21.641  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:40:21.641  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:40:21.641  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:40:21.641  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:40:21.641  1570  1570 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:40:21.647   836   879 D SplashScreenView: Build android.window.SplashScreenView{42e86d1 V.E...... ......ID 0,0-0,0}
+10-23 13:40:21.647   836   879 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 13:40:21.647   836   879 D SplashScreenView: Branding: view: android.view.View{b894536 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 13:40:21.658  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1e2ab13 in: PAUSED
+10-23 13:40:21.658  6055  6055 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@1e2ab13
+10-23 13:40:21.812  1570  2054 I SP      : Sync for content_cache succeeded in 253 ms: no changes
+10-23 13:40:21.813  1570  2054 I SP      : Sync for emoticon_content_description succeeded in 253 ms: no changes
+10-23 13:40:21.813  1570  2054 I SP      : GC for 'content_cache' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:40:21.813  1570  2054 I SP      : GC for 'emoticon_content_description' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:40:21.826  1678  1885 I AiAiEcho: Predicting[0]:
+10-23 13:40:21.826  1678  1885 I AiAiEcho: EchoTargets:
+10-23 13:40:21.826  1678  1885 I AiAiEcho: Filtered by AiAi flag check:
+10-23 13:40:21.826  1678  1885 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-23 13:40:21.827  1678  1885 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-23 13:40:21.833   524  1722 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-23 13:40:21.833  1027  1320 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-23 13:40:21.833  1027  1320 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-23 13:40:21.834  1094  2044 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=181, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@430be4c
+10-23 13:40:21.857  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1e2ab13 in: STOPPED
+10-23 13:40:21.863  6055  6055 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@1e2ab13
+10-23 13:40:21.916  6055  6055 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@1e2ab13 in: DESTROYED
+10-23 13:40:21.916  6055  6055 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 13:40:21.916  6055  6055 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@4f3d7ad
+10-23 13:40:21.961  1793  2761 I A       : Using proto config with mendel
+10-23 13:40:21.963  1793  2761 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-23 13:40:21.964  1793  2761 I A       : Using proto config with mendel
+10-23 13:40:22.004   524  1955 W InputManager-JNI: Input channel object '540cfa0 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:40:22.022  6055  6081 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@939d010]
+10-23 13:40:22.024  6055  6081 I TestRunner: finished: actualRotationAndStopPreservePendingAnchorWithoutAnotherActivation(org.bookreader.mobile.reader.TxtReaderFlowTest)

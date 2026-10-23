@@ -1,0 +1,109 @@
+10-23 13:58:54.995  5303  5319 I TestRunner: started: managedPromotionRefusesExistingTargetAndRenamesPrivateStaging(org.bookreader.mobile.importing.ManagedImportAndroidTest)
+10-23 13:58:54.999  5303  5319 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@a8884a6]
+10-23 13:58:55.010  5303  5319 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-23 13:58:55.103  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.111  5303  5303 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5481efb in: PRE_ON_CREATE
+10-23 13:58:55.112  5303  5303 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-23 13:58:55.117  5303  5303 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5481efb in: CREATED
+10-23 13:58:55.117  5303  5303 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@5481efb
+10-23 13:58:55.117  5303  5303 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5481efb in: STARTED
+10-23 13:58:55.117  5303  5303 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@5481efb
+10-23 13:58:55.118  5303  5303 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5481efb in: RESUMED
+10-23 13:58:55.118  5303  5303 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@5481efb
+10-23 13:58:55.170  2458  2633 D EGL_emulation: eglMakeCurrent: 0x7ee6d75b5aa0: ver 3 0 (tinfo 0x7ee6d739f2c0)
+10-23 13:58:55.170  2558  2802 D EGL_emulation: eglMakeCurrent: 0xdc8851a0: ver 3 0 (tinfo 0xdc883a60)
+10-23 13:58:55.175  2558  5399 E ContentStoreEUAS: Failed to commit the deferred actions
+10-23 13:58:55.266  1773  2818 I aopq    : Scheduling Phenotype for a PhenotypeSyncImmediately(13, com.google.apps.drive.android) one off with window [1, 2] in seconds [CONTEXT service_id=51 ]
+10-23 13:58:55.272  1815  2104 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3d4a0: ver 3 0 (tinfo 0x7ee6d9a0d8c0)
+10-23 13:58:55.298  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.316  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-23 13:58:55.317  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.348  5303  5333 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3a9a0: ver 3 0 (tinfo 0x7ee6d9a0d7e0)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: Error inserting period=2000 target_class=com.google.android.gms.phenotype.service.sync.PhenotypeConfigurator required_network_type=0 runtime=1792763935322 required_idleness_state=0 extras={"fetchReason":{"13":0},"fetchPackage":{"com.google.apps.drive.android":4}} source=16 service_kind=0 target_package=com.google.android.gms persistence_level=1 source_version=202414000 last_runtime=0 user_id=0 job_id=-1 requires_charging=0 tag=PhenotypeSyncImmediately flex_time=1000 task_type=0 retry_strategy={"maximum_backoff_seconds":{"3600":0},"initial_backoff_seconds":{"30":0},"retry_policy":{"0":0}}
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: pending_ops.tag, pending_ops.target_class, pending_ops.target_package, pending_ops.user_id (code 2067)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForLastInsertedRowId(Native Method)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at android.database.sqlite.SQLiteConnection.executeForLastInsertedRowId(SQLiteConnection.java:782)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at android.database.sqlite.SQLiteSession.executeForLastInsertedRowId(SQLiteSession.java:788)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at android.database.sqlite.SQLiteStatement.executeInsert(SQLiteStatement.java:86)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at android.database.sqlite.SQLiteDatabase.insertWithOnConflict(SQLiteDatabase.java:1474)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at android.database.sqlite.SQLiteDatabase.insert(SQLiteDatabase.java:1343)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at aqui.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):175)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at aqtk.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):182)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at aqtk.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):23)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at aqtk.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):177)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at aqpu.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):9)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-23 13:58:55.349  1773  5393 E SQLiteDatabase: 	at java.lang.Thread.run(Thread.java:764)
+10-23 13:58:55.367  1606  1665 I ActivityManager: Displayed org.bookreader.mobile/.MainActivity: +323ms
+10-23 13:58:55.404  1815  2104 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3d4a0: ver 3 0 (tinfo 0x7ee6d9a0d8c0)
+10-23 13:58:55.428  6001  6025 I zygote64: Deoptimizing java.lang.Object obs.a() due to JIT inline cache
+10-23 13:58:55.429  5303  5303 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5481efb in: PAUSED
+10-23 13:58:55.430  5303  5303 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@5481efb
+10-23 13:58:55.437  1815  2104 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3d4a0: ver 3 0 (tinfo 0x7ee6d9a0d8c0)
+10-23 13:58:55.472  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.533  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-23 13:58:55.534  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.543  2558  2558 W SearchService: Abort, client detached.
+10-23 13:58:55.546  5303  5333 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3a9a0: ver 3 0 (tinfo 0x7ee6d9a0d7e0)
+10-23 13:58:55.564  5338  5383 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3ca00: ver 3 0 (tinfo 0x7ee6d9a0d460)
+10-23 13:58:55.579  1815  2104 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3d4a0: ver 3 0 (tinfo 0x7ee6d9a0d8c0)
+10-23 13:58:55.618  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.627  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-23 13:58:55.631  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.658  2558  2802 D EGL_emulation: eglMakeCurrent: 0xdc8851a0: ver 3 0 (tinfo 0xdc883a60)
+10-23 13:58:55.659  1399  1399 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-23 13:58:55.666  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.672  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-23 13:58:55.679  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 13:58:55.702  2558  2558 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-23 13:58:55.707  2458  2633 D EGL_emulation: eglMakeCurrent: 0x7ee6d75b5aa0: ver 3 0 (tinfo 0x7ee6d739f2c0)
+10-23 13:58:55.738  2558  2558 I MicroDetectionWorker: #updateMicroDetector [detectionMode: [mDetectionMode: [1]]]
+10-23 13:58:55.738  2558  2558 I MicroDetectionWorker: #startMicroDetector [speakerMode: 0]
+10-23 13:58:55.738  2558  2558 I AudioController: Using mInputStreamFactoryBuilder
+10-23 13:58:55.751  2558  2840 I MicroRecognitionRunner: Starting detection.
+10-23 13:58:55.753  2558  5398 I MicrophoneInputStream: mic_starting com.google.android.apps.gsa.staticplugins.aa.c@97c3deb
+10-23 13:58:55.756  2558  2558 I MicroDetectionWorker: onReady
+10-23 13:58:55.764  5338  5383 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3ca00: ver 3 0 (tinfo 0x7ee6d9a0d460)
+10-23 13:58:55.776  1606  1617 I zygote64: Background concurrent copying GC freed 41040(3MB) AllocSpace objects, 14(332KB) LOS objects, 39% free, 9MB/15MB, paused 595us total 149.080ms
+10-23 13:58:55.783  1511  1560 E AudioFlinger: not enough memory for AudioTrack size=131296
+10-23 13:58:55.783  1511  1560 D MemoryDealer:   AudioTrack (0xf21fc060, size=4194304)
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     0: 0xf21fc070 | 0x00000000 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     1: 0xf21fc090 | 0x000200E0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     2: 0xf2219020 | 0x000401C0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     3: 0xf21fc380 | 0x000602A0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     4: 0xf22192c0 | 0x00080380 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     5: 0xf21fc690 | 0x000A0460 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     6: 0xf21fc860 | 0x000C0540 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     7: 0xf21fc9f0 | 0x000E0620 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     8: 0xf21fc510 | 0x00100700 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:     9: 0xf21fcd50 | 0x001207E0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    10: 0xf21fcef0 | 0x001408C0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    11: 0xf1eff080 | 0x001609A0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    12: 0xf1eff260 | 0x00180A80 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    13: 0xf1eff400 | 0x001A0B60 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    14: 0xf1eff5a0 | 0x001C0C40 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    15: 0xf1eff610 | 0x001E0D20 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    16: 0xf1eff7b0 | 0x00200E00 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    17: 0xf1eff650 | 0x00220EE0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    18: 0xf1effab0 | 0x00240FC0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:    19: 0xf1effc80 | 0x002610A0 | 0x000200E0 | A
+10-23 13:58:55.783  1511  1560 D MemoryDealer:
+10-23 13:58:55.783  1511  1560 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+10-23 13:58:55.783  2558  5398 E AudioRecord: AudioFlinger could not create record track, status: -12
+10-23 13:58:55.785  1511  6057 I AudioFlinger: AudioFlinger's thread 0xee419c40 tid=6057 ready to run
+10-23 13:58:55.788  2558  5398 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+10-23 13:58:55.788  2558  5398 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+10-23 13:58:55.788  2558  5398 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@97c3deb
+10-23 13:58:55.790  2558  2558 I MicroDetectionWorker: onReady
+10-23 13:58:55.797  5303  5303 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5481efb in: STOPPED
+10-23 13:58:55.797  5303  5303 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@5481efb
+10-23 13:58:55.801  5303  5303 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5481efb in: DESTROYED
+10-23 13:58:55.803  5303  5303 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 13:58:55.805  2558  5398 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@97c3deb
+10-23 13:58:55.811  2558  2840 I MicroRecognitionRunner: Detection finished
+10-23 13:58:55.812  5303  5319 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@a8884a6]
+10-23 13:58:55.816  5303  5319 I TestRunner: finished: managedPromotionRefusesExistingTargetAndRenamesPrivateStaging(org.bookreader.mobile.importing.ManagedImportAndroidTest)

@@ -1,6 +1,7 @@
 # 독서 편의 개선 — 0.4.0
 
-상태: 구현 완료, 최종 빌드·native 회귀 검증 진행 중. 아직 설치 검증 완료로 보고하지 않는다.
+상태: 구현·자동 검증·main 반영 완료. 검증 제품/테스트 소스는 `d1570aa92edddb676be3c5bc311d53506f2e9ad9`이다.
+개발용 서명 0.4.0 APK를 생성했다. 실제 휴대전화 설치 및 정식 출시 판정은 별도다.
 
 ## 사용자 동작
 
@@ -39,4 +40,30 @@ EPUB에서 글꼴을 직접 선택하면 출판사 스타일 우선을 해제해
 기존 포맷별 회귀에 두 신규 글꼴/효과 선택/설정 유지/하단 쪽수/카드 및 정보 버튼 검증을 추가했다.
 새 단위 2개는 페이지 경계 매핑·잘못된 경계·취소를 검증한다.
 새 native 1개는 양방향 slide와 효과 없음의 실제 렌더 프레임에서 빈 배경 노출을 검사한다.
-최종 결과와 signed APK는 검증 후 기록한다. 실기기 설치·성능·TalkBack 수동 평가·출시 승인은 별도다.
+
+| 검증 | 최종 결과 | 실행 |
+| --- | --- | --- |
+| Android/shared/EPUB 단위·실제 ENOSPC | 68 + 74 + 16 + 3 = 161 PASS | [39964576203](https://github.com/LaceyLuv/BookreaderM/actions/runs/39964576203) |
+| API26 / Android 8 | native 58 + host 6 PASS | [39964576436](https://github.com/LaceyLuv/BookreaderM/actions/runs/39964576436) |
+| API34 / Android 14 | native 58 + host 6 PASS | 같은 device 실행 |
+| API36 / Android 16 | native 58 + host 6 PASS | 같은 device 실행 |
+| release APK/AAB 생성, 개발용 서명 APK 감사 | PASS, exit 0 | [패키지 원본](evidence/reader-features/package-d1570aa/) |
+
+필수 사례 누락·실패·오류·skip은 0이다. host 검증은 TXT·EPUB·Comic 각각 2개이며
+실제 force-stop 후 PID 소멸과 새로운 프로세스의 다른 PID를 확인했다.
+CI source SHA/clean 상태·XML·필수 manifest를 대조했고 다운로드 ZIP hash는 GitHub artifact digest와 일치한다.
+[최종 결과와 원본](evidence/reader-features/verified-d1570aa/summary.json),
+[중간 실패 및 수정 이력](evidence/reader-features/README.md)을 보존한다.
+
+최종 생성 fixture 캡처를 직접 확인했다:
+[나눔명조와 현재/전체 쪽수](evidence/reader-features/verified-d1570aa/preview/nanum-and-pages.png),
+[글꼴 선택](evidence/reader-features/verified-d1570aa/preview/fonts.png),
+[전환 효과 선택](evidence/reader-features/verified-d1570aa/preview/transitions.png),
+[만화의 하단 쪽수](evidence/reader-features/verified-d1570aa/preview/comic-pages.png).
+본문 하단과 도구의 쪽수 표시가 겹치지 않는 것도 확인했다.
+
+[설치 안내](INSTALLABLE_APK.md)의 `BookreaderM-0.4.0-test-signed.apk`를 사용한다.
+SHA-256: `cf74e8ea6ede2fa360ddb7d75210b0822b87aa4e512005e78d2a0512582dbdf2`.
+기존 인증서를 유지했고 v2/v3 서명·4 ABI/8 ELF 및 ZIP 16KB 정렬을 통과했다.
+자동 화면 검사는 실기기에서의 프레임 시간/성능 평가를 대신하지 않는다.
+실기기 설치·성능·TalkBack 수동 평가·16KB OS·정식 출시 승인은 NOT_RUN이다.

@@ -1,0 +1,515 @@
+10-23 13:46:17.836  6192  6212 I TestRunner: started: literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen(org.bookreader.mobile.reader.TxtReaderFlowTest)
+10-23 13:46:17.878  6192  6212 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@6130752]
+10-23 13:46:17.894  6192  6212 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-23 13:46:17.901   838   910 D SplashScreenView: Build android.window.SplashScreenView{1fb5955 V.E...... ......ID 0,0-0,0}
+10-23 13:46:17.901   838   910 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 13:46:17.901   838   910 D SplashScreenView: Branding: view: android.view.View{9fb1f6a G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 13:46:17.916   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:46:17.952   838   923 D EGL_emulation: app_time_stats: avg=4010.83ms min=4010.83ms max=4010.83ms count=1
+10-23 13:46:17.963  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: PRE_ON_CREATE
+10-23 13:46:17.963  6192  6192 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-23 13:46:17.977  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: CREATED
+10-23 13:46:17.979  6192  6192 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@68b8577
+10-23 13:46:17.996  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: STARTED
+10-23 13:46:17.997  6192  6192 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@68b8577
+10-23 13:46:17.998  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: RESUMED
+10-23 13:46:17.999  6192  6192 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@68b8577
+10-23 13:46:18.239   838   838 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-23 13:46:18.240   519  2465 W system_server: Long monitor contention with owner binder:519_C (1713) at android.window.TaskSnapshot com.android.server.wm.ActivityTaskManagerService.takeTaskSnapshot(int, boolean)(ActivityTaskManagerService.java:3820) waiters=1 in int com.android.server.wm.WindowOrganizerController.finishTransition(android.os.IBinder, android.window.WindowContainerTransaction, android.window.IWindowContainerTransactionCallback) for 140ms
+10-23 13:46:18.361  6192  6192 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-23 13:46:18.460   519   538 W ziparchive: Unable to open '/data/app/~~LUo4pHG4YaZSwHFl_pFKWQ==/org.bookreader.mobile-k_QDKqS_rXTKbj34IuXfmA==/base.dm': No such file or directory
+10-23 13:46:18.464   519   538 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +561ms
+10-23 13:46:18.489   519  1713 I ImeTracker: org.bookreader.mobile:a80b9cbc: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:46:18.489   519  1713 I ImeTracker: org.bookreader.mobile:a80b9cbc: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:46:18.491  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:18.493  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:18.493  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:18.493  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:18.495  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:18.496   838   908 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@c25b0a4
+10-23 13:46:18.500   519  2394 W InputManager-JNI: Input channel object 'e5597cc Splash Screen org.bookreader.mobile (client)' was disposed without first being removed with the input manager!
+10-23 13:46:18.509  1096  2215 D OneSearchSuggestProvider: Shut down the binder channel
+10-23 13:46:18.512  1758  2435 I PBSessionCacheImpl: Deleted sessionId[7733558529052785] from persistence.
+10-23 13:46:18.513  1096  1111 I IPCThreadState: oneway function results for code 2 on binder at 0x793e61d2d7a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-23 13:46:18.521  1758  2446 W SearchServiceCore: Abort, client detached.
+10-23 13:46:18.525  1096  1145 I ImeTracker: com.google.android.apps.nexuslauncher:9c81ed6f: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-23 13:46:18.526  1096  1145 I ImeTracker: com.google.android.apps.nexuslauncher:9c81ed6f: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-23 13:46:18.578  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: PAUSED
+10-23 13:46:18.579  6192  6192 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@68b8577
+10-23 13:46:18.580   838   910 D SplashScreenView: Build android.window.SplashScreenView{4017970 V.E...... ......ID 0,0-0,0}
+10-23 13:46:18.580   838   910 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 13:46:18.580   838   910 D SplashScreenView: Branding: view: android.view.View{44104e9 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 13:46:18.600   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:46:18.689   519  2394 W InputManager-JNI: Input channel object 'bd564e1 Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-23 13:46:18.694  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: RESUMED
+10-23 13:46:18.694  6192  6192 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@68b8577
+10-23 13:46:18.722   838   908 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e5cbc9c
+10-23 13:46:18.736   519  1219 I ImeTracker: org.bookreader.mobile:6cb46bae: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR
+10-23 13:46:18.737   519  1219 I ImeTracker: org.bookreader.mobile:6cb46bae: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:46:18.743  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:18.758  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:18.758  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:18.758  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:18.759  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:18.988  6192  6192 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:46:18.988  6192  6192 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:46:19.029   838   923 D EGL_emulation: app_time_stats: avg=382.23ms min=31.55ms max=790.67ms count=4
+10-23 13:46:19.085   838   923 D EGL_emulation: app_time_stats: avg=566.92ms min=364.15ms max=769.69ms count=2
+10-23 13:46:19.372  6192  6200 I okreader.mobile: Background concurrent copying GC freed 232729(8014KB) AllocSpace objects, 1013(22MB) LOS objects, 49% free, 24MB/48MB, paused 44us,21us total 322.813ms
+10-23 13:46:19.710  6192  6219 D EGL_emulation: app_time_stats: avg=78.41ms min=20.73ms max=237.26ms count=16
+10-23 13:46:20.161  6192  6192 E FrameTracker: force finish cuj, time out: J<IME_INSETS_ANIMATION::1@1@org.bookreader.mobile>
+10-23 13:46:20.171  1096  1096 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=689949, downTime=689949, deviceId=-1, source=0x1002, displayId=0, eventId=-692267148 }
+10-23 13:46:20.224  1096  1096 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=690011, downTime=689949, deviceId=-1, source=0x1002, displayId=0, eventId=-224545240 }
+10-23 13:46:20.720  6192  6219 D EGL_emulation: app_time_stats: avg=336.46ms min=99.20ms max=796.55ms count=3
+10-23 13:46:20.729  6192  6192 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:46:20.729  6192  6192 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:46:20.862   519  1219 I ImeTracker: org.bookreader.mobile:b01bf09e: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:46:20.862   519  1219 I ImeTracker: org.bookreader.mobile:b01bf09e: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:46:20.871  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:20.872  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:20.872  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:20.872  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:20.873  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:21.038  6192  6200 I okreader.mobile: Background young concurrent copying GC freed 393790(15MB) AllocSpace objects, 166(5156KB) LOS objects, 41% free, 28MB/48MB, paused 32us,34us total 258.705ms
+10-23 13:46:21.184  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:21.185  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:21.190  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x28001(Normal) imeOptions=0x42000000 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=-1 fieldName=null extras=Bundle[mParcelledData.dataSize=404]}, false)
+10-23 13:46:21.190  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:21.190  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:21.193  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x28001(Normal) imeOptions=0x42000000 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=-1 fieldName=null extras=Bundle[mParcelledData.dataSize=404]}, true)
+10-23 13:46:21.193  6192  6192 I ImeTracker: org.bookreader.mobile:87a9177c: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT_BY_INSETS_API
+10-23 13:46:21.193  6192  6192 D InsetsController: show(ime(), fromIme=false)
+10-23 13:46:21.193  6192  6192 D InputMethodManager: showSoftInput() view=androidx.compose.ui.platform.AndroidComposeView{6631642 VFED..... .F....ID 0,0-840,743 aid=1073741825} flags=0 reason=SHOW_SOFT_INPUT_BY_INSETS_API
+10-23 13:46:21.194  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:21.194  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:21.194  1553  1553 W SessionManager: SessionManager.beginSession():53 Try to begin an already begun session [INPUT_SESSION], end it first
+10-23 13:46:21.196  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onCreateInputView():1768 onCreateInputView()
+10-23 13:46:21.200  6192  6192 I AssistStructure: Flattened final assist data: 668 bytes, containing 2 windows, 5 views
+10-23 13:46:21.209  5099  5099 W AutofillChimeraService: Pending fill request while another request in the same session was triggered. [CONTEXT service_id=177 ]
+10-23 13:46:21.215  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x28001(Normal) imeOptions=0x42000000 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}]}, false)
+10-23 13:46:21.215  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:21.216  1553  1553 W ModuleManager: ModuleManager.loadModule():450 Module erj is not available
+10-23 13:46:21.232  1553  1615 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:21.253  5151  5151 D BoundBrokerSvc: onBind: Intent { act=com.google.android.mdd.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+10-23 13:46:21.253  5151  5151 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.mdd.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+10-23 13:46:21.262  1571  1571 V InlineSuggestionRenderService: handleDestroySuggestionViews called for 0:928378999
+10-23 13:46:21.263  5099  5385 I IPCThreadState: oneway function results for code 1 on binder at 0x793e61d1c190 will be dropped but finished with status UNKNOWN_TRANSACTION and reply parcel size 80
+10-23 13:46:21.287  6192  6192 I ImeTracker: org.bookreader.mobile:4d18c773: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+10-23 13:46:21.287  6192  6192 D InputMethodManager: showSoftInput() view=androidx.compose.ui.platform.AndroidComposeView{6631642 VFED..... .F....ID 0,0-840,743 aid=1073741825} flags=0 reason=SHOW_SOFT_INPUT
+10-23 13:46:21.290  6192  6192 D Autofill Status: Autofill popup isn't shown because autofill is not available.
+10-23 13:46:21.290  6192  6192 D Autofill Status:
+10-23 13:46:21.290  6192  6192 D Autofill Status: Did you set up autofill?
+10-23 13:46:21.290  6192  6192 D Autofill Status: 1. Go to Settings > System > Languages&input > Advanced > Autofill Service
+10-23 13:46:21.290  6192  6192 D Autofill Status: 2. Pick a service
+10-23 13:46:21.290  6192  6192 D Autofill Status:
+10-23 13:46:21.290  6192  6192 D Autofill Status: Did you add an account?
+10-23 13:46:21.290  6192  6192 D Autofill Status: 1. Go to Settings > System > Languages&input > Advanced
+10-23 13:46:21.290  6192  6192 D Autofill Status: 2. Click on the settings icon next to the Autofill Service
+10-23 13:46:21.290  6192  6192 D Autofill Status: 3. Add your account
+10-23 13:46:21.293  1553  1553 I KeyboardViewUtil: KeyboardViewUtil.getKeyboardHeightRatio():189 systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+10-23 13:46:21.300  1553  1553 I LatinIme: LatinIme.<init>():328 Language = en-US
+10-23 13:46:21.302  1553  1553 I Delight5Facilitator: Delight5Facilitator.initializeForIme():777 initializeForIme() : Locale = [en_US], layout = qwerty
+10-23 13:46:21.303  1553  1553 I Delight5Facilitator: Delight5Facilitator.resetDecoder():954 resetDecoder() : Locale = [en_US]
+10-23 13:46:21.305  1553  1553 I Delight5Decoder: Delight5DecoderWrapper.createOrResetDecoder():341 Decoder reset
+10-23 13:46:21.325  1553  1553 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x28001(Normal) imeOptions=0x42000000 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}], IncognitoMode = false, DeviceLocked = false
+10-23 13:46:21.326  1553  1920 I MainLanguageModelLoader: MainLanguageModelLoader.call():145 Running LM loader for [en_US]
+10-23 13:46:21.326  1553  1920 I DelightDataFileManagerLanguageModelProvider: DelightDataFileManagerLanguageModelProvider.fetchLanguageModel():73 find data en-840 delight
+10-23 13:46:21.330  1553  1553 I VoiceInputManagerWrapper: VoiceInputManagerWrapper.cancelShutdown():55 cancelShutdown()
+10-23 13:46:21.331  1553  1553 I VoiceInputManagerWrapper: VoiceInputManagerWrapper.syncLanguagePacks():67 syncLanguagePacks()
+10-23 13:46:21.331  1553  1553 I LatinIme: LatinIme.updateEnableInlineSuggestionsOnDecoderSideFlags():1003 inline flag updated to:false
+10-23 13:46:21.332  1553  6799 I SpeechFactory: SpeechRecognitionFactory.maybeScheduleAutoPackDownloadForFallback():205 maybeScheduleAutoPackDownloadForFallback()
+10-23 13:46:21.332  1553  6799 I FallbackOnDeviceRecognitionProvider: FallbackOnDeviceRecognitionProvider.maybeScheduleAutoPackDownload():195 maybeScheduleAutoPackDownload() for language tag en-US
+10-23 13:46:21.339  1553  1553 I KeyboardWrapper: KeyboardWrapper.consumeEvent():275 Skip consuming an event as current keyboard is deactivated (state=0, keyboard existence=false)
+10-23 13:46:21.345  1553  1553 I KeyboardManager: KeyboardManager.requestKeyboard():146 Creating keyboard prime, imeId=ime_english_united_states, cacheKey=theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone
+10-23 13:46:21.347  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:21.347  1553  1553 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=true
+10-23 13:46:21.347  1553  1553 I AndroidIME: KeyboardViewManager.updateKeyboardBackgroundFrameVisibility():357 Set background frame visibility. old:8, new:8
+10-23 13:46:21.348  1553  1553 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:46:21.348  1553  1553 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:46:21.349  1553  1553 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=portrait_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-23 13:46:21.352  1553  1553 I VoiceImeExtension: VoiceImeExtension.shouldStartVoiceInputAutomatically():383 No private IME option set to start voice input.
+10-23 13:46:21.355  1553  7646 I SuperDelight: SuperDelightManager.initializeBundledDelightSuperpacks():376 initializeBundledDelightSuperpacks()
+10-23 13:46:21.356  1553  1919 I SP      : Registering bundled_delight.2022101700, url: null, constraints: *:*:*:*, flags: *, requested: 2022101700, current: 2022101700
+10-23 13:46:21.358  5151  5151 D BoundBrokerSvc: onBind: Intent { act=com.google.firebase.dynamiclinks.service.START pkg=com.google.android.gms }
+10-23 13:46:21.359  5151  5151 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.firebase.dynamiclinks.service.START pkg=com.google.android.gms }
+10-23 13:46:21.365  1553  1920 I LmManager: LmManager.asyncUpdateEnabledLanguageModels():90 asyncUpdateEnabledLanguageModels()
+10-23 13:46:21.365  1553  1920 I SuperDelight: SuperDelightManager.initializeDelightSuperpacks():340 initializeDelightSuperpacks()
+10-23 13:46:21.365  1553  1920 I SuperDelight: SuperDelightManager.getDelightMetadataUriAndVersion():1011 getDelightMetadataUriAndVersion(): Phenotype : 2023020919 : https://www.gstatic.com/android/keyboard/dictionarypack/Omei-normal/metadata.json
+10-23 13:46:21.389  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1155 update screenHeightWithoutNaviBar to: 1794
+10-23 13:46:21.389  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.lambda$setDecorViewApplyWindowInsetsListener$10():1161 update max height when insets changes
+10-23 13:46:21.405   519  1219 I ImeTracker: org.bookreader.mobile:87a9177c: onFailed at PHASE_WM_SHOW_IME_RUNNER
+10-23 13:46:21.427  1553  1920 I SuperDelight: SuperDelightAppsSuperpacksManager.initializeDelightAppsSuperpacks():92 initializeDelightAppsSuperpacks()
+10-23 13:46:21.428  1553  1920 I SuperDelight: SuperDelightManager.initializeOverridesSuperpacks():402 initializeOverridesSuperpacks()
+10-23 13:46:21.449  5151  5151 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:21.449  5151  5151 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:21.461  5151  5151 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:21.471  5151  5151 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:21.471  5151  5151 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:21.491  5151  5151 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:21.513  1553  1920 I DelightDataFileManagerLanguageModelProvider: DelightDataFileManagerLanguageModelProvider.fetchLanguageModel():73 find data en-US delight
+10-23 13:46:21.514  1553  7647 I SuperDelight: SuperDelightManager.lambda$registerAndUpgradeSuperpacks$5():476 SuperDelightManager#registerAndUpgradeSuperpacks(delight): current 2023020919, required 2023020919
+10-23 13:46:21.515  1553  7647 I SuperDelight: SuperDelightManager.initializeBundledDelightSuperpacks():376 initializeBundledDelightSuperpacks()
+10-23 13:46:21.516  1553  1919 I SP      : Registering bundled_delight.2022101700, url: null, constraints: *:*:*:*, flags: *, requested: 2022101700, current: 2022101700
+10-23 13:46:21.521  1553  7647 I SuperDelight: SuperDelightManager.lambda$syncBundledLanguageModels$16():774 SuperDelightManager#syncBundledLanguageModels(): Syncing for version 2022101700
+10-23 13:46:21.522  1553  1920 I LmManager: LmManager.asyncUpdateEnabledLanguageModels():90 asyncUpdateEnabledLanguageModels()
+10-23 13:46:21.522  1553  1920 I SuperDelight: SuperDelightManager.initializeDelightSuperpacks():340 initializeDelightSuperpacks()
+10-23 13:46:21.522  1553  1920 I SuperDelight: SuperDelightManager.getDelightMetadataUriAndVersion():1011 getDelightMetadataUriAndVersion(): Phenotype : 2023020919 : https://www.gstatic.com/android/keyboard/dictionarypack/Omei-normal/metadata.json
+10-23 13:46:21.522  1553  1920 I SuperDelight: SuperDelightAppsSuperpacksManager.initializeDelightAppsSuperpacks():92 initializeDelightAppsSuperpacks()
+10-23 13:46:21.522  1553  1920 I SuperDelight: SuperDelightManager.initializeOverridesSuperpacks():402 initializeOverridesSuperpacks()
+10-23 13:46:21.523  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():649 loadLanguageModel() : 1, version [2022102600]
+10-23 13:46:21.523  1553  7646 I SuperDelight: SuperDelightManager.lambda$syncOverridesLanguageModels$14():689 SuperDelightManager#syncOverridesLanguageModels(): Superpack delight_overrides not found or negative version provided
+10-23 13:46:21.526  1553  7646 I SuperDelight: SuperDelightManager.lambda$syncBundledLanguageModels$16():774 SuperDelightManager#syncBundledLanguageModels(): Syncing for version 2022101700
+10-23 13:46:21.530  1553  7646 I SuperDelight: SuperDelightManager.lambda$syncDownloadableLanguageModels$8():568 SuperDelightManager#syncDownloadableLanguageModels(delight): [OnDevice] Syncing for version 2023020919
+10-23 13:46:21.559  1553  1919 I SuperDelight: SuperDelightBundledSlicingStrategy.getSlices():39 BundledSlicing#getSlices() : Locale = [en_US]
+10-23 13:46:21.560  1553  1919 I SuperDelight: SuperDelightBundledSlicingStrategy.getSlices():65 BundledSlicing#getSlices(): result {slices=[bundled_delight:main_en_us_2022051700_2], last batch=true, sync metadata=false}
+10-23 13:46:21.560  1553  1919 I SP      : Syncing bundled_delight (2022101700) with slices: [main_en_us_2022051700_2], metadata: false
+10-23 13:46:21.565  1553  7647 I SuperDelight: SuperDelightManager.lambda$registerAndUpgradeSuperpacks$5():476 SuperDelightManager#registerAndUpgradeSuperpacks(delight): current 2023020919, required 2023020919
+10-23 13:46:21.566  1553  7647 I SuperDelight: SuperDelightManager$2.onSuccess():635 delight_overrides sync success, adding to data file manager
+10-23 13:46:21.567  1553  7647 I SuperDelight: SuperDelightManager.lambda$syncOverridesLanguageModels$14():689 SuperDelightManager#syncOverridesLanguageModels(): Superpack delight_overrides not found or negative version provided
+10-23 13:46:21.598  1553  1920 I MainLanguageModelLoader: MainLanguageModelLoader.updateLmAvailableState():392 updateLmAvailableState(): locale? en_US prevState? AVAILABLE
+10-23 13:46:21.610  1553  1562 I putmethod.latin: Background young concurrent copying GC freed 213187(10MB) AllocSpace objects, 11(1328KB) LOS objects, 42% free, 14MB/24MB, paused 40us,27us total 272.958ms
+10-23 13:46:21.622  1553  1920 I MainLanguageModelLoader: MainLanguageModelLoader.updateLmAvailableState():428 updateLmAvailableState(): locale? en_US newState? AVAILABLE
+10-23 13:46:21.628  1553  1920 I Delight5Facilitator: BlocklistLoader.call():37 Running blocklist loader
+10-23 13:46:21.629  1553  1920 I Delight5Facilitator: ContactsLanguageModelLoader.call():35 Running contacts language model loader
+10-23 13:46:21.640  1553  1553 I KeyboardViewHelper: KeyboardViewHelper.getView():170 Get view with height ratio:1.000000
+10-23 13:46:21.641  1553  1920 I Delight5Facilitator: ContactsLanguageModelLoader.call():47 Contacts language model is unloaded: preferences=false, deviceLocked=false
+10-23 13:46:21.676  1553  1920 I Delight5Facilitator: PersonalLanguageModelLoader.call():44 Running personal language model loader
+10-23 13:46:21.734  1553  1920 I Delight5Facilitator: UserHistoryLanguageModelLoader.call():82 Running user history language model loader
+10-23 13:46:21.818  1553  1920 I EmojiShortcutsLoader: EmojiShortcutsLoader.getEmojiShortcuts():117 Reading en_US emoji shortcuts
+10-23 13:46:21.830  1553  1553 I KeyboardViewUtil: KeyboardViewUtil.calculateMaxKeyboardBodyHeight():40 leave 354 height for app when screen height:1794, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1324
+10-23 13:46:21.831  1553  1553 I SoftKeyboardView: SoftKeyboardView.setMaxHeight():731 Set max keyboard height:1324.
+10-23 13:46:21.834  1553  2386 E native  : E0000 00:00:1792763181.828193    2386 scoped-file.cc:106] open() failed for /data/user/0/com.google.android.inputmethod.latin/files/personal/adapt_state.en.dat: No such file or directory [2]
+10-23 13:46:21.834  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():671 Loaded main LM 1.en
+10-23 13:46:21.837  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:21.837  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3483 setKeyboardViewShown() : type = HEADER, shownType = SHOW_OPTIONAL
+10-23 13:46:21.841  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3530 setKeyboardViewShown() : shouldShow = true
+10-23 13:46:21.841  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3483 setKeyboardViewShown() : type = BODY, shownType = SHOW_MANDATORY
+10-23 13:46:21.843  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3530 setKeyboardViewShown() : shouldShow = true
+10-23 13:46:21.844  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3483 setKeyboardViewShown() : type = FLOATING_CANDIDATES, shownType = HIDE
+10-23 13:46:21.846  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3530 setKeyboardViewShown() : shouldShow = false
+10-23 13:46:21.847  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:21.849  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:21.853  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:21.854  1553  1553 I KeyboardViewUtil: KeyboardViewUtil.calculateMaxKeyboardBodyHeight():40 leave 354 height for app when screen height:1794, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1324
+10-23 13:46:21.855  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:21.877  1553  1553 I AndroidIME: KeyboardViewManager.updateKeyboardBackgroundFrameVisibility():357 Set background frame visibility. old:8, new:8
+10-23 13:46:21.951  6192  6192 D InsetsController: show(ime(), fromIme=true)
+10-23 13:46:21.963  1553  1553 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:46:21.988  1553  1553 I AndroidIME: KeyboardViewManager.saveKeyboardBottomGap():282 realScreenHeight: 0 screenHeightInInches: 4.571429
+10-23 13:46:21.988  1553  1553 I AndroidIME: keyboardHolderHeight: 746 navigationHeight: 126
+10-23 13:46:21.988  1553  1553 I AndroidIME: getKeyboardBodyViewHolderPaddingBottom(): 0 getKeyboardBottomGapFromScreen(): 0
+10-23 13:46:21.988  1553  1553 I AndroidIME: keyboardBottomGap: 126 bodyViewHolderBottomPadding: 0
+10-23 13:46:21.988  1553  1553 I AndroidIME: decorViewStableInsetBottom: 126 updated: false
+10-23 13:46:21.994  1553  1919 I SuperDelight: SuperDelightBundledSlicingStrategy.getSlices():39 BundledSlicing#getSlices() : Locale = [en_US]
+10-23 13:46:21.994  1553  7646 I SuperDelight: SuperDelightManager$2.onSuccess():635 delight_overrides sync success, adding to data file manager
+10-23 13:46:21.995  1553  7646 I SuperDelight: SuperDelightManager.lambda$syncDownloadableLanguageModels$8():568 SuperDelightManager#syncDownloadableLanguageModels(delight): [OnDevice] Syncing for version 2023020919
+10-23 13:46:22.129  6192  6192 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@98495766 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@af7b415
+10-23 13:46:22.130  6192  6192 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@524cafc
+10-23 13:46:22.138  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():649 loadLanguageModel() : 7, version [n/a]
+10-23 13:46:22.139  1553  2386 I native  : I0000 00:00:1792763182.139028    2386 blocklist-assembly.cc:121] LoadBlocklist en
+10-23 13:46:22.140  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():690 Loaded dynamic LM 7.en
+10-23 13:46:22.140  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():649 loadLanguageModel() : 4, version [n/a]
+10-23 13:46:22.140  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():690 Loaded dynamic LM 4.en
+10-23 13:46:22.140  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():649 loadLanguageModel() : 3, version [n/a]
+10-23 13:46:22.140  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():690 Loaded dynamic LM 3.en
+10-23 13:46:22.141  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.setKeyboardLayout():457 setKeyboardLayout()
+10-23 13:46:22.142  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.setKeyboardLayout():457 setKeyboardLayout()
+10-23 13:46:22.144  1553  1919 I SuperDelight: SuperDelightBundledSlicingStrategy.getSlices():65 BundledSlicing#getSlices(): result {slices=[bundled_delight:main_en_us_2022051700_2], last batch=true, sync metadata=false}
+10-23 13:46:22.144  1553  1919 I SP      : Syncing bundled_delight (2022101700) with slices: [main_en_us_2022051700_2], metadata: false
+10-23 13:46:22.202   838   923 D EGL_emulation: app_time_stats: avg=3116.57ms min=3116.57ms max=3116.57ms count=1
+10-23 13:46:22.205  6192  6192 I ImeTracker: org.bookreader.mobile:4d18c773: onCancelled at PHASE_CLIENT_ANIMATION_CANCEL
+10-23 13:46:22.206   519  1219 W InputManager-JNI: Input channel object 'd7da8b6 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:46:22.208  1553  2386 W Delight5Decoder: Delight5DecoderWrapper.shouldAbandonMessage():1983 Detected old [FetchSuggestions] request in background: 8<9
+10-23 13:46:22.219  1553  1920 I EmojiShortcutsLoader: EmojiShortcutsLoader.getEmojiShortcuts():134 Read en_US emoji shortcuts successfully.
+10-23 13:46:22.276  6192  6192 I ImeTracker: org.bookreader.mobile:4d18c773: onShown
+10-23 13:46:22.278   519  1219 I ImeTracker: org.bookreader.mobile:4d18c773: setFinished on previously finished token at PHASE_NOT_SET with STATUS_SUCCESS
+10-23 13:46:22.280  6192  6192 I ImeTracker: org.bookreader.mobile:f21d1aa: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-23 13:46:22.280  6192  6192 I ImeTracker: org.bookreader.mobile:f21d1aa: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-23 13:46:22.292  1553  1920 I EmojiShortcutsLoader: EmojiShortcutsLoader.call():63 1 emoji shortcut maps loaded.
+10-23 13:46:22.333  1553  1920 I EmojiShortcutsLoader: EmojiShortcutsLoader.call():72 Finished loading emoji shortcuts
+10-23 13:46:22.333  1553  1920 I Delight5Facilitator: EmailLanguageModelLoader.call():30 Running email language model loader
+10-23 13:46:22.334  1553  1920 I Delight5Facilitator: KeyCorrectionTfliteModelLoader.call():29 Running Key Correction Tflite Model loader
+10-23 13:46:22.334  1553  1920 I Delight5Facilitator: RankingModelLoader.call():28 Running Ranking Model loader
+10-23 13:46:22.335  1553  1919 I SuperDelight: SuperDelightDownloadSlicingStrategy.getSlices():68 DownloadSlicing#getSlices() : Locale = [en_US]
+10-23 13:46:22.359  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():649 loadLanguageModel() : 29, version [n/a]
+10-23 13:46:22.359  1553  2386 W Delight5Decoder: Delight5DecoderWrapper.getTimerTypeForLoadLanguageModule():800 Cannot find timer type for loading language model 29
+10-23 13:46:22.385  1553  1919 I SuperDelight: SuperDelightDownloadSlicingStrategy.getSlices():125 DownloadSlicing#getSlices(): result {slices=[{delight:main_en_840_2022102600_1, m:*:*:*, fg}], last batch=true, sync metadata=false}
+10-23 13:46:22.385  1553  1919 I SP      : Syncing delight (2023020919) with slices: [{main_en_840_2022102600_1, m:*:*:*, fg}], metadata: false
+10-23 13:46:22.406   519  1219 I ImeTracker: org.bookreader.mobile:b0431f6: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:46:22.415  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInputView():2241
+10-23 13:46:22.417  1553  1553 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+10-23 13:46:22.420  1553  1553 I KeyboardWrapper: KeyboardWrapper.consumeEvent():275 Skip consuming an event as current keyboard is deactivated (state=0, keyboard existence=true)
+10-23 13:46:22.427  1553  1553 I VoiceInputManagerWrapper: VoiceInputManagerWrapper.shutdown():77 shutdown()
+10-23 13:46:22.430  1553  1553 E native  : E0000 00:00:1792763182.430590    1553 key-correction-manager.cc:322] User feature cache is not ready for key correction!
+10-23 13:46:22.431  1553  1553 I AndroidIME: AbstractIme.onDeactivate():207 LatinIme.onDeactivate()
+10-23 13:46:22.432  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:22.441  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:22.442  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:22.442  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:22.443  1553  1615 W ModuleManager: ModuleManager.loadModule():450 Module jjj is not available
+10-23 13:46:22.444  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.loadLanguageModel():690 Loaded dynamic LM 29.en
+10-23 13:46:22.445   519  2394 I ImeTracker: org.bookreader.mobile:b0431f6: onFailed at PHASE_WM_HAS_IME_INSETS_CONTROL_TARGET
+10-23 13:46:22.446  1553  1919 I SP      : GC for 'bundled_delight' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:46:22.449  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:22.451  1553  1919 I LmManager: LmManager$1.onFailure():81 Bundled delight sync failed
+10-23 13:46:22.451  1553  1919 I LmManager: java.util.concurrent.CancellationException: Task was cancelled.
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mrp.s(PG:3)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mrp.get(PG:4)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mgr.Q(PG:1)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mfu.V(PG:2)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mtg.run(PG:4)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at msq.execute(PG:1)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mrp.q(PG:1)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mrp.k(PG:12)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mrp.p(PG:5)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at msm.c(PG:2)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mso.e(PG:2)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at mtr.run(PG:8)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at hbs.run(PG:2)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at java.lang.Thread.run(Thread.java:1012)
+10-23 13:46:22.451  1553  1919 I LmManager: 	at hbf.run(PG:2)
+10-23 13:46:22.456  1553  1920 I CrankEngineLocales: CrankEngineLocales.getLocaleToUseForCrankEngine():66 Using locale en_US for emoji prediction
+10-23 13:46:22.456  1553  1920 I CrankEngineLocales: CrankEngineLocales.getLocaleToUseForCrankEngine():66 Using locale en_US for emoji prediction
+10-23 13:46:22.456  1553  1920 I CrankEngineLocales: CrankEngineLocales.getLocaleToUseForCrankEngine():66 Using locale en_US for emoji prediction
+10-23 13:46:22.595  6192  6219 D EGL_emulation: app_time_stats: avg=468.73ms min=77.75ms max=1590.03ms count=4
+10-23 13:46:22.613  6192  6192 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:46:22.613  6192  6192 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:46:22.631  6192  6192 E ImeBackDispatcher: Ime callback not found. Ignoring unregisterReceivedCallback. callbackId: 98495766
+10-23 13:46:22.713  1553  1919 I AbstractSyncResultCallback: AbstractSyncResultCallback.onFailure():36 onFailure(): bundled_delight.sync cancelled; expected if new request supersedes pending one.
+10-23 13:46:22.722  1553  7647 I SuperDelight: SuperDelightManager$2.onSuccess():635 bundled_delight sync success, adding to data file manager
+10-23 13:46:22.723  1553  7647 I DataFileManager: DataFileManager.addDataWithoutNotify():162 data en-US already exists
+10-23 13:46:22.735  1553  1920 I CrankEngineLocales: CrankEngineLocales.getLocaleToUseForCrankEngine():66 Using locale en_US for emoji prediction
+10-23 13:46:22.736  1553  1920 I CrankEngineLocales: CrankEngineLocales.getLocaleToUseForCrankEngine():66 Using locale en_US for emoji prediction
+10-23 13:46:22.750  1553  1919 I SuperDelight: SuperDelightDownloadSlicingStrategy.getSlices():68 DownloadSlicing#getSlices() : Locale = [en_US]
+10-23 13:46:22.829   519  2463 I ImeTracker: org.bookreader.mobile:b2426e5: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:46:22.829   519  2463 I ImeTracker: org.bookreader.mobile:b2426e5: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:46:22.836  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:22.837  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:22.837  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:22.837  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:22.838  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:22.862  1553  1919 I SuperDelight: SuperDelightDownloadSlicingStrategy.getSlices():125 DownloadSlicing#getSlices(): result {slices=[{delight:main_en_840_2022102600_1, m:*:*:*, fg}], last batch=true, sync metadata=false}
+10-23 13:46:22.862  1553  1919 I SP      : Syncing delight (2023020919) with slices: [{main_en_840_2022102600_1, m:*:*:*, fg}], metadata: false
+10-23 13:46:23.052  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:23.055  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:23.059  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x28001(Normal) imeOptions=0x42000000 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=-1 fieldName=null extras=Bundle[mParcelledData.dataSize=404]}, false)
+10-23 13:46:23.060  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:23.061  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:23.071  1553  1920 I CrankEngineLocales: CrankEngineLocales.getLocaleToUseForCrankEngine():66 Using locale en_US for emoji prediction
+10-23 13:46:23.072  6192  6192 I ImeTracker: org.bookreader.mobile:1a41518e: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT_BY_INSETS_API
+10-23 13:46:23.073  6192  6192 D InsetsController: show(ime(), fromIme=false)
+10-23 13:46:23.074  6192  6192 D InputMethodManager: showSoftInput() view=androidx.compose.ui.platform.AndroidComposeView{5024e2c VFED..... .F....ID 0,0-840,796 aid=1073741836} flags=0 reason=SHOW_SOFT_INPUT_BY_INSETS_API
+10-23 13:46:23.074  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x28001(Normal) imeOptions=0x42000000 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=-1 fieldName=null extras=Bundle[mParcelledData.dataSize=404]}, true)
+10-23 13:46:23.078  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:23.078  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:23.078  1553  1553 W SessionManager: SessionManager.beginSession():53 Try to begin an already begun session [INPUT_SESSION], end it first
+10-23 13:46:23.079  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x28001(Normal) imeOptions=0x42000000 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}]}, false)
+10-23 13:46:23.080  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:23.080  1553  1553 W ModuleManager: ModuleManager.loadModule():450 Module erj is not available
+10-23 13:46:23.080  1553  1615 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:23.099  6192  6192 I AssistStructure: Flattened final assist data: 668 bytes, containing 2 windows, 5 views
+10-23 13:46:23.110  5099  5099 W AutofillChimeraService: Pending fill request while another request in the same session was triggered. [CONTEXT service_id=177 ]
+10-23 13:46:23.114  1571  1571 V InlineSuggestionRenderService: handleDestroySuggestionViews called for 0:159490549
+10-23 13:46:23.169  1553  1919 I SP      : Sync for bundled_delight succeeded in 1175 ms: no changes
+10-23 13:46:23.186   823   823 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-23 13:46:23.187  1553  1919 I SP      : GC for 'delight' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:46:23.194  1553  7646 I AbstractSyncResultCallback: AbstractSyncResultCallback.onFailure():36 onFailure(): delight.sync cancelled; expected if new request supersedes pending one.
+10-23 13:46:23.195  1553  1919 I SP      : GC for 'bundled_delight' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:46:23.204  1553  1919 I LmManager: LmManager$1.onSuccess():76 Bundled delight sync success
+10-23 13:46:23.208  6192  6192 I ImeTracker: org.bookreader.mobile:faed42: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+10-23 13:46:23.208  6192  6192 D InputMethodManager: showSoftInput() view=androidx.compose.ui.platform.AndroidComposeView{5024e2c VFED..... .F....ID 0,0-840,796 aid=1073741836} flags=0 reason=SHOW_SOFT_INPUT
+10-23 13:46:23.209  6192  6192 D Autofill Status: Autofill popup isn't shown because autofill is not available.
+10-23 13:46:23.209  6192  6192 D Autofill Status:
+10-23 13:46:23.209  6192  6192 D Autofill Status: Did you set up autofill?
+10-23 13:46:23.209  6192  6192 D Autofill Status: 1. Go to Settings > System > Languages&input > Advanced > Autofill Service
+10-23 13:46:23.209  6192  6192 D Autofill Status: 2. Pick a service
+10-23 13:46:23.209  6192  6192 D Autofill Status:
+10-23 13:46:23.209  6192  6192 D Autofill Status: Did you add an account?
+10-23 13:46:23.209  6192  6192 D Autofill Status: 1. Go to Settings > System > Languages&input > Advanced
+10-23 13:46:23.209  6192  6192 D Autofill Status: 2. Click on the settings icon next to the Autofill Service
+10-23 13:46:23.209  6192  6192 D Autofill Status: 3. Add your account
+10-23 13:46:23.224  1553  1553 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 129 ms
+10-23 13:46:23.225  1553  1553 I KeyboardViewUtil: KeyboardViewUtil.getKeyboardHeightRatio():189 systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+10-23 13:46:23.225  1553  1553 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x28001(Normal) imeOptions=0x42000000 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}], IncognitoMode = false, DeviceLocked = false
+10-23 13:46:23.226  1553  1553 I Delight5Facilitator: Delight5Facilitator.initializeForIme():777 initializeForIme() : Locale = [en_US], layout = qwerty
+10-23 13:46:23.227  1553  1553 I VoiceInputManagerWrapper: VoiceInputManagerWrapper.cancelShutdown():55 cancelShutdown()
+10-23 13:46:23.228  1553  1553 I VoiceInputManagerWrapper: VoiceInputManagerWrapper.syncLanguagePacks():67 syncLanguagePacks()
+10-23 13:46:23.228  1553  1553 I LatinIme: LatinIme.updateEnableInlineSuggestionsOnDecoderSideFlags():1003 inline flag updated to:false
+10-23 13:46:23.228  1553  6799 I SpeechFactory: SpeechRecognitionFactory.maybeScheduleAutoPackDownloadForFallback():205 maybeScheduleAutoPackDownloadForFallback()
+10-23 13:46:23.228  1553  6799 I FallbackOnDeviceRecognitionProvider: FallbackOnDeviceRecognitionProvider.maybeScheduleAutoPackDownload():195 maybeScheduleAutoPackDownload() for language tag en-US
+10-23 13:46:23.232  1553  1553 I KeyboardWrapper: KeyboardWrapper.consumeEvent():275 Skip consuming an event as current keyboard is deactivated (state=0, keyboard existence=true)
+10-23 13:46:23.235  1553  1553 I KeyboardViewUtil: KeyboardViewUtil.calculateMaxKeyboardBodyHeight():40 leave 354 height for app when screen height:1794, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1324
+10-23 13:46:23.235  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:23.235  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3483 setKeyboardViewShown() : type = HEADER, shownType = SHOW_OPTIONAL
+10-23 13:46:23.236  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3530 setKeyboardViewShown() : shouldShow = true
+10-23 13:46:23.236  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3483 setKeyboardViewShown() : type = BODY, shownType = SHOW_MANDATORY
+10-23 13:46:23.236  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3530 setKeyboardViewShown() : shouldShow = true
+10-23 13:46:23.236  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3483 setKeyboardViewShown() : type = FLOATING_CANDIDATES, shownType = HIDE
+10-23 13:46:23.236  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.setKeyboardViewShown():3530 setKeyboardViewShown() : shouldShow = false
+10-23 13:46:23.237  1553  1553 I KeyboardViewUtil: KeyboardViewUtil.calculateMaxKeyboardBodyHeight():40 leave 354 height for app when screen height:1794, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1324
+10-23 13:46:23.238  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:23.239  1553  1553 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-23 13:46:23.239  1553  1553 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=true
+10-23 13:46:23.240  1553  1553 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:46:23.240  1553  1553 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:46:23.241  1553  1553 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=portrait_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-23 13:46:23.242  1553  1553 I VoiceImeExtension: VoiceImeExtension.shouldStartVoiceInputAutomatically():383 No private IME option set to start voice input.
+10-23 13:46:23.246  5151  5151 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:23.246  5151  5151 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:23.251  5151  5151 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:23.328  1553  1553 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-23 13:46:23.329  1553  2386 I Delight5Decoder: Delight5DecoderWrapper.setKeyboardLayout():457 setKeyboardLayout()
+10-23 13:46:23.343  1553  1919 I AbstractSyncResultCallback: AbstractSyncResultCallback.onFailure():36 onFailure(): delight.sync cancelled; expected if new request supersedes pending one.
+10-23 13:46:23.349  1553  7647 I SuperDelight: SuperDelightManager$2.onSuccess():635 delight sync success, adding to data file manager
+10-23 13:46:23.350  1553  7647 I DataFileManager: DataFileManager.addDataWithoutNotify():162 data en-840 already exists
+10-23 13:46:23.351  1553  7647 I DataFileManager: DataFileManager.addDataWithoutNotify():162 data en-US already exists
+10-23 13:46:23.370  5151  5151 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:23.370  5151  5151 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:23.374  5151  5151 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+10-23 13:46:23.382  1553  7646 I SuperDelight: SuperDelightManager$2.onSuccess():635 bundled_delight sync success, adding to data file manager
+10-23 13:46:23.383  1553  7646 I DataFileManager: DataFileManager.addDataWithoutNotify():162 data en-US already exists
+10-23 13:46:23.398  1553  1919 I SuperDelight: SuperDelightMergingStrategy.merge():55 SuperDelightMergingStrategy#merge(): selected[[main_en_840_2022102600_1, main_en_us_2022101700_1]] synced[[main_en_840_2022102600_1]]
+10-23 13:46:23.406  1553  1919 I SP      : Sync for delight succeeded in 674 ms: no changes
+10-23 13:46:23.413  1553  1919 I SP      : GC for 'delight' (10) with ttl of 0 ms took 0 ms (0/0/0)
+10-23 13:46:23.427  1553  7647 I SuperDelight: SuperDelightManager$2.onSuccess():635 delight sync success, adding to data file manager
+10-23 13:46:23.428  1553  7647 I DataFileManager: DataFileManager.addDataWithoutNotify():162 data en-840 already exists
+10-23 13:46:23.428  1553  7647 I DataFileManager: DataFileManager.addDataWithoutNotify():162 data en-US already exists
+10-23 13:46:23.430  1553  1561 I putmethod.latin: JIT allocated 52KB for compiled code of mzo hod.d(java.util.List)
+10-23 13:46:23.489  1553  1920 I CrankEngineLocales: CrankEngineLocales.getLocaleToUseForCrankEngine():66 Using locale en_US for emoji prediction
+10-23 13:46:23.554  6192  6192 D InsetsController: show(ime(), fromIme=true)
+10-23 13:46:23.564  1553  1553 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 230 ms
+10-23 13:46:23.586  6192  6192 D InsetsController: show(ime(), fromIme=true)
+10-23 13:46:23.588  6192  6192 I ImeTracker: org.bookreader.mobile:faed42: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+10-23 13:46:23.739  6192  6219 D EGL_emulation: app_time_stats: avg=228.36ms min=68.60ms max=518.93ms count=5
+10-23 13:46:23.799  6192  6192 I ImeTracker: org.bookreader.mobile:1a41518e: onShown
+10-23 13:46:23.982   838   923 D EGL_emulation: app_time_stats: avg=890.15ms min=396.95ms max=1383.36ms count=2
+10-23 13:46:24.357  6192  6192 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@98495766 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@32923b9
+10-23 13:46:24.361  6192  6192 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e4af964
+10-23 13:46:24.384  6192  6200 I okreader.mobile: Background concurrent copying GC freed 569725(21MB) AllocSpace objects, 188(6120KB) LOS objects, 46% free, 27MB/51MB, paused 304us,24us total 834.804ms
+10-23 13:46:24.405   519  2463 W InputManager-JNI: Input channel object 'ed66898 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:46:24.657  6192  6192 I ImeTracker: org.bookreader.mobile:43417a64: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-23 13:46:24.658  6192  6192 I ImeTracker: org.bookreader.mobile:43417a64: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-23 13:46:24.722  6192  6202 W System  : A resource failed to call release.
+10-23 13:46:24.723  6192  6202 W System  : A resource failed to call release.
+10-23 13:46:24.744   519  2463 I ImeTracker: org.bookreader.mobile:cb337728: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:46:24.747   519  2463 I ImeTracker: org.bookreader.mobile:cb337728: onFailed at PHASE_WM_HAS_IME_INSETS_CONTROL_TARGET
+10-23 13:46:24.747  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInputView():2241
+10-23 13:46:24.748  1553  1553 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+10-23 13:46:24.749  1553  1553 I KeyboardWrapper: KeyboardWrapper.consumeEvent():275 Skip consuming an event as current keyboard is deactivated (state=0, keyboard existence=true)
+10-23 13:46:24.750  1553  1553 I VoiceInputManagerWrapper: VoiceInputManagerWrapper.shutdown():77 shutdown()
+10-23 13:46:24.750  1553  1553 E native  : E0000 00:00:1792763184.750303    1553 key-correction-manager.cc:322] User feature cache is not ready for key correction!
+10-23 13:46:24.750  1553  1553 I AndroidIME: AbstractIme.onDeactivate():207 LatinIme.onDeactivate()
+10-23 13:46:24.752  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:24.752  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:24.752  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:24.752  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:24.753  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:24.778  6192  6219 D EGL_emulation: app_time_stats: avg=1038.79ms min=1038.79ms max=1038.79ms count=1
+10-23 13:46:24.789  1553  1615 W ModuleManager: ModuleManager.loadModule():450 Module jjj is not available
+10-23 13:46:24.809  6192  6192 E ImeBackDispatcher: Ime callback not found. Ignoring unregisterReceivedCallback. callbackId: 98495766
+10-23 13:46:25.392   838   923 D EGL_emulation: app_time_stats: avg=3179.92ms min=5.64ms max=6354.21ms count=2
+10-23 13:46:25.468   838   923 D EGL_emulation: app_time_stats: avg=742.09ms min=605.56ms max=878.61ms count=2
+10-23 13:46:25.481  6192  6192 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:46:25.481  6192  6192 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:46:25.690  6192  6200 I okreader.mobile: Background young concurrent copying GC freed 394313(16MB) AllocSpace objects, 239(7992KB) LOS objects, 43% free, 29MB/51MB, paused 43us,82us total 155.032ms
+10-23 13:46:25.728   838   838 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-23 13:46:25.805  1096  1096 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=695570, downTime=695570, deviceId=-1, source=0x1002, displayId=0, eventId=-262677888 }
+10-23 13:46:25.860  1096  1096 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=695647, downTime=695570, deviceId=-1, source=0x1002, displayId=0, eventId=-777736913 }
+10-23 13:46:26.245  6192  6219 D EGL_emulation: app_time_stats: avg=146.68ms min=35.30ms max=568.55ms count=10
+10-23 13:46:26.363  6192  6192 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-23 13:46:26.363  6192  6192 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-23 13:46:26.596   519  2463 I ImeTracker: org.bookreader.mobile:4a34af48: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:46:26.596   519  2463 I ImeTracker: org.bookreader.mobile:4a34af48: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:46:26.599  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:26.600  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:26.605  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:26.605  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:26.608  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:26.881  6192  6200 I okreader.mobile: Background concurrent copying GC freed 596938(22MB) AllocSpace objects, 182(5564KB) LOS objects, 47% free, 26MB/50MB, paused 86us,43us total 493.296ms
+10-23 13:46:26.928  6192  6192 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@aab163e
+10-23 13:46:26.949   519  2463 W InputManager-JNI: Input channel object '3ba8621 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:46:27.156   519  2463 I ImeTracker: org.bookreader.mobile:3be4facf: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:46:27.156   519  2463 I ImeTracker: org.bookreader.mobile:3be4facf: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:46:27.157  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:27.160  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:27.161  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:27.161  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:27.161  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:27.253  6192  6219 D EGL_emulation: app_time_stats: avg=141.56ms min=28.57ms max=564.75ms count=7
+10-23 13:46:27.311   838   910 D SplashScreenView: Build android.window.SplashScreenView{fa7082 V.E...... ......ID 0,0-0,0}
+10-23 13:46:27.311   838   910 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-23 13:46:27.311   838   910 D SplashScreenView: Branding: view: android.view.View{f75b393 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-23 13:46:27.316  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: PAUSED
+10-23 13:46:27.318  6192  6192 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@68b8577
+10-23 13:46:27.333   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:46:27.447  6235  6262 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-23 13:46:27.453   838   923 D EGL_emulation: app_time_stats: avg=515.04ms min=13.93ms max=1846.40ms count=4
+10-23 13:46:27.511   519  6266 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-23 13:46:27.695   519   538 W ziparchive: Unable to open '/data/app/~~Qkjyp-0HzT26FsDUo9edQg==/org.bookreader.mobile.test-BQhVj4sEh0SSvakAi8nnZQ==/base.dm': No such file or directory
+10-23 13:46:27.697   519   538 I ActivityTaskManager: Displayed org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +385ms
+10-23 13:46:27.698   838   923 D EGL_emulation: app_time_stats: avg=1114.92ms min=218.25ms max=2011.59ms count=2
+10-23 13:46:27.716   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-23 13:46:27.810   519   542 W system_server: Long monitor contention with owner binder:519_C (1713) at void com.android.server.wm.ActivityClientController.activityPaused(android.os.IBinder)(ActivityClientController.java:219) waiters=0 in void com.android.server.wm.WindowAnimator.lambda$new$1(long) for 105ms
+10-23 13:46:27.811   519   541 W system_server: Long monitor contention with owner binder:519_C (1713) at void com.android.server.wm.ActivityClientController.activityPaused(android.os.IBinder)(ActivityClientController.java:219) waiters=1 in void com.android.server.wm.ActivityTaskSupervisor$ActivityTaskSupervisorHandler.handleMessage(android.os.Message) for 106ms
+10-23 13:46:27.812  1031  1332 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-23 13:46:27.814  1031  1332 D BtGatt.ScanManager: uid 10131 isForeground true scanMode -1
+10-23 13:46:27.832  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: STOPPED
+10-23 13:46:27.833  6192  6192 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@68b8577
+10-23 13:46:27.893  1710  1829 I AiAiEcho: Predicting[0]:
+10-23 13:46:27.893  1710  1829 I AiAiEcho: EchoTargets:
+10-23 13:46:27.893  1710  1829 I AiAiEcho: Filtered by AiAi flag check:
+10-23 13:46:27.893  1710  1829 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-23 13:46:27.894  1710  1829 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-23 13:46:27.897   519  1664 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-23 13:46:27.902  1096  2215 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=173, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@bffd02b
+10-23 13:46:27.904  1758  2446 I A       : Using proto config with mendel
+10-23 13:46:27.911  1758  2446 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+10-23 13:46:27.952  1758  2446 I A       : Using proto config with mendel
+10-23 13:46:27.960  6192  6192 D AutofillManager: onActivityFinishing(): calling cancelLocked()
+10-23 13:46:27.978  6192  6192 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@68b8577 in: DESTROYED
+10-23 13:46:27.979  6192  6192 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 13:46:27.983  6192  6192 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@8802640
+10-23 13:46:27.990   519  2385 I ImeTracker: com.google.android.apps.nexuslauncher:2aa0bc12: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-23 13:46:27.991   519  2385 I ImeTracker: com.google.android.apps.nexuslauncher:2aa0bc12: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-23 13:46:27.994  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-23 13:46:27.996  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-23 13:46:27.997  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.google.android.apps.nexuslauncher fieldId=0 fieldName=null extras=null}, false)
+10-23 13:46:27.998  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-23 13:46:28.005  1553  1553 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-23 13:46:28.094   519  2385 W InputManager-JNI: Input channel object '7cc7df7 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:46:28.277   838   908 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@6f5bb85
+10-23 13:46:28.279   519  1219 W InputManager-JNI: Input channel object 'de92573 Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-23 13:46:28.297  6235  6235 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@f45abbe
+10-23 13:46:28.303  1096  1106 I s.nexuslauncher: NativeAlloc concurrent copying GC freed 38053(2883KB) AllocSpace objects, 24(384KB) LOS objects, 49% free, 5951KB/11MB, paused 18us,14us total 311.977ms
+10-23 13:46:28.338   519  2463 W InputManager-JNI: Input channel object '3f3bbe1 org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity (client)' was disposed without first being removed with the input manager!
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.366  1096  1108 W System  : A resource failed to call release.
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil:  query= size=15
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=blue bell christmas cookies flavor,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=blue bell christmas cookies flavor searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 4a91678a-b782-41fb-b384-70f897c6d8d6
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=amazon kindle plus ai audiobooks,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=amazon kindle plus ai audiobooks searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: e916d0ac-ae46-4102-a98d-90eaad594080
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=heated rivalry movie theater release,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=heated rivalry movie theater release searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 8c85d90a-9678-4dfc-89d2-91f84c831915
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=planet fitness closing locations,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=planet fitness closing locations searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 905858b1-4822-4ad9-8ba5-9b9be2ae593a
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=flash flooding hurricane utah,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=flash flooding hurricane utah searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 5ad332f1-de2c-4721-a6bc-569e59b6cca4
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=travis etienne injury update,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=travis etienne injury update searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 66176630-68bf-419e-a150-6c03464d0e05
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=catholic priest killed crucifix,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=catholic priest killed crucifix searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: ccdbdf41-def4-4e4b-b247-ea450c364523
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=regal theaters heated rivalry,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=regal theaters heated rivalry searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: e3ef4767-9000-43b2-b98e-727c998104b0
+10-23 13:46:28.469  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=ai agents us banks,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=ai agents us banks searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: b4e3dee5-dc00-4715-a0fa-9e62d6b5d957
+10-23 13:46:28.470  1096  1096 D SearchTargetUtil: layoutType=extra_tall_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{bitmap_url=data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAHwAfAMBIgACEQEDEQH/xAAcAAACAwEBAQEAAAAAAAAAAAAGBwMEBQIBCAD/xAA+EAACAQMDAgQEBAQDBgcAAAABAgMEBREAEiEGMRNBUWEHInGBFEKRoRUyUrEjcuEzQ5LB0fAWJVNigqLC/8QAGgEAAgMBAQAAAAAAAAAAAAAAAwQBAgUABv/EACsRAAICAQQBAQYHAAAAAAAAAAECAAMRBBIhMRNBBRQiUWFxMkKBkbHB0f/aAAwDAQACEQMRAD8AErbV08KSSKq5YawF3y3hZWPBftquomZflbA0U/DbpaXqXqSOOfeaGm2y1RTgkZ4XPlnB59A2OcaZUCsSjHcZBcbFcri0U9HQzSxO3hpIFwrPgnaGOATgH9Nadl+FvU11kkRxSUixMok8eU5GRnA2ggkefPfj1x9AVNNTmKKJZZIIYRt8OnOz0AGQMr9iO+vKOKno2xAlU5fALSzPLj7sxxoPvRHwgy3jzzFfL8KLlQW9vwd2iqXxyngGP/8AR0prvRVduuMlNWq0c6H5gT+4I4I9xr6Yvd/sVtroYLnXtT1BX/DjSWQbhn+le/PHPvrE676XtfWNHURQGNLtSDKSK2GjYjIVx6Nxwceo1yNgzmyZ8/rGWXJlb9dRyLtPD/fOvfwskMz09UkkM8bFXjcYZWHcEattaJBT+MW49DpgkDuUwTIY4ldcmT99Ryrt4U5++okQl9udWkoZS3Gqs4U4MkISOJAmzs51zOqIBtHJ7a7mp2ilG9cDOrjy0zRrlQGGp+0ibtq6S/F0KSNMFZhnQ31Hbha6sRBt2ry36rpowlNJ8o8tWoLebtTGsq2BbHAOhPheTLKC3Ag5TCSbAiUltENFDMsADjkHWckyUUx8NRwfTV2nrZZY9xGOdX27uZAYiY0SOQQHxp/fDu1VFr6csT2nwUSsgSruDGDfJOXGR85YBVAPoTxwO50hbZB+KuVNTFsLLMiHn1YDTe6g6xu1g/g/Sdnp4YLhLHg1Dx5WOPe6r4adhwmRngDAx6VuOBJQZjUikLVNSppXiSMjEzFcS5GSRznjtzjWTeeo7ZQmENfbVRv4qmRamoTLR/mAG7v76C06ViuWJupK+vuztgmKaoYRA/5AcfoBq9/4e6do4yIbJboz6tCp/vpLzqOo4NK57mjU9adIPJubqKmBYY/w66RV/RWAGrNt6istcrU9putPWNGpkZI6ozSbR5nLFscjQLdrBZaoFTRxJnziXb/bjQRbYE6X6/tskIbY1Qkas57JJ8jke+GOrV2hziUtoasZhD8TLOtZ1UlfA+0S0yGVdvJYFhk/YAfbQrdp5I4lp1yB56Ler61qPqBIHiKx1KFiSCrZAXOT5/2/voar6ykmULtIbzyMahzYXAAyJKbAhz3MelhXfufH66uUsdxabxoKSWSAfmC8ah3Qb1wflyM/TTSoKylWxKIYlPyeuj2Ej8UCgJOFi7rp4amAgptdeCCMYOsVAobDjjWtdZYTVS7sBifXVWgozcakQU6sxxkhedFUlVzBkZbEi204wAV5OiS2yRpR+Ep78YB1mSdJVclSkNMfmJ5Lfl+utZLHNZ4JDVuHPYEcY0B3FgxDKrVHJmXc6eniHiAjJ1BRSRGHK4AydD9VWySzsSxK54HtratnhtSg8d9HpPGIF+8zPoZlpbhS1Ln5YZ0lbHorAn+2nD1Pa/D6vsV5nVEhWNaMkt/vN0gGOcnO7j6HSoqbRPRUxaqUg9iD3Gi+k6guPUfT8/4qRZa+0yJUKuNolpuFY4GPmRsEt3w51W0F14k1na0ZAr4FmETRTBT/AL1sIv78n7aqdQ3WO104eN44nbkM6lsj25Gqd3tCX1qavEj7WVXQBvlwR2I8+/7alu9HTmkpIZ0MscSkeeR9MdtZfU2FBaY9D1ClxwQkkwLFSTAAMjv76z+s7Y1TFSyQU9N40UoIeVpF2++VYdjjRXSU1JSRb6WADI4J5/fWXemJpZ5CcGNC+cZ5HOu3YOVkMmVw0G+sLY8lfR1FPLmtkgilmlDkqXeIFiBn5fIjHkdBVTSPSTbZJN5bnd66cF8ipaW4U+8BpaqNCG3Z2hYkQ/uMf/E6BesqGGNt0ALHzOnabCLNpiFtYKbhPejOkkvE4qaiUiCM/wAg/MdMN7ZBSxBIiCi8EawOiKKtFrSOhglmYgbtg4GfU9hoti6cvLxcxKh77WlX/kdaD0VMB5GiK32KTsEGusOk6CvtX4mkAWoUZDDjPsdL/p+sezVbusXihhtdC2Dx76dMPTd7IdZIoAhHA8XQpR/D6vo7vV1dypCtJncGV1Zf2Of20K4rWMKciXq3Py3BkFBcTcI/EiURu3bPrrK6jt19kglkMiyJjtrTvJo7bWU0VNIqhmAIXsdbtzZmtxEZBBTtrC1V70WgL0ZrU1pbUS3YiClUo5Vhgg4I1r2tm/Cj/MdQXCiqJLnLDBFJLK78JGpYn7DRpYvh/wBSS29HagEW4k7ZHAOtipsjMzGGDiZ3VdzFfWMIxiLuPfVr4cVVtouo4prpWVFIigrFJGoZCxBBEvntwfIfcYzoeqquKUosQHPGvKV/BqUGQQToqL8G2VJ+KfQcEVNAyUsJj8MoZYgjAqyZ52Y/KCR9MjQ51E07u0SzNGiuHDoSGQDy47j6/fQRaL9LYa9ZIoy8DkF4gcYxnlfIHk5Hn7HBBjUWyy9Qy/xukUVEhXa6uWJQ+hXPH9j31nXUmtsnqamluDDaZLbLtR11OY6OojmEQCsyNnn31xWRCoMNLnBqZki+xPzH7KGP217TUwp0wkXhgfTt5AAcAe2rEy/gEMs3NbMhSGP/ANJD/M59Cew9s+ulwBn6Q1p9BBrrWpmljW60MQMVHlDGn5Yc8Nz+p/ze2h3oi9rdes7fQXekpaiiq5TCUdTkZU7SDnvnGiLqkrS9OXB3OA1OyfdhgfudQfCH4dz1lRTdR3pZaemgdZaKD+V5mByHPonp/V9O7VGGGTEdQNh2jqPKjSGliFPTwRwwJwscahVUfTUxC54JGol12NMRWd8Dsde7zjXGdRyNhGJ4GO510mAHXvw4hu0n8WsA8C5RHe1JuxFUY8h5K3v2Pn6gJrOrIkpJaKrilp6yH5JIJ4yjofQjTerbwiIy0pLkcNIvZfpoWvfT1i6nlinrYvDrosbamPhmA7Bx+YfXkeRGsfU6/SmwIecesdqovVNwE7+FvTsVPQG51cINVUHdlhyB5DTA344AAGg603iCiub2RKunknpwN8SSfOoIByR38xop8TIBzp/T3eQbcYIgLk2nd6GJlPg7VjGapf8Ah/11cg+ElQjq7VCsR/7dOQHXRYAc60/eiPyj9op4h84pZ/hpKEMs9XFHHGMs7jAUepJPGsfpo0UFzrGtNYamCEeC8yriOZu5Cnzxxz554yNZHxr6kuVd1ZWWR52SgpPDWOmU4DsUVtzDzOW49AOPPPvR1xhs3TJpbsjUEhnZk/EoY/EzjBGRz/poGo1DvWRgc/SHoQBwSYy6ap+UMjKM8q20Ej6aqVUK+IZJDuYnJYnOdD1u6gpGlWljqomeVh4S7wd5JwApHfJxwOee2t8WKuncNd7glvgk+WGNcNIzHgZ8gMkcck+2s0VsTHjag5greaNureprd0zSEtAHFRcXQ/7OIY4J9T5e5XTtVFRAqgKoGAB2A9ND/RfSlL0tbmijYz11Q3iV
+10-23 13:46:28.470  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=g shock gmc 2500,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=g shock gmc 2500 searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 16445ea1-dee7-4964-9f23-dd15b7d495c2
+10-23 13:46:28.470  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=viral coyote pear tree video,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=viral coyote pear tree video searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 7c65da03-6a84-49d8-ad1c-014382debea7
+10-23 13:46:28.470  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=swatch group padel watches,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=swatch group padel watches searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 73d13479-0728-489e-86fb-638b7af333bd
+10-23 13:46:28.470  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=cracker barrel,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=cracker barrel searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 750f29c3-d290-4a32-8f67-f57f3fd8bb04
+10-23 13:46:28.470  1096  1096 D SearchTargetUtil: layoutType=short_icon_row resultType=131072 packageName=com.google.android.googlequicksearchbox extras=Bundle{suggestion_type=33,suggest_truncate_start=false,is_answer=false,is_entity=false,is_personal=false,suggest_raw_text=wnba finals national anthem,group_id=web566996,response_id=ca6309b3-698d-48d3-b482-d98ca49e5c2a,support_query_builder=false,} searchAction=wnba finals national anthem searchActionExtras=Bundle{learn_more_url=https://support.google.com/websearch/answer/106230?hl=106230,suggestion_action_text=Report this,should_start_for_result=true,allow_pinning=true,skip_logging_in_target_handler=false,suggestion_action_rpc=2,}ParentID: null targetID: 09d4632d-7ec9-4dd8-a7d5-8846cce28190
+10-23 13:46:28.476  6192  6212 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@6130752]
+10-23 13:46:28.479  6192  6212 I TestRunner: finished: literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen(org.bookreader.mobile.reader.TxtReaderFlowTest)

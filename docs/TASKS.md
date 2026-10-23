@@ -1,5 +1,22 @@
 # BookReader Mobile — Codex 작업표
 
+## 2026-10-23 완료: 0.4.0 글꼴·전환·쪽수·서재 카드
+
+검증 소스 `d1570aa92edddb676be3c5bc311d53506f2e9ad9`를 main에 반영했다. 이후 commit은 문서/증거다.
+나눔고딕/나눔명조, 효과 없음/slide 선택, 준비 중 직전 페이지 유지, 전환 완료 후 위치 확정,
+본문 하단 및 중앙 탭 도구의 쪽수, 서재 카드 본문 클릭을 완료했다.
+사용자가 말한 상태 영역은 중앙 탭 후 나타나는 하단 독서 현황이다. Android 상태바/상단 별도 표시를 추가하지 않았다.
+
+- Build [39964576203](https://github.com/LaceyLuv/BookreaderM/actions/runs/39964576203): Android 68/shared 74/EPUB 16/실제 ENOSPC 3 PASS.
+- Device [39964576436](https://github.com/LaceyLuv/BookreaderM/actions/runs/39964576436): API26/34/36 각각 native 58 + TXT/EPUB/Comic host 6 PASS. 필수 누락·실패·오류·skip 0.
+- 원본 XML/소스 SHA/필수 사례/ZIP digest·실제 force-stop/PID 교체를 확인했다. [최종 원본](evidence/reader-features/verified-d1570aa/summary.json).
+- 기존 개발용 인증서를 유지한 0.4.0 서명 APK 생성/정적 감사 PASS. [설치 안내](INSTALLABLE_APK.md).
+- [동작·쪽수 기준·스크린샷·검증 범위](READER_FEATURES_0_4.md), [중간 실패 기록](evidence/reader-features/README.md).
+
+TXT 쪽수는 현재 레이아웃 측정 기준이며 EPUB은 publication 위치 기준으로 명시한다. 쪽수를 영구 locator로 저장하지 않는다.
+실기기 설치·성능·TalkBack·16KB OS·정식 출시 승인은 NOT_RUN이다. 다음 작업은 해당 자원과 조건을 확보한 뒤 진행한다.
+아래 대기/실패 상태는 각 시점의 이력이며 현재 판정은 이 절을 따른다.
+
 ## 0.4.0 하단 쪽수 표시 간격 보완 (2026-10-23)
 
 실제 API26 캡처에서 overlay 하단 패널이 본문 하단 쪽수의 윗부분을 가리는 것을 확인했다.

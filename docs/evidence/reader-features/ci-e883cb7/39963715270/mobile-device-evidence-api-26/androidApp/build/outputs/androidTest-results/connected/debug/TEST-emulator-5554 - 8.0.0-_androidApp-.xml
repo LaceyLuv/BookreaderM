@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="org.bookreader.mobile.comic.ComicImageDecoderTest" tests="58" failures="0" errors="0" skipped="0" time="314.369" timestamp="2026-10-23T13:56:55" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 8.0.0" />
+    <property name="flavor" value="" />
+    <property name="project" value=":androidApp" />
+  </properties>
+  <testcase name="staticImagesExifAndLongPngWebpUseBudgetedFallbackAndPreserveBrokenEntries" classname="org.bookreader.mobile.comic.ComicImageDecoderTest" time="0.506" />
+  <testcase name="hundredPageMovesReleaseBitmapsAndCancellationLeavesNoTemporaryImages" classname="org.bookreader.mobile.comic.ComicImageDecoderTest" time="2.174" />
+  <testcase name="managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity" classname="org.bookreader.mobile.comic.ComicReaderFlowTest" time="21.643" />
+  <testcase name="concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave" classname="org.bookreader.mobile.database.AndroidDatabaseOwnerTest" time="0.178" />
+  <testcase name="androidBomAndBoundaryNormalizationAreCanonical" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.001" />
+  <testcase name="androidStrictDecodeRejectsLateIncompleteCharacters" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.062" />
+  <testcase name="androidCp949ExtensionFixtureIsDistinctFromEucKr" classname="org.bookreader.mobile.encoding.AndroidTxtEncodingTest" time="0.002" />
+  <testcase name="sdkSearchReturnsFullLocatorAndContainerCannotReadOutsideBook" classname="org.bookreader.mobile.epub.EpubProbeTest" time="3.382" />
+  <testcase name="activePublicationContentIsRejectedBeforeCreatingAnyNavigator" classname="org.bookreader.mobile.epub.EpubProbeTest" time="1.861" />
+  <testcase name="stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator" classname="org.bookreader.mobile.epub.EpubProbeTest" time="7.809" />
+  <testcase name="cspBlocksExternalCssResourcesWhileEngineCanNavigateOffline" classname="org.bookreader.mobile.epub.EpubProbeTest" time="2.703" />
+  <testcase name="searchResultsArePagedAndOversizedChaptersReportAnExplicitLimit" classname="org.bookreader.mobile.epub.EpubProbeTest" time="2.399" />
+  <testcase name="searchJumpSurvivesHostReplacementAfterRequestWithoutPrematureProgressWrite" classname="org.bookreader.mobile.epub.EpubReaderFlowTest" time="4.165" />
+  <testcase name="negativeTxtLetterSpacingOpensEpubWithoutRewritingStoredDefaults" classname="org.bookreader.mobile.epub.EpubReaderFlowTest" time="5.285" />
+  <testcase name="managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator" classname="org.bookreader.mobile.epub.EpubReaderFlowTest" time="15.547" />
+  <testcase name="centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages" classname="org.bookreader.mobile.epub.EpubReaderFlowTest" time="7.921" />
+  <testcase name="unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy" classname="org.bookreader.mobile.epub.EpubReaderFlowTest" time="3.902" />
+  <testcase name="systemDocumentsPickerSelectsTxtFromRealProvider" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="3.698" />
+  <testcase name="managedPromotionRefusesExistingTargetAndRenamesPrivateStaging" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="0.716" />
+  <testcase name="assetSegmentImportHonorsOffsetAndDeclaredLength" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.217" />
+  <testcase name="ownUidProviderIsRejectedBeforeAnyQuery" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="0.692" />
+  <testcase name="unknownSizeSourceEnforcesActualStreamingByteLimit" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.075" />
+  <testcase name="safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="0.989" />
+  <testcase name="externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.34" />
+  <testcase name="stalledProviderCopyCancelsAndRemovesPrivateStaging" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.074" />
+  <testcase name="ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="0.716" />
+  <testcase name="manualEncodingUsesStagingAfterSourceGrantIsRevoked" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.305" />
+  <testcase name="externalViewReceivesTemporaryGrantAndOpensActualReader" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.277" />
+  <testcase name="binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.215" />
+  <testcase name="emptyTxtReportsNoContentWithoutCreatingReadingProgress" classname="org.bookreader.mobile.importing.ManagedImportAndroidTest" time="1.128" />
+  <testcase name="repeatedSideAndCenterTapsUseCurrentCallbacksIncludingOuterEdge" classname="org.bookreader.mobile.reader.ReaderGestureSurfaceTest" time="0.738" />
+  <testcase name="longPressSelectionCancelledTouchesAndSystemEdgeSwipesNeverTurnPages" classname="org.bookreader.mobile.reader.ReaderGestureSurfaceTest" time="1.303" />
+  <testcase name="realMaterialSliderCancelThenAccessibilityCommitsExactlyOnce" classname="org.bookreader.mobile.reader.ReaderMenuDialogTest" time="1.204" />
+  <testcase name="bothDirectionsAndDisabledEffectKeepEveryFrameCovered" classname="org.bookreader.mobile.reader.ReaderPageTransitionTest" time="3.116" />
+  <testcase name="actualMeasurementCoversLongParagraphsBlankLinesAndEmojiWithoutDrift" classname="org.bookreader.mobile.reader.TxtPageEngineTest" time="10.198" />
+  <testcase name="eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid" classname="org.bookreader.mobile.reader.TxtReaderBoundaryTest" time="0.817" />
+  <testcase name="readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="8.629" />
+  <testcase name="sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="63.148" />
+  <testcase name="manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="8.402" />
+  <testcase name="alternatingBooksWaitForPendingNativeWritesAndKeepBackwardProgress" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="15.761" />
+  <testcase name="missingManagedCopyShowsRetryAndPreservesCommittedProgress" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="2.695" />
+  <testcase name="menuSeekCancellationGesturesAndWindowExitPreserveCanonicalProgress" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="10.473" />
+  <testcase name="deletingDuringRealDecodeCancelsPartialIndexAndQueuedReopen" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="5.181" />
+  <testcase name="literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="6.33" />
+  <testcase name="actualRotationAndStopPreservePendingAnchorWithoutAnotherActivation" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="4.152" />
+  <testcase name="repeatedCloseDuringRestorationCancelsBeforeSameBookCanActivate" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="6.071" />
+  <testcase name="invalidManualEncodingKeepsOriginalBookProgressAndManagedBytes" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="3.146" />
+  <testcase name="pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="34.081" />
+  <testcase name="measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="4.491" />
+  <testcase name="nativeProgressQueryFailureShowsRetryWithoutChangingRecords" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="7.274" />
+  <testcase name="sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="4.809" />
+  <testcase name="malformedLocatorShowsRetryWithoutReplacingStoredRecord" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="7.428" />
+  <testcase name="sliderSeeksRestoreUncomposedDistantScrollFragmentsInBothDirections" classname="org.bookreader.mobile.reader.TxtReaderFlowTest" time="4.389" />
+  <testcase name="invalidStoredThemeReportsErrorAndPreservesOriginal" classname="org.bookreader.mobile.ui.AndroidThemeStoreTest" time="0.001" />
+  <testcase name="selectedThemePersistsAcrossStoreInstances" classname="org.bookreader.mobile.ui.AndroidThemeStoreTest" time="0.054" />
+  <testcase name="loadingEmptyAndErrorAreDistinctAndErrorHasRetry" classname="org.bookreader.mobile.ui.BookReaderScreenTest" time="0.668" />
+  <testcase name="threeTabsMetadataSearchAndThemeSelectionWork" classname="org.bookreader.mobile.ui.BookReaderScreenTest" time="1.503" />
+  <testcase name="launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab" classname="org.bookreader.mobile.ui.MainActivityLaunchTest" time="0.842" />
+</testsuite>

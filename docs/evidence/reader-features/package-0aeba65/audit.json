@@ -1,0 +1,271 @@
+{
+  "status": "PASS",
+  "scope": "static APK permissions, backup flags, signature verification, ZIP and ELF 16KB alignment",
+  "signature_status": "PASS",
+  "intentionally_unsigned": false,
+  "source_sha": "0aeba650c94c5835fb47d6405f35c65eb5e8a6fc",
+  "apk": "/workspace/artifacts/BookreaderM/0aeba65/installable/BookreaderM-0.4.0-test-signed.apk",
+  "bytes": 21823345,
+  "sha256": "a6c1676d782d1b15c439dc6516738c9231d727eee8108acb7f210a306845fd48",
+  "permissions": [
+    "android.permission.ACCESS_NETWORK_STATE"
+  ],
+  "unexpected_permissions": [],
+  "backup_disabled": true,
+  "cleartext_disabled": true,
+  "abis": [
+    "arm64-v8a",
+    "armeabi-v7a",
+    "x86",
+    "x86_64"
+  ],
+  "native": [
+    {
+      "path": "lib/arm64-v8a/libandroidx.graphics.path.so",
+      "bytes": 10096,
+      "sha256": "41e9a793c43a0f4fddb19e33f346bace464f30f888ba7b9eaf96294ea115bfb6",
+      "load_segments": [
+        {
+          "alignment": 16384,
+          "offset": 0,
+          "address": 0,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 7232,
+          "address": 23616,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 8144,
+          "address": 40912,
+          "aligned_16kb": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "path": "lib/arm64-v8a/libsqliteJni.so",
+      "bytes": 1310768,
+      "sha256": "1943442f87160799d004e44f39083b54a1aa899ccb26b163630dbb8045826846",
+      "load_segments": [
+        {
+          "alignment": 16384,
+          "offset": 0,
+          "address": 0,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 311296,
+          "address": 311296,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 1064960,
+          "address": 1064960,
+          "aligned_16kb": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "path": "lib/armeabi-v7a/libandroidx.graphics.path.so",
+      "bytes": 7252,
+      "sha256": "41399eba6fc2a60f6f14642375c1824f3cf25eb8fec7397d753730a3ceda3e2b",
+      "load_segments": [
+        {
+          "alignment": 16384,
+          "offset": 0,
+          "address": 0,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 5312,
+          "address": 21696,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 5772,
+          "address": 38540,
+          "aligned_16kb": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "path": "lib/armeabi-v7a/libsqliteJni.so",
+      "bytes": 1253296,
+      "sha256": "f399242f05317d3eb1f73921a89232bbf5c6d260412f43cd2f76aa533fc32205",
+      "load_segments": [
+        {
+          "alignment": 16384,
+          "offset": 0,
+          "address": 0,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 147456,
+          "address": 147456,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 1064960,
+          "address": 1064960,
+          "aligned_16kb": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "path": "lib/x86/libandroidx.graphics.path.so",
+      "bytes": 9284,
+      "sha256": "eb0570b41fd3bff25d8204a967c03bd7550719e768b791f680cc40cbe35f29af",
+      "load_segments": [
+        {
+          "alignment": 16384,
+          "offset": 0,
+          "address": 0,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 7456,
+          "address": 23840,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 7912,
+          "address": 40680,
+          "aligned_16kb": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "path": "lib/x86/libsqliteJni.so",
+      "bytes": 1159892,
+      "sha256": "e037f01a627c623612ed52dc8707d7e5c29b26760201d405d1bd491de04e3553",
+      "load_segments": [
+        {
+          "alignment": 16384,
+          "offset": 0,
+          "address": 0,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 245760,
+          "address": 245760,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 1032192,
+          "address": 1032192,
+          "aligned_16kb": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "path": "lib/x86_64/libandroidx.graphics.path.so",
+      "bytes": 10760,
+      "sha256": "4e56c996f13670e70082658de7880c4020eabf4f25e43387f88ed78a713fc9f0",
+      "load_segments": [
+        {
+          "alignment": 16384,
+          "offset": 0,
+          "address": 0,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 7872,
+          "address": 24256,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 8808,
+          "address": 41576,
+          "aligned_16kb": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "path": "lib/x86_64/libsqliteJni.so",
+      "bytes": 1220832,
+      "sha256": "5c0eef53648fc2cf9e21cf37b1225d06fefedcfcb2e64777ea4169ecfcbf024f",
+      "load_segments": [
+        {
+          "alignment": 16384,
+          "offset": 0,
+          "address": 0,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 278528,
+          "address": 278528,
+          "aligned_16kb": true
+        },
+        {
+          "alignment": 16384,
+          "offset": 1064960,
+          "address": 1064960,
+          "aligned_16kb": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "commands": {
+    "manifest": {
+      "command": [
+        "/workspace/toolchains/android-sdk/build-tools/35.0.0/aapt2",
+        "dump",
+        "xmltree",
+        "--file",
+        "AndroidManifest.xml",
+        "/workspace/artifacts/BookreaderM/0aeba65/installable/BookreaderM-0.4.0-test-signed.apk"
+      ],
+      "exit_code": 0,
+      "output": "N: android=http://schemas.android.com/apk/res/android (line=2)\n  E: manifest (line=2)\n    A: http://schemas.android.com/apk/res/android:versionCode(0x0101021b)=4\n    A: http://schemas.android.com/apk/res/android:versionName(0x0101021c)=\"0.4.0\" (Raw: \"0.4.0\")\n    A: http://schemas.android.com/apk/res/android:compileSdkVersion(0x01010572)=36\n    A: http://schemas.android.com/apk/res/android:compileSdkVersionCodename(0x01010573)=\"16\" (Raw: \"16\")\n    A: package=\"org.bookreader.mobile\" (Raw: \"org.bookreader.mobile\")\n    A: platformBuildVersionCode=36\n    A: platformBuildVersionName=16\n      E: uses-sdk (line=7)\n        A: http://schemas.android.com/apk/res/android:minSdkVersion(0x0101020c)=26\n        A: http://schemas.android.com/apk/res/android:targetSdkVersion(0x01010270)=36\n      E: uses-permission (line=11)\n        A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"android.permission.ACCESS_NETWORK_STATE\" (Raw: \"android.permission.ACCESS_NETWORK_STATE\")\n      E: permission (line=13)\n        A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"org.bookreader.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION\" (Raw: \"org.bookreader.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION\")\n        A: http://schemas.android.com/apk/res/android:protectionLevel(0x01010009)=0x00000002\n      E: uses-permission (line=17)\n        A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"org.bookreader.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION\" (Raw: \"org.bookreader.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION\")\n      E: application (line=19)\n        A: http://schemas.android.com/apk/res/android:theme(0x01010000)=@0x7f0e0113\n        A: http://schemas.android.com/apk/res/android:label(0x01010001)=@0x7f0d001c\n        A: http://schemas.android.com/apk/res/android:icon(0x01010002)=@0x7f0c0000\n        A: http://schemas.android.com/apk/res/android:allowBackup(0x01010280)=false\n        A: http://schemas.android.com/apk/res/android:supportsRtl(0x010103af)=true\n        A: http://schemas.android.com/apk/res/android:extractNativeLibs(0x010104ea)=false\n        A: http://schemas.android.com/apk/res/android:fullBackupContent(0x010104eb)=@0x7f100000\n        A: http://schemas.android.com/apk/res/android:usesCleartextTraffic(0x010104ec)=false\n        A: http://schemas.android.com/apk/res/android:roundIcon(0x0101052c)=@0x7f0c0000\n        A: http://schemas.android.com/apk/res/android:appComponentFactory(0x0101057a)=\"androidx.core.app.CoreComponentFactory\" (Raw: \"androidx.core.app.CoreComponentFactory\")\n        A: http://schemas.android.com/apk/res/android:dataExtractionRules(0x0101063e)=@0x7f100001\n          E: activity (line=31)\n            A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"org.bookreader.mobile.MainActivity\" (Raw: \"org.bookreader.mobile.MainActivity\")\n            A: http://schemas.android.com/apk/res/android:exported(0x01010010)=true\n            A: http://schemas.android.com/apk/res/android:launchMode(0x0101001d)=1\n              E: intent-filter (line=35)\n                  E: action (line=36)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"android.intent.action.MAIN\" (Raw: \"android.intent.action.MAIN\")\n                  E: category (line=38)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"android.intent.category.LAUNCHER\" (Raw: \"android.intent.category.LAUNCHER\")\n              E: intent-filter (line=40)\n                  E: action (line=41)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"android.intent.action.VIEW\" (Raw: \"android.intent.action.VIEW\")\n                  E: category (line=43)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"android.intent.category.DEFAULT\" (Raw: \"android.intent.category.DEFAULT\")\n                  E: category (line=44)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"android.intent.category.BROWSABLE\" (Raw: \"android.intent.category.BROWSABLE\")\n                  E: data (line=46)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"text/plain\" (Raw: \"text/plain\")\n                    A: http://schemas.android.com/apk/res/android:scheme(0x01010027)=\"content\" (Raw: \"content\")\n                  E: data (line=49)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"application/octet-stream\" (Raw: \"application/octet-stream\")\n                    A: http://schemas.android.com/apk/res/android:scheme(0x01010027)=\"content\" (Raw: \"content\")\n                  E: data (line=52)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"application/epub+zip\" (Raw: \"application/epub+zip\")\n                    A: http://schemas.android.com/apk/res/android:scheme(0x01010027)=\"content\" (Raw: \"content\")\n                  E: data (line=55)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"application/zip\" (Raw: \"application/zip\")\n                    A: http://schemas.android.com/apk/res/android:scheme(0x01010027)=\"content\" (Raw: \"content\")\n                  E: data (line=58)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"application/vnd.comicbook+zip\" (Raw: \"application/vnd.comicbook+zip\")\n                    A: http://schemas.android.com/apk/res/android:scheme(0x01010027)=\"content\" (Raw: \"content\")\n              E: intent-filter (line=62)\n                  E: action (line=63)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"android.intent.action.SEND\" (Raw: \"android.intent.action.SEND\")\n                  E: category (line=65)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"android.intent.category.DEFAULT\" (Raw: \"android.intent.category.DEFAULT\")\n                  E: data (line=67)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"text/plain\" (Raw: \"text/plain\")\n                  E: data (line=68)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"application/octet-stream\" (Raw: \"application/octet-stream\")\n                  E: data (line=69)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"application/epub+zip\" (Raw: \"application/epub+zip\")\n                  E: data (line=70)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"application/zip\" (Raw: \"application/zip\")\n                  E: data (line=71)\n                    A: http://schemas.android.com/apk/res/android:mimeType(0x01010026)=\"application/vnd.comicbook+zip\" (Raw: \"application/vnd.comicbook+zip\")\n          E: provider (line=75)\n            A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.startup.InitializationProvider\" (Raw: \"androidx.startup.InitializationProvider\")\n            A: http://schemas.android.com/apk/res/android:exported(0x01010010)=false\n            A: http://schemas.android.com/apk/res/android:authorities(0x01010018)=\"org.bookreader.mobile.androidx-startup\" (Raw: \"org.bookreader.mobile.androidx-startup\")\n              E: meta-data (line=79)\n                A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.emoji2.text.EmojiCompatInitializer\" (Raw: \"androidx.emoji2.text.EmojiCompatInitializer\")\n                A: http://schemas.android.com/apk/res/android:value(0x01010024)=\"androidx.startup\" (Raw: \"androidx.startup\")\n              E: meta-data (line=82)\n                A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.lifecycle.ProcessLifecycleInitializer\" (Raw: \"androidx.lifecycle.ProcessLifecycleInitializer\")\n                A: http://schemas.android.com/apk/res/android:value(0x01010024)=\"androidx.startup\" (Raw: \"androidx.startup\")\n              E: meta-data (line=85)\n                A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.profileinstaller.ProfileInstallerInitializer\" (Raw: \"androidx.profileinstaller.ProfileInstallerInitializer\")\n                A: http://schemas.android.com/apk/res/android:value(0x01010024)=\"androidx.startup\" (Raw: \"androidx.startup\")\n          E: service (line=90)\n            A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.room.MultiInstanceInvalidationService\" (Raw: \"androidx.room.MultiInstanceInvalidationService\")\n            A: http://schemas.android.com/apk/res/android:exported(0x01010010)=false\n            A: http://schemas.android.com/apk/res/android:directBootAware(0x01010505)=true\n          E: receiver (line=95)\n            A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.profileinstaller.ProfileInstallReceiver\" (Raw: \"androidx.profileinstaller.ProfileInstallReceiver\")\n            A: http://schemas.android.com/apk/res/android:permission(0x01010006)=\"android.permission.DUMP\" (Raw: \"android.permission.DUMP\")\n            A: http://schemas.android.com/apk/res/android:enabled(0x0101000e)=true\n            A: http://schemas.android.com/apk/res/android:exported(0x01010010)=true\n            A: http://schemas.android.com/apk/res/android:directBootAware(0x01010505)=false\n              E: intent-filter (line=101)\n                  E: action (line=102)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.profileinstaller.action.INSTALL_PROFILE\" (Raw: \"androidx.profileinstaller.action.INSTALL_PROFILE\")\n              E: intent-filter (line=104)\n                  E: action (line=105)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.profileinstaller.action.SKIP_FILE\" (Raw: \"androidx.profileinstaller.action.SKIP_FILE\")\n              E: intent-filter (line=107)\n                  E: action (line=108)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.profileinstaller.action.SAVE_PROFILE\" (Raw: \"androidx.profileinstaller.action.SAVE_PROFILE\")\n              E: intent-filter (line=110)\n                  E: action (line=111)\n                    A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"androidx.profileinstaller.action.BENCHMARK_OPERATION\" (Raw: \"androidx.profileinstaller.action.BENCHMARK_OPERATION\")\n"
+    },
+    "alignment": {
+      "command": [
+        "/workspace/toolchains/android-sdk/build-tools/35.0.0/zipalign",
+        "-c",
+        "-P",
+        "16",
+        "4",
+        "/workspace/artifacts/BookreaderM/0aeba65/installable/BookreaderM-0.4.0-test-signed.apk"
+      ],
+      "exit_code": 0,
+      "output": ""
+    },
+    "signature": {
+      "command": [
+        "/workspace/toolchains/android-sdk/build-tools/35.0.0/apksigner",
+        "verify",
+        "--print-certs",
+        "/workspace/artifacts/BookreaderM/0aeba65/installable/BookreaderM-0.4.0-test-signed.apk"
+      ],
+      "exit_code": 0,
+      "output": "Signer #1 certificate DN: C=US, O=Android, CN=Android Debug\nSigner #1 certificate SHA-256 digest: 605d7f79c6ec788937ecda215447235a81b3aa91437f2b1adea8d7a796ce167f\nSigner #1 certificate SHA-1 digest: 4ad9d962a01796060e4166ce1107022affd3aef2\nSigner #1 certificate MD5 digest: df85096643a566f81b2cde27bf984ac1\n"
+    }
+  },
+  "physical_16kb_device": "NOT_RUN",
+  "physical_performance": "NOT_RUN",
+  "release_approval": "NOT_RUN"
+}

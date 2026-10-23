@@ -1,0 +1,76 @@
+{
+  "source_sha": "e883cb78527daa0946c37ec235e7a6431bbf9a8d",
+  "build": {
+    "android-unit": 68,
+    "shared-jvm": 74,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device": {
+    "26": {
+      "tests": 58,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "host_status": "PASS",
+      "hosts": {
+        "reader": {
+          "count": 2,
+          "old_pid": "6858",
+          "new_pid": "6905",
+          "absent_after_stop": true
+        },
+        "epub": {
+          "count": 2,
+          "old_pid": "7104",
+          "new_pid": "7149",
+          "absent_after_stop": true
+        },
+        "comic": {
+          "count": 2,
+          "old_pid": "7348",
+          "new_pid": "7392",
+          "absent_after_stop": true
+        }
+      }
+    },
+    "34": {
+      "native_status": "NOT_RUN",
+      "host_status": "NOT_RUN",
+      "reason": "KSP plugin dependency resolution failed in android-tasks before instrumentation",
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "36": {
+      "tests": 58,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [],
+      "host_status": "PASS",
+      "hosts": {
+        "reader": {
+          "count": 2,
+          "old_pid": "6709",
+          "new_pid": "6756",
+          "absent_after_stop": true
+        },
+        "epub": {
+          "count": 2,
+          "old_pid": "6961",
+          "new_pid": "7008",
+          "absent_after_stop": true
+        },
+        "comic": {
+          "count": 2,
+          "old_pid": "7209",
+          "new_pid": "7253",
+          "absent_after_stop": true
+        }
+      }
+    }
+  }
+}

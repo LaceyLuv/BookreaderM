@@ -1,0 +1,92 @@
+10-23 14:02:54.329  5303  5319 I TestRunner: started: threeTabsMetadataSearchAndThemeSelectionWork(org.bookreader.mobile.ui.BookReaderScreenTest)
+10-23 14:02:54.329  1606  5355 I OpenGLRenderer: Initialized EGL, version 1.4
+10-23 14:02:54.329  1606  5355 D OpenGLRenderer: Swap behavior 1
+10-23 14:02:54.333  1606  5355 D EGL_emulation: eglCreateContext: 0x7ee6c526a900: maj 3 min 0 rcv 3
+10-23 14:02:54.334  5303  5319 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@a6ab758]
+10-23 14:02:54.335  1606  5355 D EGL_emulation: eglMakeCurrent: 0x7ee6c526a900: ver 3 0 (tinfo 0x7ee6d9b30300)
+10-23 14:02:54.337  5303  5319 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-23 14:02:54.381  5303  5303 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1025c9c in: PRE_ON_CREATE
+10-23 14:02:54.381  5303  5303 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-23 14:02:54.383  5303  5303 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1025c9c in: CREATED
+10-23 14:02:54.383  5303  5303 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@1025c9c
+10-23 14:02:54.383  5303  5303 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1025c9c in: STARTED
+10-23 14:02:54.384  5303  5303 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@1025c9c
+10-23 14:02:54.385  5303  5303 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1025c9c in: RESUMED
+10-23 14:02:54.385  5303  5303 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@1025c9c
+10-23 14:02:54.460  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/androidx.activity.ComponentActivity to org.bookreader.mobile/androidx.activity.ComponentActivity#1
+10-23 14:02:54.465  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:54.474  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:54.482  2558  5399 E ContentStoreEUAS: Failed to commit the deferred actions
+10-23 14:02:54.490  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:54.518  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:54.522  5303  5333 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3a9a0: ver 3 0 (tinfo 0x7ee6d9a0d7e0)
+10-23 14:02:54.583  1606  1665 I ActivityManager: Displayed org.bookreader.mobile/androidx.activity.ComponentActivity: +201ms
+10-23 14:02:54.588  6536  6582 D EGL_emulation: eglMakeCurrent: 0x7ee6e36a7e20: ver 3 0 (tinfo 0x7ee6cdb024a0)
+10-23 14:02:54.590  2558  2802 D EGL_emulation: eglMakeCurrent: 0xdc8851a0: ver 3 0 (tinfo 0xdc883a60)
+10-23 14:02:54.740  2558  2558 W SearchService: Abort, client detached.
+10-23 14:02:55.164  1606  3545 W Binder  : Outgoing transactions from this process must be FLAG_ONEWAY
+10-23 14:02:55.164  1606  3545 W Binder  : java.lang.Throwable
+10-23 14:02:55.164  1606  3545 W Binder  : 	at android.os.BinderProxy.transact(Binder.java:736)
+10-23 14:02:55.164  1606  3545 W Binder  : 	at android.app.assist.AssistStructure$ParcelTransferReader.fetchData(AssistStructure.java:407)
+10-23 14:02:55.164  1606  3545 W Binder  : 	at android.app.assist.AssistStructure$ParcelTransferReader.go(AssistStructure.java:343)
+10-23 14:02:55.164  1606  3545 W Binder  : 	at android.app.assist.AssistStructure.ensureData(AssistStructure.java:2106)
+10-23 14:02:55.164  1606  3545 W Binder  : 	at com.android.server.autofill.Session$1.send(Session.java:200)
+10-23 14:02:55.164  1606  3545 W Binder  : 	at com.android.server.am.ActivityManagerService.reportAssistContextExtras(ActivityManagerService.java:13139)
+10-23 14:02:55.164  1606  3545 W Binder  : 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2466)
+10-23 14:02:55.164  1606  3545 W Binder  : 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2935)
+10-23 14:02:55.164  1606  3545 W Binder  : 	at android.os.Binder.execTransact(Binder.java:674)
+10-23 14:02:55.167  5303  5303 I AssistStructure: Flattened final assist data: 808 bytes, containing 1 windows, 3 views
+10-23 14:02:55.175  1606  2010 I AssistStructure: Flattened final assist data: 720 bytes, containing 1 windows, 3 views
+10-23 14:02:55.180  1773  1773 W ktk     : Pending fill request while another request in the same session was triggered. [CONTEXT service_id=177 ]
+10-23 14:02:55.221  5303  5303 D Autofill Status: Autofill popup isn't shown because autofill is not available.
+10-23 14:02:55.221  5303  5303 D Autofill Status:
+10-23 14:02:55.221  5303  5303 D Autofill Status: Did you set up autofill?
+10-23 14:02:55.221  5303  5303 D Autofill Status: 1. Go to Settings > System > Languages&input > Advanced > Autofill Service
+10-23 14:02:55.221  5303  5303 D Autofill Status: 2. Pick a service
+10-23 14:02:55.221  5303  5303 D Autofill Status:
+10-23 14:02:55.221  5303  5303 D Autofill Status: Did you add an account?
+10-23 14:02:55.221  5303  5303 D Autofill Status: 1. Go to Settings > System > Languages&input > Advanced
+10-23 14:02:55.221  5303  5303 D Autofill Status: 2. Click on the settings icon next to the Autofill Service
+10-23 14:02:55.221  5303  5303 D Autofill Status: 3. Add your account
+10-23 14:02:55.236  1778  1778 W InputConnectionWrapper: Fixing selection indices to 0, 0
+10-23 14:02:55.240  1778  6639 I native  : neural_language_identifier.cc:337 Portable Language Identification module loaded successfully.
+10-23 14:02:55.343  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8024064
+10-23 14:02:55.366  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-23 14:02:55.451  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8024064
+10-23 14:02:55.491  1778  5811 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3e440: ver 3 0 (tinfo 0x7ee6d9ad43a0)
+10-23 14:02:55.567  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8024064
+10-23 14:02:55.608  5303  5303 W IInputConnectionWrapper: beginBatchEdit on inactive InputConnection
+10-23 14:02:55.608  5303  5303 W IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection
+10-23 14:02:55.610  5303  5303 W IInputConnectionWrapper: getTextAfterCursor on inactive InputConnection
+10-23 14:02:55.610  5303  5303 W IInputConnectionWrapper: getSelectedText on inactive InputConnection
+10-23 14:02:55.612  1778  5798 I native  : fst-android-decoder.cc:789 Spatial model version: Bikey_0
+10-23 14:02:55.612  5303  5303 W IInputConnectionWrapper: endBatchEdit on inactive InputConnection
+10-23 14:02:55.615  1778  1778 I native  : input-context-store.cc:113 Using roll back input context operation: [AbortComposing] reason: client [27] vs decoder [28]
+10-23 14:02:55.626  1778  6639 I native  : neural_language_identifier.cc:218 Running NeuralLanguageIdentifier on text with size: 0 bytes.
+10-23 14:02:55.652  1778  5811 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3e440: ver 3 0 (tinfo 0x7ee6d9ad43a0)
+10-23 14:02:55.715  1778  1778 W InputContext: Ignore stale [FetchSuggestions] diff id:28 with requestId:4<5
+10-23 14:02:55.815  5303  5303 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1025c9c in: PAUSED
+10-23 14:02:55.816  5303  5303 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@1025c9c
+10-23 14:02:55.837  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:55.873  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-23 14:02:55.874  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:55.898  5338  5383 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3ca00: ver 3 0 (tinfo 0x7ee6d9a0d460)
+10-23 14:02:55.911  5303  5333 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3a9a0: ver 3 0 (tinfo 0x7ee6d9a0d7e0)
+10-23 14:02:55.940  6536  6582 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+10-23 14:02:55.942  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:55.943  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-23 14:02:55.944  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:55.959  2558  2802 D EGL_emulation: eglMakeCurrent: 0xdc8851a0: ver 3 0 (tinfo 0xdc883a60)
+10-23 14:02:55.964  1399  1399 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-23 14:02:55.965  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:55.973  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-23 14:02:55.983  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-23 14:02:55.986  2558  2558 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-23 14:02:56.002  6536  6582 D EGL_emulation: eglMakeCurrent: 0x7ee6e36a7e20: ver 3 0 (tinfo 0x7ee6cdb024a0)
+10-23 14:02:56.042  5338  5383 D EGL_emulation: eglMakeCurrent: 0x7ee6d9a3ca00: ver 3 0 (tinfo 0x7ee6d9a0d460)
+10-23 14:02:56.046  5303  5303 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1025c9c in: STOPPED
+10-23 14:02:56.046  5303  5303 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@1025c9c
+10-23 14:02:56.055  5303  5303 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@1025c9c in: DESTROYED
+10-23 14:02:56.055  5303  5303 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-23 14:02:56.057  5303  5319 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@a6ab758]
+10-23 14:02:56.060  5303  5319 I TestRunner: finished: threeTabsMetadataSearchAndThemeSelectionWork(org.bookreader.mobile.ui.BookReaderScreenTest)

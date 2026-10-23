@@ -1,3 +1,25 @@
+# 설치용 APK — 0.4.0, 2026-10-23
+
+글꼴·페이지 전환·쪽수 표시·서재 카드 열기를 개선했다. [변경 내용과 페이지 수 기준](READER_FEATURES_0_4.md)을 따른다.
+검증 소스가 main에 반영됐으며 API26/34/36 각각 native 58 + host 6, build 161개가 PASS다.
+
+- 파일: `/workspace/artifacts/BookreaderM/d1570aa/installable/BookreaderM-0.4.0-test-signed.apk`
+- 소스: `d1570aa92edddb676be3c5bc311d53506f2e9ad9`.
+- SHA-256: `cf74e8ea6ede2fa360ddb7d75210b0822b87aa4e512005e78d2a0512582dbdf2`
+- 크기: 21,823,345 bytes.
+- applicationId `org.bookreader.mobile`, versionCode 4/versionName 0.4.0, Android 8.0(API26) 이상.
+- 기존 개발용 인증서 유지: `605d7f79c6ec788937ecda215447235a81b3aa91437f2b1adea8d7a796ce167f` (SHA-256).
+- v2/v3 서명·서명 필수 정적 감사·4 ABI/8 ELF 및 ZIP 16KB 정렬 PASS.
+- 서명 전 APK의 모든 ZIP entry와 번들 글꼴 바이트를 서명 후에도 대조했다.
+
+기기에 APK를 내려받아 열어 설치한다. 기존 시험용 앱과 같은 서명을 유지했다.
+실제 휴대전화 설치는 연결 기기 부재로 NOT_RUN이며 정식 배포 서명은 아니다.
+설치 오류가 나더라도 책·진행도 보존을 위해 기존 앱을 임의 삭제하지 않는다.
+unsigned APK와 AAB는 직접 설치 파일로 안내하지 않는다.
+[패키지 원본](evidence/reader-features/package-d1570aa/summary.json)을 보존한다.
+
+아래는 이전 패키지 이력이다.
+
 # 설치용 APK — 0.3.0, 2026-10-23
 
 독서 화면·터치 동작 개편이 반영된 설치 시험용 APK다.
