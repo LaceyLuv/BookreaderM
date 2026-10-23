@@ -1,5 +1,21 @@
 # M00 작업 기록
 
+## 0.4.0 글꼴·페이지 전환·쪽수·서재 카드 (2026-10-23, 검증 중)
+
+나눔고딕/나눔명조 원본과 OFL 고지를 번들에 추가했다. 같은 레이아웃의 TXT 페이지와 Comic 한 장 보기는
+새 본문/image 준비까지 직전 화면을 유지한다. 효과 없음/slide 선택은 기존 설정 JSON과 호환된다.
+본문 하단과 중앙 탭 도구의 하단 현황에 쪽수 표시, 서재 카드 본문 클릭을 연결했다.
+사용자 확인에 따라 Android 시스템 상태바나 상단 별도 표시를 추가하지 않는다.
+[0.4.0 동작·쪽수 기준·한도](READER_FEATURES_0_4.md)를 따른다.
+
+로컬 최초 compile/unit 명령 exit 0. 전체 ci-check 중 새 UI 테스트의 nullable Book 인자 compile 오류로 exit 1.
+인자 처리를 수정한 assembleDebug/lintDebug/단위/native test APK/shared JVM/EPUB 단위·lint 명령 exit 0.
+후속 전체 단위 검증에서 기존 `closeCancelsPendingActivationBeforeWaitingForProgressFlush`의 3초 timeout 1건을 관측했다.
+`restored()`가 종료 중 취소된 activation을 새로 만드는 경합이므로 종료 claim/취소 작업 목록을 같은 monitor로 잡고,
+종료 후 restored 진입을 차단했다. timeout 완화 없이 다시 검증한다. [실패 원본](evidence/reader-features/local-failures/).
+최종 변경의 전체 원격 API26/34/36과 host 복원은 아직 NOT_RUN이다. skip/허용 오차 변경은 없다.
+실기기 설치·성능·TalkBack·출시는 별도이며 서브에이전트는 사용하지 않았다.
+
 ## 2026-10-23 완료: 독서 화면 개편·전체 회귀 PASS·main 반영
 
 제품/테스트 기준 소스는 `c2383259eb1c15794e4c1f6ecfdbb198c6c6f968`이다.

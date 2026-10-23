@@ -109,3 +109,32 @@ fun ReaderLoadingExit(prefix: String, onClose: () -> Unit, modifier: Modifier = 
         }
     }
 }
+
+val ReaderPageStatusHeight = 24.dp
+
+/** Always present, outside the book viewport, with no buttons competing with the text. */
+@Composable
+fun ReaderPageStatus(label: String, prefix: String, paper: Color, ink: Color) {
+    Box(Modifier.fillMaxSize()) {
+        Surface(Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(ReaderPageStatusHeight), color = paper, contentColor = ink) {
+            Box(Modifier.fillMaxSize().padding(horizontal = 12.dp), contentAlignment = Alignment.Center) {
+                Text(label, style = MaterialTheme.typography.labelSmall, maxLines = 1,
+                    modifier = Modifier.testTag("${prefix}_bottom_pages"))
+            }
+        }
+    }
+}
+
+@Composable
+fun ReaderTransitionSettings(value: org.bookreader.mobile.settings.PageTransition,
+    onChange: (org.bookreader.mobile.settings.PageTransition) -> Unit) {
+    ReaderSettingsSection("페이지 전환") {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            org.bookreader.mobile.settings.PageTransition.entries.forEach { transition ->
+                FilterChip(selected = value == transition, onClick = { onChange(transition) },
+                    modifier = Modifier.testTag("reader_transition_${transition.name}"),
+                    label = { Text(if (transition == org.bookreader.mobile.settings.PageTransition.NONE) "효과 없음" else "밀어서 넘기기") })
+            }
+        }
+    }
+}

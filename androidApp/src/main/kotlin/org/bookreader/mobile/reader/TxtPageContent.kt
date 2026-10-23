@@ -62,7 +62,10 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { controller.contentReadFailed() }
     }
-    val page = loaded?.takeIf { it.engine === engine && it.generation == generation }?.page
+    val visible = loaded?.takeIf { it.engine === engine }
+    val page = visible?.page
+    var turnGeneration by remember(controller) { mutableIntStateOf(-1) }
+    var turnDirection by remember(controller) { mutableIntStateOf(1) }
     val canPrevious = state.phase == TxtReaderPhase.READY && (page?.range?.start ?: 0) > 0
     val canNext = state.phase == TxtReaderPhase.READY && page != null && page.range.end < state.cache.committedLength
     SideEffect { onAvailability(canPrevious, canNext) }
@@ -73,25 +76,34 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
             val target = if (step.direction < 0 && displayed.range.start > 0)
                 engine?.previous(displayed.range.start)?.range?.start
             else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) displayed.range.end else null
-            if (target != null && controller.state.value.restoreGeneration == generation) controller.navigateTo(target)
+            if (target != null && controller.state.value.restoreGeneration == generation) {
+                turnDirection = if (step.direction < 0) -1 else 1
+                turnGeneration = generation + 1
+                controller.navigateTo(target)
+            }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { controller.contentReadFailed() }
     }
     Column(modifier) {
         Box(Modifier.weight(1f).fillMaxWidth().testTag("reader_page_viewport").onSizeChanged { size = it }) {
-            page?.let { displayed ->
+            visible?.let { prepared ->
+                ReaderPageTransition(prepared,
+                    if (prepared.generation == turnGeneration) state.settings.pageTransition else org.bookreader.mobile.settings.PageTransition.NONE,
+                    turnDirection, Modifier.fillMaxSize()) { rendered ->
+                val displayed = rendered.page
                 // Very large accessibility fonts may exceed the viewport even for one line.
                 // A bounded page stays vertically scrollable instead of clipping that line.
                 androidx.compose.foundation.text.selection.SelectionContainer { Text(displayed.text, style = style, maxLines = displayed.lines,
                     modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
                         .testTag("reader_page"),
                     onTextLayout = { actual ->
-                        if (latestEngine !== engine) return@Text
+                        if (latestEngine !== rendered.engine || controller.state.value.restoreGeneration != rendered.generation) return@Text
                         if (actual.lineCount == displayed.lines &&
                             actual.getLineEnd(actual.lineCount - 1, visibleEnd = false) == displayed.text.length)
-                            controller.restored(generation)
+                            controller.restored(rendered.generation)
                         else controller.restoreFailed()
                     }) }
+                }
             }
         }
     }

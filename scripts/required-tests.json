@@ -263,6 +263,14 @@
     [
       "org.bookreader.mobile.reader.ArchiveProgressControllerTest",
       "repeatedInputCannotCancelCommittedAcknowledgementAndDuplicateArchiveSave"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtPageIndexTest",
+      "countsMeasuredBoundariesAndMapsStartMiddleAndEndWithoutAnExtraPage"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtPageIndexTest",
+      "rejectsNonAdvancingRangesAndPropagatesCancellation"
     ]
   ],
   "shared-jvm": [
@@ -791,6 +799,10 @@
     [
       "org.bookreader.mobile.reader.ReaderGestureSurfaceTest",
       "repeatedSideAndCenterTapsUseCurrentCallbacksIncludingOuterEdge"
+    ],
+    [
+      "org.bookreader.mobile.reader.ReaderPageTransitionTest",
+      "bothDirectionsAndDisabledEffectKeepEveryFrameCovered"
     ]
   ],
   "android-host": [

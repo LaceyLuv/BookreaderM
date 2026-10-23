@@ -16,7 +16,9 @@ class ReaderSettingsRepositoryTest {
         assertEquals(ReaderSettings(), first.effective)
         val book = db.bookDao().findBook("a")
         val progress = db.progressDao().findProgress("a", "revision")
-        val global = ReaderSettings(font = ReaderFont.SERIF, fontSizeSp = 24f, theme = ReaderTheme.SEPIA)
+        assertEquals(PageTransition.NONE, ReaderSettingsCodec.readGlobal(1, "{\"font\":\"SERIF\"}").pageTransition)
+        val global = ReaderSettings(font = ReaderFont.NANUM_MYEONGJO, fontSizeSp = 24f, theme = ReaderTheme.SEPIA,
+            pageTransition = PageTransition.SLIDE)
         assertEquals(ReaderSettingsWrite.SAVED, repository.save(first, global, BookReaderPreferences(TxtReadingMode.PAGES)))
         val saved = assertIs<ReaderSettingsRead.Ready>(repository.load("a")).value
         assertEquals(global.copy(readingMode = TxtReadingMode.PAGES), saved.effective)

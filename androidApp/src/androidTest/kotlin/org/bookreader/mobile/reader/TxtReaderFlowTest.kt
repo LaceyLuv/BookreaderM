@@ -951,7 +951,11 @@ class TxtReaderFlowTest {
             }
             compose.waitForIdle()
         }
-        settings { compose.onNodeWithTag("reader_mode_PAGES").performClick() }
+        settings {
+            compose.onNodeWithTag("reader_mode_PAGES").performClick()
+            compose.onNodeWithTag("reader_transition_SLIDE").performScrollTo().performClick()
+        }
+        assertEquals(org.bookreader.mobile.settings.PageTransition.SLIDE, active.state.value.settings.pageTransition)
         compose.onNodeWithTag("reader_page").assertIsDisplayed()
         compose.onNodeWithTag("reader_ready").assertIsDisplayed()
         compose.readerControl("reader_next").assertIsEnabled()
@@ -960,6 +964,15 @@ class TxtReaderFlowTest {
         ReaderFixtureScreenshot.capture("txt-reader-generated-pages.png")
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(before, saved(book))
+        compose.waitUntil(30_000) {
+            compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
+                androidx.compose.ui.semantics.SemanticsProperties.Text].single().text.contains(" / ")
+        }
+        val footer = compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
+            androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
+        val toolbar = compose.onNodeWithTag("reader_progress").fetchSemanticsNode().config[
+            androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
+        assertEquals(footer, toolbar)
         val pageStarts = mutableListOf(anchor)
         repeat(12) {
             val generation = active.state.value.restoreGeneration
@@ -981,7 +994,7 @@ class TxtReaderFlowTest {
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == anchor } == true }
         val returned = requireNotNull(saved(book))
         settings { compose.onNodeWithTag("font_size_increase").performScrollTo().performClick() }
-        for (tag in listOf("reader_font_SERIF", "line_height_increase", "letter_spacing_increase", "margin_increase")) {
+        for (tag in listOf("reader_font_SERIF", "reader_font_NANUM_GOTHIC", "reader_font_NANUM_MYEONGJO", "line_height_increase", "letter_spacing_increase", "margin_increase")) {
             settings { compose.onNodeWithTag(tag).performScrollTo().performClick() }
             assertEquals(anchor, active.state.value.targetOffset)
             assertEquals(returned, saved(book))
@@ -1022,6 +1035,8 @@ class TxtReaderFlowTest {
         waitFor("library_content")
         compose.onNodeWithTag("read_${book.id}").performClick()
         waitFor("reader_ready")
+        assertEquals(org.bookreader.mobile.settings.ReaderFont.NANUM_MYEONGJO, reader().state.value.settings.font)
+        assertEquals(org.bookreader.mobile.settings.PageTransition.SLIDE, reader().state.value.settings.pageTransition)
         assertEquals((initialFontSize + 1).coerceAtMost(36f), reader().state.value.settings.fontSizeSp)
         assertEquals(org.bookreader.mobile.settings.TxtReadingMode.SCROLL, reader().state.value.settings.readingMode)
         assertAnchorInFirstMeasuredLine(reader(), anchor)

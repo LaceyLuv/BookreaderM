@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,12 +41,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.PlatformTextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.unit.em
-import org.bookreader.mobile.settings.ReaderFont
 import org.bookreader.mobile.settings.TxtReadingMode
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -69,19 +68,27 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     val list = rememberLazyListState()
     val scope = rememberCoroutineScope()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
+    var hasDisplayed by remember(controller) { mutableStateOf(false) }
+    LaunchedEffect(state.phase) { if (state.phase == TxtReaderPhase.READY) hasDisplayed = true }
+    var bodyViewport by remember(controller) { mutableStateOf(IntSize.Zero) }
     var viewport by remember(controller) { mutableStateOf(IntSize.Zero) }
     val density = LocalDensity.current
     val settings = state.settings
     val foreground = settings.theme.inkColor()
     val background = settings.theme.paperColor()
     val typography = MaterialTheme.typography.bodyLarge.copy(
-        color = foreground, fontFamily = if (settings.font == ReaderFont.SANS) FontFamily.SansSerif else FontFamily.Serif,
+        color = foreground, fontFamily = settings.font.composeFamily(),
         fontSize = settings.fontSizeSp.sp, lineHeight = (settings.fontSizeSp * settings.lineHeight).sp,
         letterSpacing = settings.letterSpacingEm.em, localeList = LocaleList.current,
         platformStyle = PlatformTextStyle(includeFontPadding = false), lineBreak = LineBreak.Simple, hyphens = Hyphens.None)
+    val pageLabel = txtPageLabel(controller, state, typography, with(density) {
+        IntSize((bodyViewport.width - settings.marginDp.dp.roundToPx() * 2).coerceAtLeast(0),
+            (bodyViewport.height - 24.dp.roundToPx()).coerceAtLeast(0))
+    })
     val scrollMode = settings.readingMode == TxtReadingMode.SCROLL
     var showSettings by remember(controller) { mutableStateOf(false) }
     var showMenu by remember(controller) { mutableStateOf(false) }
+    var requestedScroll by remember(controller, state.restoreGeneration) { mutableStateOf(false) }
     var pageStep by remember(controller) { mutableStateOf(PageStepRequest()) }
     var pageAvailability by remember(controller) { mutableStateOf(false to false) }
     val seek = remember(controller) { ReaderSeekPreview(controller::seekToFraction) }
@@ -103,7 +110,10 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     fun move(direction: Int) {
         if (controller.state.value.phase != TxtReaderPhase.READY) return
         if (scrollMode) scope.launch {
-            list.animateScrollBy((list.layoutInfo.viewportEndOffset - list.layoutInfo.viewportStartOffset) * .9f * direction)
+            requestedScroll = true
+            val distance = (list.layoutInfo.viewportEndOffset - list.layoutInfo.viewportStartOffset) * .9f * direction
+            if (settings.pageTransition == org.bookreader.mobile.settings.PageTransition.NONE) list.scrollBy(distance)
+            else list.animateScrollBy(distance)
         } else pageStep = PageStepRequest(pageStep.id + 1, direction)
     }
     BackHandler {
@@ -158,7 +168,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
             val first = list.layoutInfo.visibleItemsInfo.firstOrNull()
             // LazyList reuses and mutates item info during small scrolls. Snapshot values,
             // otherwise snapshotFlow sees the same item and suppresses movement updates.
-            Triple(first?.let { it.index to it.offset }, list.isScrollInProgress, controller.state.value.phase)
+            Triple(first?.let { it.index to it.offset }, list.isScrollInProgress || requestedScroll, controller.state.value.phase)
         }.collect { (item, moving, phase) ->
             if (phase != TxtReaderPhase.READY) { userMovement = false; return@collect }
             if (moving) userMovement = true
@@ -184,7 +194,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 Button(onClick = controller::retry, modifier = Modifier.testTag("reader_retry")) { Text("다시 시도") }
             }
         } else {
-            Box(Modifier.fillMaxSize().readerGestures(
+            Box(Modifier.fillMaxSize().padding(bottom = ReaderPageStatusHeight).onSizeChanged { bodyViewport = it }.readerGestures(
                 enabled = state.phase == TxtReaderPhase.READY && !touchExploration, pageMode = !scrollMode,
                 onTap = { fraction -> when {
                     fraction < .25f -> move(-1)
@@ -221,7 +231,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                         }
                     }
                 }
-                if (state.phase != TxtReaderPhase.READY) {
+                if (state.phase != TxtReaderPhase.READY && !hasDisplayed) {
                     Column(Modifier.align(Alignment.Center).padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
                         CircularProgressIndicator()
@@ -231,10 +241,10 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 }
             }
         }
-        if (!showChrome && state.phase != TxtReaderPhase.READY) ReaderLoadingExit("reader", onClose, Modifier.align(Alignment.TopStart))
-        val offset = state.stableOffset ?: state.targetOffset
+        ReaderPageStatus(pageLabel, "reader", background, foreground)
+        if (!showChrome && !hasDisplayed && state.phase != TxtReaderPhase.READY) ReaderLoadingExit("reader", onClose, Modifier.align(Alignment.TopStart))
         if (showChrome) ReaderChrome(controller.book.title, if (scrollMode) "TXT · 스크롤" else "TXT · 페이지", "reader",
-            if (state.cache.complete) "${(offset * 100.0 / state.cache.committedLength.coerceAtLeast(1)).toInt()}%" else "본문 준비 중",
+            pageLabel,
             onClose, { controlsVisible = false }, !touchExploration,
             previous = if (scrollMode) list.canScrollBackward && state.phase == TxtReaderPhase.READY else pageAvailability.first,
             next = if (scrollMode) list.canScrollForward && state.phase == TxtReaderPhase.READY else pageAvailability.second,

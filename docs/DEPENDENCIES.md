@@ -1,5 +1,11 @@
 # Dependency and toolchain record
 
+## 0.4.0 한글 글꼴 추가
+
+나눔고딕/나눔명조 Regular 원본을 Google Fonts commit `e7db6ca603fd4862010383ff17ffd6cc4ffac1c0`에서 고정했다.
+[파일별 출처/hash](../androidApp/src/main/assets/reader-fonts/sources.json), SIL OFL 원문과 앱 오프라인 고지를 포함했다.
+글꼴을 변형하지 않았다. Gradle 의존성/SDK 버전은 변경하지 않는다.
+
 ## M08/M09 제품 브랜치 갱신
 
 제품 브랜치는 `epubAndroid`/Fragment KTX 1.8.7을 implementation으로 연결하며 공식 `fragment-compose` 1.8.7로 stable Fragment를 호스팅한다. 아래 probe의 debugImplementation 설명은 과거 범위다.

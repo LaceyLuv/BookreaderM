@@ -66,10 +66,13 @@ class ComicReaderFlowTest {
         click("comic_settings")
         click("comic_mode_PAGES")
         click("comic_direction_RTL")
+        click("reader_transition_SLIDE")
         click("comic_settings_apply")
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
             active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
         waitFor("comic_ready")
+        assertEquals(org.bookreader.mobile.settings.PageTransition.SLIDE, active.state.value.settings.pageTransition)
+        compose.onNodeWithTag("comic_bottom_pages").assertIsDisplayed()
         click("comic_hide")
         compose.onNodeWithTag("comic_chrome").assertDoesNotExist()
         val bounds = compose.onAllNodesWithTag("comic_ready").fetchSemanticsNodes().single().let { compose.runOnIdle { it.boundsInRoot } }

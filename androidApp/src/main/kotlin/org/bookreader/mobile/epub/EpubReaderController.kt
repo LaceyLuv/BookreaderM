@@ -20,6 +20,7 @@ import org.readium.r2.shared.publication.Locator
 import org.readium.r2.shared.publication.Publication
 import org.readium.r2.shared.publication.services.search.search
 import org.readium.r2.shared.publication.services.locateProgression
+import org.readium.r2.shared.publication.services.positionsByReadingOrder
 import org.readium.r2.shared.util.AbsoluteUrl
 import org.readium.r2.shared.util.getOrElse
 
@@ -30,6 +31,7 @@ interface ArchiveBookmarkAccess {
 }
 
 data class EpubReaderUi(val opened: Boolean = false, val error: String? = null,
+    val currentPosition: Int? = null, val totalPositions: Int? = null,
     val settings: ReaderSettings = ReaderSettings(), val settingsError: Boolean = false,
     val settingsSaving: Boolean = false, val hostVersion: Int = 0,
     val query: String = "", val results: List<Locator> = emptyList(), val searching: Boolean = false,
@@ -81,7 +83,8 @@ class EpubReaderController(val book: Book, private val file: File, private val v
             publication = opened
             currentCoroutineContext().ensureActive()
             (initial.original as? EpubLocator)?.let { validate(sdk(it)) }
-            mutableState.update { it.copy(opened = true) }
+            val total = withContext(Dispatchers.IO) { opened.positionsByReadingOrder().sumOf { it.size } }
+            mutableState.update { it.copy(opened = true, totalPositions = total.takeIf { count -> count > 0 }) }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { fail("EPUB 또는 저장된 위치를 열지 못했습니다. 기존 기록은 보존됩니다.") }
         finally { if (!state.value.opened) { ownedPublication.getAndSet(null)?.close() } }
@@ -107,7 +110,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         EpubPreferences(scroll = it.readingMode == TxtReadingMode.SCROLL, fontSize = it.fontSizeSp / 18.0,
             lineHeight = it.lineHeight.toDouble(), publisherStyles = it.epubPublisherStyles,
             letterSpacing = it.letterSpacingEm.coerceAtLeast(0f).toDouble() * 2, pageMargins = it.marginDp / 16.0,
-            fontFamily = if (it.font == ReaderFont.SANS) org.readium.r2.navigator.preferences.FontFamily.SANS_SERIF else org.readium.r2.navigator.preferences.FontFamily.SERIF,
+            fontFamily = it.font.epubFamily(),
             backgroundColor = if (it.theme == ReaderTheme.OLED) org.readium.r2.navigator.preferences.Color(0xff000000.toInt()) else null,
             theme = when (it.theme) {
                 ReaderTheme.LIGHT -> Theme.LIGHT; ReaderTheme.SEPIA -> Theme.SEPIA; else -> Theme.DARK
@@ -135,6 +138,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         if (closing || host !== navigator || token != generation || token != progress.state.value.generation) return
         try {
             validate(locator)
+            mutableState.update { it.copy(currentPosition = locator.locations.position) }
             val before = progress.state.value
             if (before.phase in setOf(ArchiveReaderPhase.RESTORING, ArchiveReaderPhase.REFLOWING)) {
                 val target = initialLocator()
@@ -175,7 +179,8 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     fun next(direction: Int) {
         if (progress.state.value.phase != ArchiveReaderPhase.READY) return
         armMovement()
-        if (direction > 0) host?.goForward(animated = true) else host?.goBackward(animated = true)
+        val animated = state.value.settings.pageTransition == PageTransition.SLIDE
+        if (direction > 0) host?.goForward(animated = animated) else host?.goBackward(animated = animated)
     }
     fun seek(fraction: Float) {
         if (!fraction.isFinite() || progress.state.value.phase != ArchiveReaderPhase.READY) return

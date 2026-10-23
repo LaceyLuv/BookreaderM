@@ -96,7 +96,7 @@ class TxtReaderController(
     private var session: ProgressSession? = null
     private var sequence = 0L
     private var lastCommittedOffset: Long? = null
-    private var closing = false
+    @Volatile private var closing = false
     private val writerMutex = Mutex()
     private var settingsJob: Job? = null
     private var navigationGeneration: Int? = null
@@ -269,6 +269,7 @@ class TxtReaderController(
     /** The screen calls this only after actual TextLayout measurement and canonical-anchor scroll. */
     @Synchronized
     fun restored(generation: Int) {
+        if (closing) return
         val before = mutableState.value
         if (before.restoreGeneration != generation || before.phase !in
             setOf(TxtReaderPhase.RESTORING, TxtReaderPhase.REFLOWING)) return
@@ -389,21 +390,17 @@ class TxtReaderController(
                 progress.lastDatabaseFailure() else null)
 
     suspend fun close() {
-        if (closing) return
-        closing = true
-        settleJob?.cancel()
-        sampler?.cancel()
-        // A pending activation can hold progress access's mutex while waiting for Room.
-        // Cancel opening/restoration before flush waits for that same mutex. Already
-        // accepted READY/REFLOWING anchors and in-flight saves still use the flush barrier.
-        openJob?.cancel()
-        restoringJob?.cancel()
-        settingsJob?.cancel()
-        seekJob?.cancel()
+        // Claim shutdown under the same monitor as restored(). An opening callback must
+        // not replace a just-cancelled activation between cancellation and join/flush.
+        val pending = synchronized(this) {
+            if (closing) return
+            closing = true
+            settleJob?.cancel()
+            sampler?.cancel()
+            listOfNotNull(openJob, restoringJob, settingsJob, seekJob).also { jobs -> jobs.forEach { it.cancel() } }
+        }
         try {
-            openJob?.join()
-            restoringJob?.join()
-            settingsJob?.join()
+            pending.forEach { it.join() }
             flush()
         } finally { lifetime.cancel() }
     }

@@ -204,11 +204,22 @@ class EpubReaderFlowTest {
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("epub_chrome").fetchSemanticsNodes().isEmpty() }
         compose.readerControl("epub_settings").performClick()
         compose.onNodeWithTag("reader_mode_PAGES").performClick()
+        compose.onNodeWithTag("reader_font_NANUM_GOTHIC").performScrollTo().performClick()
+        compose.onNodeWithTag("reader_transition_SLIDE").performScrollTo().performClick()
         compose.waitForIdle()
         org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("epub-settings.png")
         compose.onNodeWithTag("reader_settings_apply").performClick()
         compose.waitUntil(20_000) { active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
             active.progress.state.value.phase == org.bookreader.mobile.reader.ArchiveReaderPhase.READY }
+        assertEquals(org.bookreader.mobile.settings.ReaderFont.NANUM_GOTHIC, active.state.value.settings.font)
+        assertEquals(org.bookreader.mobile.settings.PageTransition.SLIDE, active.state.value.settings.pageTransition)
+        assertFalse(active.state.value.settings.epubPublisherStyles)
+        compose.waitUntil(15_000) {
+            evaluateLoadedChapter(compose.activityRule.scenario, "one",
+                "getComputedStyle(document.querySelector('p')).fontFamily.includes('NANUM_GOTHIC') && document.fonts.check('16px NANUM_GOTHIC', '한글')") == "true"
+        }
+        compose.onNodeWithTag("epub_bottom_pages").assertIsDisplayed()
+        assertTrue(requireNotNull(active.state.value.totalPositions) > 0)
         compose.readerControl("epub_hide").performClick()
         var before: org.json.JSONObject? = null
         compose.activityRule.scenario.onActivity { activity ->

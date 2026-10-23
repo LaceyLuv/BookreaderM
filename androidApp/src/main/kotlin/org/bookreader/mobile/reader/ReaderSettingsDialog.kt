@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.sp
@@ -56,13 +55,13 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                 Surface(color = global.theme.paperColor(), contentColor = global.theme.inkColor(), shape = RoundedCornerShape(12.dp)) {
                     Text("책 속으로, 한 걸음 더.\n편안한 속도로 읽어 보세요.", Modifier.fillMaxWidth().padding(16.dp).testTag("reader_settings_preview"),
                         fontSize = global.fontSizeSp.sp, lineHeight = (global.fontSizeSp * global.lineHeight).sp,
-                        fontFamily = if (global.font == ReaderFont.SERIF) FontFamily.Serif else FontFamily.SansSerif)
+                        fontFamily = global.font.composeFamily())
                 }
                 FlowRow {
                     ReaderFont.entries.forEach { font -> FilterChip(selected = global.font == font,
-                        onClick = { global = global.copy(font = font) },
+                        onClick = { global = global.copy(font = font, epubPublisherStyles = if (epubMode) false else global.epubPublisherStyles) },
                         modifier = Modifier.testTag("reader_font_${font.name}"),
-                        label = { Text(if (font == ReaderFont.SANS) "기본 고딕" else "기본 명조") }) }
+                        label = { Text(font.label, fontFamily = font.composeFamily()) }) }
                 }
                 SettingStepper(if (epubMode) "글자 배율" else "글자 크기", if (epubMode) "${(global.fontSizeSp / 18f * 100).roundToInt()}%" else "${global.fontSizeSp.roundToInt()} sp", "font_size",
                     global.fontSizeSp > 12, global.fontSizeSp < 36,
@@ -100,6 +99,7 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                         }
                     }
                 }
+                ReaderTransitionSettings(global.pageTransition) { global = global.copy(pageTransition = it) }
                 ReaderSettingsSection("기본 동작") {
                 Text("기본 읽기 방식")
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { TxtReadingMode.entries.forEach { mode -> FilterChip(selected = global.readingMode == mode,

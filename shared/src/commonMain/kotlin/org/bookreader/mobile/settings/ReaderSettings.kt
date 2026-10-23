@@ -6,7 +6,8 @@ import kotlinx.serialization.json.Json
 @Serializable enum class TxtReadingMode { SCROLL, PAGES }
 @Serializable enum class ComicDirection { LTR, RTL }
 @Serializable enum class ComicFit { WIDTH, HEIGHT, CONTAIN }
-@Serializable enum class ReaderFont { SANS, SERIF }
+@Serializable enum class ReaderFont { SANS, SERIF, NANUM_GOTHIC, NANUM_MYEONGJO }
+@Serializable enum class PageTransition { NONE, SLIDE }
 @Serializable enum class ReaderTheme { LIGHT, SEPIA, DARK, OLED }
 
 @Serializable
@@ -33,6 +34,7 @@ data class ReaderSettings(
     val comicFit: ComicFit = ComicFit.CONTAIN,
     val comicGapDp: Int = 8,
     val epubPublisherStyles: Boolean = true,
+    val pageTransition: PageTransition = PageTransition.NONE,
 ) {
     init {
         require(fontSizeSp.isFinite() && fontSizeSp in 12f..36f)

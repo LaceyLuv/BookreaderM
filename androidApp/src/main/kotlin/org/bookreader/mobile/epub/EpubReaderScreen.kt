@@ -5,6 +5,7 @@ import androidx.core.net.toUri
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
@@ -44,6 +45,8 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     var toc by remember(controller) { mutableStateOf(false) }
     var viewport by remember(controller) { mutableStateOf(IntSize.Zero) }
     val ready = progress.phase == ArchiveReaderPhase.READY
+    val pageLabel = if (state.currentPosition != null && state.totalPositions != null)
+        "${state.currentPosition} / ${state.totalPositions} 쪽 · EPUB 위치 기준" else "쪽수 계산 중"
     BackHandler {
         when { settings -> settings = false; search -> { search = false; controller.cancelSearch() }
             bookmarks -> bookmarks = false; toc -> toc = false; menu -> menu = false; controlsVisible -> controlsVisible = false; else -> onClose() }
@@ -61,7 +64,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
             TextButton(onClick = { settings = true; menu = false }, enabled = ready, modifier = Modifier.testTag("epub_settings")) { Text("설정") }
         }
     }
-    Box(Modifier.fillMaxSize().testTag("epub_reader")) {
+    Box(Modifier.fillMaxSize().background(state.settings.theme.paperColor()).testTag("epub_reader")) {
         if (state.error != null || progress.phase == ArchiveReaderPhase.ERROR) {
             Column(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.Center) {
                 Text(state.error ?: "저장된 독서 위치를 읽거나 복원하지 못했습니다. 기존 기록은 보존됩니다.", Modifier.testTag("epub_error"))
@@ -69,7 +72,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
                 TextButton(onClick = onClose) { Text("서재로") }
             }
         } else {
-            Box(Modifier.fillMaxSize().onSizeChanged {
+            Box(Modifier.fillMaxSize().padding(bottom = ReaderPageStatusHeight).onSizeChanged {
                 if (viewport != IntSize.Zero && viewport != it) controller.reflowViewport()
                 viewport = it
             }.testTag(if (ready) "epub_ready" else "epub_loading")) {
@@ -80,9 +83,10 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
                 if (!ready) CircularProgressIndicator(Modifier.align(Alignment.Center))
             }
         }
+        ReaderPageStatus(pageLabel, "epub", state.settings.theme.paperColor(), state.settings.theme.inkColor())
         if (!chrome && !ready) ReaderLoadingExit("epub", onClose, Modifier.align(Alignment.TopStart))
         if (chrome) ReaderChrome(controller.book.title, "EPUB", "epub",
-            "${(((controller.initialLocator()?.locations?.totalProgression ?: 0.0) * 100).toInt())}%",
+            pageLabel,
             onClose, { controlsVisible = false }, !exploration, ready, ready,
             { controller.next(-1) }, { controller.next(1) }) {
             Controls()

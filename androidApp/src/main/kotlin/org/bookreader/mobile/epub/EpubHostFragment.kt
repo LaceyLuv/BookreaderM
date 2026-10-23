@@ -17,6 +17,9 @@ import org.readium.r2.navigator.input.InputListener
 import org.readium.r2.navigator.input.TapEvent
 import org.readium.r2.navigator.preferences.ReadingProgression
 import org.bookreader.mobile.reader.ArchiveReaderPhase
+import org.bookreader.mobile.reader.assetPath
+import org.bookreader.mobile.reader.epubFamily
+import org.bookreader.mobile.settings.ReaderFont
 import org.readium.r2.shared.ExperimentalReadiumApi
 import org.readium.r2.shared.publication.Link
 import org.readium.r2.shared.publication.Locator
@@ -63,6 +66,11 @@ class EpubHostFragment : Fragment() {
         }
         childFragmentManager.fragmentFactory = EpubNavigatorFactory(publication).createFragmentFactory(
             current.initialLocator(), initialPreferences = current.preferences(),
+            configuration = EpubNavigatorFragment.Configuration(servedAssets = listOf("reader-fonts/.*")).apply {
+                ReaderFont.entries.forEach { font -> font.assetPath?.let { path ->
+                    addFontFamilyDeclaration(font.epubFamily()) { addFontFace { addSource(path, preload = font == current.state.value.settings.font) } }
+                } }
+            },
             listener = object : EpubNavigatorFragment.Listener {
                 override fun onExternalLinkActivated(url: AbsoluteUrl) { current.externalLink(url) }
                 override fun shouldFollowInternalLink(link: Link, context: HyperlinkNavigator.LinkContext?): Boolean {

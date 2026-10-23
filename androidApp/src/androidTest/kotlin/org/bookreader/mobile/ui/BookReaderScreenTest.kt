@@ -23,6 +23,8 @@ class BookReaderScreenTest {
         val state = mutableStateOf(AppUiState(library = LibraryState.Content(listOf(
             book("1", "한글 책"), book("2", "Another Book"),
         ))))
+        var opened: String? = null
+        var information: String? = null
         compose.setContent {
             BookReaderScreen(
                 state.value,
@@ -30,10 +32,19 @@ class BookReaderScreenTest {
                 onQueryChanged = { state.value = state.value.copy(query = it) },
                 onRetry = {},
                 onThemeSelected = { state.value = state.value.copy(theme = it) },
+                onOpenBook = { opened = it.id }, onBookInfo = { information = it?.id },
             )
         }
         compose.onNodeWithTag("tab_LIBRARY").assertIsSelected()
         compose.onNodeWithTag("library_content").assertIsDisplayed()
+        compose.onNodeWithTag("book_1").performClick()
+        org.junit.Assert.assertEquals("1", opened)
+        opened = null
+        compose.onNodeWithTag("info_1").performClick()
+        org.junit.Assert.assertEquals("1", information)
+        org.junit.Assert.assertNull("The info action must not open the reader", opened)
+        compose.onNodeWithTag("read_2").performClick()
+        org.junit.Assert.assertEquals("2", opened)
         compose.onNodeWithTag("tab_SEARCH").performClick()
         compose.onNodeWithTag("search_query").performTextInput("한글")
         compose.onNodeWithText("한글 책").assertIsDisplayed()

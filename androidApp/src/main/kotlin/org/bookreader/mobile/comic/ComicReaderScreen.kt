@@ -55,6 +55,7 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
     var controlsVisible by rememberSaveable(controller.book.id) { mutableStateOf(false) }
     val chrome = controlsVisible || exploration
     val ready = progress.phase == ArchiveReaderPhase.READY
+    val pageLabel = state.manifest?.let { "${state.index + 1} / ${it.entryKeys.size} 쪽" } ?: "쪽수 계산 중"
     BackHandler { when { settings -> settings = false; bookmarks -> bookmarks = false; menu -> menu = false; controlsVisible -> controlsVisible = false; else -> onClose() } }
     DisposableEffect(controller, lifecycle) {
         val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) scope.launch { controller.progress.flush() } }
@@ -72,21 +73,21 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
                 Button(onClick = onRetry) { Text("다시 시도") }
                 TextButton(onClick = onClose) { Text("서재로") }
             }
-        } else Box(Modifier.fillMaxSize().onSizeChanged {
+        } else Box(Modifier.fillMaxSize().padding(bottom = ReaderPageStatusHeight).onSizeChanged {
             if (viewport != IntSize.Zero && viewport != it) controller.reflow()
             viewport = it
         }.testTag(if (ready) "comic_ready" else "comic_loading")) {
             val manifest = state.manifest
-            if (manifest != null && viewport.width > 0 && viewport.height > 0) key(controller, state.hostVersion) {
-                if (state.settings.readingMode == TxtReadingMode.SCROLL)
+            if (manifest != null && viewport.width > 0 && viewport.height > 0) {
+                if (state.settings.readingMode == TxtReadingMode.SCROLL) key(controller, state.hostVersion) {
                     ComicContinuous(controller, manifest, viewport, exploration, zoomRequest, { zoomRequest = 0 }) { controlsVisible = !controlsVisible }
-                else ComicPage(controller, manifest.entryKeys[state.index], viewport, false, exploration,
-                    onReady = { controller.renderReady(it, controller.progress.state.value.generation) }, onMenu = { controlsVisible = !controlsVisible })
+                } else ComicSinglePage(controller, viewport, exploration) { controlsVisible = !controlsVisible }
             } else CircularProgressIndicator(Modifier.align(Alignment.Center))
         }
+        ReaderPageStatus(pageLabel, "comic", Color(0xFF101720), Color(0xFFE8E8E8))
         if (!chrome && !ready) ReaderLoadingExit("comic", onClose, Modifier.align(Alignment.TopStart))
         if (chrome) ReaderChrome(controller.book.title, if (state.settings.readingMode == TxtReadingMode.SCROLL) "COMIC · 연속" else "COMIC · 한 장", "comic",
-            "${state.index + 1} / ${state.manifest?.entryKeys?.size ?: 0}", onClose, { controlsVisible = false }, !exploration,
+            pageLabel, onClose, { controlsVisible = false }, !exploration,
             ready && state.index > 0, ready && state.index + 1 < (state.manifest?.entryKeys?.size ?: 0),
             { controller.move(-1) }, { controller.move(1) }) {
             FlowRow {
@@ -133,6 +134,7 @@ private fun ComicContinuous(controller: ComicReaderController, manifest: ComicMa
     val scope = rememberCoroutineScope()
     val state = controller.state.collectAsStateWithLifecycle().value
     val list = rememberLazyListState(initialFirstVisibleItemIndex = state.index)
+    var requestedScroll by remember { mutableStateOf(false) }
     val loaded = remember { mutableStateMapOf<Int, Int>() }
     val density = LocalDensity.current
     val targetIndex = remember { state.index }
@@ -146,7 +148,7 @@ private fun ComicContinuous(controller: ComicReaderController, manifest: ComicMa
     }
     LaunchedEffect(controller, list) {
         var moving = false
-        snapshotFlow { Triple(list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset, list.isScrollInProgress) }.collect { (index, offset, scrolling) ->
+        snapshotFlow { Triple(list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset, list.isScrollInProgress || requestedScroll) }.collect { (index, offset, scrolling) ->
             if (scrolling) moving = true
             val height = loaded[index] ?: return@collect
             if (moving) controller.visible(manifest.entryKeys[index], .5, offset.toDouble() / height.coerceAtLeast(1), true)
@@ -158,11 +160,69 @@ private fun ComicContinuous(controller: ComicReaderController, manifest: ComicMa
             ComicPage(controller, entry, viewport, true, exploration, onReady = {}, onMenu = onMenu,
                 zoomRequest = if (index == state.index) zoomRequest else 0, onZoomConsumed = onZoomConsumed, onPageTap = { fraction ->
                     if (fraction < .25f || fraction > .75f) scope.launch {
-                        list.animateScrollBy(viewport.height * .9f * if (fraction < .25f) -1 else 1)
+                        requestedScroll = true
+                        val distance = viewport.height * .9f * if (fraction < .25f) -1 else 1
+                        if (state.settings.pageTransition == PageTransition.NONE) list.scrollBy(distance) else list.animateScrollBy(distance)
                     } else onMenu()
                 },
                 onHeight = { height -> loaded[index] = height }, onRelease = { loaded.remove(index) })
         }
+    }
+}
+
+private data class ComicFrame(val image: ComicImage, val index: Int, val generation: Int)
+
+/** Keep the last decoded image alive until the replacement has been decoded and drawn. */
+@Composable
+private fun ComicSinglePage(controller: ComicReaderController, viewport: IntSize, exploration: Boolean, onMenu: () -> Unit) {
+    val state = controller.state.collectAsStateWithLifecycle().value
+    val progress = controller.progress.state.collectAsStateWithLifecycle().value
+    val entry = state.manifest?.entryKeys?.getOrNull(state.index) ?: return
+    var displayed by remember(controller) { mutableStateOf<ComicFrame?>(null) }
+    var failed by remember(entry) { mutableStateOf(false) }
+    var attempt by remember(entry) { mutableIntStateOf(0) }
+    var direction by remember(controller) { mutableIntStateOf(1) }
+    val leases = remember(controller) { mutableSetOf<ComicImage>() }
+    DisposableEffect(controller) { onDispose { leases.forEach { it.close() }; leases.clear() } }
+    LaunchedEffect(entry, viewport, state.hostVersion, attempt) {
+        val generation = controller.progress.state.value.generation
+        var decoded: ComicImage? = null
+        try {
+            failed = false
+            decoded = controller.decode(entry, viewport.width, viewport.height)
+            ensureActive()
+            val old = displayed
+            direction = (if (old != null && old.index > state.index) -1 else 1) *
+                (if (state.settings.comicDirection == ComicDirection.RTL) -1 else 1)
+            leases.add(decoded)
+            displayed = ComicFrame(decoded, state.index, generation)
+            decoded = null // The composition/transition now owns this lease.
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { failed = true }
+        finally { decoded?.close() }
+    }
+    Box(Modifier.fillMaxSize().testTag("comic_page")) {
+        displayed?.let { target ->
+            ReaderPageTransition(target, state.settings.pageTransition, direction, Modifier.fillMaxSize()) { frame ->
+                DisposableEffect(frame.image) { onDispose { leases.remove(frame.image); frame.image.close() } }
+                LaunchedEffect(frame) {
+                    withFrameNanos { }
+                    controller.renderReady(frame.image.entryKey, frame.generation)
+                }
+                Box(Modifier.fillMaxSize().background(Color(0xFF101720))) {
+                    ComicCanvas(controller, frame.image, viewport, false,
+                        exploration || frame !== target || progress.phase != ArchiveReaderPhase.READY, onMenu)
+                    if (frame.image.limitedResolution) Text("메모리 보호를 위해 해상도를 낮춰 표시합니다.",
+                        Modifier.align(Alignment.BottomCenter).testTag("comic_resolution_limit"))
+                }
+            }
+        }
+        if (failed) Column(Modifier.align(Alignment.Center).background(Color(0xFF202D3B)).padding(16.dp)) {
+            Text("이미지를 표시하지 못했습니다. 원본과 다른 페이지는 유지됩니다.", Modifier.testTag("comic_image_error"))
+            TextButton(onClick = { attempt++ }) { Text("다시 시도") }
+            TextButton(onClick = { controller.move(1) }, enabled = state.index + 1 < (state.manifest?.entryKeys?.size ?: 0),
+                modifier = Modifier.testTag("comic_skip")) { Text("다음 이미지로 건너뛰기") }
+        } else if (displayed == null) CircularProgressIndicator(Modifier.align(Alignment.Center))
     }
 }
 
@@ -264,6 +324,7 @@ private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, vi
             val next = if (zoom > 1f) 1f else 2.5f
             origin = clamp(point - (point - origin) * (next / zoom), next); zoom = next; save()
         }, onTap = { point -> if (navigation) when {
+            zoom > 1f -> menuTap()
             point.x < size.width * .25f -> controller.move(-direction)
             point.x > size.width * .75f -> controller.move(direction)
             else -> menuTap()
@@ -322,6 +383,7 @@ private fun ComicSettingsDialog(controller: ComicReaderController, dismiss: () -
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { ComicFit.entries.forEach { value -> FilterChip(selected = (book.comicFit ?: global.comicFit) == value,
             onClick = { book = book.copy(comicFit = value) }, label = { Text(when (value) { ComicFit.WIDTH -> "너비"; ComicFit.HEIGHT -> "높이"; ComicFit.CONTAIN -> "전체" }) }, modifier = Modifier.testTag("comic_fit_$value")) } }
         }
+        ReaderTransitionSettings(global.pageTransition) { global = global.copy(pageTransition = it) }
         TextButton(onClick = { book = book.copy(readingMode = null, comicFit = null, comicDirection = null) }) { Text("기본값 상속") }
     } }, confirmButton = { Button(enabled = loaded != null && !state.settingsError && !state.settingsSaving,
         onClick = { controller.saveSettings(global, book); dismiss() }, modifier = Modifier.testTag("comic_settings_apply")) { Text("적용") } },

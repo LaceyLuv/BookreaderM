@@ -357,7 +357,7 @@ private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String?
 
 @Composable
 private fun BookMetadata(book: Book, onInfo: (Book) -> Unit, onOpen: (Book) -> Unit) {
-    Card(Modifier.fillMaxWidth()) {
+    Card(onClick = { onOpen(book) }, modifier = Modifier.fillMaxWidth().testTag("book_${book.id}")) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(book.title, style = MaterialTheme.typography.titleMedium)
             book.author?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
