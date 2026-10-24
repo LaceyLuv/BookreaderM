@@ -253,8 +253,8 @@ class EpubReaderFlowTest {
         val chapter = org.json.JSONObject(before.payload.locator.toString()).getString("href").substringAfterLast('/').removeSuffix(".xhtml")
         val previous = active.state.value
         compose.readerControl("epub_settings").performClick()
-        val monitor = org.bookreader.mobile.reader.fontPicker(instrumentation, "font-gothic")
-        val id = java.security.MessageDigest.getInstance("SHA-256").digest(target.assets.open("reader-fonts/NanumGothic-Regular.ttf").use { it.readBytes() })
+        val monitor = org.bookreader.mobile.reader.fontPicker(instrumentation, "font-otf")
+        val id = java.security.MessageDigest.getInstance("SHA-256").digest(target.assets.open("font-fixtures/Fixture.otf").use { it.readBytes() })
             .joinToString("") { "%02x".format(it) }
         try {
             compose.onNodeWithTag("reader_font_import").performScrollTo().performClick()
@@ -301,6 +301,7 @@ class EpubReaderFlowTest {
         assertEquals(-.02f, reader().state.value.settings.letterSpacingEm)
         assertEquals(0.0, requireNotNull(reader().preferences().letterSpacing), 0.0)
         assertEquals(true, reader().preferences().publisherStyles)
+        assertNull(reader().preferences().fontWeight)
         assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
         val beforeSettings = reader().state.value
         compose.readerControl("epub_settings").performClick()

@@ -74,7 +74,7 @@ fun CustomFontSettings(settings: ReaderSettings, appliedFontId: String?, epubMod
     }
     remove?.let { font -> AlertDialog(onDismissRequest = { remove = null }, title = { Text("글꼴 삭제") },
         text = { Text("${font.label}을 앱에서 삭제합니다. 원본 파일은 유지됩니다.") },
-        confirmButton = { TextButton(onClick = {
+        confirmButton = { TextButton(modifier = Modifier.testTag("reader_font_confirm_remove"), onClick = {
             remove = null
             scope.launch {
                 busy = true; onBusy(true)

@@ -112,7 +112,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
             lineHeight = it.lineHeight.toDouble(), publisherStyles = it.epubPublisherStyles,
             letterSpacing = it.letterSpacingEm.coerceAtLeast(0f).toDouble() * 2, pageMargins = it.marginDp / 16.0,
             fontFamily = customFont()?.let { font -> org.readium.r2.navigator.preferences.FontFamily("USER_${font.id}") } ?: it.font.epubFamily(),
-            fontWeight = it.fontWeight.value / 400.0,
+            fontWeight = if (it.epubPublisherStyles) null else it.fontWeight.value / 400.0,
             backgroundColor = if (it.theme == ReaderTheme.OLED) org.readium.r2.navigator.preferences.Color(0xff000000.toInt()) else null,
             theme = when (it.theme) {
                 ReaderTheme.LIGHT -> Theme.LIGHT; ReaderTheme.SEPIA -> Theme.SEPIA; else -> Theme.DARK

@@ -10,6 +10,7 @@ class FontFilePolicyTest {
     @Test fun bundledKoreanFontsHaveValidBoundedSfntTables() {
         for (name in listOf("NanumGothic-Regular.ttf", "NanumMyeongjo-Regular.ttf"))
             FontFilePolicy.validate(File("src/main/assets/reader-fonts/$name"))
+        FontFilePolicy.validate(File("src/debug/assets/font-fixtures/Fixture.otf"))
     }
     @Test fun rejectsDisguisedTruncatedAndOversizedFonts() = temporary { file ->
         for (bytes in listOf("not a font file".toByteArray(), byteArrayOf(0, 1, 0, 0))) {

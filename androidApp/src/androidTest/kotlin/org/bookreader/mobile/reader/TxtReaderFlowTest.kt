@@ -155,6 +155,23 @@ class TxtReaderFlowTest {
             compose.onNodeWithTag("continue_reading").performClick(); waitFor("reader_ready")
             assertEquals(id, reader().state.value.settings.customFontId)
             assertTrue(imported.file.isFile)
+            compose.readerControl("reader_settings").performClick()
+            val registered = store.list().map { it.id }.toSet()
+            pick("font-gothic")
+            assertEquals(registered, store.list().map { it.id }.toSet())
+            compose.onNodeWithTag("reader_font_remove_$id").performScrollTo().assertIsNotEnabled()
+            compose.onNodeWithTag("reader_font_SANS").performScrollTo().performClick()
+            compose.onNodeWithTag("reader_weight_NORMAL").performScrollTo().performClick()
+            compose.onNodeWithTag("reader_settings_apply").performClick()
+            compose.waitUntil(20_000) { reader().state.value.let { it.settings.customFontId == null && it.phase == TxtReaderPhase.READY } }
+            assertEquals(before, saved(active.book))
+            if (id !in existingFonts) {
+                compose.readerControl("reader_settings").performClick()
+                compose.onNodeWithTag("reader_font_remove_$id").performScrollTo().performClick()
+                compose.onNodeWithTag("reader_font_confirm_remove").performClick()
+                compose.waitUntil(10_000) { store.find(id) == null }
+                assertEquals(before, saved(active.book))
+            }
         } finally {
             compose.activityRule.scenario.close()
             runBlocking {
