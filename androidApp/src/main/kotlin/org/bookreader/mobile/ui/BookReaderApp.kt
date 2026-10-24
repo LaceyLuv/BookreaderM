@@ -56,6 +56,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -403,7 +404,7 @@ private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String?
                 }
             } else {
                 LazyVerticalGrid(
-                    columns = GridCells.Adaptive(160.dp),
+                    columns = GridCells.Adaptive(160.dp * LocalDensity.current.fontScale.coerceIn(1f, 1.6f)),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.fillMaxSize().testTag("library_content"),
                     contentPadding = PaddingValues(bottom = 16.dp),

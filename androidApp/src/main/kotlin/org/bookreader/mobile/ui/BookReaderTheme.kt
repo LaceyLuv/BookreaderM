@@ -31,7 +31,13 @@ private val BookReaderLightColors = lightColorScheme(
     outline = Color(0xFF6D8077), outlineVariant = Color(0xFFC2CEC6),
 )
 
+private val BookReaderLibraryDarkColors = BookReaderDarkColors.copy(
+    secondary = Color(0xFFBDCBD8), onSecondary = Color(0xFF202D3B),
+    surfaceContainerLow = Color(0xFF18222E), surfaceContainer = Color(0xFF202D3B),
+    surfaceContainerLowest = Color(0xFF101720),
+)
+
 @Composable
 fun BookReaderTheme(dark: Boolean, content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = if (dark) BookReaderDarkColors else BookReaderLightColors, content = content)
+    MaterialTheme(colorScheme = if (dark) BookReaderLibraryDarkColors else BookReaderLightColors, content = content)
 }

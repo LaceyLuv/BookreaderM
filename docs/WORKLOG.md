@@ -1,5 +1,16 @@
 # M00 작업 기록
 
+## 2026-10-24 Phase 1 실제 화면 확인 후 보완
+
+후보11ba576은 build40059003307과 device40059003261(API26/34/36)이 모두 성공했다.
+API26 원본의 큰 글자/다크 모드 화면에서 두 열 카드 폭과 기본 navigation container 색상 차이를 확인했다.
+서재 카드 최소 폭을 글자 배율에 맞추고 서재 다크 container 색상을 통일한다. Reader 팔레트는 유지한다.
+책 정보 닫기 뒤 스크린샷은 dialog 소멸과 Compose idle을 확인한 후 캡처하도록 바로잡았다.
+`source /workspace/toolchains/mobile-env.sh` 뒤
+`./gradlew :androidApp:assembleDebug :androidApp:assembleDebugAndroidTest :androidApp:lintDebug :androidApp:testDebugUnitTest --console=plain` exit0.
+로그는 `/workspace/work/bookreaderm-product-quality/phase1-large-layout.log`다.
+필수 사례/timeout/위치 비교를 완화하지 않았으며 후속 소스 전체 기기 회귀를 다시 실행한다.
+
 ## 2026-10-24 제품 완성도 개선 — Phase 1 검증 후보
 
 사용자 [개발 지침](reference/BookReaderM_Product_Improvement_Request_2026-10-24.md)을 보존하고

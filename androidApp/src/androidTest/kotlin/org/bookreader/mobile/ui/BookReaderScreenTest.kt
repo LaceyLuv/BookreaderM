@@ -152,6 +152,8 @@ class BookReaderScreenTest {
         compose.onNodeWithTag("info_large").assertIsDisplayed().performClick()
         compose.onNodeWithTag("book_delete").assertIsDisplayed()
         compose.onNodeWithText("닫기").performClick()
+        compose.onNodeWithText("책 정보").assertDoesNotExist()
+        compose.waitForIdle()
         ReaderFixtureScreenshot.capture("phase1-library-large-dark.png")
     }
 
