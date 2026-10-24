@@ -1,5 +1,14 @@
 # M00 작업 기록
 
+## 2026-10-24 설정 저장 완료 관찰 보완
+
+f9243cf API36에서 기존 pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor도 FAIL했다.
+모드 변경 helper가 설정 비동기 저장 완료 대신 generation 증가/READY만 기다려 dialog 닫힘에 따른
+이전 페이지 재배치를 새 설정 완료로 오인할 수 있었다. 실제 loaded settings 교체와 settingsSaving 종료까지 기다린다.
+새 사용자 글꼴 검사도 기대한 font ID·굵기·모드가 모두 로드된 후 실제 layout을 검증한다.
+필수 테스트/timeout/정확한 locator 비교를 유지한다. f9243cf API34는 신규 2 FAIL, API36은 신규 2+기존 1 FAIL이며 host는 NOT_RUN이다.
+제품 코드는 058d2b8과 같고 이번 변경은 테스트 관찰 시점뿐이다.
+
 ## 2026-10-24 글꼴 선택기 검증 보완
 
 초기 b7cc57c의 API34 원본 native 60개 중 신규 2개가 FAIL, 기존 58개 PASS이며 host는 NOT_RUN이다.

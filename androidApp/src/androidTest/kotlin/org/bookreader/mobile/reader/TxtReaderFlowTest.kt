@@ -137,7 +137,9 @@ class TxtReaderFlowTest {
             val generation = active.state.value.restoreGeneration
             compose.onNodeWithTag("reader_mode_PAGES").performScrollTo().performClick()
             compose.onNodeWithTag("reader_settings_apply").performClick()
-            compose.waitUntil(20_000) { active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY } }
+            compose.waitUntil(20_000) { active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY &&
+                !it.settingsSaving && it.settings.customFontId == id && it.settings.fontWeight == org.bookreader.mobile.settings.ReaderFontWeight.BOLD &&
+                it.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES } }
             assertEquals(id, active.state.value.settings.customFontId)
             assertEquals(org.bookreader.mobile.settings.ReaderFontWeight.BOLD, active.state.value.settings.fontWeight)
             assertEquals(anchor, active.state.value.targetOffset)
@@ -1030,11 +1032,13 @@ class TxtReaderFlowTest {
         val before = requireNotNull(saved(book))
         fun settings(action: () -> Unit) {
             val generation = active.state.value.restoreGeneration
+            val loaded = active.state.value.settingsLoaded
             compose.readerControl("reader_settings").performClick()
             action()
             compose.onNodeWithTag("reader_settings_apply").performClick()
             compose.waitUntil(15_000) {
-                active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
+                active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY &&
+                    !it.settingsSaving && it.settingsLoaded !== loaded }
             }
             compose.waitForIdle()
         }
