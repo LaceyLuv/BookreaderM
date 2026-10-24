@@ -1,5 +1,22 @@
 # M00 작업 기록
 
+## 2026-10-24 APK 다운로드 경로 — BLOCKED_ENV
+
+사용자는 Android 설치가 아니라 대화의 APK 링크에서 파일 크기 제한이 발생했다고 확인했다.
+기존 0.4.0 APK는 21,823,345 bytes이며 해시가 기존 검증값과 일치한다.
+같은 폴더의 `BookreaderM-0.4.0-test-signed.zip`은 18,364,084 bytes다.
+Python zipfile ZIP_DEFLATED level 9로 생성했고 CRC 및 압축 해제 후 APK SHA-256 동일성을 확인했다(exit 0).
+앱 소스/서명키/기존 APK를 변경하지 않아 제품 테스트를 반복하지 않았다. 대화에서 ZIP 다운로드는 미확인이다.
+
+GitHub 다운로드 초안 ID 422430819를 생성했으나 uploads.github.com HTTP CONNECT 403으로 첨부는 실패했다.
+초안은 미게시·첨부 0개이며 제목/본문에 업로드 대기를 표시했다. 공개 출시하지 않았다.
+환경 설정 초안에 기존 custom allowlist를 보존하며 uploads.github.com만 추가했고 saved/requires_publish=true를 확인했다.
+설정의 사용자 저장·게시 후 실제 접속/자격증명을 다시 확인하고 기존 초안에 APK를 업로드한다.
+다운로드 바이트의 SHA-256 검증 후에만 GitHub 링크를 설치 경로로 안내한다.
+[기록](evidence/apk-download-2026-10-24/summary.json), 로컬 helper `/workspace/scratch/apk-download/create-draft.py`.
+helper는 이미 만든 초안을 재생성하지 말고 저장된 release.json의 기존 ID로 이어간다.
+실기기 설치 NOT_RUN.
+
 ## 2026-10-23 완료: 0.4.0 글꼴·전환·쪽수·서재 카드
 
 검증 소스 `d1570aa92edddb676be3c5bc311d53506f2e9ad9`를 main에 반영했다. 이후 commit은 문서/증거다.
