@@ -44,10 +44,39 @@ READER_FONTS_0_5/QA_MATRIX/TESTING과 Android/shared/epubAndroid 소스·테스�
 | 단계 | 상태 | 결과/선행 조건 |
 |---|---|---|
 | 감사 | 완료 | 위 코드 기준 분류. 기존 로컬 161개 PASS, 새 변경 결과와 구분 |
-| Phase 1 / 0.5.1 | 진행 중 | 문구·상태·기본 UI·문서, 핵심 엔진/스키마 변경 없음. 회귀 및 새 UI 검증 필요 |
+| Phase 1 / 0.5.1 | 구현·자동 검증 완료 | [결과·실제 화면](UX_POLISH_0_5_1.md). 5a8aad2 build166, native63+host6/API26/34/36 PASS. 실기기 미실행 |
 | Phase 2 / 0.6.0 | 대기 | 서재 2.0: metadata/cover, 편집·책장·정렬/필터, batch import·검색 통합. migration 보존 검사 선행 |
 | Phase 3 / 0.7.0 | 대기 | 도구/빠른 설정, bounded TXT 목차, version/revision에 묶인 annotation |
 | Phase 4 / 0.8.0 | 대기 | 검증 가능한 backup/restore·기기/성능/접근성·전달/자동화. 실기기는 실제 자원 필요 |
 
 각 단계의 PASS는 실제 실행 범위만 의미한다. 구현만 끝난 항목이나 기기 실행 없이 compiled test를
 단계 전체 완료로 올리지 않는다. 실패·NOT_RUN·BLOCKED_ENV와 다음 착수 조건을 이 문서 및 TASKS/WORKLOG에 남긴다.
+
+## Phase 1 구현 결과
+
+- 가져오기 완료/공유 확인에 실제 포맷을 표시하고, 읽기와 닫기를 분리한다. 진행 중 크기는 읽기 쉬운 단위로 표시한다.
+- 사용할 수 없는 책을 누르면 원인과 다음 행동을 안내한다. 기존 책·진행도를 갱신하거나 Reader를 열지 않는다.
+- 빈 서재의 책 추가, 검색 결과 없음의 검색 초기화, 오류 재시도와 안내 닫기를 제공한다.
+- 민트·남색 팔레트, 벡터 아이콘, 제목/진행률을 분리한 이어읽기, 책 정보와 카드의 가독성을 정리했다.
+- 글자 배율에 따라 카드 폭을 조절하고 다크 모드 navigation 색상을 통일한다. Reader 색상값은 그대로다.
+- README에서 현재 기능과 후속 기능을 구분했다. 실제 표지, 정보 편집, 책장, 통합 검색은 아직 Phase 2 작업이다.
+
+주요 소스는 `ui/BookReaderApp.kt`, `ui/AppViewModel.kt`, `ui/BookReaderTheme.kt`,
+`ui/LibraryUi.kt`, `ui/LibraryPresentation.kt`, `reader/ReaderChrome.kt`와 drawable이다.
+Room schema5, 관리 원본, locator/version/revision, 저장 epoch/sequence, 북마크와 설정 저장 형식을 변경하지 않았다.
+
+## Phase 2 착수 순서와 완료 기준
+
+1. **메타데이터·표지 저장 계약:** 기존 title/author/coverKey를 재사용하고 사용자가 편집한 값의 우선권을 저장한다.
+   SafeEpub/Readium의 검증된 publication metadata와 ComicManifest를 통해 입력을 읽는다.
+   표지 생성/디코드의 작업 소유권·취소·픽셀/바이트 한도·캐시 폐기를 정의한다. 자동 추출 실패는 독서를 막지 않는다.
+2. **정보 편집·읽기 상태·책장:** 필요한 Room 명시적 migration을 먼저 추가하고 이전 스키마의 책·진행도·북마크·설정 보존을 검사한다.
+   제목/작가/표지/읽기 상태/책장을 편집한 뒤 재시작해도 유지되며 자동 추출이 덮어쓰지 않아야 한다.
+3. **서재 화면:** 실제/대체 표지, 상태/진행률, 정렬/필터, 그리드/리스트, 검색 통합, 길게 누르기/다중 선택을 연결한다.
+   시작은 서재, 이어읽기는 Reader 밖 하단이라는 기존 계약을 유지한다.
+4. **일괄 가져오기:** 단일 파일의 검증·journal·중복 처리를 재사용하는 순차 큐를 제공한다.
+   중간 취소/부분 실패/중복/프로세스 종료가 이미 완료한 책이나 독서 기록을 손상시키지 않아야 한다.
+5. **0.6.0 검증:** 각 단위의 DB/순수 로직 검사 뒤 실제 API26/34/36 UI·재시작·강제 종료 회귀를 실행한다.
+   생성한 대규모 fixture 서재로 스크롤/캐시를 측정하고 실제 측정 범위만 보고한다. 실기기 결과를 추정하지 않는다.
+
+이 목록은 후속 구현 순서이며 Phase 2 기능 완료를 의미하지 않는다.

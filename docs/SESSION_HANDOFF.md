@@ -1,14 +1,24 @@
-# 2026-10-24 제품 완성도 개선 — Phase 1 후보
+# 2026-10-24 제품 완성도 개선 — Phase 1 완료
 
-사용자의 새 [개발 지침](reference/BookReaderM_Product_Improvement_Request_2026-10-24.md)을 읽고
-[전체 감사](PRODUCT_IMPROVEMENT.md) 뒤 v0.5.1/code6 UX 정리를 구현했다. 서브에이전트는 사용하지 않았다.
-작업 위치 `/workspace/BookreaderM`, 브랜치 `codex/product-quality-051`. main은790175b를 유지한다.
-로컬 unit163/APK/test APK/lint/schema5 PASS, native63+host6/API는 새 후보 CI 확인이 필요하다.
-기존 0.5.0 PASS를 새 후보의 기기 검증으로 사용하지 않는다. [로컬 명령·중간 실패](evidence/product-quality/phase1-local/commands.json).
+사용자의 [개발 지침](reference/BookReaderM_Product_Improvement_Request_2026-10-24.md)을 읽고
+[전체 감사](PRODUCT_IMPROVEMENT.md) 후 v0.5.1/code6 UX 정리를 구현·자동 검증했다. 서브에이전트는 사용하지 않았다.
+작업 위치 `/workspace/BookreaderM`, 브랜치 `codex/product-quality-051`. 제품/테스트 source `5a8aad2ebb35359740a2fe18bec0c3731d6e9072`.
+이후 커밋은 문서/증거다. main790175b와 이전 0.5.0을 보존한다. [최종 보고서](UX_POLISH_0_5_1.md).
 
-기존 서명키·책·진행도·북마크·글꼴·설정·DB schema5를 유지했다. 공개 릴리스는 별도 승인 대상이다.
-다음은 후보의 실제 API26/34/36 회귀·스크린샷 확인 후 Phase2 서재2.0이다.
-각 shell에서 `source /workspace/toolchains/mobile-env.sh`를 적용하고 reset/clean·앱 삭제를 하지 않는다.
+build40060195353 PASS166, device40060195360 API26/34/36 각각 native63+host6 PASS.
+원본 digest/CRC/XML·필수 사례/source clean/실제 force-stop PID 교체와 화면을 확인했다.
+[검증](evidence/product-quality/verified-5a8aad2/summary.json), [중간 실패/후보](evidence/product-quality/README.md).
+실제 화면에서 발견한 큰 글자 카드 폭·다크 navigation을 보완하고 전체 회귀를 다시 통과했다.
+
+최종 APK `/workspace/artifacts/BookreaderM/5a8aad2/installable/BookreaderM-0.5.1-test-signed.apk`.
+SHA256 `44a8f8b84e3c7aeb86b77f537bd20ef8bac4d0ae7e35b037dd8cab1e78bf80af`.
+기존 인증서/v2/v3/4 ABI/16KB 정렬 PASS, ZIP18,362,053 bytes의 CRC/추출 APK 동일성 PASS.
+실기기 설치·대화 다운로드·공개 배포는 미완료다. 예전 업로드 HTTP400 경로를 반복하지 않는다.
+
+기존 서명키·책·진행도·북마크·글꼴·설정·DB schema5를 유지했다. 실제 사용자 데이터는 CI에 올리지 않았다.
+각 shell에서 `source /workspace/toolchains/mobile-env.sh`를 적용하며 도구를 재설치하거나 reset/clean·앱 삭제를 하지 않는다.
+로컬 연결 기기/KVM은 없다. 다음은 [Phase2 서재2.0 착수 순서](PRODUCT_IMPROVEMENT.md#phase-2-착수-순서와-완료-기준)에 따라
+메타데이터·표지/사용자 편집 우선권과 명시적 migration/보존 테스트부터 진행한다. Phase2–4 기능 구현은 미완료다.
 
 아래는 이전 0.5.0 완료 시점의 인계이며 당시 패키지·검증 근거를 보존한다.
 

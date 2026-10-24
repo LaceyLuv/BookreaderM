@@ -1,5 +1,25 @@
 # M00 작업 기록
 
+## 2026-10-24 완료: 제품 개선 Phase 1 / 0.5.1
+
+제품/테스트 source `5a8aad2ebb35359740a2fe18bec0c3731d6e9072`, 브랜치 `codex/product-quality-051`.
+[사용자 경험·주요 소스·실제 전후 화면·남은 범위](UX_POLISH_0_5_1.md)를 기록했다.
+build40060195353 PASS166(73/74/16/실제 ENOSPC3), device40060195360 API26/34/36 각각 native63+host6 PASS.
+원본 ZIP SHA-256/CRC, source clean, 필수 XML, force-stop 후 PID 교체와 EPUB 실제 문단 복원을 대조했다.
+[최종 검증](evidence/product-quality/verified-5a8aad2/summary.json), [중간 후보·실패](evidence/product-quality/README.md)를 보존한다.
+
+정확 명령은 각 artifact의 results.txt/로그와 로컬 commands.json을 따른다. 최종 증거 검사:
+`python /workspace/work/bookreaderm-product-quality/verify.py 5a8aad2ebb35359740a2fe18bec0c3731d6e9072 40060195353 40060195360` exit0.
+각 shell에서 `source /workspace/toolchains/mobile-env.sh` 후 `./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit0.
+기존 키를 확인한 작업 폴더의 임시 init script로 `./gradlew -I /workspace/work/bookreaderm-product-quality/test-signing.gradle :androidApp:assembleRelease --console=plain` exit0.
+`python scripts/audit-apk.py androidApp/build/outputs/apk/release/androidApp-release.apk --source-sha 5a8aad2ebb35359740a2fe18bec0c3731d6e9072 --output /workspace/work/bookreaderm-product-quality/package-5a8aad2/audit.json` exit0.
+패키지/서명 로그와 체크섬은 [패키지 원본](evidence/product-quality/package-5a8aad2/summary.json)에 보존했다.
+
+Room schema5/관리 원본/진행도/북마크/글꼴/설정/서명키를 유지했다. main 통합이나 공개 배포는 하지 않았다.
+실기기 설치·TalkBack·성능·16KB OS는 NOT_RUN/BLOCKED_ENV다. GitHub 다운로드·배포 자동화는 Phase4 미완료 항목이다.
+다음 작업은 [Phase2 서재2.0 순서](PRODUCT_IMPROVEMENT.md#phase-2-착수-순서와-완료-기준)다. Phase2–4 구현은 아직 미완료다.
+
+
 ## 2026-10-24 Phase 1 실제 화면 확인 후 보완
 
 후보11ba576은 build40059003307과 device40059003261(API26/34/36)이 모두 성공했다.

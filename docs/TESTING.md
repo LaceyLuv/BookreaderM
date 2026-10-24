@@ -4,7 +4,7 @@
 
 현재 제품 개발은 [단계별 감사](PRODUCT_IMPROVEMENT.md)와 [최신 인계](SESSION_HANDOFF.md)를 따른다.
 기존 0.5.0의 검증 소스는4449f1e이며 native60+host6/API, build164개다.
-0.5.1 후보는 unit2/native3을 추가하며 기존 필수 테스트를 모두 유지한다.
+0.5.1/5a8aad2는 unit2/native3을 추가하며 기존 필수 테스트를 모두 유지한다. build40060195353 166개 및 device40060195360 native63+host6/API26/34/36 PASS. [원본](evidence/product-quality/verified-5a8aad2/summary.json).
 아래 2026-10-17 이전 건수와 미구현 설명은 당시 이력이며 현재 기능/검증을 대체하지 않는다.
 
 ## 2026-10-17 archive 진행도·bounded SDK 검색 기반

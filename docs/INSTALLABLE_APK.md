@@ -3,6 +3,26 @@
 앞으로는 [APK 배포 방안](APK_DISTRIBUTION.md)에 따라 GitHub Releases 다운로드 페이지를 안내한다.
 아래 로컬 경로는 생성물 위치 기록이며 GPT Android 앱의 대용량 미리보기 제한을 해결하는 다운로드 경로가 아니다.
 
+# 설치 시험용 APK — 0.5.1, 2026-10-24
+
+가져오기/상태 안내·서재 UI를 정리했다. [변경과 실제 화면](UX_POLISH_0_5_1.md)을 따른다.
+build166, API26/34/36 각각 native63+host6 및 기존 키 서명/정적 감사 PASS다.
+
+- 소스: `5a8aad2ebb35359740a2fe18bec0c3731d6e9072`, applicationId `org.bookreader.mobile`, versionCode6/versionName0.5.1.
+- 파일: `/workspace/artifacts/BookreaderM/5a8aad2/installable/BookreaderM-0.5.1-test-signed.apk` (21,818,527 bytes).
+- SHA256: `44a8f8b84e3c7aeb86b77f537bd20ef8bac4d0ae7e35b037dd8cab1e78bf80af`.
+- 기존 인증서 SHA256: `605d7f79c6ec788937ecda215447235a81b3aa91437f2b1adea8d7a796ce167f`.
+- v2/v3, 4 ABI/16KB ZIP·ELF 정렬, 서명 전후612 ZIP entry 동일성 PASS.
+- 같은 폴더의 ZIP은18,362,053 bytes, SHA256 `681d0fb66cc2c80803cdc79d2b81cb7a618036746ef71c099cc135375f9c28c0`.
+  ZIP CRC와 추출 APK 동일성 PASS다. 실제 대화 다운로드는 미확인이다.
+
+[패키지 원본](evidence/product-quality/package-5a8aad2/summary.json)을 보존한다.
+이 경로는 생성물 기록이며 공개 GitHub 다운로드 링크가 아니다. 실제 휴대전화 설치는 NOT_RUN이다.
+이전 0.5.0 APK와 서명키를 보존했다. 업데이트 오류가 나도 기존 앱/책/진행도를 임의 삭제하지 않는다.
+공개 릴리스·업로드·배포 자동화는 이번 단계에서 완료하지 않았다.
+
+아래는 이전 패키지 이력이다.
+
 # 설치 시험용 APK — 0.5.0, 2026-10-24
 
 사용자 TTF·OTF 등록과 보통/굵게 선택을 추가했다. [사용 안내](READER_FONTS_0_5.md)를 따른다.

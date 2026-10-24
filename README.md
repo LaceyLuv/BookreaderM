@@ -23,9 +23,10 @@ Android에서 오프라인으로 읽는 TXT·EPUB·만화 리더입니다. Andro
 현재 개발 버전은 **0.5.1(versionCode 6)**입니다. 가져오기 안내, 사용할 수 없는 책의 원인 표시,
 빈 화면·검색·기본 UI와 문서를 정리합니다. 구현·실행 검증 상태는 [진행 기록](docs/PRODUCT_IMPROVEMENT.md)을 따릅니다.
 
-이전 검증·패키지 기준은 **0.5.0 / 4449f1e**입니다. 당시 build 164개,
-API26/34/36 각각 native 60 + host 6단계 PASS이며 [원본 결과](docs/evidence/custom-fonts/verified-4449f1e/summary.json)를 보존합니다.
-이 결과를 새 버전의 기기 검증으로 대신하지 않습니다.
+**0.5.1 / 5a8aad2**의 build166개와 API26/34/36 각각 native63 + host6단계가 PASS입니다.
+[0.5.1 변경 내용·실제 화면·미실행 범위](docs/UX_POLISH_0_5_1.md),
+[검증 원본](docs/evidence/product-quality/verified-5a8aad2/summary.json)을 확인하세요.
+이전 0.5.0/4449f1e 결과와 패키지도 보존했습니다.
 
 [설치 APK 안내](docs/INSTALLABLE_APK.md)와 [다운로드 운영 방안](docs/APK_DISTRIBUTION.md)을 확인하세요.
 GitHub 릴리스 첨부와 공개 배포는 아직 완료되지 않았습니다. unsigned APK/AAB는 직접 설치용이 아닙니다.

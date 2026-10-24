@@ -1,0 +1,38 @@
+10-24 04:01:03.992  5077  5091 I TestRunner: started: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
+10-24 04:01:03.998   621   925 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 04:01:03.998   621   925 D InetDiagMessage: Destroyed live tcp sockets for uids={10159} in 7ms
+10-24 04:01:04.009   621   925 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 04:01:04.010   621   925 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 04:01:04.010   621   925 D InetDiagMessage: Destroyed live tcp sockets for uids={20159} in 12ms
+10-24 04:01:04.037  1249  1249 D RecentsView: onTaskRemoved: 10, not handling task stack changes
+10-24 04:01:04.038  1249  1249 D RecentsView: onTaskRemoved: 10, not handling task stack changes
+10-24 04:01:04.040  1249  1249 D RecentsView: onTaskRemoved: 8, not handling task stack changes
+10-24 04:01:04.040  1249  1249 D RecentsView: onTaskRemoved: 8, not handling task stack changes
+10-24 04:01:04.192  2761  5173 W Settings: Setting airplane_mode_on has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-24 04:01:04.197  2761  5173 I DialerVoicemailStatusDataServiceImpl: com.android.dialer.voicemailstatus.dataservice.impl.VoicemailStatusDataServiceImpl.insertOrUpdateVoicemailStatus:261 merged status: # qrp@9774042b
+10-24 04:01:04.210  2761  2865 I DialerSemanticEventLoggerEnabledFn: com.android.dialer.cui.impl.SemanticEventLoggerEnabledFn.isEnabled:21 Disabled by flag [CONTEXT ratelimit_period="1 MINUTES" skipped=5 ]
+10-24 04:01:04.210  2761  2865 I DialerCuiSemanticLoggerFactory: com.android.dialer.cui.CuiSemanticLoggerFactory$FakeSemanticEventLogger.handleError:105 logError: Matching cui event logger was not specified. No event logged. [CONTEXT ratelimit_period="5 MINUTES" ]
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.executeWorkOnCarrierService:406 Exception during vvm work for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0} [CONTEXT enable_persistent_logger=true disable_client_error_logging=true ]
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: pul: VVM failure reason: 2
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at qca.onAuthenticationFailure(PG:93)
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at android.telephony.TelephonyManager$18.lambda$onAuthenticationFailure$1(TelephonyManager.java:18343)
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at android.telephony.TelephonyManager$18$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at umz.run(PG:7)
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at aadu.run(PG:44)
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at tdt.run(PG:78)
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at cp.run(PG:143)
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at java.lang.Thread.run(Thread.java:1119)
+10-24 04:01:04.212  2761  2865 E DialerVvmExecutorImpl: 	at uoe.run(PG:61)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.execute:294 Recoverable VVM error: [GeneralFailureReason: UNSPECIFIED, RestFailureReason: GBA_AUTHENTICATION_FAILURE_FEATURE_NOT_SUPPORTED, OmtpFailureReason: OMTP_UNSPECIFIED] for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0}
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: pul: VVM failure reason: 2
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at qca.onAuthenticationFailure(PG:93)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at android.telephony.TelephonyManager$18.lambda$onAuthenticationFailure$1(TelephonyManager.java:18343)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at android.telephony.TelephonyManager$18$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at umz.run(PG:7)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at aadu.run(PG:44)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at tdt.run(PG:78)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at cp.run(PG:143)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at java.lang.Thread.run(Thread.java:1119)
+10-24 04:01:04.224  2761  2865 W DialerVvmExecutorImpl: 	at uoe.run(PG:61)
+10-24 04:01:04.224  2761  2865 I DialerVoicemailStatusDataServiceImpl: com.android.dialer.voicemailstatus.dataservice.impl.VoicemailStatusDataServiceImpl.insertOrUpdateVoicemailStatus:247 enter
+10-24 04:01:04.291  5077  5091 I TestRunner: finished: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
