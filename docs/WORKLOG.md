@@ -1,5 +1,16 @@
 # M00 작업 기록
 
+## 2026-10-24 글꼴 선택기 검증 보완
+
+초기 b7cc57c의 API34 원본 native 60개 중 신규 2개가 FAIL, 기존 58개 PASS이며 host는 NOT_RUN이다.
+EPUB 사례는 OpenDocument 요청에 CATEGORY_OPENABLE이 없어 엄격한 별도 UID fixture 선택기가 거부했고,
+TXT 사례는 스크롤 관성 중 transient offset을 캡처한 뒤 저장 위치를 기다렸다.
+제품 선택기 계약에 CATEGORY_OPENABLE을 추가한다. 테스트는 외부 선택기가 앞에 있을 때 Compose root 부재를 기다리고,
+스크롤 idle 후 실제 TextLayout 위치를 기준으로 동일성 검사를 유지한다. timeout/필수 사례를 완화하지 않는다.
+Compose 1.9.3 AndroidFileFont는 equals를 재정의하지 않으므로 다른 객체의 identity 대신 실제 layout의 파일 font descriptor를 대조한다.
+로컬 compileDebugAndroidTestKotlin/lintDebug exit 0(`/workspace/scratch/custom-fonts-picker.log`).
+후속 source에서 전체 API26/34/36 검증을 다시 실행한다. 중간 APK f9243cf는 최종 배포 후보로 안내하지 않는다.
+
 ## 2026-10-24 진행: 사용자 글꼴·굵기 및 APK 배포 문서
 
 요청 범위: [APK 배포 방안](APK_DISTRIBUTION.md)을 기록하고 TTF·OTF 파일 등록/선택과 보통·굵게를 TXT/EPUB에 추가한다.

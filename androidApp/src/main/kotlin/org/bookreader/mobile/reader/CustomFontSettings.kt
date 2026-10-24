@@ -28,7 +28,13 @@ fun CustomFontSettings(settings: ReaderSettings, appliedFontId: String?, epubMod
     fun select(id: String?) {
         onChange(current.copy(customFontId = id, epubPublisherStyles = if (epubMode) false else current.epubPublisherStyles))
     }
-    val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+    val documentContract = remember {
+        object : ActivityResultContracts.OpenDocument() {
+            override fun createIntent(context: android.content.Context, input: Array<String>): android.content.Intent =
+                super.createIntent(context, input).addCategory(android.content.Intent.CATEGORY_OPENABLE)
+        }
+    }
+    val picker = rememberLauncherForActivityResult(documentContract) { uri ->
         if (uri != null && !busy) scope.launch {
             busy = true; onBusy(true); message = null
             try {

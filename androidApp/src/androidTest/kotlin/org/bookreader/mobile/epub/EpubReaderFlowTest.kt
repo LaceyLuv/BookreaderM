@@ -258,7 +258,7 @@ class EpubReaderFlowTest {
             .joinToString("") { "%02x".format(it) }
         try {
             compose.onNodeWithTag("reader_font_import").performScrollTo().performClick()
-            compose.waitUntil(15_000) { compose.onAllNodesWithTag("reader_custom_font_$id").fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(15_000) { compose.onAllNodesWithTag("reader_custom_font_$id").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
         } finally { instrumentation.removeMonitor(monitor) }
         compose.onNodeWithTag("reader_weight_BOLD").performScrollTo().performClick()
         compose.onNodeWithTag("reader_settings_apply").performClick()

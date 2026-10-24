@@ -106,8 +106,9 @@ class TxtReaderFlowTest {
             sendFixture("reader-pages"); waitFor("reader_ready")
             val active = reader()
             compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+            compose.waitForIdle()
             compose.waitUntil(10_000) { active.state.value.stableOffset?.let { it > 0 } == true }
-            val anchor = requireNotNull(active.state.value.stableOffset)
+            val anchor = measuredVisibleLine(active)
             compose.waitUntil(10_000) { saved(active.book)?.let { offset(it) == anchor } == true }
             val before = saved(active.book)
             compose.readerControl("reader_settings").performClick()
@@ -116,7 +117,7 @@ class TxtReaderFlowTest {
                 try {
                     compose.onNodeWithTag("reader_font_import").performScrollTo().performClick()
                     compose.waitUntil(15_000) {
-                        compose.onAllNodesWithTag("reader_font_message").fetchSemanticsNodes().any { node ->
+                        compose.onAllNodesWithTag("reader_font_message").fetchSemanticsNodes(atLeastOneRootRequired = false).any { node ->
                             node.config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString { it.text }
                                 .contains(if (name == "font-gothic") "등록 완료" else "지원하지 않는")
                         }
@@ -144,7 +145,9 @@ class TxtReaderFlowTest {
             val layouts = mutableListOf<TextLayoutResult>()
             compose.onNodeWithTag("reader_page").performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts) }
             assertEquals(androidx.compose.ui.text.font.FontWeight.Bold, layouts.single().layoutInput.style.fontWeight)
-            assertEquals(androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(imported.file)), layouts.single().layoutInput.style.fontFamily)
+            // Compose's AndroidFileFont uses object identity, not value equality.
+            val displayedFonts = layouts.single().layoutInput.style.fontFamily as androidx.compose.ui.text.font.FontListFontFamily
+            assertEquals(androidx.compose.ui.text.font.Font(imported.file).toString(), displayedFonts.fonts.single().toString())
             ReaderFixtureScreenshot.capture("txt-custom-font-bold.png")
             compose.activityRule.scenario.recreate(); waitFor("reader_ready")
             assertEquals(id, reader().state.value.settings.customFontId)
