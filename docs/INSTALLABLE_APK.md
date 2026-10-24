@@ -3,6 +3,32 @@
 앞으로는 [APK 배포 방안](APK_DISTRIBUTION.md)에 따라 GitHub Releases 다운로드 페이지를 안내한다.
 아래 로컬 경로는 생성물 위치 기록이며 GPT Android 앱의 대용량 미리보기 제한을 해결하는 다운로드 경로가 아니다.
 
+# 설치 시험용 APK — 0.5.0, 2026-10-24
+
+사용자 TTF·OTF 등록과 보통/굵게 선택을 추가했다. [사용 안내](READER_FONTS_0_5.md)를 따른다.
+서명·정적 감사, build164개 및 Android API26/34/36 각각 native60+host6 검증 PASS다.
+GitHub 첨부는 실패했으므로 GitHub 다운로드는 아직 제공하지 않는다.
+
+- 생성물: `/workspace/artifacts/BookreaderM/4449f1e/installable/BookreaderM-0.5.0-test-signed.apk`
+- 소스: `4449f1e6094a5fb9546ac4ed4ea3de04c2f4b351`
+- SHA-256: `839d4e85c0bd8197005069e83d76fef99d5462f2845cf7ac48cc978282d2447c`
+- 크기: 21,839,729 bytes. applicationId `org.bookreader.mobile`, versionCode 5/versionName 0.5.0, Android 8.0(API26) 이상.
+- 기존 개발용 인증서 유지: `605d7f79c6ec788937ecda215447235a81b3aa91437f2b1adea8d7a796ce167f` (SHA-256).
+- v2/v3 서명·서명 필수 정적 감사·4 ABI/8 ELF 및 ZIP 16KB 정렬 PASS.
+- 서명 전후 모든 ZIP entry 바이트 동일, debug 전용 OTF fixture는 release에 포함되지 않음.
+
+실제 휴대전화 설치는 NOT_RUN이다. 기존 책과 진행도를 보존하기 위해 오류 확인 없이 앱을 삭제하지 않는다.
+0.5.0 초안 APK 첨부는 HTTP 400으로 FAIL했고 첨부가 없다. 자동 배포 workflow도 구현 전 계획이다.
+0.4.0의 미게시 초안에 이 버전을 섞지 않는다. 이 로컬 경로를 GPT Android 미리보기 제한의 해결책으로 안내하지 않는다.
+[패키지 감사 원본](evidence/custom-fonts/package-4449f1e/summary.json)을 보존한다.
+
+임시 ZIP: `/workspace/artifacts/BookreaderM/4449f1e/installable/BookreaderM-0.5.0-test-signed.zip`.
+18,384,516 bytes이며 20,000,000 bytes 미만이다. CRC와 압축 해제 후 APK SHA-256 동일성을 확인했다.
+ZIP을 풀어 안의 APK를 설치한다. 대화 앱에서의 실제 다운로드는 미확인이며 GitHub Releases 장기 배포를 대체하지 않는다.
+[ZIP 검증](evidence/custom-fonts/package-4449f1e/zip-fallback.json)을 보존한다.
+
+아래는 이전 패키지 이력이다.
+
 # 설치용 APK — 0.4.0, 2026-10-23
 
 글꼴·페이지 전환·쪽수 표시·서재 카드 열기를 개선했다. [변경 내용과 페이지 수 기준](READER_FEATURES_0_4.md)을 따른다.

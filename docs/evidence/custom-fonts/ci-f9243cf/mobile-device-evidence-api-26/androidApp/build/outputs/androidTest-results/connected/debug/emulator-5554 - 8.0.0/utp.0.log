@@ -1,0 +1,393 @@
+INFO: Constructing runner from config.
+INFO: Configuring Android Instrumentation driver: android_instrumentation_runtime {
+  instrumentation_info {
+    app_package: "org.bookreader.mobile"
+    test_package: "org.bookreader.mobile.test"
+    test_runner_class: "androidx.test.runner.AndroidJUnitRunner"
+  }
+  instrumentation_args {
+    args_map {
+      key: "additionalTestOutputDir"
+      value: "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence"
+    }
+    args_map {
+      key: "captureFixtureScreenshots"
+      value: "true"
+    }
+    args_map {
+      key: "notClass"
+      value: "org.bookreader.mobile.reader.TxtReaderHostProcessTest,org.bookreader.mobile.reader.EpubReaderHostProcessTest,org.bookreader.mobile.reader.ComicReaderHostProcessTest"
+    }
+  }
+}
+am_instrument_timeout: 31536000
+
+INFO: Configuring AndroidTestApkInstallerPlugin: apks_to_install {
+  apk_paths: "/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+  install_options {
+  }
+}
+apks_to_install {
+  apk_paths: "/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk"
+  install_options {
+  }
+}
+
+INFO: No installables found in test fixture. Nothing to install.
+INFO: Installing [/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk] on device emulator-5554.
+INFO: Installing [/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk] on device emulator-5554.
+INFO: Start logcat streaming.
+INFO: Running Android Instrumentation driver.
+INFO: Copying files from device to host: /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/comic-controls.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/comic-controls.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/comic-immersive.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/comic-immersive.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-controls.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/epub-controls.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-immersive.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/epub-immersive.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-settings.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/epub-settings.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-controls.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/txt-controls.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-immersive.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/txt-immersive.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-nanum-page-counts.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/txt-nanum-page-counts.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-page-counts.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/txt-page-counts.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-reader-generated-page-reflow.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/txt-reader-generated-page-reflow.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-reader-generated-pages.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/txt-reader-generated-pages.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-reader-generated-scroll.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/txt-reader-generated-scroll.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-settings.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/txt-settings.png
+INFO: Stop logcat streaming.
+INFO: Execute org.bookreader.mobile.comic.ComicImageDecoderTest.staticImagesExifAndLongPngWebpUseBudgetedFallbackAndPreserveBrokenEntries: PASSED
+INFO: Execute org.bookreader.mobile.comic.ComicImageDecoderTest.hundredPageMovesReleaseBitmapsAndCancellationLeavesNoTemporaryImages: PASSED
+SEVERE: Execute org.bookreader.mobile.comic.ComicReaderFlowTest.managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity: FAILED
+java.lang.IllegalArgumentException: java.lang.IllegalArgumentException: Detected multithreaded access to SnapshotStateObserver: previousThreadId=228), currentThread={id=2, name=main}. Note that observation on multiple threads in layout/draw is not supported. Make sure your measure/layout/draw for each Owner (AndroidComposeView) is executed on the same thread.
+at androidx.compose.runtime.PreconditionsKt.throwIllegalArgumentException(Preconditions.kt:26)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads(SnapshotStateObserver.kt:649)
+at androidx.compose.ui.node.OwnerSnapshotObserver.observeReads$ui_release(OwnerSnapshotObserver.kt:124)
+at androidx.compose.ui.node.OwnerSnapshotObserver.observeSemanticsReads$ui_release(OwnerSnapshotObserver.kt:112)
+at androidx.compose.ui.node.LayoutNode.calculateSemanticsConfiguration(LayoutNode.kt:480)
+at androidx.compose.ui.node.LayoutNode.invalidateSemantics$ui_release(LayoutNode.kt:445)
+at androidx.compose.ui.node.OwnerSnapshotObserver$onCommitAffectingSemantics$1.invoke(OwnerSnapshotObserver.kt:44)
+at androidx.compose.ui.node.OwnerSnapshotObserver$onCommitAffectingSemantics$1.invoke(OwnerSnapshotObserver.kt:42)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver$ObservedScopeMap.notifyInvalidatedScopes(SnapshotStateObserver.kt:1085)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.sendNotifications$lambda$5(SnapshotStateObserver.kt:90)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.$r8$lambda$ixPG648P5-VaQ02MYRr6d3rd0Xo(Unknown Source:0)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+at androidx.compose.ui.platform.AndroidComposeView$snapshotObserver$1.invoke(AndroidComposeView.android.kt:614)
+at androidx.compose.ui.platform.AndroidComposeView$snapshotObserver$1.invoke(AndroidComposeView.android.kt:612)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.sendNotifications(SnapshotStateObserver.kt:83)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.applyObserver$lambda$0(SnapshotStateObserver.kt:51)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.$r8$lambda$O21urw2Cx4LPNsPHLB96kXfU0Q8(Unknown Source:0)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+at androidx.compose.runtime.snapshots.SnapshotKt.advanceGlobalSnapshot(Snapshot.kt:1980)
+at androidx.compose.runtime.snapshots.SnapshotKt.advanceGlobalSnapshot(Snapshot.kt:1994)
+at androidx.compose.runtime.snapshots.SnapshotKt.access$advanceGlobalSnapshot(Snapshot.kt:1)
+at androidx.compose.runtime.snapshots.Snapshot$Companion.sendApplyNotifications(Snapshot.kt:680)
+at androidx.compose.ui.platform.GlobalSnapshotManager$ensureStarted$1.invokeSuspend(GlobalSnapshotManager.android.kt:48)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+at androidx.compose.ui.platform.AndroidUiDispatcher.performTrampolineDispatch(AndroidUiDispatcher.android.kt:79)
+at androidx.compose.ui.platform.AndroidUiDispatcher.access$performTrampolineDispatch(AndroidUiDispatcher.android.kt:41)
+at androidx.compose.ui.platform.AndroidUiDispatcher$dispatchCallback$1.run(AndroidUiDispatcher.android.kt:57)
+at android.os.Handler.handleCallback(Handler.java:789)
+at android.os.Handler.dispatchMessage(Handler.java:98)
+at androidx.test.espresso.base.Interrogator.loopAndInterrogate(Interrogator.java:14)
+at androidx.test.espresso.base.UiControllerImpl.loopUntil(UiControllerImpl.java:8)
+at androidx.test.espresso.base.UiControllerImpl.loopMainThreadUntilIdle(UiControllerImpl.java:16)
+at androidx.test.espresso.Espresso$1.run(Espresso.java:1)
+at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+at android.os.Handler.handleCallback(Handler.java:789)
+at android.os.Handler.dispatchMessage(Handler.java:98)
+at android.os.Looper.loop(Looper.java:164)
+at android.app.ActivityThread.main(ActivityThread.java:6541)
+at java.lang.reflect.Method.invoke(Native Method)
+at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+
+java.lang.IllegalArgumentException: Detected multithreaded access to SnapshotStateObserver: previousThreadId=228), currentThread={id=2, name=main}. Note that observation on multiple threads in layout/draw is not supported. Make sure your measure/layout/draw for each Owner (AndroidComposeView) is executed on the same thread.
+at androidx.compose.runtime.PreconditionsKt.throwIllegalArgumentException(Preconditions.kt:26)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads(SnapshotStateObserver.kt:649)
+at androidx.compose.ui.node.OwnerSnapshotObserver.observeReads$ui_release(OwnerSnapshotObserver.kt:124)
+at androidx.compose.ui.node.OwnerSnapshotObserver.observeSemanticsReads$ui_release(OwnerSnapshotObserver.kt:112)
+at androidx.compose.ui.node.LayoutNode.calculateSemanticsConfiguration(LayoutNode.kt:480)
+at androidx.compose.ui.node.LayoutNode.invalidateSemantics$ui_release(LayoutNode.kt:445)
+at androidx.compose.ui.node.OwnerSnapshotObserver$onCommitAffectingSemantics$1.invoke(OwnerSnapshotObserver.kt:44)
+at androidx.compose.ui.node.OwnerSnapshotObserver$onCommitAffectingSemantics$1.invoke(OwnerSnapshotObserver.kt:42)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver$ObservedScopeMap.notifyInvalidatedScopes(SnapshotStateObserver.kt:1085)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.sendNotifications$lambda$5(SnapshotStateObserver.kt:90)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.$r8$lambda$ixPG648P5-VaQ02MYRr6d3rd0Xo(Unknown Source:0)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+at androidx.compose.ui.platform.AndroidComposeView$snapshotObserver$1.invoke(AndroidComposeView.android.kt:614)
+at androidx.compose.ui.platform.AndroidComposeView$snapshotObserver$1.invoke(AndroidComposeView.android.kt:612)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.sendNotifications(SnapshotStateObserver.kt:83)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.applyObserver$lambda$0(SnapshotStateObserver.kt:51)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver.$r8$lambda$O21urw2Cx4LPNsPHLB96kXfU0Q8(Unknown Source:0)
+at androidx.compose.runtime.snapshots.SnapshotStateObserver$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+at androidx.compose.runtime.snapshots.SnapshotKt.advanceGlobalSnapshot(Snapshot.kt:1980)
+at androidx.compose.runtime.snapshots.SnapshotKt.advanceGlobalSnapshot(Snapshot.kt:1994)
+at androidx.compose.runtime.snapshots.SnapshotKt.access$advanceGlobalSnapshot(Snapshot.kt:1)
+at androidx.compose.runtime.snapshots.Snapshot$Companion.sendApplyNotifications(Snapshot.kt:680)
+at androidx.compose.ui.platform.GlobalSnapshotManager$ensureStarted$1.invokeSuspend(GlobalSnapshotManager.android.kt:48)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+at androidx.compose.ui.platform.AndroidUiDispatcher.performTrampolineDispatch(AndroidUiDispatcher.android.kt:79)
+at androidx.compose.ui.platform.AndroidUiDispatcher.access$performTrampolineDispatch(AndroidUiDispatcher.android.kt:41)
+at androidx.compose.ui.platform.AndroidUiDispatcher$dispatchCallback$1.run(AndroidUiDispatcher.android.kt:57)
+at android.os.Handler.handleCallback(Handler.java:789)
+at android.os.Handler.dispatchMessage(Handler.java:98)
+at androidx.test.espresso.base.Interrogator.loopAndInterrogate(Interrogator.java:14)
+at androidx.test.espresso.base.UiControllerImpl.loopUntil(UiControllerImpl.java:8)
+at androidx.test.espresso.base.UiControllerImpl.loopMainThreadUntilIdle(UiControllerImpl.java:16)
+at androidx.test.espresso.Espresso$1.run(Espresso.java:1)
+at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+at android.os.Handler.handleCallback(Handler.java:789)
+at android.os.Handler.dispatchMessage(Handler.java:98)
+at android.os.Looper.loop(Looper.java:164)
+at android.app.ActivityThread.main(ActivityThread.java:6541)
+at java.lang.reflect.Method.invoke(Native Method)
+at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+INFO: Execute org.bookreader.mobile.database.AndroidDatabaseOwnerTest.concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidBomAndBoundaryNormalizationAreCanonical: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidStrictDecodeRejectsLateIncompleteCharacters: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidCp949ExtensionFixtureIsDistinctFromEucKr: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.sdkSearchReturnsFullLocatorAndContainerCannotReadOutsideBook: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.activePublicationContentIsRejectedBeforeCreatingAnyNavigator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.cspBlocksExternalCssResourcesWhileEngineCanNavigateOffline: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.searchResultsArePagedAndOversizedChaptersReportAnExplicitLimit: PASSED
+SEVERE: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.importedFontAndBoldLoadInWebViewAndSurviveReopenWithoutChangingLocator: FAILED
+java.lang.AssertionError: java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+at androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)
+at androidx.test.ext.junit.rules.ActivityScenarioRule.after(ActivityScenarioRule.java:117)
+at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:59)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invokeSuspend(AndroidComposeTestRule.android.kt:318)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:8)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:4)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invokeSuspend(ComposeUiTest.android.kt:569)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:8)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:2)
+at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:69)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invokeSuspend(ComposeUiTest.android.kt:566)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:8)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:4)
+at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$1.invokeSuspend(TestBuilders.kt:317)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+at kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)
+at kotlinx.coroutines.test.TestCoroutineScheduler.tryRunNextTaskUnless$kotlinx_coroutines_test(TestCoroutineScheduler.kt:99)
+at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$workRunner$1.invokeSuspend(TestBuilders.kt:326)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+at kotlinx.coroutines.test.TestBuildersJvmKt.createTestResult(TestBuildersJvm.kt:10)
+at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:309)
+at kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)
+at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:167)
+at kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:549)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:318)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+at org.junit.runners.Suite.runChild(Suite.java:128)
+at org.junit.runners.Suite.runChild(Suite.java:27)
+at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:467)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)
+
+java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+at androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)
+at androidx.test.ext.junit.rules.ActivityScenarioRule.after(ActivityScenarioRule.java:117)
+at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:59)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invokeSuspend(AndroidComposeTestRule.android.kt:318)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:8)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:4)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invokeSuspend(ComposeUiTest.android.kt:569)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:8)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:2)
+at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:69)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invokeSuspend(ComposeUiTest.android.kt:566)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:8)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:4)
+at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$1.invokeSuspend(TestBuilders.kt:317)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+at kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)
+at kotlinx.coroutines.test.TestCoroutineScheduler.tryRunNextTaskUnless$kotlinx_coroutines_test(TestCoroutineScheduler.kt:99)
+at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$workRunner$1.invokeSuspend(TestBuilders.kt:326)
+at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+at kotlinx.coroutines.test.TestBuildersJvmKt.createTestResult(TestBuildersJvm.kt:10)
+at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:309)
+at kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)
+at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:167)
+at kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:549)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:318)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+at org.junit.runners.Suite.runChild(Suite.java:128)
+at org.junit.runners.Suite.runChild(Suite.java:27)
+at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:467)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)
+SEVERE: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.searchJumpSurvivesHostReplacementAfterRequestWithoutPrematureProgressWrite: FAILED
+androidx.compose.ui.test.ComposeTimeoutException: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 40000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.waitFor(EpubReaderFlowTest.kt:488)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.searchJumpSurvivesHostReplacementAfterRequestWithoutPrematureProgressWrite(EpubReaderFlowTest.kt:153)
+
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 40000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.waitFor(EpubReaderFlowTest.kt:488)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.searchJumpSurvivesHostReplacementAfterRequestWithoutPrematureProgressWrite(EpubReaderFlowTest.kt:153)
+SEVERE: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.negativeTxtLetterSpacingOpensEpubWithoutRewritingStoredDefaults: FAILED
+androidx.compose.ui.test.ComposeTimeoutException: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 40000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.waitFor(EpubReaderFlowTest.kt:488)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.negativeTxtLetterSpacingOpensEpubWithoutRewritingStoredDefaults(EpubReaderFlowTest.kt:300)
+
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 40000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.waitFor(EpubReaderFlowTest.kt:488)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.negativeTxtLetterSpacingOpensEpubWithoutRewritingStoredDefaults(EpubReaderFlowTest.kt:300)
+SEVERE: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator: FAILED
+androidx.compose.ui.test.ComposeTimeoutException: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator(EpubReaderFlowTest.kt:75)
+
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator(EpubReaderFlowTest.kt:75)
+SEVERE: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages: FAILED
+java.lang.AssertionError: java.lang.AssertionError: Opening and changing layout must not create a reading record expected null, but was:<EpubLocator(contentRevision=epub:1b78171e032e3e8f0eaaee9ebb926c5da8de69e8cccfc0d97d41c2c5b5f9ecf9:policy:1, payload=EpubLocatorPayload(sdk=readium-kotlin, schemaVersion=1, locator={"href":"OPS/two.xhtml","type":"application/xhtml+xml","title":"둘째 장","locations":{"cssSelector":"h1","progression":0.0026409296072217423,"position":19,"totalProgression":0.5294117647058824},"text":{"highlight":"two"}}))>
+at org.junit.Assert.fail(Assert.java:89)
+at org.junit.Assert.failNotNull(Assert.java:756)
+at org.junit.Assert.assertNull(Assert.java:738)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages(EpubReaderFlowTest.kt:232)
+
+java.lang.AssertionError: Opening and changing layout must not create a reading record expected null, but was:<EpubLocator(contentRevision=epub:1b78171e032e3e8f0eaaee9ebb926c5da8de69e8cccfc0d97d41c2c5b5f9ecf9:policy:1, payload=EpubLocatorPayload(sdk=readium-kotlin, schemaVersion=1, locator={"href":"OPS/two.xhtml","type":"application/xhtml+xml","title":"둘째 장","locations":{"cssSelector":"h1","progression":0.0026409296072217423,"position":19,"totalProgression":0.5294117647058824},"text":{"highlight":"two"}}))>
+at org.junit.Assert.fail(Assert.java:89)
+at org.junit.Assert.failNotNull(Assert.java:756)
+at org.junit.Assert.assertNull(Assert.java:738)
+at org.bookreader.mobile.epub.EpubReaderFlowTest.centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages(EpubReaderFlowTest.kt:232)
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.systemDocumentsPickerSelectsTxtFromRealProvider: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.managedPromotionRefusesExistingTargetAndRenamesPrivateStaging: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.assetSegmentImportHonorsOffsetAndDeclaredLength: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.ownUidProviderIsRejectedBeforeAnyQuery: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.unknownSizeSourceEnforcesActualStreamingByteLimit: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.stalledProviderCopyCancelsAndRemovesPrivateStaging: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.manualEncodingUsesStagingAfterSourceGrantIsRevoked: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.externalViewReceivesTemporaryGrantAndOpensActualReader: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.emptyTxtReportsNoContentWithoutCreatingReadingProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.ReaderGestureSurfaceTest.repeatedSideAndCenterTapsUseCurrentCallbacksIncludingOuterEdge: PASSED
+INFO: Execute org.bookreader.mobile.reader.ReaderGestureSurfaceTest.longPressSelectionCancelledTouchesAndSystemEdgeSwipesNeverTurnPages: PASSED
+INFO: Execute org.bookreader.mobile.reader.ReaderMenuDialogTest.realMaterialSliderCancelThenAccessibilityCommitsExactlyOnce: PASSED
+INFO: Execute org.bookreader.mobile.reader.ReaderPageTransitionTest.bothDirectionsAndDisabledEffectKeepEveryFrameCovered: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtPageEngineTest.actualMeasurementCoversLongParagraphsBlankLinesAndEmojiWithoutDrift: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderBoundaryTest.eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors: PASSED
+SEVERE: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor: FAILED
+androidx.compose.ui.test.ComposeTimeoutException: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.reader.TxtReaderFlowTest.customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor(TxtReaderFlowTest.kt:111)
+
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.reader.TxtReaderFlowTest.customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor(TxtReaderFlowTest.kt:111)
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.alternatingBooksWaitForPendingNativeWritesAndKeepBackwardProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.missingManagedCopyShowsRetryAndPreservesCommittedProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.menuSeekCancellationGesturesAndWindowExitPreserveCanonicalProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.deletingDuringRealDecodeCancelsPartialIndexAndQueuedReopen: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.actualRotationAndStopPreservePendingAnchorWithoutAnotherActivation: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.repeatedCloseDuringRestorationCancelsBeforeSameBookCanActivate: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.invalidManualEncodingKeepsOriginalBookProgressAndManagedBytes: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.nativeProgressQueryFailureShowsRetryWithoutChangingRecords: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.malformedLocatorShowsRetryWithoutReplacingStoredRecord: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.sliderSeeksRestoreUncomposedDistantScrollFragmentsInBothDirections: PASSED
+INFO: Execute org.bookreader.mobile.ui.AndroidThemeStoreTest.invalidStoredThemeReportsErrorAndPreservesOriginal: PASSED
+INFO: Execute org.bookreader.mobile.ui.AndroidThemeStoreTest.selectedThemePersistsAcrossStoreInstances: PASSED
+INFO: Execute org.bookreader.mobile.ui.BookReaderScreenTest.loadingEmptyAndErrorAreDistinctAndErrorHasRetry: PASSED
+INFO: Execute org.bookreader.mobile.ui.BookReaderScreenTest.threeTabsMetadataSearchAndThemeSelectionWork: PASSED
+SEVERE: Execute org.bookreader.mobile.ui.MainActivityLaunchTest.launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab: FAILED
+androidx.compose.ui.test.ComposeTimeoutException: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.ui.MainActivityLaunchTest.launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab(MainActivityLaunchTest.kt:20)
+
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+at org.bookreader.mobile.ui.MainActivityLaunchTest.launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab(MainActivityLaunchTest.kt:20)

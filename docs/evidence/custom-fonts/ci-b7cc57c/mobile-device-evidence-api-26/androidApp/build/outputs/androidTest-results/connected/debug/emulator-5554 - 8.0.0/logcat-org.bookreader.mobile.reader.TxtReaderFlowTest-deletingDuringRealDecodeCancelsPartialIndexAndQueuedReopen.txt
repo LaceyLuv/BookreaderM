@@ -1,0 +1,277 @@
+10-24 01:27:56.918  5409  5426 I TestRunner: started: deletingDuringRealDecodeCancelsPartialIndexAndQueuedReopen(org.bookreader.mobile.reader.TxtReaderFlowTest)
+10-24 01:27:56.925  5409  5426 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@698f78]
+10-24 01:27:56.925  2546  2891 I MicroRecognitionRunner: Stopping hotword detection.
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-24 01:27:56.926  2546  2759 W ErrorProcessor: 	... 9 more
+10-24 01:27:56.926  2546  2759 I AudioController: internalShutdown
+10-24 01:27:56.942  5409  5426 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-24 01:27:56.945  2546  2546 I MicroDetector: Keeping mic open: false
+10-24 01:27:56.945  2546  6351 I DeviceStateChecker: DeviceStateChecker cancelled
+10-24 01:27:56.945  2546  2546 I MicroDetectionWorker: #onError(false)
+10-24 01:27:56.979  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: PRE_ON_CREATE
+10-24 01:27:56.979  5409  5409 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-24 01:27:56.987  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: CREATED
+10-24 01:27:56.987  5409  5409 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:56.988  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: STARTED
+10-24 01:27:56.988  5409  5409 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:56.989  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:27:56.991  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: RESUMED
+10-24 01:27:56.991  5409  5409 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:56.994  2546  2561 I zygote  : Background concurrent copying GC freed 6352(531KB) AllocSpace objects, 1(68KB) LOS objects, 50% free, 5MB/10MB, paused 29.823ms total 150.473ms
+10-24 01:27:57.038  2546  2801 D EGL_emulation: eglMakeCurrent: 0xdca7fb20: ver 3 0 (tinfo 0xdc87cb40)
+10-24 01:27:57.048  6397  6463 D EGL_emulation: eglMakeCurrent: 0x7c85ad93d180: ver 3 0 (tinfo 0x7c85ad8ce380)
+10-24 01:27:57.055  1847  2162 D EGL_emulation: eglMakeCurrent: 0x7c85ad83f4e0: ver 3 0 (tinfo 0x7c85ad888160)
+10-24 01:27:57.075  2546  6277 E ContentStoreEUAS: Failed to commit the deferred actions
+10-24 01:27:57.084  1813  6577 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.115  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:27:57.126  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-24 01:27:57.132  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:27:57.155  5409  5442 D EGL_emulation: eglMakeCurrent: 0x7c85b75a84a0: ver 3 0 (tinfo 0x7c859e0d0320)
+10-24 01:27:57.187  1694  1717 I ActivityManager: Displayed org.bookreader.mobile/.MainActivity: +225ms
+10-24 01:27:57.197  1813  1813 I GeofencerStateMachine: removeGeofences: removeRequest=RemoveGeofencingRequest[REMOVE_BY_PENDING_INTENT pendingIntent=PendingIntent[creatorPackage=com.google.android.gms], packageName=com.google.android.gms]
+10-24 01:27:57.198  1813  1813 I GeofencerStateMachine: removeGeofences: removeRequest=RemoveGeofencingRequest[REMOVE_BY_PENDING_INTENT pendingIntent=PendingIntent[creatorPackage=com.google.android.gms], packageName=com.google.android.gms]
+10-24 01:27:57.221  1847  2162 D EGL_emulation: eglMakeCurrent: 0x7c85ad83f4e0: ver 3 0 (tinfo 0x7c85ad888160)
+10-24 01:27:57.234  6397  6463 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+10-24 01:27:57.241  1847  2162 D EGL_emulation: eglMakeCurrent: 0x7c85ad83f4e0: ver 3 0 (tinfo 0x7c85ad888160)
+10-24 01:27:57.253  1813  6626 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 0 [CONTEXT service_id=253 ]
+10-24 01:27:57.253  1813  6603 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.254  1813  6608 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.283  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: PAUSED
+10-24 01:27:57.283  5409  5409 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:57.324  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:27:57.327  1694  1717 E ViewRootImpl[test]: Attempting to destroy the window while drawing!
+10-24 01:27:57.327  1694  1717 E ViewRootImpl[test]:   window=android.view.ViewRootImpl@2d07b1c, title=Splash Screen org.bookreader.mobile.test
+10-24 01:27:57.333  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: RESUMED
+10-24 01:27:57.333  5409  5409 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:57.334  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: PAUSED
+10-24 01:27:57.334  5409  5409 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:57.388  1813  6608 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.396  1813  6603 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.397  2546  2758 E PlaceStateUpdater: Received no places
+10-24 01:27:57.405  2546  2546 W SearchService: Abort, client detached.
+10-24 01:27:57.432  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: RESUMED
+10-24 01:27:57.432  5409  5409 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:57.453  1813  6603 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.468  1813  6602 E cklt    : *~*~*~ Channel {0} was not shutdown properly!!! ~*~*~*
+10-24 01:27:57.468  1813  6602 E cklt    :     Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
+10-24 01:27:57.468  1813  6602 E cklt    : java.lang.RuntimeException: ManagedChannel allocation site
+10-24 01:27:57.468  1813  6602 E cklt    : 	at ckls.<init>(:com.google.android.gms@202414023@20.24.14 (040800-319035315):3)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at cklt.<init>(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at ckfk.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):21)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):29)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):52)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at bjxj.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at bjvu.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):1)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.468  1813  6602 E cklt    : 	at java.lang.Thread.run(Thread.java:764)
+10-24 01:27:57.511  1813  6513 I ctxmgr  : [ProducerStatusImpl] updateStateForNewContextData: inactive, contextName=7 [CONTEXT service_id=47 ]
+10-24 01:27:57.515  2546  6351 E PlaceStateUpdater: Received no places
+10-24 01:27:57.519  1813  6608 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+10-24 01:27:57.519  1813  6608 W Conscrypt: 	at com.google.android.gms.org.conscrypt.Platform.setSocketWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-24 01:27:57.519  1813  6608 W Conscrypt: 	at com.google.android.gms.org.conscrypt.ConscryptFileDescriptorSocket.setSoWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.522  1813  6603 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.540  1813  6608 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+10-24 01:27:57.540  1813  6608 W Conscrypt: 	at com.google.android.gms.org.conscrypt.Platform.setSocketWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-24 01:27:57.540  1813  6608 W Conscrypt: 	at com.google.android.gms.org.conscrypt.ConscryptFileDescriptorSocket.setSoWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.573  1813  6626 I LogUtils: [Places]: ?: PlacesBleScanner start() with priority 2 [CONTEXT service_id=253 ]
+10-24 01:27:57.574  1813  6626 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 1 [CONTEXT service_id=253 ]
+10-24 01:27:57.602  1813  1813 E BeaconBle: Missing BluetoothAdapter [CONTEXT service_id=111 ]
+10-24 01:27:57.603  1813  1813 I BeaconBle: BLE 'KK+' software access layer enabled [CONTEXT service_id=111 ]
+10-24 01:27:57.623  1813  6626 W LogUtils: [Places]: ?: Failed to download inference model weights SLS
+10-24 01:27:57.623  1813  6626 W LogUtils: ckdr: NOT_FOUND: Requested entity was not found.
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at ckdq.c(:com.google.android.gms@202414023@20.24.14 (040800-319035315):3)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):57)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at bjxj.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at bjvu.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):1)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.623  1813  6626 W LogUtils: 	at java.lang.Thread.run(Thread.java:764)
+10-24 01:27:57.623  1813  6626 W LogUtils:
+10-24 01:27:57.623  1813  6626 W LogUtils: [CONTEXT service_id=253 ]
+10-24 01:27:57.623  1813  6626 W PlacesLogger: [PlaceInferenceEngine]: Failed to download model weights. Status code: 7 [CONTEXT service_id=253 ]
+10-24 01:27:57.624  1813  6602 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.650  1813  6608 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.663  1813  6626 I Places  : Converted 0 out of 1 WiFi scans
+10-24 01:27:57.665  1813  1813 I BeaconBle: Client requested scan, settings=BleSettings [scanMode=ZERO_POWER, callbackType=ALL_MATCHES, reportDelayMillis=0, 1 filters, 0 clients, callingClientName=Places] [CONTEXT service_id=111 ]
+10-24 01:27:57.665  1813  1813 I BeaconBle: Scan : No clients left, canceling alarm. [CONTEXT service_id=111 ]
+10-24 01:27:57.665  1813  1813 E BeaconBle: Scan couldn't start for Places [CONTEXT service_id=111 ]
+10-24 01:27:57.666  1813  1813 W Places  : BLE failure while scanning - code 5
+10-24 01:27:57.678  1813  6626 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 1 [CONTEXT service_id=253 ]
+10-24 01:27:57.679  1813  6603 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.681  1813  6608 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.683  1813  6626 I PlacesLogger: [PlaceInferenceEngine]: Too few candidate results: percentageOfMissingArea 100 [CONTEXT service_id=253 ]
+10-24 01:27:57.688  1813  6603 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.701  1813  6577 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.707  1813  6631 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.755  2546  2759 E PlaceStateUpdater: Received no places
+10-24 01:27:57.765  1813  6626 W LogUtils: [Places]: ?: getPlaceInfos (SLS) failure
+10-24 01:27:57.765  1813  6626 W LogUtils: ckdr: NOT_FOUND: Requested entity was not found.
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at ckdq.c(:com.google.android.gms@202414023@20.24.14 (040800-319035315):3)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):57)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at bjxl.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at bjvu.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):1)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.765  1813  6626 W LogUtils: 	at java.lang.Thread.run(Thread.java:764)
+10-24 01:27:57.765  1813  6626 W LogUtils:
+10-24 01:27:57.765  1813  6626 W LogUtils: [CONTEXT service_id=253 ]
+10-24 01:27:57.767  1813  6608 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.769  1813  6626 W LogUtils: [Places]: ?: Failed to download inference model weights SLS
+10-24 01:27:57.769  1813  6626 W LogUtils: ckdr: NOT_FOUND: Requested entity was not found.
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at ckdq.c(:com.google.android.gms@202414023@20.24.14 (040800-319035315):3)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):57)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at bjxj.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at bjvu.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):1)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-24 01:27:57.769  1813  6626 W LogUtils: 	at java.lang.Thread.run(Thread.java:764)
+10-24 01:27:57.769  1813  6626 W LogUtils:
+10-24 01:27:57.769  1813  6626 W LogUtils: [CONTEXT service_id=253 ]
+10-24 01:27:57.769  1813  6626 W PlacesLogger: [PlaceInferenceEngine]: Failed to download model weights. Status code: 7 [CONTEXT service_id=253 ]
+10-24 01:27:57.770  1813  6629 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.770  1813  6629 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-24 01:27:57.869  1847  2162 D EGL_emulation: eglMakeCurrent: 0x7c85ad83f4e0: ver 3 0 (tinfo 0x7c85ad888160)
+10-24 01:27:57.932  5409  5420 I zygote64: Background concurrent copying GC freed 110029(3MB) AllocSpace objects, 62(2MB) LOS objects, 28% free, 14MB/20MB, paused 1.552ms total 132.749ms
+10-24 01:27:58.753  1847  2162 D EGL_emulation: eglMakeCurrent: 0x7c85ad83f4e0: ver 3 0 (tinfo 0x7c85ad888160)
+10-24 01:27:58.761  1847  2162 D EGL_emulation: eglMakeCurrent: 0x7c85ad83f4e0: ver 3 0 (tinfo 0x7c85ad888160)
+10-24 01:27:58.860  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: PAUSED
+10-24 01:27:58.860  5409  5409 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:58.873  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:27:58.882  1694  1717 E ViewRootImpl[test]: Attempting to destroy the window while drawing!
+10-24 01:27:58.882  1694  1717 E ViewRootImpl[test]:   window=android.view.ViewRootImpl@724db9, title=Splash Screen org.bookreader.mobile.test
+10-24 01:27:58.892  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: RESUMED
+10-24 01:27:58.893  5409  5409 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:58.893  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: PAUSED
+10-24 01:27:58.893  5409  5409 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:27:58.936  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: RESUMED
+10-24 01:27:58.936  5409  5409 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:28:00.015  1847  2162 D EGL_emulation: eglMakeCurrent: 0x7c85ad83f4e0: ver 3 0 (tinfo 0x7c85ad888160)
+10-24 01:28:00.932  5409  5420 I zygote64: Background concurrent copying GC freed 5819(292KB) AllocSpace objects, 321(6MB) LOS objects, 37% free, 10MB/16MB, paused 1.473ms total 103.447ms
+10-24 01:28:02.205  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: PAUSED
+10-24 01:28:02.205  5409  5409 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:28:02.235  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.239  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+10-24 01:28:02.253  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.255  5943  5959 D EGL_emulation: eglMakeCurrent: 0x7c85ad83aaa0: ver 3 0 (tinfo 0x7c85ad80d4c0)
+10-24 01:28:02.281  1694  1717 E ViewRootImpl[test]: Attempting to destroy the window while drawing!
+10-24 01:28:02.281  1694  1717 E ViewRootImpl[test]:   window=android.view.ViewRootImpl@4098cf8, title=Splash Screen org.bookreader.mobile.test
+10-24 01:28:02.305  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.322  1399  1765 E SurfaceFlinger: Failed to find layer (Splash Screen org.bookreader.mobile.test#0) in layer parent (no-parent).
+10-24 01:28:02.322  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.325  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.331  2546  2801 D EGL_emulation: eglMakeCurrent: 0xdca7fb20: ver 3 0 (tinfo 0xdc87cb40)
+10-24 01:28:02.362  1399  1399 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-24 01:28:02.365  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.370  2546  2546 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-24 01:28:02.378  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.393  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.416  2546  2546 I MicroDetectionWorker: #updateMicroDetector [detectionMode: [mDetectionMode: [1]]]
+10-24 01:28:02.416  2546  2546 I MicroDetectionWorker: #startMicroDetector [speakerMode: 0]
+10-24 01:28:02.418  2546  2546 I AudioController: Using mInputStreamFactoryBuilder
+10-24 01:28:02.419  6397  6463 D EGL_emulation: eglMakeCurrent: 0x7c85ad93d180: ver 3 0 (tinfo 0x7c85ad8ce380)
+10-24 01:28:02.419  2546  6351 I MicroRecognitionRunner: Starting detection.
+10-24 01:28:02.420  2546  5970 I MicrophoneInputStream: mic_starting com.google.android.apps.gsa.staticplugins.aa.c@394128b
+10-24 01:28:02.420  2546  2546 I MicroDetectionWorker: onReady
+10-24 01:28:02.421  1542  1542 E AudioFlinger: not enough memory for AudioTrack size=131296
+10-24 01:28:02.421  1542  1542 D MemoryDealer:   AudioTrack (0xf027d020, size=4194304)
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     0: 0xf027d230 | 0x00000000 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     1: 0xf027d2c0 | 0x000200E0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     2: 0xf027d400 | 0x000401C0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     3: 0xf027d5f0 | 0x000602A0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     4: 0xf027d780 | 0x00080380 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     5: 0xf027d960 | 0x000A0460 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     6: 0xf027db00 | 0x000C0540 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     7: 0xf027dcd0 | 0x000E0620 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     8: 0xf027de50 | 0x00100700 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:     9: 0xef27f050 | 0x001207E0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    10: 0xf038b310 | 0x001408C0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    11: 0xf038b490 | 0x001609A0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    12: 0xf038b650 | 0x00180A80 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    13: 0xf038b7d0 | 0x001A0B60 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    14: 0xf038b9a0 | 0x001C0C40 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    15: 0xf038bb20 | 0x001E0D20 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    16: 0xf038bcd0 | 0x00200E00 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    17: 0xf027dcc0 | 0x00220EE0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    18: 0xf038be50 | 0x00240FC0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:    19: 0xef27f300 | 0x002610A0 | 0x000200E0 | A
+10-24 01:28:02.421  1542  1542 D MemoryDealer:
+10-24 01:28:02.421  1542  1542 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+10-24 01:28:02.421  2546  5970 E AudioRecord: AudioFlinger could not create record track, status: -12
+10-24 01:28:02.421  1542  6638 I AudioFlinger: AudioFlinger's thread 0xec983a40 tid=6638 ready to run
+10-24 01:28:02.423  2546  5970 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+10-24 01:28:02.423  2546  5970 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+10-24 01:28:02.423  2546  5970 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@394128b
+10-24 01:28:02.429  2546  2546 I MicroDetectionWorker: onReady
+10-24 01:28:02.434  2546  5970 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@394128b
+10-24 01:28:02.435  2546  6351 I MicroRecognitionRunner: Detection finished
+10-24 01:28:02.436  2546  6351 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-24 01:28:02.436  2546  2891 I MicroRecognitionRunner: Stopping hotword detection.
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-24 01:28:02.436  2546  6351 W ErrorProcessor: 	... 9 more
+10-24 01:28:02.436  2546  6351 I AudioController: internalShutdown
+10-24 01:28:02.448  2546  2546 I MicroDetector: Keeping mic open: false
+10-24 01:28:02.448  2546  2546 I MicroDetectionWorker: #onError(false)
+10-24 01:28:02.449  2546  2759 I DeviceStateChecker: DeviceStateChecker cancelled
+10-24 01:28:02.470  5943  5959 D EGL_emulation: eglMakeCurrent: 0x7c85ad83aaa0: ver 3 0 (tinfo 0x7c85ad80d4c0)
+10-24 01:28:02.481  5409  5442 D EGL_emulation: eglMakeCurrent: 0x7c85b75a84a0: ver 3 0 (tinfo 0x7c859e0d0320)
+10-24 01:28:02.483  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-24 01:28:02.512  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: STOPPED
+10-24 01:28:02.513  5409  5409 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@81ffa45
+10-24 01:28:02.515  5409  5409 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@81ffa45 in: DESTROYED
+10-24 01:28:02.515  5409  5409 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-24 01:28:02.550  1847  2162 D EGL_emulation: eglMakeCurrent: 0x7c85ad83f4e0: ver 3 0 (tinfo 0x7c85ad888160)
+10-24 01:28:02.551  1694  5469 I OpenGLRenderer: Initialized EGL, version 1.4
+10-24 01:28:02.551  1694  5469 D OpenGLRenderer: Swap behavior 1
+10-24 01:28:02.553  1694  5469 D EGL_emulation: eglCreateContext: 0x7c859da61c80: maj 3 min 0 rcv 3
+10-24 01:28:02.558  1694  5469 D EGL_emulation: eglMakeCurrent: 0x7c859da61c80: ver 3 0 (tinfo 0x7c85ad9501e0)
+10-24 01:28:02.565  5409  5426 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@698f78]
+10-24 01:28:02.567  5409  5426 I TestRunner: finished: deletingDuringRealDecodeCancelsPartialIndexAndQueuedReopen(org.bookreader.mobile.reader.TxtReaderFlowTest)

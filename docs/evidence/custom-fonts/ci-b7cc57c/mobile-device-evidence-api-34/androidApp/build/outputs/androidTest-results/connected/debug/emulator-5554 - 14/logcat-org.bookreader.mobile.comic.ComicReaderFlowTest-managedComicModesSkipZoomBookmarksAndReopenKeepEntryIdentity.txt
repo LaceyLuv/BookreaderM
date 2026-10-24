@@ -1,0 +1,495 @@
+10-24 01:16:49.314  6013  6033 I TestRunner: started: managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity(org.bookreader.mobile.comic.ComicReaderFlowTest)
+10-24 01:16:49.348  6013  6033 W FileTestStorage: Output properties is not supported.
+10-24 01:16:49.349  6013  6033 I Tracing : Tracer added: class androidx.test.platform.tracing.AndroidXTracer
+10-24 01:16:49.353  6013  6013 D EventInjectionStrategy: Creating injection strategy with input manager.
+10-24 01:16:49.479  6013  6013 W okreader.mobile: Accessing hidden method Landroid/hardware/input/InputManager;->getInstance()Landroid/hardware/input/InputManager; (unsupported, reflection, allowed)
+10-24 01:16:49.480  6013  6013 W okreader.mobile: Accessing hidden method Landroid/hardware/input/InputManager;->injectInputEvent(Landroid/view/InputEvent;I)Z (unsupported, reflection, allowed)
+10-24 01:16:49.480  6013  6013 W okreader.mobile: Accessing hidden field Landroid/hardware/input/InputManager;->INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH:I (unsupported, reflection, allowed)
+10-24 01:16:49.484  6013  6013 W okreader.mobile: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (unsupported, reflection, allowed)
+10-24 01:16:49.484  6013  6013 W okreader.mobile: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (unsupported, reflection, allowed)
+10-24 01:16:49.484  6013  6013 W okreader.mobile: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (unsupported, reflection, allowed)
+10-24 01:16:49.485  6013  6033 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@f779b4d]
+10-24 01:16:49.492  6013  6033 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-24 01:16:49.625   518   541 W system_server: Long monitor contention with owner binder:518_B (1523) at int com.android.server.wm.ActivityStarter.execute()(ActivityStarter.java:786) waiters=1 in void com.android.server.wm.WindowAnimator.lambda$new$1(long) for 111ms
+10-24 01:16:49.633   830   872 D SplashScreenView: Build android.window.SplashScreenView{b0caf44 V.E...... ......ID 0,0-0,0}
+10-24 01:16:49.633   830   872 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-24 01:16:49.633   830   872 D SplashScreenView: Branding: view: android.view.View{465882d G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-24 01:16:49.652  6013  6058 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+10-24 01:16:49.653  6013  6058 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+10-24 01:16:49.655  6013  6058 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+10-24 01:16:49.665   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 01:16:49.804  1074  1753 D EGL_emulation: app_time_stats: avg=2796.27ms min=163.31ms max=5429.22ms count=2
+10-24 01:16:49.808  5104  5104 D BoundBrokerSvc: onBind: Intent { act=com.google.android.contextmanager.service.ContextManagerService.START pkg=com.google.android.gms }
+10-24 01:16:49.808  5104  5104 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.contextmanager.service.ContextManagerService.START pkg=com.google.android.gms }
+10-24 01:16:49.808  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: PRE_ON_CREATE
+10-24 01:16:49.809  6013  6013 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-24 01:16:50.005  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: CREATED
+10-24 01:16:50.005  6013  6013 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@2d8de80
+10-24 01:16:50.009  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: STARTED
+10-24 01:16:50.010  6013  6013 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@2d8de80
+10-24 01:16:50.015  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: RESUMED
+10-24 01:16:50.015  6013  6013 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@2d8de80
+10-24 01:16:50.022  6013  6013 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10192; state: DISABLED
+10-24 01:16:50.023  6013  6013 W OpenGLRenderer: Unknown dataspace 0
+10-24 01:16:50.029  4936  4936 W rules.WifiRx: FenceState currentState is not true
+10-24 01:16:50.087  4936  4936 W rules.WifiRx: FenceState currentState is not true
+10-24 01:16:50.110   830   879 D EGL_emulation: app_time_stats: avg=50064.66ms min=50064.66ms max=50064.66ms count=1
+10-24 01:16:50.112  6013  6051 W okreader.mobile: Verification of androidx.lifecycle.LiveData androidx.room.InvalidationLiveDataContainer.create(java.lang.String[], boolean, java.util.concurrent.Callable) took 113.951ms (254.50 bytecodes/s) (1928B approximate peak alloc)
+10-24 01:16:50.123   830   879 D EGL_emulation: app_time_stats: avg=259350.97ms min=259350.97ms max=259350.97ms count=1
+10-24 01:16:50.196  6013  6013 W okreader.mobile: Accessing hidden method Landroid/os/SystemProperties;->addChangeCallback(Ljava/lang/Runnable;)V (unsupported, reflection, allowed)
+10-24 01:16:50.443   399   618 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10192 pid=0
+10-24 01:16:50.443   399   618 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10192 => denied (125 us)
+10-24 01:16:50.443   399   618 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10192 pid=0
+10-24 01:16:50.443   399   618 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10192 => denied (139 us)
+10-24 01:16:50.444   399   617 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10192 pid=6013
+10-24 01:16:50.444   399   617 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10192 => denied (485 us)
+10-24 01:16:50.444   399   618 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10192 pid=0
+10-24 01:16:50.444   399   618 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10192 => denied (551 us)
+10-24 01:16:50.444   399   617 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10192 pid=6013
+10-24 01:16:50.444   399   617 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10192 => denied (442 us)
+10-24 01:16:50.456  6013  6057 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-24 01:16:50.484   135   135 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+10-24 01:16:50.485  6013  6057 I Gralloc4: mapper 4.x is not supported
+10-24 01:16:50.535  5104  5994 W ctxmgr  : [NetworkStateProducer] No state change for network connection context [CONTEXT service_id=47 ]
+10-24 01:16:50.851   518   893 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10192 pid=0
+10-24 01:16:50.851   518   893 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10192 => denied (109 us)
+10-24 01:16:50.851   518   893 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10192 pid=0
+10-24 01:16:50.851   518   893 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10192 => denied (14 us)
+10-24 01:16:50.851   518   893 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10192 pid=0
+10-24 01:16:50.851   518   893 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10192 => denied (17 us)
+10-24 01:16:50.856   518   537 W ziparchive: Unable to open '/data/app/~~sYx-hXkkOKxE1q5QzNknJw==/org.bookreader.mobile-YSdLh3TMymnRAoPTJRECjw==/base.dm': No such file or directory
+10-24 01:16:50.856  6013  6013 I Choreographer: Skipped 47 frames!  The application may be doing too much work on its main thread.
+10-24 01:16:50.857   518   537 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +1s355ms
+10-24 01:16:50.862  1074  1074 I ActivityThread: Schedule relaunch activity: com.google.android.apps.nexuslauncher.NexusLauncherActivity
+10-24 01:16:50.864  1074  1128 I ImeTracker: com.google.android.apps.nexuslauncher:b020f8cc: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-24 01:16:50.867  1074  2110 D OneSearchSuggestProvider: Shut down the binder channel
+10-24 01:16:50.869  1074  1098 I IPCThreadState: oneway function results for code 2 on binder at 0x73933b603df0 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-24 01:16:50.870   518  2248 I ImeTracker: com.google.android.apps.nexuslauncher:b020f8cc: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:16:50.896  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:16:50.896  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:16:50.905  5104  5268 I FontLog : Received query Noto Color Emoji Compat, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+10-24 01:16:50.906  5104  5268 I FontLog : Query [emojicompat-emoji-font] resolved to {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+10-24 01:16:50.907  6013  6027 I OpenGLRenderer: Davey! duration=833ms; Flags=1, FrameTimelineVsyncId=5091, IntendedVsync=298018413129, Vsync=298035079795, InputEventId=0, HandleInputStart=298041537349, AnimationStart=298041541636, PerformTraversalsStart=298041543428, DrawStart=298624756261, FrameDeadline=298035079795, FrameInterval=298041505833, FrameStartTime=16666666, SyncQueued=298630619135, SyncStart=298630823282, IssueDrawCommandsStart=298631114204, SwapBuffers=298747672864, FrameCompleted=298851971708, DequeueBufferDuration=3685, QueueBufferDuration=370641, GpuCompleted=298851971708, SwapBuffersCompleted=298835891776, DisplayPresentTime=0, CommandSubmissionCompleted=298747672864,
+10-24 01:16:50.909  1752  2534 I A       : Using proto config with mendel
+10-24 01:16:50.909  1752  2534 I A       : Using proto config with mendel
+10-24 01:16:50.909  1752  2534 W SearchServiceCore: Abort, client detached.
+10-24 01:16:50.911  1752  2605 I PBSessionCacheImpl: Deleted sessionId[7707170291800406] from persistence.
+10-24 01:16:50.919  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:16:50.919  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:16:50.926  5104  5268 I FontLog : Fetch {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+10-24 01:16:50.929   830   870 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@c77bb0
+10-24 01:16:50.931   518  2509 I ImeTracker: org.bookreader.mobile:ef6c13e3: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:16:50.931   518  2509 I ImeTracker: org.bookreader.mobile:ef6c13e3: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:16:50.933  5104  5117 I FontLog : Pulling font file for id = 1, cache size = 1 [CONTEXT service_id=132 ]
+10-24 01:16:50.935  5104  5117 I FontLog : Pulling font file for id = 1, cache size = 1 [CONTEXT service_id=132 ]
+10-24 01:16:50.956   518  2228 W InputManager-JNI: Input channel object '57014de Splash Screen org.bookreader.mobile (client)' was disposed without first being removed with the input manager!
+10-24 01:16:50.959  1074  1074 D b/254119092: clearActivity
+10-24 01:16:50.959  1074  1074 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-24 01:16:50.973  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:16:50.987  1074  1074 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@14cd7ed
+10-24 01:16:50.989  1074  1074 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:16:50.989  1074  1074 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:16:50.991  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:16:50.992  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:16:50.994  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:16:50.996  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:16:51.000  1530  1530 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-24 01:16:51.003  1530  1530 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=true
+10-24 01:16:51.004  1530  1530 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-24 01:16:51.004  1530  1530 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=portrait_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-24 01:16:51.007  1530  1530 I StyledKeyboardTheme: StyledKeyboardTheme.<init>():87 Pref: [], themeName: [silk:], darkMode: [false], cacheKey: [overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0]
+10-24 01:16:51.008  1530  1530 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-24 01:16:51.009  1530  1530 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-24 01:16:51.010  1530  1530 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-24 01:16:51.011  1752  1806 W earchbox:search: Cleared Reference was only reachable from finalizer (only reported once)
+10-24 01:16:51.014  1530  1530 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-24 01:16:51.015  1530  1530 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-24 01:16:51.016  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.initializeKeyboardTheme():1343 Apply keyboard theme: theme_border_stylesheet_noshadow_gsans_pillkey_silkpopup_refinedkp_materiallight_phone_400_overlay_builtin_dynamic_color_light_base.binarypb:dynamic-light-fff1f0f7-ffb2c5ff-734dbefe1e6f4840c010420f35e14fb0_port
+10-24 01:16:51.017  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onCreateInputView():1768 onCreateInputView()
+10-24 01:16:51.031  1530  1530 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-24 01:16:51.036  1530  1530 I KeyboardViewUtil: KeyboardViewUtil.getKeyboardHeightRatio():189 systemKeyboardHeightRatio:1.000000; userKeyboardHeightRatio:1.000000.
+10-24 01:16:51.040   830   872 D SplashScreenView: Build android.window.SplashScreenView{10ea10d V.E...... ......ID 0,0-0,0}
+10-24 01:16:51.040   830   872 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-24 01:16:51.040   830   872 D SplashScreenView: Branding: view: android.view.View{55ab8c2 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-24 01:16:51.055  1530  1530 I DeviceModeUtil: DeviceModeUtil.getDeviceMode():122 Get device mode phone by ui mode:1 and smallestScreenWidthDp:411
+10-24 01:16:51.055  1530  1530 I KeyboardModeManager: KeyboardModeManager.setInputView():364 setInputView() : supportsOneHandedMode=true
+10-24 01:16:51.058  1530  1530 I AndroidIME: KeyboardViewManager.updateKeyboardBackgroundFrameVisibility():357 Set background frame visibility. old:8, new:8
+10-24 01:16:51.058  1530  1530 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-24 01:16:51.059  1530  1530 I NormalModeController: NormalModeController.getKeyboardBodyViewHolderPaddingBottom():116 currentPrimeKeyboardType:SOFT systemPaddingBottom:-1
+10-24 01:16:51.059  1530  1530 I KeyboardModeManager: KeyboardModeManager.setInputView():356 setInputView() : entry=hwn{languageTag=en-US, variant=qwerty, hasLocalizedResources=true, conditionCacheKey=_device=phone_device_size=default_enable_adaptive_text_editing=true_enable_inline_suggestions_on_client_side=false_enable_large_tablet_batch_1=false_enable_large_tablet_batch_2=false_enable_more_candidates_view_for_multilingual=false_enable_nav_redesign=false_enable_number_row=false_enable_preemptive_decode=true_enable_secondary_symbols=false_expressions=normal_four_or_more_letter_rows=false_keyboard_mode=normal_language=en-US_orientation=portrait_physical_keyboard=qwerty_show_secondary_digits=true_show_suggestions=true_split_with_duplicate_keys=true_variant=qwerty, imeDef.stringId=ime_english_united_states, imeDef.className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, imeDef.languageTag=en-US}
+10-24 01:16:51.065   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 01:16:51.067  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: PAUSED
+10-24 01:16:51.074  6013  6013 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@2d8de80
+10-24 01:16:51.111  1074  1128 I AiAiSuggestUi: Connecting to system intelligence module.
+10-24 01:16:51.120  1609  1609 I AiAiOverview: Created AiAiContentSuggestionsService.
+10-24 01:16:51.124   336   336 D Zygote  : Forked child process 6090
+10-24 01:16:51.130  1074  1110 I AiAiSuggestUi: Successfully connected to system intelligence:
+10-24 01:16:51.234  6090  6090 I der.mobile.test: Late-enabling -Xcheck:jni
+10-24 01:16:51.250  6090  6090 I der.mobile.test: Using CollectorTypeCC GC.
+10-24 01:16:51.256  6090  6090 W der.mobile.test: Unexpected CPU variant for x86: x86_64.
+10-24 01:16:51.256  6090  6090 W der.mobile.test: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+10-24 01:16:51.263  1074  1074 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-24 01:16:51.274  1074  1074 D DeviceSearchAlg: search timeout = %d200
+10-24 01:16:51.279  1074  1074 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-24 01:16:51.279  1074  1074 W BcSmartspaceView: Current card is not present in the Adapter; cannot log.
+10-24 01:16:51.293   409   428 I adbd    : jdwp connection from 6090
+10-24 01:16:51.312  1074  1074 I OverviewComponentObserver: updateOverviewTargets: mIsHomeDisabled=false, isDefaultHomeNull=false, mIsDefaultHome=true
+10-24 01:16:51.314  6090  6090 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10193; state: ENABLED
+10-24 01:16:51.314  6090  6090 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10193; state: ENABLED
+10-24 01:16:51.324  6090  6090 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-24 01:16:51.326  6090  6090 D nativeloader: Configuring clns-6 for other apk /system/framework/android.test.mock.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~lA9qq6zupbM-rmeTZT3rtQ==/org.bookreader.mobile.test-yeGgynz0WTVhulmVp8IqSw==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/org.bookreader.mobile.test
+10-24 01:16:51.327  6090  6090 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-24 01:16:51.329  6090  6090 D nativeloader: Configuring clns-7 for other apk /system/framework/android.test.runner.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~lA9qq6zupbM-rmeTZT3rtQ==/org.bookreader.mobile.test-yeGgynz0WTVhulmVp8IqSw==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/org.bookreader.mobile.test
+10-24 01:16:51.331  6090  6090 W ziparchive: Unable to open '/data/app/~~lA9qq6zupbM-rmeTZT3rtQ==/org.bookreader.mobile.test-yeGgynz0WTVhulmVp8IqSw==/base.dm': No such file or directory
+10-24 01:16:51.331  6090  6090 W ziparchive: Unable to open '/data/app/~~lA9qq6zupbM-rmeTZT3rtQ==/org.bookreader.mobile.test-yeGgynz0WTVhulmVp8IqSw==/base.dm': No such file or directory
+10-24 01:16:51.362  6090  6090 D nativeloader: Configuring clns-8 for other apk /data/app/~~lA9qq6zupbM-rmeTZT3rtQ==/org.bookreader.mobile.test-yeGgynz0WTVhulmVp8IqSw==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~lA9qq6zupbM-rmeTZT3rtQ==/org.bookreader.mobile.test-yeGgynz0WTVhulmVp8IqSw==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/org.bookreader.mobile.test
+10-24 01:16:51.369  6090  6090 V GraphicsEnvironment: Currently set values for:
+10-24 01:16:51.369  6090  6090 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+10-24 01:16:51.369  6090  6090 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+10-24 01:16:51.369  6090  6090 V GraphicsEnvironment: ANGLE GameManagerService for org.bookreader.mobile.test: false
+10-24 01:16:51.370  6090  6090 V GraphicsEnvironment: org.bookreader.mobile.test is not listed in per-application setting
+10-24 01:16:51.370  6090  6090 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-24 01:16:51.383  6090  6109 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+10-24 01:16:51.384  6090  6109 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+10-24 01:16:51.385  6090  6109 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+10-24 01:16:51.468   830   870 V SnapshotDrawerUtils: Drawing snapshot surface sizeMismatch=true
+10-24 01:16:51.481   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 01:16:51.490   518  6103 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-24 01:16:51.571  1530  1553 I putmethod.latin: Background young concurrent copying GC freed 175200(6104KB) AllocSpace objects, 10(520KB) LOS objects, 33% free, 11MB/17MB, paused 31us,21us total 166.371ms
+10-24 01:16:51.576  1609  1609 I AiAiEcho: SearchContextManagerImpl::setSearchContext resultTypes=[141151] extras=[Bundle[mParcelledData.dataSize=684]] sessionId=[com.google.android.apps.nexuslauncher:5e45bde7-8a8b-414d-9a53-ed9aaeec6eaf,0]
+10-24 01:16:51.577  1074  1128 D SearchTargetUtil:  query= size=1
+10-24 01:16:51.577  1074  1128 D SearchTargetUtil: layoutType=icon_row resultType=4096 packageName= extras=Bundle{icon_container_enabled=true,zero_state_all_apps_web_suggest_count=3,rank=1.0,key_ipc_start=299563,hide_subtitle=true,zero_state_qsb_web_suggest_count=10,}ParentID: null targetID: SESSION_INFO:0::zero_state_flags
+10-24 01:16:51.696  1074  1074 D AutofillManager: view is not autofillable - activity denied for autofill
+10-24 01:16:51.700  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: RESUMED
+10-24 01:16:51.704  6013  6013 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@2d8de80
+10-24 01:16:51.724  6013  6110 D ProfileInstaller: Installing profile for org.bookreader.mobile
+10-24 01:16:51.726  1074  1074 I ContentCaptureHelper: Setting logging level to DEBUG
+10-24 01:16:51.726  1074  1074 D ContentCaptureManager: setFlushViewTreeAppearingEventDisabled(): setting to false
+10-24 01:16:51.726  1074  1074 D ContentCaptureManager: updateWindowAttributes(): window flags=-2137980672
+10-24 01:16:51.735  1074  1074 D ContentCaptureManager: updateWindowAttributes(): window flags=-2137980672
+10-24 01:16:51.760  1074  1074 I Choreographer: Skipped 52 frames!  The application may be doing too much work on its main thread.
+10-24 01:16:51.771  1074  1128 I ImeTracker: com.google.android.apps.nexuslauncher:564d9c28: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-24 01:16:51.776  1074  1074 W BcSmartspaceCard: No title view to update
+10-24 01:16:51.776  1074  1074 I BcSmartspaceCard: setFormattedContentDescription: text=null, iconDescription=null, contentDescription=null
+10-24 01:16:51.784  1609  1960 I AiAiStatsd: Successfully logged feature usage for VISUAL_CORTEX.
+10-24 01:16:51.786   518  2093 I ImeTracker: com.google.android.apps.nexuslauncher:564d9c28: onCancelled at PHASE_SERVER_CLIENT_FOCUSED
+10-24 01:16:51.786  1074  1128 I ImeTracker: com.google.android.apps.nexuslauncher:8f8c3a82: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-24 01:16:51.787   518  1523 I ImeTracker: com.google.android.apps.nexuslauncher:8f8c3a82: onCancelled at PHASE_SERVER_CLIENT_FOCUSED
+10-24 01:16:51.807  1074  1074 D TISBindHelper: TIS service connected
+10-24 01:16:51.809  1074  1074 D b/254119092: Set mActivity=com.google.android.apps.nexuslauncher.NexusLauncherActivity@db4034b
+10-24 01:16:51.809  1074  1074 D b/254119092: mActivity and mContext agree taskbarIsPresent=false
+10-24 01:16:51.809  1074  1074 D MainContentCaptureSession: handleScheduleFlush(act:com.google.android.apps.nexuslauncher/.NexusLauncherActivity [state=1 (WAITING_FOR_SERVER), disabled=false], reason=FORCE_FLUSH): not a timeout reason because mDirectServiceInterface is not ready yet
+10-24 01:16:51.835  6013  6110 W okreader.mobile: Verification of java.io.InputStream androidx.profileinstaller.DeviceProfileWriter.openStreamFromAssets(android.content.res.AssetManager, java.lang.String) took 110.397ms (307.98 bytecodes/s) (2392B approximate peak alloc)
+10-24 01:16:51.843   518  1523 W InputManager-JNI: Input channel object 'cabef5a Splash Screen org.bookreader.mobile.test (client)' was disposed without first being removed with the input manager!
+10-24 01:16:51.897   830   870 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@8debf3c
+10-24 01:16:51.908  1530  1555 W SP      : File ref is being finalized but wasn't closed, file: main_en_us_2022101700_1[6]
+10-24 01:16:51.909  1530  1555 W SP      : File ref is being finalized but wasn't closed, file: main_en_840_2022102600_1[2]
+10-24 01:16:51.956  1074  1094 I s.nexuslauncher: Background concurrent copying GC freed 104925(4141KB) AllocSpace objects, 15(1052KB) LOS objects, 49% free, 6263KB/12MB, paused 29us,13us total 164.300ms
+10-24 01:16:51.978  1752  1752 I ImeTracker: com.google.android.googlequicksearchbox:search:b31b5920: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-24 01:16:51.978  1752  1752 I ImeTracker: com.google.android.googlequicksearchbox:search:b31b5920: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-24 01:16:51.997  1752  1752 W PhoneWindow: Previously focused view reported id 2131435089 during save, but can't be found during restore.
+10-24 01:16:51.998  1752  1752 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e5d735e
+10-24 01:16:52.001   518  2248 W InputManager-JNI: Input channel object '2bbea16 com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity (client)' was disposed without first being removed with the input manager!
+10-24 01:16:52.023  1752  1752 I ImeTracker: com.google.android.googlequicksearchbox:search:7d98a547: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-24 01:16:52.023  1752  1752 I ImeTracker: com.google.android.googlequicksearchbox:search:7d98a547: onFailed at PHASE_CLIENT_VIEW_SERVED
+10-24 01:16:52.056  1752  1752 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@bba5943
+10-24 01:16:52.057   518  2248 W InputManager-JNI: Input channel object '318ffe9 com.google.android.googlequicksearchbox/android.app.ContextImpl (client)' was disposed without first being removed with the input manager!
+10-24 01:16:52.096   518   893 I ImeTracker: org.bookreader.mobile:d0ecc627: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR
+10-24 01:16:52.096   518   893 I ImeTracker: org.bookreader.mobile:d0ecc627: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:16:52.098  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:16:52.100  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:16:52.100  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:16:52.100  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:16:52.100  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:16:52.352  6013  6013 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:16:52.352  6013  6013 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:16:52.447   830   879 D EGL_emulation: app_time_stats: avg=1168.38ms min=24.85ms max=2311.90ms count=2
+10-24 01:16:52.587   830   879 D EGL_emulation: app_time_stats: avg=2463.71ms min=2463.71ms max=2463.71ms count=1
+10-24 01:16:52.815  6013  6033 I UiAutomation: Initialized for user 0 on display 0
+10-24 01:16:52.821  1609  1626 I AiAiEcho: Settings changed for uri: content://settings/secure/accessibility_enabled
+10-24 01:16:52.821  1609  1846 I AiAiEcho: Predicting[0]:
+10-24 01:16:52.821  1609  1846 I AiAiEcho: EchoTargets:
+10-24 01:16:52.821  1609  1846 I AiAiEcho: Filtered by AiAi flag check:
+10-24 01:16:52.822  1609  1846 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-24 01:16:52.822  1609  1846 I AiAiEcho: Predicting[0]:
+10-24 01:16:52.822  1609  1846 I AiAiEcho: EchoTargets:
+10-24 01:16:52.822  1609  1846 I AiAiEcho: Filtered by AiAi flag check:
+10-24 01:16:52.822  1609  1846 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-24 01:16:52.822  1609  1846 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+10-24 01:16:52.825  1752  2335 I A       : NGA disabled since it's running Panthera and at least one a11y feature is on.
+10-24 01:16:52.825  1752  2335 I A       : Nga state changed to NgaStateDetails{state=DISABLED, isSpecialExperience=false}
+10-24 01:16:52.826  1634  4606 I A       : APA or Classic session decision: SessionDecision(sessionVariance=CLASSIC, platformVariance=CLASSIC, justification=CURRENT_PLATFORM_VARIANCE).
+10-24 01:16:52.826  1634  4606 I A       : [Memory] eligibility: StashEligibility{4}
+10-24 01:16:52.828  1634  2164 I A       : Unsubscribed to apa or classic variant change.
+10-24 01:16:52.830  1609  1846 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-24 01:16:52.834  6013  6119 V UiAutomation: Init UiAutomation@ba775ec[id=1, displayId=0, flags=0]
+10-24 01:16:52.839   830   830 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-24 01:16:52.863  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=300820, downTime=300820, deviceId=-1, source=0x1002, displayId=0, eventId=-790433028 }
+10-24 01:16:52.924  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=300910, downTime=300820, deviceId=-1, source=0x1002, displayId=0, eventId=-195682604 }
+10-24 01:16:53.458  6013  6013 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:16:53.458  6013  6013 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:16:53.460  6013  6057 D EGL_emulation: app_time_stats: avg=208.28ms min=12.95ms max=702.05ms count=8
+10-24 01:16:53.657   518  2093 I ImeTracker: org.bookreader.mobile:1b1dc4d: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:16:53.657   518  2093 I ImeTracker: org.bookreader.mobile:1b1dc4d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:16:53.661  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:16:53.662  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:16:53.662  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:16:53.663  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:16:53.663  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:16:53.997  6013  6013 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@f031894
+10-24 01:16:54.016   518  2093 W InputManager-JNI: Input channel object '843dcda org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-24 01:16:54.076   518  2093 I ImeTracker: org.bookreader.mobile:7c2be9e1: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:16:54.076   518  2093 I ImeTracker: org.bookreader.mobile:7c2be9e1: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:16:54.087  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:16:54.088  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:16:54.088  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:16:54.088  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:16:54.088  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:16:54.711   135   135 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+10-24 01:16:54.711  5992  6011 I Gralloc4: mapper 4.x is not supported
+10-24 01:16:54.751  5992  6123 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+10-24 01:16:54.752  5992  6123 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+10-24 01:16:54.753  5992  6123 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+10-24 01:16:54.768  5992  6123 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-24 01:16:54.849  1628  2712 W MediaProvider: isAppCloneUserPair for user 0: false
+10-24 01:16:54.850  1628  2712 W MediaProvider: isAppCloneUserPair for user 0: false
+10-24 01:16:54.850  1628  2712 W MediaProvider: isAppCloneUserPair for user 0: false
+10-24 01:16:54.874  5104  5994 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.ipa.base.IpaGcmTaskService started execution. cause:9 exec_start_elapsed_seconds: 302 [CONTEXT service_id=218 ]
+10-24 01:16:54.879  5104  5993 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.ipa.base.IpaGcmTaskService finished executing. cause:9 result: 1 elapsed_millis: 10 uptime_millis: 10 exec_start_elapsed_seconds: 302 [CONTEXT service_id=218 ]
+10-24 01:16:54.970  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=302935, downTime=302935, deviceId=-1, source=0x1002, displayId=0, eventId=-198266981 }
+10-24 01:16:55.027  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=303014, downTime=302935, deviceId=-1, source=0x1002, displayId=0, eventId=-333291965 }
+10-24 01:16:55.094   817   817 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-24 01:16:55.440  6013  6057 D EGL_emulation: app_time_stats: avg=329.87ms min=30.27ms max=1047.21ms count=6
+10-24 01:16:55.770  5992  6009 W System  : A resource was acquired at attached stack trace but never released. See java.io.Closeable for information on avoiding resource leaks.
+10-24 01:16:55.771  5992  6009 W System  : java.lang.Throwable: Explicit termination method 'HardwareBuffer.close' not called
+10-24 01:16:55.771  5992  6009 W System  : 	at dalvik.system.CloseGuard.openWithCallSite(CloseGuard.java:288)
+10-24 01:16:55.771  5992  6009 W System  : 	at dalvik.system.CloseGuard.open(CloseGuard.java:257)
+10-24 01:16:55.771  5992  6009 W System  : 	at android.hardware.HardwareBuffer.<init>(HardwareBuffer.java:266)
+10-24 01:16:55.771  5992  6009 W System  : A resource was acquired at attached stack trace but never released. See java.io.Closeable for information on avoiding resource leaks.
+10-24 01:16:55.771  5992  6009 W System  : java.lang.Throwable: Explicit termination method 'HardwareBuffer.close' not called
+10-24 01:16:55.771  5992  6009 W System  : 	at dalvik.system.CloseGuard.openWithCallSite(CloseGuard.java:288)
+10-24 01:16:55.771  5992  6009 W System  : 	at dalvik.system.CloseGuard.open(CloseGuard.java:257)
+10-24 01:16:55.771  5992  6009 W System  : 	at android.hardware.HardwareBuffer.<init>(HardwareBuffer.java:266)
+10-24 01:16:55.785  1628  2712 W MediaProvider: isAppCloneUserPair for user 0: false
+10-24 01:16:55.811  5104  5838 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.ipa.base.IpaGcmTaskService started execution. cause:9 exec_start_elapsed_seconds: 303 [CONTEXT service_id=218 ]
+10-24 01:16:55.814  5104  5994 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.ipa.base.IpaGcmTaskService finished executing. cause:9 result: 1 elapsed_millis: 17 uptime_millis: 17 exec_start_elapsed_seconds: 303 [CONTEXT service_id=218 ]
+10-24 01:16:55.923  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=303885, downTime=303885, deviceId=-1, source=0x1002, displayId=0, eventId=-898164043 }
+10-24 01:16:55.971  1752  2423 I BistoDBWrapper: Close DB
+10-24 01:16:55.978  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=303964, downTime=303885, deviceId=-1, source=0x1002, displayId=0, eventId=-273609835 }
+10-24 01:16:56.415  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=108.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=304385, downTime=304385, deviceId=-1, source=0x1002, displayId=0, eventId=-592366847 }
+10-24 01:16:56.473  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=108.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=304459, downTime=304385, deviceId=-1, source=0x1002, displayId=0, eventId=-594922768 }
+10-24 01:16:56.745  6013  6057 D EGL_emulation: app_time_stats: avg=652.00ms min=396.11ms max=907.90ms count=2
+10-24 01:16:57.101  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:16:57.102  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:16:57.509  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=972.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=305469, downTime=305469, deviceId=-1, source=0x1002, displayId=0, eventId=-823570219 }
+10-24 01:16:57.564  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=972.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=305550, downTime=305469, deviceId=-1, source=0x1002, displayId=0, eventId=-735035236 }
+10-24 01:16:57.825   830   830 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-24 01:16:57.876  6013  6057 D EGL_emulation: app_time_stats: avg=74.31ms min=21.64ms max=647.74ms count=15
+10-24 01:16:58.591   830   830 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-24 01:16:58.660  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=108.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=306631, downTime=306631, deviceId=-1, source=0x1002, displayId=0, eventId=-967218808 }
+10-24 01:16:59.200  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=972.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=307186, downTime=306631, deviceId=-1, source=0x1002, displayId=0, eventId=-920554718 }
+10-24 01:16:59.259  6013  6057 D EGL_emulation: app_time_stats: avg=91.83ms min=26.80ms max=867.87ms count=15
+10-24 01:16:59.339  6013  6020 I okreader.mobile: Compiler allocated 4485KB to compile void org.bookreader.mobile.comic.ComicReaderScreenKt.ComicReaderScreen(org.bookreader.mobile.comic.ComicReaderController, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function0, androidx.compose.runtime.Composer, int)
+10-24 01:16:59.622  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=972.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=307586, downTime=307585, deviceId=-1, source=0x1002, displayId=0, eventId=-259633542 }
+10-24 01:16:59.806  5104  5104 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.nearby.exposurenotification.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiServiceNoInstantApps }
+10-24 01:17:00.038   830   879 D EGL_emulation: app_time_stats: avg=3795.59ms min=83.33ms max=7507.86ms count=2
+10-24 01:17:00.039  1609  1846 I AiAiEcho: Predicting[0]:
+10-24 01:17:00.040  1609  1846 I AiAiEcho: EchoTargets:
+10-24 01:17:00.040  1609  1846 I AiAiEcho: Filtered by AiAi flag check:
+10-24 01:17:00.040  1609  1846 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-24 01:17:00.040  1609  1846 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+10-24 01:17:00.048   830   830 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+10-24 01:17:00.150  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=108.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=308136, downTime=307585, deviceId=-1, source=0x1002, displayId=0, eventId=-408824614 }
+10-24 01:17:00.304  6013  6057 D EGL_emulation: app_time_stats: avg=348.06ms min=83.19ms max=866.79ms count=3
+10-24 01:17:00.585  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=308552, downTime=308552, deviceId=-1, source=0x1002, displayId=0, eventId=-4075174 }
+10-24 01:17:00.593  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=308580, downTime=308552, deviceId=-1, source=0x1002, displayId=0, eventId=-687538325 }
+10-24 01:17:00.691  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=308666, downTime=308666, deviceId=-1, source=0x1002, displayId=0, eventId=-225866057 }
+10-24 01:17:00.695  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=308682, downTime=308666, deviceId=-1, source=0x1002, displayId=0, eventId=-963245428 }
+10-24 01:17:00.791  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=510.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=308769, downTime=308769, deviceId=-1, source=0x1002, displayId=0, eventId=-667162498 }
+10-24 01:17:00.794  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_POINTER_DOWN(1), actionButton=0, id[0]=0, x[0]=510.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, id[1]=1, x[1]=570.0, y[1]=928.5, toolType[1]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=2, historySize=0, eventTime=308780, downTime=308769, deviceId=-1, source=0x1002, displayId=0, eventId=-925890858 }
+10-24 01:17:00.838  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_POINTER_UP(0), actionButton=0, id[0]=0, x[0]=405.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, id[1]=1, x[1]=640.0, y[1]=928.5, toolType[1]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=2, historySize=0, eventTime=308824, downTime=308769, deviceId=-1, source=0x1002, displayId=0, eventId=-399255729 }
+10-24 01:17:00.842  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=1, x[0]=640.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=308828, downTime=308769, deviceId=-1, source=0x1002, displayId=0, eventId=-12080764 }
+10-24 01:17:00.956  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=972.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=308919, downTime=308919, deviceId=-1, source=0x1002, displayId=0, eventId=-244923861 }
+10-24 01:17:01.313  6013  6057 D EGL_emulation: app_time_stats: avg=83.63ms min=23.88ms max=476.01ms count=12
+10-24 01:17:01.536  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=108.0, y[0]=928.5, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=309522, downTime=308919, deviceId=-1, source=0x1002, displayId=0, eventId=-278799203 }
+10-24 01:17:01.595   830   830 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-24 01:17:01.688  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=309652, downTime=309652, deviceId=-1, source=0x1002, displayId=0, eventId=-450631327 }
+10-24 01:17:01.744  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=309730, downTime=309652, deviceId=-1, source=0x1002, displayId=0, eventId=-606275833 }
+10-24 01:17:02.338  6013  6057 D EGL_emulation: app_time_stats: avg=101.60ms min=18.88ms max=603.44ms count=10
+10-24 01:17:02.927   518   518 I ResourceTimer: GetResourceValue count=9216 pvalues=1000,6000,9000,16000
+10-24 01:17:02.927   518   518 I ResourceTimer: RetrieveAttributes count=12393 pvalues=1000,2000,5000,17000
+10-24 01:17:03.030   817   817 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-24 01:17:03.375  6013  6013 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:17:03.375  6013  6013 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:17:03.477   518  2093 I ImeTracker: org.bookreader.mobile:a2acb902: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:03.477   518  2093 I ImeTracker: org.bookreader.mobile:a2acb902: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:03.479  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:03.480  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:03.480  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:03.480  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:03.481  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:17:03.720  6013  6013 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@94d95af
+10-24 01:17:03.728   518  2093 W InputManager-JNI: Input channel object '6cb6354 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-24 01:17:03.753   518  1523 I ImeTracker: org.bookreader.mobile:8981312b: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:03.753   518  1523 I ImeTracker: org.bookreader.mobile:8981312b: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:03.755  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:03.757  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:03.757  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:03.757  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:03.757  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:17:03.840  6013  6013 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:17:03.840  6013  6013 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:17:04.006   518  2093 I ImeTracker: org.bookreader.mobile:ab0c7f9b: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:04.006   518  2093 I ImeTracker: org.bookreader.mobile:ab0c7f9b: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:04.007  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:04.008  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:04.009  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:04.009  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:04.010  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:17:04.180  6013  6013 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@c25450e
+10-24 01:17:04.207   518  2093 W InputManager-JNI: Input channel object 'a15fe9b org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-24 01:17:04.289  6013  6057 D EGL_emulation: app_time_stats: avg=390.01ms min=51.05ms max=1221.66ms count=5
+10-24 01:17:04.291   518  2093 I ImeTracker: org.bookreader.mobile:c5c6d187: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:04.291   518  2093 I ImeTracker: org.bookreader.mobile:c5c6d187: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:04.292  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:04.293  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:04.293  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:04.294  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:04.294  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:17:04.598   830   830 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-24 01:17:04.667  6013  6013 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:17:04.667  6013  6013 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:17:04.828   518  2093 I ImeTracker: org.bookreader.mobile:107b2233: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:04.828   518  2093 I ImeTracker: org.bookreader.mobile:107b2233: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:04.836  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:04.837  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:04.838  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:04.838  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:04.838  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:17:04.956  5104  5104 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.contextmanager.service.ContextManagerService.START pkg=com.google.android.gms }
+10-24 01:17:04.966  6013  6013 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@b51493a
+10-24 01:17:04.972   518  2093 W InputManager-JNI: Input channel object 'd58f929 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-24 01:17:05.044   518   893 I ImeTracker: org.bookreader.mobile:8c7354ea: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:05.044   518   893 I ImeTracker: org.bookreader.mobile:8c7354ea: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:05.045  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:05.047  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:05.047  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:05.048  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:05.049  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:17:05.319  6013  6057 D EGL_emulation: app_time_stats: avg=205.92ms min=62.82ms max=340.61ms count=5
+10-24 01:17:05.482  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=1620.9004, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=313452, downTime=313452, deviceId=-1, source=0x1002, displayId=0, eventId=-323680852 }
+10-24 01:17:05.519  6013  6013 D CompatibilityChangeReporter: Compat change id reported: 289878283; UID 10192; state: ENABLED
+10-24 01:17:05.519  6013  6013 W okreader.mobile: Accessing hidden method Landroid/view/ViewTreeObserver;->dispatchOnScrollChanged()V (unsupported, reflection, allowed)
+10-24 01:17:06.120  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=236.09961, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=314106, downTime=313452, deviceId=-1, source=0x1002, displayId=0, eventId=-1070330603 }
+10-24 01:17:06.519  6013  6013 I ActivityThread: Schedule relaunch activity: org.bookreader.mobile.MainActivity
+10-24 01:17:06.521  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: PAUSED
+10-24 01:17:06.521  6013  6013 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@2d8de80
+10-24 01:17:06.526  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: STOPPED
+10-24 01:17:06.526  6013  6013 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@2d8de80
+10-24 01:17:06.538  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@2d8de80 in: DESTROYED
+10-24 01:17:06.538  6013  6013 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-24 01:17:06.542  6013  6013 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e40e633
+10-24 01:17:06.544  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@fbb6cc4 in: PRE_ON_CREATE
+10-24 01:17:06.544  6013  6013 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+10-24 01:17:06.553  6013  6013 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-24 01:17:06.564  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@fbb6cc4 in: CREATED
+10-24 01:17:06.565  6013  6013 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@fbb6cc4
+10-24 01:17:06.566  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@fbb6cc4 in: STARTED
+10-24 01:17:06.567  6013  6013 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@fbb6cc4
+10-24 01:17:06.568  6013  6013 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:17:06.568  6013  6013 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:17:06.569  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@fbb6cc4 in: RESUMED
+10-24 01:17:06.569  6013  6013 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@fbb6cc4
+10-24 01:17:06.585  6013  6057 D EGL_emulation: app_time_stats: avg=62.14ms min=24.43ms max=307.69ms count=20
+10-24 01:17:06.969  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=314935, downTime=314935, deviceId=-1, source=0x1002, displayId=0, eventId=-338469108 }
+10-24 01:17:07.030  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=315016, downTime=314935, deviceId=-1, source=0x1002, displayId=0, eventId=-300856563 }
+10-24 01:17:07.603  6013  6057 D EGL_emulation: app_time_stats: avg=254.51ms min=41.76ms max=595.48ms count=4
+10-24 01:17:07.606   830   879 D EGL_emulation: app_time_stats: avg=7567.37ms min=7567.37ms max=7567.37ms count=1
+10-24 01:17:07.620   830   830 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+10-24 01:17:07.634   830   879 D EGL_emulation: app_time_stats: avg=15047.65ms min=15047.65ms max=15047.65ms count=1
+10-24 01:17:07.712  2845  3945 I DialerOmtpVvmCarrierConfigHelper: com.android.voicemail.impl.OmtpVvmCarrierConfigHelper.handleEvent:527 OmtpEvent:CONFIG_STATUS_SMS_TIME_OUT PhoneAccountHandle: [ComponentName: com.android.phone/com.android.services.telephony.TelephonyConnectionService subId: 1] [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.712  2845  2845 I DialerRetryPolicy: com.android.voicemail.impl.scheduling.RetryPolicy.onCompleted:118 discarding deferred status [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.721  2845  2845 I DialerTaskExecutor: com.android.voicemail.impl.scheduling.TaskExecutor.prepareStop:371 no more tasks, stopping service if no task are added in 5000 millis [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.727  2845  2845 I DialerLogcatLoggingBindings: com.android.dialer.logging.logcat.LogcatLoggingBindings.logImpression:41 Impression: VVM_AUTO_RETRY_ACTIVATION
+10-24 01:17:07.727  2845  2845 I DialerTaskReceiver: com.android.voicemail.impl.scheduling.TaskReceiver.onReceive:68 task received [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.727  2845  2845 I DialerTaskReceiver: com.android.voicemail.impl.scheduling.TaskReceiver.onReceive:73 TaskExecutor already running [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.728  2845  2845 I DialerTasks: com.android.voicemail.impl.scheduling.Tasks.createTask:59 Task.createTask create task:com.android.voicemail.impl.ActivationTask [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.728  2845  2845 I DialerRetryPolicy: com.android.voicemail.impl.scheduling.RetryPolicy.onCreate:81 retry #4 for com.android.voicemail.impl.ActivationTask@23ca7f1 queued, executing in 5000 [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.732  2845  2845 I DialerTaskExecutor: com.android.voicemail.impl.scheduling.TaskExecutor.addTask:299 com.android.voicemail.impl.ActivationTask@23ca7f1 added [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.733  2845  2845 I DialerTaskExecutor: com.android.voicemail.impl.scheduling.TaskExecutor.runNextTask:345 minimal wait time:4995 [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.733  2845  2845 I DialerTaskExecutor: com.android.voicemail.impl.scheduling.TaskExecutor.sleep:355 sleep for 4995 millis [CONTEXT enable_persistent_logger=true ]
+10-24 01:17:07.786  6013  6013 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:17:07.786  6013  6013 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:17:07.836   830   830 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+10-24 01:17:08.221  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=316185, downTime=316185, deviceId=-1, source=0x1002, displayId=0, eventId=-546064187 }
+10-24 01:17:08.278  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=540.0, y[0]=841.9502, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=316265, downTime=316185, deviceId=-1, source=0x1002, displayId=0, eventId=-769222172 }
+10-24 01:17:08.684  6013  6057 D EGL_emulation: app_time_stats: avg=180.13ms min=37.88ms max=571.62ms count=6
+10-24 01:17:08.757  6013  6013 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+10-24 01:17:08.757  6013  6013 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+10-24 01:17:09.018   518  2093 I ImeTracker: org.bookreader.mobile:e4fd1454: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:09.018   518  2093 I ImeTracker: org.bookreader.mobile:e4fd1454: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:09.018  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:09.019  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:09.019  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:09.020  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:09.020  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:17:09.086  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=540.0, y[0]=896.0, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=317052, downTime=317052, deviceId=-1, source=0x1002, displayId=0, eventId=-288486428 }
+10-24 01:17:09.120  1074  1074 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_CANCEL, actionButton=0, id[0]=0, x[0]=233.59961, y[0]=896.0, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x20, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=317106, downTime=317052, deviceId=-1, source=0x1002, displayId=0, eventId=-195043344 }
+10-24 01:17:09.743  6013  6057 D EGL_emulation: app_time_stats: avg=529.64ms min=61.68ms max=997.60ms count=2
+10-24 01:17:10.034  6013  6013 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@e88d0ff
+10-24 01:17:10.041   518   893 W InputManager-JNI: Input channel object '7b21c3 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-24 01:17:10.068   518   893 I ImeTracker: org.bookreader.mobile:c8368d83: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:10.068   518   893 I ImeTracker: org.bookreader.mobile:c8368d83: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:10.070  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:10.080  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:10.080  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:10.080  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:10.081  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:17:10.660   830   872 D SplashScreenView: Build android.window.SplashScreenView{bba2653 V.E...... ......ID 0,0-0,0}
+10-24 01:17:10.660   830   872 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-24 01:17:10.660   830   872 D SplashScreenView: Branding: view: android.view.View{d21cb90 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-24 01:17:10.663  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@fbb6cc4 in: PAUSED
+10-24 01:17:10.664  6013  6013 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@fbb6cc4
+10-24 01:17:10.698   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 01:17:10.703  6090  6090 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10193; state: DISABLED
+10-24 01:17:10.706  6090  6090 W OpenGLRenderer: Unknown dataspace 0
+10-24 01:17:10.770   399   618 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10193 pid=0
+10-24 01:17:10.770   399   618 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10193 => denied (219 us)
+10-24 01:17:10.770   399   618 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10193 pid=0
+10-24 01:17:10.770   399   618 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10193 => denied (380 us)
+10-24 01:17:10.770   399   618 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10193 pid=0
+10-24 01:17:10.770   399   618 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10193 => denied (159 us)
+10-24 01:17:10.782   830   879 D EGL_emulation: app_time_stats: avg=788.62ms min=2.01ms max=2922.80ms count=4
+10-24 01:17:10.784  6090  6107 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-24 01:17:10.804   135   135 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+10-24 01:17:10.805  6090  6107 I Gralloc4: mapper 4.x is not supported
+10-24 01:17:10.957   518  1523 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10193 pid=0
+10-24 01:17:10.958   518  1523 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10193 => denied (128 us)
+10-24 01:17:10.958   518  1523 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10193 pid=0
+10-24 01:17:10.958   518  1523 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10193 => denied (18 us)
+10-24 01:17:10.958   518  1523 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10193 pid=0
+10-24 01:17:10.958   518  1523 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10193 => denied (11 us)
+10-24 01:17:10.972   817   817 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+10-24 01:17:11.007  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@fbb6cc4 in: STOPPED
+10-24 01:17:11.007  6013  6013 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@fbb6cc4
+10-24 01:17:11.008  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:17:11.008  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:17:11.074  1609  1846 I AiAiEcho: Predicting[0]:
+10-24 01:17:11.074  1609  1846 I AiAiEcho: EchoTargets:
+10-24 01:17:11.074  1609  1846 I AiAiEcho: Filtered by AiAi flag check:
+10-24 01:17:11.077  6013  6013 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@fbb6cc4 in: DESTROYED
+10-24 01:17:11.078  1609  1846 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-24 01:17:11.081  1609  1846 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-24 01:17:11.084  6013  6013 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-24 01:17:11.089   518  1663 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-24 01:17:11.103  1074  2110 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=5, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@70063e7
+10-24 01:17:11.133   830   879 D EGL_emulation: app_time_stats: avg=1745.63ms min=230.07ms max=3261.19ms count=2
+10-24 01:17:11.154   518   893 W InputManager-JNI: Input channel object '763e497 org.bookreader.mobile/org.bookreader.mobile.MainActivity (client)' was disposed without first being removed with the input manager!
+10-24 01:17:11.174   518  2093 I ImeTracker: com.google.android.apps.nexuslauncher:4134e9e5: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:17:11.175   518  2093 I ImeTracker: com.google.android.apps.nexuslauncher:4134e9e5: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:17:11.183  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:17:11.190  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:17:11.197  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.google.android.apps.nexuslauncher fieldId=0 fieldName=null extras=null}, false)
+10-24 01:17:11.198  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:17:11.214  6013  6033 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@f779b4d]
+10-24 01:17:11.220  6013  6033 I TestRunner: finished: managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity(org.bookreader.mobile.comic.ComicReaderFlowTest)

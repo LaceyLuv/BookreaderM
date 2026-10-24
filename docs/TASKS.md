@@ -1,5 +1,29 @@
 # BookReader Mobile — Codex 작업표
 
+## 2026-10-24 완료: 사용자 글꼴·굵기 및 APK 배포 문서
+
+[사용 안내](READER_FONTS_0_5.md), [APK 배포 방안](APK_DISTRIBUTION.md), [ADR 0007](adr/0007-user-fonts-and-weight.md)을 기록했다.
+사용자 TTF·OTF 등록·중복 방지·삭제, 보통/굵게와 미리보기, TXT/EPUB 적용 및 기존 위치 복원을 구현했다.
+원본 글꼴·책·진행도를 보존하며 내부 복사본을 사용한다. versionCode 5/versionName 0.5.0이다.
+
+검증 소스 `4449f1e6094a5fb9546ac4ed4ea3de04c2f4b351`. [build 40050209007](https://github.com/LaceyLuv/BookreaderM/actions/runs/40050209007) PASS164
+(Android71/shared JVM74/EPUB16/실제 ENOSPC3).
+[device 40052571291](https://github.com/LaceyLuv/BookreaderM/actions/runs/40052571291) API26/34/36 각각 native60+host6 PASS.
+원본 XML·필수 사례·clean source·artifact digest와 실제 force-stop/PID 교체를 확인했다.
+직전 제품 동일 source058d2b8도 전체 PASS이며 제품 실행 payload 602개 ZIP entry가 현재 APK와 같다.
+첫 4449f1e 실행40050208939의 API34 쪽수 표시 30초 timeout과 API26 `cancelled` 결과도 보존한다.
+동일 소스 재검증 통과를 원인 수정으로 표현하지 않는다. 실패 원본과 재검증은 [증거 목록](evidence/custom-fonts/README.md)을 따른다.
+
+로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit0.
+원격 정확 명령은 각 artifact의 results.txt/로그, 검증 명령은
+`python /workspace/scratch/resume-ci/verify.py 4449f1e6094a5fb9546ac4ed4ea3de04c2f4b351 40050209007 40052571291` exit0이다.
+[검증 요약](evidence/custom-fonts/verified-4449f1e/summary.json)과 [패키지 감사](evidence/custom-fonts/package-4449f1e/summary.json)를 보존했다.
+서명 APK SHA256 `839d4e85c0bd8197005069e83d76fef99d5462f2845cf7ac48cc978282d2447c`.
+기존 인증서 유지·v2/v3·16KB 정렬 PASS. 임시 ZIP 18,384,516 bytes, CRC/추출 APK 동일성 PASS.
+실제 휴대전화 설치·대화에서 ZIP 다운로드는 NOT_RUN/미확인이다.
+0.5.0 GitHub draft422455175는 미게시·첨부0개다. APK/체크섬 첨부는 HTTP400으로 FAIL했으며 재전송을 멈췄다.
+배포 자동화는 문서화한 계획이며 구현·공개 완료가 아니다. 후속 업로드는 요청 계약과 자격증명/지원 경로 확인이 선행 조건이다.
+
 ## 2026-10-24 설정 저장 완료 관찰 보완
 
 f9243cf API36에서 기존 pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor도 FAIL했다.

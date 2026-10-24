@@ -1,3 +1,33 @@
+# 2026-10-24 사용자 글꼴·굵기 작업 완료
+
+사용자 요청의 배포 방안 Markdown, TTF·OTF 등록/선택/삭제, 보통/굵게를 구현했다. 서브에이전트 없이 진행했다.
+저장소 `/workspace/BookreaderM`, 검증 source `4449f1e6094a5fb9546ac4ed4ea3de04c2f4b351`. 후속 커밋은 문서/증거다.
+[사용 안내](READER_FONTS_0_5.md), [배포 방안](APK_DISTRIBUTION.md), [설치 안내](INSTALLABLE_APK.md)를 현재 기준으로 따른다.
+
+Build40050209007 PASS164, device40052571291 API26/34/36 각각 native60+host6 PASS.
+원본 XML/필수 사례/source clean/digest 및 host 실제 force-stop 후 PID 교체를 확인했다.
+직전 제품 동일058d2b8도 전체 PASS다. 첫4449f1e 실행40050208939의 API34 쪽수30초 timeout과 API26 `cancelled`를 별도 보존했다.
+테스트 timeout이나 위치 허용오차를 완화하지 않았고 재실행 통과를 원인 수정으로 부르지 않는다.
+`docs/evidence/custom-fonts/`에 성공·실패·패키지·실제 화면 원본이 있다.
+
+APK `/workspace/artifacts/BookreaderM/4449f1e/installable/BookreaderM-0.5.0-test-signed.apk`.
+SHA256 `839d4e85c0bd8197005069e83d76fef99d5462f2845cf7ac48cc978282d2447c`.
+같은 폴더의 ZIP은18,384,516 bytes, SHA256 `5482ccd3ff215b02c2e1ef21c7887ccb8181582d84e92117114a9ead0125fdae`.
+기존 인증서/v2/v3/16KB 정렬/ZIP CRC/추출APK동일성 PASS. 실기기 설치와 대화 ZIP 다운로드는 미확인이다.
+ZIP은 임시 전달 수단이며 20MB 초과 APK 미리보기 링크를 해결책으로 반복 안내하지 않는다.
+
+업로드 루트 GET200과 달리 실제 APK 및 작은 체크섬 POST는 HTTP400 invalid request로 실패했다.
+응답의 재전송 중단 안내를 따랐다. 0.5.0 draft ID422455175는 미게시·첨부0개이며 제목/본문에 첨부 대기를 표시했다.
+0.4.0 draft ID422430819와 혼합하지 않는다. 공개 릴리스와 CI 배포 자동화는 미완료다.
+후속 업로드 전 지원 경로·요청 계약·자격증명을 확인한다. `/workspace/scratch/prepare-font-apk-draft.py`를 그대로 재실행하지 않는다.
+
+다음 세션은 git status/log와 AGENTS.md를 읽고 기존 JDK/SDK(`source /workspace/toolchains/mobile-env.sh`)를 사용한다.
+책·진행도·원본·기존 서명키를 보존하며 요청 없는 reset/clean·강제 push·앱 삭제를 하지 않는다.
+물리 기기 성능/전체 사용자 글꼴 corpus/정식 배포 서명·공개 출시는 자동 완료로 간주하지 않는다.
+
+아래 내용은 이전 세션 이력이다.
+
+
 # 2026-10-24 후속: APK 다운로드 미해결
 
 ## 2026-10-24 APK 다운로드 경로 — BLOCKED_ENV

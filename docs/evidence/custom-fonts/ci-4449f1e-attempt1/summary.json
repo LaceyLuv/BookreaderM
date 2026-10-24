@@ -1,0 +1,61 @@
+{
+  "source_sha": "4449f1e6094a5fb9546ac4ed4ea3de04c2f4b351",
+  "run_id": "40050208939",
+  "workflow_status": "completed",
+  "workflow_conclusion": "failure",
+  "device": {
+    "26": {
+      "job_status": "completed",
+      "job_conclusion": "cancelled",
+      "complete_native_xml_available": false,
+      "failures": [],
+      "host_summaries": {
+        "reader": "NOT_RUN",
+        "epub": "NOT_RUN",
+        "comic": "NOT_RUN"
+      },
+      "native_result": "No completed native XML available; do not infer PASS"
+    },
+    "34": {
+      "job_status": "completed",
+      "job_conclusion": "failure",
+      "complete_native_xml_available": true,
+      "failures": [
+        {
+          "name": "pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor",
+          "classname": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "trace": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.reader.TxtReaderFlowTest.pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor(TxtReaderFlowTest.kt:1094)\n"
+        }
+      ],
+      "host_summaries": {
+        "reader": "NOT_RUN",
+        "epub": "NOT_RUN",
+        "comic": "NOT_RUN"
+      },
+      "xml_counts": {
+        "tests": 60,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "36": {
+      "job_status": "completed",
+      "job_conclusion": "success",
+      "complete_native_xml_available": true,
+      "failures": [],
+      "host_summaries": {
+        "reader": "PASS",
+        "epub": "PASS",
+        "comic": "PASS"
+      },
+      "xml_counts": {
+        "tests": 60,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "recheck_run_id": "40052571291"
+}

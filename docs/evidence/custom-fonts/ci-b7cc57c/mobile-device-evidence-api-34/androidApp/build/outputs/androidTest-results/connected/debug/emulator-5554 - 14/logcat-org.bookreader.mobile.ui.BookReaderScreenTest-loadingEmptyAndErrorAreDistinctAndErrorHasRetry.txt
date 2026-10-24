@@ -1,0 +1,96 @@
+10-24 01:23:12.288  6013  6033 I TestRunner: started: loadingEmptyAndErrorAreDistinctAndErrorHasRetry(org.bookreader.mobile.ui.BookReaderScreenTest)
+10-24 01:23:12.329  6013  6021 I okreader.mobile: Background concurrent copying GC freed 637763(23MB) AllocSpace objects, 200(6236KB) LOS objects, 49% free, 24MB/48MB, paused 23us,28us total 669.568ms
+10-24 01:23:12.346  6013  6033 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@2871f6d]
+10-24 01:23:12.352  6013  6033 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-24 01:23:12.363   830   872 D SplashScreenView: Build android.window.SplashScreenView{277bd1c V.E...... ......ID 0,0-0,0}
+10-24 01:23:12.363   830   872 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-24 01:23:12.363   830   872 D SplashScreenView: Branding: view: android.view.View{8423d25 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-24 01:23:12.434   830   839 I ndroid.systemui: NativeAlloc concurrent copying GC freed 280368(13MB) AllocSpace objects, 3(60KB) LOS objects, 49% free, 20MB/40MB, paused 36us,43us total 603.252ms
+10-24 01:23:12.440   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 01:23:12.441  6013  6013 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@62538a1 in: PRE_ON_CREATE
+10-24 01:23:12.487  6013  6013 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-24 01:23:12.518  6013  6013 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@62538a1 in: CREATED
+10-24 01:23:12.524  6013  6013 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@62538a1
+10-24 01:23:12.526  6013  6013 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@62538a1 in: STARTED
+10-24 01:23:12.527  6013  6013 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@62538a1
+10-24 01:23:12.549  6013  6013 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@62538a1 in: RESUMED
+10-24 01:23:12.549  6013  6013 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@62538a1
+10-24 01:23:12.664   518   529 I system_server: NativeAlloc concurrent copying GC freed 225735(6890KB) AllocSpace objects, 15(300KB) LOS objects, 48% free, 25MB/49MB, paused 61us,64us total 380.578ms
+10-24 01:23:12.908   830   879 D EGL_emulation: app_time_stats: avg=620.58ms min=611.91ms max=629.25ms count=2
+10-24 01:23:12.961  1074  1096 W System  : A resource failed to call release.
+10-24 01:23:12.961  1074  1096 W System  : A resource failed to call release.
+10-24 01:23:12.962  1074  1096 W System  : A resource failed to call release.
+10-24 01:23:12.962  1074  1096 W System  : A resource failed to call release.
+10-24 01:23:12.962  1074  1096 W System  : A resource failed to call release.
+10-24 01:23:13.013   830   879 D EGL_emulation: app_time_stats: avg=392.01ms min=127.83ms max=996.35ms count=4
+10-24 01:23:13.026  1074  2110 D OneSearchSuggestProvider: Shut down the binder channel
+10-24 01:23:13.026   518   537 W ziparchive: Unable to open '/data/app/~~sYx-hXkkOKxE1q5QzNknJw==/org.bookreader.mobile-YSdLh3TMymnRAoPTJRECjw==/base.dm': No such file or directory
+10-24 01:23:13.030  1752  2534 W SearchServiceCore: Abort, client detached.
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: *~*~*~ Channel {0} was not shutdown properly!!! ~*~*~*
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1:     Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: java.lang.RuntimeException: ManagedChannel allocation site
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at io.grpc.internal.y1.<init>(Unknown Source:20)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at io.grpc.internal.z1.<init>(Unknown Source:9)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at io.grpc.binder.d.a(Unknown Source:211)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.d(Unknown Source:88)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.N0.c(Unknown Source:0)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.A0.run(Unknown Source:22)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at com.android.launcher3.util.LooperExecutor.execute(Unknown Source:12)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.y0.apply(Unknown Source:34)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:966)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:950)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:486)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at com.google.android.apps.nexuslauncher.allapps.H0.onResult(Unknown Source:59)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.lambda$onResult$0(SearchSessionUtil.java:129)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1.$r8$lambda$_nlk9WiPjSfaAsqKYmp0aPvSRC0(SearchSessionUtil.java:1)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at android.app.appsearch.SearchSessionUtil$1$$ExternalSyntheticLambda0.run(R8$$SyntheticClass:13)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at android.os.Handler.handleCallback(Handler.java:958)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at android.os.Looper.loop(Looper.java:294)
+10-24 01:23:13.030  1074  2110 E io.grpc.internal.z1: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+10-24 01:23:13.032   518   537 I ActivityTaskManager: Displayed org.bookreader.mobile/androidx.activity.ComponentActivity for user 0: +669ms
+10-24 01:23:13.039  1752  2939 I PBSessionCacheImpl: Deleted sessionId[7707170291800845] from persistence.
+10-24 01:23:13.040  1074  6152 I IPCThreadState: oneway function results for code 2 on binder at 0x73933b613ed0 will be dropped but finished with status UNKNOWN_TRANSACTION
+10-24 01:23:13.041  1074  1128 I ImeTracker: com.google.android.apps.nexuslauncher:d993b902: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+10-24 01:23:13.042   518  2225 I ImeTracker: com.google.android.apps.nexuslauncher:d993b902: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:23:13.044  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:23:13.044  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:23:13.046   518  2248 I ImeTracker: org.bookreader.mobile:752ccf62: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+10-24 01:23:13.046   518  2248 I ImeTracker: org.bookreader.mobile:752ccf62: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 01:23:13.052  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227
+10-24 01:23:13.053  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+10-24 01:23:13.056  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=org.bookreader.mobile fieldId=0 fieldName=null extras=null}, false)
+10-24 01:23:13.056  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+10-24 01:23:13.057  1530  1530 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+10-24 01:23:13.058  6013  6013 D AutofillManager: Fill dialog is enabled:false, hints=[password, passwordAuto, creditCardNumber, creditCardSecurityCode, creditCardExpirationDate]
+10-24 01:23:13.063   830   870 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@8202887
+10-24 01:23:13.064   518  2248 W InputManager-JNI: Input channel object 'b24ed10 Splash Screen org.bookreader.mobile (client)' was disposed without first being removed with the input manager!
+10-24 01:23:13.388   830   872 D SplashScreenView: Build android.window.SplashScreenView{1d57364 V.E...... ......ID 0,0-0,0}
+10-24 01:23:13.388   830   872 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-24 01:23:13.388   830   872 D SplashScreenView: Branding: view: android.view.View{462c9cd G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-24 01:23:13.391  6013  6013 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@62538a1 in: PAUSED
+10-24 01:23:13.391  6013  6013 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@62538a1
+10-24 01:23:13.398   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 01:23:13.479   518   537 W ziparchive: Unable to open '/data/app/~~lA9qq6zupbM-rmeTZT3rtQ==/org.bookreader.mobile.test-yeGgynz0WTVhulmVp8IqSw==/base.dm': No such file or directory
+10-24 01:23:13.480   518   537 I ActivityTaskManager: Displayed org.bookreader.mobile.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +95ms
+10-24 01:23:13.531   399   399 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 01:23:13.537  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:23:13.537  1021  1329 D BtGatt.ScanManager: uid 10132 isForeground true scanMode -1
+10-24 01:23:13.549  6013  6013 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@62538a1 in: STOPPED
+10-24 01:23:13.550  6013  6013 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@62538a1
+10-24 01:23:13.595   518  1663 W AppSearchIcing: icing-search-engine.cc:283: Error: 5, Message: Document (com.google.android.googlequicksearchbox$OneSearchZeroStateGoogleSuggestions/default, zp) not found.
+10-24 01:23:13.606  1074  2110 D OneSearchSuggestProvider: Created the binder channel successfully for end point service =com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService , mChannel=z1{delegate=s1{logId=217, target=directaddress:///AndroidComponentAddress%5BIntent%20%7B%20act=grpc.io.action.BIND%20cmp=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.search.suggest.plugins.onesearch.server.OneSearchSuggestService%20%7D%5D}} , mOneSearchConnection=X1.T@dc44751
+10-24 01:23:13.609  6013  6013 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@62538a1 in: DESTROYED
+10-24 01:23:13.609  6013  6013 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-24 01:23:13.612  6013  6033 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@2871f6d]
+10-24 01:23:13.612  6013  6013 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@99b0176
+10-24 01:23:13.634  1609  1846 I AiAiEcho: Predicting[0]:
+10-24 01:23:13.634  1609  1846 I AiAiEcho: EchoTargets:
+10-24 01:23:13.634  1609  1846 I AiAiEcho: Filtered by AiAi flag check:
+10-24 01:23:13.634  1609  1846 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata:
+10-24 01:23:13.634  1609  1846 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-24 01:23:13.660   518  2248 W InputManager-JNI: Input channel object 'ecdca27 org.bookreader.mobile/androidx.activity.ComponentActivity (client)' was disposed without first being removed with the input manager!
+10-24 01:23:13.664  1752  2534 I A       : Using proto config with mendel
+10-24 01:23:13.676  6013  6033 I TestRunner: finished: loadingEmptyAndErrorAreDistinctAndErrorHasRetry(org.bookreader.mobile.ui.BookReaderScreenTest)

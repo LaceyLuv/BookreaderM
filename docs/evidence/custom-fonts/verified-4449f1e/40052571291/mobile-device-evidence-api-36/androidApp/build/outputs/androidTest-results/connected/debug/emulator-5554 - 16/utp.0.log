@@ -1,0 +1,119 @@
+INFO: Constructing runner from config.
+INFO: Configuring Android Instrumentation driver: android_instrumentation_runtime {
+  instrumentation_info {
+    app_package: "org.bookreader.mobile"
+    test_package: "org.bookreader.mobile.test"
+    test_runner_class: "androidx.test.runner.AndroidJUnitRunner"
+  }
+  instrumentation_args {
+    args_map {
+      key: "additionalTestOutputDir"
+      value: "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence"
+    }
+    args_map {
+      key: "captureFixtureScreenshots"
+      value: "true"
+    }
+    args_map {
+      key: "notClass"
+      value: "org.bookreader.mobile.reader.TxtReaderHostProcessTest,org.bookreader.mobile.reader.EpubReaderHostProcessTest,org.bookreader.mobile.reader.ComicReaderHostProcessTest"
+    }
+  }
+}
+am_instrument_timeout: 31536000
+
+INFO: Configuring AndroidTestApkInstallerPlugin: apks_to_install {
+  apk_paths: "/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+  install_options {
+  }
+}
+apks_to_install {
+  apk_paths: "/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk"
+  install_options {
+  }
+}
+
+INFO: No installables found in test fixture. Nothing to install.
+INFO: Installing [/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk] on device emulator-5554.
+INFO: Installing [/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk] on device emulator-5554.
+INFO: Start logcat streaming.
+INFO: Running Android Instrumentation driver.
+INFO: Copying files from device to host: /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/comic-controls.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/comic-controls.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/comic-immersive.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/comic-immersive.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-controls.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/epub-controls.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-custom-font-bold.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/epub-custom-font-bold.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-immersive.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/epub-immersive.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-settings.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/epub-settings.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/m02-library.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/m02-library.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/m03-reader.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/m03-reader.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-controls.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-controls.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-custom-font-bold.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-custom-font-bold.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-immersive.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-immersive.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-nanum-page-counts.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-nanum-page-counts.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-page-counts.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-page-counts.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-reader-generated-page-reflow.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-reader-generated-page-reflow.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-reader-generated-pages.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-reader-generated-pages.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-reader-generated-scroll.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-reader-generated-scroll.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/txt-settings.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 16/txt-settings.png
+INFO: Stop logcat streaming.
+INFO: Execute org.bookreader.mobile.comic.ComicImageDecoderTest.staticImagesExifAndLongPngWebpUseBudgetedFallbackAndPreserveBrokenEntries: PASSED
+INFO: Execute org.bookreader.mobile.comic.ComicImageDecoderTest.hundredPageMovesReleaseBitmapsAndCancellationLeavesNoTemporaryImages: PASSED
+INFO: Execute org.bookreader.mobile.comic.ComicReaderFlowTest.managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity: PASSED
+INFO: Execute org.bookreader.mobile.database.AndroidDatabaseOwnerTest.concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidBomAndBoundaryNormalizationAreCanonical: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidStrictDecodeRejectsLateIncompleteCharacters: PASSED
+INFO: Execute org.bookreader.mobile.encoding.AndroidTxtEncodingTest.androidCp949ExtensionFixtureIsDistinctFromEucKr: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.sdkSearchReturnsFullLocatorAndContainerCannotReadOutsideBook: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.activePublicationContentIsRejectedBeforeCreatingAnyNavigator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.cspBlocksExternalCssResourcesWhileEngineCanNavigateOffline: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.searchResultsArePagedAndOversizedChaptersReportAnExplicitLimit: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.importedFontAndBoldLoadInWebViewAndSurviveReopenWithoutChangingLocator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.searchJumpSurvivesHostReplacementAfterRequestWithoutPrematureProgressWrite: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.negativeTxtLetterSpacingOpensEpubWithoutRewritingStoredDefaults: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.systemDocumentsPickerSelectsTxtFromRealProvider: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.managedPromotionRefusesExistingTargetAndRenamesPrivateStaging: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.assetSegmentImportHonorsOffsetAndDeclaredLength: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.ownUidProviderIsRejectedBeforeAnyQuery: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.unknownSizeSourceEnforcesActualStreamingByteLimit: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.safButtonOpensDocumentAndCommitsPrivateCopyWithoutChangingSource: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.externalSendRequiresConfirmationAndReadOpensOnlyAfterCommit: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.stalledProviderCopyCancelsAndRemovesPrivateStaging: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.ungrantedAndAmbiguousIntentsAreRejectedWithoutLibraryChange: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.manualEncodingUsesStagingAfterSourceGrantIsRevoked: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.externalViewReceivesTemporaryGrantAndOpensActualReader: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary: PASSED
+INFO: Execute org.bookreader.mobile.importing.ManagedImportAndroidTest.emptyTxtReportsNoContentWithoutCreatingReadingProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.ReaderGestureSurfaceTest.repeatedSideAndCenterTapsUseCurrentCallbacksIncludingOuterEdge: PASSED
+INFO: Execute org.bookreader.mobile.reader.ReaderGestureSurfaceTest.longPressSelectionCancelledTouchesAndSystemEdgeSwipesNeverTurnPages: PASSED
+INFO: Execute org.bookreader.mobile.reader.ReaderMenuDialogTest.realMaterialSliderCancelThenAccessibilityCommitsExactlyOnce: PASSED
+INFO: Execute org.bookreader.mobile.reader.ReaderPageTransitionTest.bothDirectionsAndDisabledEffectKeepEveryFrameCovered: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtPageEngineTest.actualMeasurementCoversLongParagraphsBlankLinesAndEmojiWithoutDrift: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderBoundaryTest.eofAfterFinalEmojiRestoresWithoutTreatingLowSurrogateAsInvalid: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.sixtySecondsOfContinuousTouchKeepsCommittingMeasuredAnchors: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.alternatingBooksWaitForPendingNativeWritesAndKeepBackwardProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.missingManagedCopyShowsRetryAndPreservesCommittedProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.menuSeekCancellationGesturesAndWindowExitPreserveCanonicalProgress: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.deletingDuringRealDecodeCancelsPartialIndexAndQueuedReopen: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.literalSearchAcrossCacheBoundaryReturnsOnceAndBookmarkSurvivesReopen: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.actualRotationAndStopPreservePendingAnchorWithoutAnotherActivation: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.repeatedCloseDuringRestorationCancelsBeforeSameBookCanActivate: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.invalidManualEncodingKeepsOriginalBookProgressAndManagedBytes: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.nativeProgressQueryFailureShowsRetryWithoutChangingRecords: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.sqliteFullShowsSaveErrorPreservesRecordsAndRetriesAfterCapacityReturns: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.malformedLocatorShowsRetryWithoutReplacingStoredRecord: PASSED
+INFO: Execute org.bookreader.mobile.reader.TxtReaderFlowTest.sliderSeeksRestoreUncomposedDistantScrollFragmentsInBothDirections: PASSED
+INFO: Execute org.bookreader.mobile.ui.AndroidThemeStoreTest.invalidStoredThemeReportsErrorAndPreservesOriginal: PASSED
+INFO: Execute org.bookreader.mobile.ui.AndroidThemeStoreTest.selectedThemePersistsAcrossStoreInstances: PASSED
+INFO: Execute org.bookreader.mobile.ui.BookReaderScreenTest.loadingEmptyAndErrorAreDistinctAndErrorHasRetry: PASSED
+INFO: Execute org.bookreader.mobile.ui.BookReaderScreenTest.threeTabsMetadataSearchAndThemeSelectionWork: PASSED
+INFO: Execute org.bookreader.mobile.ui.MainActivityLaunchTest.launcherStartsAtLibraryAndActivityRecreationKeepsSelectedTab: PASSED
