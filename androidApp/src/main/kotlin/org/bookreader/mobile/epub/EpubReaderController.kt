@@ -42,7 +42,7 @@ data class EpubReaderUi(val opened: Boolean = false, val error: String? = null,
 @OptIn(ExperimentalReadiumApi::class)
 class EpubReaderController(val book: Book, private val file: File, private val verifySource: suspend () -> Unit,
     access: ReaderProgressAccess, parent: CoroutineScope, private val settingsAccess: ReaderSettingsAccess,
-    private val bookmarkAccess: ArchiveBookmarkAccess) {
+    private val bookmarkAccess: ArchiveBookmarkAccess, private val fontStore: UserFontStore) {
     private val lifetime = SupervisorJob(parent.coroutineContext[Job])
     private val scope = CoroutineScope(parent.coroutineContext + lifetime)
     val progress = ArchiveProgressController(book, access, scope)
@@ -79,7 +79,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
                 ReaderSettingsRead.Error -> mutableState.update { it.copy(settingsError = true) }
             }
             verifySource()
-            val opened = SafeEpub.open(file)
+            val opened = SafeEpub.open(file) { id -> customFont()?.takeIf { it.id == id }?.file }
             publication = opened
             currentCoroutineContext().ensureActive()
             (initial.original as? EpubLocator)?.let { validate(sdk(it)) }
@@ -106,11 +106,13 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         }
     } }
     fun initialLocator(): Locator? = pendingJump ?: (progress.state.value.accepted as? EpubLocator)?.let(::sdk)
+    fun customFont(): UserFont? = fontStore.find(state.value.settings.customFontId)
     fun preferences(): EpubPreferences = state.value.settings.let {
         EpubPreferences(scroll = it.readingMode == TxtReadingMode.SCROLL, fontSize = it.fontSizeSp / 18.0,
             lineHeight = it.lineHeight.toDouble(), publisherStyles = it.epubPublisherStyles,
             letterSpacing = it.letterSpacingEm.coerceAtLeast(0f).toDouble() * 2, pageMargins = it.marginDp / 16.0,
-            fontFamily = it.font.epubFamily(),
+            fontFamily = customFont()?.let { font -> org.readium.r2.navigator.preferences.FontFamily("USER_${font.id}") } ?: it.font.epubFamily(),
+            fontWeight = it.fontWeight.value / 400.0,
             backgroundColor = if (it.theme == ReaderTheme.OLED) org.readium.r2.navigator.preferences.Color(0xff000000.toInt()) else null,
             theme = when (it.theme) {
                 ReaderTheme.LIGHT -> Theme.LIGHT; ReaderTheme.SEPIA -> Theme.SEPIA; else -> Theme.DARK

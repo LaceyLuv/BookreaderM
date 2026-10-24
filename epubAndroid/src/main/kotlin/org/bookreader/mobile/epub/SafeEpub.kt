@@ -28,7 +28,7 @@ import org.readium.r2.streamer.parser.epub.EpubParser
 /** Publication owns the virtual container; all content comes from this one validated private ZIP. */
 @OptIn(ExperimentalReadiumApi::class)
 object SafeEpub {
-    suspend fun open(file: File): Publication {
+    suspend fun open(file: File, readerFont: (String) -> File? = { null }): Publication {
         // withContext has prompt cancellation on return: retain ownership until delivery.
         var produced: Publication? = null
         try { return withContext(Dispatchers.IO) {
@@ -54,7 +54,8 @@ object SafeEpub {
         val allowed = EpubPackagePolicy.validate(archive)
         checkpoint()
         // A new read owner must not inherit the already-completed opening coroutine's Job.
-        val container = PublicationContainer(file, allowed)
+        require(archive.entries.keys.none { it.startsWith("_bookreader_fonts/") }) { "Reserved reader font path" }
+        val container = PublicationContainer(file, allowed, readerFont)
         var opened: Publication? = null
         try {
             val asset = ContainerAsset(Format(FormatSpecification(Specification.Epub, Specification.Zip), MediaType.EPUB, FileExtension("epub")), container)
@@ -82,13 +83,42 @@ object SafeEpub {
     }
 }
 
-private class PublicationContainer(file: File, private val allowed: Set<String>) : Container<Resource> {
+private class PublicationContainer(file: File, private val allowed: Set<String>, private val readerFont: (String) -> File?) : Container<Resource> {
     private val closed = AtomicBoolean(false)
     private val archive = BoundedZip(file) { check(!closed.get()) { "Publication closed" } }
     override val entries: Set<Url> = archive.entries.keys.filter { it in allowed }.map { requireNotNull(Url.fromDecodedPath(it)) }.toSet()
     override fun get(url: Url): Resource? {
         if (closed.get() || url is AbsoluteUrl || java.net.URI(url.toString()).rawQuery != null) return null
         val key = url.path ?: return null
+        Regex("_bookreader_fonts/([0-9a-f]{64})\\.ttf").matchEntire(key)?.let { match ->
+            val id = match.groupValues[1]
+            val font = readerFont(id) ?: return null
+            return InMemoryResource(null, Resource.Properties()) {
+                withContext(Dispatchers.IO) {
+                    try {
+                        currentCoroutineContext().ensureActive()
+                        require(font.length() in 12..20L * 1024 * 1024)
+                        val bytes = font.inputStream().use { input ->
+                            val output = java.io.ByteArrayOutputStream()
+                            val buffer = ByteArray(64 * 1024)
+                            while (true) {
+                                currentCoroutineContext().ensureActive()
+                                val count = input.read(buffer)
+                                if (count < 0) break
+                                require(output.size() + count <= 20 * 1024 * 1024)
+                                output.write(buffer, 0, count)
+                            }
+                            output.toByteArray()
+                        }
+                        require(bytes.size <= 20 * 1024 * 1024)
+                        require(java.security.MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) } == id)
+                        currentCoroutineContext().ensureActive()
+                        Try.success(bytes)
+                    } catch (cancelled: CancellationException) { throw cancelled }
+                    catch (failure: Exception) { Try.failure(ReadError.Decoding(failure)) }
+                }
+            }
+        }
         if (key !in allowed) return null
         val entry = archive.entries[key] ?: return null
         return InMemoryResource(null, Resource.Properties()) {

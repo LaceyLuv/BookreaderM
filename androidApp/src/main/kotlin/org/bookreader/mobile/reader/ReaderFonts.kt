@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import org.bookreader.mobile.settings.ReaderSettings
 import org.bookreader.mobile.settings.ReaderFont
 
 val ReaderFont.label: String get() = when (this) {
@@ -33,4 +34,15 @@ fun ReaderFont.epubFamily(): org.readium.r2.navigator.preferences.FontFamily = w
     ReaderFont.SANS -> org.readium.r2.navigator.preferences.FontFamily.SANS_SERIF
     ReaderFont.SERIF -> org.readium.r2.navigator.preferences.FontFamily.SERIF
     else -> org.readium.r2.navigator.preferences.FontFamily(name)
+}
+
+@Composable
+fun ReaderSettings.composeFamily(): FontFamily {
+    val context = LocalContext.current
+    val fallback = font.composeFamily()
+    return remember(customFontId, fallback, context) {
+        UserFontStore(context).find(customFontId)?.let { imported ->
+            runCatching { FontFamily(Font(imported.file)) }.getOrNull()
+        } ?: fallback
+    }
 }

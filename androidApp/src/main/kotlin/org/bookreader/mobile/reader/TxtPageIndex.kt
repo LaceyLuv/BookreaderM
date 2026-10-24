@@ -42,7 +42,7 @@ class TxtPageIndex private constructor(private val starts: LongArray) {
 @Composable
 fun txtPageLabel(controller: TxtReaderController, state: TxtReaderState, style: TextStyle, viewport: IntSize): String {
     val resolver = LocalFontFamilyResolver.current
-    val font = resolver.resolve(style.fontFamily).value
+    val font = resolver.resolve(style.fontFamily, fontWeight = style.fontWeight ?: androidx.compose.ui.text.font.FontWeight.Normal).value
     val density = LocalDensity.current
     val direction = LocalLayoutDirection.current
     val length = state.cache.committedLength.takeIf { state.cache.complete } ?: 0L

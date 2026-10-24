@@ -98,6 +98,73 @@ class TxtReaderFlowTest {
         } finally { if (::observerDatabase.isInitialized) observerDatabase.close() }
     }
 
+    @Test fun customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor() {
+        val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
+        val store = UserFontStore(target)
+        val existingFonts = store.list().map { it.id }.toSet()
+        try {
+            sendFixture("reader-pages"); waitFor("reader_ready")
+            val active = reader()
+            compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+            compose.waitUntil(10_000) { active.state.value.stableOffset?.let { it > 0 } == true }
+            val anchor = requireNotNull(active.state.value.stableOffset)
+            compose.waitUntil(10_000) { saved(active.book)?.let { offset(it) == anchor } == true }
+            val before = saved(active.book)
+            compose.readerControl("reader_settings").performClick()
+            fun pick(name: String) {
+                val monitor = fontPicker(instrumentation, name)
+                try {
+                    compose.onNodeWithTag("reader_font_import").performScrollTo().performClick()
+                    compose.waitUntil(15_000) {
+                        compose.onAllNodesWithTag("reader_font_message").fetchSemanticsNodes().any { node ->
+                            node.config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString { it.text }
+                                .contains(if (name == "font-gothic") "등록 완료" else "지원하지 않는")
+                        }
+                    }
+                    compose.onNodeWithTag("reader_font_import").assertIsEnabled()
+                } finally { instrumentation.removeMonitor(monitor) }
+            }
+            pick("font-invalid")
+            assertEquals(existingFonts, store.list().map { it.id }.toSet())
+            assertEquals(before, saved(active.book))
+            pick("font-gothic")
+            val id = MessageDigest.getInstance("SHA-256").digest(target.assets.open("reader-fonts/NanumGothic-Regular.ttf").use { it.readBytes() })
+                .joinToString("") { "%02x".format(it) }
+            val imported = requireNotNull(store.find(id))
+            assertEquals("font-gothic.ttf", imported.label)
+            compose.onNodeWithTag("reader_weight_BOLD").performScrollTo().performClick()
+            val generation = active.state.value.restoreGeneration
+            compose.onNodeWithTag("reader_mode_PAGES").performScrollTo().performClick()
+            compose.onNodeWithTag("reader_settings_apply").performClick()
+            compose.waitUntil(20_000) { active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY } }
+            assertEquals(id, active.state.value.settings.customFontId)
+            assertEquals(org.bookreader.mobile.settings.ReaderFontWeight.BOLD, active.state.value.settings.fontWeight)
+            assertEquals(anchor, active.state.value.targetOffset)
+            assertEquals(before, saved(active.book))
+            val layouts = mutableListOf<TextLayoutResult>()
+            compose.onNodeWithTag("reader_page").performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts) }
+            assertEquals(androidx.compose.ui.text.font.FontWeight.Bold, layouts.single().layoutInput.style.fontWeight)
+            assertEquals(androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(imported.file)), layouts.single().layoutInput.style.fontFamily)
+            ReaderFixtureScreenshot.capture("txt-custom-font-bold.png")
+            compose.activityRule.scenario.recreate(); waitFor("reader_ready")
+            assertEquals(id, reader().state.value.settings.customFontId)
+            assertEquals(org.bookreader.mobile.settings.ReaderFontWeight.BOLD, reader().state.value.settings.fontWeight)
+            assertEquals(before, saved(active.book))
+            // Import is an app-owned copy: no persistable provider grant is needed on reopening.
+            compose.readerControl("reader_back").performClick(); waitFor("continue_reading")
+            compose.onNodeWithTag("continue_reading").performClick(); waitFor("reader_ready")
+            assertEquals(id, reader().state.value.settings.customFontId)
+            assertTrue(imported.file.isFile)
+        } finally {
+            compose.activityRule.scenario.close()
+            runBlocking {
+                if (originalSettings == null) observerDatabase.useWriterConnection { it.execSQL("DELETE FROM reader_global_settings WHERE id = 'global'") }
+                else observerDatabase.readerSettingsDao().putGlobal(originalSettings)
+                store.list().filter { it.id !in existingFonts }.forEach { store.remove(it.id) }
+            }
+        }
+    }
+
     @Test fun measuredCanonicalLineIsSavedAndContinueRestoresAfterCacheLossAndRecreation() {
         sendFixture("reader-scroll")
         waitFor("reader_ready")

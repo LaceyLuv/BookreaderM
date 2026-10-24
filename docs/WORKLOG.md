@@ -1,5 +1,19 @@
 # M00 작업 기록
 
+## 2026-10-24 진행: 사용자 글꼴·굵기 및 APK 배포 문서
+
+요청 범위: [APK 배포 방안](APK_DISTRIBUTION.md)을 기록하고 TTF·OTF 파일 등록/선택과 보통·굵게를 TXT/EPUB에 추가한다.
+[ADR 0007](adr/0007-user-fonts-and-weight.md)에 내부 복사본, 자원 한도, Readium 공식 API 및 위치 보존 결정을 기록했다.
+앱 버전은 0.5.0/code 5다. 사용자 글꼴은 기기 안에만 보관하며 등록/삭제는 책 데이터와 독립이다.
+
+변경: ReaderSettings/codec 회귀, UserFontStore/FontFilePolicy/CustomFontSettings, ReaderFonts/설정 dialog/TXT 측정,
+SafeEpub의 선택된 폰트 리소스, Epub controller/host, 필수 테스트 manifest 및 실제 SAF/WebView 회귀.
+`./gradlew :androidApp:compileDebugKotlin :androidApp:lintDebug :epubAndroid:lintDebug :shared:jvmTest --console=plain` exit 0.
+`./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug :epubAndroid:testDebugUnitTest :epubAndroid:lintDebug --console=plain` exit 0.
+로그: `/workspace/scratch/custom-fonts-first.log`, `/workspace/scratch/custom-fonts-tests.log`.
+단위/전체 CI 및 API26/34/36 실제 기기 매트릭스 최종 판정은 진행 중이다. 실기기 설치 NOT_RUN.
+APK 배포 자동화는 요청대로 방안을 문서화했으며 구현·업로드·공개 완료를 주장하지 않는다.
+
 ## 2026-10-24 APK 다운로드 경로 — BLOCKED_ENV
 
 사용자는 Android 설치가 아니라 대화의 APK 링크에서 파일 크기 제한이 발생했다고 확인했다.

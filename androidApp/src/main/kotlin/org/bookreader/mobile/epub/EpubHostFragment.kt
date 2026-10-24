@@ -70,6 +70,11 @@ class EpubHostFragment : Fragment() {
                 ReaderFont.entries.forEach { font -> font.assetPath?.let { path ->
                     addFontFamilyDeclaration(font.epubFamily()) { addFontFace { addSource(path, preload = font == current.state.value.settings.font) } }
                 } }
+                current.customFont()?.let { font ->
+                    addFontFamilyDeclaration(org.readium.r2.navigator.preferences.FontFamily("USER_${font.id}")) {
+                        addFontFace { addSource(requireNotNull(Url("https://readium/publication/_bookreader_fonts/${font.id}.ttf")), preload = true) }
+                    }
+                }
             },
             listener = object : EpubNavigatorFragment.Listener {
                 override fun onExternalLinkActivated(url: AbsoluteUrl) { current.externalLink(url) }

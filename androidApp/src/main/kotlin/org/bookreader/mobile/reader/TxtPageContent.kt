@@ -34,7 +34,7 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     onAvailability: (Boolean, Boolean) -> Unit = { _, _ -> }) {
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
-    val font = LocalFontFamilyResolver.current.resolve(style.fontFamily).value
+    val font = LocalFontFamilyResolver.current.resolve(style.fontFamily, fontWeight = style.fontWeight ?: androidx.compose.ui.text.font.FontWeight.Normal).value
     val insets = WindowInsets.systemBars.union(WindowInsets.displayCutout)
     val direction = androidx.compose.ui.platform.LocalLayoutDirection.current
     val measurer = rememberTextMeasurer(cacheSize = 4)

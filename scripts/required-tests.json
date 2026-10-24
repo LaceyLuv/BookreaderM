@@ -271,6 +271,18 @@
     [
       "org.bookreader.mobile.reader.TxtPageIndexTest",
       "rejectsNonAdvancingRangesAndPropagatesCancellation"
+    ],
+    [
+      "org.bookreader.mobile.reader.FontFilePolicyTest",
+      "bundledKoreanFontsHaveValidBoundedSfntTables"
+    ],
+    [
+      "org.bookreader.mobile.reader.FontFilePolicyTest",
+      "rejectsDisguisedTruncatedAndOversizedFonts"
+    ],
+    [
+      "org.bookreader.mobile.reader.FontFilePolicyTest",
+      "rejectsEscapingOverlappingAndDuplicateTableDirectories"
     ]
   ],
   "shared-jvm": [
@@ -803,6 +815,14 @@
     [
       "org.bookreader.mobile.reader.ReaderPageTransitionTest",
       "bothDirectionsAndDisabledEffectKeepEveryFrameCovered"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubReaderFlowTest",
+      "importedFontAndBoldLoadInWebViewAndSurviveReopenWithoutChangingLocator"
     ]
   ],
   "android-host": [

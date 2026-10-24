@@ -71,7 +71,7 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 switch (columns[index]) {
                     case DocumentsContract.Document.COLUMN_DOCUMENT_ID: values[index] = id; break;
                     case DocumentsContract.Document.COLUMN_DISPLAY_NAME:
-                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.startsWith("epub-") ? ".epub" : id.startsWith("comic-") ? ".cbz" : ".txt");
+                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.startsWith("font-") ? ".ttf" : id.startsWith("epub-") ? ".epub" : id.startsWith("comic-") ? ".cbz" : ".txt");
                         break;
                     case DocumentsContract.Document.COLUMN_MIME_TYPE:
                         values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : id.startsWith("epub-") ? "application/epub+zip" : id.startsWith("comic-") ? "application/zip" : "text/plain";
@@ -126,6 +126,19 @@ public final class TestDocumentsProvider extends DocumentsProvider {
     }
 
     private byte[] bytes(String id) {
+        if (id.equals("font-gothic")) {
+            try (java.io.InputStream input = getContext().createPackageContext("org.bookreader.mobile", 0)
+                    .getAssets().open("reader-fonts/NanumGothic-Regular.ttf");
+                 java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream()) {
+                byte[] buffer = new byte[4096]; int count;
+                while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
+                return output.toByteArray();
+            } catch (IOException | android.content.pm.PackageManager.NameNotFoundException failure) {
+                throw new IllegalStateException("Unable to read licensed font fixture", failure);
+            }
+        }
+        if (id.equals("font-invalid")) return "this is not a font".getBytes(StandardCharsets.UTF_8);
+
         if (id.startsWith("epub-") || id.equals("comic-product")) {
             String name;
             switch (id) {

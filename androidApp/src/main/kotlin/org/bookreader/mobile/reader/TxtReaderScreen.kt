@@ -77,7 +77,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     val foreground = settings.theme.inkColor()
     val background = settings.theme.paperColor()
     val typography = MaterialTheme.typography.bodyLarge.copy(
-        color = foreground, fontFamily = settings.font.composeFamily(),
+        color = foreground, fontFamily = settings.composeFamily(), fontWeight = androidx.compose.ui.text.font.FontWeight(settings.fontWeight.value),
         fontSize = settings.fontSizeSp.sp, lineHeight = (settings.fontSizeSp * settings.lineHeight).sp,
         letterSpacing = settings.letterSpacingEm.em, localeList = LocaleList.current,
         platformStyle = PlatformTextStyle(includeFontPadding = false), lineBreak = LineBreak.Simple, hyphens = Hyphens.None)

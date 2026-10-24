@@ -29,6 +29,7 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
     val loaded = state.settingsLoaded
     var global by remember(loaded) { mutableStateOf(loaded?.global ?: ReaderSettings()) }
     var preferences by remember(loaded) { mutableStateOf(loaded?.book ?: BookReaderPreferences()) }
+    var fontBusy by remember { mutableStateOf(false) }
     AlertDialog(onDismissRequest = onDismiss, title = { Column {
         Text("읽기 설정")
         Text("글자·색상·읽기 방식을 조절하세요", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -55,14 +56,15 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                 Surface(color = global.theme.paperColor(), contentColor = global.theme.inkColor(), shape = RoundedCornerShape(12.dp)) {
                     Text("책 속으로, 한 걸음 더.\n편안한 속도로 읽어 보세요.", Modifier.fillMaxWidth().padding(16.dp).testTag("reader_settings_preview"),
                         fontSize = global.fontSizeSp.sp, lineHeight = (global.fontSizeSp * global.lineHeight).sp,
-                        fontFamily = global.font.composeFamily())
+                        fontFamily = global.composeFamily(), fontWeight = androidx.compose.ui.text.font.FontWeight(global.fontWeight.value))
                 }
                 FlowRow {
-                    ReaderFont.entries.forEach { font -> FilterChip(selected = global.font == font,
-                        onClick = { global = global.copy(font = font, epubPublisherStyles = if (epubMode) false else global.epubPublisherStyles) },
+                    ReaderFont.entries.forEach { font -> FilterChip(selected = global.customFontId == null && global.font == font,
+                        onClick = { global = global.copy(font = font, customFontId = null, epubPublisherStyles = if (epubMode) false else global.epubPublisherStyles) },
                         modifier = Modifier.testTag("reader_font_${font.name}"),
                         label = { Text(font.label, fontFamily = font.composeFamily()) }) }
                 }
+                CustomFontSettings(global, loaded?.global?.customFontId, epubMode, onBusy = { fontBusy = it }) { global = it }
                 SettingStepper(if (epubMode) "글자 배율" else "글자 크기", if (epubMode) "${(global.fontSizeSp / 18f * 100).roundToInt()}%" else "${global.fontSizeSp.roundToInt()} sp", "font_size",
                     global.fontSizeSp > 12, global.fontSizeSp < 36,
                     { global = global.copy(fontSizeSp = (global.fontSizeSp - 1).coerceAtLeast(12f)) },
@@ -121,7 +123,7 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                 }
             }
         },
-        confirmButton = { Button(enabled = loaded != null && !state.settingsError && !state.settingsSaving &&
+        confirmButton = { Button(enabled = loaded != null && !state.settingsError && !state.settingsSaving && !fontBusy &&
             state.phase == TxtReaderPhase.READY, modifier = Modifier.testTag("reader_settings_apply"),
             onClick = { onSave(global, preferences); onDismiss() }) { Text("적용") } },
         dismissButton = { TextButton(onClick = onDismiss) { Text("닫기") } })

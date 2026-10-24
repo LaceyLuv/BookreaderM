@@ -17,8 +17,10 @@ class ReaderSettingsRepositoryTest {
         val book = db.bookDao().findBook("a")
         val progress = db.progressDao().findProgress("a", "revision")
         assertEquals(PageTransition.NONE, ReaderSettingsCodec.readGlobal(1, "{\"font\":\"SERIF\"}").pageTransition)
+        assertNull(ReaderSettingsCodec.readGlobal(1, "{}").customFontId)
+        assertEquals(ReaderFontWeight.NORMAL, ReaderSettingsCodec.readGlobal(1, "{}").fontWeight)
         val global = ReaderSettings(font = ReaderFont.NANUM_MYEONGJO, fontSizeSp = 24f, theme = ReaderTheme.SEPIA,
-            pageTransition = PageTransition.SLIDE)
+            pageTransition = PageTransition.SLIDE, customFontId = "a".repeat(64), fontWeight = ReaderFontWeight.BOLD)
         assertEquals(ReaderSettingsWrite.SAVED, repository.save(first, global, BookReaderPreferences(TxtReadingMode.PAGES)))
         val saved = assertIs<ReaderSettingsRead.Ready>(repository.load("a")).value
         assertEquals(global.copy(readingMode = TxtReadingMode.PAGES), saved.effective)
@@ -38,6 +40,8 @@ class ReaderSettingsRepositoryTest {
         for (raw in listOf(ReaderGlobalSettingsEntity(schemaVersion = 2, settingsJson = "{}"),
             ReaderGlobalSettingsEntity(schemaVersion = 1, settingsJson = "{bad"),
             ReaderGlobalSettingsEntity(schemaVersion = 1, settingsJson = "{\"fontSizeSp\":999}"),
+            ReaderGlobalSettingsEntity(schemaVersion = 1, settingsJson = "{\"customFontId\":\"../../font.ttf\"}"),
+            ReaderGlobalSettingsEntity(schemaVersion = 1, settingsJson = "{\"fontWeight\":\"INVALID\"}"),
             ReaderGlobalSettingsEntity(schemaVersion = 1, settingsJson = "{\"futureField\":true}"))) {
             db.readerSettingsDao().putGlobal(raw)
             assertEquals(ReaderSettingsRead.Error, repository.load("a"))

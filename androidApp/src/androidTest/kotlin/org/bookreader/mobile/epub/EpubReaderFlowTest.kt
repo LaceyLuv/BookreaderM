@@ -33,8 +33,9 @@ class EpubReaderFlowTest {
     private val database by lazy { createAndroidDatabase(target) }
     private var existing: Set<String>? = null
     private var originalGlobal: org.bookreader.mobile.database.ReaderGlobalSettingsEntity? = null
+    private var originalFonts: Set<String> = emptySet()
     private var observationFileName = "epub-restore-observations.json"
-    @Before fun preserveExistingBooks() { existing = books().map { it.id }.toSet(); originalGlobal = runBlocking { database.readerSettingsDao().global() } }
+    @Before fun preserveExistingBooks() { existing = books().map { it.id }.toSet(); originalGlobal = runBlocking { database.readerSettingsDao().global() }; originalFonts = org.bookreader.mobile.reader.UserFontStore(target).list().map { it.id }.toSet() }
     @After fun cleanupOwnedFixtures() {
         try {
             compose.activityRule.scenario.close()
@@ -47,6 +48,8 @@ class EpubReaderFlowTest {
                 val original = originalGlobal
                 if (original == null) database.useWriterConnection { it.execSQL("DELETE FROM reader_global_settings WHERE id = 'global'") }
                 else database.readerSettingsDao().putGlobal(original)
+                val fonts = org.bookreader.mobile.reader.UserFontStore(target)
+                fonts.list().filter { it.id !in originalFonts }.forEach { fonts.remove(it.id) }
             }
             database.close()
         }
@@ -239,6 +242,38 @@ class EpubReaderFlowTest {
         assertEquals(initial.getString("href"), org.json.JSONObject(returned.payload.locator.toString()).getString("href"))
         assertTrue("Right tap must advance the rendered page", progression(next as EpubLocator) > initial.getJSONObject("locations").optDouble("progression", 0.0))
         assertEquals(initial.getJSONObject("locations").optDouble("progression", 0.0), progression(returned), .03)
+    }
+
+    @Test fun importedFontAndBoldLoadInWebViewAndSurviveReopenWithoutChangingLocator() {
+        send("epub-product"); waitFor("epub_ready")
+        val active = reader()
+        compose.readerControl("epub_next").performClick()
+        compose.waitUntil(20_000) { saved(active.book) != null }
+        val before = requireNotNull(saved(active.book))
+        val chapter = org.json.JSONObject(before.payload.locator.toString()).getString("href").substringAfterLast('/').removeSuffix(".xhtml")
+        val previous = active.state.value
+        compose.readerControl("epub_settings").performClick()
+        val monitor = org.bookreader.mobile.reader.fontPicker(instrumentation, "font-gothic")
+        val id = java.security.MessageDigest.getInstance("SHA-256").digest(target.assets.open("reader-fonts/NanumGothic-Regular.ttf").use { it.readBytes() })
+            .joinToString("") { "%02x".format(it) }
+        try {
+            compose.onNodeWithTag("reader_font_import").performScrollTo().performClick()
+            compose.waitUntil(15_000) { compose.onAllNodesWithTag("reader_custom_font_$id").fetchSemanticsNodes().isNotEmpty() }
+        } finally { instrumentation.removeMonitor(monitor) }
+        compose.onNodeWithTag("reader_weight_BOLD").performScrollTo().performClick()
+        compose.onNodeWithTag("reader_settings_apply").performClick()
+        val expected = previous.settings.copy(customFontId = id, fontWeight = org.bookreader.mobile.settings.ReaderFontWeight.BOLD, epubPublisherStyles = false)
+        waitForSettingsApplied(previous.hostVersion, expected)
+        fun loaded(): Boolean = evaluateLoadedChapter(compose.activityRule.scenario, chapter,
+            "getComputedStyle(document.querySelector('p')).fontFamily.includes('USER_$id') && getComputedStyle(document.querySelector('p')).fontWeight === '700' && Array.from(document.fonts).some(f => f.family.includes('USER_$id') && f.status === 'loaded')") == "true"
+        compose.waitUntil(20_000) { loaded() }
+        assertEquals(before, saved(active.book))
+        org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("epub-custom-font-bold.png")
+        compose.readerControl("epub_back").performClick(); waitFor("continue_reading")
+        compose.onNodeWithTag("continue_reading").performClick(); waitFor("epub_ready")
+        compose.waitUntil(20_000) { loaded() }
+        assertEquals(expected, reader().state.value.settings)
+        assertEquals(before, saved(active.book))
     }
 
     @Test fun unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy() {
