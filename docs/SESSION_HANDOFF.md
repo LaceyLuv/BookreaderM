@@ -1,3 +1,17 @@
+# 2026-10-24 제품 완성도 개선 — Phase 1 후보
+
+사용자의 새 [개발 지침](reference/BookReaderM_Product_Improvement_Request_2026-10-24.md)을 읽고
+[전체 감사](PRODUCT_IMPROVEMENT.md) 뒤 v0.5.1/code6 UX 정리를 구현했다. 서브에이전트는 사용하지 않았다.
+작업 위치 `/workspace/BookreaderM`, 브랜치 `codex/product-quality-051`. main은790175b를 유지한다.
+로컬 unit163/APK/test APK/lint/schema5 PASS, native63+host6/API는 새 후보 CI 확인이 필요하다.
+기존 0.5.0 PASS를 새 후보의 기기 검증으로 사용하지 않는다. [로컬 명령·중간 실패](evidence/product-quality/phase1-local/commands.json).
+
+기존 서명키·책·진행도·북마크·글꼴·설정·DB schema5를 유지했다. 공개 릴리스는 별도 승인 대상이다.
+다음은 후보의 실제 API26/34/36 회귀·스크린샷 확인 후 Phase2 서재2.0이다.
+각 shell에서 `source /workspace/toolchains/mobile-env.sh`를 적용하고 reset/clean·앱 삭제를 하지 않는다.
+
+아래는 이전 0.5.0 완료 시점의 인계이며 당시 패키지·검증 근거를 보존한다.
+
 # 2026-10-24 사용자 글꼴·굵기 작업 완료
 
 사용자 요청의 배포 방안 Markdown, TTF·OTF 등록/선택/삭제, 보통/굵게를 구현했다. 서브에이전트 없이 진행했다.

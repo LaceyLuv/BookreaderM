@@ -3,6 +3,10 @@ package org.bookreader.mobile.ui
 import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,6 +42,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -49,6 +55,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
+import org.bookreader.mobile.R
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
@@ -139,7 +151,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
     BookReaderScreen(state, model::selectTab, model::updateQuery, model::retryLibrary, model::selectTheme,
         onAddTxt, model::confirmShare, model::dismissImport, model::cancelImport, model::selectImportEncoding,
         model::showBook, model::requestDelete, model::confirmDelete, model::openBook,
-        model::requestBookEncoding, model::changeBookEncoding, model::dismissBookEncoding)
+        model::requestBookEncoding, model::changeBookEncoding, model::dismissBookEncoding, model::dismissNotice)
 }
 
 @Composable
@@ -161,16 +173,15 @@ fun BookReaderScreen(
     onBookEncoding: (Book) -> Unit = {},
     onChangeBookEncoding: (String) -> Unit = {},
     onDismissBookEncoding: () -> Unit = {},
+    onDismissNotice: () -> Unit = {},
 ) {
     val dark = state.theme.isDark(isSystemInDarkTheme())
-    MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
+    BookReaderTheme(dark) {
         Scaffold(
             bottomBar = {
                 Column {
                 (state.library as? LibraryState.Content)?.books?.let(::continueBook)?.let { book ->
-                    TextButton(onClick = { onOpenBook(book) }, modifier = Modifier.fillMaxWidth().testTag("continue_reading")) {
-                        Text("이어읽기 · ${book.title} · " + (state.continuePercent?.let { "${it.toInt()}%" } ?: "진행률 확인 필요"))
-                    }
+                    ContinueReading(book, state.continuePercent, onOpenBook)
                 }
                 NavigationBar {
                     AppTab.entries.forEach { tab ->
@@ -179,11 +190,11 @@ fun BookReaderScreen(
                             onClick = { onTabSelected(tab) },
                             modifier = Modifier.testTag("tab_${tab.name}"),
                             icon = {
-                                Text(
+                                AppIcon(
                                     when (tab) {
-                                        AppTab.LIBRARY -> "▤"
-                                        AppTab.SEARCH -> "⌕"
-                                        AppTab.SETTINGS -> "⚙"
+                                        AppTab.LIBRARY -> R.drawable.ic_library
+                                        AppTab.SEARCH -> R.drawable.ic_search
+                                        AppTab.SETTINGS -> R.drawable.ic_settings
                                     },
                                     modifier = Modifier.clearAndSetSemantics { },
                                 )
@@ -199,26 +210,34 @@ fun BookReaderScreen(
                 Row(Modifier.fillMaxWidth().padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(state.tab.label, style = MaterialTheme.typography.headlineMedium,
-                        modifier = Modifier.testTag("screen_title"))
+                        modifier = Modifier.weight(1f).testTag("screen_title"))
                     if (state.tab == AppTab.LIBRARY) Button(onClick = onAddTxt,
                         enabled = state.importing !is ImportUiState.Working && state.importing !is ImportUiState.SelectEncoding,
-                        modifier = Modifier.testTag("add_txt")) { Text("책 추가") }
+                        modifier = Modifier.testTag("add_txt")) {
+                        AppIcon(R.drawable.ic_add)
+                        Spacer(Modifier.size(6.dp))
+                        Text("책 추가")
+                    }
                 }
-                state.notice?.let { Text(it, modifier = Modifier.testTag("import_notice"), color = MaterialTheme.colorScheme.error) }
+                state.notice?.let { LibraryNotice(it, onDismissNotice) }
                 ImportStatus(state.importing, onConfirmShare, onDismissImport, onCancelImport,
                     onEncodingSelected, onOpenBook)
                 when (state.tab) {
-                    AppTab.LIBRARY -> LibraryBody(state.library, onRetry, onInfo = onBookInfo, onOpen = onOpenBook)
+                    AppTab.LIBRARY -> LibraryBody(state.library, onRetry, onInfo = onBookInfo, onOpen = onOpenBook,
+                        onAdd = onAddTxt, canAdd = state.importing !is ImportUiState.Working && state.importing !is ImportUiState.SelectEncoding)
                     AppTab.SEARCH -> {
                         OutlinedTextField(
                             value = state.query,
                             onValueChange = onQueryChanged,
-                            label = { Text("제목·작가·원본 파일명") },
+                            label = { Text("책 검색") },
+                            placeholder = { Text("제목, 작가 또는 파일명") },
+                            leadingIcon = { AppIcon(R.drawable.ic_search) },
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth().testTag("search_query"),
                         )
                         Spacer(Modifier.height(16.dp))
-                        LibraryBody(state.library, onRetry, state.query, onBookInfo, onOpenBook)
+                        LibraryBody(state.library, onRetry, state.query, onBookInfo, onOpenBook,
+                            onClearQuery = { onQueryChanged("") })
                     }
                     AppTab.SETTINGS -> SettingsBody(state, onThemeSelected)
                 }
@@ -226,9 +245,15 @@ fun BookReaderScreen(
         }
         state.selectedBook?.let { book ->
             AlertDialog(onDismissRequest = { onBookInfo(null) }, title = { Text("책 정보") },
-                text = { Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(book.title); Text(book.originalDisplayName); Text("${book.sourceByteSize} bytes · ${book.encodingId.orEmpty()}")
-                    Text("앱 내부 관리 복사본")
+                text = { Column(Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(book.title, style = MaterialTheme.typography.titleMedium)
+                    book.author?.let { Text(it) }
+                    Text("${book.format.displayName} · ${android.text.format.Formatter.formatShortFileSize(LocalContext.current, book.sourceByteSize)}")
+                    Text("원본 파일: ${book.originalDisplayName}", style = MaterialTheme.typography.bodySmall)
+                    book.encodingId?.let { Text("텍스트 인코딩: $it", style = MaterialTheme.typography.bodySmall) }
+                    unavailableBookMessage(book.availability)?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                    Text("책은 앱 안에 보관됩니다. 원본 파일은 변경하지 않습니다.", style = MaterialTheme.typography.bodySmall)
                     if (book.format == org.bookreader.mobile.model.BookFormat.TXT && book.availability == BookAvailability.READY)
                         TextButton(onClick = { onBookEncoding(book) }, modifier = Modifier.testTag("book_change_encoding")) { Text("인코딩 변경") }
                 } },
@@ -271,21 +296,28 @@ private fun ImportStatus(state: ImportUiState, onConfirm: () -> Unit, onDismiss:
     when (state) {
         ImportUiState.Idle -> Unit
         is ImportUiState.ConfirmShare -> AlertDialog(onDismissRequest = onDismiss,
-            title = { Text("공유한 TXT를 추가할까요?") }, text = { Text("앱 내부에 복사합니다. 원본은 변경하지 않습니다.") },
+            title = { Text("공유한 책을 추가할까요?") }, text = { Text("책을 앱 안에 보관합니다. 원본 파일은 변경하지 않습니다.") },
             confirmButton = { TextButton(onClick = onConfirm, modifier = Modifier.testTag("confirm_share")) { Text("추가") } },
             dismissButton = { TextButton(onClick = onDismiss) { Text("취소") } })
-        is ImportUiState.Working -> Row(Modifier.fillMaxWidth().testTag("import_progress"),
-            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-            Column {
+        is ImportUiState.Working -> Column(Modifier.fillMaxWidth().padding(bottom = 12.dp).testTag("import_progress"),
+            verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
                 Text(when (state.progress?.phase) {
-                    ImportPhase.VALIDATING -> "텍스트 확인 중"
+                    ImportPhase.VALIDATING -> "책 확인 중"
                     ImportPhase.FINALIZING -> "서재에 저장 중"
                     else -> "파일 복사 중"
                 })
-                Text("${state.progress?.bytesCopied ?: 0} bytes" + (state.progress?.expectedBytes?.let { " / $it bytes" } ?: " · 전체 크기 미상"))
+                val context = LocalContext.current
+                Text(android.text.format.Formatter.formatShortFileSize(context, state.progress?.bytesCopied ?: 0) +
+                    (state.progress?.expectedBytes?.let { " / ${android.text.format.Formatter.formatShortFileSize(context, it)}" }
+                        ?: " · 전체 크기 확인 중"), style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.testTag("import_bytes"))
             }
             TextButton(onClick = onCancel, modifier = Modifier.testTag("cancel_import"),
                 enabled = state.progress?.phase != ImportPhase.FINALIZING) { Text("취소") }
+            }
+            LinearProgressIndicator(Modifier.fillMaxWidth())
         }
         is ImportUiState.SelectEncoding -> AlertDialog(onDismissRequest = onCancel,
             title = { Text("텍스트 인코딩 선택") },
@@ -296,14 +328,33 @@ private fun ImportStatus(state: ImportUiState, onConfirm: () -> Unit, onDismiss:
                     state.previews.firstOrNull { it.encoding == encoding }?.text?.let { Text(it.take(160), maxLines = 3) }
                 }
             } }, confirmButton = { TextButton(onClick = onCancel) { Text("취소") } })
-        is ImportUiState.Complete -> Row(Modifier.fillMaxWidth().testTag("import_success"),
-            horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Text(if (state.result.duplicate) "동일한 파일이 서재에 있습니다." else "TXT를 서재에 추가했습니다.")
-            TextButton(onClick = { onRead(state.result.book); onDismiss() }, modifier = Modifier.testTag("import_read")) { Text("읽기") }
+        is ImportUiState.Complete -> Surface(Modifier.fillMaxWidth().padding(bottom = 12.dp).testTag("import_success")
+            .semantics { liveRegion = LiveRegionMode.Polite }, shape = RoundedCornerShape(16.dp),
+            color = MaterialTheme.colorScheme.primaryContainer) {
+            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    AppIcon(R.drawable.ic_check)
+                    Text(if (state.result.duplicate) "동일한 파일이 서재에 있습니다."
+                        else "${state.result.book.format.displayName} 책을 서재에 추가했습니다.",
+                        modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+                }
+                Text(state.result.book.title, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.titleSmall)
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    TextButton(onClick = { onRead(state.result.book); onDismiss() }, modifier = Modifier.testTag("import_read")) {
+                        AppIcon(R.drawable.ic_book); Spacer(Modifier.size(6.dp)); Text("읽기")
+                    }
+                    TextButton(onClick = onDismiss, modifier = Modifier.testTag("dismiss_import_success")) { Text("닫기") }
+                }
+            }
         }
-        is ImportUiState.Error -> Row(Modifier.fillMaxWidth().testTag("import_error"), verticalAlignment = Alignment.CenterVertically) {
-            Text(state.message, modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.error)
-            TextButton(onClick = onDismiss) { Text("닫기") }
+        is ImportUiState.Error -> Surface(Modifier.fillMaxWidth().padding(bottom = 12.dp).testTag("import_error")
+            .semantics { liveRegion = LiveRegionMode.Polite }, shape = RoundedCornerShape(16.dp),
+            color = MaterialTheme.colorScheme.errorContainer, contentColor = MaterialTheme.colorScheme.onErrorContainer) {
+            Column(Modifier.padding(12.dp).heightIn(max = 180.dp).verticalScroll(rememberScrollState())) {
+                Text(state.message, style = MaterialTheme.typography.bodyMedium)
+                TextButton(onClick = onDismiss) { Text("닫기") }
+            }
         }
     }
 }
@@ -324,22 +375,32 @@ private val AppTab.label: String
 @Composable
 private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String? = null,
     onInfo: (Book) -> Unit = {}, onOpen: (Book) -> Unit = {},
+    onAdd: () -> Unit = {}, canAdd: Boolean = true, onClearQuery: () -> Unit = {},
 ) {
     when (state) {
         LibraryState.Loading -> StatusMessage("서재를 불러오는 중", "library_loading") {
             CircularProgressIndicator(Modifier.size(36.dp))
         }
-        LibraryState.Empty -> StatusMessage("서재가 비어 있습니다", "library_empty")
+        LibraryState.Empty -> StatusMessage("첫 책을 추가해 보세요", "library_empty",
+            "TXT·EPUB·ZIP/CBZ 파일을 보관하고 읽을 수 있어요.") {
+            if (query == null) Button(onClick = onAdd, enabled = canAdd,
+                modifier = Modifier.testTag("empty_add_book")) {
+                AppIcon(R.drawable.ic_add); Spacer(Modifier.size(6.dp)); Text("책 추가")
+            }
+        }
         is LibraryState.Error -> StatusMessage(
-            "서재를 불러오지 못했습니다. 기존 책과 독서 기록은 유지됩니다.",
+            "서재를 불러오지 못했습니다",
             "library_error",
+            "기존 책과 독서 기록은 유지됩니다. 잠시 후 다시 시도해 주세요.",
         ) {
             Button(onClick = onRetry, modifier = Modifier.testTag("library_retry")) { Text("다시 시도") }
         }
         is LibraryState.Content -> {
             val matches = filterLibraryBooks(state.books, query.orEmpty())
             if (matches.isEmpty()) {
-                StatusMessage("검색 결과가 없습니다", "search_empty")
+                StatusMessage("검색 결과가 없습니다", "search_empty", "다른 제목이나 작가 이름으로 찾아보세요.") {
+                    TextButton(onClick = onClearQuery, modifier = Modifier.testTag("clear_search")) { Text("검색 지우기") }
+                }
             } else {
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(160.dp),
@@ -359,25 +420,38 @@ private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String?
 private fun BookMetadata(book: Book, onInfo: (Book) -> Unit, onOpen: (Book) -> Unit) {
     Card(onClick = { onOpen(book) }, modifier = Modifier.fillMaxWidth().testTag("book_${book.id}")) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(book.title, style = MaterialTheme.typography.titleMedium)
-            book.author?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
-            Text(book.format.name, style = MaterialTheme.typography.labelMedium)
-            Row {
-                TextButton(onClick = { onOpen(book) }, modifier = Modifier.testTag("read_${book.id}")) { Text("읽기") }
-                TextButton(onClick = { onInfo(book) }, modifier = Modifier.testTag("info_${book.id}")) { Text("책 정보") }
+            Text(book.format.displayName, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
+            Text(book.title, style = MaterialTheme.typography.titleMedium, maxLines = 3, overflow = TextOverflow.Ellipsis)
+            book.author?.let { Text(it, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+            if (book.availability != BookAvailability.READY) Text(book.availability.displayName,
+                style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.testTag("availability_${book.id}"))
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                TextButton(onClick = { onOpen(book) }, modifier = Modifier.weight(1f).testTag("read_${book.id}")) {
+                    Text(if (book.availability == BookAvailability.READY) "읽기" else "확인")
+                }
+                IconButton(onClick = { onInfo(book) }, modifier = Modifier.testTag("info_${book.id}")) {
+                    AppIcon(R.drawable.ic_info, description = "책 정보")
+                }
             }
         }
     }
 }
 
 @Composable
-private fun StatusMessage(message: String, tag: String, action: @Composable () -> Unit = {}) {
+private fun StatusMessage(message: String, tag: String, detail: String? = null, action: @Composable () -> Unit = {}) {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(top = 32.dp).testTag(tag),
+        modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(vertical = 24.dp).testTag(tag),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text(message, style = MaterialTheme.typography.bodyLarge)
+        if (tag != "library_loading") Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.secondaryContainer) {
+            AppIcon(if (tag == "search_empty") R.drawable.ic_search else R.drawable.ic_library,
+                modifier = Modifier.padding(16.dp))
+        }
+        Text(message, style = MaterialTheme.typography.titleMedium, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+        detail?.let { Text(it, style = MaterialTheme.typography.bodyMedium, textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurfaceVariant) }
         action()
     }
 }

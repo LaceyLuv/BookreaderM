@@ -1,0 +1,29 @@
+{
+  "activation": "source /workspace/toolchains/mobile-env.sh",
+  "commands": [
+    {
+      "command": "./gradlew :androidApp:testDebugUnitTest --tests '*AppViewModelTest.unavailableBooksExplainTheReasonWithoutOpeningOrChangingLibrary' --tests '*AppViewModelTest.missingReaderReportsAnErrorForEveryFormatWithoutMutatingTheBook' --console=plain",
+      "exit_code": 1,
+      "result": "FAIL: expected pre-fix regression",
+      "log": "phase1-before.log"
+    },
+    {
+      "command": "./gradlew :androidApp:testDebugUnitTest :androidApp:assembleDebugAndroidTest :androidApp:lintDebug --console=plain",
+      "exit_code": 1,
+      "result": "FAIL: ModifierParameter, fixed",
+      "log": "phase1-first.log"
+    },
+    {
+      "command": "BOOKREADER_EVIDENCE_DIR=/workspace/work/bookreaderm-product-quality/phase1-ci ./scripts/ci-check.sh",
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "phase1-ci.log"
+    },
+    {
+      "command": "./gradlew :androidApp:compileDebugAndroidTestKotlin --console=plain",
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "native-compile.log"
+    }
+  ]
+}

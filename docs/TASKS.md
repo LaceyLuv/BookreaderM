@@ -1,5 +1,22 @@
 # BookReader Mobile — Codex 작업표
 
+## 2026-10-24 제품 완성도 개선 — Phase 1 검증 후보
+
+사용자 [개발 지침](reference/BookReaderM_Product_Improvement_Request_2026-10-24.md)을 보존하고
+[코드 감사·단계별 상태](PRODUCT_IMPROVEMENT.md)를 기록했다. 먼저 v0.5.1/code6 UX 정리를 구현했다.
+잘못된 TXT 고정 문구, unavailable 책의 무응답, 빈 화면/검색 복귀, import 상태/크기 표시,
+벡터 아이콘·색상·하단 이어읽기·책 정보 가독성 및 README를 개선한다.
+기존 Room schema5/책/진행도/북마크/글꼴/설정/서명키와 세 Reader의 viewport·locator 계약은 유지한다.
+
+주요 소스: AppViewModel/BookReaderApp/BookReaderTheme/LibraryUi/LibraryPresentation,
+ReaderChrome의 기존 팔레트 공유, 벡터 drawable, versionCode 및 unit/native 회귀.
+기존 필수 사례를 유지하고 unit2/native3을 추가했다(73/74/16, native63+host6/API).
+수정 전 새 unit2 FAIL 재현, 첫 수정 빌드는 ModifierParameter lint1 FAIL, 인자 순서 수정 후
+`BOOKREADER_EVIDENCE_DIR=/workspace/work/bookreaderm-product-quality/phase1-ci ./scripts/ci-check.sh` exit0.
+실제 XML 기준 unit163 PASS, APK/test APK·lint·schema5 PASS. [로컬 원본](evidence/product-quality/phase1-local/summary.json).
+명령은 모두 `source /workspace/toolchains/mobile-env.sh` 뒤 실행했다. 기기 검증은 후보 커밋의 API26/34/36 CI로 이어간다.
+이 시점 native/host는 NOT_RUN이며 Phase1 전체 완료나 Phase2 구현 완료로 보고하지 않는다.
+
 ## 2026-10-24 완료: 사용자 글꼴·굵기 및 APK 배포 문서
 
 [사용 안내](READER_FONTS_0_5.md), [APK 배포 방안](APK_DISTRIBUTION.md), [ADR 0007](adr/0007-user-fonts-and-weight.md)을 기록했다.

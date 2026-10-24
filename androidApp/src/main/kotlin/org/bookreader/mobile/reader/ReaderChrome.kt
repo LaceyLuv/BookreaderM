@@ -18,16 +18,7 @@ import org.bookreader.mobile.settings.ReaderTheme
 /** Controls have their own palette; publication colors never leak into the tool panels. */
 @Composable
 fun ReaderControlTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = darkColorScheme(
-        primary = Color(0xFFA7E0D3), onPrimary = Color(0xFF103C34),
-        primaryContainer = Color(0xFF294E48), onPrimaryContainer = Color(0xFFD5F5EC),
-        secondaryContainer = Color(0xFF35485C), onSecondaryContainer = Color(0xFFE0EBF8),
-        background = Color(0xFF101720), onBackground = Color(0xFFF0F3F7),
-        surface = Color(0xFF202D3B), onSurface = Color(0xFFF0F3F7),
-        surfaceVariant = Color(0xFF2B3B4C), onSurfaceVariant = Color(0xFFBDCBD8),
-        surfaceContainerHigh = Color(0xFF243343), surfaceContainerHighest = Color(0xFF2B3B4C),
-        outline = Color(0xFF8294A7), outlineVariant = Color(0xFF485B6E),
-    ), content = content)
+    MaterialTheme(colorScheme = org.bookreader.mobile.ui.BookReaderDarkColors, content = content)
 }
 
 fun ReaderTheme.paperColor(): Color = when (this) {

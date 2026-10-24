@@ -1,5 +1,12 @@
 # 모바일 검증 계약
 
+## 2026-10-24 제품 개선 검증 기준
+
+현재 제품 개발은 [단계별 감사](PRODUCT_IMPROVEMENT.md)와 [최신 인계](SESSION_HANDOFF.md)를 따른다.
+기존 0.5.0의 검증 소스는4449f1e이며 native60+host6/API, build164개다.
+0.5.1 후보는 unit2/native3을 추가하며 기존 필수 테스트를 모두 유지한다.
+아래 2026-10-17 이전 건수와 미구현 설명은 당시 이력이며 현재 기능/검증을 대체하지 않는다.
+
 ## 2026-10-17 archive 진행도·bounded SDK 검색 기반
 
 main `6ee9d4f`까지 local full CI Android 64/shared 71/archive·EPUB·Comic 13 PASS다.

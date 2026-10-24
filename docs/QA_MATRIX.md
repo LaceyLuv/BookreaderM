@@ -1,5 +1,12 @@
 # Android 검증 매트릭스 — 2026-10-17
 
+## 2026-10-24 제품 완성도 개선
+
+[새 단계별 감사](PRODUCT_IMPROVEMENT.md)와 [최신 인계](SESSION_HANDOFF.md)를 우선한다.
+0.5.0/4449f1e는 build164, API26/34/36 native60+host6 PASS다.
+0.5.1 후보는 unit163 로컬 PASS 및 native63+host6/API 검증 대상이다. 현재 후보 기기 검증은 아직 NOT_RUN이다.
+실기기·전체 corpus·TalkBack·16KB OS·공개 출시 gate는 유지한다. 아래 표와 건수는 각 시점의 이력이다.
+
 ## 2026-10-22 현재: 검증된 소스 main 통합 및 unsigned 재생성 완료
 
 `bb0f537`의 build 66/74/16 + 실제 ENOSPC 3, API26/34/36 각각 native 54 + 세 포맷 host 6이 모두 PASS다.

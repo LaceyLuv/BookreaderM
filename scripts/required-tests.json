@@ -283,6 +283,14 @@
     [
       "org.bookreader.mobile.reader.FontFilePolicyTest",
       "rejectsEscapingOverlappingAndDuplicateTableDirectories"
+    ],
+    [
+      "org.bookreader.mobile.ui.AppViewModelTest",
+      "missingReaderReportsAnErrorForEveryFormatWithoutMutatingTheBook"
+    ],
+    [
+      "org.bookreader.mobile.ui.AppViewModelTest",
+      "unavailableBooksExplainTheReasonWithoutOpeningOrChangingLibrary"
     ]
   ],
   "shared-jvm": [
@@ -823,6 +831,18 @@
     [
       "org.bookreader.mobile.epub.EpubReaderFlowTest",
       "importedFontAndBoldLoadInWebViewAndSurviveReopenWithoutChangingLocator"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "emptySearchAndUnavailableBookOfferActionsWithoutChangingStoredMetadata"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "importedFormatsAndDuplicateHaveAccurateMessagesAndSeparateReadDismissActions"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "largeTextAndDarkThemeKeepImportAndBookActionsReachable"
     ]
   ],
   "android-host": [

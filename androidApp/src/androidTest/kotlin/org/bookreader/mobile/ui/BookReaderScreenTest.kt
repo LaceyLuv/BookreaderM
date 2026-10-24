@@ -3,6 +3,14 @@ package org.bookreader.mobile.ui
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
+import org.bookreader.mobile.importing.ImportResult
+import org.bookreader.mobile.model.BookAvailability
+import org.bookreader.mobile.reader.ReaderFixtureScreenshot
+import org.junit.Assert.assertEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -72,6 +80,79 @@ class BookReaderScreenTest {
         compose.onNodeWithTag("library_retry").performClick()
         compose.onNodeWithTag("library_empty").assertIsDisplayed()
         compose.onNodeWithTag("library_error").assertDoesNotExist()
+    }
+
+    @Test fun importedFormatsAndDuplicateHaveAccurateMessagesAndSeparateReadDismissActions() {
+        val state = mutableStateOf(AppUiState(library = LibraryState.Empty))
+        var opened: Book? = null
+        compose.setContent {
+            BookReaderScreen(state.value, {}, {}, {}, {},
+                onOpenBook = { opened = it },
+                onDismissImport = { state.value = state.value.copy(importing = ImportUiState.Idle) })
+        }
+        for ((format, label) in listOf(BookFormat.TXT to "TXT", BookFormat.EPUB to "EPUB", BookFormat.COMIC to "만화")) {
+            val fixture = book("import-${format.name}", "한글 책").copy(format = format)
+            compose.runOnIdle { state.value = state.value.copy(importing = ImportUiState.Complete(ImportResult.Success(fixture, false))) }
+            compose.onNodeWithText("$label 책을 서재에 추가했습니다.").assertIsDisplayed()
+            compose.onNodeWithTag("import_read").performClick()
+            compose.runOnIdle { assertEquals(fixture, opened) }
+            compose.onNodeWithTag("import_success").assertDoesNotExist()
+            compose.runOnIdle {
+                opened = null
+                state.value = state.value.copy(importing = ImportUiState.Complete(ImportResult.Success(fixture, true)))
+            }
+            compose.onNodeWithText("동일한 파일이 서재에 있습니다.").assertIsDisplayed()
+            compose.onNodeWithTag("dismiss_import_success").performClick()
+            compose.runOnIdle { assertEquals(null, opened) }
+        }
+    }
+
+    @Test fun emptySearchAndUnavailableBookOfferActionsWithoutChangingStoredMetadata() {
+        val fixture = book("unavailable", "보관한 책").copy(availability = BookAvailability.MISSING)
+        val state = mutableStateOf(AppUiState(library = LibraryState.Empty))
+        var adds = 0
+        compose.setContent {
+            BookReaderScreen(state.value, {}, { state.value = state.value.copy(query = it) }, {}, {},
+                onAddTxt = { adds++ },
+                onOpenBook = { state.value = state.value.copy(notice = unavailableBookMessage(it.availability)) },
+                onDismissNotice = { state.value = state.value.copy(notice = null) })
+        }
+        compose.onNodeWithTag("empty_add_book").performClick()
+        compose.runOnIdle {
+            assertEquals(1, adds)
+            state.value = state.value.copy(library = LibraryState.Content(listOf(fixture)), tab = AppTab.SEARCH, query = "없는 제목")
+        }
+        compose.onNodeWithTag("search_empty").assertIsDisplayed()
+        compose.onNodeWithTag("clear_search").performClick()
+        compose.onNodeWithTag("availability_unavailable", useUnmergedTree = true).assertTextEquals("파일 확인 필요")
+        compose.onNodeWithTag("book_unavailable").performClick()
+        compose.onNodeWithTag("import_notice").assertIsDisplayed()
+        compose.onNodeWithTag("dismiss_notice").performClick()
+        compose.onNodeWithTag("import_notice").assertDoesNotExist()
+        compose.runOnIdle { assertEquals(listOf(fixture), (state.value.library as LibraryState.Content).books) }
+    }
+
+    @Test fun largeTextAndDarkThemeKeepImportAndBookActionsReachable() {
+        val fixture = book("large", "아주 긴 한글 제목이 있는 책의 첫 번째 이야기").copy(format = BookFormat.EPUB)
+        val state = mutableStateOf(AppUiState(theme = ThemeMode.DARK, library = LibraryState.Content(listOf(fixture)),
+            importing = ImportUiState.Complete(ImportResult.Success(fixture, false))))
+        var opened = false
+        compose.setContent {
+            val density = LocalDensity.current
+            CompositionLocalProvider(LocalDensity provides Density(density.density, 2f)) {
+                BookReaderScreen(state.value, {}, {}, {}, {}, onOpenBook = { opened = true },
+                    onDismissImport = { state.value = state.value.copy(importing = ImportUiState.Idle) },
+                    onBookInfo = { state.value = state.value.copy(selectedBook = it) })
+            }
+        }
+        compose.onNodeWithTag("import_read").assertIsDisplayed()
+        ReaderFixtureScreenshot.capture("phase1-import-large-dark.png")
+        compose.onNodeWithTag("import_read").performClick()
+        compose.runOnIdle { assertEquals(true, opened) }
+        compose.onNodeWithTag("info_large").assertIsDisplayed().performClick()
+        compose.onNodeWithTag("book_delete").assertIsDisplayed()
+        compose.onNodeWithText("닫기").performClick()
+        ReaderFixtureScreenshot.capture("phase1-library-large-dark.png")
     }
 
     private fun book(id: String, title: String) = Book(

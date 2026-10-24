@@ -63,7 +63,8 @@ class ManagedImportAndroidTest {
             compose.waitUntil(10_000) {
                 File(target.filesDir, "managed/imports").listFiles().orEmpty().any { it.extension == "part" && it.length() > 0 }
             }
-            compose.onNodeWithText("${"부분 본문\n".toByteArray().size} bytes · 전체 크기 미상").assertIsDisplayed()
+            val copied = android.text.format.Formatter.formatShortFileSize(target, "부분 본문\n".toByteArray().size.toLong())
+            compose.onNodeWithText("$copied · 전체 크기 확인 중").assertIsDisplayed()
             compose.onNodeWithTag("cancel_import").performClick()
             waitFor("import_error")
             assertEquals(initial, books().map { it.id })

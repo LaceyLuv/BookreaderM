@@ -168,7 +168,7 @@ class AppViewModel(
     }
 
     fun rejectDocument() {
-        val message = "읽기 권한이 있는 content 파일 하나만 가져올 수 있습니다. 파일 앱에서 TXT를 다시 선택해 주세요."
+        val message = "파일을 열 수 없습니다. 파일 앱에서 읽기 권한이 있는 TXT·EPUB·ZIP/CBZ 파일 하나를 다시 선택해 주세요."
         mutableState.update {
             if (it.importing is ImportUiState.Working || it.importing is ImportUiState.SelectEncoding)
                 it.copy(notice = message)
@@ -333,19 +333,33 @@ class AppViewModel(
     private val readerMutex = Mutex()
     private var readerObserver: Job? = null
     fun openBook(book: Book) {
+        val unavailable = unavailableBookMessage(book.availability)
+        if (unavailable != null) {
+            mutableState.update { it.copy(notice = unavailable, selectedBook = null) }
+            return
+        }
+        if (book.id in pendingDeletions || book.id in pendingInterpretations) {
+            mutableState.update { it.copy(notice = "책을 변경하는 중입니다. 작업이 끝나면 다시 열어 주세요.") }
+            return
+        }
         if (book.format == org.bookreader.mobile.model.BookFormat.TXT && readerFactory == null ||
             book.format == org.bookreader.mobile.model.BookFormat.EPUB && epubFactory == null ||
-            book.format == org.bookreader.mobile.model.BookFormat.COMIC && comicFactory == null) return
-        if (book.availability != BookAvailability.READY || book.id in pendingDeletions || book.id in pendingInterpretations) return
+            book.format == org.bookreader.mobile.model.BookFormat.COMIC && comicFactory == null) {
+            mutableState.update { it.copy(notice = "읽기 화면을 준비하지 못했습니다. 앱을 다시 열어 주세요. 기존 책과 독서 기록은 유지됩니다.", selectedBook = null) }
+            return
+        }
         viewModelScope.launch {
             try {
             readerMutex.withLock {
                 // A tap queued before confirmation must not reopen this book after deletion starts.
-                if (book.id in pendingDeletions || book.id in pendingInterpretations) return@withLock
+                if (book.id in pendingDeletions || book.id in pendingInterpretations) {
+                    mutableState.update { it.copy(notice = "책을 변경하는 중입니다. 작업이 끝나면 다시 열어 주세요.") }
+                    return@withLock
+                }
                 readerObserver?.cancel()
                 state.value.reader?.close()
                 state.value.epubReader?.close(); state.value.comicReader?.close()
-                mutableState.update { it.copy(reader = null, epubReader = null, comicReader = null) }
+                mutableState.update { it.copy(reader = null, epubReader = null, comicReader = null, notice = null) }
                 if (book.format == org.bookreader.mobile.model.BookFormat.COMIC) {
                     val comic = requireNotNull(comicFactory)(book, viewModelScope)
                     mutableState.update { it.copy(comicReader = comic, selectedBook = null) }
@@ -397,9 +411,12 @@ fun importErrorMessage(code: ImportErrorCode): String = when (code) {
     ImportErrorCode.PERMISSION_DENIED -> "파일 읽기 권한이 만료되었거나 없습니다. 파일을 다시 선택해 주세요."
     ImportErrorCode.SOURCE_UNAVAILABLE -> "원본 파일을 읽을 수 없습니다. 파일 앱에서 다시 선택해 주세요."
     ImportErrorCode.DISK_FULL -> "앱 저장 공간이 부족합니다. 공간을 확보한 뒤 다시 시도해 주세요."
-    ImportErrorCode.TOO_LARGE -> "파일 한도를 초과했습니다. TXT는 256MiB, EPUB는 512MiB까지 지원합니다."
+    ImportErrorCode.TOO_LARGE -> "파일이 너무 큽니다. TXT는 256MB, EPUB는 512MB, ZIP/CBZ는 2GB까지 추가할 수 있습니다."
     ImportErrorCode.ENCODING_REQUIRED -> "텍스트 인코딩을 선택해 주세요."
-    ImportErrorCode.INVALID_TEXT, ImportErrorCode.UNSUPPORTED_FORMAT -> "지원하지 않거나 손상된 파일입니다. TXT 인코딩 또는 EPUB의 지원 범위를 확인해 주세요."
+    ImportErrorCode.INVALID_TEXT -> "텍스트를 읽을 수 없습니다. 파일의 인코딩과 손상 여부를 확인해 주세요."
+    ImportErrorCode.UNSUPPORTED_FORMAT -> "지원하지 않거나 손상된 책입니다. TXT·EPUB·ZIP/CBZ 파일인지 확인해 주세요. DRM·암호화된 책과 고정 레이아웃 EPUB은 지원하지 않습니다."
+    ImportErrorCode.EXISTING_COPY_UNAVAILABLE -> "서재에 있는 같은 책의 파일을 확인하지 못했습니다. 기존 책과 기록은 보존됩니다. 원본 파일 상태를 확인해 주세요."
+    ImportErrorCode.BOOK_DELETING -> "같은 책을 삭제 중입니다. 삭제가 끝난 뒤 다시 추가해 주세요."
     ImportErrorCode.DATABASE_UNAVAILABLE -> "서재에 저장하지 못했습니다. 기존 책과 독서 기록은 유지됩니다."
     ImportErrorCode.INTERRUPTED -> "가져오기가 중단되었습니다. 원본 파일을 다시 선택해 주세요."
     else -> "파일 작업을 완료하지 못했습니다. 기존 책과 원본은 유지됩니다. 다시 시도해 주세요."

@@ -206,7 +206,8 @@ for name in ('m02-library.png', 'm03-reader.png', 'txt-reader-generated-scroll.p
              'txt-reader-generated-pages.png', 'txt-reader-generated-page-reflow.png',
              'txt-immersive.png', 'txt-controls.png', 'txt-settings.png',
              'epub-immersive.png', 'epub-controls.png', 'epub-settings.png',
-             'comic-immersive.png', 'comic-controls.png'):
+             'comic-immersive.png', 'comic-controls.png',
+             'phase1-import-large-dark.png', 'phase1-library-large-dark.png'):
     matches = list(root.rglob(name))
     if len(matches) != 1 or matches[0].read_bytes()[:8] != b'\x89PNG\r\n\x1a\n':
         raise SystemExit(f'FAIL missing or invalid generated-fixture screenshot: {name}')
