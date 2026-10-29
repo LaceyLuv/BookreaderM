@@ -1,5 +1,8 @@
 # BookReader Mobile — Codex 작업표
 
+fe29dea 제품 자동 검증 완료: build175/세 API native72+host7 PASS.
+마지막 테스트 캡처 동기화 확인과 최종0.6.0 문서/패키지 정리를 진행한다. [근거](LIBRARY_0_6.md).
+
 현재 d93a268의 build175/세 API native72+host7은 모두 PASS다.
 후속525587e에서 API34 동일 표지 재선택1 FAIL을 보존하고 선택 성공 번호를 추가했다.
 [분석과 원본](LIBRARY_0_6.md). 수정 소스의 최종 matrix/화면/같은 키 APK 보고가 남아 있다.

@@ -437,6 +437,10 @@ class ManagedImportAndroidTest {
             compose.onNodeWithTag("save_book_edit").performClick()
             compose.waitUntil(15_000) { currentAppState()?.editingBook==null && books().first { it.id==before.id }.title=="내가 정한 제목" }
             compose.activityRule.scenario.recreate();waitFor("library_content")
+            compose.waitUntil(5_000) {
+                compose.onAllNodesWithTag("save_book_edit").fetchSemanticsNodes(atLeastOneRootRequired=false).isEmpty()
+            }
+            compose.onNodeWithTag("save_book_edit").assertDoesNotExist()
             val after=books().first { it.id==before.id }
             assertEquals("내가 정한 제목",after.title);assertEquals("직접 입력 작가",after.author)
             assertTrue(after.coverKey?.startsWith("u-")==true)
@@ -494,13 +498,9 @@ class ManagedImportAndroidTest {
     private fun captureFixtureScreenshot(name: String) {
         val args = InstrumentationRegistry.getArguments()
         if (args.getString("captureFixtureScreenshots") != "true" || originalIds.isNotEmpty()) return
-        val directory = args.getString("additionalTestOutputDir")?.let(::File) ?: return
-        check(directory.isDirectory || directory.mkdirs())
         compose.waitForIdle()
-        val bitmap = checkNotNull(instrumentation.uiAutomation.takeScreenshot())
-        try { java.io.FileOutputStream(File(directory, "$name.png")).use {
-            check(bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it))
-        } } finally { bitmap.recycle() }
+        // Compose idle can precede the final Android window frame after dismiss/recreate.
+        org.bookreader.mobile.reader.ReaderFixtureScreenshot.capture("$name.png")
     }
 
     private fun hideKeyboard() {

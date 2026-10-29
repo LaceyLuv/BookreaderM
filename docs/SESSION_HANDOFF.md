@@ -1,5 +1,11 @@
 # 2026-10-29 Phase2 두 번째 기기 실패 수정 후보
 
+현재 제품 fe29dea는 build40882879989 PASS175, device40882880009 세 API native72+host7 PASS다.
+[원본](evidence/product-quality/verified-fe29dea/summary.json)의 SHA/CRC/XML/source clean/PID 교체를 확인했다.
+마지막 변경은 테스트 캡처 동기화뿐이다. API26 서재 캡처가 닫히는 편집 창의 이전 프레임을 담아
+창 소멸 검사 + 공용 렌더링 대기로 보완했다. compile/lint exit0(`phase2-capture-frame.log`).
+다음: 후속 캡처/검사 확인 → 같은 키 fe29dea 패키지 승격 또는 같은 제품 소스 패키지 → 최종0.6.0 문서 정리.
+
 최신: d93a268은 build40879397947 PASS175 및 device40879397948 세 API native72+host7 PASS,
 [원본 대조 완료](evidence/product-quality/verified-d93a268/summary.json).
 525587e는 build40879962358 PASS175, device40879962440 API26/36 PASS79/API, API34 동일 표지 재선택1/72 FAIL·host NOT_RUN.

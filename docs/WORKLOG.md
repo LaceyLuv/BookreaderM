@@ -1,5 +1,11 @@
 # M00 작업 기록
 
+2026-10-29 fe29dea: build40882879989 PASS175 / device40882880009 API26/34/36 각각 native72+host7 PASS.
+`verify.py fe29dea17f8dabc105718cb01d8eb48dd6c1e047 40882879989 40882880009` exit0.
+원본 캡처 점검에서 API26 서재 이미지가 닫히는 편집 창의 이전 프레임을 담아 테스트 촬영 동기화만 보완했다.
+API36 서재 화면은 정상이며 API26 원본도 그대로 보존한다. 편집 창 소멸 assertion과 공용 Android 프레임 대기 적용.
+`./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug --console=plain` exit0, `phase2-capture-frame.log`.
+
 2026-10-29: `verify.py d93a268cb4d554641ec3892c060cdd9689685794 40879397947 40879397948` exit0.
 build175/세 API native72+host7, source clean/원본 SHA/필수 XML/PID 교체 및 p179 확인.
 후속525587e도 build175와 API26/36 PASS79지만 API34 표지 재선택1/72 FAIL을 별도 보존했다.

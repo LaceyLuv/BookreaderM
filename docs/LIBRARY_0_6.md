@@ -1,5 +1,12 @@
 # 서재 2.0 / 0.6.0 개발 기록
 
+`fe29dea` build40882879989 PASS175 / device40882880009 세 API native72+host7 PASS.
+[원본 대조](evidence/product-quality/verified-fe29dea/summary.json)까지 완료했다. 같은 표지 재선택도 세 API에서 PASS다.
+API26의 `phase2-library.png`가 닫히는 편집 창의 이전 Android 프레임을 담아 마지막 캡처 동기화를 보완한다.
+API36 실제 서재 캡처는 정상이며 원본 API26 이미지를 편집/교체하지 않는다.
+공용 ReaderFixtureScreenshot으로 Android idle/렌더링 프레임을 기다리고, 편집 창 소멸 assertion을 추가했다.
+제품 소스 변경은 없으며 compile/lint exit0(`phase2-capture-frame.log`). 후속 캡처 확인 뒤 최종 보고서를 갱신한다.
+
 ## 2026-10-29 전체 통과 후보와 동일 표지 재선택 경합
 
 `d93a268` build40879397947 PASS175 / device40879397948 API26·34·36 각각 native72+host7 PASS.

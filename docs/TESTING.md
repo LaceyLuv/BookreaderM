@@ -1,5 +1,8 @@
 # 모바일 검증 계약
 
+fe29dea build175/세 API native72+host7 PASS. [원본](evidence/product-quality/verified-fe29dea/summary.json).
+후속은 제품 소스와 무관한 fixture screenshot 동기화 보완이다. 이전 API26 촬영 프레임을 편집하거나 삭제하지 않는다.
+
 최신 검증: d93a268 build175/세 API native72+host7 PASS [원본](evidence/product-quality/verified-d93a268/summary.json).
 후속525587e의 build/API26/36은 PASS, API34 같은 표지 재선택1 FAIL·host NOT_RUN [원본](evidence/product-quality/failed-525587e/summary.json).
 선택 이벤트 번호 보완 후 compile/unit73/lint PASS이며 새 전체 matrix는 대기다. 기존 timeout/위치 assertion은 유지했다.
