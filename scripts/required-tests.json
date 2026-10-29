@@ -291,6 +291,14 @@
     [
       "org.bookreader.mobile.ui.AppViewModelTest",
       "unavailableBooksExplainTheReasonWithoutOpeningOrChangingLibrary"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderTocTest",
+      "cancelledLateScanCannotPublishOrNavigateAndCanBeRetried"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderTocTest",
+      "readFailureAndStaleWriteDisableEditsAndSurrogateBoundaryNeverChangesPosition"
     ]
   ],
   "shared-jvm": [
@@ -628,27 +636,51 @@
     ],
     [
       "org.bookreader.mobile.toc.TxtTocScannerTest",
-      "cancellationAndInvalidReadersCannotProduceACompletedIndex[jvm]"
+      "cancellationAndInvalidReadersCannotProduceACompletedIndex"
     ],
     [
       "org.bookreader.mobile.toc.TxtTocScannerTest",
-      "handlesWindowBoundariesSurrogatesCrLfAndRepeatedTitlesWithoutDeduplicatingOffsets[jvm]"
+      "handlesWindowBoundariesSurrogatesCrLfAndRepeatedTitlesWithoutDeduplicatingOffsets"
     ],
     [
       "org.bookreader.mobile.toc.TxtTocScannerTest",
-      "limitsCandidatesAndStopsReadingAfterFirstExcessHeading[jvm]"
+      "limitsCandidatesAndStopsReadingAfterFirstExcessHeading"
     ],
     [
       "org.bookreader.mobile.toc.TxtTocScannerTest",
-      "longLinesNeverBecomeTruncatedHeadingsAndNextLineStillWorks[jvm]"
+      "longLinesNeverBecomeTruncatedHeadingsAndNextLineStillWorks"
     ],
     [
       "org.bookreader.mobile.toc.TxtTocScannerTest",
-      "recognizesStandaloneKoreanEnglishAndBookendsAtExactUtf16Offsets[jvm]"
+      "recognizesStandaloneKoreanEnglishAndBookendsAtExactUtf16Offsets"
     ],
     [
       "org.bookreader.mobile.toc.TxtTocScannerTest",
-      "rejectsNumbersEmbeddedMentionsAndSentenceLikeCandidates[jvm]"
+      "rejectsNumbersEmbeddedMentionsAndSentenceLikeCandidates"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionSixPreservesCatalogAndAllReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "tocMigrationValidationFailureRollsBackWithoutChangingVersionSixRecords"
+    ],
+    [
+      "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
+      "editLimitAndStatementFailurePreserveExistingRows"
+    ],
+    [
+      "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
+      "editsExclusionsAndRestorationPersistWithoutChangingRawReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
+      "futureOrMalformedRowsAndInvalidInputsFailClosedWithoutReplacingRecords"
+    ],
+    [
+      "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
+      "staleSessionRevisionConcurrentEditAndDeletedBookCannotOverwriteData"
     ]
   ],
   "android-device": [
@@ -939,6 +971,10 @@
     [
       "org.bookreader.mobile.ui.BookReaderScreenTest",
       "metadataSearchFindsAnEpubOutsideTheVisibleLibraryCards"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "txtTocEditsExclusionsManualEntryAndJumpSurviveReopeningWithoutMovingRecordsDuringEdits"
     ]
   ],
   "android-host": [

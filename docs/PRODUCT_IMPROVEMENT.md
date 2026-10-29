@@ -7,7 +7,7 @@
 ## 현재 단계
 
 [0.6.0 최종 보고서](LIBRARY_0_6.md): 서재2.0 구현과 build175/세 API native72+host7 자동 검증 PASS.
-Phase3은 별도 브랜치의 TXT 목차 분석기부터 착수했으며 JVM89 PASS, DB/UI는 연결 전이다.
+Phase3은 별도 브랜치에서 TXT 목차의 DB/UI를 연결했고 로컬186 PASS다. [진행·미검증 범위](READER_0_7.md).
 아래 감사 표는 **2026-10-24 구현 전 기준**이며 현재 단계 표와 구분한다.
 
 ## 구현 전 감사
@@ -52,7 +52,7 @@ READER_FONTS_0_5/QA_MATRIX/TESTING과 Android/shared/epubAndroid 소스·테스�
 | 감사 | 완료 | 위 코드 기준 분류. 기존 로컬 161개 PASS, 새 변경 결과와 구분 |
 | Phase 1 / 0.5.1 | 구현·자동 검증 완료 | [결과·실제 화면](UX_POLISH_0_5_1.md). 5a8aad2 build166, native63+host6/API26/34/36 PASS. 실기기 미실행 |
 | Phase 2 / 0.6.0 | 구현·자동 검증 완료 | a22970b build175, native72+host7/API26/34/36 PASS. [결과](LIBRARY_0_6.md), 실기기 미실행 |
-| Phase 3 / 0.7.0 | 착수 | bounded TXT 목차 분석기6개 포함 JVM89 PASS. DB/UI·도구·annotation은 후속 |
+| Phase 3 / 0.7.0 | 진행 중 | TXT 목차 자동/수동·revision별 편집 저장/이동 구현, 로컬186 PASS. 기기 검증 대기, 도구·annotation은 후속 |
 | Phase 4 / 0.8.0 | 대기 | 검증 가능한 backup/restore·기기/성능/접근성·전달/자동화. 실기기는 실제 자원 필요 |
 
 각 단계의 PASS는 실제 실행 범위만 의미한다. 구현만 끝난 항목이나 기기 실행 없이 compiled test를

@@ -97,6 +97,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     val showChrome = controlsVisible || touchExploration || state.phase == TxtReaderPhase.ERROR
     var showSearch by remember(controller) { mutableStateOf(false) }
     var showBookmarks by remember(controller) { mutableStateOf(false) }
+    var showToc by remember(controller) { mutableStateOf(false) }
     val toolsState = controller.tools.state.collectAsStateWithLifecycle().value
     val layouts = remember(controller, state.restoreGeneration, typography, density, viewport) {
         mutableStateMapOf<Int, TextLayoutResult>()
@@ -253,6 +254,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 TextButton(onClick = { showSettings = true }, modifier = Modifier.testTag("reader_settings")) { Text("글자·화면") }
                 TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showSearch = true }, modifier = Modifier.testTag("reader_search")) { Text("검색") }
                 TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showBookmarks = true }, modifier = Modifier.testTag("reader_bookmarks")) { Text("북마크") }
+                TextButton(enabled = state.phase == TxtReaderPhase.READY && state.cache.complete, onClick = { showToc = true }, modifier = Modifier.testTag("reader_toc")) { Text("목차") }
                 TextButton(onClick = { showMenu = true }, modifier = Modifier.testTag("reader_menu")) { Text("위치 이동") }
                 if (toolsState.returnOffset != null) TextButton(enabled = state.phase == TxtReaderPhase.READY,
                     onClick = controller.tools::returnFromSearch, modifier = Modifier.testTag("reader_search_return")) { Text("검색 전 위치") }
@@ -268,6 +270,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     if (showSettings) ReaderSettingsDialog(controller, state) { showSettings = false }
     if (showSearch) ReaderSearchDialog(controller) { showSearch = false }
     if (showBookmarks) ReaderBookmarksDialog(controller) { showBookmarks = false }
+    if (showToc) ReaderTocDialog(controller) { showToc = false }
     if (showMenu) ReaderMenuDialog(state, seek,
         previous = if (scrollMode) list.canScrollBackward && state.phase == TxtReaderPhase.READY else pageAvailability.first,
         next = if (scrollMode) list.canScrollForward && state.phase == TxtReaderPhase.READY else pageAvailability.second,

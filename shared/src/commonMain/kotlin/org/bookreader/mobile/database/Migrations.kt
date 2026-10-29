@@ -46,3 +46,10 @@ val MIGRATION_5_6: Migration = object : Migration(5, 6) {
         connection.execSQL("CREATE TABLE IF NOT EXISTS library_preferences (id TEXT NOT NULL, sort TEXT NOT NULL, view TEXT NOT NULL, filter TEXT NOT NULL, shelfId TEXT, PRIMARY KEY(id))")
     }
 }
+
+/** User TOC edits only; automatic candidates are a disposable derived index. */
+val MIGRATION_6_7: Migration = object : Migration(6, 7) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS txt_toc_overrides (bookId TEXT NOT NULL, contentRevision TEXT NOT NULL, offset INTEGER NOT NULL, schemaVersion INTEGER NOT NULL, title TEXT, excluded INTEGER NOT NULL, changeId TEXT NOT NULL, PRIMARY KEY(bookId, contentRevision, offset), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+    }
+}

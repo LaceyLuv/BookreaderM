@@ -1,3 +1,19 @@
+## 2026-10-29 현재 Phase3: TXT 목차 구현·로컬186 PASS, 기기 검증 대기
+
+작업 위치 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`, `0.7.0-dev`/code8/Room7.
+[구현·남은 범위](READER_0_7.md), [ADR0009](adr/0009-txt-toc-overrides.md), [로컬 원본](evidence/product-quality/phase3-toc-local/summary.json).
+자동 감지/현재 회차/이동·제목 수정·제외/복구·현재 위치 수동 추가와 revision별 저장을 연결했다.
+`source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=build/phase3-toc-local ./scripts/ci-check.sh` exit0.
+Android unit75/shared95/EPUB16, APK/test APK/lint/schema7 PASS. 최초95개 중 migration fixture1 FAIL도 원본 보존.
+새 실제 UI1개를 포함한 native73+host7/API26/34/36과 ENOSPC는 원격 실행 대기다.
+기존 TXT host 검사는 목차 추가 후 실제 force-stop 복원과 원본 진행도 불변도 검사하도록 확장했다.
+자동 검사 실패·미실행 범위를 기기 PASS로 올리지 않는다. 형광펜/메모·독서 도구/빠른 설정 및 Phase4는 미완료다.
+0.6.0 확정 source a22970b·같은 키 패키지는 `/workspace/BookreaderM`의 `codex/library-060`에 보존한다.
+main·키·기존 설치 파일·사용자 책과 독서 기록을 삭제/초기화하지 않는다.
+다음: 원격 전체 matrix와 실제 목차 화면 확인 → 실패 수정/증거 → 다음 Phase3 기능.
+
+아래는 이전 단위의 이력이다.
+
 ## 2026-10-29 Phase3: TXT 목차 분석기 단위 PASS
 
 `codex/reader-070`, `/workspace/BookreaderM-reader-070`. [개발 상태](READER_0_7.md).

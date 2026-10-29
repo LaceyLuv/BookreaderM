@@ -32,6 +32,9 @@ class MigrationTest {
     @Test fun migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts() = migration(4, "statement")
     @Test fun migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords() = migration(4, "validation")
 
+    @Test fun exportedVersionSixPreservesCatalogAndAllReadingRecords() = migration(6)
+    @Test fun tocMigrationValidationFailureRollsBackWithoutChangingVersionSixRecords() = migration(6, "validation")
+
     private fun migration(version: Int, failure: String? = null) = runBlocking {
         val directory = Files.createTempDirectory("bookreader-migration-")
         val path = directory.resolve("db.sqlite")
@@ -92,6 +95,12 @@ class MigrationTest {
                     it.bindText(1,book.id);it.bindText(2,progress.contentRevision);it.step()
                 }
             }
+            if (version >= 6) BundledSQLiteDriver().open(path.toString()).use { connection ->
+                connection.execSQL("INSERT INTO library_book_details VALUES ('old-book',7,1,'FINISHED',3)")
+                connection.execSQL("INSERT INTO library_shelves VALUES ('shelf','기존 책장','기존 책장')")
+                connection.execSQL("INSERT INTO library_memberships VALUES ('old-book','shelf')")
+                connection.execSQL("INSERT INTO library_preferences VALUES ('global','AUTHOR','LIST','FINISHED','shelf')")
+            }
             if (failure != null) {
                 BundledSQLiteDriver().open(path.toString()).use { connection ->
                     connection.execSQL(if (failure == "statement")
@@ -103,7 +112,8 @@ class MigrationTest {
                     buildList {
                         val queries = listOf("PRAGMA user_version", "SELECT name,sql FROM sqlite_master ORDER BY name") +
                             listOf("books", "reading_progress", "bookmarks", "import_jobs", "app_metadata",
-                                "reader_global_settings", "book_reader_preferences", "room_master_table").map { "SELECT * FROM $it ORDER BY 1" }
+                                "reader_global_settings", "book_reader_preferences", "room_master_table").plus(
+                                    if (version >= 6) listOf("library_book_details", "library_shelves", "library_memberships", "library_preferences") else emptyList()).map { "SELECT * FROM $it ORDER BY 1" }
                         for (query in queries) connection.prepare(query).use { statement ->
                             while (statement.step()) add(List(statement.getColumnCount()) {
                                 if (statement.isNull(it)) null else statement.getText(it)
@@ -133,6 +143,13 @@ class MigrationTest {
                 val bookmarks = migrated.bookmarkDao().page(book.id, progress.contentRevision, Long.MAX_VALUE, "z")
                 if (version < 4) assertTrue(bookmarks.isEmpty()) else assertEquals(
                     BookmarkEntity("raw-bookmark", book.id, progress.contentRevision, "future", 9, "{untouched}", "label", 51, 52), bookmarks.single())
+                if (version >= 6) {
+                    assertEquals(LibraryBookDetailsEntity("old-book",7,true,"FINISHED",3), migrated.libraryDao().detailsFor("old-book"))
+                    assertEquals(listOf(ShelfEntity("shelf","기존 책장","기존 책장")), migrated.libraryDao().shelves())
+                    assertEquals(listOf(ShelfMembershipEntity("old-book","shelf")), migrated.libraryDao().memberships())
+                    assertEquals(LibraryPreferencesEntity("global","AUTHOR","LIST","FINISHED","shelf"), migrated.libraryDao().preferences())
+                }
+                assertTrue(migrated.txtTocDao().edits(book.id, progress.contentRevision).isEmpty())
                 assertEquals(17L, migrated.progressWriterDao().readOrder())
                 val ready = assertIs<ReadySessionResult.Ready>(RoomProgressWriter(migrated) { 30 }.startReadySession(book.id, progress.contentRevision, locator))
                 assertEquals(10L, ready.session.sessionEpoch)

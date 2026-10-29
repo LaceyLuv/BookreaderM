@@ -15,6 +15,9 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextReplacement
+import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -96,6 +99,59 @@ class TxtReaderFlowTest {
                 File(target.cacheDir, "txt").listFiles()?.filter { it.name.startsWith(key) }?.forEach { it.delete() }
             }
         } finally { if (::observerDatabase.isInitialized) observerDatabase.close() }
+    }
+
+    @Test fun txtTocEditsExclusionsManualEntryAndJumpSurviveReopeningWithoutMovingRecordsDuringEdits() {
+        sendFixture("reader-toc"); waitFor("reader_ready")
+        val active = reader(); val book = active.book
+        compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+        compose.waitForIdle()
+        val origin = measuredVisibleLine(active)
+        compose.waitUntil(10_000) { saved(book)?.let { offset(it) == origin } == true }
+        val before = requireNotNull(saved(book))
+        val beforeBook = books().single { it.id == book.id }
+        val file = File(File(target.filesDir,"managed"),book.managedRelativePath)
+        val hash = digest(file)
+        val body = runBlocking { active.range(0,active.state.value.cache.committedLength.toInt()) }
+        val first = 0L; val second = body.indexOf("제1화 시작").toLong(); val third = body.indexOf("Chapter 2 Next").toLong()
+        compose.readerControl("reader_toc").performClick()
+        compose.waitUntil(10_000) { active.toc.state.value.ready }
+        assertEquals(listOf(first,second,third),active.toc.state.value.entries.map { it.offset })
+        assertEquals(before,saved(book))
+        compose.onNodeWithTag("toc_edit_$first").performClick()
+        compose.onNodeWithTag("toc_title").performTextReplacement("수정한 프롤로그")
+        compose.onNodeWithTag("toc_save").performClick()
+        compose.waitUntil(10_000) { active.toc.state.value.let { it.ready && it.savedVersion==1L } }
+        compose.onNodeWithTag("toc_edit_$second").performClick()
+        compose.onNodeWithTag("toc_exclude").performClick()
+        compose.waitUntil(10_000) { active.toc.state.value.let { it.ready && it.savedVersion==2L } }
+        assertEquals(listOf(first,third),active.toc.state.value.entries.map { it.offset })
+        compose.onNodeWithTag("toc_excluded").performClick()
+        compose.onNodeWithTag("toc_restore_$second").performClick()
+        compose.waitUntil(10_000) { active.toc.state.value.let { it.ready && it.savedVersion==3L } }
+        compose.onNodeWithTag("toc_add_current").performClick()
+        compose.onNodeWithTag("toc_title").performTextReplacement("내 위치")
+        compose.onNodeWithTag("toc_save").performClick()
+        compose.waitUntil(10_000) { active.toc.state.value.let { it.ready && it.savedVersion==4L } }
+        assertEquals(listOf(first,origin,second,third).sorted(),active.toc.state.value.entries.map { it.offset })
+        assertEquals(before,saved(book));assertEquals(beforeBook,books().single { it.id==book.id })
+        ReaderFixtureScreenshot.capture("phase3-txt-toc.png")
+        compose.onNodeWithTag("toc_entries").performScrollToNode(hasTestTag("toc_jump_$third"))
+        compose.onNodeWithTag("toc_jump_$third").performClick()
+        compose.waitUntil(10_000) { active.state.value.let { it.phase==TxtReaderPhase.READY && it.targetOffset==third } }
+        assertAnchorInFirstMeasuredLine(active,third)
+        compose.waitUntil(10_000) { saved(book)?.let { offset(it)==third }==true }
+        val jumped=requireNotNull(saved(book))
+        compose.readerControl("reader_back").performClick();waitFor("library_content")
+        compose.activityRule.scenario.recreate();waitFor("library_content")
+        compose.onNodeWithTag("read_${book.id}").performScrollTo().performClick();waitFor("reader_ready")
+        assertAnchorInFirstMeasuredLine(reader(),third)
+        assertEquals(jumped,saved(book))
+        compose.readerControl("reader_toc").performClick()
+        compose.waitUntil(10_000) { reader().toc.state.value.ready }
+        assertEquals("수정한 프롤로그",reader().toc.state.value.entries.first().title)
+        assertEquals("내 위치",reader().toc.state.value.entries.single { it.offset==origin }.title)
+        assertEquals(hash,digest(file));assertEquals(jumped,saved(book))
     }
 
     @Test fun customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor() {

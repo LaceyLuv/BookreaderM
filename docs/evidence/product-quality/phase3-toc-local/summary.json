@@ -1,0 +1,15 @@
+{
+  "scope": "Phase3 TXT TOC unit; remaining phase3 features not complete",
+  "version": "0.7.0-dev",
+  "command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=build/phase3-toc-local ./scripts/ci-check.sh",
+  "exit_code": 0,
+  "cases": {
+    "android-unit": 75,
+    "shared-jvm": 95,
+    "epub-unit": 16
+  },
+  "room_schema": 7,
+  "device": "PENDING",
+  "physical_device": "NOT_RUN",
+  "first_migration_failure": "Fixture library preference key was library, should be global. Preserved first-failed-migration.xml; corrected fixture and all95 shared cases pass."
+}

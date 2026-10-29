@@ -6,6 +6,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
@@ -81,6 +82,17 @@ class TxtReaderHostProcessTest {
         val committed = requireNotNull(saved(controller.book))
         assertEquals(expected, controller.state.value.stableOffset)
         assertFalse(controller.state.value.saveError)
+        assertTrue("TOC host writes require a newly created fixture", controller.book.id !in initialIds)
+        compose.readerControl("reader_toc").performClick()
+        compose.waitUntil(10_000) { controller.toc.state.value.ready }
+        compose.onNodeWithTag("toc_add_current").performClick()
+        compose.onNodeWithTag("toc_title").performTextInput("강제 종료 후 유지할 목차")
+        compose.onNodeWithTag("toc_save").performClick()
+        compose.waitUntil(10_000) { controller.toc.state.value.let { it.ready && it.savedVersion == 1L } }
+        val tocEdit = controller.toc.state.value.edits.single()
+        assertEquals(expected, tocEdit.offset)
+        assertEquals(committed, saved(controller.book))
+        compose.onNodeWithTag("toc_close").performClick()
         ReaderFixtureScreenshot.capture("txt-reader-generated-host.png")
         val properties = Properties().apply {
             setProperty("bookId", controller.book.id)
@@ -90,6 +102,7 @@ class TxtReaderHostProcessTest {
             setProperty("epoch", committed.writerSessionEpoch.toString())
             setProperty("updatedAt", committed.updatedAt.toString())
             setProperty("createdByThisHostFlow", (controller.book.id !in initialIds).toString())
+            setProperty("tocChangeId", tocEdit.changeId)
         }
         // Proof is written only after the actual Room commit is observed.
         java.io.FileOutputStream(proof).use { output ->
@@ -118,6 +131,13 @@ class TxtReaderHostProcessTest {
         waitFor("reader_ready")
         assertEquals(bookId, reader().book.id)
         assertEquals(expectedOffset, reader().state.value.targetOffset)
+        assertEquals(before, saved(bookId, revision))
+        compose.readerControl("reader_toc").performClick()
+        compose.waitUntil(10_000) { reader().toc.state.value.ready }
+        val tocEdit = reader().toc.state.value.edits.single()
+        assertEquals(expectedOffset, tocEdit.offset)
+        assertEquals("강제 종료 후 유지할 목차", tocEdit.title)
+        assertEquals(properties.getProperty("tocChangeId"), tocEdit.changeId)
         assertEquals(before, saved(bookId, revision))
         compose.activityRule.scenario.close()
         if (properties.getProperty("createdByThisHostFlow") == "true") {
