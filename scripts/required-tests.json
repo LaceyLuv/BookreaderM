@@ -589,6 +589,42 @@
     [
       "org.bookreader.mobile.database.MigrationTest",
       "migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "editsSurviveReopenAndLateExtractionWithoutChangingReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "extractionUsesCurrentOverridesAndRejectsWrongSourceOrDeletedBook"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "failedBulkClassificationRollsBackAndDeletingShelfKeepsBooksAndProgress"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "invalidEditsLeaveAllMetadataAndMembershipsUntouched"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "catalogSortSearchStatusAndShelfFiltersAreStableAndRevisionScoped"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "unknownCatalogValuesCannotBeSilentlyRewrittenByEditingOrExtraction"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionFiveAddsCatalogWithoutRewritingAnyReadingData"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "catalogMigrationStatementFailurePreservesVersionFiveDatabase"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "catalogMigrationValidationFailureRollsBackEveryCatalogTable"
     ]
   ],
   "android-device": [
@@ -843,6 +879,38 @@
     [
       "org.bookreader.mobile.ui.BookReaderScreenTest",
       "largeTextAndDarkThemeKeepImportAndBookActionsReachable"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryArtworkAndroidTest",
+      "epubAndComicArtworkPreserveManagedBytesAndEveryReadingRecord"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryArtworkAndroidTest",
+      "thumbnailCodecAndCacheStayBoundedWithoutRecyclingBorrowedImages"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "batchPickerCommitsMixedFormatsCountsDuplicateAndContinuesPastBadFile"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "cancellingBatchKeepsCommittedBookAndRemovesOnlyPendingStaging"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "batchEncodingChoiceResumesRemainingFilesAndRejectsAmbiguousExternalBatch"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "metadataAndChosenCoverPersistAcrossRecreationWithoutChangingManagedBook"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "shelfClassificationViewSortAndFilterSurviveActivityRecreation"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "thousandBookGridAndListScrollAndIntegratedSearchUseBoundedVisibleCards"
     ]
   ],
   "android-host": [
@@ -953,6 +1021,12 @@
     [
       "org.bookreader.mobile.reader.ComicReaderHostProcessTest",
       "verifyColdLibraryContinue"
+    ]
+  ],
+  "android-host-library": [
+    [
+      "org.bookreader.mobile.library.LibraryBatchHostProcessTest",
+      "coldStartKeepsCatalogAndRecordsThenResumesPendingEncoding"
     ]
   ]
 }

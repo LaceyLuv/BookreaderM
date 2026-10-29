@@ -1,5 +1,20 @@
 # M00 작업 기록
 
+## 2026-10-29 진행 중: 서재 2.0 / 0.6.0
+
+`codex/library-060`에서 [Phase2 구현과 검증 기록](LIBRARY_0_6.md)을 이어 간다. [ADR0008](adr/0008-library-catalog-and-covers.md).
+메타데이터·실제/생성/사용자 표지·정보 편집·읽기 상태·책장·정렬/필터·검색 통합·다중 선택/분류·일괄 가져오기를 연결했다.
+Room6은 별도 테이블을 추가하고 기존 책/진행도/북마크/설정과 키를 보존한다. main/0.5.1 설치 파일은 유지한다.
+
+`source /workspace/toolchains/mobile-env.sh` 후 doctor PASS. `./gradlew :androidApp:compileDebugAndroidTestKotlin
+:androidApp:lintDebug :androidApp:testDebugUnitTest :shared:jvmTest --console=plain` exit0, Android unit73/shared83 PASS.
+원본 `/workspace/work/bookreaderm-product-quality/phase2-catalog-tests-fixed.log`.
+이후 추가한 active-batch host 준비/검증은 전체 빌드와 실제 API26/34/36 실행을 기다린다.
+필수 사례는 native71 + 기존host6 + 새host검증1이며, 강제 종료할 준비 단계를 PASS로 세지 않는다.
+`BOOKREADER_EVIDENCE_DIR=build/phase2-local ./scripts/ci-check.sh` exit0, 전체172개/APK/test APK/lint/schema6 PASS. [원본](evidence/product-quality/phase2-local/summary.json). 실제 기기/UI/강제 종료 결과는 아직 NOT_RUN.
+다음: 로컬 검사 완료 → 원격 matrix → 실패 수정/원본 증거와 화면 확인 → 동일 키 패키지/문서 갱신.
+
+
 ## 2026-10-24 완료: 제품 개선 Phase 1 / 0.5.1
 
 제품/테스트 source `5a8aad2ebb35359740a2fe18bec0c3731d6e9072`, 브랜치 `codex/product-quality-051`.

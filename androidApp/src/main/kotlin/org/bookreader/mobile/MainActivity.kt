@@ -21,7 +21,10 @@ import org.bookreader.mobile.importing.DocumentIntentResult
 class MainActivity : FragmentActivity() {
     private lateinit var model: AppViewModel
     private val picker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) handleDocument(DocumentIntents.parsePicker(result.data))
+        if (result.resultCode == Activity.RESULT_OK) handleDocument(DocumentIntents.parsePickerBatch(result.data))
+    }
+    private val coverPicker = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        uri?.let(model::importCover)
     }
 
     override val defaultViewModelProviderFactory: ViewModelProvider.Factory get() = object : ViewModelProvider.Factory {
@@ -35,6 +38,7 @@ class MainActivity : FragmentActivity() {
                     readerFactory = androidReaderFactory(applicationContext),
                     epubFactory = org.bookreader.mobile.ui.androidEpubReaderFactory(applicationContext),
                     comicFactory = org.bookreader.mobile.ui.androidComicReaderFactory(applicationContext),
+                    artwork = org.bookreader.mobile.library.AndroidLibraryArtwork(applicationContext),
                 ) as T
             }
         }
@@ -48,7 +52,8 @@ class MainActivity : FragmentActivity() {
                 supportFragmentManager.beginTransaction().remove(it).commitNowAllowingStateLoss()
             }
         }
-        setContent { BookReaderApp(model, onAddTxt = { picker.launch(DocumentIntents.pickerIntent()) }) }
+        setContent { BookReaderApp(model, onAddTxt = { picker.launch(DocumentIntents.pickerIntent()) },
+            onChooseCover = { coverPicker.launch(arrayOf("image/jpeg", "image/png", "image/webp")) }) }
         if (savedInstanceState == null) handleDocument(DocumentIntents.parseExternal(intent))
     }
 
@@ -61,6 +66,7 @@ class MainActivity : FragmentActivity() {
     private fun handleDocument(result: DocumentIntentResult) {
         when (result) {
             is DocumentIntentResult.Accepted -> model.receiveDocument(result.document)
+            is DocumentIntentResult.AcceptedBatch -> model.receiveDocuments(result.documents)
             DocumentIntentResult.Rejected -> model.rejectDocument()
             DocumentIntentResult.Ignored -> Unit
         }

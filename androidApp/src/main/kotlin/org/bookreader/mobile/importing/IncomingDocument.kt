@@ -11,15 +11,17 @@ sealed interface DocumentIntentResult {
     data object Ignored : DocumentIntentResult
     data object Rejected : DocumentIntentResult
     data class Accepted(val document: IncomingDocument) : DocumentIntentResult
+    data class AcceptedBatch(val documents: List<IncomingDocument>) : DocumentIntentResult
 }
 
-/** Only one explicit content URI is accepted. ClipData never chooses an alternate source. */
+/** External intents remain single-source; our picker accepts at most 64 explicit content grants. */
 object DocumentIntents {
     fun pickerIntent(): Intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
         type = "*/*"
         putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/plain", "application/epub+zip", "application/zip", "application/vnd.comicbook+zip", "application/x-cbz", "application/octet-stream"))
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
     }
 
     fun parseExternal(intent: Intent): DocumentIntentResult = when (intent.action) {
@@ -30,6 +32,25 @@ object DocumentIntents {
 
     fun parsePicker(intent: Intent?): DocumentIntentResult =
         if (intent == null) DocumentIntentResult.Ignored else parse(intent, intent.data, DocumentOrigin.PICKER)
+
+    /** Multiple grants are accepted only from our explicit picker; external VIEW/SHARE remain single-source. */
+    fun parsePickerBatch(intent: Intent?): DocumentIntentResult {
+        if (intent == null) return DocumentIntentResult.Ignored
+        return try {
+            val clip = intent.clipData ?: return parsePicker(intent)
+            if (clip.itemCount !in 1..64) return DocumentIntentResult.Rejected
+            val uris = (0 until clip.itemCount).map { index ->
+                val item = clip.getItemAt(index)
+                val uri = item.uri ?: return DocumentIntentResult.Rejected
+                if (item.intent != null || uri.scheme != "content" || uri.authority.isNullOrBlank() ||
+                    uri.fragment != null || uri.userInfo != null) return DocumentIntentResult.Rejected
+                uri
+            }
+            if (intent.data != null && intent.data != uris.first()) return DocumentIntentResult.Rejected
+            val documents = uris.distinct().map { IncomingDocument(it, DocumentOrigin.PICKER) }
+            if (documents.size == 1) DocumentIntentResult.Accepted(documents.single()) else DocumentIntentResult.AcceptedBatch(documents)
+        } catch (_: RuntimeException) { DocumentIntentResult.Rejected }
+    }
 
     @Suppress("DEPRECATION")
     private fun stream(intent: Intent): Uri? = try {

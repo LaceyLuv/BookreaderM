@@ -45,7 +45,7 @@ READER_FONTS_0_5/QA_MATRIX/TESTING과 Android/shared/epubAndroid 소스·테스�
 |---|---|---|
 | 감사 | 완료 | 위 코드 기준 분류. 기존 로컬 161개 PASS, 새 변경 결과와 구분 |
 | Phase 1 / 0.5.1 | 구현·자동 검증 완료 | [결과·실제 화면](UX_POLISH_0_5_1.md). 5a8aad2 build166, native63+host6/API26/34/36 PASS. 실기기 미실행 |
-| Phase 2 / 0.6.0 | 대기 | 서재 2.0: metadata/cover, 편집·책장·정렬/필터, batch import·검색 통합. migration 보존 검사 선행 |
+| Phase 2 / 0.6.0 | 진행 중 | 서재 별도 테이블/명시적migration·편집 우선권·책장/정렬/필터 저장, bounded 표지/통합 UI 연결 중. JVM82 PASS, Android 전체 검증 전 |
 | Phase 3 / 0.7.0 | 대기 | 도구/빠른 설정, bounded TXT 목차, version/revision에 묶인 annotation |
 | Phase 4 / 0.8.0 | 대기 | 검증 가능한 backup/restore·기기/성능/접근성·전달/자동화. 실기기는 실제 자원 필요 |
 

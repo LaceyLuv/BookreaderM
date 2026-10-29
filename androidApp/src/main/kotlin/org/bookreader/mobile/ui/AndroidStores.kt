@@ -31,6 +31,7 @@ fun androidLibrarySessionFactory(context: Context): LibrarySessionFactory {
         val database = AndroidDatabaseOwner.borrow(appContext)
         LibrarySession(RoomBookRepository(database), close = {}).apply {
             progressRepository = org.bookreader.mobile.repository.RoomProgressRepository(database)
+            libraryManager = org.bookreader.mobile.library.RoomLibraryManager(database, System::currentTimeMillis)
         }
     }
 }

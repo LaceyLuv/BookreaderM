@@ -12,6 +12,15 @@ import org.bookreader.mobile.importing.IncomingDocument
 class AndroidBookManagement(context: Context) : BookManagement {
     private val app = context.applicationContext
     private val files = AndroidManagedImportFiles(app)
+    private val batch = app.getSharedPreferences("import_batches", Context.MODE_PRIVATE)
+
+    @android.annotation.SuppressLint("UseKtx") // commit's Boolean reports durable marker failure.
+    override suspend fun setBatchActive(active: Boolean) { check(batch.edit().putBoolean("active", active).commit()) }
+    override suspend fun consumeInterruptedBatch(): Boolean {
+        val interrupted = batch.getBoolean("active", false)
+        if (interrupted) setBatchActive(false)
+        return interrupted
+    }
 
     private suspend fun <T> useCoordinator(action: suspend (ImportCoordinator) -> T): T {
         val database = AndroidDatabaseOwner.borrow(app)

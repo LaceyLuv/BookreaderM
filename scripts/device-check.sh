@@ -62,7 +62,7 @@ for report in reports.rglob('TEST-*.xml'):
     removed += 1
 print(f'Removed {removed} old generated connected-test XML reports')
 PY
-host_class=org.bookreader.mobile.reader.TxtReaderHostProcessTest,org.bookreader.mobile.reader.EpubReaderHostProcessTest,org.bookreader.mobile.reader.ComicReaderHostProcessTest
+host_class=org.bookreader.mobile.reader.TxtReaderHostProcessTest,org.bookreader.mobile.reader.EpubReaderHostProcessTest,org.bookreader.mobile.reader.ComicReaderHostProcessTest,org.bookreader.mobile.library.LibraryBatchHostProcessTest
 fixture_output=/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence
 test_arguments=("-Pandroid.testInstrumentationRunnerArguments.notClass=$host_class")
 if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
@@ -196,6 +196,8 @@ for archive_format in epub comic; do
   run_logged "$archive_format-host-process-tests" python3 scripts/reader-process-check.py "$evidence_dir/$archive_format-host-process" "$archive_format"
   run_logged "verified-$archive_format-host-results" python3 scripts/check-test-results.py "android-host-$archive_format" "$evidence_dir/$archive_format-host-process"
 done
+run_logged library-batch-host-tests python3 scripts/library-batch-process-check.py "$evidence_dir/library-batch-host-process"
+run_logged verified-library-batch-host-results python3 scripts/check-test-results.py android-host-library "$evidence_dir/library-batch-host-process"
 if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
   run_logged fixture-screenshots adb pull "$fixture_output" "$evidence_dir/fixture-screenshots"
   run_logged verified-fixture-screenshots python3 - "$evidence_dir/fixture-screenshots" <<'PY'
@@ -207,11 +209,16 @@ for name in ('m02-library.png', 'm03-reader.png', 'txt-reader-generated-scroll.p
              'txt-immersive.png', 'txt-controls.png', 'txt-settings.png',
              'epub-immersive.png', 'epub-controls.png', 'epub-settings.png',
              'comic-immersive.png', 'comic-controls.png',
-             'phase1-import-large-dark.png', 'phase1-library-large-dark.png'):
+             'phase1-import-large-dark.png', 'phase1-library-large-dark.png',
+             'phase2-batch-results.png', 'phase2-book-editor.png', 'phase2-library.png', 'phase2-shelf-list.png'):
     matches = list(root.rglob(name))
     if len(matches) != 1 or matches[0].read_bytes()[:8] != b'\x89PNG\r\n\x1a\n':
         raise SystemExit(f'FAIL missing or invalid generated-fixture screenshot: {name}')
     print(f'PASS actual generated-fixture screenshot {name}, bytes={matches[0].stat().st_size}')
+for name in ('phase2-cover-cache.txt', 'phase2-thousand-library.txt'):
+    matches = list(root.rglob(name))
+    assert len(matches) == 1 and matches[0].stat().st_size > 0, name
+    print(matches[0].read_text())
 PY
 fi
 printf 'NOT_RUN physical-device performance; emulator execution does not establish physical performance\n' | tee -a "$evidence_dir/results.txt"

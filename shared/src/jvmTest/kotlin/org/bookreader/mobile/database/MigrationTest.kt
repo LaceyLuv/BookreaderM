@@ -26,6 +26,9 @@ class MigrationTest {
     @Test fun exportedVersionThreePreservesSettingsBooksAndProgress() = migration(3)
 
     @Test fun exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt() = migration(4)
+    @Test fun exportedVersionFiveAddsCatalogWithoutRewritingAnyReadingData() = migration(5)
+    @Test fun catalogMigrationStatementFailurePreservesVersionFiveDatabase() = migration(5, "statement")
+    @Test fun catalogMigrationValidationFailureRollsBackEveryCatalogTable() = migration(5, "validation")
     @Test fun migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts() = migration(4, "statement")
     @Test fun migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords() = migration(4, "validation")
 
@@ -92,7 +95,8 @@ class MigrationTest {
             if (failure != null) {
                 BundledSQLiteDriver().open(path.toString()).use { connection ->
                     connection.execSQL(if (failure == "statement")
-                        "ALTER TABLE import_jobs ADD COLUMN format TEXT NOT NULL DEFAULT 'UNKNOWN'"
+                        if (version == 5) "CREATE TABLE library_shelves (id TEXT NOT NULL PRIMARY KEY)"
+                        else "ALTER TABLE import_jobs ADD COLUMN format TEXT NOT NULL DEFAULT 'UNKNOWN'"
                         else "ALTER TABLE books ADD COLUMN futureData TEXT")
                 }
                 fun rawSnapshot(): List<List<String?>> = BundledSQLiteDriver().open(path.toString()).use { connection ->

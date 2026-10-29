@@ -24,15 +24,16 @@ internal fun AppIcon(@DrawableRes icon: Int, modifier: Modifier = Modifier, desc
 }
 
 @Composable
-internal fun ContinueReading(book: Book, percent: Double?, onOpen: (Book) -> Unit) {
+internal fun ContinueReading(book: Book, percent: Double?, onOpen: (Book) -> Unit,
+    details: org.bookreader.mobile.library.BookDetails = org.bookreader.mobile.library.BookDetails()) {
     Surface(onClick = { onOpen(book) }, modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp)
         .testTag("continue_reading"), shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.primaryContainer, contentColor = MaterialTheme.colorScheme.onPrimaryContainer) {
         Row(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            AppIcon(R.drawable.ic_book)
+            BookCover(book, details, Modifier.width(36.dp).height(54.dp))
             Column(Modifier.weight(1f)) {
-                Text("이어읽기" + (percent?.let { " · ${it.toInt()}%" } ?: ""), style = MaterialTheme.typography.labelMedium)
+                Text("이어읽기 · ${book.format.displayName}" + (percent?.let { " · ${it.toInt()}% 지점" } ?: ""), style = MaterialTheme.typography.labelMedium)
                 Text(book.title, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
             }
             AppIcon(R.drawable.ic_arrow)

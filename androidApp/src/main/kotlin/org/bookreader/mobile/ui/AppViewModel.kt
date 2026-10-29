@@ -24,6 +24,7 @@ import org.bookreader.mobile.model.Book
 import org.bookreader.mobile.repository.BookRepository
 import org.bookreader.mobile.repository.LibraryErrorCode
 import org.bookreader.mobile.repository.LibraryState
+import org.bookreader.mobile.library.*
 
 enum class AppTab { LIBRARY, SEARCH, SETTINGS }
 enum class ThemeMode { SYSTEM, LIGHT, DARK }
@@ -36,6 +37,7 @@ interface ThemeStore {
 /** A scoped repository lease; the factory decides whether close releases an owned or borrowed handle. */
 class LibrarySession(val repository: BookRepository, val close: () -> Unit) {
     var progressRepository: org.bookreader.mobile.repository.ProgressRepository? = null
+    var libraryManager: RoomLibraryManager? = null
 }
 
 fun interface LibrarySessionFactory {
@@ -57,6 +59,15 @@ data class AppUiState(
     val notice: String? = null,
     val continuePercent: Double? = null,
     val encodingChange: BookEncodingUi? = null,
+    val catalog: LibraryCatalog = LibraryCatalog(),
+    val selectedBooks: Set<String> = emptySet(),
+    val editingBook: Book? = null,
+    val editorSaving: Boolean = false,
+    val coverLoading: Boolean = false,
+    val editorError: String? = null,
+    val pendingCoverKey: String? = null,
+    val shelvesVisible: Boolean = false,
+    val batch: BatchImportUi? = null,
 )
 
 class AppViewModel(
@@ -67,6 +78,7 @@ class AppViewModel(
     private val readerFactory: ((Book, CoroutineScope) -> TxtReaderController)? = null,
     private val comicFactory: ((Book, CoroutineScope) -> org.bookreader.mobile.comic.ComicReaderController)? = null,
     private val epubFactory: ((Book, CoroutineScope) -> org.bookreader.mobile.epub.EpubReaderController)? = null,
+    private val artwork: LibraryArtwork? = null,
 ) : ViewModel() {
     private val mutableState = MutableStateFlow(AppUiState())
     val state: StateFlow<AppUiState> = mutableState.asStateFlow()
@@ -90,6 +102,9 @@ class AppViewModel(
         viewModelScope.launch {
             try {
                 val recovered = withContext(ioDispatcher) { management?.recover().orEmpty() }
+                if (withContext(ioDispatcher) { management?.consumeInterruptedBatch() == true }) {
+                    mutableState.update { it.copy(notice = "일괄 가져오기가 중단되었습니다. 완료된 책은 서재에 남아 있습니다. 나머지 파일은 다시 선택해 주세요.") }
+                }
                 val pending = recovered.filterIsInstance<ImportResult.EncodingRequired>().firstOrNull()
                 if (pending != null) {
                     val previews = withContext(ioDispatcher) { management?.preview(pending.stagingPath).orEmpty() }
@@ -132,12 +147,14 @@ class AppViewModel(
                     val active = sessions.open()
                     try {
                         val loaded = active.repository.loadBooks()
+                        val catalog = active.libraryManager?.load() ?: LibraryCatalog()
                         val candidate = (loaded as? LibraryState.Content)?.books?.let(::continueBook)
                         val progress = candidate?.currentRevision?.let { revision ->
                             active.progressRepository?.loadProgress(candidate.id, revision)
                         }
                         currentCoroutineContext().ensureActive()
-                        mutableState.update { it.copy(continuePercent = (progress as? org.bookreader.mobile.repository.ProgressReadResult.Found)?.progress?.percent) }
+                        mutableState.update { it.copy(catalog = catalog,
+                            continuePercent = (progress as? org.bookreader.mobile.repository.ProgressReadResult.Found)?.progress?.percent) }
                         loaded
                     } finally {
                         // Release the lease after its query exits. Android borrows the app-owned pool;
@@ -150,7 +167,8 @@ class AppViewModel(
             } catch (_: Exception) {
                 LibraryState.Error(LibraryErrorCode.DATABASE_UNAVAILABLE)
             }
-            mutableState.update { it.copy(library = loaded) }
+            val retainedIds = (loaded as? LibraryState.Content)?.books?.map { it.id }?.toSet()
+            mutableState.update { it.copy(library = loaded, selectedBooks = if (retainedIds == null) it.selectedBooks else it.selectedBooks.intersect(retainedIds)) }
         }
     }
 
@@ -167,8 +185,88 @@ class AppViewModel(
         }
     }
 
+    private var batchChoice: kotlinx.coroutines.CompletableDeferred<String>? = null
+
+    fun receiveDocuments(documents: List<IncomingDocument>) {
+        if (documents.size == 1) { receiveDocument(documents.single()); return }
+        if (documents.size !in 2..64 || documents.any { it.origin != DocumentOrigin.PICKER } || documents.map { it.uri }.distinct().size != documents.size) {
+            rejectDocument(); return
+        }
+        viewModelScope.launch {
+            recoveryDone.await()
+            if (importJob?.isActive == true || state.value.importing is ImportUiState.SelectEncoding || state.value.importing is ImportUiState.ConfirmShare) {
+                mutableState.update { it.copy(notice = "진행 중인 가져오기를 완료하거나 취소한 뒤 새 파일을 선택해 주세요.") }; return@launch
+            }
+            val service = management ?: return@launch
+            mutableState.update { it.copy(batch = BatchImportUi(documents.size), importing = ImportUiState.Working(), notice = null) }
+            importJob = viewModelScope.launch {
+                var pending: ImportResult? = null
+                val progress: suspend (ImportProgress) -> Unit = { value -> withContext(Dispatchers.Main.immediate) {
+                    mutableState.update { it.copy(importing = ImportUiState.Working(value)) }
+                } }
+                try {
+                    withContext(ioDispatcher) { service.setBatchActive(true) }
+                    for (document in documents) {
+                        pending = null
+                        mutableState.update { it.copy(importing = ImportUiState.Working()) }
+                        var result = try {
+                            withContext(ioDispatcher) { service.import(document, progress).also { pending = it } }
+                        } catch (cancelled: CancellationException) { throw cancelled }
+                        catch (failure: ImportFailure) { ImportResult.Failure(failure.code) }
+                        catch (_: Exception) { ImportResult.Failure(ImportErrorCode.DATABASE_UNAVAILABLE) }
+                        while (result is ImportResult.EncodingRequired) {
+                            val required = result
+                            val previews = withContext(ioDispatcher) { service.preview(required.stagingPath) }
+                            val choice = kotlinx.coroutines.CompletableDeferred<String>().also { batchChoice = it }
+                            mutableState.update { it.copy(importing = ImportUiState.SelectEncoding(required.jobId, DocumentOrigin.PICKER, previews)) }
+                            val encoding = choice.await()
+                            batchChoice = null
+                            result = withContext(ioDispatcher) { service.selectEncoding(required.jobId, encoding, progress).also { pending = it } }
+                        }
+                        recordBatchResult(result)
+                        pending = null
+                        if (result is ImportResult.Failure && result.code in setOf(ImportErrorCode.DISK_FULL, ImportErrorCode.DATABASE_UNAVAILABLE)) break
+                    }
+                } catch (cancelled: CancellationException) {
+                    // ImportCoordinator may have committed in NonCancellable before IO's prompt cancellation.
+                    (pending as? ImportResult.Success)?.let { recordBatchResult(it); pending = null }
+                    mutableState.update { it.copy(batch = it.batch?.copy(cancelled = true)) }
+                    throw cancelled
+                } catch (_: Exception) {
+                    recordBatchResult(ImportResult.Failure(ImportErrorCode.DATABASE_UNAVAILABLE))
+                } finally {
+                    val encoding = pending as? ImportResult.EncodingRequired
+                    withContext(kotlinx.coroutines.NonCancellable + ioDispatcher) {
+                        try { if (encoding != null) service.cancelEncoding(encoding.jobId) } catch (_: Exception) { /* Recovery owns an unfinished journal. */ }
+                        try { service.setBatchActive(false) } catch (_: Exception) { /* Next start reports interrupted work. */ }
+                    }
+                    batchChoice?.cancel(); batchChoice = null
+                    mutableState.update { it.copy(importing = ImportUiState.Idle, batch = it.batch?.copy(active = false)) }
+                    refreshLibrary()
+                }
+            }
+        }
+    }
+
+    private fun recordBatchResult(result: ImportResult) {
+        mutableState.update { value ->
+            val batch = value.batch ?: return@update value
+            val duplicate = (result as? ImportResult.Success)?.duplicate == true
+            val message = when (result) {
+                is ImportResult.Success -> "${result.book.title}: " + if (duplicate) "이미 서재에 있음" else "추가 완료"
+                is ImportResult.Failure -> "${batch.completed + 1}번째 파일: ${importErrorMessage(result.code)}"
+                is ImportResult.EncodingRequired -> return@update value
+            }
+            value.copy(batch = batch.copy(completed = batch.completed + 1,
+                added = batch.added + if (result is ImportResult.Success && !duplicate) 1 else 0,
+                duplicates = batch.duplicates + if (duplicate) 1 else 0, failures = batch.failures + if (result is ImportResult.Failure) 1 else 0,
+                results = batch.results + message))
+        }
+    }
+    fun dismissBatch() { if (state.value.batch?.active != true) mutableState.update { it.copy(batch = null) } }
+
     fun rejectDocument() {
-        val message = "파일을 열 수 없습니다. 파일 앱에서 읽기 권한이 있는 TXT·EPUB·ZIP/CBZ 파일 하나를 다시 선택해 주세요."
+        val message = "파일을 열 수 없습니다. 파일 앱에서 읽기 권한이 있는 TXT·EPUB·ZIP/CBZ 파일을 다시 선택해 주세요. 한 번에 최대 64개를 추가할 수 있습니다."
         mutableState.update {
             if (it.importing is ImportUiState.Working || it.importing is ImportUiState.SelectEncoding)
                 it.copy(notice = message)
@@ -179,6 +277,93 @@ class AppViewModel(
     fun dismissImport() { mutableState.update { it.copy(importing = ImportUiState.Idle) } }
     fun showBook(book: Book?) { mutableState.update { it.copy(selectedBook = book) } }
     fun requestDelete(book: Book?) { mutableState.update { it.copy(deletingBook = book) } }
+
+    private val catalogWrites = Mutex()
+    private var coverJob: Job? = null
+
+    private suspend fun <T> withCatalog(action: suspend (RoomLibraryManager) -> T): T = withContext(ioDispatcher) {
+        val active = sessions.open()
+        try { action(requireNotNull(active.libraryManager)) } finally { active.close() }
+    }
+
+    /** The visible card's coroutine owns extraction and cancels it when the card leaves composition. */
+    suspend fun ensureArtwork(book: Book) {
+        val service = artwork ?: return
+        try {
+            val details = state.value.catalog.details[book.id] ?: BookDetails()
+            if (service.ensure(book, details)) {
+                val current = withCatalog { it.record(book.id) } ?: return
+                mutableState.update { value ->
+                    val library = value.library as? LibraryState.Content ?: return@update value
+                    value.copy(library = library.copy(books = library.books.map { if (it.id == book.id && it.sourceSha256 == current.first.sourceSha256) current.first else it }),
+                        catalog = value.catalog.copy(details = value.catalog.details + (book.id to current.second)))
+                }
+            }
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { /* A decorative fallback remains readable; library data is not reset. */ }
+    }
+
+    fun editBook(book: Book) { mutableState.update { it.copy(selectedBook = null, editingBook = book, pendingCoverKey = null, editorError = null) } }
+    fun dismissEditor() {
+        if (state.value.editorSaving) return
+        coverJob?.cancel()
+        mutableState.update { it.copy(editingBook = null, pendingCoverKey = null, coverLoading = false, editorError = null) }
+    }
+    fun importCover(uri: android.net.Uri) {
+        val service = artwork ?: return
+        val book = state.value.editingBook ?: return
+        if (state.value.editorSaving || state.value.coverLoading) return
+        mutableState.update { it.copy(coverLoading = true, editorError = null) }
+        coverJob = viewModelScope.launch {
+            try {
+                val key = service.import(uri)
+                mutableState.update { if (it.editingBook?.id == book.id) it.copy(pendingCoverKey = key) else it }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutableState.update { it.copy(editorError = "표지를 읽지 못했습니다. 8MB 이하의 JPEG·PNG·WebP 파일을 선택해 주세요.") } }
+            finally { mutableState.update { it.copy(coverLoading = false) } }
+        }
+    }
+    fun saveBook(edit: BookEdit) {
+        val book = state.value.editingBook ?: return
+        if (state.value.editorSaving || state.value.coverLoading) return
+        mutableState.update { it.copy(editorSaving = true, editorError = null) }
+        viewModelScope.launch {
+            try {
+                catalogWrites.withLock { withCatalog { it.edit(book.id, edit) } }
+                mutableState.update { it.copy(editingBook = null, pendingCoverKey = null) }
+                refreshLibrary()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutableState.update { it.copy(editorError = "책 정보를 저장하지 못했습니다. 제목과 책장을 확인해 주세요. 기존 정보는 유지됩니다.") } }
+            finally { mutableState.update { it.copy(editorSaving = false) } }
+        }
+    }
+    fun selectLibraryPreferences(change: (LibraryPreferences) -> LibraryPreferences) = catalogWrite { it.preferences(change(it.load().preferences)) }
+    fun showShelves(show: Boolean) { mutableState.update { it.copy(shelvesVisible = show) } }
+    fun createShelf(name: String) = catalogWrite { it.createShelf(java.util.UUID.randomUUID().toString(), name) }
+    fun renameShelf(id: String, name: String) = catalogWrite { it.renameShelf(id, name) }
+    fun deleteShelf(id: String) = catalogWrite { it.deleteShelf(id) }
+    fun toggleSelected(book: Book) {
+        mutableState.update { value ->
+            if (book.id in value.selectedBooks) value.copy(selectedBooks = value.selectedBooks - book.id)
+            else if (value.selectedBooks.size < 200) value.copy(selectedBooks = value.selectedBooks + book.id)
+            else value.copy(notice = "한 번에 200권까지 선택할 수 있습니다.")
+        }
+    }
+    fun clearSelection() { mutableState.update { it.copy(selectedBooks = emptySet()) } }
+    fun classifySelection(shelf: String, add: Boolean) {
+        val ids = state.value.selectedBooks
+        catalogWrite { it.classify(ids, shelf, add) }
+    }
+    private fun catalogWrite(action: suspend (RoomLibraryManager) -> Unit) {
+        mutableState.update { it.copy(notice = null) }
+        viewModelScope.launch {
+            try {
+                catalogWrites.withLock { withCatalog(action) }
+                refreshLibrary()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutableState.update { it.copy(notice = "변경을 저장하지 못했습니다. 중복된 책장 이름이나 저장 공간을 확인해 주세요. 기존 정보는 유지됩니다.") } }
+        }
+    }
 
     fun requestBookEncoding(book: Book) {
         val service = management ?: return
@@ -248,6 +433,7 @@ class AppViewModel(
     }
 
     fun selectImportEncoding(encodingId: String) {
+        batchChoice?.let { it.complete(encodingId); return }
         val pending = state.value.importing as? ImportUiState.SelectEncoding ?: return
         launchImport(pending.origin) { service, progress -> service.selectEncoding(pending.jobId, encodingId, progress) }
     }
@@ -257,7 +443,7 @@ class AppViewModel(
     ) {
         if (importJob?.isActive == true) return
         val service = management ?: return
-        mutableState.update { it.copy(importing = ImportUiState.Working()) }
+        mutableState.update { it.copy(importing = ImportUiState.Working(), batch = null) }
         importJob = viewModelScope.launch {
             try {
                 recoveryDone.await()
@@ -296,6 +482,7 @@ class AppViewModel(
     }
 
     fun cancelImport() {
+        if (state.value.batch?.active == true) { importJob?.cancel(); return }
         val pending = state.value.importing as? ImportUiState.SelectEncoding
         if (pending != null) {
             viewModelScope.launch {

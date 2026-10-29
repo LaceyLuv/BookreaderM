@@ -74,10 +74,11 @@ import org.bookreader.mobile.importing.ImportPhase
 import org.bookreader.mobile.encoding.TxtEncoding
 import org.bookreader.mobile.model.Book
 import org.bookreader.mobile.repository.LibraryState
+import org.bookreader.mobile.library.*
 
 @Composable
 @Suppress("DEPRECATION") // Android 8/9 need an explicit bar color; newer edge-to-edge uses the surface.
-fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
+fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover: () -> Unit = {}) {
     val state by model.state.collectAsStateWithLifecycle()
     val dark = state.theme.isDark(isSystemInDarkTheme())
     val view = LocalView.current
@@ -110,7 +111,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
         ReaderControlTheme {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
                 Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
-                    if (state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
+                    if (state.batch?.active != true && state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
                         model::dismissImport, model::cancelImport, model::selectImportEncoding, model::openBook)
                     androidx.compose.runtime.key(reader) { org.bookreader.mobile.comic.ComicReaderScreen(reader, model::leaveReader) { model.openBook(reader.book) } }
                 }
@@ -122,7 +123,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
         ReaderControlTheme {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
                 Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
-                    if (state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
+                    if (state.batch?.active != true && state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
                         model::dismissImport, model::cancelImport, model::selectImportEncoding, model::openBook)
                     androidx.compose.runtime.key(reader) { org.bookreader.mobile.epub.EpubReaderScreen(reader, model::leaveReader) { model.openBook(reader.book) } }
                 }
@@ -135,8 +136,8 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
             Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
             Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
                 state.notice?.let { Text(it, modifier = Modifier.testTag("import_notice"), color = MaterialTheme.colorScheme.error) }
-                if (state.importing is ImportUiState.ConfirmShare || state.importing is ImportUiState.SelectEncoding ||
-                    state.importing is ImportUiState.Working || state.importing is ImportUiState.Complete || state.importing is ImportUiState.Error) {
+                if (state.batch?.active != true && (state.importing is ImportUiState.ConfirmShare || state.importing is ImportUiState.SelectEncoding ||
+                    state.importing is ImportUiState.Working || state.importing is ImportUiState.Complete || state.importing is ImportUiState.Error)) {
                     ImportStatus(state.importing, model::confirmShare, model::dismissImport, model::cancelImport,
                         model::selectImportEncoding, model::openBook)
                 }
@@ -152,7 +153,12 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}) {
     BookReaderScreen(state, model::selectTab, model::updateQuery, model::retryLibrary, model::selectTheme,
         onAddTxt, model::confirmShare, model::dismissImport, model::cancelImport, model::selectImportEncoding,
         model::showBook, model::requestDelete, model::confirmDelete, model::openBook,
-        model::requestBookEncoding, model::changeBookEncoding, model::dismissBookEncoding, model::dismissNotice)
+        model::requestBookEncoding, model::changeBookEncoding, model::dismissBookEncoding, model::dismissNotice,
+        LibraryActions(preferences = model::selectLibraryPreferences, edit = model::editBook, save = model::saveBook,
+            dismissEditor = model::dismissEditor, chooseCover = onChooseCover, ensureArtwork = model::ensureArtwork,
+            showShelves = model::showShelves, createShelf = model::createShelf, renameShelf = model::renameShelf,
+            deleteShelf = model::deleteShelf, toggleSelected = model::toggleSelected, clearSelection = model::clearSelection,
+            classify = model::classifySelection, dismissBatch = model::dismissBatch))
 }
 
 @Composable
@@ -175,6 +181,7 @@ fun BookReaderScreen(
     onChangeBookEncoding: (String) -> Unit = {},
     onDismissBookEncoding: () -> Unit = {},
     onDismissNotice: () -> Unit = {},
+    libraryActions: LibraryActions = LibraryActions(),
 ) {
     val dark = state.theme.isDark(isSystemInDarkTheme())
     BookReaderTheme(dark) {
@@ -182,12 +189,12 @@ fun BookReaderScreen(
             bottomBar = {
                 Column {
                 (state.library as? LibraryState.Content)?.books?.let(::continueBook)?.let { book ->
-                    ContinueReading(book, state.continuePercent, onOpenBook)
+                    ContinueReading(book, state.continuePercent, onOpenBook, state.catalog.details[book.id] ?: BookDetails())
                 }
                 NavigationBar {
-                    AppTab.entries.forEach { tab ->
+                    listOf(AppTab.LIBRARY, AppTab.SETTINGS).forEach { tab ->
                         NavigationBarItem(
-                            selected = state.tab == tab,
+                            selected = state.tab == tab || tab == AppTab.LIBRARY && state.tab == AppTab.SEARCH,
                             onClick = { onTabSelected(tab) },
                             modifier = Modifier.testTag("tab_${tab.name}"),
                             icon = {
@@ -210,9 +217,11 @@ fun BookReaderScreen(
             Column(Modifier.fillMaxSize().padding(insets).padding(horizontal = 20.dp)) {
                 Row(Modifier.fillMaxWidth().padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(state.tab.label, style = MaterialTheme.typography.headlineMedium,
+                    Text(if (state.tab == AppTab.SETTINGS) "설정" else "서재", style = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier.weight(1f).testTag("screen_title"))
-                    if (state.tab == AppTab.LIBRARY) Button(onClick = onAddTxt,
+                    if (state.tab != AppTab.SETTINGS) IconButton(onClick = { onTabSelected(if (state.tab == AppTab.SEARCH) AppTab.LIBRARY else AppTab.SEARCH) },
+                        modifier = Modifier.testTag("tab_SEARCH")) { AppIcon(R.drawable.ic_search, description = "서재 검색") }
+                    if (state.tab != AppTab.SETTINGS) Button(onClick = onAddTxt,
                         enabled = state.importing !is ImportUiState.Working && state.importing !is ImportUiState.SelectEncoding,
                         modifier = Modifier.testTag("add_txt")) {
                         AppIcon(R.drawable.ic_add)
@@ -221,24 +230,29 @@ fun BookReaderScreen(
                     }
                 }
                 state.notice?.let { LibraryNotice(it, onDismissNotice) }
+                state.batch?.let { BatchImportStatus(it, libraryActions.dismissBatch) }
                 ImportStatus(state.importing, onConfirmShare, onDismissImport, onCancelImport,
                     onEncodingSelected, onOpenBook)
                 when (state.tab) {
-                    AppTab.LIBRARY -> LibraryBody(state.library, onRetry, onInfo = onBookInfo, onOpen = onOpenBook,
-                        onAdd = onAddTxt, canAdd = state.importing !is ImportUiState.Working && state.importing !is ImportUiState.SelectEncoding)
-                    AppTab.SEARCH -> {
+                    AppTab.LIBRARY, AppTab.SEARCH -> {
+                        if (state.tab == AppTab.SEARCH) {
                         OutlinedTextField(
                             value = state.query,
                             onValueChange = onQueryChanged,
                             label = { Text("책 검색") },
                             placeholder = { Text("제목, 작가 또는 파일명") },
                             leadingIcon = { AppIcon(R.drawable.ic_search) },
+                            trailingIcon = { IconButton(onClick = { onQueryChanged(""); onTabSelected(AppTab.LIBRARY) }) {
+                                AppIcon(R.drawable.ic_close, description = "검색 닫기") } },
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth().testTag("search_query"),
                         )
-                        Spacer(Modifier.height(16.dp))
-                        LibraryBody(state.library, onRetry, state.query, onBookInfo, onOpenBook,
-                            onClearQuery = { onQueryChanged("") })
+                        Spacer(Modifier.height(8.dp))
+                        }
+                        LibraryControls(state, libraryActions)
+                        LibraryBody(state.library, onRetry, if (state.tab == AppTab.SEARCH) state.query else null, onBookInfo, onOpenBook,
+                            onAdd = onAddTxt, canAdd = state.importing !is ImportUiState.Working && state.importing !is ImportUiState.SelectEncoding,
+                            onClearQuery = { onQueryChanged("") }, catalog = state.catalog, selected = state.selectedBooks, actions = libraryActions)
                     }
                     AppTab.SETTINGS -> SettingsBody(state, onThemeSelected)
                 }
@@ -255,12 +269,15 @@ fun BookReaderScreen(
                     book.encodingId?.let { Text("텍스트 인코딩: $it", style = MaterialTheme.typography.bodySmall) }
                     unavailableBookMessage(book.availability)?.let { Text(it, color = MaterialTheme.colorScheme.error) }
                     Text("책은 앱 안에 보관됩니다. 원본 파일은 변경하지 않습니다.", style = MaterialTheme.typography.bodySmall)
+                    TextButton(onClick = { libraryActions.edit(book) }, modifier = Modifier.testTag("edit_book")) { Text("정보 편집") }
                     if (book.format == org.bookreader.mobile.model.BookFormat.TXT && book.availability == BookAvailability.READY)
                         TextButton(onClick = { onBookEncoding(book) }, modifier = Modifier.testTag("book_change_encoding")) { Text("인코딩 변경") }
                 } },
                 confirmButton = { TextButton(onClick = { onBookInfo(null) }) { Text("닫기") } },
                 dismissButton = { TextButton(onClick = { onDeleteRequested(book) }, modifier = Modifier.testTag("book_delete")) { Text("삭제") } })
         }
+        BookEditor(state, libraryActions)
+        ShelfManager(state, libraryActions)
         state.deletingBook?.let { book ->
             AlertDialog(onDismissRequest = { onDeleteRequested(null) }, title = { Text("책을 삭제할까요?") },
                 text = { Text("${book.title}의 앱 내부 복사본과 독서 진행도·북마크가 삭제됩니다. 원본 파일은 삭제하지 않습니다.") },
@@ -377,6 +394,7 @@ private val AppTab.label: String
 private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String? = null,
     onInfo: (Book) -> Unit = {}, onOpen: (Book) -> Unit = {},
     onAdd: () -> Unit = {}, canAdd: Boolean = true, onClearQuery: () -> Unit = {},
+    catalog: LibraryCatalog = LibraryCatalog(), selected: Set<String> = emptySet(), actions: LibraryActions = LibraryActions(),
 ) {
     when (state) {
         LibraryState.Loading -> StatusMessage("서재를 불러오는 중", "library_loading") {
@@ -397,12 +415,20 @@ private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String?
             Button(onClick = onRetry, modifier = Modifier.testTag("library_retry")) { Text("다시 시도") }
         }
         is LibraryState.Content -> {
-            val matches = filterLibraryBooks(state.books, query.orEmpty())
+            val matches = selectLibraryBooks(state.books, catalog, query.orEmpty())
             if (matches.isEmpty()) {
                 StatusMessage("검색 결과가 없습니다", "search_empty", "다른 제목이나 작가 이름으로 찾아보세요.") {
                     TextButton(onClick = onClearQuery, modifier = Modifier.testTag("clear_search")) { Text("검색 지우기") }
+                    if (catalog.preferences.filter != LibraryFilter.ALL || catalog.preferences.shelfId != null)
+                        TextButton(onClick = { actions.preferences { it.copy(filter = LibraryFilter.ALL, shelfId = null) } }) { Text("필터 초기화") }
                 }
             } else {
+                if (catalog.preferences.view == LibraryView.LIST || LocalDensity.current.fontScale >= 1.5f) {
+                    LazyColumn(Modifier.fillMaxSize().testTag("library_content"), contentPadding = PaddingValues(bottom = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        items(matches, key = Book::id) { book -> LibraryBookCard(book, catalog, book.id in selected, selected.isNotEmpty(), true, actions, onInfo, onOpen) }
+                    }
+                } else {
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(160.dp * LocalDensity.current.fontScale.coerceIn(1f, 1.6f)),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -410,29 +436,8 @@ private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String?
                     contentPadding = PaddingValues(bottom = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    gridItems(matches, key = Book::id) { BookMetadata(it, onInfo, onOpen) }
+                    gridItems(matches, key = Book::id) { book -> LibraryBookCard(book, catalog, book.id in selected, selected.isNotEmpty(), false, actions, onInfo, onOpen) }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-private fun BookMetadata(book: Book, onInfo: (Book) -> Unit, onOpen: (Book) -> Unit) {
-    Card(onClick = { onOpen(book) }, modifier = Modifier.fillMaxWidth().testTag("book_${book.id}")) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(book.format.displayName, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
-            Text(book.title, style = MaterialTheme.typography.titleMedium, maxLines = 3, overflow = TextOverflow.Ellipsis)
-            book.author?.let { Text(it, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis) }
-            if (book.availability != BookAvailability.READY) Text(book.availability.displayName,
-                style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.testTag("availability_${book.id}"))
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                TextButton(onClick = { onOpen(book) }, modifier = Modifier.weight(1f).testTag("read_${book.id}")) {
-                    Text(if (book.availability == BookAvailability.READY) "읽기" else "확인")
-                }
-                IconButton(onClick = { onInfo(book) }, modifier = Modifier.testTag("info_${book.id}")) {
-                    AppIcon(R.drawable.ic_info, description = "책 정보")
                 }
             }
         }

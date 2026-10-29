@@ -34,3 +34,15 @@ val MIGRATION_4_5: Migration = object : Migration(4, 5) {
         connection.execSQL("ALTER TABLE import_jobs ADD COLUMN format TEXT NOT NULL DEFAULT 'TXT'")
     }
 }
+
+/** Catalog side tables only: every original row, including unknown locators/settings, is preserved. */
+val MIGRATION_5_6: Migration = object : Migration(5, 6) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS library_book_details (bookId TEXT NOT NULL, metadataEdits INTEGER NOT NULL, metadataScanned INTEGER NOT NULL, readingStatus TEXT, coverPreset INTEGER NOT NULL, PRIMARY KEY(bookId), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS library_shelves (id TEXT NOT NULL, name TEXT NOT NULL, nameKey TEXT NOT NULL, PRIMARY KEY(id))")
+        connection.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_library_shelves_nameKey ON library_shelves (nameKey)")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS library_memberships (bookId TEXT NOT NULL, shelfId TEXT NOT NULL, PRIMARY KEY(bookId, shelfId), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE, FOREIGN KEY(shelfId) REFERENCES library_shelves(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+        connection.execSQL("CREATE INDEX IF NOT EXISTS index_library_memberships_shelfId ON library_memberships (shelfId)")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS library_preferences (id TEXT NOT NULL, sort TEXT NOT NULL, view TEXT NOT NULL, filter TEXT NOT NULL, shelfId TEXT, PRIMARY KEY(id))")
+    }
+}

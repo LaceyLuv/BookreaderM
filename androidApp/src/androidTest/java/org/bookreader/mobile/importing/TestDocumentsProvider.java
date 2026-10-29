@@ -71,10 +71,10 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 switch (columns[index]) {
                     case DocumentsContract.Document.COLUMN_DOCUMENT_ID: values[index] = id; break;
                     case DocumentsContract.Document.COLUMN_DISPLAY_NAME:
-                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.equals("font-otf") ? ".otf" : id.startsWith("font-") ? ".ttf" : id.startsWith("epub-") ? ".epub" : id.startsWith("comic-") ? ".cbz" : ".txt");
+                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.equals("cover-image") ? ".png" : id.equals("font-otf") ? ".otf" : id.startsWith("font-") ? ".ttf" : id.startsWith("epub-") ? ".epub" : id.startsWith("comic-") ? ".cbz" : ".txt");
                         break;
                     case DocumentsContract.Document.COLUMN_MIME_TYPE:
-                        values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : id.startsWith("epub-") ? "application/epub+zip" : id.startsWith("comic-") ? "application/zip" : "text/plain";
+                        values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : id.equals("cover-image") ? "image/png" : id.startsWith("epub-") ? "application/epub+zip" : id.startsWith("comic-") ? "application/zip" : "text/plain";
                         break;
                     case DocumentsContract.Document.COLUMN_SIZE:
                         if ("unknown".equals(id) || "stalled".equals(id)) values[index] = null;
@@ -137,6 +137,16 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 throw new IllegalStateException("Unable to read licensed font fixture", failure);
             }
         }
+        if (id.equals("cover-image")) {
+            android.graphics.Bitmap image = android.graphics.Bitmap.createBitmap(96, 144, android.graphics.Bitmap.Config.ARGB_8888);
+            try {
+                image.eraseColor(android.graphics.Color.rgb(37, 112, 93));
+                java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
+                if (!image.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, output))
+                    throw new IllegalStateException("Generated image failed");
+                return output.toByteArray();
+            } finally { image.recycle(); }
+        }
         if (id.equals("font-invalid")) return "this is not a font".getBytes(StandardCharsets.UTF_8);
 
         if (id.startsWith("epub-") || id.equals("comic-product")) {
@@ -158,6 +168,7 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 throw new IllegalStateException("Unable to read generated EPUB fixture", failure);
             }
         }
+        if (id.startsWith("batch-host-")) return (id + " generated batch fixture\n").getBytes(StandardCharsets.UTF_8);
         switch (id) {
             case "reader-scroll": case "reader-host": case "reader-failure": case "reader-continuous":
             case "reader-full": case "reader-full-other":

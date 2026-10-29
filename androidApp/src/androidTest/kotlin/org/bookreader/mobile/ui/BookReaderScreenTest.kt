@@ -16,6 +16,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performScrollToIndex
+import androidx.compose.ui.test.performScrollTo
+import org.bookreader.mobile.library.*
 import org.bookreader.mobile.model.Book
 import org.bookreader.mobile.model.BookFormat
 import org.bookreader.mobile.repository.LibraryErrorCode
@@ -61,6 +64,35 @@ class BookReaderScreenTest {
         compose.onNodeWithTag("theme_DARK").performClick().assertIsSelected()
         compose.onNodeWithTag("tab_LIBRARY").performClick().assertIsSelected()
         compose.onNodeWithText("Another Book").assertIsDisplayed()
+    }
+
+    @Test fun thousandBookGridAndListScrollAndIntegratedSearchUseBoundedVisibleCards() {
+        val fixtures=(0 until 1000).map { book(it.toString(),"Generated %04d".format(it)) }
+        val state=mutableStateOf(AppUiState(library=LibraryState.Content(fixtures),
+            catalog=LibraryCatalog(preferences=LibraryPreferences(sort=LibrarySort.TITLE))))
+        compose.setContent {
+            BookReaderScreen(state.value,{state.value=state.value.copy(tab=it)},
+                {state.value=state.value.copy(query=it)},{},{},libraryActions=LibraryActions(
+                    preferences={ change -> state.value=state.value.copy(catalog=state.value.catalog.copy(preferences=change(state.value.catalog.preferences))) }))
+        }
+        val started=android.os.SystemClock.elapsedRealtime()
+        for(view in LibraryView.entries) {
+            compose.runOnIdle { state.value=state.value.copy(catalog=state.value.catalog.copy(preferences=state.value.catalog.preferences.copy(view=view))) }
+            compose.onNodeWithTag("library_content").performScrollToIndex(999)
+            compose.onNodeWithTag("book_999").assertIsDisplayed()
+            compose.onNodeWithTag("book_0").assertDoesNotExist()
+            compose.onNodeWithTag("library_content").performScrollToIndex(0)
+            compose.onNodeWithTag("book_0").assertIsDisplayed()
+        }
+        compose.onNodeWithTag("tab_SEARCH").performClick()
+        compose.onNodeWithTag("search_query").performTextInput("Generated 0917")
+        compose.onNodeWithTag("book_917").assertIsDisplayed()
+        compose.onNodeWithTag("book_0").assertDoesNotExist()
+        val args=androidx.test.platform.app.InstrumentationRegistry.getArguments()
+        if(args.getString("captureFixtureScreenshots")=="true") args.getString("additionalTestOutputDir")?.let { path ->
+            java.io.File(path,"phase2-thousand-library.txt").apply { parentFile?.mkdirs() }.writeText(
+                "generatedBooks=1000\nlayouts=GRID,LIST\nverifiedIndices=999,0\nsearchResult=917\nelapsedMs=${android.os.SystemClock.elapsedRealtime()-started}\nclaim=emulator navigation and semantics; not physical frame rate\n")
+        }
     }
 
     @Test fun loadingEmptyAndErrorAreDistinctAndErrorHasRetry() {

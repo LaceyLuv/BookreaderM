@@ -11,6 +11,8 @@ interface BookManagement {
     suspend fun selectEncoding(jobId: String, encodingId: String, onProgress: suspend (ImportProgress) -> Unit): ImportResult
     suspend fun preview(stagingPath: String): List<org.bookreader.mobile.encoding.TxtEncodingPreview>
     suspend fun cancelEncoding(jobId: String)
+    suspend fun setBatchActive(active: Boolean) = Unit
+    suspend fun consumeInterruptedBatch(): Boolean = false
     suspend fun markUnavailable(book: org.bookreader.mobile.model.Book, availability: org.bookreader.mobile.model.BookAvailability)
     suspend fun delete(bookId: String, stopReading: suspend () -> Unit = {}): DeleteResult
     suspend fun changeEncoding(book: org.bookreader.mobile.model.Book, encoding: String,
@@ -22,6 +24,9 @@ data class BookEncodingUi(val book: org.bookreader.mobile.model.Book,
     val previews: List<org.bookreader.mobile.encoding.TxtEncodingPreview> = emptyList(),
     val loading: Boolean = true, val working: Boolean = false, val committing: Boolean = false,
     val error: String? = null)
+
+data class BatchImportUi(val total: Int, val completed: Int = 0, val added: Int = 0, val duplicates: Int = 0,
+    val failures: Int = 0, val active: Boolean = true, val cancelled: Boolean = false, val results: List<String> = emptyList())
 
 sealed interface ImportUiState {
     data object Idle : ImportUiState

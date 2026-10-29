@@ -14,6 +14,11 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextReplacement
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.longClick
+import org.bookreader.mobile.library.*
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -343,6 +348,138 @@ class ManagedImportAndroidTest {
         assertEquals(DocumentIntentResult.Rejected, DocumentIntents.parseExternal(mismatched))
     }
 
+    @Test fun batchPickerCommitsMixedFormatsCountsDuplicateAndContinuesPastBadFile() {
+        val initial=books().size
+        val monitor=PickerMonitor("unknown",arrayOf("unknown","utf8","duplicate-utf8","binary","epub-product","comic-product")).also(instrumentation::addMonitor)
+        try {
+            compose.onNodeWithTag("add_txt").performClick()
+            compose.waitUntil(30_000) { currentAppState()?.batch?.active == false }
+            val result=checkNotNull(currentAppState()?.batch)
+            assertEquals(6,result.completed);assertEquals(4,result.added);assertEquals(1,result.duplicates);assertEquals(1,result.failures)
+            assertEquals(initial+4,books().size)
+            assertTrue(books().map { it.format }.containsAll(org.bookreader.mobile.model.BookFormat.entries))
+            waitFor("batch_results")
+            compose.onNodeWithTag("batch_results").performClick()
+            captureFixtureScreenshot("phase2-batch-results")
+            assertEquals(6,result.results.size)
+        } finally { instrumentation.removeMonitor(monitor) }
+    }
+
+    @Test fun cancellingBatchKeepsCommittedBookAndRemovesOnlyPendingStaging() {
+        val initial=books().map { it.id }.toSet()
+        val monitor=PickerMonitor("unknown",arrayOf("unknown","stalled","epub-product")).also(instrumentation::addMonitor)
+        try {
+            compose.onNodeWithTag("add_txt").performClick()
+            compose.waitUntil(15_000) { currentAppState()?.batch?.completed==1 &&
+                File(target.filesDir,"managed/imports").listFiles().orEmpty().any { it.extension=="part" && it.length()>0 } }
+            compose.onNodeWithTag("cancel_import").performClick()
+            compose.waitUntil(15_000) { currentAppState()?.batch?.active==false }
+            val result=checkNotNull(currentAppState()?.batch)
+            assertTrue(result.cancelled);assertEquals(1,result.added);assertEquals(1,result.completed)
+            assertEquals(1,books().count { it.id !in initial })
+            assertTrue(File(target.filesDir,"managed/imports").listFiles().orEmpty().none { it.extension=="part" })
+            assertTrue(!runBlocking { AndroidBookManagement(target).consumeInterruptedBatch() })
+            compose.activityRule.scenario.recreate()
+            waitFor("library_content")
+            assertEquals(1,books().count { it.id !in initial })
+        } finally { instrumentation.removeMonitor(monitor) }
+    }
+
+    @Test fun batchEncodingChoiceResumesRemainingFilesAndRejectsAmbiguousExternalBatch() {
+        val monitor=PickerMonitor("legacy",arrayOf("legacy","unknown")).also(instrumentation::addMonitor)
+        try {
+            compose.onNodeWithTag("add_txt").performClick()
+            waitFor("encoding_EUC_KR")
+            compose.onNodeWithTag("encoding_EUC_KR").performClick()
+            compose.waitUntil(20_000) { currentAppState()?.batch?.active==false }
+            assertEquals(2,currentAppState()?.batch?.added)
+            assertEquals("euc-kr",books().first { it.originalDisplayName=="../../legacy.txt" }.encodingId)
+            val clips=ClipData.newRawUri("fixture",document("unknown")).apply { addItem(ClipData.Item(document("utf8"))) }
+            val intent=Intent(Intent.ACTION_VIEW,document("unknown")).apply { clipData=clips }
+            assertEquals(DocumentIntentResult.Rejected,DocumentIntents.parseExternal(intent))
+            assertTrue(DocumentIntents.parsePickerBatch(intent) is DocumentIntentResult.AcceptedBatch)
+            intent.data=document("legacy")
+            assertEquals(DocumentIntentResult.Rejected,DocumentIntents.parsePickerBatch(intent))
+            val tooMany=ClipData.newRawUri("fixture",document("first"))
+            repeat(64) { tooMany.addItem(ClipData.Item(document("fixture-$it"))) }
+            assertEquals(DocumentIntentResult.Rejected,DocumentIntents.parsePickerBatch(Intent().apply { clipData=tooMany }))
+        } finally { instrumentation.removeMonitor(monitor) }
+    }
+
+    @Test fun metadataAndChosenCoverPersistAcrossRecreationWithoutChangingManagedBook() {
+        var monitor=installPicker("unknown")
+        try {
+            compose.onNodeWithTag("add_txt").performClick();waitFor("import_success")
+            compose.onNodeWithTag("dismiss_import_success").performClick()
+            val before=books().first { it.originalDisplayName=="../../unknown.txt" }
+            val original=File(target.filesDir,"managed/${before.managedRelativePath}").readBytes()
+            waitFor("info_${before.id}")
+            compose.onNodeWithTag("info_${before.id}").performClick()
+            compose.onNodeWithTag("edit_book").performClick()
+            compose.onNodeWithTag("edit_book_title").performTextReplacement("내가 정한 제목")
+            compose.onNodeWithTag("edit_book_author").performTextReplacement("직접 입력 작가")
+            hideKeyboard()
+            compose.onNodeWithTag("edit_status_FINISHED").performScrollTo().performClick()
+            instrumentation.removeMonitor(monitor);monitor=installPicker("cover-image")
+            compose.onNodeWithTag("choose_book_cover").performScrollTo().performClick()
+            compose.waitUntil(15_000) { currentAppState()?.pendingCoverKey!=null && currentAppState()?.coverLoading==false }
+            captureFixtureScreenshot("phase2-book-editor")
+            compose.onNodeWithTag("save_book_edit").performClick()
+            compose.waitUntil(15_000) { currentAppState()?.editingBook==null && books().first { it.id==before.id }.title=="내가 정한 제목" }
+            compose.activityRule.scenario.recreate();waitFor("library_content")
+            val after=books().first { it.id==before.id }
+            assertEquals("내가 정한 제목",after.title);assertEquals("직접 입력 작가",after.author)
+            assertTrue(after.coverKey?.startsWith("u-")==true)
+            val bitmap=runBlocking { BookCoverStore.get(target).bitmap(after.coverKey) }
+            assertTrue(bitmap!=null && bitmap.width==96 && bitmap.height==144)
+            assertTrue(original.contentEquals(File(target.filesDir,"managed/${after.managedRelativePath}").readBytes()))
+            assertEquals(before.copy(title=after.title,author=after.author,coverKey=after.coverKey,updatedAt=after.updatedAt),after)
+            assertEquals(ReadingStatus.FINISHED,currentAppState()?.catalog?.details?.get(after.id)?.readingStatus)
+            captureFixtureScreenshot("phase2-library")
+        } finally { instrumentation.removeMonitor(monitor) }
+    }
+
+    @Test fun shelfClassificationViewSortAndFilterSurviveActivityRecreation() {
+        val manager=RoomLibraryManager(org.bookreader.mobile.database.AndroidDatabaseOwner.borrow(target),System::currentTimeMillis)
+        val original=runBlocking { manager.load() }
+        var created:String?=null
+        val monitor=installPicker("unknown")
+        try {
+            compose.onNodeWithTag("add_txt").performClick();waitFor("import_success")
+            compose.onNodeWithTag("dismiss_import_success").performClick()
+            val book=books().first { it.originalDisplayName=="../../unknown.txt" }
+            compose.onNodeWithTag("manage_shelves").performScrollTo().performClick()
+            compose.onNodeWithTag("new_shelf_name").performTextReplacement("검증 책장")
+            hideKeyboard()
+            compose.onNodeWithTag("create_shelf").performClick()
+            compose.waitUntil(10_000) { currentAppState()?.catalog?.shelves?.any { it.name=="검증 책장" }==true }
+            created=currentAppState()!!.catalog.shelves.single { it.name=="검증 책장" }.id
+            compose.onNodeWithText("닫기").performClick()
+            compose.onNodeWithTag("book_${book.id}").performTouchInput { longClick() }
+            waitFor("classify_books");compose.onNodeWithTag("classify_books").performClick()
+            compose.onNodeWithTag("classify_add_$created").performClick()
+            compose.waitUntil(10_000) { currentAppState()?.catalog?.memberships?.get(book.id)?.contains(created)==true }
+            compose.onNodeWithTag("clear_selection").performClick()
+            compose.onNodeWithTag("library_view").performScrollTo().performClick()
+            compose.onNodeWithTag("library_sort").performScrollTo().performClick()
+            compose.onNodeWithTag("sort_TITLE").performClick()
+            compose.onNodeWithTag("library_filter").performScrollTo().performClick()
+            compose.onNodeWithTag("filter_UNREAD").performClick()
+            compose.onNodeWithTag("library_shelf_filter").performScrollTo().performClick()
+            compose.onNodeWithText("검증 책장").performClick()
+            val expected=LibraryPreferences(LibrarySort.TITLE,LibraryView.LIST,LibraryFilter.UNREAD,created)
+            compose.waitUntil(10_000) { currentAppState()?.catalog?.preferences==expected }
+            compose.activityRule.scenario.recreate();waitFor("library_content")
+            assertEquals(expected,currentAppState()?.catalog?.preferences)
+            assertEquals(setOf(created),currentAppState()?.catalog?.memberships?.get(book.id))
+            compose.onNodeWithTag("book_${book.id}").assertIsDisplayed()
+            captureFixtureScreenshot("phase2-shelf-list")
+        } finally {
+            instrumentation.removeMonitor(monitor)
+            runBlocking { created?.let { manager.deleteShelf(it) };manager.preferences(original.preferences) }
+        }
+    }
+
     private fun captureFixtureScreenshot(name: String) {
         val args = InstrumentationRegistry.getArguments()
         if (args.getString("captureFixtureScreenshots") != "true" || originalIds.isNotEmpty()) return
@@ -353,6 +490,14 @@ class ManagedImportAndroidTest {
         try { java.io.FileOutputStream(File(directory, "$name.png")).use {
             check(bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it))
         } } finally { bitmap.recycle() }
+    }
+
+    private fun hideKeyboard() {
+        compose.activityRule.scenario.onActivity { activity ->
+            val input=activity.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+            input.hideSoftInputFromWindow(activity.window.decorView.windowToken,0)
+        }
+        compose.waitForIdle()
     }
 
     private fun document(id: String): Uri = DocumentsContract.buildDocumentUri("org.bookreader.mobile.tests.documents", id)
@@ -449,13 +594,14 @@ class ManagedImportAndroidTest {
         })
     }
     private fun installPicker(fixture: String): PickerMonitor = PickerMonitor(fixture).also(instrumentation::addMonitor)
-    private inner class PickerMonitor(private val fixture: String) : Instrumentation.ActivityMonitor() {
+    private inner class PickerMonitor(private val fixture: String, private val fixtures: Array<String>? = null) : Instrumentation.ActivityMonitor() {
         @Volatile var observed: Intent? = null
         override fun onStartActivity(intent: Intent): Instrumentation.ActivityResult? {
             if (intent.action == Intent.ACTION_OPEN_DOCUMENT) {
                 observed = Intent(intent)
                 intent.component = ComponentName(instrumentation.context, TestPickerActivity::class.java)
                 intent.putExtra("fixture", fixture)
+                fixtures?.let { intent.putExtra("fixtures", it) }
             }
             return null
         }
