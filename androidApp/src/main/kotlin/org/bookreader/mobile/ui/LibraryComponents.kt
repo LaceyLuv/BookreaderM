@@ -101,7 +101,8 @@ internal fun LibraryBookCard(book: Book, catalog: LibraryCatalog, selected: Bool
 private fun LibraryBookCaption(book: Book,catalog: LibraryCatalog,selected: Boolean,selecting: Boolean,
     actions: LibraryActions,onInfo:(Book)->Unit,onOpen:(Book)->Unit) {
     Text(book.title,style=MaterialTheme.typography.titleSmall,maxLines=3,overflow=TextOverflow.Ellipsis)
-    book.author?.let { Text(it,style=MaterialTheme.typography.bodySmall,maxLines=1,overflow=TextOverflow.Ellipsis) }
+    book.author?.let { Text(it,style=MaterialTheme.typography.bodySmall,maxLines=1,overflow=TextOverflow.Ellipsis,
+        modifier=Modifier.testTag("book_author_${book.id}")) }
     val progress=catalog.progress[book.id]
     Text(catalog.status(book).label+(progress?.let { " · ${it.toInt()}%" }?:""),style=MaterialTheme.typography.labelMedium,
         color=MaterialTheme.colorScheme.primary,modifier=Modifier.testTag("reading_status_${book.id}"))

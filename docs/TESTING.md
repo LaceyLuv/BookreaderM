@@ -1,5 +1,14 @@
 # 모바일 검증 계약
 
+후속 로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain` exit0. Android unit73/테스트 APK 컴파일/lint PASS. [로그](evidence/product-quality/phase2-followup-local/phase2-reopen-jump-fixes-final.log). 실제 기기 검증과 구분한다.
+
+## 2026-10-29 현재 Phase2 재검증
+
+abee6a1 원본 build40875430022의175개는 PASS. device40875430229는 API26 72개 중2 FAIL,
+API34 72개 중3 FAIL, API36 3개 중1 FAIL/남은69 NOT_RUN. host는 모두 NOT_RUN.
+[원본 및 필수 사례 manifest](evidence/product-quality/failed-abee6a1/summary.json)를 보존했다.
+후속 수정의 실제 검증은 새 matrix 결과를 따른다. 정확한 TXT 위치/북마크, EPUB p179 및 .03 허용값은 유지했다.
+
 ## 2026-10-29 Phase2 첫 기기 결과와 후속 수정
 
 후보 `f35d6857358501f87c3c15339b57f71bb6e7cc8c`: build40871727052 원본 XML/필수 사례/digest PASS175.

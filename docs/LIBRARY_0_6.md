@@ -1,5 +1,30 @@
 # 서재 2.0 / 0.6.0 개발 기록
 
+후속 로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain` exit0. Android unit73/테스트 APK 컴파일/lint PASS. [로그](evidence/product-quality/phase2-followup-local/phase2-reopen-jump-fixes-final.log). 실제 기기 검증과 구분한다.
+
+## 2026-10-29 두 번째 기기 결과와 재검증 후보
+
+`abee6a1` build40875430022는 원본 digest/CRC/XML 대조 후175개 PASS다.
+Device40875430229는 API26 native72 중2 FAIL, API34 72 중3 FAIL이다.
+API36은 Comic 첫 flow의 Compose 측정 재진입으로3개 중1 FAIL 뒤 중단되어69개 NOT_RUN이며,
+모든 API의 host 절차는 NOT_RUN이다. [원본 및 목록](evidence/product-quality/failed-abee6a1/summary.json).
+이전 batch 취소·표지 picker·API26 Window 스레드 실패는 API26/34에서 재발하지 않았다.
+
+- 화면 밖 메타데이터 검색은 책을 찾았으나 검색창과 작가 Text를 같은 문구로 선택해 검사에 실패했다.
+  카드 본문의 작가 태그를 지정해 실제 표시와 텍스트를 검사한다.
+- TXT 인코딩 왕복은 첫 재열기에서 여전히 timeout이었다. 더 큰 표지/변경 안내 아래에 있는 카드 버튼을
+  실제 화면 안으로 스크롤한 뒤 터치하도록 교정하고, timeout 시 fixture 화면/리더 상태를 남긴다.
+  기존 UTF-16 길이·revision·정확한 위치·진행도·북마크·원본 SHA assertion은 유지했다.
+- API34 EPUB는 `p179`가 실제 표시되고 SDK progression=.91857인데 저장값은0인 원본을 확인했다.
+  replacement host가 첫 page callback 뒤 pendingJump를 지우면서 후속 최종 위치를 무시하는 경로를 수정했다.
+  다음 사용자 이동까지 검색 대상을 유지하여 후속 callback의 실제 progression도 같은 완전 Locator에 반영한다.
+- force-stop 뒤 남은 cover-extract spool은 전역 decoder mutex 안의 다음 유지보수에서 제거한다.
+  새 host 사례가 자기 임시 파일과 원래 encoding jobId의 복구를 확인한다. 관리 원본·선택한 표지는 건드리지 않는다.
+- API36 측정 재진입의 원인과 재현 조건은 미확정이다. 예외를 삼키거나 assertion/timeout을 완화하지 않는다.
+
+후속 compile/unit/lint와 전체 matrix를 다시 확인한다. `abee6a1`의 같은 키 APK는 실패 후보로만 보존하며,
+기존 검증된0.5.1을 대체하거나 공개 배포하지 않는다. Phase2 완료 판정과 Phase3 착수는 아직 보류다.
+
 ## 2026-10-29 Phase2 첫 기기 결과와 후속 수정
 
 후보 `f35d6857358501f87c3c15339b57f71bb6e7cc8c`: build40871727052 원본 XML/필수 사례/digest PASS175.
@@ -22,7 +47,7 @@ Device40871727016은 native71개 중 API26 8 FAIL, API34/36 각각3 FAIL, host�
 
 
 2026-10-29, `codex/library-060`. [사용자 계획](reference/BookReaderM_Product_Improvement_Request_2026-10-24.md)의 Phase 2다.
-0.5.1 검증 소스와 기존 설치 파일을 보존하며 main에는 통합하지 않았다. **현재 실제 Android 검증 전이며 완료판이 아니다.**
+0.5.1 검증 소스와 기존 설치 파일을 보존하며 main에는 통합하지 않았다. **실제 Android 회귀 실패를 수정 중이며 완료판이 아니다.**
 
 ## 사용자 동작
 
@@ -75,10 +100,10 @@ Comic은 기존 엔트리64MiB 제한, bitmap8MiB budget과 첫8개 후보 제�
   `/workspace/work/bookreaderm-product-quality/phase2-catalog-tests-fixed.log`, exit0.
 - PASS: `BOOKREADER_EVIDENCE_DIR=build/phase2-local ./scripts/ci-check.sh` exit0. Android73/shared83/EPUB16, 전체172개 및 APK/test APK/lint/schema6. [원본과 중간 실패](evidence/product-quality/phase2-local/summary.json).
 - PASS: 후보f35d685 원격 build40871727052 원본 artifact SHA-256/CRC/XML/필수 사례 대조. Android73/shared83/EPUB16/실제 ENOSPC3, 총175개.
-- NOT_RUN: 새 실제 Android71개와 기존 TXT/EPUB/Comic host6단계, 추가 active-batch force-stop 절차.
+- FAIL: 실제 Android72개 matrix의 결과는 위 두 번째 후보 기록을 따른다. 기존 TXT/EPUB/Comic host6단계와 추가 active-batch force-stop 절차는 NOT_RUN.
   `scripts/required-tests.json`에 필수 사례를 추가했다. 새 batch 준비 단계는 실제 host가 중간에 종료하며 JUnit PASS로 세지 않는다.
 - 실제 기기 성능/16KB OS/TalkBack/설치 업데이트는 로컬 기기 부재로 미실행이다.
-  새 1,000권 서재 탐색과 표지24개 캐시 측정도 실제 실행 전이며 물리 성능으로 확대하지 않는다.
+  새 1,000권 서재 탐색과 표지24개 캐시 측정은 f35d685 세 API와 abee6a1 API26/34에서 PASS이며 물리 성능으로 확대하지 않는다.
 
 중간 실패(서로 다른 책 fixture가 같은 SHA 사용, nullable cross-module smart cast, Context singleton lint,
 테스트에 없는 Espresso API 참조)는 로그를 보존하고 각각 fixture/API/소유권을 수정했다. 테스트 assertion을 완화하지 않았다.

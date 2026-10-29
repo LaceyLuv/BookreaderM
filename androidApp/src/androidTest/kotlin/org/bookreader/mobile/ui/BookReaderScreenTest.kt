@@ -118,7 +118,8 @@ class BookReaderScreenTest {
         compose.onNodeWithTag("tab_SEARCH").performClick()
         compose.onNodeWithTag("search_query").performTextInput("Offscreen author")
         compose.onNodeWithTag("book_99").assertIsDisplayed()
-        compose.onNodeWithText("Offscreen author").assertIsDisplayed()
+        compose.onNodeWithTag("book_author_99", useUnmergedTree = true)
+            .assertIsDisplayed().assertTextEquals("Offscreen author")
     }
 
     @Test fun loadingEmptyAndErrorAreDistinctAndErrorHasRetry() {

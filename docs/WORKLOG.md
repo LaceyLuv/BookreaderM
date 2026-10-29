@@ -1,5 +1,18 @@
 # M00 작업 기록
 
+후속 로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain` exit0. Android unit73/테스트 APK 컴파일/lint PASS. [로그](evidence/product-quality/phase2-followup-local/phase2-reopen-jump-fixes-final.log). 실제 기기 검증과 구분한다.
+
+## 2026-10-29 두 번째 Phase2 matrix
+
+abee6a1 build40875430022 PASS175. device40875430229는 API26 2/72 FAIL, API34 3/72 FAIL,
+API36 1/3 FAIL 뒤69 NOT_RUN. host 전부 NOT_RUN. [원본 XML/log/PNG와 metadata](evidence/product-quality/failed-abee6a1/summary.json).
+전체 artifact의 SHA-256/CRC를 확인했고 실패를 이전 통과로 대체하지 않았다.
+검색 테스트의 모호한 Text 선택, TXT 카드 버튼의 스크롤 접근 및 fixture 실패 진단,
+EPUB replacement의 후속 검색 위치 callback 소유권, orphan 표지 spool 정리/host 검사를 수정했다.
+상세 근거와 남은 API36 원인 미확정 문제는 [Phase2 기록](LIBRARY_0_6.md)을 따른다.
+중간 compile 실패 `phase2-reopen-jump-fixes.log`는 존재하지 않는 onNode import였으며
+명시적 카드 작가 태그로 검사해 제거했다. 실패 로그는 그대로 보존한다.
+
 ## 2026-10-29 Phase2 첫 기기 결과와 후속 수정
 
 후보 `f35d6857358501f87c3c15339b57f71bb6e7cc8c`: build40871727052 원본 XML/필수 사례/digest PASS175.

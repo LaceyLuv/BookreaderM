@@ -92,6 +92,12 @@ class AndroidLibraryArtwork(context:Context):LibraryArtwork {
         try {
             val keys=AndroidDatabaseOwner.borrow(app).bookDao().listBooks().mapNotNull { it.coverKey }.toSet()
             store.pruneUnusedUserCovers(keys)
+            // The global decoder mutex proves no current extractor owns these files.
+            // After process death, derived EPUB/Comic spool files have no durable owner.
+            File(app.cacheDir,"library-cover-extract").listFiles().orEmpty().filter {
+                (it.name.startsWith("epub-") || it.name.startsWith("comic-")) && it.extension=="image" &&
+                    Files.isRegularFile(it.toPath(),LinkOption.NOFOLLOW_LINKS)
+            }.take(1000).forEach { it.delete() }
             lastPruned=now
         } catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){ /* Maintenance failure must not discard a user's existing cover. */ }

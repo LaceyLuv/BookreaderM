@@ -1,4 +1,14 @@
-# 2026-10-29 Phase2 기기 실패 수정 후보
+# 2026-10-29 Phase2 두 번째 기기 실패 수정 후보
+
+후속 로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain` exit0. Android unit73/테스트 APK 컴파일/lint PASS. [로그](evidence/product-quality/phase2-followup-local/phase2-reopen-jump-fixes-final.log). 실제 기기 검증과 구분한다.
+
+`codex/library-060`의 abee6a1: build40875430022 PASS175, device40875430229 FAIL.
+API26 72개 중2 FAIL / API34 72개 중3 FAIL / API36 Compose 측정 예외로3개 중1 FAIL,69 NOT_RUN.
+모든 host NOT_RUN. [원본](evidence/product-quality/failed-abee6a1/summary.json), [분석과 후속 수정](LIBRARY_0_6.md).
+TXT 카드 버튼 실제 스크롤/실패 진단, 검색 작가 selector, EPUB replacement 후 검색 위치 callback,
+강제 종료된 표지 임시 파일 정리와 host 검사를 보완했다. 다음 소스의 전체 native72+host7 검증이 필요하다.
+API36 측정 재진입은 원인 미확정이며 재실행 성공만으로 해결이라 적지 않는다.
+abee6a1 APK는 검증 실패 후보, 기존0.5.1과 키는 보존했다. Phase3/4는 미착수다.
 
 ## 2026-10-29 Phase2 첫 기기 결과와 후속 수정
 

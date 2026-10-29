@@ -63,7 +63,11 @@ class LibraryBatchHostProcessTest {
                 manager.preferences(LibraryPreferences(LibrarySort.AUTHOR,LibraryView.LIST,LibraryFilter.FINISHED,shelf))
                 db.progressDao().insertProgress(ReadingProgressEntity(book.id,revision,"future",8,"{unchanged host locator}",37.0,5,7,11))
                 db.bookmarkDao().insert(BookmarkEntity("host-${book.id}",book.id,revision,"future",8,"{unchanged bookmark}","generated",12,13))
+                val orphan=File(target.cacheDir,"library-cover-extract/epub-${book.id}.image")
+                check(orphan.parentFile!!.mkdirs() || orphan.parentFile!!.isDirectory)
+                java.io.FileOutputStream(orphan).use { output -> output.write(byteArrayOf(1,2,3));output.fd.sync() }
                 Properties().apply {
+                    setProperty("orphanCoverSpool",orphan.name)
                     setProperty("bookId",book.id);setProperty("sourceHash",book.sourceSha256);setProperty("revision",revision)
                     setProperty("shelfId",shelf);setProperty("pendingJob",pending.jobId)
                     setProperty("originalSort",original.sort.name);setProperty("originalView",original.view.name)
@@ -104,6 +108,8 @@ class LibraryBatchHostProcessTest {
             assertEquals(ReadingProgressEntity(id,revision,"future",8,"{unchanged host locator}",37.0,5,7,11),db.progressDao().findProgress(id,revision))
             assertEquals("{unchanged bookmark}",db.bookmarkDao().page(id,revision,Long.MAX_VALUE,"z").single().locatorJson)
         }
+        assertEquals(props.getProperty("pendingJob"),(state().importing as ImportUiState.SelectEncoding).jobId)
+        compose.waitUntil(10_000) { !File(target.cacheDir,"library-cover-extract/${props.getProperty("orphanCoverSpool")}").exists() }
         compose.onNodeWithTag("encoding_EUC_KR").performClick()
         compose.waitUntil(20_000) { state().importing is ImportUiState.Complete }
         assertEquals("euc-kr",(state().importing as ImportUiState.Complete).result.book.encodingId)

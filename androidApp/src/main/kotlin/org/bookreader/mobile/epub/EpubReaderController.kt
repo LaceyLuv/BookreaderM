@@ -121,7 +121,14 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     fun attach(navigator: EpubNavigatorFragment, detach: () -> Unit): Int {
         check(!closing)
         captureJob?.cancel()
-        host = navigator; detachHost = detach; userMovement = false; jumpTarget = null
+        host = navigator; detachHost = detach
+        // A replacement host can emit more than one page callback while it resolves the
+        // initial text locator. Keep the explicit jump as the capture target after the
+        // first callback consumes pendingJump, until the next actual user movement.
+        // Otherwise the later rendered position is ignored and a transient chapter-zero
+        // progression remains paired with the correct search text.
+        userMovement = pendingJump != null
+        jumpTarget = pendingJump
         generation = progress.beginReflow()
         restoreTimeout?.cancel()
         val expectedGeneration = generation

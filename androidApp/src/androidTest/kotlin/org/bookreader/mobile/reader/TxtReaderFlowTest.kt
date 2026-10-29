@@ -1402,7 +1402,9 @@ class TxtReaderFlowTest {
         compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         changeFixtureEncoding(originalBook.id, "UTF16LE", "utf-16le")
-        compose.onNodeWithTag("read_${originalBook.id}").performClick()
+        // The encoding notice and larger cover can put the card actions below the viewport.
+        // Reach the actual button by scrolling, then inject the same real touch as before.
+        compose.onNodeWithTag("read_${originalBook.id}").performScrollTo().assertIsDisplayed().performClick()
         waitFor("reader_ready")
         val changed = reader().book
         assertNotEquals(originalBook.currentRevision, changed.currentRevision)
@@ -1417,7 +1419,7 @@ class TxtReaderFlowTest {
         compose.readerControl("reader_back").performClick()
         waitFor("library_content")
         changeFixtureEncoding(originalBook.id, "UTF8", "utf-8")
-        compose.onNodeWithTag("read_${originalBook.id}").performClick()
+        compose.onNodeWithTag("read_${originalBook.id}").performScrollTo().assertIsDisplayed().performClick()
         waitFor("reader_ready")
         assertEquals(originalBook.currentRevision, reader().book.currentRevision)
         assertAnchorInFirstMeasuredLine(reader(), originalOffset)
@@ -1455,7 +1457,7 @@ class TxtReaderFlowTest {
     }
 
     private fun changeFixtureEncoding(bookId: String, option: String, expectedId: String) {
-        compose.onNodeWithTag("info_$bookId").performClick()
+        compose.onNodeWithTag("info_$bookId").performScrollTo().assertIsDisplayed().performClick()
         compose.onNodeWithTag("book_change_encoding").performClick()
         lateinit var model: AppViewModel
         compose.activityRule.scenario.onActivity { model = ViewModelProvider(it)[AppViewModel::class.java] }
@@ -1555,8 +1557,23 @@ class TxtReaderFlowTest {
     }
 
     private fun waitFor(tag: String) {
-        compose.waitUntil(30_000) {
-            compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        try {
+            compose.waitUntil(30_000) {
+                compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            }
+        } catch (failure: Throwable) {
+            // Fixture-only diagnostics preserve the timeout and its original assertion.
+            runCatching {
+                compose.activityRule.scenario.onActivity { activity ->
+                    val app = ViewModelProvider(activity)[AppViewModel::class.java].state.value
+                    val reader = app.reader
+                    failure.addSuppressed(AssertionError("Waiting for $tag: reader=${reader != null}, " +
+                        "phase=${reader?.state?.value?.phase}, encoding=${reader?.book?.encodingId}, " +
+                        "revision=${reader?.book?.currentRevision}, notice=${app.notice}"))
+                }
+                ReaderFixtureScreenshot.capture("txt-$tag-timeout.png")
+            }.onFailure { failure.addSuppressed(it) }
+            throw failure
         }
         compose.onNodeWithTag(tag).assertIsDisplayed()
     }

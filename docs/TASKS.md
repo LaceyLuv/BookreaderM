@@ -1,5 +1,11 @@
 # BookReader Mobile — Codex 작업표
 
+## 2026-10-29 현재: Phase2 회귀 수정
+
+abee6a1 build40875430022 PASS175, device40875430229 FAIL(API26 2/72, API34 3/72, API36 1/3 후69 NOT_RUN).
+host는 모두 NOT_RUN. [증거](evidence/product-quality/failed-abee6a1/summary.json), [수정 범위](LIBRARY_0_6.md).
+다음: 수정 소스의 전체 native72/host7, 원본 화면/기록 보존 확인 후에만 Phase2 완료 및 Phase3로 이동한다.
+
 ## 2026-10-29 Phase2 첫 기기 결과와 후속 수정
 
 후보 `f35d6857358501f87c3c15339b57f71bb6e7cc8c`: build40871727052 원본 XML/필수 사례/digest PASS175.
