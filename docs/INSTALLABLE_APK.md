@@ -3,6 +3,23 @@
 앞으로는 [APK 배포 방안](APK_DISTRIBUTION.md)에 따라 GitHub Releases 다운로드 페이지를 안내한다.
 아래 로컬 경로는 생성물 위치 기록이며 GPT Android 앱의 대용량 미리보기 제한을 해결하는 다운로드 경로가 아니다.
 
+# 설치 시험용 APK — 0.6.0, 2026-10-29
+
+[서재2.0 변경·실제 화면·검증 한계](LIBRARY_0_6.md). build175/세 API native72+host7 PASS.
+
+- 소스 `a22970b1e40eaf06c47acaa683b9d754eb66f2b4`, applicationId `org.bookreader.mobile`, versionCode7/versionName0.6.0.
+- APK `/workspace/artifacts/BookreaderM/a22970b/installable/BookreaderM-0.6.0-test-signed.apk` (21,949,599 bytes).
+- APK SHA256 `d531d80a7a7ac7bba7c4ebf76045f43f8722de432cec09aa8ed94c597ed13674`.
+- 기존 인증서 SHA256 `605d7f79c6ec788937ecda215447235a81b3aa91437f2b1adea8d7a796ce167f`; v2/v3·4 ABI·16KB 정적 정렬 PASS.
+- ZIP `/workspace/artifacts/BookreaderM/a22970b/installable/BookreaderM-0.6.0-test-signed.zip` (18,481,910 bytes).
+- ZIP SHA256 `3827a112f8faff1bef3a6e95cce619258e5782f2d9dd40894db2404678a8edc0`; CRC·추출 APK 동일성 PASS.
+
+[패키지 원본](evidence/product-quality/package-a22970b/summary.json). 기존 키·0.5.1 APK 보존 확인.
+로컬 경로는 생성물 위치이며 공개 다운로드 링크가 아니다. 실제 휴대전화 업데이트·대화 다운로드·공개 릴리스는 미완료다.
+이전 업로드 HTTP400 경로를 재시도하지 않았다. 업데이트 오류 시 앱/책/진행도를 임의 삭제하지 않는다.
+
+아래는 이전 패키지 이력이다.
+
 # 설치 시험용 APK — 0.5.1, 2026-10-24
 
 가져오기/상태 안내·서재 UI를 정리했다. [변경과 실제 화면](UX_POLISH_0_5_1.md)을 따른다.

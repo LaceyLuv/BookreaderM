@@ -5,7 +5,7 @@ Android에서 오프라인으로 읽는 TXT·EPUB·만화 리더입니다. Andro
 
 ## 현재 기능
 
-- **서재:** 책 가져오기·정보 확인·삭제, 제목/작가/파일명 검색, 하단 이어읽기.
+- **서재:** 실제/사용자 표지, 제목·작가 편집, 읽기 상태, 책장, 격자/목록·정렬·필터, 통합 검색, 다중 선택·일괄 가져오기, 하단 이어읽기.
 - **TXT:** 페이지·스크롤, 본문 검색, 북마크, 인코딩 미리보기·변경.
 - **EPUB:** EPUB2/3 읽기, 목차·검색·북마크, 글자 설정과 위치 복원.
 - **만화:** ZIP/CBZ의 정적 JPEG·PNG·WebP, 한 장·연속·웹툰 보기, 방향·맞춤·확대.
@@ -16,17 +16,16 @@ Android에서 오프라인으로 읽는 TXT·EPUB·만화 리더입니다. Andro
 
 사용 안내: [독서 화면](docs/READER_DESIGN_2026-10-23.md),
 [글꼴·전환·쪽수](docs/READER_FEATURES_0_4.md), [내 글꼴·굵기](docs/READER_FONTS_0_5.md).
-표지·책 정보 편집·책장·일괄 가져오기·TXT 목차·형광펜·백업은 [제품 개선 계획](docs/PRODUCT_IMPROVEMENT.md)의 후속 단계입니다.
+TXT 목차·형광펜·백업은 [제품 개선 계획](docs/PRODUCT_IMPROVEMENT.md)의 후속 단계입니다.
 
 ## 버전과 설치
 
-현재 개발 버전은 **0.5.1(versionCode 6)**입니다. 가져오기 안내, 사용할 수 없는 책의 원인 표시,
-빈 화면·검색·기본 UI와 문서를 정리합니다. 구현·실행 검증 상태는 [진행 기록](docs/PRODUCT_IMPROVEMENT.md)을 따릅니다.
+현재 검증 버전은 **0.6.0(versionCode 7)**입니다. 서재2.0의 구현·화면·호환성은 [최종 보고서](docs/LIBRARY_0_6.md)를 따릅니다.
 
-**0.5.1 / 5a8aad2**의 build166개와 API26/34/36 각각 native63 + host6단계가 PASS입니다.
-[0.5.1 변경 내용·실제 화면·미실행 범위](docs/UX_POLISH_0_5_1.md),
-[검증 원본](docs/evidence/product-quality/verified-5a8aad2/summary.json)을 확인하세요.
-이전 0.5.0/4449f1e 결과와 패키지도 보존했습니다.
+**0.6.0 / a22970b**의 build175개와 API26/34/36 각각 native72+host7단계가 PASS입니다.
+[검증 원본](docs/evidence/product-quality/verified-a22970b/summary.json)을 보존했습니다.
+기존 키로 서명한 시험용 APK를 생성했으며 이전0.5.1 설치 파일도 유지합니다.
+Phase3의 TXT 목차 분석기는 별도 브랜치에서 개발 중이며 목차 UI·형광펜·백업은 아직 완료하지 않았습니다.
 
 [설치 APK 안내](docs/INSTALLABLE_APK.md)와 [다운로드 운영 방안](docs/APK_DISTRIBUTION.md)을 확인하세요.
 GitHub 릴리스 첨부와 공개 배포는 아직 완료되지 않았습니다. unsigned APK/AAB는 직접 설치용이 아닙니다.

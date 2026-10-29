@@ -1,0 +1,149 @@
+10-29 14:01:55.904  5378  5395 I TestRunner: started: realMaterialSliderCancelThenAccessibilityCommitsExactlyOnce(org.bookreader.mobile.reader.ReaderMenuDialogTest)
+10-29 14:01:55.909  5378  5395 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@7ca6f6a]
+10-29 14:01:55.911  5378  5395 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-29 14:01:55.914  2573  6089 W ErrorProcessor: 	... 9 more
+10-29 14:01:55.914  2573  6089 I AudioController: internalShutdown
+10-29 14:01:55.930  5378  5378 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@e6df80e in: PRE_ON_CREATE
+10-29 14:01:55.930  5378  5378 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-29 14:01:55.931  1640  1662 E memtrack: Couldn't load memtrack module
+10-29 14:01:55.931  1640  1662 W android.os.Debug: failed to get memory consumption info: -1
+10-29 14:01:55.934  5378  5378 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@e6df80e in: CREATED
+10-29 14:01:55.934  5378  5378 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=androidx.activity.ComponentActivity@e6df80e
+10-29 14:01:55.934  5378  5378 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@e6df80e in: STARTED
+10-29 14:01:55.935  2573  2573 I MicroDetector: Keeping mic open: false
+10-29 14:01:55.935  5378  5378 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=androidx.activity.ComponentActivity@e6df80e
+10-29 14:01:55.935  2573  2573 I MicroDetectionWorker: #onError(false)
+10-29 14:01:55.935  2573  6278 I DeviceStateChecker: DeviceStateChecker cancelled
+10-29 14:01:55.937  5378  5378 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@e6df80e in: RESUMED
+10-29 14:01:55.937  5378  5378 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=androidx.activity.ComponentActivity@e6df80e
+10-29 14:01:55.944  1640  1650 I zygote64: NativeAllocBackground concurrent copying GC freed 9715(807KB) AllocSpace objects, 2(40KB) LOS objects, 40% free, 8MB/14MB, paused 7.940ms total 84.201ms
+10-29 14:01:56.016  1400  1400 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/androidx.activity.ComponentActivity to org.bookreader.mobile/androidx.activity.ComponentActivity#1
+10-29 14:01:56.025  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:56.043  2573  2688 E ContentStoreEUAS: Failed to commit the deferred actions
+10-29 14:01:56.051  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:56.053  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:56.069  5378  5409 D EGL_emulation: eglMakeCurrent: 0x7a9780042d60: ver 3 0 (tinfo 0x7a978000d660)
+10-29 14:01:56.069  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 2076672
+10-29 14:01:56.082  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:56.131  1640  1671 I ActivityManager: Displayed org.bookreader.mobile/androidx.activity.ComponentActivity: +204ms
+10-29 14:01:56.131  2515  2638 D EGL_emulation: eglMakeCurrent: 0x7a977dbb7800: ver 3 0 (tinfo 0x7a977d99f540)
+10-29 14:01:56.132  2573  2794 D EGL_emulation: eglMakeCurrent: 0xd817fd00: ver 3 0 (tinfo 0xd80c4ab0)
+10-29 14:01:56.196  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 6017024
+10-29 14:01:56.198  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-29 14:01:56.203  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 6017024
+10-29 14:01:56.253  5378  5409 D EGL_emulation: eglMakeCurrent: 0x7a9780042d60: ver 3 0 (tinfo 0x7a978000d660)
+10-29 14:01:56.393  2573  2688 I PBSessionCacheImpl: Deleted sessionId[86652301865] from persistence.
+10-29 14:01:56.415  2573  2573 W SearchService: Abort, client detached.
+10-29 14:01:56.522  5378  5378 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@e6df80e in: PAUSED
+10-29 14:01:56.523  5378  5378 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=androidx.activity.ComponentActivity@e6df80e
+10-29 14:01:56.644  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:56.725  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 3 lines
+10-29 14:01:56.793  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:56.859  5378  5409 D EGL_emulation: eglMakeCurrent: 0x7a9780042d60: ver 3 0 (tinfo 0x7a978000d660)
+10-29 14:01:56.862  5415  5458 D EGL_emulation: eglMakeCurrent: 0x7a97800395a0: ver 3 0 (tinfo 0x7a978000d400)
+10-29 14:01:56.895  1640  5433 I OpenGLRenderer: Initialized EGL, version 1.4
+10-29 14:01:56.895  1640  5433 D OpenGLRenderer: Swap behavior 1
+10-29 14:01:56.897  1640  5433 D EGL_emulation: eglCreateContext: 0x7a9762f8cec0: maj 3 min 0 rcv 3
+10-29 14:01:56.898  1640  5433 D EGL_emulation: eglMakeCurrent: 0x7a9762f8cec0: ver 3 0 (tinfo 0x7a976b1ffe00)
+10-29 14:01:56.936  2515  2638 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+10-29 14:01:56.942  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:56.943  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-29 14:01:57.021  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:57.039  2573  2794 D EGL_emulation: eglMakeCurrent: 0xd817fd00: ver 3 0 (tinfo 0xd80c4ab0)
+10-29 14:01:57.040  1400  1400 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+10-29 14:01:57.057  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:57.061  1390  1390 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-29 14:01:57.068  1390  1390 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 14:01:57.072  2573  2573 W SessionLifecycleManager: Handover failed. Creating new session controller.
+10-29 14:01:57.074  2515  2638 D EGL_emulation: eglMakeCurrent: 0x7a977dbb7800: ver 3 0 (tinfo 0x7a977d99f540)
+10-29 14:01:57.092  2573  2573 I MicroDetectionWorker: #updateMicroDetector [detectionMode: [mDetectionMode: [1]]]
+10-29 14:01:57.092  2573  2573 I MicroDetectionWorker: #startMicroDetector [speakerMode: 0]
+10-29 14:01:57.092  2573  2573 I AudioController: Using mInputStreamFactoryBuilder
+10-29 14:01:57.094  2573  6332 I MicroRecognitionRunner: Starting detection.
+10-29 14:01:57.094  2573  2659 I MicrophoneInputStream: mic_starting com.google.android.apps.gsa.staticplugins.aa.c@9874c71
+10-29 14:01:57.101  1512  3402 E AudioFlinger: not enough memory for AudioTrack size=131296
+10-29 14:01:57.101  1512  3402 D MemoryDealer:   AudioTrack (0xe9e1bf90, size=4194304)
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     0: 0xe7dfc060 | 0x00000000 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     1: 0xe7dfc080 | 0x000200E0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     2: 0xe7dfc200 | 0x000401C0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     3: 0xe7d19260 | 0x000602A0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     4: 0xe7d19430 | 0x00080380 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     5: 0xe7d195f0 | 0x000A0460 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     6: 0xe7dfc5b0 | 0x000C0540 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     7: 0xe7dfc740 | 0x000E0620 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     8: 0xe7d19680 | 0x00100700 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:     9: 0xe7d19860 | 0x001207E0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    10: 0xe7d19a30 | 0x001408C0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    11: 0xe7d19bb0 | 0x001609A0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    12: 0xe7dfc9a0 | 0x00180A80 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    13: 0xe7dfcb40 | 0x001A0B60 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    14: 0xe7dfccc0 | 0x001C0C40 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    15: 0xe7dfcea0 | 0x001E0D20 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    16: 0xe5ef6040 | 0x00200E00 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    17: 0xe7d19850 | 0x00220EE0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    18: 0xe677e060 | 0x00240FC0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:    19: 0xe677e270 | 0x002610A0 | 0x000200E0 | A
+10-29 14:01:57.101  1512  3402 D MemoryDealer:
+10-29 14:01:57.101  1512  3402 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+10-29 14:01:57.102  2573  2659 E AudioRecord: AudioFlinger could not create record track, status: -12
+10-29 14:01:57.103  1512  6356 I AudioFlinger: AudioFlinger's thread 0xe4203680 tid=6356 ready to run
+10-29 14:01:57.105  2573  2573 I MicroDetectionWorker: onReady
+10-29 14:01:57.110  5415  5458 D EGL_emulation: eglMakeCurrent: 0x7a97800395a0: ver 3 0 (tinfo 0x7a978000d400)
+10-29 14:01:57.116  2573  2659 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+10-29 14:01:57.116  2573  2659 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+10-29 14:01:57.116  2573  2659 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@9874c71
+10-29 14:01:57.119  5378  5378 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@e6df80e in: STOPPED
+10-29 14:01:57.120  5378  5378 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=androidx.activity.ComponentActivity@e6df80e
+10-29 14:01:57.122  2573  2573 I MicroDetectionWorker: onReady
+10-29 14:01:57.123  2573  2659 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@9874c71
+10-29 14:01:57.124  2573  6332 I MicroRecognitionRunner: Detection finished
+10-29 14:01:57.124  2573  6332 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-29 14:01:57.125  2573  2906 I MicroRecognitionRunner: Stopping hotword detection.
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-29 14:01:57.125  2573  6332 W ErrorProcessor: 	... 9 more
+10-29 14:01:57.125  2573  6332 I AudioController: internalShutdown
+10-29 14:01:57.130  5378  5378 D LifecycleMonitor: Lifecycle status change: androidx.activity.ComponentActivity@e6df80e in: DESTROYED
+10-29 14:01:57.131  5378  5378 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-29 14:01:57.133  5378  5395 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@7ca6f6a]
+10-29 14:01:57.136  2573  2573 I MicroDetector: Keeping mic open: false
+10-29 14:01:57.136  2573  2573 I MicroDetectionWorker: #onError(false)
+10-29 14:01:57.137  2573  6089 I DeviceStateChecker: DeviceStateChecker cancelled
+10-29 14:01:57.139  1640  1650 I zygote64: NativeAllocBackground concurrent copying GC freed 1347(309KB) AllocSpace objects, 1(20KB) LOS objects, 40% free, 8MB/14MB, paused 4.759ms total 111.672ms
+10-29 14:01:57.150  5378  5395 I TestRunner: finished: realMaterialSliderCancelThenAccessibilityCommitsExactlyOnce(org.bookreader.mobile.reader.ReaderMenuDialogTest)

@@ -1,3 +1,22 @@
+# 검증 현황
+
+## 2026-10-29 현재 상태 — 0.6.0 자동 검증 완료
+
+`codex/library-060`, 제품/테스트 소스 `a22970b1e40eaf06c47acaa683b9d754eb66f2b4`. [결과·소스·실제 화면](LIBRARY_0_6.md).
+build40885971844 PASS175, device40885971811 API26/34/36 각각 native72+host7 PASS.
+[원본 대조](evidence/product-quality/verified-a22970b/summary.json): artifact SHA/CRC/XML/source clean/PID 교체 확인, exit0.
+[같은 키 패키지](evidence/product-quality/package-a22970b/summary.json): 서명/v2/v3/정적16KB/ZIP 동일성 PASS.
+기존 서명키·0.5.1 APK·main을 보존했다. 실제 휴대전화 설치·공개 배포는 NOT_RUN이다.
+API26의 저장 후 캡처는 이전 편집 창 프레임이며 시각 증거로 채택하지 않는다. API34/36 실제 서재는 확인했다.
+abee6a1의 API36 Compose 측정 재진입은 후속 실행에서 재발하지 않았으나 원인은 미확정이다.
+
+Phase3 작업 위치는 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`이다.
+UTF-16·메모리 한도를 지키는 TXT 목차 분석기6개 포함 JVM89 PASS, DB/UI 연결은 진행 전이다.
+다음은 목차의 revision별 수정/제외 저장과 실제 Reader 이동 검증이다. Phase3/4 전체 완료가 아니다.
+각 shell은 `source /workspace/toolchains/mobile-env.sh`; 기존 도구를 사용하며 reset/clean·키 교체·앱 데이터 삭제를 하지 않는다.
+
+아래는 당시 상태를 보존한 개발 이력이다. 최신 상태는 이 절과 위 최종 보고서를 따른다.
+
 # 모바일 검증 계약
 
 fe29dea build175/세 API native72+host7 PASS. [원본](evidence/product-quality/verified-fe29dea/summary.json).
