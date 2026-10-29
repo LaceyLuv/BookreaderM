@@ -21,7 +21,7 @@ interface LibraryArtwork {
     suspend fun import(uri:Uri):String
 }
 
-/** Work is owned by the visible card's coroutine. At most one publication/bitmap decoder is live. */
+/** Work is owned by a library/card coroutine. At most one publication/bitmap decoder is live. */
 class AndroidLibraryArtwork(context:Context):LibraryArtwork {
     private val app=context.applicationContext
     private val store=BookCoverStore.get(app)
@@ -32,10 +32,12 @@ class AndroidLibraryArtwork(context:Context):LibraryArtwork {
     override suspend fun ensure(book:Book,details:BookDetails):Boolean=withContext(Dispatchers.IO) {
         operations.withLock {
             prune()
-            val key=book.coverKey
-            if(details.metadataScanned && (key==null || !key.startsWith("a-") || store.file(key)!=null))return@withLock false
             val database=AndroidDatabaseOwner.borrow(app)
             val manager=RoomLibraryManager(database,System::currentTimeMillis)
+            val current=manager.record(book.id)?:return@withLock false
+            if(current.first.sourceSha256!=book.sourceSha256)return@withLock false
+            val key=current.first.coverKey
+            if(current.second.metadataScanned && (key==null || !key.startsWith("a-") || store.file(key)!=null))return@withLock false
             var metadata=ExtractedBookMetadata()
             try {
                 withTimeout(30_000) {

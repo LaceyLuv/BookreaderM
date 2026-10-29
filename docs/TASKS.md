@@ -1,5 +1,26 @@
 # BookReader Mobile — Codex 작업표
 
+## 2026-10-29 Phase2 첫 기기 결과와 후속 수정
+
+후보 `f35d6857358501f87c3c15339b57f71bb6e7cc8c`: build40871727052 원본 XML/필수 사례/digest PASS175.
+Device40871727016은 native71개 중 API26 8 FAIL, API34/36 각각3 FAIL, host는 NOT_RUN.
+[실패 원본과 기기별 목록](evidence/product-quality/failed-f35d685/summary.json)을 보존했다.
+
+- batch 취소의 IO 정리 후 취소된 Main으로 복귀하면서 마지막 UI 갱신이 실행되지 않았다. UI 게시까지 NonCancellable 경계에 포함했다.
+- 표지 picker의 OPENABLE 누락으로 테스트 provider Activity가 실패했다. 실제 picker 요청을 OPENABLE/단일 content URI 검증으로 통일했다.
+- TXT 인코딩 변경 직후 재열기 timeout을 확인했다. 늦은 artwork 결과가 Book 전체를 바꾸던 경합 가능성을 제거했다.
+  현재 revision/timestamp를 확인해 표지 관련 필드만 병합하고, 인코딩 성공 시 commit된 Book을 즉시 UI에 게시한다. 기존 위치 assertion은 유지했다.
+- API26 Window의 CalledFromWrongThreadException을 확인했다. catalog/진행률을 IO 안에서 따로 게시하지 않고
+  책 목록과 함께 Main에서 단일 snapshot으로 게시한다. 시스템 바 효과도 명시적으로 Main에서 실행한다.
+- 같은 표지 재선택, Reader/설정 왕복 스크롤 유지, 화면 밖 EPUB 메타데이터 검색을 보완했다. native 필수 사례는72개다.
+
+후속 `./gradlew :androidApp:testDebugUnitTest :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug --console=plain` exit0.
+로그 `phase2-coherent-library-state.log`, `phase2-native-fixes*.log`, `phase2-offscreen-metadata.log`.
+새 소스의 API26/34/36 전체 회귀와 기존host6/새host1은 아직 대기다. 첫 실패를 이전 PASS로 덮어쓰지 않는다.
+원본 캡처에서 책장/목록과 일괄 결과 UI를 확인했다. 1,000권 두 보기의 끝/처음/검색 탐색과24개 표지 캐시 제한은
+세 API에서 PASS지만 전체 suite는 FAIL이다. 물리 FPS/성능이나 사용자 데이터 검증으로 확대하지 않는다.
+
+
 ## 2026-10-29 진행 중: 서재 2.0 / 0.6.0
 
 `codex/library-060`에서 [Phase2 구현과 검증 기록](LIBRARY_0_6.md)을 이어 간다. [ADR0008](adr/0008-library-catalog-and-covers.md).

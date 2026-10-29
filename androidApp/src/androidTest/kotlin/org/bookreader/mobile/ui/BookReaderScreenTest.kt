@@ -81,6 +81,9 @@ class BookReaderScreenTest {
             compose.onNodeWithTag("library_content").performScrollToIndex(999)
             compose.onNodeWithTag("book_999").assertIsDisplayed()
             compose.onNodeWithTag("book_0").assertDoesNotExist()
+            compose.onNodeWithTag("tab_SETTINGS").performClick()
+            compose.onNodeWithTag("tab_LIBRARY").performClick()
+            compose.onNodeWithTag("book_999").assertIsDisplayed()
             compose.onNodeWithTag("library_content").performScrollToIndex(0)
             compose.onNodeWithTag("book_0").assertIsDisplayed()
         }
@@ -93,6 +96,29 @@ class BookReaderScreenTest {
             java.io.File(path,"phase2-thousand-library.txt").apply { parentFile?.mkdirs() }.writeText(
                 "generatedBooks=1000\nlayouts=GRID,LIST\nverifiedIndices=999,0\nsearchResult=917\nelapsedMs=${android.os.SystemClock.elapsedRealtime()-started}\nclaim=emulator navigation and semantics; not physical frame rate\n")
         }
+    }
+
+    @Test fun metadataSearchFindsAnEpubOutsideTheVisibleLibraryCards() {
+        val fixtures=(0 until 100).map { book(it.toString(),"Generated %03d".format(it)) }
+            .map { if(it.id=="99")it.copy(format=BookFormat.EPUB) else it }
+        val state=mutableStateOf(AppUiState(library=LibraryState.Content(fixtures),
+            catalog=LibraryCatalog(preferences=LibraryPreferences(sort=LibrarySort.TITLE))))
+        val inspected=java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
+        compose.setContent {
+            BookReaderScreen(state.value,{state.value=state.value.copy(tab=it)},
+                {state.value=state.value.copy(query=it)},{},{},libraryActions=LibraryActions(ensureArtwork={ candidate ->
+                    inspected+=candidate.id
+                    if(candidate.id=="99") state.value=state.value.copy(library=LibraryState.Content(fixtures.map {
+                        if(it.id=="99")it.copy(author="Offscreen author") else it
+                    }))
+                }))
+        }
+        compose.waitUntil(10_000) { "99" in inspected }
+        compose.onNodeWithTag("book_99").assertDoesNotExist()
+        compose.onNodeWithTag("tab_SEARCH").performClick()
+        compose.onNodeWithTag("search_query").performTextInput("Offscreen author")
+        compose.onNodeWithTag("book_99").assertIsDisplayed()
+        compose.onNodeWithText("Offscreen author").assertIsDisplayed()
     }
 
     @Test fun loadingEmptyAndErrorAreDistinctAndErrorHasRetry() {

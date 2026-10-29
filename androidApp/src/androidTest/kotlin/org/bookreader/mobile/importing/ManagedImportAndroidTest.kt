@@ -9,6 +9,7 @@ import android.provider.DocumentsContract
 import android.view.accessibility.AccessibilityNodeInfo
 import android.os.SystemClock
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -423,6 +424,13 @@ class ManagedImportAndroidTest {
             instrumentation.removeMonitor(monitor);monitor=installPicker("cover-image")
             compose.onNodeWithTag("choose_book_cover").performScrollTo().performClick()
             compose.waitUntil(15_000) { currentAppState()?.pendingCoverKey!=null && currentAppState()?.coverLoading==false }
+            val chosenKey=currentAppState()?.pendingCoverKey
+            compose.onNodeWithTag("cover_preset_2").performScrollTo().performClick().assertIsSelected()
+            compose.onNodeWithTag("choose_book_cover").performScrollTo().performClick()
+            compose.waitUntil(15_000) {
+                currentAppState()?.pendingCoverKey==chosenKey && currentAppState()?.coverLoading==false &&
+                    compose.onNodeWithTag("cover_preset_2").fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.Selected]==false
+            }
             captureFixtureScreenshot("phase2-book-editor")
             compose.onNodeWithTag("save_book_edit").performClick()
             compose.waitUntil(15_000) { currentAppState()?.editingBook==null && books().first { it.id==before.id }.title=="내가 정한 제목" }
@@ -430,6 +438,7 @@ class ManagedImportAndroidTest {
             val after=books().first { it.id==before.id }
             assertEquals("내가 정한 제목",after.title);assertEquals("직접 입력 작가",after.author)
             assertTrue(after.coverKey?.startsWith("u-")==true)
+            assertEquals(chosenKey,after.coverKey)
             val bitmap=runBlocking { BookCoverStore.get(target).bitmap(after.coverKey) }
             assertTrue(bitmap!=null && bitmap.width==96 && bitmap.height==144)
             assertTrue(original.contentEquals(File(target.filesDir,"managed/${after.managedRelativePath}").readBytes()))

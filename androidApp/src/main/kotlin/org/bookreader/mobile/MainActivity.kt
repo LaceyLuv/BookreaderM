@@ -23,8 +23,12 @@ class MainActivity : FragmentActivity() {
     private val picker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) handleDocument(DocumentIntents.parsePickerBatch(result.data))
     }
-    private val coverPicker = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
-        uri?.let(model::importCover)
+    private val coverPicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val parsed = DocumentIntents.parsePicker(result.data)
+            if (parsed is DocumentIntentResult.Accepted) model.importCover(parsed.document.uri)
+            else model.rejectCover()
+        }
     }
 
     override val defaultViewModelProviderFactory: ViewModelProvider.Factory get() = object : ViewModelProvider.Factory {
@@ -53,7 +57,11 @@ class MainActivity : FragmentActivity() {
             }
         }
         setContent { BookReaderApp(model, onAddTxt = { picker.launch(DocumentIntents.pickerIntent()) },
-            onChooseCover = { coverPicker.launch(arrayOf("image/jpeg", "image/png", "image/webp")) }) }
+            onChooseCover = { coverPicker.launch(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE); type = "image/*"
+                putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png", "image/webp"))
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }) }) }
         if (savedInstanceState == null) handleDocument(DocumentIntents.parseExternal(intent))
     }
 

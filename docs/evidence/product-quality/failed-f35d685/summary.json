@@ -1,0 +1,87 @@
+{
+  "source_sha": "f35d6857358501f87c3c15339b57f71bb6e7cc8c",
+  "build": {
+    "run": 40871727052,
+    "android-unit": 73,
+    "shared-jvm": 83,
+    "epub-unit": 16,
+    "shared-enospc": 3,
+    "status": "PASS"
+  },
+  "device": {
+    "26": {
+      "tests": 71,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "method": "negativeTxtLetterSpacingOpensEpubWithoutRewritingStoredDefaults"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "cancellingBatchKeepsCommittedBookAndRemovesOnlyPendingStaging"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "metadataAndChosenCoverPersistAcrossRecreationWithoutChangingManagedBook"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "manualEncodingUsesStagingAfterSourceGrantIsRevoked"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "externalViewReceivesTemporaryGrantAndOpensActualReader"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "batchEncodingChoiceResumesRemainingFilesAndRejectsAmbiguousExternalBatch"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "binaryAndOversizeDocumentsFailWithoutChangingExistingLibrary"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "method": "manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark"
+        }
+      ],
+      "host": "NOT_RUN"
+    },
+    "34": {
+      "tests": 71,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "cancellingBatchKeepsCommittedBookAndRemovesOnlyPendingStaging"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "metadataAndChosenCoverPersistAcrossRecreationWithoutChangingManagedBook"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "method": "manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark"
+        }
+      ],
+      "host": "NOT_RUN"
+    },
+    "36": {
+      "tests": 71,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "cancellingBatchKeepsCommittedBookAndRemovesOnlyPendingStaging"
+        },
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "metadataAndChosenCoverPersistAcrossRecreationWithoutChangingManagedBook"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "method": "manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark"
+        }
+      ],
+      "host": "NOT_RUN"
+    }
+  }
+}

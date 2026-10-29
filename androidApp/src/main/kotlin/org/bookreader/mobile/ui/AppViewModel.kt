@@ -137,11 +137,13 @@ class AppViewModel(
         }
     }
 
-    fun retryLibrary() {
+    fun retryLibrary() = loadLibrary(showLoading = true)
+
+    private fun loadLibrary(showLoading: Boolean) {
         if (libraryJob?.isActive == true) return
-        mutableState.update { it.copy(library = LibraryState.Loading) }
+        if (showLoading) mutableState.update { it.copy(library = LibraryState.Loading) }
         libraryJob = viewModelScope.launch {
-            val loaded = try {
+            val snapshot = try {
                 recoveryDone.await()
                 withContext(ioDispatcher) {
                     val active = sessions.open()
@@ -153,9 +155,8 @@ class AppViewModel(
                             active.progressRepository?.loadProgress(candidate.id, revision)
                         }
                         currentCoroutineContext().ensureActive()
-                        mutableState.update { it.copy(catalog = catalog,
-                            continuePercent = (progress as? org.bookreader.mobile.repository.ProgressReadResult.Found)?.progress?.percent) }
-                        loaded
+                        Triple(loaded, catalog,
+                            (progress as? org.bookreader.mobile.repository.ProgressReadResult.Found)?.progress?.percent)
                     } finally {
                         // Release the lease after its query exits. Android borrows the app-owned pool;
                         // independent test factories may own and close their database instead.
@@ -165,10 +166,12 @@ class AppViewModel(
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
-                LibraryState.Error(LibraryErrorCode.DATABASE_UNAVAILABLE)
+                Triple(LibraryState.Error(LibraryErrorCode.DATABASE_UNAVAILABLE), state.value.catalog, state.value.continuePercent)
             }
+            // Publish one coherent snapshot on Main; inline observers must never recompose on IO.
+            val (loaded, catalog, percent) = snapshot
             val retainedIds = (loaded as? LibraryState.Content)?.books?.map { it.id }?.toSet()
-            mutableState.update { it.copy(library = loaded, selectedBooks = if (retainedIds == null) it.selectedBooks else it.selectedBooks.intersect(retainedIds)) }
+            mutableState.update { it.copy(library = loaded, catalog = catalog, continuePercent = percent, selectedBooks = if (retainedIds == null) it.selectedBooks else it.selectedBooks.intersect(retainedIds)) }
         }
     }
 
@@ -236,13 +239,17 @@ class AppViewModel(
                     recordBatchResult(ImportResult.Failure(ImportErrorCode.DATABASE_UNAVAILABLE))
                 } finally {
                     val encoding = pending as? ImportResult.EncodingRequired
-                    withContext(kotlinx.coroutines.NonCancellable + ioDispatcher) {
-                        try { if (encoding != null) service.cancelEncoding(encoding.jobId) } catch (_: Exception) { /* Recovery owns an unfinished journal. */ }
-                        try { service.setBatchActive(false) } catch (_: Exception) { /* Next start reports interrupted work. */ }
+                    // Include Main-thread publication in the non-cancellable boundary. Returning
+                    // from IO to an already cancelled caller otherwise skips the final UI state.
+                    withContext(kotlinx.coroutines.NonCancellable) {
+                        withContext(ioDispatcher) {
+                            try { if (encoding != null) service.cancelEncoding(encoding.jobId) } catch (_: Exception) { /* Recovery owns an unfinished journal. */ }
+                            try { service.setBatchActive(false) } catch (_: Exception) { /* Next start reports interrupted work. */ }
+                        }
+                        batchChoice?.cancel(); batchChoice = null
+                        mutableState.update { it.copy(importing = ImportUiState.Idle, batch = it.batch?.copy(active = false)) }
+                        refreshLibrary()
                     }
-                    batchChoice?.cancel(); batchChoice = null
-                    mutableState.update { it.copy(importing = ImportUiState.Idle, batch = it.batch?.copy(active = false)) }
-                    refreshLibrary()
                 }
             }
         }
@@ -286,18 +293,25 @@ class AppViewModel(
         try { action(requireNotNull(active.libraryManager)) } finally { active.close() }
     }
 
-    /** The visible card's coroutine owns extraction and cancels it when the card leaves composition. */
+    /** Library/card composition owns extraction and cancels it when leaving the screen. */
     suspend fun ensureArtwork(book: Book) {
         val service = artwork ?: return
         try {
             val details = state.value.catalog.details[book.id] ?: BookDetails()
-            if (service.ensure(book, details)) {
-                val current = withCatalog { it.record(book.id) } ?: return
-                mutableState.update { value ->
-                    val library = value.library as? LibraryState.Content ?: return@update value
-                    value.copy(library = library.copy(books = library.books.map { if (it.id == book.id && it.sourceSha256 == current.first.sourceSha256) current.first else it }),
-                        catalog = value.catalog.copy(details = value.catalog.details + (book.id to current.second)))
-                }
+            service.ensure(book, details)
+            // Another owner may have committed before cancellation or while we waited for the decoder.
+            val current = withCatalog { it.record(book.id) } ?: return
+            mutableState.update { value ->
+                val library = value.library as? LibraryState.Content ?: return@update value
+                val displayed = library.books.firstOrNull { it.id == book.id } ?: return@update value
+                val extracted = current.first
+                if (displayed.sourceSha256 != extracted.sourceSha256 || displayed.currentRevision != extracted.currentRevision ||
+                    displayed.updatedAt > extracted.updatedAt) return@update value
+                // Artwork never replaces an interpretation, availability, read order or writer epoch.
+                val merged = displayed.copy(title = extracted.title, author = extracted.author,
+                    coverKey = extracted.coverKey, updatedAt = extracted.updatedAt)
+                value.copy(library = library.copy(books = library.books.map { if (it.id == book.id) merged else it }),
+                    catalog = value.catalog.copy(details = value.catalog.details + (book.id to current.second)))
             }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { /* A decorative fallback remains readable; library data is not reset. */ }
@@ -309,11 +323,14 @@ class AppViewModel(
         coverJob?.cancel()
         mutableState.update { it.copy(editingBook = null, pendingCoverKey = null, coverLoading = false, editorError = null) }
     }
+    fun rejectCover() {
+        mutableState.update { it.copy(editorError = "파일 선택기에서 표지 이미지 한 개를 선택해 주세요.") }
+    }
     fun importCover(uri: android.net.Uri) {
         val service = artwork ?: return
         val book = state.value.editingBook ?: return
         if (state.value.editorSaving || state.value.coverLoading) return
-        mutableState.update { it.copy(coverLoading = true, editorError = null) }
+        mutableState.update { it.copy(coverLoading = true, editorError = null, pendingCoverKey = null) }
         coverJob = viewModelScope.launch {
             try {
                 val key = service.import(uri)
@@ -413,7 +430,10 @@ class AppViewModel(
                 }
                 when (result) {
                     is EncodingChangeResult.Changed -> {
-                        mutableState.update { it.copy(encodingChange = null, notice =
+                        mutableState.update { value -> value.copy(encodingChange = null,
+                            library = (value.library as? LibraryState.Content)?.let { library ->
+                                library.copy(books = library.books.map { if (it.id == result.book.id) result.book else it })
+                            } ?: value.library, notice =
                             if (result.hasExistingProgress) "인코딩을 변경했습니다. 이 해석의 기존 독서 위치를 복원할 수 있습니다."
                             else "인코딩을 변경했습니다. 새 해석은 처음부터 읽습니다. 이전 진행도와 북마크는 보존됩니다.") }
                         refreshLibrary()
@@ -590,7 +610,7 @@ class AppViewModel(
         }
         refreshLibrary()
     }
-    private fun refreshLibrary() { libraryJob?.cancel(); libraryJob = null; retryLibrary() }
+    private fun refreshLibrary() { libraryJob?.cancel(); libraryJob = null; loadLibrary(showLoading = false) }
     fun dismissNotice() { mutableState.update { it.copy(notice = null) } }
 }
 

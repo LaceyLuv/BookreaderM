@@ -28,6 +28,11 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items as gridItems
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.AlertDialog
@@ -50,7 +55,9 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -80,6 +87,7 @@ import org.bookreader.mobile.library.*
 @Suppress("DEPRECATION") // Android 8/9 need an explicit bar color; newer edge-to-edge uses the surface.
 fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover: () -> Unit = {}) {
     val state by model.state.collectAsStateWithLifecycle()
+    val librarySavedState = rememberSaveableStateHolder()
     val dark = state.theme.isDark(isSystemInDarkTheme())
     val view = LocalView.current
     val reading = state.reader != null || state.epubReader != null || state.comicReader != null
@@ -99,11 +107,13 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover:
             if (reading && previousInputMode != null) window?.setSoftInputMode(previousInputMode)
         }
     }
-    SideEffect {
-        (view.context as? Activity)?.let { activity ->
-            WindowCompat.getInsetsController(activity.window, view).apply {
-                isAppearanceLightStatusBars = !dark && state.reader == null && state.epubReader == null && state.comicReader == null
-                isAppearanceLightNavigationBars = !dark && state.reader == null && state.epubReader == null && state.comicReader == null
+    LaunchedEffect(view, dark, reading) {
+        withContext(Dispatchers.Main.immediate) {
+            (view.context as? Activity)?.let { activity ->
+                WindowCompat.getInsetsController(activity.window, view).apply {
+                    isAppearanceLightStatusBars = !dark && !reading
+                    isAppearanceLightNavigationBars = !dark && !reading
+                }
             }
         }
     }
@@ -150,6 +160,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover:
         return
     }
     BackHandler(enabled = state.tab != AppTab.LIBRARY) { model.selectTab(AppTab.LIBRARY) }
+    librarySavedState.SaveableStateProvider("library") {
     BookReaderScreen(state, model::selectTab, model::updateQuery, model::retryLibrary, model::selectTheme,
         onAddTxt, model::confirmShare, model::dismissImport, model::cancelImport, model::selectImportEncoding,
         model::showBook, model::requestDelete, model::confirmDelete, model::openBook,
@@ -159,6 +170,7 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover:
             showShelves = model::showShelves, createShelf = model::createShelf, renameShelf = model::renameShelf,
             deleteShelf = model::deleteShelf, toggleSelected = model::toggleSelected, clearSelection = model::clearSelection,
             classify = model::classifySelection, dismissBatch = model::dismissBatch))
+    }
 }
 
 @Composable
@@ -184,6 +196,15 @@ fun BookReaderScreen(
     libraryActions: LibraryActions = LibraryActions(),
 ) {
     val dark = state.theme.isDark(isSystemInDarkTheme())
+    val listScroll = rememberLazyListState()
+    val gridScroll = rememberLazyGridState()
+    val metadataBooks = (state.library as? LibraryState.Content)?.books.orEmpty()
+        .filter { it.format == org.bookreader.mobile.model.BookFormat.EPUB && it.availability == BookAvailability.READY }
+    // Metadata search must include books beyond the viewport. One cancellable worker,
+    // owned by the library screen, shares the decoder mutex with visible artwork.
+    androidx.compose.runtime.LaunchedEffect(metadataBooks.map { it.id to it.sourceSha256 }) {
+        metadataBooks.forEach { libraryActions.ensureArtwork(it) }
+    }
     BookReaderTheme(dark) {
         Scaffold(
             bottomBar = {
@@ -252,7 +273,7 @@ fun BookReaderScreen(
                         LibraryControls(state, libraryActions)
                         LibraryBody(state.library, onRetry, if (state.tab == AppTab.SEARCH) state.query else null, onBookInfo, onOpenBook,
                             onAdd = onAddTxt, canAdd = state.importing !is ImportUiState.Working && state.importing !is ImportUiState.SelectEncoding,
-                            onClearQuery = { onQueryChanged("") }, catalog = state.catalog, selected = state.selectedBooks, actions = libraryActions)
+                            onClearQuery = { onQueryChanged("") }, catalog = state.catalog, selected = state.selectedBooks, actions = libraryActions, listScroll = listScroll, gridScroll = gridScroll)
                     }
                     AppTab.SETTINGS -> SettingsBody(state, onThemeSelected)
                 }
@@ -395,6 +416,7 @@ private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String?
     onInfo: (Book) -> Unit = {}, onOpen: (Book) -> Unit = {},
     onAdd: () -> Unit = {}, canAdd: Boolean = true, onClearQuery: () -> Unit = {},
     catalog: LibraryCatalog = LibraryCatalog(), selected: Set<String> = emptySet(), actions: LibraryActions = LibraryActions(),
+    listScroll: LazyListState = rememberLazyListState(), gridScroll: LazyGridState = rememberLazyGridState(),
 ) {
     when (state) {
         LibraryState.Loading -> StatusMessage("서재를 불러오는 중", "library_loading") {
@@ -424,12 +446,13 @@ private fun LibraryBody(state: LibraryState, onRetry: () -> Unit, query: String?
                 }
             } else {
                 if (catalog.preferences.view == LibraryView.LIST || LocalDensity.current.fontScale >= 1.5f) {
-                    LazyColumn(Modifier.fillMaxSize().testTag("library_content"), contentPadding = PaddingValues(bottom = 16.dp),
+                    LazyColumn(Modifier.fillMaxSize().testTag("library_content"), state = listScroll, contentPadding = PaddingValues(bottom = 16.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         items(matches, key = Book::id) { book -> LibraryBookCard(book, catalog, book.id in selected, selected.isNotEmpty(), true, actions, onInfo, onOpen) }
                     }
                 } else {
                 LazyVerticalGrid(
+                    state = gridScroll,
                     columns = GridCells.Adaptive(160.dp * LocalDensity.current.fontScale.coerceIn(1f, 1.6f)),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.fillMaxSize().testTag("library_content"),
