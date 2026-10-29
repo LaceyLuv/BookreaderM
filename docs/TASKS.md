@@ -1,3 +1,10 @@
+## 2026-10-29 Phase3: TXT 목차 분석기 단위 PASS
+
+`codex/reader-070`, `/workspace/BookreaderM-reader-070`. [개발 상태](READER_0_7.md).
+6개 추가 포함 shared89 PASS, [원본](evidence/product-quality/phase3-toc-scanner-local/summary.json).
+필수 사례 목록에6개를 등록했다. DB/UI는 아직 연결 전, 다음 단위에서 구현한다.
+0.6.0 확정 결과는 아래와 별도 `codex/library-060`에 보존한다.
+
 # 현재 작업표
 
 ## 2026-10-29 현재 상태 — 0.6.0 자동 검증 완료

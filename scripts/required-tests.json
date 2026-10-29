@@ -296,7 +296,39 @@
   "shared-jvm": [
     [
       "org.bookreader.mobile.database.MigrationTest",
+      "catalogMigrationStatementFailurePreservesVersionFiveDatabase"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "catalogMigrationValidationFailureRollsBackEveryCatalogTable"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionFiveAddsCatalogWithoutRewritingAnyReadingData"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
       "exportedVersionOneMigratesWithoutLosingBooksOrProgress"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionThreePreservesSettingsBooksAndProgress"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionTwoMigratesWithoutLosingBooksOrProgress"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords"
     ],
     [
       "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
@@ -352,6 +384,14 @@
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "archiveFailureMutationAndCancellationCannotCommitOrChangeExistingBook"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "archiveJournalsRecoverEveryCommitBoundaryWithoutChangingExistingTxt"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "cancellationDuringCopyKeepsPreviouslyCommittedBookAndCleansStage"
     ],
     [
@@ -361,6 +401,10 @@
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "cancelledEncodingChoiceRemovesOnlyItsStaging"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "cancelledInterpretationTransactionRollsBackItsBookUpdate"
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
@@ -384,11 +428,23 @@
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "duplicateArchiveKeepsIdentityAndCannotSilentlyChangeFormat"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "durableCopyDoesNotDependOnSourceAndDuplicateKeepsProgress"
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "encodingChoiceResumesPrivateStagingAfterTemporarySourceDisappears"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "encodingRoundTripPreservesEachRevisionsProgressAndBookmarks"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "failedAndCancelledEncodingValidationLeaveOriginalInterpretationUntouched"
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
@@ -409,6 +465,30 @@
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "readyRowWithDefinitelyAbsentCopyRelinksIdempotentlyAndKeepsProgress"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "catalogSortSearchStatusAndShelfFiltersAreStableAndRevisionScoped"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "editsSurviveReopenAndLateExtractionWithoutChangingReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "extractionUsesCurrentOverridesAndRejectsWrongSourceOrDeletedBook"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "failedBulkClassificationRollsBackAndDeletingShelfKeepsBooksAndProgress"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "invalidEditsLeaveAllMetadataAndMembershipsUntouched"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "unknownCatalogValuesCannotBeSilentlyRewrittenByEditingOrExtraction"
     ],
     [
       "org.bookreader.mobile.locator.LocatorCodecTest",
@@ -441,6 +521,30 @@
     [
       "org.bookreader.mobile.repository.DatabaseFailureDiagnosticTest",
       "causeSnapshotIsBoundedAndExcludesMessages"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "bookmarksPersistCanonicalLocatorsWithBoundedPagesAndProtectOtherBooks"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "malformedAndQueryFailurePreserveOriginalBookmarkAndProgressRows"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "oldRevisionAndSessionWritesAreRejectedAndDeletionCannotRecreateBookmarks"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullActivationRollsBackEpochAndReadOrderThenRestoresExistingRecord"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullFirstSaveDoesNotInventProgressAndCanRetryAfterCapacityReturns"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullUpdatePreservesLastCommitAcrossReopenAndSameEventCanRetry"
     ],
     [
       "org.bookreader.mobile.repository.RoomProgressRaceTest",
@@ -495,32 +599,8 @@
       "verifiedAvailabilityRestoreCannotReviveDeletingOrChangedRevisionAndPreservesProgress"
     ],
     [
-      "org.bookreader.mobile.repository.RoomProgressFullTest",
-      "fullUpdatePreservesLastCommitAcrossReopenAndSameEventCanRetry"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomProgressFullTest",
-      "fullFirstSaveDoesNotInventProgressAndCanRetryAfterCapacityReturns"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomProgressFullTest",
-      "fullActivationRollsBackEpochAndReadOrderThenRestoresExistingRecord"
-    ],
-    [
-      "org.bookreader.mobile.database.MigrationTest",
-      "exportedVersionTwoMigratesWithoutLosingBooksOrProgress"
-    ],
-    [
-      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
-      "settingsRoundTripInheritAndRejectStaleEditorsWithoutChangingProgress"
-    ],
-    [
-      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
-      "malformedFutureAndOutOfRangeSettingsStayByteExactAndPreventStaleSave"
-    ],
-    [
-      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
-      "deletionCascadesOnlyBookOverridesAndLateSaveCannotRecreateBook"
+      "org.bookreader.mobile.search.TxtLiteralSearchTest",
+      "batchesPreserveOverlapsAndOnlyAsciiCaseIsFolded"
     ],
     [
       "org.bookreader.mobile.search.TxtLiteralSearchTest",
@@ -528,103 +608,47 @@
     ],
     [
       "org.bookreader.mobile.search.TxtLiteralSearchTest",
-      "batchesPreserveOverlapsAndOnlyAsciiCaseIsFolded"
-    ],
-    [
-      "org.bookreader.mobile.search.TxtLiteralSearchTest",
       "invalidQueriesAndCancelledScanNeverReadUnboundedBody"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
-      "bookmarksPersistCanonicalLocatorsWithBoundedPagesAndProtectOtherBooks"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
-      "oldRevisionAndSessionWritesAreRejectedAndDeletionCannotRecreateBookmarks"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
-      "malformedAndQueryFailurePreserveOriginalBookmarkAndProgressRows"
-    ],
-    [
-      "org.bookreader.mobile.database.MigrationTest",
-      "exportedVersionThreePreservesSettingsBooksAndProgress"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "encodingRoundTripPreservesEachRevisionsProgressAndBookmarks"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "failedAndCancelledEncodingValidationLeaveOriginalInterpretationUntouched"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "cancelledInterpretationTransactionRollsBackItsBookUpdate"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "archiveJournalsRecoverEveryCommitBoundaryWithoutChangingExistingTxt"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "archiveFailureMutationAndCancellationCannotCommitOrChangeExistingBook"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "duplicateArchiveKeepsIdentityAndCannotSilentlyChangeFormat"
-    ],
-    [
-      "org.bookreader.mobile.database.MigrationTest",
-      "exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt"
     ],
     [
       "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
       "comicOnlyOverridesRoundTripWithoutErasingInheritedReadingModeOrProgress"
     ],
     [
-      "org.bookreader.mobile.database.MigrationTest",
-      "migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts"
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "deletionCascadesOnlyBookOverridesAndLateSaveCannotRecreateBook"
     ],
     [
-      "org.bookreader.mobile.database.MigrationTest",
-      "migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords"
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "malformedFutureAndOutOfRangeSettingsStayByteExactAndPreventStaleSave"
     ],
     [
-      "org.bookreader.mobile.library.LibraryCatalogTest",
-      "editsSurviveReopenAndLateExtractionWithoutChangingReadingRecords"
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "settingsRoundTripInheritAndRejectStaleEditorsWithoutChangingProgress"
     ],
     [
-      "org.bookreader.mobile.library.LibraryCatalogTest",
-      "extractionUsesCurrentOverridesAndRejectsWrongSourceOrDeletedBook"
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "cancellationAndInvalidReadersCannotProduceACompletedIndex[jvm]"
     ],
     [
-      "org.bookreader.mobile.library.LibraryCatalogTest",
-      "failedBulkClassificationRollsBackAndDeletingShelfKeepsBooksAndProgress"
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "handlesWindowBoundariesSurrogatesCrLfAndRepeatedTitlesWithoutDeduplicatingOffsets[jvm]"
     ],
     [
-      "org.bookreader.mobile.library.LibraryCatalogTest",
-      "invalidEditsLeaveAllMetadataAndMembershipsUntouched"
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "limitsCandidatesAndStopsReadingAfterFirstExcessHeading[jvm]"
     ],
     [
-      "org.bookreader.mobile.library.LibraryCatalogTest",
-      "catalogSortSearchStatusAndShelfFiltersAreStableAndRevisionScoped"
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "longLinesNeverBecomeTruncatedHeadingsAndNextLineStillWorks[jvm]"
     ],
     [
-      "org.bookreader.mobile.library.LibraryCatalogTest",
-      "unknownCatalogValuesCannotBeSilentlyRewrittenByEditingOrExtraction"
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "recognizesStandaloneKoreanEnglishAndBookendsAtExactUtf16Offsets[jvm]"
     ],
     [
-      "org.bookreader.mobile.database.MigrationTest",
-      "exportedVersionFiveAddsCatalogWithoutRewritingAnyReadingData"
-    ],
-    [
-      "org.bookreader.mobile.database.MigrationTest",
-      "catalogMigrationStatementFailurePreservesVersionFiveDatabase"
-    ],
-    [
-      "org.bookreader.mobile.database.MigrationTest",
-      "catalogMigrationValidationFailureRollsBackEveryCatalogTable"
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "rejectsNumbersEmbeddedMentionsAndSentenceLikeCandidates[jvm]"
     ]
   ],
   "android-device": [
