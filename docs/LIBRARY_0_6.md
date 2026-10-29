@@ -1,5 +1,10 @@
 # 서재 2.0 / 0.6.0 개발 기록
 
+실제 API34 캡처에서 큰 글자 모드의82dp 생성 표지 내부 글자가 잘리는 것을 확인했다.
+장식 표지는 작은 크기에 맞춘 글꼴/줄 수와 고정 글자 배율을 사용하고, 카드 본문의 접근 가능한
+제목·작가·버튼은 시스템 글자 크기를 그대로 따른다. 더 작은 이어읽기 표지는 형식 첫 글자를 표시한다.
+`phase2-decorative-cover-size.log` compile/unit73/lint exit0. 후속 전체 matrix의 실제 캡처를 다시 확인한다.
+
 후속 로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain` exit0. Android unit73/테스트 APK 컴파일/lint PASS. [로그](evidence/product-quality/phase2-followup-local/phase2-reopen-jump-fixes-final.log). 실제 기기 검증과 구분한다.
 
 ## 2026-10-29 두 번째 기기 결과와 재검증 후보

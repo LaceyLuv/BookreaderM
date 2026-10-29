@@ -1,5 +1,10 @@
 # M00 작업 기록
 
+API34의 Phase2 편집/서재/큰 글자 다크 캡처를 직접 확인했다. 큰 글자에서 작은 장식 표지 글자가 잘려
+표지 폭에 맞는 타이포그래피로 보완했다. 본문 제목/작가/버튼의 시스템 글자 크기는 유지한다.
+`./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain`
+exit0, `phase2-decorative-cover-size.log`. d93a268 build40879397947/device40879397948은 실행 중이다.
+
 후속 로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain` exit0. Android unit73/테스트 APK 컴파일/lint PASS. [로그](evidence/product-quality/phase2-followup-local/phase2-reopen-jump-fixes-final.log). 실제 기기 검증과 구분한다.
 
 ## 2026-10-29 두 번째 Phase2 matrix

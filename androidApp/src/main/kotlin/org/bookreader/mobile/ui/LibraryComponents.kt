@@ -18,11 +18,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.Density
 import org.bookreader.mobile.R
 import org.bookreader.mobile.library.*
 import org.bookreader.mobile.model.Book
@@ -58,20 +61,33 @@ internal fun BookCover(book: Book, details: BookDetails, modifier: Modifier = Mo
     val palettes=listOf(Color(0xFF265C53),Color(0xFF283F57),Color(0xFF735533),Color(0xFF67485D),Color(0xFF3A5366),Color(0xFF46574C))
     val preset=details.coverPreset
     val color=palettes[if(preset==0) (book.title.hashCode().toLong().and(0x7fffffff)%palettes.size).toInt() else preset.coerceIn(0,5)]
-    Box(modifier.clip(RoundedCornerShape(8.dp)).background(color).clearAndSetSemantics { }) {
+    BoxWithConstraints(modifier.clip(RoundedCornerShape(8.dp)).background(color).clearAndSetSemantics { }) {
         val rendered=bitmap
         if(rendered!=null) Image(rendered.asImageBitmap(),null,Modifier.fillMaxSize(),contentScale=ContentScale.Crop)
         else {
+            // Cover lettering is decorative artwork. The adjacent caption provides the full
+            // accessible title/author and continues to respect the user's system font scale.
+            val compact=maxWidth<100.dp
+            val tiny=maxWidth<56.dp
+            val density=LocalDensity.current
+            CompositionLocalProvider(LocalDensity provides Density(density.density,1f)) {
             Box(Modifier.fillMaxHeight().width(if(preset%2==0)8.dp else 3.dp).background(Color.White.copy(alpha=.18f)))
-            Column(Modifier.fillMaxSize().padding(14.dp),verticalArrangement=Arrangement.SpaceBetween) {
-                Text(book.format.displayName,color=Color.White.copy(alpha=.75f),style=MaterialTheme.typography.labelSmall)
-                Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
+            if(tiny) Text(book.format.displayName.take(1),Modifier.align(Alignment.Center),color=Color.White,
+                style=MaterialTheme.typography.titleSmall,maxLines=1)
+            else Column(Modifier.fillMaxSize().padding(if(compact)8.dp else 14.dp),verticalArrangement=Arrangement.SpaceBetween) {
+                Text(book.format.displayName,color=Color.White.copy(alpha=.75f),maxLines=1,
+                    style=MaterialTheme.typography.labelSmall.let { if(compact)it.copy(fontSize=9.sp,lineHeight=11.sp) else it })
+                Column(verticalArrangement=Arrangement.spacedBy(if(compact)4.dp else 8.dp)) {
                     if(preset%3==0) HorizontalDivider(Modifier.width(24.dp),color=Color.White.copy(alpha=.65f))
-                    Text(book.title,color=Color.White,style=MaterialTheme.typography.titleMedium,fontWeight=FontWeight.SemiBold,
-                        maxLines=5,overflow=TextOverflow.Ellipsis)
-                    book.author?.let { Text(it,color=Color.White.copy(alpha=.85f),style=MaterialTheme.typography.labelSmall,maxLines=2,overflow=TextOverflow.Ellipsis) }
+                    Text(book.title,color=Color.White,style=MaterialTheme.typography.titleMedium.let {
+                        if(compact)it.copy(fontSize=12.sp,lineHeight=15.sp) else it },fontWeight=FontWeight.SemiBold,
+                        maxLines=if(compact)3 else 5,overflow=TextOverflow.Ellipsis)
+                    book.author?.let { Text(it,color=Color.White.copy(alpha=.85f),
+                        style=MaterialTheme.typography.labelSmall.let { style -> if(compact)style.copy(fontSize=9.sp,lineHeight=11.sp) else style },
+                        maxLines=if(compact)1 else 2,overflow=TextOverflow.Ellipsis) }
                 }
                 if(preset%3==1) HorizontalDivider(color=Color.White.copy(alpha=.35f)) else Spacer(Modifier.height(4.dp))
+            }
             }
         }
     }

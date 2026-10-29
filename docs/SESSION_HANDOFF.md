@@ -1,5 +1,9 @@
 # 2026-10-29 Phase2 두 번째 기기 실패 수정 후보
 
+후속 d93a268의 build40879397947/device40879397948 실행 중에 실제 캡처에서 작은 생성 표지의
+큰 글자 잘림을 확인했다. 장식 표지만 폭에 맞게 조정하고 접근 가능한 카드 본문 배율은 보존했다.
+compile/unit73/lint exit0(`phase2-decorative-cover-size.log`). 최종 소스 matrix와 캡처 확인이 필요하다.
+
 후속 로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain` exit0. Android unit73/테스트 APK 컴파일/lint PASS. [로그](evidence/product-quality/phase2-followup-local/phase2-reopen-jump-fixes-final.log). 실제 기기 검증과 구분한다.
 
 `codex/library-060`의 abee6a1: build40875430022 PASS175, device40875430229 FAIL.
