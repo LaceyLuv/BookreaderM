@@ -4,6 +4,12 @@
 기준은 `790175b`이며 제품/테스트 코드는 검증된 `4449f1e`와 동일하다. 원문은 수정하지 않는다.
 기존 엔진·위치 계약·Room 데이터·서명키를 유지하고 단계별로 검증한다. 공개 릴리스는 별도 승인 대상이다.
 
+## 현재 단계
+
+[0.6.0 최종 보고서](LIBRARY_0_6.md): 서재2.0 구현과 build175/세 API native72+host7 자동 검증 PASS.
+Phase3은 별도 브랜치의 TXT 목차 분석기부터 착수했으며 JVM89 PASS, DB/UI는 연결 전이다.
+아래 감사 표는 **2026-10-24 구현 전 기준**이며 현재 단계 표와 구분한다.
+
 ## 구현 전 감사
 
 AGENTS/README/TASKS/SESSION_HANDOFF/READER_DESIGN_2026-10-23/READER_FEATURES_0_4/
@@ -45,8 +51,8 @@ READER_FONTS_0_5/QA_MATRIX/TESTING과 Android/shared/epubAndroid 소스·테스�
 |---|---|---|
 | 감사 | 완료 | 위 코드 기준 분류. 기존 로컬 161개 PASS, 새 변경 결과와 구분 |
 | Phase 1 / 0.5.1 | 구현·자동 검증 완료 | [결과·실제 화면](UX_POLISH_0_5_1.md). 5a8aad2 build166, native63+host6/API26/34/36 PASS. 실기기 미실행 |
-| Phase 2 / 0.6.0 | 진행 중 | 서재 별도 테이블/명시적migration·편집 우선권·책장/정렬/필터 저장, bounded 표지/통합 UI 연결 중. JVM82 PASS, Android 전체 검증 전 |
-| Phase 3 / 0.7.0 | 대기 | 도구/빠른 설정, bounded TXT 목차, version/revision에 묶인 annotation |
+| Phase 2 / 0.6.0 | 구현·자동 검증 완료 | a22970b build175, native72+host7/API26/34/36 PASS. [결과](LIBRARY_0_6.md), 실기기 미실행 |
+| Phase 3 / 0.7.0 | 착수 | bounded TXT 목차 분석기6개 포함 JVM89 PASS. DB/UI·도구·annotation은 후속 |
 | Phase 4 / 0.8.0 | 대기 | 검증 가능한 backup/restore·기기/성능/접근성·전달/자동화. 실기기는 실제 자원 필요 |
 
 각 단계의 PASS는 실제 실행 범위만 의미한다. 구현만 끝난 항목이나 기기 실행 없이 compiled test를
@@ -79,4 +85,4 @@ Room schema5, 관리 원본, locator/version/revision, 저장 epoch/sequence, �
 5. **0.6.0 검증:** 각 단위의 DB/순수 로직 검사 뒤 실제 API26/34/36 UI·재시작·강제 종료 회귀를 실행한다.
    생성한 대규모 fixture 서재로 스크롤/캐시를 측정하고 실제 측정 범위만 보고한다. 실기기 결과를 추정하지 않는다.
 
-이 목록은 후속 구현 순서이며 Phase 2 기능 완료를 의미하지 않는다.
+이 목록의 구현과 자동 검증 결과는 [0.6.0 보고서](LIBRARY_0_6.md)를 따른다. 실기기 검증은 남아 있다.

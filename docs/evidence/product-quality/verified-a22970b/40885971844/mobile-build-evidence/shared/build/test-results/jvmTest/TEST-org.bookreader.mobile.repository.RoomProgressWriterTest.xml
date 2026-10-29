@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.bookreader.mobile.repository.RoomProgressWriterTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-29T13:56:35.784Z" hostname="runnervm48cm3" time="0.202">
+  <properties/>
+  <testcase name="corruptAndUnsupportedRecordsDoNotChangeEpochOrReadOrder[jvm]" classname="org.bookreader.mobile.repository.RoomProgressWriterTest" time="0.027"/>
+  <testcase name="fixedBookEventsStaySeparateAndDeletedBookIsNeverRecreated[jvm]" classname="org.bookreader.mobile.repository.RoomProgressWriterTest" time="0.015"/>
+  <testcase name="changedRestoreRevisionOrDeletingBookRejectsWithoutMutation[jvm]" classname="org.bookreader.mobile.repository.RoomProgressWriterTest" time="0.041"/>
+  <testcase name="verifiedAvailabilityRestoreCannotReviveDeletingOrChangedRevisionAndPreservesProgress[jvm]" classname="org.bookreader.mobile.repository.RoomProgressWriterTest" time="0.033"/>
+  <testcase name="missingProgressCannotAcceptInventedRestoreAndReadyOnlyMarksActualRead[jvm]" classname="org.bookreader.mobile.repository.RoomProgressWriterTest" time="0.023"/>
+  <testcase name="closedDatabaseReportsOriginalStagesWithoutChangingFailureResults[jvm]" classname="org.bookreader.mobile.repository.RoomProgressWriterTest" time="0.023"/>
+  <testcase name="existingProgressCannotStartWithNullOrDifferentRestoredLocator[jvm]" classname="org.bookreader.mobile.repository.RoomProgressWriterTest" time="0.024"/>
+  <testcase name="saveUsesSequenceNotMaximumOffsetAndRejectsOldSession[jvm]" classname="org.bookreader.mobile.repository.RoomProgressWriterTest" time="0.015"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

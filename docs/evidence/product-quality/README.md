@@ -20,3 +20,20 @@ ZIP/APK 바이너리는 중복 커밋하지 않고 XML/로그/화면/JSON/체크
 
 환경 한계: 로컬 `adb` 연결 기기와 KVM 없음. 물리 기기·TalkBack·16KB OS·실제 사용자 서재 성능은 NOT_RUN이며
 원격 에뮬레이터 검사나 정적 정렬 검사로 대체하지 않는다.
+
+## Phase 2 / 0.6.0
+
+[최종 보고서](../../LIBRARY_0_6.md), [개발 이력](../../LIBRARY_0_6_DEVELOPMENT.md).
+
+- `failed-f35d685`: 최초 build175 PASS, native API26 8/71 FAIL·API34/36 각3/71 FAIL, host NOT_RUN.
+- `failed-abee6a1`: build175 PASS, API26 2/72·API34 3/72 FAIL, API36 1/3 FAIL 뒤69 NOT_RUN. host NOT_RUN.
+- `verified-d93a268`: build175/세 API native72+host7 PASS. 이후 작은 생성 표지 글자 크기 보완.
+- `failed-525587e`: build175/API26·36 PASS, API34 같은 표지 재선택1/72 FAIL, host34 NOT_RUN.
+- `verified-fe29dea`: 반복 선택 성공 번호 보완 뒤 build175/세 API native72+host7 PASS.
+- `verified-a22970b`: 최종 캡처 보완 후 build40885971844 PASS175/device40885971811 세 API native72+host7 PASS.
+  fe29dea와 제품 소스는 동일하다. 원본 SHA/CRC/XML/source clean/외부 force-stop PID 교체 확인.
+  API26 `phase2-library.png`는 이전 편집 창 프레임으로 시각 증거에 사용하지 않는다. API34/36 서재 확인.
+  API26 책장 캡처는 필터 메뉴가 열린 모습이다. 원본을 편집하거나 삭제하지 않았다.
+- `package-a22970b`: 최종 같은 키 설치 시험용 APK/ZIP 감사. 실기기 설치·공개 배포 NOT_RUN.
+
+중간 API36 Compose 측정 재진입의 원인은 미확정이다. 후속 PASS만으로 원인 해결이라 부르지 않는다.

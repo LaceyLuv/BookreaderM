@@ -1,6 +1,6 @@
 # ADR 0008 — 서재 메타데이터·표지·책장
 
-상태: Phase 2 구현 중, 2026-10-24. [사용자 지침](../reference/BookReaderM_Product_Improvement_Request_2026-10-24.md).
+상태: 채택·구현·자동 검증 완료, 2026-10-29. [사용자 지침](../reference/BookReaderM_Product_Improvement_Request_2026-10-24.md).
 
 기존 Book의 title/author/coverKey를 사용하고 원본·locator·writer epoch 필드는 변경하지 않는다.
 Room5→6은 사용자 편집 우선권/읽기 상태/표지 프리셋, 책장, 다대다 연결, 서재 보기 설정의 별도 테이블만 추가한다.
@@ -24,7 +24,7 @@ Comic은 기존 decoder의 엔트리64MiB 제한과 별도 bitmap8MiB budget을 
 
 검증: 이전1–5 스키마 업그레이드/실패 롤백, 재시작 유지, 늦은 추출/편집 경합, 분류 롤백,
 포맷별 실제 추출·디코드/손상 입력/자원 한도, 실제 서재 UI와 전체 Reader 회귀를 각각 실행해 기록한다.
-이 문서는 구현·검증 완료 표시가 아니며 결과는 TASKS/WORKLOG를 따른다.
+a22970b build175/세 API native72+host7 PASS. 실기기 범위와 원본은 [최종 보고서](../LIBRARY_0_6.md)를 따른다.
 
 일괄 가져오기는 명시적 picker의 content grant만 최대64개 받아 기존 journal 기반 importer를 순차 호출한다.
 VIEW/SHARE는 기존 단일 URI 검증을 유지한다. 개별 파일 오류는 계속 처리하고 저장 공간/DB 오류는 중단한다.
