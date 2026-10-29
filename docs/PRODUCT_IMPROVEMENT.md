@@ -7,7 +7,8 @@
 ## 현재 단계
 
 [0.6.0 최종 보고서](LIBRARY_0_6.md): 서재2.0 구현과 build175/세 API native72+host7 자동 검증 PASS.
-Phase3은 별도 브랜치의 TXT 목차 분석기부터 착수했으며 JVM89 PASS, DB/UI는 연결 전이다.
+Phase3은 `codex/reader-070`에서 TXT 목차 DB/UI를 구현했고 build189/세 API native73+host7 PASS다.
+[현재 개발 결과](https://github.com/LaceyLuv/BookreaderM/blob/codex/reader-070/docs/READER_0_7.md)를 따른다.
 아래 감사 표는 **2026-10-24 구현 전 기준**이며 현재 단계 표와 구분한다.
 
 ## 구현 전 감사
@@ -52,7 +53,7 @@ READER_FONTS_0_5/QA_MATRIX/TESTING과 Android/shared/epubAndroid 소스·테스�
 | 감사 | 완료 | 위 코드 기준 분류. 기존 로컬 161개 PASS, 새 변경 결과와 구분 |
 | Phase 1 / 0.5.1 | 구현·자동 검증 완료 | [결과·실제 화면](UX_POLISH_0_5_1.md). 5a8aad2 build166, native63+host6/API26/34/36 PASS. 실기기 미실행 |
 | Phase 2 / 0.6.0 | 구현·자동 검증 완료 | a22970b build175, native72+host7/API26/34/36 PASS. [결과](LIBRARY_0_6.md), 실기기 미실행 |
-| Phase 3 / 0.7.0 | 착수 | bounded TXT 목차 분석기6개 포함 JVM89 PASS. DB/UI·도구·annotation은 후속 |
+| Phase 3 / 0.7.0 | 진행 중 | 별도 codex/reader-070 TXT 목차 build189/세 API native73+host7 PASS. 도구·annotation은 후속 |
 | Phase 4 / 0.8.0 | 대기 | 검증 가능한 backup/restore·기기/성능/접근성·전달/자동화. 실기기는 실제 자원 필요 |
 
 각 단계의 PASS는 실제 실행 범위만 의미한다. 구현만 끝난 항목이나 기기 실행 없이 compiled test를

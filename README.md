@@ -25,7 +25,8 @@ TXT 목차·형광펜·백업은 [제품 개선 계획](docs/PRODUCT_IMPROVEMENT
 **0.6.0 / a22970b**의 build175개와 API26/34/36 각각 native72+host7단계가 PASS입니다.
 [검증 원본](docs/evidence/product-quality/verified-a22970b/summary.json)을 보존했습니다.
 기존 키로 서명한 시험용 APK를 생성했으며 이전0.5.1 설치 파일도 유지합니다.
-Phase3의 TXT 목차 분석기는 별도 브랜치에서 개발 중이며 목차 UI·형광펜·백업은 아직 완료하지 않았습니다.
+후속 `codex/reader-070` 브랜치의 TXT 목차는 자동·수동/수정·제외/이동과 build189/세 API native73+host7 검증을 완료했습니다.
+[후속 개발 결과](https://github.com/LaceyLuv/BookreaderM/blob/codex/reader-070/docs/READER_0_7.md). 형광펜·도구 개편·백업은 미완료입니다.
 
 [설치 APK 안내](docs/INSTALLABLE_APK.md)와 [다운로드 운영 방안](docs/APK_DISTRIBUTION.md)을 확인하세요.
 GitHub 릴리스 첨부와 공개 배포는 아직 완료되지 않았습니다. unsigned APK/AAB는 직접 설치용이 아닙니다.
