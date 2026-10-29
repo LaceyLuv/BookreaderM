@@ -1,5 +1,9 @@
 # 모바일 검증 계약
 
+최신 검증: d93a268 build175/세 API native72+host7 PASS [원본](evidence/product-quality/verified-d93a268/summary.json).
+후속525587e의 build/API26/36은 PASS, API34 같은 표지 재선택1 FAIL·host NOT_RUN [원본](evidence/product-quality/failed-525587e/summary.json).
+선택 이벤트 번호 보완 후 compile/unit73/lint PASS이며 새 전체 matrix는 대기다. 기존 timeout/위치 assertion은 유지했다.
+
 후속 로컬 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain` exit0. Android unit73/테스트 APK 컴파일/lint PASS. [로그](evidence/product-quality/phase2-followup-local/phase2-reopen-jump-fixes-final.log). 실제 기기 검증과 구분한다.
 
 ## 2026-10-29 현재 Phase2 재검증

@@ -1,5 +1,12 @@
 # 2026-10-29 Phase2 두 번째 기기 실패 수정 후보
 
+최신: d93a268은 build40879397947 PASS175 및 device40879397948 세 API native72+host7 PASS,
+[원본 대조 완료](evidence/product-quality/verified-d93a268/summary.json).
+525587e는 build40879962358 PASS175, device40879962440 API26/36 PASS79/API, API34 동일 표지 재선택1/72 FAIL·host NOT_RUN.
+[원본](evidence/product-quality/failed-525587e/summary.json). 빠른 동일 key 재선택이 StateFlow에서 합쳐지는 경합을
+성공 선택 번호로 구분하도록 수정했다. compile/unit73/lint exit0(`phase2-cover-selection-version.log`).
+다음 소스 전체 matrix와 최종 패키지/보고서를 완료한다. 525587e APK는 검증 실패 후보로 보존했다.
+
 후속 d93a268의 build40879397947/device40879397948 실행 중에 실제 캡처에서 작은 생성 표지의
 큰 글자 잘림을 확인했다. 장식 표지만 폭에 맞게 조정하고 접근 가능한 카드 본문 배율은 보존했다.
 compile/unit73/lint exit0(`phase2-decorative-cover-size.log`). 최종 소스 matrix와 캡처 확인이 필요하다.

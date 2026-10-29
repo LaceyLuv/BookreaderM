@@ -66,6 +66,7 @@ data class AppUiState(
     val coverLoading: Boolean = false,
     val editorError: String? = null,
     val pendingCoverKey: String? = null,
+    val coverSelectionVersion: Long = 0,
     val shelvesVisible: Boolean = false,
     val batch: BatchImportUi? = null,
 )
@@ -334,7 +335,8 @@ class AppViewModel(
         coverJob = viewModelScope.launch {
             try {
                 val key = service.import(uri)
-                mutableState.update { if (it.editingBook?.id == book.id) it.copy(pendingCoverKey = key) else it }
+                mutableState.update { if (it.editingBook?.id == book.id) it.copy(pendingCoverKey = key,
+                    coverSelectionVersion = it.coverSelectionVersion + 1) else it }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutableState.update { it.copy(editorError = "표지를 읽지 못했습니다. 8MB 이하의 JPEG·PNG·WebP 파일을 선택해 주세요.") } }
             finally { mutableState.update { it.copy(coverLoading = false) } }

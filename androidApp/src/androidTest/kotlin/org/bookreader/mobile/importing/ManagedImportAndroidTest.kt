@@ -425,10 +425,12 @@ class ManagedImportAndroidTest {
             compose.onNodeWithTag("choose_book_cover").performScrollTo().performClick()
             compose.waitUntil(15_000) { currentAppState()?.pendingCoverKey!=null && currentAppState()?.coverLoading==false }
             val chosenKey=currentAppState()?.pendingCoverKey
+            val firstSelection=checkNotNull(currentAppState()).coverSelectionVersion
             compose.onNodeWithTag("cover_preset_2").performScrollTo().performClick().assertIsSelected()
             compose.onNodeWithTag("choose_book_cover").performScrollTo().performClick()
             compose.waitUntil(15_000) {
                 currentAppState()?.pendingCoverKey==chosenKey && currentAppState()?.coverLoading==false &&
+                    currentAppState()?.coverSelectionVersion==firstSelection+1 &&
                     compose.onNodeWithTag("cover_preset_2").fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.Selected]==false
             }
             captureFixtureScreenshot("phase2-book-editor")

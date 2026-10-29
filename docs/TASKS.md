@@ -1,5 +1,9 @@
 # BookReader Mobile — Codex 작업표
 
+현재 d93a268의 build175/세 API native72+host7은 모두 PASS다.
+후속525587e에서 API34 동일 표지 재선택1 FAIL을 보존하고 선택 성공 번호를 추가했다.
+[분석과 원본](LIBRARY_0_6.md). 수정 소스의 최종 matrix/화면/같은 키 APK 보고가 남아 있다.
+
 ## 2026-10-29 현재: Phase2 회귀 수정
 
 abee6a1 build40875430022 PASS175, device40875430229 FAIL(API26 2/72, API34 3/72, API36 1/3 후69 NOT_RUN).

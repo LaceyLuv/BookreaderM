@@ -191,7 +191,9 @@ internal fun BookEditor(state: AppUiState,actions: LibraryActions) {
         var status by remember { mutableStateOf(details.readingStatus) }
         var shelves by remember { mutableStateOf(state.catalog.memberships[book.id].orEmpty()) }
         var cover by remember { mutableStateOf<CoverEdit>(CoverEdit.Keep) }
-        LaunchedEffect(state.pendingCoverKey) { state.pendingCoverKey?.let { cover=CoverEdit.Image(it) } }
+        // StateFlow can conflate null -> the same cached key between two frames. A successful
+        // selection has its own version so reselecting an image still overrides a preset.
+        LaunchedEffect(state.pendingCoverKey,state.coverSelectionVersion) { state.pendingCoverKey?.let { cover=CoverEdit.Image(it) } }
         val busy=state.editorSaving||state.coverLoading
         AlertDialog(onDismissRequest=actions.dismissEditor,title={Text("책 정보 편집")},text={
             Column(Modifier.heightIn(max=420.dp).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(12.dp)) {

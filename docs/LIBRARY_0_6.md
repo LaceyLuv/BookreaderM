@@ -1,5 +1,18 @@
 # 서재 2.0 / 0.6.0 개발 기록
 
+## 2026-10-29 전체 통과 후보와 동일 표지 재선택 경합
+
+`d93a268` build40879397947 PASS175 / device40879397948 API26·34·36 각각 native72+host7 PASS.
+원본 digest/CRC/필수 XML/source clean/force-stop의 PID 종료·교체와 EPUB p179 표시를 확인했다.
+[검증 원본](evidence/product-quality/verified-d93a268/summary.json). API36 측정 재진입은 재발하지 않았으나 원인 해결로 확대하지 않는다.
+
+표지 폭 보완 `525587e` build40879962358 PASS175. device40879962440은 API26/36 native72+host7 PASS지만
+API34 native72 중 같은 이미지 재선택1 FAIL, host NOT_RUN이다. [원본](evidence/product-quality/failed-525587e/summary.json).
+동일 이미지가 빠르게 처리되면 StateFlow가 key→null→같은 key의 중간 상태를 합쳐 화면 effect가 실행되지 않을 수 있다.
+선택 성공마다 증가하는 `coverSelectionVersion`을 추가하고 편집 화면의 effect key에 포함했다.
+기존 실제 picker 재선택 검사는 선택 번호 증가·프리셋 해제·같은 이미지 키 저장까지 확인한다. timeout은15초를 유지했다.
+`phase2-cover-selection-version.log` compile/unit73/lint exit0. 이 수정 소스의 전체 matrix를 다시 확인한다.
+
 실제 API34 캡처에서 큰 글자 모드의82dp 생성 표지 내부 글자가 잘리는 것을 확인했다.
 장식 표지는 작은 크기에 맞춘 글꼴/줄 수와 고정 글자 배율을 사용하고, 카드 본문의 접근 가능한
 제목·작가·버튼은 시스템 글자 크기를 그대로 따른다. 더 작은 이어읽기 표지는 형식 첫 글자를 표시한다.

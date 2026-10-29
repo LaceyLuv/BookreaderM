@@ -1,5 +1,11 @@
 # M00 작업 기록
 
+2026-10-29: `verify.py d93a268cb4d554641ec3892c060cdd9689685794 40879397947 40879397948` exit0.
+build175/세 API native72+host7, source clean/원본 SHA/필수 XML/PID 교체 및 p179 확인.
+후속525587e도 build175와 API26/36 PASS79지만 API34 표지 재선택1/72 FAIL을 별도 보존했다.
+같은 key 선택의 중간 null이 StateFlow에서 합쳐지는 경합을 성공 번호로 구분했다. 기존 실제 picker 검사에 번호 증가 assertion을 추가했다.
+compile/unit73/lint exit0: [로그](evidence/product-quality/phase2-followup-local/phase2-cover-selection-version.log).
+
 API34의 Phase2 편집/서재/큰 글자 다크 캡처를 직접 확인했다. 큰 글자에서 작은 장식 표지 글자가 잘려
 표지 폭에 맞는 타이포그래피로 보완했다. 본문 제목/작가/버튼의 시스템 글자 크기는 유지한다.
 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug --console=plain`
