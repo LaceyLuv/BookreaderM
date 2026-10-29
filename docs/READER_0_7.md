@@ -1,6 +1,6 @@
 # 독서 경험 강화 / 0.7.0 개발 기록
 
-## 2026-10-29 현재: TXT 목차 연결, 기기 검증 전
+## 2026-10-29 현재: TXT 목차 단위 자동 검증 완료
 
 `0.7.0-dev`/code8, Room7. [ADR0009](adr/0009-txt-toc-overrides.md).
 목차 버튼에서 자동 후보와 현재 회차를 보고 이동하며, 제목 수정·제외/복구·현재 위치 수동 추가를 구현했다.
@@ -12,7 +12,8 @@
 `TxtReaderToc.kt`, `ReaderTocDialog.kt`, `TxtReaderController.kt`, `TxtReaderScreen.kt`, `AndroidStores.kt`.
 실제 UI 검사는 새 `TxtReaderFlowTest`에서 편집/제외/복구/수동 추가/정확한 이동/재열기/원본 해시를 확인한다.
 기존 TXT host flow에 목차의 실제 외부 force-stop 후 복원과 원본 진행도 불변 검사를 추가했다.
-새 UI 캡처는 `phase3-txt-toc.png`; 아직 기기 실행 전이며 완성 화면처럼 합성하지 않는다.
+새 실제 UI 캡처는 아래 API36 원본이다. API26/34에는 닫히는 추가 창의 프레임이 남아
+최종 목록의 시각 증거로 사용하지 않는다. 그 원본도 삭제/편집하지 않았다.
 [자체 생성 fixture 출처·해시](../fixtures/txt-toc-manifest.json).
 
 로컬 shared95/Android unit75, APK 테스트 소스 컴파일/lint PASS. 정확한 명령은
@@ -21,7 +22,26 @@
 `global` 대신 `library`로 넣은 오류였다. 실제 계약에 맞춰 수정했고 실패 XML도 보존했다.
 필수 사례의 JVM 이름은 검사기가 정규화하는 `[jvm]` 없는 이름으로 등록했다.
 전체 로컬 CI exit0, Android75/shared95/EPUB16=186개와 APK/test APK/lint/schema7 PASS.
-API26/34/36 native73+host7 및 ENOSPC는 원격 검증 대기다.
+제품/테스트 source `05ffd50ab8213ec9563a92149b6ed1930c510c3b`.
+[build40892825363](https://github.com/LaceyLuv/BookreaderM/actions/runs/40892825363) PASS189(실제 ENOSPC3 포함),
+[device40892825193](https://github.com/LaceyLuv/BookreaderM/actions/runs/40892825193) API26/34/36 각각 native73+host7 PASS.
+[원본 요약](evidence/product-quality/verified-05ffd50/summary.json)의 artifact SHA/CRC, 필수 XML, source clean,
+실제 force-stop/PID 부재·교체를 대조했다. 기존 EPUB p179와 TXT/Comic 위치 회귀도 유지했다.
+`python3 /workspace/work/bookreaderm-product-quality/verify-phase3.py 05ffd50ab8213ec9563a92149b6ed1930c510c3b 40892825363 40892825193` exit0.
+`./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit0. 설치 배포는 하지 않았다.
+
+이전 TXT 도구는 검색·북마크·위치 이동이었으며, 이제 회차 목록에서 현재 항목을 보고 직접 편집/이동한다.
+![실제 API36 TXT 목차](evidence/product-quality/verified-05ffd50/40892825193/mobile-device-evidence-api-36/build/device-evidence/fixture-screenshots/phase3-txt-toc.png)
+
+Room6→7은 목차 수정 테이블만 추가하며 기존11개 테이블 정의는 동일하다.
+[기존 locator/progress/cache/page/font/Readium 소스 불변](evidence/product-quality/phase3-toc-local/preserved-contracts.json).
+기존1–6 스키마 migration/롤백, 미래 값·오래된 세션·동시 수정·삭제된 책·한도/DB 오류를 검사했다.
+원본·독서 기록·북마크·설정·서재 분류를 수정하지 않는다. 사용자 책/URI/키를 CI에 올리지 않았다.
+
+남은 한계: 자동 감지는 보수적인 후보이며 모든 소설의 제목 형식을 인식하지 않는다.
+자동 후보5,000/수정1,000/제목120 UTF-16 단위 한도가 있다. 실기기 성능·TalkBack·전체 사용자 파일은 NOT_RUN이다.
+중간 Phase2의 API36 Compose 측정 재진입 원인은 여전히 미확정이며 이번 전체 실행에서는 재발하지 않았다.
+다음은 기존 overlay와 저장 경로를 재사용한 도구/빠른 설정, 정확한 선택 구간을 저장하는 형광펜/메모다.
 
 형광펜/메모, 독서 도구 재설계·빠른 설정과 Phase4는 미완료다. 검증된0.6.0 APK/브랜치는 별도로 보존한다.
 

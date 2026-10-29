@@ -1,3 +1,24 @@
+## 2026-10-29 최신: TXT 목차 단위 구현·자동 검증 완료
+
+작업 위치 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`, source `05ffd50ab8213ec9563a92149b6ed1930c510c3b`.
+0.7.0-dev/code8/Room7. [구현·화면·남은 범위](READER_0_7.md).
+build40892825363 PASS189(Android75/shared95/EPUB16/실제 ENOSPC3),
+device40892825193 API26/34/36 각각 native73+host7 PASS, 실패·오류·skip0.
+[원본 대조](evidence/product-quality/verified-05ffd50/summary.json): digest/CRC/XML/source clean/필수 사례,
+외부 force-stop 뒤 PID 부재·교체와 EPUB 실제 p179 확인, `verify-phase3.py` exit0.
+새 TXT 목차의 수정/제외/복구/수동 추가/정확한 이동/재열기와 host 강제 종료 복원을 검사했다.
+로컬 CI186 및 릴리스 APK/AAB 컴파일 PASS. 키와 기존0.5.1/0.6.0 APK/main은 보존했다.
+API36 실제 목차 목록 캡처 확인. API26/34 이미지에는 닫히는 추가 창이 남아 최종 목록의 시각 증거로 사용하지 않는다.
+
+다음 작업은 도구 UI/빠른 설정, 정확한 TXT·EPUB 선택 범위에 기반한 형광펜·메모다.
+현재 책별 override는 읽기 방식/만화 방향/맞춤이며, 글자/색상/밝기는 전체 기본값이다. 기존 저장·복원 경로를 재사용한다.
+형광펜/메모·Phase4 백업/복원·실기기 성능/접근성·공개 배포는 미완료다. 0.7.0 전체 완료가 아니다.
+이 버전의 설치 배포는 하지 않았다. 0.6.0의 기존 키 설치 파일은 `codex/library-060`과 INSTALLABLE_APK에 보존한다.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 현재 소스/증거를 reset/clean하거나 앱 데이터를 삭제하지 않는다.
+실행 ID/helper는 `/workspace/work/bookreaderm-product-quality/phase3-current.json`, `ci/`, `verify-phase3.py`다.
+
+아래는 당시 상태를 보존한 이력이다. 다음 세션은 이 최신 절을 먼저 따른다.
+
 ## 2026-10-29 현재 Phase3: TXT 목차 구현·로컬186 PASS, 기기 검증 대기
 
 작업 위치 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`, `0.7.0-dev`/code8/Room7.

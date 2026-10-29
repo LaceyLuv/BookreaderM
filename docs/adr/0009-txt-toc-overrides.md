@@ -1,6 +1,6 @@
 # ADR 0009 — TXT 목차의 파생 후보와 사용자 수정
 
-상태: 구현, 로컬 검증 진행. 2026-10-29. [사용자 계획](../reference/BookReaderM_Product_Improvement_Request_2026-10-24.md).
+상태: TXT 목차 단위 구현·자동 검증 완료. 2026-10-29. [사용자 계획](../reference/BookReaderM_Product_Improvement_Request_2026-10-24.md).
 
 자동 목차는 기존 canonical UTF-16 위치에서 만드는 파생 결과다. Reader가 준비된 뒤 목차를 열면
 Reader 소유 코루틴에서 분석하며 UI를 막지 않는다. 전체 본문을 메모리에 올리거나 원본에 쓰지 않는다.

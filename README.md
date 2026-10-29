@@ -25,8 +25,9 @@ TXT 목차·형광펜·백업은 [제품 개선 계획](docs/PRODUCT_IMPROVEMENT
 **0.6.0 / a22970b**의 build175개와 API26/34/36 각각 native72+host7단계가 PASS입니다.
 [검증 원본](docs/evidence/product-quality/verified-a22970b/summary.json)을 보존했습니다.
 기존 키로 서명한 시험용 APK를 생성했으며 이전0.5.1 설치 파일도 유지합니다.
-현재 브랜치의 **0.7.0-dev**에서는 TXT 자동·수동 목차와 수정/제외/이동을 연결했고 로컬186개 검사가 PASS입니다.
-[0.7.0 진행 기록](docs/READER_0_7.md)의 실제 기기 검증이 남아 있습니다. 형광펜·독서 도구 개편·백업은 후속 작업입니다.
+현재 브랜치의 **0.7.0-dev**는 TXT 자동·수동 목차와 수정/제외/이동을 구현했고,
+원격 build189개/API26·34·36 각각 native73+host7 검사가 PASS입니다.
+[0.7.0 구현·실제 화면·남은 범위](docs/READER_0_7.md)를 확인하세요. 형광펜·독서 도구 개편·백업은 후속 작업입니다.
 
 [설치 APK 안내](docs/INSTALLABLE_APK.md)와 [다운로드 운영 방안](docs/APK_DISTRIBUTION.md)을 확인하세요.
 GitHub 릴리스 첨부와 공개 배포는 아직 완료되지 않았습니다. unsigned APK/AAB는 직접 설치용이 아닙니다.

@@ -37,3 +37,13 @@ ZIP/APK 바이너리는 중복 커밋하지 않고 XML/로그/화면/JSON/체크
 - `package-a22970b`: 최종 같은 키 설치 시험용 APK/ZIP 감사. 실기기 설치·공개 배포 NOT_RUN.
 
 중간 API36 Compose 측정 재진입의 원인은 미확정이다. 후속 PASS만으로 원인 해결이라 부르지 않는다.
+
+## Phase3 TXT 목차 단위
+
+- `phase3-toc-scanner-local`: 최초 scanner6개 포함 shared89 PASS.
+- `phase3-toc-local`: 최초 migration fixture 키 오류1 FAIL과 수정 후 로컬186 PASS, 릴리스 컴파일/기존 계약 불변 확인.
+- `verified-05ffd50`: build40892825363 PASS189, device40892825193 API26/34/36 각각 native73+host7 PASS.
+  SHA/CRC/XML/source clean/필수 사례/실제 PID 교체를 대조했다. 새 목차 저장·이동·재열기·force-stop 복원 포함.
+  API36 실제 목차 목록 확인. API26/34 `phase3-txt-toc.png`는 닫히는 추가 창 프레임이므로 최종 목록의 시각 증거로 사용하지 않는다.
+
+형광펜·도구 개편·백업·실기기·0.7.0 전체 완료를 뜻하지 않는다. [범위와 실제 화면](../../READER_0_7.md).
