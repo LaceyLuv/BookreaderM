@@ -1,3 +1,11 @@
+## 2026-10-30 APK 전달 준비
+
+사용자가 요청한 최신0.7.0-dev APK를 기존 키로 서명하고20MB 미만 ZIP으로 묶었다.
+파일: `/workspace/artifacts/BookreaderM/05ffd50/installable/BookreaderM-0.7.0-dev-test-signed.zip`.
+APK SHA256 `b58061b17b41335c17ac7d662be1d325092ab19db49e3284570eabd1e44454bc`.
+서명/기존 키·0.5.1/0.6.0 파일 보존/ZIP CRC PASS. 실제 다운로드·설치는 미확인, 공개 릴리스 미게시.
+자세한 기록은 `/workspace/BookreaderM-reader-070/docs/INSTALLABLE_APK.md`와 `package-05ffd50` 증거를 따른다.
+
 ## 2026-10-29 최신: TXT 목차 단위 구현·자동 검증 완료
 
 작업 위치 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`, source `05ffd50ab8213ec9563a92149b6ed1930c510c3b`.
