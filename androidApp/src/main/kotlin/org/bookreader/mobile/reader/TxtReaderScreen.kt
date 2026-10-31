@@ -1,5 +1,6 @@
 package org.bookreader.mobile.reader
 
+import org.bookreader.mobile.R
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.layout.Arrangement
@@ -249,15 +250,17 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
             onClose, { controlsVisible = false }, !touchExploration,
             previous = if (scrollMode) list.canScrollBackward && state.phase == TxtReaderPhase.READY else pageAvailability.first,
             next = if (scrollMode) list.canScrollForward && state.phase == TxtReaderPhase.READY else pageAvailability.second,
-            onPrevious = { move(-1) }, onNext = { move(1) }) {
+            onPrevious = { move(-1) }, onNext = { move(1) }, onSeek = { showMenu = true }) {
             FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                TextButton(onClick = { showSettings = true }, modifier = Modifier.testTag("reader_settings")) { Text("글자·화면") }
-                TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showSearch = true }, modifier = Modifier.testTag("reader_search")) { Text("검색") }
-                TextButton(enabled = state.phase == TxtReaderPhase.READY, onClick = { showBookmarks = true }, modifier = Modifier.testTag("reader_bookmarks")) { Text("북마크") }
-                TextButton(enabled = state.phase == TxtReaderPhase.READY && state.cache.complete, onClick = { showToc = true }, modifier = Modifier.testTag("reader_toc")) { Text("목차") }
-                TextButton(onClick = { showMenu = true }, modifier = Modifier.testTag("reader_menu")) { Text("위치 이동") }
-                if (toolsState.returnOffset != null) TextButton(enabled = state.phase == TxtReaderPhase.READY,
-                    onClick = controller.tools::returnFromSearch, modifier = Modifier.testTag("reader_search_return")) { Text("검색 전 위치") }
+                ReaderToolButton("목차", R.drawable.ic_reader_toc, "reader_toc",
+                    state.phase == TxtReaderPhase.READY && state.cache.complete) { showToc = true }
+                ReaderToolButton("검색", R.drawable.ic_reader_search, "reader_search",
+                    state.phase == TxtReaderPhase.READY) { showSearch = true }
+                ReaderToolButton("북마크", R.drawable.ic_reader_bookmark, "reader_bookmarks",
+                    state.phase == TxtReaderPhase.READY) { showBookmarks = true }
+                ReaderToolButton("읽기 설정", R.drawable.ic_reader_text, "reader_settings") { showSettings = true }
+                if (toolsState.returnOffset != null) ReaderToolButton("검색 전 위치", R.drawable.ic_reader_return,
+                    "reader_search_return", state.phase == TxtReaderPhase.READY, controller.tools::returnFromSearch)
             }
         }
         Column(Modifier.align(Alignment.Center).padding(16.dp)) {

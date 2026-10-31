@@ -1,3 +1,16 @@
+## 2026-10-31 진행 중 — 읽기 도구·빠른 설정
+
+`/workspace/BookreaderM-reader-070`, `codex/reader-070`. [현재 단위와 검증 범위](READER_0_7.md).
+도구 아이콘/위치 이동 영역, 기존 draft 기반 빠른 설정/추가 설정 분리와 상속 시 다른 책별 옵션 보존을 구현했다.
+새 실제 UI1개를 포함한 native74+host7/API 검증 대기. 아직 기기 PASS가 아니다.
+환경 doctor/첫 컴파일/lint 및 전체 로컬 CI exit0. Android75/shared95/EPUB16=186 PASS, APK/test APK/lint/schema7 PASS.
+명령 `BOOKREADER_EVIDENCE_DIR=build/phase3-controls-local ./scripts/ci-check.sh`. [원본](evidence/product-quality/phase3-controls-local/summary.json).
+원본 로그 `/workspace/work/bookreaderm-product-quality/phase3-controls/`, 로컬 증거 `build/phase3-controls-local/`.
+DB7/진행도/원본/키/기존05ffd50 설치 APK를 유지한다. 형광펜/메모와 Phase4는 미완료다.
+매 shell `source /workspace/toolchains/mobile-env.sh`; 다음은 전체 CI/API26·34·36 결과·실제 화면 대조다.
+
+이하 이전 상태는 이력이다.
+
 ## 2026-10-29 최신: TXT 목차 단위 구현·자동 검증 완료
 
 작업 위치 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`, source `05ffd50ab8213ec9563a92149b6ed1930c510c3b`.

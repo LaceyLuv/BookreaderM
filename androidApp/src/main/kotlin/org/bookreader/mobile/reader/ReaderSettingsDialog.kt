@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -30,9 +31,10 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
     var global by remember(loaded) { mutableStateOf(loaded?.global ?: ReaderSettings()) }
     var preferences by remember(loaded) { mutableStateOf(loaded?.book ?: BookReaderPreferences()) }
     var fontBusy by remember { mutableStateOf(false) }
+    var advanced by remember { mutableStateOf(false) }
     AlertDialog(onDismissRequest = onDismiss, title = { Column {
-        Text("읽기 설정")
-        Text("글자·색상·읽기 방식을 조절하세요", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("빠른 읽기 설정")
+        Text("적용을 누르면 본문에 반영됩니다", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     } }, modifier = Modifier.widthIn(max = 560.dp).fillMaxWidth(.94f),
         properties = DialogProperties(usePlatformDefaultWidth = false),
         text = {
@@ -41,7 +43,9 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                     Text("설정을 읽거나 저장하지 못했습니다. 기존 설정은 보존됩니다.")
                     TextButton(onClick = onRetry) { Text("다시 읽기") }
                 }
-                ReaderSettingsSection("이 책의 읽기 방식") {
+                ReaderSettingsSection("이 책에만 · 읽기 방식") {
+                Text(if (preferences.readingMode == null) "전체 기본값을 따르는 중" else "이 책에 따로 설정됨",
+                    style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("reader_mode_scope"))
                 FlowRow {
                     TxtReadingMode.entries.forEach { mode ->
                         FilterChip(selected = (preferences.readingMode ?: global.readingMode) == mode,
@@ -50,13 +54,17 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                             modifier = Modifier.testTag("reader_mode_${mode.name}"))
                     }
                 }
-                TextButton(onClick = { preferences = BookReaderPreferences() }) { Text("읽기 방식 기본값 상속") }
+                TextButton(onClick = { preferences = preferences.copy(readingMode = null) },
+                    modifier = Modifier.testTag("reader_mode_inherit")) { Text("전체 기본값 따르기") }
                 }
-                ReaderSettingsSection("글자와 간격 · 모든 책의 기본값") {
+                Text("아래 항목은 모든 책의 기본값입니다", style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.testTag("reader_global_scope"))
+                ReaderSettingsSection("글자와 간격") {
                 Surface(color = global.theme.paperColor(), contentColor = global.theme.inkColor(), shape = RoundedCornerShape(12.dp)) {
                     Text("책 속으로, 한 걸음 더.\n편안한 속도로 읽어 보세요.", Modifier.fillMaxWidth().padding(16.dp).testTag("reader_settings_preview"),
                         fontSize = global.fontSizeSp.sp, lineHeight = (global.fontSizeSp * global.lineHeight).sp,
-                        fontFamily = global.composeFamily(), fontWeight = androidx.compose.ui.text.font.FontWeight(global.fontWeight.value))
+                        fontFamily = global.composeFamily(), fontWeight = androidx.compose.ui.text.font.FontWeight(global.fontWeight.value),
+                        letterSpacing = global.letterSpacingEm.em)
                 }
                 FlowRow {
                     ReaderFont.entries.forEach { font -> FilterChip(selected = global.customFontId == null && global.font == font,
@@ -64,32 +72,24 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                         modifier = Modifier.testTag("reader_font_${font.name}"),
                         label = { Text(font.label, fontFamily = font.composeFamily()) }) }
                 }
-                CustomFontSettings(global, loaded?.global?.customFontId, epubMode, onBusy = { fontBusy = it }) { global = it }
+                if (global.customFontId != null) Text("내 글꼴 사용 중 · 추가 설정에서 관리", style = MaterialTheme.typography.bodySmall)
+                ReaderFontWeightSettings(global, epubMode) { global = it }
+                if (epubMode) Text(if (global.epubPublisherStyles) "출판사 스타일 사용 중 · 글꼴·굵기·행간을 바꾸면 내 설정을 적용합니다."
+                    else "내 글자 설정 사용 중", style = MaterialTheme.typography.bodySmall)
                 SettingStepper(if (epubMode) "글자 배율" else "글자 크기", if (epubMode) "${(global.fontSizeSp / 18f * 100).roundToInt()}%" else "${global.fontSizeSp.roundToInt()} sp", "font_size",
                     global.fontSizeSp > 12, global.fontSizeSp < 36,
                     { global = global.copy(fontSizeSp = (global.fontSizeSp - 1).coerceAtLeast(12f)) },
                     { global = global.copy(fontSizeSp = (global.fontSizeSp + 1).coerceAtMost(36f)) })
                 SettingStepper("행간", "${(global.lineHeight * 100).roundToInt()}%", "line_height",
                     global.lineHeight > 1, global.lineHeight < 2,
-                    { global = global.copy(lineHeight = (global.lineHeight - .1f).coerceAtLeast(1f)) },
-                    { global = global.copy(lineHeight = (global.lineHeight + .1f).coerceAtMost(2f)) })
-                SettingStepper("자간", "${(global.letterSpacingEm * 100).roundToInt()}%", "letter_spacing",
-                    global.letterSpacingEm > (if (epubMode) 0f else -.02f), global.letterSpacingEm < .10f,
-                    { global = global.copy(letterSpacingEm = (global.letterSpacingEm - .01f).coerceAtLeast(if (epubMode) 0f else -.02f)) },
-                    { global = global.copy(letterSpacingEm = (global.letterSpacingEm.coerceAtLeast(if (epubMode) 0f else -.02f) + .01f).coerceAtMost(.10f)) })
-                if (epubMode) {
-                    WindowToggle("출판사 스타일 유지", "epub_publisher_styles", global.epubPublisherStyles) {
-                        global = global.copy(epubPublisherStyles = it)
-                    }
-                    if (global.epubPublisherStyles) Text("출판사 스타일을 끄면 글꼴·굵기·행간·자간 설정을 우선 적용합니다.")
-                }
-                if (epubMode && global.letterSpacingEm < 0) Text("이 EPUB의 자간은 0으로 표시합니다. 저장된 TXT 기본값은 유지됩니다.")
+                    { global = global.copy(lineHeight = (global.lineHeight - .1f).coerceAtLeast(1f), epubPublisherStyles = if (epubMode) false else global.epubPublisherStyles) },
+                    { global = global.copy(lineHeight = (global.lineHeight + .1f).coerceAtMost(2f), epubPublisherStyles = if (epubMode) false else global.epubPublisherStyles) })
                 SettingStepper(if (epubMode) "여백 배율" else "좌우 여백", if (epubMode) "${(global.marginDp / 16f * 100).roundToInt()}%" else "${global.marginDp} dp", "margin",
                     global.marginDp > 8, global.marginDp < 40,
                     { global = global.copy(marginDp = (global.marginDp - 4).coerceAtLeast(8)) },
                     { global = global.copy(marginDp = (global.marginDp + 4).coerceAtMost(40)) })
                 }
-                ReaderSettingsSection("본문 색상") {
+                ReaderSettingsSection("본문 색상 · 모든 책의 기본값") {
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         ReaderTheme.entries.forEach { theme ->
                             val label = when (theme) { ReaderTheme.LIGHT -> "밝게"; ReaderTheme.SEPIA -> "세피아"; ReaderTheme.DARK -> "어둡게"; ReaderTheme.OLED -> "검정" }
@@ -102,6 +102,35 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                     }
                 }
                 ReaderTransitionSettings(global.pageTransition) { global = global.copy(pageTransition = it) }
+                ReaderSettingsSection("화면 밝기") {
+                SettingStepper("창 밝기", global.window.brightness?.let { "${(it * 100).roundToInt()}%" } ?: "시스템 기본값",
+                    "window_brightness", (global.window.brightness ?: .5f) > .05f, (global.window.brightness ?: .5f) < 1f,
+                    { global = global.copy(window = global.window.copy(brightness = ((global.window.brightness ?: .5f) - .1f).coerceAtLeast(.05f))) },
+                    { global = global.copy(window = global.window.copy(brightness = ((global.window.brightness ?: .5f) + .1f).coerceAtMost(1f))) })
+                TextButton(onClick = { global = global.copy(window = global.window.copy(brightness = null)) },
+                    modifier = Modifier.testTag("window_brightness_system")) { Text("시스템 밝기 사용") }
+                }
+                TextButton(onClick = { advanced = !advanced }, enabled = !fontBusy,
+                    modifier = Modifier.fillMaxWidth().testTag("reader_settings_advanced")) {
+                    Text(if (advanced) "추가 설정 접기" else "추가 설정 · 내 글꼴·자간·화면 동작")
+                }
+                if (advanced) {
+                    ReaderSettingsSection("내 글꼴 · 모든 책의 기본값") {
+                        CustomFontSettings(global, loaded?.global?.customFontId, epubMode, onBusy = { fontBusy = it }) { global = it }
+                    }
+                    ReaderSettingsSection("세부 글자 설정") {
+                SettingStepper("자간", "${(global.letterSpacingEm * 100).roundToInt()}%", "letter_spacing",
+                    global.letterSpacingEm > (if (epubMode) 0f else -.02f), global.letterSpacingEm < .10f,
+                    { global = global.copy(letterSpacingEm = (global.letterSpacingEm - .01f).coerceAtLeast(if (epubMode) 0f else -.02f), epubPublisherStyles = if (epubMode) false else global.epubPublisherStyles) },
+                    { global = global.copy(letterSpacingEm = (global.letterSpacingEm.coerceAtLeast(if (epubMode) 0f else -.02f) + .01f).coerceAtMost(.10f), epubPublisherStyles = if (epubMode) false else global.epubPublisherStyles) })
+                if (epubMode) {
+                    WindowToggle("출판사 스타일 유지", "epub_publisher_styles", global.epubPublisherStyles) {
+                        global = global.copy(epubPublisherStyles = it)
+                    }
+                    if (global.epubPublisherStyles) Text("출판사 스타일을 끄면 글꼴·굵기·행간·자간 설정을 우선 적용합니다.")
+                }
+                if (epubMode && global.letterSpacingEm < 0) Text("이 EPUB의 자간은 0으로 표시합니다. 저장된 TXT 기본값은 유지됩니다.")
+                    }
                 ReaderSettingsSection("기본 동작") {
                 Text("기본 읽기 방식")
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { TxtReadingMode.entries.forEach { mode -> FilterChip(selected = global.readingMode == mode,
@@ -115,34 +144,32 @@ fun ReaderSettingsDialog(state: TxtReaderState, onRetry: () -> Unit,
                 WindowToggle("현재 방향 유지 요청", "reader_rotation_lock_option", global.window.lockRotation) {
                     global = global.copy(window = global.window.copy(lockRotation = it)) }
                 Text("큰 화면에서는 기기 설정에 따라 회전 요청이 적용되지 않을 수 있습니다.")
-                SettingStepper("창 밝기", global.window.brightness?.let { "${(it * 100).roundToInt()}%" } ?: "시스템 기본값",
-                    "window_brightness", (global.window.brightness ?: .5f) > .05f, (global.window.brightness ?: .5f) < 1f,
-                    { global = global.copy(window = global.window.copy(brightness = ((global.window.brightness ?: .5f) - .1f).coerceAtLeast(.05f))) },
-                    { global = global.copy(window = global.window.copy(brightness = ((global.window.brightness ?: .5f) + .1f).coerceAtMost(1f))) })
-                TextButton(onClick = { global = global.copy(window = global.window.copy(brightness = null)) }) { Text("시스템 밝기 사용") }
                 }
+                }
+
             }
         },
         confirmButton = { Button(enabled = loaded != null && !state.settingsError && !state.settingsSaving && !fontBusy &&
             state.phase == TxtReaderPhase.READY, modifier = Modifier.testTag("reader_settings_apply"),
             onClick = { onSave(global, preferences); onDismiss() }) { Text("적용") } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("닫기") } })
+        dismissButton = { TextButton(onClick = onDismiss, modifier = Modifier.testTag("reader_settings_close")) { Text("취소") } })
 }
 
 @Composable
 private fun SettingStepper(label: String, value: String, tag: String, canDecrease: Boolean, canIncrease: Boolean,
     decrease: () -> Unit, increase: () -> Unit) {
-    Column(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-        Text(label, style = MaterialTheme.typography.labelLarge)
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            FilledTonalButton(onClick = decrease, enabled = canDecrease,
-                modifier = Modifier.testTag("${tag}_decrease").semantics { contentDescription = "$label 줄이기" },
-                contentPadding = PaddingValues(8.dp)) { Text("−") }
-            Text(value, Modifier.weight(1f), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
-            FilledTonalButton(onClick = increase, enabled = canIncrease,
-                modifier = Modifier.testTag("${tag}_increase").semantics { contentDescription = "$label 늘리기" },
-                contentPadding = PaddingValues(8.dp)) { Text("+") }
+    Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(Modifier.weight(1f)) {
+            Text(label, style = MaterialTheme.typography.labelLarge)
+            Text(value, style = MaterialTheme.typography.bodySmall)
         }
+        FilledTonalButton(onClick = decrease, enabled = canDecrease,
+            modifier = Modifier.defaultMinSize(minWidth = 48.dp, minHeight = 48.dp).testTag("${tag}_decrease")
+                .semantics { contentDescription = "$label 줄이기" }, contentPadding = PaddingValues(8.dp)) { Text("−") }
+        FilledTonalButton(onClick = increase, enabled = canIncrease,
+            modifier = Modifier.defaultMinSize(minWidth = 48.dp, minHeight = 48.dp).testTag("${tag}_increase")
+                .semantics { contentDescription = "$label 늘리기" }, contentPadding = PaddingValues(8.dp)) { Text("+") }
     }
 }
 

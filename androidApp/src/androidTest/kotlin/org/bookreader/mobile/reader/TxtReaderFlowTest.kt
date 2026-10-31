@@ -154,6 +154,84 @@ class TxtReaderFlowTest {
         assertEquals(hash,digest(file));assertEquals(jumped,saved(book))
     }
 
+    @Test fun quickSettingsCancelAndApplyPreserveExactProgressAndUnrelatedBookPreferences() {
+        val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
+        try {
+            sendFixture("reader-pages"); waitFor("reader_ready")
+            val active = reader()
+            val access = org.bookreader.mobile.settings.ReaderSettingsRepository(observerDatabase)
+            val defaults = org.bookreader.mobile.settings.ReaderSettings()
+            val preferences = org.bookreader.mobile.settings.BookReaderPreferences(
+                readingMode = org.bookreader.mobile.settings.TxtReadingMode.SCROLL,
+                comicDirection = org.bookreader.mobile.settings.ComicDirection.RTL,
+                comicFit = org.bookreader.mobile.settings.ComicFit.WIDTH)
+            val expectedLoaded = requireNotNull(active.state.value.settingsLoaded)
+            assertEquals(org.bookreader.mobile.settings.ReaderSettingsWrite.SAVED,
+                runBlocking { access.save(expectedLoaded, defaults, preferences) })
+            compose.runOnIdle { active.retrySettings() }
+            compose.waitUntil(15_000) { active.state.value.let {
+                it.phase == TxtReaderPhase.READY && it.settingsLoaded?.book == preferences && it.settings == defaults.copy(
+                    comicDirection = preferences.comicDirection!!, comicFit = preferences.comicFit!!) }
+            }
+            compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+            compose.waitForIdle()
+            val anchor = measuredVisibleLine(active)
+            compose.waitUntil(10_000) { saved(active.book)?.let { offset(it) == anchor && anchor > 0 } == true }
+            val before = requireNotNull(saved(active.book))
+            val rows = runBlocking { observerDatabase.readerSettingsDao().read(active.book.id) }
+            val bounds = compose.onNodeWithTag("reader_ready").fetchSemanticsNode().boundsInRoot
+            val generation = active.state.value.restoreGeneration
+            compose.readerControl("reader_settings").performClick()
+            compose.onNodeWithTag("reader_font_import").assertDoesNotExist()
+            compose.onNodeWithTag("reader_mode_PAGES").performClick()
+            compose.onNodeWithTag("font_size_increase").performScrollTo().performClick()
+            compose.onNodeWithTag("reader_weight_BOLD").performScrollTo().performClick()
+            compose.onNodeWithTag("reader_theme_SEPIA").performScrollTo().performClick()
+            compose.onNodeWithTag("window_brightness_increase").performScrollTo().performClick()
+            assertEquals(rows, runBlocking { observerDatabase.readerSettingsDao().read(active.book.id) })
+            assertEquals(before, saved(active.book))
+            compose.onNodeWithTag("reader_settings_close").performClick()
+            compose.waitForIdle()
+            assertEquals(generation, active.state.value.restoreGeneration)
+            assertEquals(bounds, compose.onNodeWithTag("reader_ready").fetchSemanticsNode().boundsInRoot)
+            assertEquals(rows, runBlocking { observerDatabase.readerSettingsDao().read(active.book.id) })
+            assertEquals(before, saved(active.book))
+            ReaderFixtureScreenshot.capture("phase3-reader-tools.png")
+
+            compose.readerControl("reader_settings").performClick()
+            compose.onNodeWithTag("reader_mode_inherit").performScrollTo().performClick()
+            for (tag in listOf("font_size_increase", "line_height_increase", "margin_increase",
+                "reader_font_SERIF", "reader_weight_BOLD", "reader_theme_SEPIA", "reader_transition_SLIDE", "window_brightness_increase")) {
+                compose.onNodeWithTag(tag).performScrollTo().performClick()
+            }
+            compose.onNodeWithTag("font_size_increase").performScrollTo().assertIsDisplayed()
+            ReaderFixtureScreenshot.capture("phase3-reader-quick-settings.png")
+            compose.onNodeWithTag("reader_settings_apply").performClick()
+            val expected = defaults.copy(fontSizeSp = 19f, lineHeight = 1.7f, marginDp = 20,
+                font = org.bookreader.mobile.settings.ReaderFont.SERIF,
+                fontWeight = org.bookreader.mobile.settings.ReaderFontWeight.BOLD,
+                theme = org.bookreader.mobile.settings.ReaderTheme.SEPIA,
+                pageTransition = org.bookreader.mobile.settings.PageTransition.SLIDE,
+                window = defaults.window.copy(brightness = .6f))
+            compose.waitUntil(15_000) { active.state.value.let {
+                it.phase == TxtReaderPhase.READY && !it.settingsSaving && it.settingsLoaded?.global == expected }
+            }
+            val loaded = (runBlocking { access.load(active.book.id) } as org.bookreader.mobile.settings.ReaderSettingsRead.Ready).value
+            assertEquals(expected, loaded.global)
+            assertEquals(preferences.copy(readingMode = null), loaded.book)
+            assertEquals(anchor, active.state.value.targetOffset)
+            assertEquals(before, saved(active.book))
+            assertAnchorInFirstMeasuredLine(active, anchor)
+            compose.readerControl("reader_back").performClick(); waitFor("library_content")
+            compose.activityRule.scenario.recreate(); waitFor("library_content")
+            compose.onNodeWithTag("read_${active.book.id}").performScrollTo().performClick(); waitFor("reader_ready")
+            assertEquals(expected, reader().state.value.settingsLoaded?.global)
+            assertEquals(preferences.copy(readingMode = null), reader().state.value.settingsLoaded?.book)
+            assertEquals(before, saved(active.book))
+            assertAnchorInFirstMeasuredLine(reader(), anchor)
+        } finally { restoreReaderGlobalSettings(originalSettings) }
+    }
+
     @Test fun customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor() {
         val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
         val store = UserFontStore(target)
@@ -171,7 +249,7 @@ class TxtReaderFlowTest {
             fun pick(name: String) {
                 val monitor = fontPicker(instrumentation, name)
                 try {
-                    compose.onNodeWithTag("reader_font_import").performScrollTo().performClick()
+                    compose.advancedReaderSetting("reader_font_import").performClick()
                     compose.waitUntil(15_000) {
                         compose.onAllNodesWithTag("reader_font_message").fetchSemanticsNodes(atLeastOneRootRequired = false).any { node ->
                             node.config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString { it.text }
@@ -220,7 +298,7 @@ class TxtReaderFlowTest {
             val registered = store.list().map { it.id }.toSet()
             pick("font-gothic")
             assertEquals(registered, store.list().map { it.id }.toSet())
-            compose.onNodeWithTag("reader_font_remove_$id").performScrollTo().assertIsNotEnabled()
+            compose.advancedReaderSetting("reader_font_remove_$id").assertIsNotEnabled()
             compose.onNodeWithTag("reader_font_SANS").performScrollTo().performClick()
             compose.onNodeWithTag("reader_weight_NORMAL").performScrollTo().performClick()
             compose.onNodeWithTag("reader_settings_apply").performClick()
@@ -228,7 +306,7 @@ class TxtReaderFlowTest {
             assertEquals(before, saved(active.book))
             if (id !in existingFonts) {
                 compose.readerControl("reader_settings").performClick()
-                compose.onNodeWithTag("reader_font_remove_$id").performScrollTo().performClick()
+                compose.advancedReaderSetting("reader_font_remove_$id").performClick()
                 compose.onNodeWithTag("reader_font_confirm_remove").performClick()
                 compose.waitUntil(10_000) { store.find(id) == null }
                 assertEquals(before, saved(active.book))
@@ -1117,7 +1195,7 @@ class TxtReaderFlowTest {
         }
         val footer = compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
             androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
-        val toolbar = compose.onNodeWithTag("reader_progress").fetchSemanticsNode().config[
+        val toolbar = compose.onNodeWithTag("reader_progress", useUnmergedTree = true).fetchSemanticsNode().config[
             androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
         assertEquals(footer, toolbar)
         ReaderFixtureScreenshot.capture("txt-page-counts.png")
@@ -1143,7 +1221,10 @@ class TxtReaderFlowTest {
         val returned = requireNotNull(saved(book))
         settings { compose.onNodeWithTag("font_size_increase").performScrollTo().performClick() }
         for (tag in listOf("reader_font_SERIF", "reader_font_NANUM_GOTHIC", "reader_font_NANUM_MYEONGJO", "line_height_increase", "letter_spacing_increase", "margin_increase")) {
-            settings { compose.onNodeWithTag(tag).performScrollTo().performClick() }
+            settings {
+                if (tag.startsWith("letter_spacing")) compose.advancedReaderSetting(tag).performClick()
+                else compose.onNodeWithTag(tag).performScrollTo().performClick()
+            }
             assertEquals(anchor, active.state.value.targetOffset)
             assertEquals(returned, saved(book))
         }
@@ -1298,6 +1379,7 @@ class TxtReaderFlowTest {
             compose.readerControl("reader_settings").performClick()
             compose.waitForIdle()
             ReaderFixtureScreenshot.capture("txt-settings.png")
+            compose.onNodeWithTag("reader_settings_advanced").performScrollTo().performClick()
             for (tag in listOf("reader_fullscreen_option", "reader_keep_screen_on_option", "reader_rotation_lock_option", "window_brightness_increase"))
                 compose.onNodeWithTag(tag).performScrollTo().performClick()
             compose.onNodeWithTag("reader_settings_apply").performClick()
@@ -1362,7 +1444,7 @@ class TxtReaderFlowTest {
                 compose.onNodeWithTag("reader_seek").assertIsDisplayed().assertIsEnabled()
                 compose.onNodeWithTag("reader_menu_close").performClick()
                 compose.readerControl("reader_settings").assertIsDisplayed().performClick()
-                compose.onNodeWithTag("reader_rotation_lock_option").performScrollTo().assertIsDisplayed()
+                compose.advancedReaderSetting("reader_rotation_lock_option").assertIsDisplayed()
                 compose.onNodeWithTag("reader_settings_apply").assertIsDisplayed().performClick()
                 waitFor("reader_ready")
                 assertEquals(anchor, active.state.value.stableOffset)

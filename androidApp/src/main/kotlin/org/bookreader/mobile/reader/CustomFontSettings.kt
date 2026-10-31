@@ -68,16 +68,6 @@ fun CustomFontSettings(settings: ReaderSettings, appliedFontId: String?, epubMod
     if (settings.customFontId != null && fonts.none { it.id == settings.customFontId })
         Text("등록된 글꼴을 찾을 수 없어 기본 글꼴로 표시합니다.")
     message?.let { Text(it, Modifier.testTag("reader_font_message")) }
-    Text("글자 굵기")
-    FlowRow {
-        ReaderFontWeight.entries.forEach { weight ->
-            FilterChip(selected = settings.fontWeight == weight,
-                modifier = Modifier.testTag("reader_weight_${weight.name}"),
-                onClick = { onChange(settings.copy(fontWeight = weight,
-                    epubPublisherStyles = if (epubMode) false else settings.epubPublisherStyles)) },
-                label = { Text(if (weight == ReaderFontWeight.NORMAL) "보통" else "굵게", fontWeight = FontWeight(weight.value)) })
-        }
-    }
     remove?.let { font -> AlertDialog(onDismissRequest = { remove = null }, title = { Text("글꼴 삭제") },
         text = { Text("${font.label}을 앱에서 삭제합니다. 원본 파일은 유지됩니다.") },
         confirmButton = { TextButton(modifier = Modifier.testTag("reader_font_confirm_remove"), onClick = {
@@ -93,4 +83,19 @@ fun CustomFontSettings(settings: ReaderSettings, appliedFontId: String?, epubMod
                 finally { busy = false; onBusy(false) }
             }
         }) { Text("삭제") } }, dismissButton = { TextButton(onClick = { remove = null }) { Text("취소") } }) }
+}
+
+/** Shared draft control: font file management is an optional advanced section. */
+@Composable
+fun ReaderFontWeightSettings(settings: ReaderSettings, epubMode: Boolean, onChange: (ReaderSettings) -> Unit) {
+    Text("글자 굵기")
+    FlowRow {
+        ReaderFontWeight.entries.forEach { weight ->
+            FilterChip(selected = settings.fontWeight == weight,
+                modifier = Modifier.testTag("reader_weight_${weight.name}"),
+                onClick = { onChange(settings.copy(fontWeight = weight,
+                    epubPublisherStyles = if (epubMode) false else settings.epubPublisherStyles)) },
+                label = { Text(if (weight == ReaderFontWeight.NORMAL) "보통" else "굵게", fontWeight = FontWeight(weight.value)) })
+        }
+    }
 }

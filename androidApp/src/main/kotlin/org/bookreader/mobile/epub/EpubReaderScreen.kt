@@ -1,5 +1,6 @@
 package org.bookreader.mobile.epub
 
+import org.bookreader.mobile.R
 import android.content.Intent
 import androidx.core.net.toUri
 import androidx.activity.compose.BackHandler
@@ -57,11 +58,11 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
         onDispose { lifecycle.removeObserver(observer); controller.cancelSearch() }
     }
     @Composable fun Controls() {
-        FlowRow {
-            TextButton(onClick = { toc = true; menu = false }, enabled = ready, modifier = Modifier.testTag("epub_toc")) { Text("목차") }
-            TextButton(onClick = { search = true; menu = false }, enabled = ready, modifier = Modifier.testTag("epub_search")) { Text("검색") }
-            TextButton(onClick = { bookmarks = true; menu = false; controller.loadBookmarks() }, enabled = ready, modifier = Modifier.testTag("epub_bookmarks")) { Text("북마크") }
-            TextButton(onClick = { settings = true; menu = false }, enabled = ready, modifier = Modifier.testTag("epub_settings")) { Text("설정") }
+        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+            ReaderToolButton("목차", R.drawable.ic_reader_toc, "epub_toc", ready) { toc = true; menu = false }
+            ReaderToolButton("검색", R.drawable.ic_reader_search, "epub_search", ready) { search = true; menu = false }
+            ReaderToolButton("북마크", R.drawable.ic_reader_bookmark, "epub_bookmarks", ready) { bookmarks = true; menu = false; controller.loadBookmarks() }
+            ReaderToolButton("읽기 설정", R.drawable.ic_reader_text, "epub_settings", ready) { settings = true; menu = false }
         }
     }
     Box(Modifier.fillMaxSize().background(state.settings.theme.paperColor()).testTag("epub_reader")) {
@@ -88,12 +89,9 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
         if (chrome) ReaderChrome(controller.book.title, "EPUB", "epub",
             pageLabel,
             onClose, { controlsVisible = false }, !exploration, ready, ready,
-            { controller.next(-1) }, { controller.next(1) }) {
+            { controller.next(-1) }, { controller.next(1) }, onSeek = { menu = true }) {
             Controls()
-            FlowRow {
-                TextButton(onClick = { menu = true }, modifier = Modifier.testTag("epub_menu")) { Text("위치 이동") }
-                if (state.canReturn) TextButton(onClick = controller::returnFromJump, enabled = ready, modifier = Modifier.testTag("epub_return")) { Text("이전 위치로") }
-            }
+            if (state.canReturn) ReaderToolButton("이전 위치", R.drawable.ic_reader_return, "epub_return", ready, controller::returnFromJump)
             state.notice?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
         }
         if (progress.saveError) Text("독서 위치를 저장하지 못했습니다. 마지막 저장 기록은 유지됩니다.",

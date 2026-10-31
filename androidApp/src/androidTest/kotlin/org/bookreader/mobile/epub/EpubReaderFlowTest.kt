@@ -10,6 +10,7 @@ import androidx.room.execSQL
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import kotlinx.coroutines.*
+import org.bookreader.mobile.reader.advancedReaderSetting
 import org.bookreader.mobile.reader.readerControl
 import org.bookreader.mobile.reader.tapReader
 import org.bookreader.mobile.MainActivity
@@ -257,7 +258,7 @@ class EpubReaderFlowTest {
         val id = java.security.MessageDigest.getInstance("SHA-256").digest(target.assets.open("font-fixtures/Fixture.otf").use { it.readBytes() })
             .joinToString("") { "%02x".format(it) }
         try {
-            compose.onNodeWithTag("reader_font_import").performScrollTo().performClick()
+            compose.advancedReaderSetting("reader_font_import").performClick()
             compose.waitUntil(15_000) { compose.onAllNodesWithTag("reader_custom_font_$id").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
         } finally { instrumentation.removeMonitor(monitor) }
         compose.onNodeWithTag("reader_weight_BOLD").performScrollTo().performClick()
@@ -305,7 +306,7 @@ class EpubReaderFlowTest {
         assertEquals(raw, runBlocking { database.readerSettingsDao().global() })
         val beforeSettings = reader().state.value
         compose.readerControl("epub_settings").performClick()
-        compose.onNodeWithTag("epub_publisher_styles").performScrollTo().performClick()
+        compose.advancedReaderSetting("epub_publisher_styles").performClick()
         compose.onNodeWithTag("reader_settings_apply").performClick()
         waitForSettingsApplied(beforeSettings.hostVersion, value.copy(epubPublisherStyles = false))
         assertEquals(false, reader().preferences().publisherStyles)

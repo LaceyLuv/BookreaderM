@@ -1,5 +1,6 @@
 package org.bookreader.mobile.comic
 
+import org.bookreader.mobile.R
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.Canvas
@@ -62,10 +63,10 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
         lifecycle.addObserver(observer)
         onDispose { lifecycle.removeObserver(observer) }
     }
-    @Composable fun Controls() { FlowRow {
-        TextButton(onClick = { settings = true; menu = false }, enabled = ready, modifier = Modifier.testTag("comic_settings")) { Text("설정") }
-        TextButton(onClick = { bookmarks = true; menu = false; controller.loadBookmarks() }, enabled = ready, modifier = Modifier.testTag("comic_bookmarks")) { Text("북마크") }
-    } }
+    @Composable fun Controls() {
+        ReaderToolButton("북마크", R.drawable.ic_reader_bookmark, "comic_bookmarks", ready) { bookmarks = true; menu = false; controller.loadBookmarks() }
+        ReaderToolButton("읽기 설정", R.drawable.ic_reader_settings, "comic_settings", ready) { settings = true; menu = false }
+    }
     Box(Modifier.fillMaxSize().background(Color(0xFF101720)).testTag("comic_reader")) {
         if (state.fatalError || progress.phase == ArchiveReaderPhase.ERROR) {
             Column(Modifier.fillMaxSize().padding(16.dp)) {
@@ -89,13 +90,12 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
         if (chrome) ReaderChrome(controller.book.title, if (state.settings.readingMode == TxtReadingMode.SCROLL) "COMIC · 연속" else "COMIC · 한 장", "comic",
             pageLabel, onClose, { controlsVisible = false }, !exploration,
             ready && state.index > 0, ready && state.index + 1 < (state.manifest?.entryKeys?.size ?: 0),
-            { controller.move(-1) }, { controller.move(1) }) {
-            FlowRow {
+            { controller.move(-1) }, { controller.move(1) }, onSeek = { menu = true }) {
+            FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 Controls()
-                if (state.settings.readingMode == TxtReadingMode.SCROLL) TextButton(onClick = { zoomRequest++ }, enabled = ready,
-                    modifier = Modifier.testTag("comic_enlarge_${state.manifest?.entryKeys?.getOrNull(state.index)}")) { Text("확대") }
-                TextButton(onClick = { menu = true }, modifier = Modifier.testTag("comic_menu")) { Text("위치 이동") }
-                if (state.canReturn) TextButton(onClick = controller::returnFromJump, enabled = ready, modifier = Modifier.testTag("comic_return")) { Text("이전 위치로") }
+                if (state.settings.readingMode == TxtReadingMode.SCROLL) ReaderToolButton("확대", R.drawable.ic_reader_zoom,
+                    "comic_enlarge_${state.manifest?.entryKeys?.getOrNull(state.index)}", ready) { zoomRequest++ }
+                if (state.canReturn) ReaderToolButton("이전 위치", R.drawable.ic_reader_return, "comic_return", ready, controller::returnFromJump)
             }
             if (state.manifest?.legacyNames == true) Text("레거시 ZIP 이름을 고정 규칙으로 표시합니다.", style = MaterialTheme.typography.bodySmall)
         }
@@ -108,7 +108,7 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
             val current = if (count > 1) state.index.toFloat() / (count - 1) else 0f
             Text("${if (seek.fraction == null) "현재" else "이동 미리보기"} ${((seek.fraction ?: current) * (count - 1).coerceAtLeast(0)).toInt() + 1} / $count")
             ReaderPositionSlider(current, ready && count > 1, seek, "comic_seek")
-            Controls()
+            FlowRow { Controls() }
         }
     }, confirmButton = { TextButton(onClick = { menu = false }, modifier = Modifier.testTag("comic_menu_close")) { Text("닫기 / 이동 취소") } })
     if (settings) ComicSettingsDialog(controller) { settings = false }

@@ -1,5 +1,28 @@
 # 독서 경험 강화 / 0.7.0 개발 기록
 
+## 2026-10-31 진행 중: 도구 모음·빠른 읽기 설정
+
+TXT·EPUB·Comic 도구에 직접 만든 벡터 아이콘과 짧은 이름을 적용했다. 하단 쪽수 영역의 위치 이동 버튼은
+기존 미리보기/취소 슬라이더를 연다. 상·하단 여백과 설명을 줄이고 overlay/본문 viewport는 유지한다.
+기존 `ReaderSettingsDialog`의 한 draft와 저장 callback을 재사용한다. 글자 크기·행간·기본 글꼴·굵기·여백·색상·
+읽기 방식·전환·밝기는 바로 표시하고, 파일 글꼴 관리·자간·화면 고정/전체화면·전체 기본 읽기 방식은 추가 설정으로 분리했다.
+책별 읽기 방식과 전체 기본값의 범위를 명시한다. 상속 복원은 `readingMode`만 비워 다른 책별 값을 보존한다.
+EPUB에서 행간/자간을 직접 바꾸면 기존 글꼴/굵기 선택과 같이 출판사 스타일을 해제해 변경값을 반영한다.
+
+주요 파일: `ReaderToolButton.kt`, `ReaderChrome.kt`, `ReaderSettingsDialog.kt`, `CustomFontSettings.kt`,
+세 포맷 `*ReaderScreen.kt`, `res/drawable/ic_reader_*.xml`.
+DB·설정 codec·저장소·locator·진행도 writer·Readium host·TXT 본문 측정/캐시는 수정하지 않았다. 0.7.0-dev/code8/Room7 유지.
+
+새 실제 UI 검사는 설정 취소의 raw row/viewport/진행도 불변, 빠른 항목 적용 후 정확한 canonical anchor,
+상속 복원 시 만화 방향/맞춤 보존, Activity 재생성 및 서재 재열기 후 설정/진행도를 확인한다.
+기존 큰 글자 1.0/1.3/2.0·사용자 글꼴·EPUB p179/host 교체·TOC·Comic 회귀는 유지하고 추가 설정을 여는 단계만 맞췄다.
+로컬 CI exit0, Android75/shared95/EPUB16=186 및 APK/test APK/lint/schema7 PASS.
+[원본](evidence/product-quality/phase3-controls-local/summary.json). API26/34/36 native74+host7 원격 실행은 대기다. 아직 기기 PASS나 도구 단위 완료가 아니다.
+실제 캡처는 결과 수신 후 확인한다. 원본 로그는 `/workspace/work/bookreaderm-product-quality/phase3-controls/`.
+
+기존 키와 배포된05ffd50 APK를 보존했다. 형광펜/메모·Phase4와 실기기 성능/접근성·공개 배포는 남아 있다.
+아래 TXT 목차 결과와 예전 설치 파일은 이 단위의 검증 결과를 대신하지 않는다.
+
 ## 2026-10-29 현재: TXT 목차 단위 자동 검증 완료
 
 `0.7.0-dev`/code8, Room7. [ADR0009](adr/0009-txt-toc-overrides.md).

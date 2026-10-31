@@ -1,0 +1,14 @@
+{
+  "scope": "Reader tools and quick settings unit",
+  "version": "0.7.0-dev",
+  "command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=build/phase3-controls-local ./scripts/ci-check.sh",
+  "exit_code": 0,
+  "cases": {
+    "android-unit": 75,
+    "shared-jvm": 95,
+    "epub-unit": 16
+  },
+  "room_schema": 7,
+  "device": "PENDING",
+  "physical_device": "NOT_RUN"
+}

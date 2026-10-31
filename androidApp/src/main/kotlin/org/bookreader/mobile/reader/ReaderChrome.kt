@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.bookreader.mobile.settings.ReaderTheme
@@ -39,13 +40,14 @@ fun ReaderChrome(
     title: String, format: String, prefix: String, progress: String,
     onClose: () -> Unit, onHide: () -> Unit, canHide: Boolean,
     previous: Boolean, next: Boolean, onPrevious: () -> Unit, onNext: () -> Unit,
+    onSeek: () -> Unit,
     actions: @Composable () -> Unit,
 ) {
     ReaderControlTheme {
         BoxWithConstraints(Modifier.fillMaxSize().testTag("${prefix}_chrome")) {
             val panelHeight = (maxHeight * .42f - 24.dp).coerceAtLeast(48.dp)
-            Surface(Modifier.align(Alignment.TopCenter).padding(12.dp).fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp), shadowElevation = 8.dp,
+            Surface(Modifier.align(Alignment.TopCenter).padding(8.dp).fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp), shadowElevation = 8.dp,
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
                 Row(Modifier.heightIn(max = panelHeight).verticalScroll(rememberScrollState()).padding(6.dp),
                     verticalAlignment = Alignment.CenterVertically) {
@@ -58,24 +60,30 @@ fun ReaderChrome(
                 }
             }
             Surface(Modifier.align(Alignment.BottomCenter)
-                .padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = ReaderPageStatusHeight + 12.dp).fillMaxWidth(),
-                shape = RoundedCornerShape(24.dp), shadowElevation = 12.dp,
+                .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = ReaderPageStatusHeight + 8.dp).fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp), shadowElevation = 12.dp,
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
-                Column(Modifier.heightIn(max = panelHeight).verticalScroll(rememberScrollState()).padding(12.dp),
+                Column(Modifier.heightIn(max = panelHeight).verticalScroll(rememberScrollState()).padding(8.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween) {
                         TextButton(onClick = onPrevious, enabled = previous, modifier = Modifier.testTag("${prefix}_previous")) { Text("‹ 이전") }
-                        Text(progress, Modifier.weight(1f).testTag("${prefix}_progress"),
-                            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                            style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+                        TextButton(onClick = onSeek, modifier = Modifier.weight(1f).testTag("${prefix}_menu"),
+                            contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(progress, Modifier.testTag("${prefix}_progress"),
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                    style = MaterialTheme.typography.labelLarge)
+                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                    Icon(painterResource(org.bookreader.mobile.R.drawable.ic_reader_seek), null, Modifier.size(16.dp))
+                                    Text("위치 이동", style = MaterialTheme.typography.labelSmall)
+                                }
+                            }
+                        }
                         TextButton(onClick = onNext, enabled = next, modifier = Modifier.testTag("${prefix}_next")) { Text("다음 ›") }
                     }
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     actions()
-                    Text("좌우 탭으로 이동 · 가운데 탭으로 도구 열고 닫기",
-                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp))
                 }
             }
         }
