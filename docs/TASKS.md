@@ -1,27 +1,40 @@
-## 2026-11-06 진행 중 — TXT 형광펜·메모
+## 2026-11-06 최신 — TXT 형광펜·메모 자동 검증 완료
 
-작업 위치 `/workspace/BookreaderM-reader-070`, `codex/reader-070`. 0.7.0-dev/code9/Room8.
-[결정·한도·대안](adr/0010-exact-txt-annotations.md). 본문 측정은 유지하고 현재 구간의 읽기 전용 선택 창에서
-공개 TextFieldValue 선택 좌표를 받는다. quote/범위/색상/메모를 별도 txt_annotations에 저장하고 원문과 대조된 구간만 색상으로 표시한다.
-목록 수정/삭제/정확한 이동, 취소·오래된 세션·동시 수정·미래 값/불일치 거부와 실제 UI/host 강제 종료 검사를 구현했다.
-기존12개 테이블 정의는 동일하다. 키/main/기존05ffd50 설치 파일과 책/진행도/북마크/목차를 보존한다.
+`/workspace/BookreaderM-reader-070`, `codex/reader-070`, 제품/테스트 소스 `208f74caf788bf9a72d1640d4e30926ae0a29716`.
+0.7.0-dev/code9/Room8. [결정·범위](adr/0010-exact-txt-annotations.md).
+TXT의 **형광펜 → 현재 구간에서 문장 선택**에서 실제 선택 좌표로 저장한다. 네 가지 색상, 선택적 메모,
+목록에서 수정/삭제/정확한 본문 이동을 제공한다. 같은 문장을 검색해 위치를 추정하지 않는다.
+현재 위치부터 최대4,096 UTF-16 단위의 읽기 전용 선택 창이며, 본문의 기본 복사 선택은 유지한다.
+최대500개/내용 버전, 메모2,000 UTF-16 단위다. EPUB 형광펜은 다음 단위이며 Phase3 전체 완료는 아니다.
 
-첫 JVM104개 중1 FAIL은 잘못된 surrogate를 직접 DB에 넣은 fixture가 native 바인딩에서 변환된 사례였다.
-실제 저장 진입점에서 바인딩 전에 거부됨을 검사하도록 수정했고 실패 XML을 보존했다.
-후속 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug :shared:jvmTest --console=plain` exit0.
-Android77/shared104 PASS. 한도 사전 검사·선택 유지 포함 전체 로컬 CI exit0, Android77/shared104/EPUB16=197 및 APK/test APK/lint/schema8 PASS.
-명령 `BOOKREADER_EVIDENCE_DIR=build/phase3-annotations-local ./scripts/ci-check.sh`. [원본](evidence/product-quality/phase3-annotations-local/summary.json).
-원본 `/workspace/work/bookreaderm-product-quality/phase3-annotations*.log`, `phase3-annotations/first-failure/`.
-후속 검토에서 SQLite length(TEXT)의 NUL 종료 특성을 확인해 BLOB 바이트 한도 검사를 추가했다.
-해당 회귀 및 전체 로컬197/릴리스 APK·AAB exit0. [보완본 원본](evidence/product-quality/phase3-annotations-bound-local/summary.json).
-초기 ae4453d 원격 build42207330572는 원본 digest/CRC/필수 XML 대조 PASS200이며 device42207330781은 실행 중이다.
-보완본도 별도 원격 전체 검증을 진행한다.
-새 실제 UI를 포함한 native75+host7/API26·34·36은 아직 NOT_RUN이다. 컴파일을 기기 PASS로 세지 않는다.
-다음은 로컬 CI/릴리스 빌드와 전체 원격 검사·실제 선택/표시 캡처 확인이다. EPUB 형광펜과 Phase4는 미완료다.
-실제 ae4453d API26/36 캡처에서 메모 목록은 확인했으나 긴 설정 라벨과 화면 가장자리의 본문 캡처를 보완한다.
-[원본 시각 검토](evidence/product-quality/annotations-visual-ae4453d/review.json). TXT 도구명을 설정으로 줄이고, 정확한 형광펜 이동 후 도구를 숨긴 페이지를 캡처한다.
-242ae6b 원격 build42208671987 PASS이며 기기 검사42208671998은 진행 중이다. 최종 화면 보완본의 전체 matrix도 별도 확인한다.
-매 shell `source /workspace/toolchains/mobile-env.sh`.
+기존12개 테이블 정의를 그대로 두고 txt_annotations만 추가했다. 실제1–7→8 migration/rollback과
+raw 책·진행도·북마크·설정·목차 보존, stale session/CAS/미래 값/한도/SQL 오류를 검사했다.
+표시·저장 전에 원문의 정확한 구간을 대조하며, 불일치한 기록을 다른 문장에 붙이지 않는다.
+SQLite TEXT 길이와 BLOB 바이트 길이를 함께 검사해 NUL 뒤의 과대 기록도 읽기 전에 거부한다.
+기존 진행도/locator/캐시/페이지/Readium 계약28개 파일과 서명키/이전 설치 APK/main을 보존했다.
+
+build42210038416 PASS200(Android77/shared104/EPUB16/실제 ENOSPC3),
+device42210038417 API26/34/36 각각 native75+host7 PASS. 실패·오류·skip0.
+[필수 XML·원본·대조](evidence/product-quality/verified-208f74c/summary.json): artifact SHA/CRC/source clean,
+외부 force-stop 뒤 PID 부재·교체, EPUB p179 실제 가시성까지 확인했다.
+`python3 /workspace/work/bookreaderm-product-quality/verify-phase3.py 208f74caf788bf9a72d1640d4e30926ae0a29716 42210038416 42210038417` exit0.
+실제 길게 누르기와 두 번째 반복 문장 선택, TextLayoutResult의 정확한 형광펜 범위,
+메모 수정·리플로·페이지 전환·재열기·삭제·외부 강제 종료 복원을 검사했다.
+
+로컬 전체197 및 APK/test APK/lint/schema8 PASS. 마지막 화면 보완의 compile/lint/릴리스 APK·AAB exit0.
+[로컬 원본](evidence/product-quality/phase3-annotations-bound-local/summary.json),
+[최초 잘못된 surrogate fixture 실패와 수정](evidence/product-quality/phase3-annotations-local/summary.json),
+[초기 전체 기기 결과](evidence/product-quality/verified-ae4453d/summary.json),
+[바이트 한도 보완본 전체 결과](evidence/product-quality/verified-242ae6b/summary.json)를 보존한다.
+초기 긴 설정 라벨/가장자리 캡처는 [원본 시각 검토](evidence/product-quality/annotations-visual-ae4453d/review.json)에 남겼다.
+세 API의 실제 본문·메모 목록·도구 화면을 확인했다. 선택한 단어 전체의 분홍 표시와 짧아진 설정 라벨이 잘리지 않는다.
+[원본 시각 검토·한계](evidence/product-quality/verified-208f74c/visual-review.json). 도구 캡처의 쪽수 계산 중 표시는 최종 쪽수 정확성 증거로 사용하지 않는다.
+이전 Phase2 측정 재진입과19a8235 API26 도구 캡처의 원인 미확정 기록도 유지한다.
+
+실기기 설치·TalkBack·성능·공개 배포는 NOT_RUN. 이번에는 새 설치 파일을 전달하지 않았다.
+다음 단위는 Readium 공개 선택 locator/Decoration에 기반한 EPUB 형광펜·메모다. Phase4 백업·복원은 미착수다.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 실행 상태/helper는 `phase3-annotations/current.json`, `ci/`다.
+
 
 ## 2026-11-06 최신 — 읽기 도구·빠른 설정 자동 검증 완료
 

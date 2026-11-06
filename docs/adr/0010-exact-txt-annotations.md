@@ -1,6 +1,6 @@
 # ADR0010 — 정확한 TXT 선택 구간과 별도 형광펜 기록
 
-2026-11-06. TXT 구현 중; 검증 결과는 READER_0_7.md와 SESSION_HANDOFF.md에 기록한다. EPUB 연결은 다음 단위다.
+2026-11-06. TXT 구현·자동 검증 완료; 검증 결과는 READER_0_7.md와 SESSION_HANDOFF.md에 기록한다. EPUB 연결은 다음 단위다.
 
 ## 결정과 이유
 

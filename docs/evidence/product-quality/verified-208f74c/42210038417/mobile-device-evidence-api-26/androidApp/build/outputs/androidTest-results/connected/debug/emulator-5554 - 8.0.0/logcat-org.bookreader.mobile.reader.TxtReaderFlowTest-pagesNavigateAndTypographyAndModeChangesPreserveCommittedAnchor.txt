@@ -1,0 +1,504 @@
+11-06 11:37:38.798  5410  5427 I TestRunner: started: pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor(org.bookreader.mobile.reader.TxtReaderFlowTest)
+11-06 11:37:38.800  5410  5427 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@5a77a37]
+11-06 11:37:38.804  1512  6847 I AudioFlinger: AudioFlinger's thread 0xeeb17800 tid=6847 ready to run
+11-06 11:37:38.804  5410  5427 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+11-06 11:37:38.805  2618  2826 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+11-06 11:37:38.805  2618  2826 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+11-06 11:37:38.805  2618  2826 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@7151d3c
+11-06 11:37:38.808  2618  2618 I MicroDetectionWorker: onReady
+11-06 11:37:38.812  2618  6468 W SpeechLevelGenerator: Really low audio levels detected. The audio input may have issues.
+11-06 11:37:38.813  2618  2826 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@7151d3c
+11-06 11:37:38.814  2618  6468 I MicroRecognitionRunner: Detection finished
+11-06 11:37:38.814  2618  6468 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+11-06 11:37:38.815  2618  3065 I MicroRecognitionRunner: Stopping hotword detection.
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: onFatalError, processing error from engine(4)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+11-06 11:37:38.815  2618  6468 W ErrorProcessor: 	... 9 more
+11-06 11:37:38.816  2618  6468 I AudioController: internalShutdown
+11-06 11:37:38.817  2618  2618 I MicroDetector: Keeping mic open: false
+11-06 11:37:38.817  2618  2618 I MicroDetectionWorker: #onError(false)
+11-06 11:37:38.817  2618  2737 I DeviceStateChecker: DeviceStateChecker cancelled
+11-06 11:37:38.823  1806  1864 I zygote64: NativeAllocBackground concurrent copying GC freed 525(97KB) AllocSpace objects, 0(0B) LOS objects, 47% free, 6MB/12MB, paused 3.636ms total 111.461ms
+11-06 11:37:38.856  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: PRE_ON_CREATE
+11-06 11:37:38.856  5410  5410 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+11-06 11:37:38.860  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: CREATED
+11-06 11:37:38.860  5410  5410 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:37:38.860  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: STARTED
+11-06 11:37:38.860  5410  5410 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:37:38.861  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: RESUMED
+11-06 11:37:38.862  5410  5410 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:37:38.956  2618  5638 E ContentStoreEUAS: Failed to commit the deferred actions
+11-06 11:37:38.966  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:37:38.989  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 2 lines
+11-06 11:37:39.005  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:37:39.026  6503  6562 D EGL_emulation: eglMakeCurrent: 0x7c4dacfb5aa0: ver 3 0 (tinfo 0x7c4da33419a0)
+11-06 11:37:39.026  2618  2834 D EGL_emulation: eglMakeCurrent: 0xdb485ea0: ver 3 0 (tinfo 0xdb4838f0)
+11-06 11:37:39.058  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:37:39.075  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:37:39.097  1608  1647 I ActivityManager: Displayed org.bookreader.mobile/.MainActivity: +258ms
+11-06 11:37:39.158  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:37:39.198  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:37:39.246  2618  5638 I PBSessionCacheImpl: Deleted sessionId[86659127293] from persistence.
+11-06 11:37:39.255  2618  2618 W SearchService: Abort, client detached.
+11-06 11:37:39.335  6857  6857 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-06 11:37:39.387  6857  6857 W app_process: Unexpected CPU variant for X86 using defaults: x86_64
+11-06 11:37:39.405  6857  6857 D AndroidRuntime: Calling main entry com.android.commands.wm.Wm
+11-06 11:37:39.409  6857  6857 D AndroidRuntime: Shutting down VM
+11-06 11:37:39.429  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: PAUSED
+11-06 11:37:39.429  5410  5410 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:37:39.464  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: RESUMED
+11-06 11:37:39.464  5410  5410 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:37:39.486  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: PAUSED
+11-06 11:37:39.486  5410  5410 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:37:39.487  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: RESUMED
+11-06 11:37:39.487  5410  5410 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:37:39.713  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:37:40.141  5410  5421 I zygote64: Background concurrent copying GC freed 76969(2MB) AllocSpace objects, 203(7MB) LOS objects, 23% free, 19MB/25MB, paused 4.038ms total 188.783ms
+11-06 11:37:40.368  5410  5421 I zygote64: Background concurrent copying GC freed 108309(3MB) AllocSpace objects, 338(11MB) LOS objects, 23% free, 19MB/25MB, paused 717us total 160.658ms
+11-06 11:37:41.262  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:37:41.264  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:37:41.265  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:37:41.266  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:37:41.283  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:37:41.947  5410  5437 I chatty  : uid=10077(u0_a77) RenderThread identical 3 lines
+11-06 11:37:41.961  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:37:42.248  5410  5421 I zygote64: Background concurrent copying GC freed 91409(3MB) AllocSpace objects, 81(2MB) LOS objects, 33% free, 11MB/17MB, paused 992us total 157.291ms
+11-06 11:37:42.746  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:37:42.747  5401  6741 D         : HostConnection::get() New Host Connection established 0x7ea2c94d2060, tid 6741
+11-06 11:37:42.877  5410  5421 I zygote64: NativeAllocBackground concurrent copying GC freed 45031(2026KB) AllocSpace objects, 51(1836KB) LOS objects, 34% free, 11MB/17MB, paused 651us total 104.319ms
+11-06 11:37:44.097  1397  1397 I boot-pipe: done populating /dev/random
+11-06 11:37:44.257  2618  6867 I EventLogSendingHelper: Sending log events.
+11-06 11:37:44.284  1771  6717 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+11-06 11:37:44.293  1771  6841 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+11-06 11:37:44.294  1771  6837 I LogUtils: [Places]: ?: PlacesBleScanner stop() [CONTEXT service_id=253 ]
+11-06 11:37:44.295  1771  1771 I BeaconBle: Scan : No clients left, canceling alarm. [CONTEXT service_id=111 ]
+11-06 11:37:44.296  1771  1771 I BeaconBle: Scan canceled successfully. [CONTEXT service_id=111 ]
+11-06 11:37:44.299  1771  6837 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 0 [CONTEXT service_id=253 ]
+11-06 11:37:44.356  1771  6081 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+11-06 11:37:44.359  1771  6841 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+11-06 11:37:44.370  1771  1771 I GeofencerStateMachine: removeGeofences: removeRequest=RemoveGeofencingRequest[REMOVE_BY_PENDING_INTENT pendingIntent=PendingIntent[creatorPackage=com.google.android.gms], packageName=com.google.android.gms]
+11-06 11:37:47.682  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:37:49.300  1771  1771 I BeaconBle: Scan : No clients left, canceling alarm. [CONTEXT service_id=111 ]
+11-06 11:37:49.300  1608  1622 E memtrack: Couldn't load memtrack module
+11-06 11:37:49.300  1608  1622 W android.os.Debug: failed to get memory consumption info: -1
+11-06 11:37:59.305  1608  1622 E memtrack: Couldn't load memtrack module
+11-06 11:37:59.305  1608  1622 W android.os.Debug: failed to get memory consumption info: -1
+11-06 11:38:00.049  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:03.070  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:38:03.073  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:03.074  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:03.075  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:03.098  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:03.540  5410  5437 I chatty  : uid=10077(u0_a77) RenderThread identical 3 lines
+11-06 11:38:03.595  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:03.903  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:38:03.905  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:03.906  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:03.907  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:03.950  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:03.995  5410  6829 I zygote64: IncrementDisableThreadFlip blocked for 5.817ms
+11-06 11:38:04.115  5410  5421 I zygote64: Background concurrent copying GC freed 90275(3MB) AllocSpace objects, 48(1724KB) LOS objects, 31% free, 12MB/18MB, paused 6.750ms total 127.661ms
+11-06 11:38:04.338  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:04.427  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:04.725  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:38:04.730  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:04.731  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:04.737  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:04.796  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:04.859  5410  5421 I zygote64: Background concurrent copying GC freed 107254(4MB) AllocSpace objects, 76(2MB) LOS objects, 30% free, 13MB/19MB, paused 619us total 152.827ms
+11-06 11:38:05.248  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:05.318  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:05.650  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:38:05.653  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:05.654  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:05.655  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:05.673  5410  5421 I zygote64: Background concurrent copying GC freed 137229(5MB) AllocSpace objects, 88(3MB) LOS objects, 29% free, 14MB/20MB, paused 880us total 171.155ms
+11-06 11:38:05.701  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:06.072  5410  5437 I chatty  : uid=10077(u0_a77) RenderThread identical 1 line
+11-06 11:38:06.154  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:06.350  5410  5421 I zygote64: Background concurrent copying GC freed 126431(4MB) AllocSpace objects, 92(3MB) LOS objects, 32% free, 12MB/18MB, paused 2.194ms total 108.735ms
+11-06 11:38:06.513  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:38:06.521  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:06.523  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:06.524  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:06.536  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:06.574  5410  5437 I chatty  : uid=10077(u0_a77) RenderThread identical 1 line
+11-06 11:38:06.727  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:06.871  5410  5421 I zygote64: Background concurrent copying GC freed 84768(3MB) AllocSpace objects, 67(2MB) LOS objects, 31% free, 13MB/19MB, paused 965us total 103.602ms
+11-06 11:38:07.079  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:07.170  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:07.470  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:38:07.473  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:07.474  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:07.475  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:07.500  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:07.546  5410  5421 I zygote64: Background concurrent copying GC freed 95781(3MB) AllocSpace objects, 77(2MB) LOS objects, 29% free, 14MB/20MB, paused 938us total 103.956ms
+11-06 11:38:07.546  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:07.678  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:08.051  5410  5421 I zygote64: Background concurrent copying GC freed 148688(5MB) AllocSpace objects, 75(2MB) LOS objects, 32% free, 12MB/18MB, paused 959us total 100.962ms
+11-06 11:38:08.253  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:08.305  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:08.606  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:38:08.614  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:08.630  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:08.631  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9478144
+11-06 11:38:08.650  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:09.148  5410  5437 I chatty  : uid=10077(u0_a77) RenderThread identical 3 lines
+11-06 11:38:09.184  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:09.391  5410  5421 I zygote64: Background concurrent copying GC freed 107928(4MB) AllocSpace objects, 81(2MB) LOS objects, 31% free, 12MB/18MB, paused 807us total 115.623ms
+11-06 11:38:10.506  1608  1622 E memtrack: Couldn't load memtrack module
+11-06 11:38:10.506  1608  1622 W android.os.Debug: failed to get memory consumption info: -1
+11-06 11:38:14.268  2618  6156 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.268  2618  6570 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.269  2618  6157 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.269  2618  2925 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.270  2618  2923 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.270  2618  2807 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.277  2618  2922 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.277  2618  6327 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.278  2618  5907 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.279  2618  5906 W GmsLocationProvider: Error removing location updates: 16
+11-06 11:38:14.424  1608  1799 I GnssLocationProvider: WakeLock acquired by sendMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@be7d818)
+11-06 11:38:14.436  1608  1622 I GnssLocationProvider: WakeLock released by handleMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@be7d818)
+11-06 11:38:17.804  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:17.978  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:17.999  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: PAUSED
+11-06 11:38:17.999  5410  5410 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:38:18.001  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:18.009  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: STOPPED
+11-06 11:38:18.009  5410  5410 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@da4f441
+11-06 11:38:18.014  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@da4f441 in: DESTROYED
+11-06 11:38:18.014  5410  5410 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+11-06 11:38:18.027  6503  6503 D ConfigMonitor: Configuration changed, restarting launcher
+11-06 11:38:18.030  6503  6503 I Process : Sending signal. PID: 6503 SIG: 9
+11-06 11:38:18.034  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@163367 in: PRE_ON_CREATE
+11-06 11:38:18.034  5410  5410 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+11-06 11:38:18.040  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@163367 in: CREATED
+11-06 11:38:18.040  5410  5410 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@163367
+11-06 11:38:18.041  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@163367 in: STARTED
+11-06 11:38:18.041  5410  5410 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@163367
+11-06 11:38:18.042  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@163367 in: RESUMED
+11-06 11:38:18.042  5410  5410 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@163367
+11-06 11:38:18.070  1608  1622 E memtrack: Couldn't load memtrack module
+11-06 11:38:18.070  1608  1622 W android.os.Debug: failed to get memory consumption info: -1
+11-06 11:38:18.090  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:18.092  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:18.093  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:18.121  1608  1728 W InputDispatcher: channel 'b22db13 com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity (server)' ~ Consumer closed input channel or an error occurred.  events=0x9
+11-06 11:38:18.121  1608  1728 E InputDispatcher: channel 'b22db13 com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity (server)' ~ Channel is unrecoverably broken and will be disposed!
+11-06 11:38:18.121  1608  5041 W InputDispatcher: Attempted to unregister already unregistered input channel 'b22db13 com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity (server)'
+11-06 11:38:18.154  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:18.161  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:18.186  2618  2618 E NowRemoteClient: skipping logEndstates, service is null
+11-06 11:38:18.199  2618  2618 E OverlaySController: Failed to send status update
+11-06 11:38:18.199  2618  2618 E OverlaySController: android.os.DeadObjectException
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at android.os.BinderProxy.transactNative(Native Method)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at android.os.BinderProxy.transact(Binder.java:748)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at com.google.android.libraries.j.f.xa(SourceFile:15)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at com.google.android.libraries.gsa.e.a.j.a(SourceFile:65)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at com.google.android.libraries.gsa.e.a.n.handleMessage(SourceFile:114)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at android.os.Handler.dispatchMessage(Handler.java:101)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at android.os.Looper.loop(Looper.java:164)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at android.app.ActivityThread.main(ActivityThread.java:6541)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at java.lang.reflect.Method.invoke(Native Method)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:240)
+11-06 11:38:18.199  2618  2618 E OverlaySController: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:767)
+11-06 11:38:18.306  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#1
+11-06 11:38:18.334  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#2
+11-06 11:38:18.360  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#3
+11-06 11:38:18.381  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:18.383  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:18.390  1399  1421 E SurfaceFlinger: Failed to find layer (BlackSurface#2) in layer parent (no-parent).
+11-06 11:38:18.391  1399  2010 E SurfaceFlinger: Failed to find layer (BlackSurface#1) in layer parent (no-parent).
+11-06 11:38:18.391  1399  2010 E SurfaceFlinger: Failed to find layer (BlackSurface#3) in layer parent (no-parent).
+11-06 11:38:18.391  1399  2077 E SurfaceFlinger: Failed to find layer (BlackSurface#0) in layer parent (no-parent).
+11-06 11:38:18.399  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:18.405  1806  1806 I chatty  : uid=10028(u0_a28) com.android.systemui identical 4 lines
+11-06 11:38:18.407  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:18.501  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:18.621  1806  2146 I chatty  : uid=10028(u0_a28) RenderThread identical 7 lines
+11-06 11:38:18.645  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:18.733  6906  6906 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-06 11:38:18.761  6906  6906 W app_process: Unexpected CPU variant for X86 using defaults: x86_64
+11-06 11:38:18.772  6906  6906 D AndroidRuntime: Calling main entry com.android.commands.wm.Wm
+11-06 11:38:18.779  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:18.795  6906  6906 D AndroidRuntime: Shutting down VM
+11-06 11:38:18.819  1608  1729 I InputReader: Reconfiguring input devices.  changes=0x00000004
+11-06 11:38:18.830  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@163367 in: PAUSED
+11-06 11:38:18.830  5410  5410 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@163367
+11-06 11:38:18.832  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:18.835  1785  1790 I zygote64: Do partial code cache collection, code=504KB, data=281KB
+11-06 11:38:18.836  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@163367 in: STOPPED
+11-06 11:38:18.836  5410  5410 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@163367
+11-06 11:38:18.839  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@163367 in: DESTROYED
+11-06 11:38:18.839  5410  5410 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+11-06 11:38:18.843  1785  1790 I zygote64: After code cache collection, code=500KB, data=280KB
+11-06 11:38:18.843  1785  1790 I zygote64: Increasing code cache capacity to 2MB
+11-06 11:38:18.848  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@18822d1 in: PRE_ON_CREATE
+11-06 11:38:18.848  5410  5410 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+11-06 11:38:18.850  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@18822d1 in: CREATED
+11-06 11:38:18.850  5410  5410 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@18822d1
+11-06 11:38:18.850  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@18822d1 in: STARTED
+11-06 11:38:18.850  5410  5410 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@18822d1
+11-06 11:38:18.851  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@18822d1 in: RESUMED
+11-06 11:38:18.851  5410  5410 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@18822d1
+11-06 11:38:18.870  1399  1399 D SurfaceFlinger: duplicate layer name: changing org.bookreader.mobile/org.bookreader.mobile.MainActivity to org.bookreader.mobile/org.bookreader.mobile.MainActivity#1
+11-06 11:38:18.873  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:18.875  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:18.877  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:18.883  5410  5421 I zygote64: Background concurrent copying GC freed 47669(2MB) AllocSpace objects, 81(2MB) LOS objects, 33% free, 12MB/18MB, paused 552us total 131.264ms
+11-06 11:38:18.930  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:18.939  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:18.965  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 233472
+11-06 11:38:18.981  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:19.054  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 233472
+11-06 11:38:19.149  6917  6917 W zygote64: Unexpected CPU variant for X86 using defaults: x86_64
+11-06 11:38:19.183  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:19.196  1806  1806 I chatty  : uid=10028(u0_a28) com.android.systemui identical 6 lines
+11-06 11:38:19.196  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:19.316  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 233472
+11-06 11:38:19.340  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 466944
+11-06 11:38:19.362  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:19.370  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 466944
+11-06 11:38:19.392  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:19.419  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:19.451  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 466944
+11-06 11:38:19.453  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:19.456  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#1
+11-06 11:38:19.488  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#2
+11-06 11:38:19.490  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#3
+11-06 11:38:19.518  1399  1731 E SurfaceFlinger: Failed to find layer (BlackSurface#0) in layer parent (no-parent).
+11-06 11:38:19.518  1399  2010 E SurfaceFlinger: Failed to find layer (BlackSurface#1) in layer parent (no-parent).
+11-06 11:38:19.518  1399  1421 E SurfaceFlinger: Failed to find layer (BlackSurface#3) in layer parent (no-parent).
+11-06 11:38:19.518  1399  1731 E SurfaceFlinger: Failed to find layer (BlackSurface#2) in layer parent (no-parent).
+11-06 11:38:19.787  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:19.974  5410  5421 I zygote64: NativeAllocBackground concurrent copying GC freed 45030(2MB) AllocSpace objects, 49(1752KB) LOS objects, 32% free, 12MB/18MB, paused 683us total 160.494ms
+11-06 11:38:20.085  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9179136
+11-06 11:38:20.086  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:20.087  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9179136
+11-06 11:38:20.100  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:20.594  5410  5437 I chatty  : uid=10077(u0_a77) RenderThread identical 3 lines
+11-06 11:38:20.667  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:20.881  5410  5421 I zygote64: Background concurrent copying GC freed 44987(1938KB) AllocSpace objects, 118(4MB) LOS objects, 28% free, 14MB/20MB, paused 1.834ms total 197.483ms
+11-06 11:38:21.035  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:21.215  1806  2146 I chatty  : uid=10028(u0_a28) RenderThread identical 1 line
+11-06 11:38:21.228  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:21.482  6939  6939 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-06 11:38:21.521  1608  1647 I zygote64: Explicit concurrent copying GC freed 23909(1449KB) AllocSpace objects, 6(136KB) LOS objects, 42% free, 7MB/13MB, paused 574us total 27.308ms
+11-06 11:38:21.525  6939  6939 W app_process: Unexpected CPU variant for X86 using defaults: x86_64
+11-06 11:38:21.548  6939  6939 D AndroidRuntime: Calling main entry com.android.commands.wm.Wm
+11-06 11:38:21.554  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:21.595  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@18822d1 in: PAUSED
+11-06 11:38:21.595  5410  5410 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@18822d1
+11-06 11:38:21.604  1608  1729 I InputReader: Reconfiguring input devices.  changes=0x00000004
+11-06 11:38:21.612  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:21.620  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@18822d1 in: STOPPED
+11-06 11:38:21.620  5410  5410 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@18822d1
+11-06 11:38:21.622  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@18822d1 in: DESTROYED
+11-06 11:38:21.623  5410  5410 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+11-06 11:38:21.628  6939  6939 D AndroidRuntime: Shutting down VM
+11-06 11:38:21.675  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e538521 in: PRE_ON_CREATE
+11-06 11:38:21.675  5410  5410 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+11-06 11:38:21.682  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e538521 in: CREATED
+11-06 11:38:21.682  5410  5410 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@e538521
+11-06 11:38:21.682  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e538521 in: STARTED
+11-06 11:38:21.682  5410  5410 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@e538521
+11-06 11:38:21.688  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e538521 in: RESUMED
+11-06 11:38:21.688  5410  5410 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@e538521
+11-06 11:38:21.693  5410  5421 I zygote64: Background concurrent copying GC freed 100498(4MB) AllocSpace objects, 127(4MB) LOS objects, 30% free, 13MB/19MB, paused 493us total 146.357ms
+11-06 11:38:21.719  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:21.720  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:21.721  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:21.727  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:21.776  1608  1729 I InputReader: Reconfiguring input devices.  changes=0x00000004
+11-06 11:38:21.809  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e538521 in: PAUSED
+11-06 11:38:21.809  5410  5410 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@e538521
+11-06 11:38:21.829  1806  1864 I zygote64: Background concurrent copying GC freed 54103(3MB) AllocSpace objects, 0(0B) LOS objects, 38% free, 9MB/15MB, paused 1.508ms total 100.849ms
+11-06 11:38:21.829  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:21.833  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e538521 in: STOPPED
+11-06 11:38:21.833  5410  5410 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@e538521
+11-06 11:38:21.835  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@e538521 in: DESTROYED
+11-06 11:38:21.835  5410  5410 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+11-06 11:38:21.853  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 274432
+11-06 11:38:21.862  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@a719663 in: PRE_ON_CREATE
+11-06 11:38:21.862  5410  5410 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+11-06 11:38:21.866  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@a719663 in: CREATED
+11-06 11:38:21.866  5410  5410 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@a719663
+11-06 11:38:21.866  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@a719663 in: STARTED
+11-06 11:38:21.866  5410  5410 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@a719663
+11-06 11:38:21.871  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@a719663 in: RESUMED
+11-06 11:38:21.871  5410  5410 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@a719663
+11-06 11:38:21.897  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:21.908  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 274432
+11-06 11:38:21.963  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:21.968  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:21.969  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.000  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 544768
+11-06 11:38:22.013  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:22.022  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:22.105  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 544768
+11-06 11:38:22.124  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@a719663 in: PAUSED
+11-06 11:38:22.124  5410  5410 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@a719663
+11-06 11:38:22.180  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#1
+11-06 11:38:22.205  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#2
+11-06 11:38:22.232  1399  1399 D SurfaceFlinger: duplicate layer name: changing BlackSurface to BlackSurface#3
+11-06 11:38:22.284  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.294  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.305  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.307  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.308  1806  1806 I chatty  : uid=10028(u0_a28) com.android.systemui identical 1 line
+11-06 11:38:22.314  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.314  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.314  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.315  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.324  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.325  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.328  5443  5528 D EGL_emulation: eglMakeCurrent: 0x7c4daf638820: ver 3 0 (tinfo 0x7c4daf60d3e0)
+11-06 11:38:22.395  6917  6917 V Launcher: LauncherAppState initiated
+11-06 11:38:22.418  6917  6917 W zygote64: Class android.support.v4.a.k failed lock verification and will run slower.
+11-06 11:38:22.418  6917  6917 W zygote64: Common causes for lock verification issues are non-optimized dex code
+11-06 11:38:22.418  6917  6917 W zygote64: and incorrect proguard optimizations.
+11-06 11:38:22.430  6917  6956 W zygote64: Class com.google.android.gms.common.j failed lock verification and will run slower.
+11-06 11:38:22.518  2618  2618 E OverlaySController: Calling with an invalid UID, the interface will not work
+11-06 11:38:22.518  2618  2618 E OverlaySController: Invalid version
+11-06 11:38:22.523  6917  6935 D Launcher.Model: loadWorkspace: loading default favorites
+11-06 11:38:22.525  6917  6917 W zygote64: Class com.google.android.gms.internal.aY failed lock verification and will run slower.
+11-06 11:38:22.535  6917  6961 W zygote64: Class com.google.android.gms.internal.bd failed lock verification and will run slower.
+11-06 11:38:22.539  1806  1806 I Choreographer: Skipped 39 frames!  The application may be doing too much work on its main thread.
+11-06 11:38:22.541  1399  1731 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+11-06 11:38:22.542  6917  6962 D OpenGLRenderer: HWUI GL Pipeline
+11-06 11:38:22.567  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:22.575  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 274432
+11-06 11:38:22.580  6917  6962 D         : HostConnection::get() New Host Connection established 0x7c4dacd75200, tid 6962
+11-06 11:38:22.583  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.588  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.594  6917  6962 I OpenGLRenderer: Initialized EGL, version 1.4
+11-06 11:38:22.594  6917  6962 D OpenGLRenderer: Swap behavior 1
+11-06 11:38:22.595  6917  6962 D EGL_emulation: eglCreateContext: 0x7c4dacfb5aa0: maj 3 min 0 rcv 3
+11-06 11:38:22.596  6917  6962 D EGL_emulation: eglMakeCurrent: 0x7c4dacfb5aa0: ver 3 0 (tinfo 0x7c4da32712c0)
+11-06 11:38:22.598  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:22.599  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.618  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 544768
+11-06 11:38:22.620  1399  1399 D SurfaceFlinger: duplicate layer name: changing com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity to com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity#1
+11-06 11:38:22.622  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.623  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+11-06 11:38:22.624  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.649  6917  6962 D EGL_emulation: eglMakeCurrent: 0x7c4dacfb5aa0: ver 3 0 (tinfo 0x7c4da32712c0)
+11-06 11:38:22.651  2618  2834 D EGL_emulation: eglMakeCurrent: 0xdb485ea0: ver 3 0 (tinfo 0xdb4838f0)
+11-06 11:38:22.673  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.684  1806  1806 I chatty  : uid=10028(u0_a28) com.android.systemui identical 6 lines
+11-06 11:38:22.685  1806  1806 I OpaLayout: Setting opa enabled to false
+11-06 11:38:22.754  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:22.759  5443  5528 D EGL_emulation: eglMakeCurrent: 0x7c4daf638820: ver 3 0 (tinfo 0x7c4daf60d3e0)
+11-06 11:38:22.760  5410  5437 D EGL_emulation: eglMakeCurrent: 0x7c4daf649d60: ver 3 0 (tinfo 0x7c4daf60dba0)
+11-06 11:38:22.772  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:22.775  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+11-06 11:38:22.787  1608  1647 I ActivityManager: Displayed com.google.android.apps.nexuslauncher/.NexusLauncherActivity: +367ms
+11-06 11:38:22.809  1806  6967 D         : HostConnection::get() New Host Connection established 0x7c4daf63a740, tid 6967
+11-06 11:38:22.819  1608  5636 I OpenGLRenderer: Initialized EGL, version 1.4
+11-06 11:38:22.819  1608  5636 D OpenGLRenderer: Swap behavior 1
+11-06 11:38:22.820  1608  5636 D EGL_emulation: eglCreateContext: 0x7c4d8efb6540: maj 3 min 0 rcv 3
+11-06 11:38:22.821  1608  5636 D EGL_emulation: eglMakeCurrent: 0x7c4d8efb6540: ver 3 0 (tinfo 0x7c4d9056a220)
+11-06 11:38:22.841  2618  2618 W SessionLifecycleManager: Handover failed. Creating new session controller.
+11-06 11:38:22.844  2618  2618 I OptInState: There is a new client and it does not support opt-in. Dropping request.
+11-06 11:38:22.861  2618  2618 I zygote  : Deoptimizing java.lang.Object b.a.i.a(b.b, java.lang.Object) due to JIT inline cache
+11-06 11:38:22.874  2618  6327 W LocationOracle: No location history returned by ContextManager
+11-06 11:38:22.882  2618  2618 I MicroDetectionWorker: #updateMicroDetector [detectionMode: [mDetectionMode: [1]]]
+11-06 11:38:22.883  2618  2618 I MicroDetectionWorker: #startMicroDetector [speakerMode: 0]
+11-06 11:38:22.883  2618  2618 I AudioController: Using mInputStreamFactoryBuilder
+11-06 11:38:22.886  2618  2922 I MicroRecognitionRunner: Starting detection.
+11-06 11:38:22.895  2618  5985 I MicrophoneInputStream: mic_starting com.google.android.apps.gsa.staticplugins.aa.c@dd4df33
+11-06 11:38:22.901  1512  5120 E AudioFlinger: not enough memory for AudioTrack size=131296
+11-06 11:38:22.901  1512  5120 D MemoryDealer:   AudioTrack (0xf277c290, size=4194304)
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     0: 0xf277c2a0 | 0x00000000 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     1: 0xf277c2c0 | 0x000200E0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     2: 0xf277c430 | 0x000401C0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     3: 0xf277c610 | 0x000602A0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     4: 0xf277c4e0 | 0x00080380 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     5: 0xf277c980 | 0x000A0460 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     6: 0xf277cb50 | 0x000C0540 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     7: 0xf2a3e230 | 0x000E0620 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     8: 0xf277cd40 | 0x00100700 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:     9: 0xf2a3e3f0 | 0x001207E0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    10: 0xf277cee0 | 0x001408C0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    11: 0xf277c860 | 0x001609A0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    12: 0xf2a3e5b0 | 0x00180A80 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    13: 0xf2a3e740 | 0x001A0B60 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    14: 0xf2a3e900 | 0x001C0C40 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    15: 0xf2a3ea50 | 0x001E0D20 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    16: 0xf18ff300 | 0x00200E00 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    17: 0xf18ff4d0 | 0x00220EE0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    18: 0xf18ff630 | 0x00240FC0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:    19: 0xf18ff800 | 0x002610A0 | 0x000200E0 | A
+11-06 11:38:22.901  1512  5120 D MemoryDealer:
+11-06 11:38:22.901  1512  5120 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+11-06 11:38:22.901  2618  5985 E AudioRecord: AudioFlinger could not create record track, status: -12
+11-06 11:38:22.905  1512  6972 I AudioFlinger: AudioFlinger's thread 0xeeb17840 tid=6972 ready to run
+11-06 11:38:22.905  2618  5985 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+11-06 11:38:22.905  2618  5985 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+11-06 11:38:22.905  2618  5985 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@dd4df33
+11-06 11:38:22.906  2618  2922 W SpeechLevelGenerator: Really low audio levels detected. The audio input may have issues.
+11-06 11:38:22.910  2618  5985 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@dd4df33
+11-06 11:38:22.911  2618  2922 I MicroRecognitionRunner: Detection finished
+11-06 11:38:22.911  2618  2922 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+11-06 11:38:22.912  2618  3065 I MicroRecognitionRunner: Stopping hotword detection.
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: onFatalError, processing error from engine(4)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+11-06 11:38:22.912  2618  2922 W ErrorProcessor: 	... 9 more
+11-06 11:38:22.912  2618  2922 I AudioController: internalShutdown
+11-06 11:38:22.918  2618  2618 I MicroDetectionWorker: onReady
+11-06 11:38:22.930  2618  2618 I MicroDetectionWorker: onReady
+11-06 11:38:22.932  2618  2618 I MicroDetector: Keeping mic open: false
+11-06 11:38:22.932  2618  2618 I MicroDetectionWorker: #onError(false)
+11-06 11:38:22.934  2618  5907 I DeviceStateChecker: DeviceStateChecker cancelled
+11-06 11:38:22.934  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:22.937  2618  5638 I zygote  : Deoptimizing void com.google.common.util.concurrent.t.a(int, java.util.concurrent.Future) due to JIT inline cache
+11-06 11:38:22.965  6917  6917 D PhenotypeFlagCommitter: Committed to new configuration from Phenotype
+11-06 11:38:22.967  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:22.984  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@a719663 in: STOPPED
+11-06 11:38:22.984  5410  5410 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@a719663
+11-06 11:38:22.986  5410  5410 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@a719663 in: DESTROYED
+11-06 11:38:22.986  5410  5410 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+11-06 11:38:23.024  6917  6917 I PhenotypeFlagCommitter: Experiment Configs successfully retrieved for com.google.android.apps.nexuslauncher
+11-06 11:38:23.024  6917  6917 D PhenotypeFlagCommitter: Commit finished, result:true
+11-06 11:38:23.026  1608  3162 I GnssLocationProvider: WakeLock acquired by sendMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@9111c39)
+11-06 11:38:23.036  1608  1622 I GnssLocationProvider: WakeLock released by handleMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@9111c39)
+11-06 11:38:23.065  2618  2631 I zygote  : Background concurrent copying GC freed 14041(1054KB) AllocSpace objects, 1(68KB) LOS objects, 49% free, 6MB/12MB, paused 7.060ms total 178.626ms
+11-06 11:38:23.078  1806  2146 D EGL_emulation: eglMakeCurrent: 0x7c4da24f56c0: ver 3 0 (tinfo 0x7c4da246a240)
+11-06 11:38:23.172  5410  5427 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@5a77a37]
+11-06 11:38:23.175  5410  5421 I zygote64: Background concurrent copying GC freed 62088(2MB) AllocSpace objects, 111(3MB) LOS objects, 31% free, 12MB/18MB, paused 782us total 160.793ms
+11-06 11:38:23.176  5410  5427 I TestRunner: finished: pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor(org.bookreader.mobile.reader.TxtReaderFlowTest)

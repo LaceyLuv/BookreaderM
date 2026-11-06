@@ -1,0 +1,121 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 127857144242,
+      "run_id": 42207330572,
+      "workflow_name": "BookReader Mobile Checks",
+      "head_branch": "codex/reader-070",
+      "run_url": "https://api.github.com/repos/LaceyLuv/BookreaderM/actions/runs/42207330572",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU2HoDc8AAAAdxOExsg",
+      "head_sha": "ae4453d0ddab234077ade8af7f12ebc29a52392b",
+      "url": "https://api.github.com/repos/LaceyLuv/BookreaderM/actions/jobs/127857144242",
+      "html_url": "https://github.com/LaceyLuv/BookreaderM/actions/runs/42207330572/job/127857144242",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-06T11:03:25Z",
+      "started_at": "2026-11-06T11:03:27Z",
+      "completed_at": "2026-11-06T11:11:15Z",
+      "name": "build",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-06T11:03:28Z",
+          "completed_at": "2026-11-06T11:03:29Z"
+        },
+        {
+          "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-06T11:03:29Z",
+          "completed_at": "2026-11-06T11:03:44Z"
+        },
+        {
+          "name": "Run actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-06T11:03:44Z",
+          "completed_at": "2026-11-06T11:03:48Z"
+        },
+        {
+          "name": "Run android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-06T11:03:48Z",
+          "completed_at": "2026-11-06T11:03:54Z"
+        },
+        {
+          "name": "Install pinned Android SDK",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-06T11:03:54Z",
+          "completed_at": "2026-11-06T11:03:56Z"
+        },
+        {
+          "name": "Validate environment and run mandatory checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-06T11:03:56Z",
+          "completed_at": "2026-11-06T11:10:48Z"
+        },
+        {
+          "name": "Verify progress preservation under real filesystem ENOSPC",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-06T11:10:48Z",
+          "completed_at": "2026-11-06T11:11:11Z"
+        },
+        {
+          "name": "Upload APK, test reports and command evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-06T11:11:11Z",
+          "completed_at": "2026-11-06T11:11:13Z"
+        },
+        {
+          "name": "Post Run actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-06T11:11:13Z",
+          "completed_at": "2026-11-06T11:11:13Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-06T11:11:13Z",
+          "completed_at": "2026-11-06T11:11:14Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-06T11:11:14Z",
+          "completed_at": "2026-11-06T11:11:14Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/LaceyLuv/BookreaderM/check-runs/127857144242",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000247,
+      "runner_name": "GitHub Actions 1000000247",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}
