@@ -262,7 +262,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                     state.phase == TxtReaderPhase.READY) { showSearch = true }
                 ReaderToolButton("북마크", R.drawable.ic_reader_bookmark, "reader_bookmarks",
                     state.phase == TxtReaderPhase.READY) { showBookmarks = true }
-                ReaderToolButton("읽기 설정", R.drawable.ic_reader_text, "reader_settings") { showSettings = true }
+                ReaderToolButton("설정", R.drawable.ic_reader_text, "reader_settings") { showSettings = true }
                 ReaderToolButton("형광펜", R.drawable.ic_reader_highlight, "reader_annotations",
                     state.phase == TxtReaderPhase.READY && state.cache.complete) { showAnnotations = true }
                 if (toolsState.returnOffset != null) ReaderToolButton("검색 전 위치", R.drawable.ic_reader_return,

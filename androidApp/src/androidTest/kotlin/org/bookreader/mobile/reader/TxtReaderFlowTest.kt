@@ -149,7 +149,6 @@ class TxtReaderFlowTest {
             }
             val fragment = active.cache.fragmentFor(entry.quote.start)
             assertHighlight("reader_fragment_$fragment",active.state.value.cache.fragments[fragment].start,entry)
-            ReaderFixtureScreenshot.capture("phase3-txt-highlight.png")
             compose.readerControl("reader_annotations").performClick()
             compose.onNodeWithTag("annotation_edit_${entry.id}").performClick()
             compose.onNodeWithTag("annotation_note").performScrollTo().performTextReplacement("수정한 메모")
@@ -180,6 +179,11 @@ class TxtReaderFlowTest {
             compose.waitUntil(10_000) { saved(book)?.let { offset(it) == edited.quote.start } == true }
             val jumped = requireNotNull(saved(book))
             assertHighlight("reader_page",edited.quote.start,edited)
+            compose.readerControl("reader_hide").performClick()
+            compose.onNodeWithTag("reader_chrome").assertDoesNotExist()
+            assertHighlight("reader_page",edited.quote.start,edited)
+            assertEquals(jumped,saved(book))
+            ReaderFixtureScreenshot.capture("phase3-txt-highlight.png")
             compose.readerControl("reader_back").performClick(); waitFor("library_content")
             compose.activityRule.scenario.recreate(); waitFor("library_content")
             compose.onNodeWithTag("read_${book.id}").performScrollTo().performClick(); waitFor("reader_ready")

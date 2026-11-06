@@ -20,6 +20,9 @@ Android77/shared104 PASS. 한도 사전 검사·선택 유지 포함 전체 로�
 보완본도 별도 원격 전체 검증을 진행한다.
 새 실제 UI를 포함한 native75+host7/API26·34·36은 아직 NOT_RUN이다. 컴파일을 기기 PASS로 세지 않는다.
 다음은 로컬 CI/릴리스 빌드와 전체 원격 검사·실제 선택/표시 캡처 확인이다. EPUB 형광펜과 Phase4는 미완료다.
+실제 ae4453d API26/36 캡처에서 메모 목록은 확인했으나 긴 설정 라벨과 화면 가장자리의 본문 캡처를 보완한다.
+[원본 시각 검토](evidence/product-quality/annotations-visual-ae4453d/review.json). TXT 도구명을 설정으로 줄이고, 정확한 형광펜 이동 후 도구를 숨긴 페이지를 캡처한다.
+242ae6b 원격 build42208671987 PASS이며 기기 검사42208671998은 진행 중이다. 최종 화면 보완본의 전체 matrix도 별도 확인한다.
 매 shell `source /workspace/toolchains/mobile-env.sh`.
 
 
