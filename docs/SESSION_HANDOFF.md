@@ -1,3 +1,22 @@
+## 2026-11-06 최신 이어갈 위치 — TXT 형광펜·메모 검증 완료
+
+현재 개발은 `/workspace/BookreaderM-reader-070`, `codex/reader-070`에서 이어 간다.
+제품/테스트 소스208f74caf788bf9a72d1640d4e30926ae0a29716, 증거·문서0b5d773236a3bba032e1bb6ef79232d75a559df1을 push했다.
+0.7.0-dev/code9/Room8. [구현·실제 화면·한계](https://github.com/LaceyLuv/BookreaderM/blob/codex/reader-070/docs/READER_0_7.md).
+TXT 형광펜의 정확한 선택/네 가지 색상/메모 수정·삭제/본문 이동을 별도 테이블에 저장한다.
+기존12개 테이블과 책·진행도·북마크·설정·목차를 보존하며 원문 구간을 대조한 기록만 표시한다.
+build42210038416 PASS200, device42210038417 API26/34/36 각각 native75+host7 PASS, 실패·오류·skip0.
+원본 SHA/CRC/XML/source clean/외부 force-stop PID 부재·교체와 EPUB p179 대조 exit0.
+로컬197/릴리스 APK·AAB 컴파일도 PASS. 세 API 실제 형광펜 본문·메모 목록·짧아진 설정 라벨을 확인했다.
+초기 fixture 실패와 화면 보완 전 원본도 보존했다. 기존 Phase2 측정 재진입/19a8235 캡처 원인 미확정 기록은 그대로다.
+키·main·기존05ffd50 APK/ZIP을 보존했고 새 설치 파일을 전달하거나 공개 릴리스를 게시하지 않았다.
+이 보존 작업트리의0.6.0 제품 코드는 변경하지 않았다.
+다음 단위: Readium 공개 선택 locator/Decoration 기반 EPUB 형광펜·메모. Phase4·실기기·TalkBack·성능은 미완료다.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 위 개발 위치의 `docs/SESSION_HANDOFF.md`를 먼저 읽는다.
+실행 상태/helper는 `/workspace/work/bookreaderm-product-quality/phase3-annotations/current.json`, `ci/`에 있다.
+
+이하 이전 상태는 이력이다.
+
 ## 2026-11-06 최신 이어갈 위치 — 도구·빠른 설정 검증 완료
 
 개발은 `/workspace/BookreaderM-reader-070`, `codex/reader-070`에서 이어 간다.
