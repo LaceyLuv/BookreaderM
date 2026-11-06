@@ -64,6 +64,19 @@ class RoomTxtAnnotationsRepositoryTest {
         assertEquals(AnnotationWrite.ERROR,repo.save(session,100,entry.id,null,
             entry.copy(quote=TxtQuote(0,3,"\uD800xx"))))
         assertEquals(before,db.txtAnnotationDao().entries("a","r1"))
+        // SQLite length(TEXT) stops at NUL. Detect oversized raw fields before materializing rows.
+        for (bad in listOf(
+            raw.copy(schemaVersion=1,quote="\u0000"+"x".repeat(16384)),
+            raw.copy(schemaVersion=1,note="\u0000"+"x".repeat(8000)),
+            raw.copy(schemaVersion=1,changeId="\u0000"+"x".repeat(512)),
+            raw.copy(schemaVersion=1,color="\u0000"+"x".repeat(128)),
+        )) {
+            db.txtAnnotationDao().save(bad)
+            assertTrue(db.txtAnnotationDao().hasOversizedFields("a","r1"))
+            assertEquals(TxtAnnotationsRead.Error,repo.load("a","r1",100))
+            assertEquals(AnnotationWrite.ERROR,repo.save(session,100,entry.id,null,entry))
+            assertEquals(listOf(bad),db.txtAnnotationDao().entries("a","r1"))
+        }
     }
 
     @Test fun entryLimitAndNativeStatementFailureRollBackAnnotationChanges() = fixture { db ->

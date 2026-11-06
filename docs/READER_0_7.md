@@ -14,6 +14,10 @@
 Android77/shared104 PASS. 한도 사전 검사·선택 유지 포함 전체 로컬 CI exit0, Android77/shared104/EPUB16=197 및 APK/test APK/lint/schema8 PASS.
 명령 `BOOKREADER_EVIDENCE_DIR=build/phase3-annotations-local ./scripts/ci-check.sh`. [원본](evidence/product-quality/phase3-annotations-local/summary.json).
 원본 `/workspace/work/bookreaderm-product-quality/phase3-annotations*.log`, `phase3-annotations/first-failure/`.
+후속 검토에서 SQLite length(TEXT)의 NUL 종료 특성을 확인해 BLOB 바이트 한도 검사를 추가했다.
+해당 회귀 및 전체 로컬197/릴리스 APK·AAB exit0. [보완본 원본](evidence/product-quality/phase3-annotations-bound-local/summary.json).
+초기 ae4453d 원격 build42207330572는 원본 digest/CRC/필수 XML 대조 PASS200이며 device42207330781은 실행 중이다.
+보완본도 별도 원격 전체 검증을 진행한다.
 새 실제 UI를 포함한 native75+host7/API26·34·36은 아직 NOT_RUN이다. 컴파일을 기기 PASS로 세지 않는다.
 다음은 로컬 CI/릴리스 빌드와 전체 원격 검사·실제 선택/표시 캡처 확인이다. EPUB 형광펜과 Phase4는 미완료다.
 매 shell `source /workspace/toolchains/mobile-env.sh`.
