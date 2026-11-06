@@ -99,6 +99,10 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     var showSearch by remember(controller) { mutableStateOf(false) }
     var showBookmarks by remember(controller) { mutableStateOf(false) }
     var showToc by remember(controller) { mutableStateOf(false) }
+    var showAnnotations by remember(controller) { mutableStateOf(false) }
+    val annotationState = controller.annotations.state.collectAsStateWithLifecycle().value
+    val highlights = if (annotationState.ready) annotationState.entries else emptyList()
+    LaunchedEffect(controller, state.phase, state.cache.complete) { controller.annotations.load() }
     val toolsState = controller.tools.state.collectAsStateWithLifecycle().value
     val layouts = remember(controller, state.restoreGeneration, typography, density, viewport) {
         mutableStateMapOf<Int, TextLayoutResult>()
@@ -206,7 +210,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 if (state.phase == TxtReaderPhase.READY) "reader_ready" else "reader_content")) {
                 if (!scrollMode) TxtPageContent(controller, state, typography,
                     Modifier.fillMaxSize().background(background).padding(horizontal = settings.marginDp.dp, vertical = 12.dp),
-                    step = pageStep, onAvailability = { previous, next -> pageAvailability = previous to next })
+                    step = pageStep, highlights = highlights, onAvailability = { previous, next -> pageAvailability = previous to next })
                 else LazyColumn(state = list, userScrollEnabled = state.phase == TxtReaderPhase.READY,
                     contentPadding = PaddingValues(horizontal = settings.marginDp.dp, vertical = 12.dp),
                     modifier = Modifier.fillMaxSize().testTag("reader_text")
@@ -227,7 +231,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                             // the requested item measurable and visible until its real layout exists.
                             Spacer(Modifier.fillMaxWidth().height(with(density) { maxOf(1, viewport.height).toDp() }))
                         } else {
-                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(requireNotNull(text), style = typography,
+                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(highlightedTxt(state.cache.fragments[index].start, requireNotNull(text), highlights), style = typography,
                                 onTextLayout = { result -> layouts[index] = result },
                                 modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index")) } }
                         }
@@ -259,6 +263,8 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 ReaderToolButton("북마크", R.drawable.ic_reader_bookmark, "reader_bookmarks",
                     state.phase == TxtReaderPhase.READY) { showBookmarks = true }
                 ReaderToolButton("읽기 설정", R.drawable.ic_reader_text, "reader_settings") { showSettings = true }
+                ReaderToolButton("형광펜", R.drawable.ic_reader_highlight, "reader_annotations",
+                    state.phase == TxtReaderPhase.READY && state.cache.complete) { showAnnotations = true }
                 if (toolsState.returnOffset != null) ReaderToolButton("검색 전 위치", R.drawable.ic_reader_return,
                     "reader_search_return", state.phase == TxtReaderPhase.READY, controller.tools::returnFromSearch)
             }
@@ -274,6 +280,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     if (showSearch) ReaderSearchDialog(controller) { showSearch = false }
     if (showBookmarks) ReaderBookmarksDialog(controller) { showBookmarks = false }
     if (showToc) ReaderTocDialog(controller) { showToc = false }
+    if (showAnnotations) ReaderAnnotationsDialog(controller) { showAnnotations = false }
     if (showMenu) ReaderMenuDialog(state, seek,
         previous = if (scrollMode) list.canScrollBackward && state.phase == TxtReaderPhase.READY else pageAvailability.first,
         next = if (scrollMode) list.canScrollForward && state.phase == TxtReaderPhase.READY else pageAvailability.second,

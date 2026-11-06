@@ -1,3 +1,21 @@
+## 2026-11-06 진행 중 — TXT 형광펜·메모
+
+작업 위치 `/workspace/BookreaderM-reader-070`, `codex/reader-070`. 0.7.0-dev/code9/Room8.
+[결정·한도·대안](adr/0010-exact-txt-annotations.md). 본문 측정은 유지하고 현재 구간의 읽기 전용 선택 창에서
+공개 TextFieldValue 선택 좌표를 받는다. quote/범위/색상/메모를 별도 txt_annotations에 저장하고 원문과 대조된 구간만 색상으로 표시한다.
+목록 수정/삭제/정확한 이동, 취소·오래된 세션·동시 수정·미래 값/불일치 거부와 실제 UI/host 강제 종료 검사를 구현했다.
+기존12개 테이블 정의는 동일하다. 키/main/기존05ffd50 설치 파일과 책/진행도/북마크/목차를 보존한다.
+
+첫 JVM104개 중1 FAIL은 잘못된 surrogate를 직접 DB에 넣은 fixture가 native 바인딩에서 변환된 사례였다.
+실제 저장 진입점에서 바인딩 전에 거부됨을 검사하도록 수정했고 실패 XML을 보존했다.
+후속 `./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:testDebugUnitTest :androidApp:lintDebug :shared:jvmTest --console=plain` exit0.
+Android77/shared104 PASS. 한도 사전 검사·선택 유지 포함 전체 로컬 CI exit0, Android77/shared104/EPUB16=197 및 APK/test APK/lint/schema8 PASS.
+명령 `BOOKREADER_EVIDENCE_DIR=build/phase3-annotations-local ./scripts/ci-check.sh`. [원본](evidence/product-quality/phase3-annotations-local/summary.json).
+원본 `/workspace/work/bookreaderm-product-quality/phase3-annotations*.log`, `phase3-annotations/first-failure/`.
+새 실제 UI를 포함한 native75+host7/API26·34·36은 아직 NOT_RUN이다. 컴파일을 기기 PASS로 세지 않는다.
+다음은 로컬 CI/릴리스 빌드와 전체 원격 검사·실제 선택/표시 캡처 확인이다. EPUB 형광펜과 Phase4는 미완료다.
+매 shell `source /workspace/toolchains/mobile-env.sh`.
+
 ## 2026-11-06 최신 — 읽기 도구·빠른 설정 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`, `codex/reader-070`, 제품/테스트 소스 `19a82358746063d97826f04d992c16a30026319b`.

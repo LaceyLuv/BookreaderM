@@ -35,6 +35,9 @@ class MigrationTest {
     @Test fun exportedVersionSixPreservesCatalogAndAllReadingRecords() = migration(6)
     @Test fun tocMigrationValidationFailureRollsBackWithoutChangingVersionSixRecords() = migration(6, "validation")
 
+    @Test fun exportedVersionSevenPreservesRawTocAndAllExistingRecords() = migration(7)
+    @Test fun annotationMigrationValidationFailureRollsBackWithoutChangingVersionSevenRecords() = migration(7, "validation")
+
     private fun migration(version: Int, failure: String? = null) = runBlocking {
         val directory = Files.createTempDirectory("bookreader-migration-")
         val path = directory.resolve("db.sqlite")
@@ -101,6 +104,9 @@ class MigrationTest {
                 connection.execSQL("INSERT INTO library_memberships VALUES ('old-book','shelf')")
                 connection.execSQL("INSERT INTO library_preferences VALUES ('global','AUTHOR','LIST','FINISHED','shelf')")
             }
+            if (version >= 7) BundledSQLiteDriver().open(path.toString()).use { connection ->
+                connection.execSQL("INSERT INTO txt_toc_overrides VALUES ('old-book','old-revision',71,2,'future title',3,'preserved')")
+            }
             if (failure != null) {
                 BundledSQLiteDriver().open(path.toString()).use { connection ->
                     connection.execSQL(if (failure == "statement")
@@ -113,7 +119,7 @@ class MigrationTest {
                         val queries = listOf("PRAGMA user_version", "SELECT name,sql FROM sqlite_master ORDER BY name") +
                             listOf("books", "reading_progress", "bookmarks", "import_jobs", "app_metadata",
                                 "reader_global_settings", "book_reader_preferences", "room_master_table").plus(
-                                    if (version >= 6) listOf("library_book_details", "library_shelves", "library_memberships", "library_preferences") else emptyList()).map { "SELECT * FROM $it ORDER BY 1" }
+                                    if (version >= 6) listOf("library_book_details", "library_shelves", "library_memberships", "library_preferences") else emptyList()).plus(if (version >= 7) listOf("txt_toc_overrides") else emptyList()).map { "SELECT * FROM $it ORDER BY 1" }
                         for (query in queries) connection.prepare(query).use { statement ->
                             while (statement.step()) add(List(statement.getColumnCount()) {
                                 if (statement.isNull(it)) null else statement.getText(it)
@@ -149,7 +155,10 @@ class MigrationTest {
                     assertEquals(listOf(ShelfMembershipEntity("old-book","shelf")), migrated.libraryDao().memberships())
                     assertEquals(LibraryPreferencesEntity("global","AUTHOR","LIST","FINISHED","shelf"), migrated.libraryDao().preferences())
                 }
-                assertTrue(migrated.txtTocDao().edits(book.id, progress.contentRevision).isEmpty())
+                if (version < 7) assertTrue(migrated.txtTocDao().edits(book.id, progress.contentRevision).isEmpty())
+                else assertEquals(listOf(TxtTocOverrideEntity(book.id,progress.contentRevision,71,2,"future title",3,"preserved")),
+                    migrated.txtTocDao().edits(book.id,progress.contentRevision))
+                assertTrue(migrated.txtAnnotationDao().entries(book.id,progress.contentRevision).isEmpty())
                 assertEquals(17L, migrated.progressWriterDao().readOrder())
                 val ready = assertIs<ReadySessionResult.Ready>(RoomProgressWriter(migrated) { 30 }.startReadySession(book.id, progress.contentRevision, locator))
                 assertEquals(10L, ready.session.sessionEpoch)

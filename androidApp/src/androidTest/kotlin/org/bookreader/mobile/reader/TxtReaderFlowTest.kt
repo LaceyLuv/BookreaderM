@@ -25,6 +25,7 @@ import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.click
 import androidx.compose.ui.test.doubleClick
+import androidx.compose.ui.test.longClick
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.text.TextLayoutResult
@@ -99,6 +100,98 @@ class TxtReaderFlowTest {
                 File(target.cacheDir, "txt").listFiles()?.filter { it.name.startsWith(key) }?.forEach { it.delete() }
             }
         } finally { if (::observerDatabase.isInitialized) observerDatabase.close() }
+    }
+
+    @Test fun exactTxtHighlightsAndNotesSurviveReflowReopenAndDeletionWithoutEditingReadingRecords() {
+        val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
+        try {
+            sendFixture("reader-annotations"); waitFor("reader_ready")
+            val active = reader(); val book = active.book
+            compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() }
+            compose.waitForIdle()
+            val origin = measuredVisibleLine(active)
+            compose.waitUntil(10_000) { saved(book)?.let { offset(it) == origin && origin > 0 } == true && active.annotations.state.value.ready }
+            val before = requireNotNull(saved(book)); val beforeBook = books().single { it.id == book.id }
+            val file = File(File(target.filesDir,"managed"),book.managedRelativePath); val hash = digest(file)
+            compose.readerControl("reader_annotations").performClick()
+            compose.onNodeWithTag("annotation_add").performClick()
+            compose.waitUntil(10_000) { active.annotations.state.value.window != null }
+            val window = requireNotNull(active.annotations.state.value.window)
+            val first = window.text.indexOf("same same"); assertTrue(first >= 0)
+            val field = compose.onNodeWithTag("annotation_selection")
+            val layouts = mutableListOf<TextLayoutResult>()
+            field.performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts) }
+            val point = layouts.single().getBoundingBox(first + 1).center
+            field.performTouchInput { longClick(point) }
+            compose.waitUntil(5_000) {
+                !field.fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.TextSelectionRange].collapsed
+            }
+            val physical = field.fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.TextSelectionRange]
+            assertEquals("same", window.text.substring(physical.min, physical.max))
+            // Accessibility selection selects the SECOND duplicate at its actual UTF-16 offsets.
+            val start = first + 5; val end = start + 4
+            field.performSemanticsAction(SemanticsActions.SetSelection) { assertTrue(it(start,end,false)) }
+            compose.onNodeWithTag("annotation_note").performScrollTo().performTextInput("처음 메모 😀")
+            compose.onNodeWithTag("annotation_color_GREEN").performScrollTo().performClick()
+            compose.onNodeWithTag("annotation_save").performClick()
+            compose.waitUntil(10_000) { active.annotations.state.value.let { it.ready && it.savedVersion == 1L } }
+            val entry = active.annotations.state.value.entries.single()
+            assertEquals(org.bookreader.mobile.annotation.TxtQuote(window.base + start,window.base + end,"same"),entry.quote)
+            assertEquals("처음 메모 😀",entry.note)
+            assertEquals(before,saved(book)); assertEquals(beforeBook,books().single { it.id == book.id }); assertEquals(hash,digest(file))
+            compose.onNodeWithTag("annotations_close").performClick()
+            fun assertHighlight(tag: String, base: Long, current: org.bookreader.mobile.annotation.TxtAnnotation) {
+                val actual = mutableListOf<TextLayoutResult>()
+                compose.onNodeWithTag(tag).performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(actual) }
+                val text = actual.single().layoutInput.text
+                assertTrue(text.spanStyles.any { it.start == (current.quote.start-base).toInt() &&
+                    it.end == (current.quote.end-base).toInt() && it.item.background == current.color.paper() })
+            }
+            val fragment = active.cache.fragmentFor(entry.quote.start)
+            assertHighlight("reader_fragment_$fragment",active.state.value.cache.fragments[fragment].start,entry)
+            ReaderFixtureScreenshot.capture("phase3-txt-highlight.png")
+            compose.readerControl("reader_annotations").performClick()
+            compose.onNodeWithTag("annotation_edit_${entry.id}").performClick()
+            compose.onNodeWithTag("annotation_note").performScrollTo().performTextReplacement("수정한 메모")
+            compose.onNodeWithTag("annotation_color_PINK").performScrollTo().performClick()
+            compose.onNodeWithTag("annotation_save").performClick()
+            compose.waitUntil(10_000) { active.annotations.state.value.let { it.ready && it.savedVersion == 2L } }
+            val edited = active.annotations.state.value.entries.single()
+            assertEquals(entry.quote,edited.quote);assertEquals("수정한 메모",edited.note)
+            assertEquals(org.bookreader.mobile.annotation.HighlightColor.PINK,edited.color)
+            assertEquals(before,saved(book)); assertEquals(beforeBook,books().single { it.id == book.id })
+            compose.waitUntil(5_000) { compose.onAllNodesWithTag("annotation_note").fetchSemanticsNodes().isEmpty() }
+            ReaderFixtureScreenshot.capture("phase3-txt-annotations.png")
+            compose.onNodeWithTag("annotations_close").performClick()
+            compose.readerControl("reader_settings").performClick()
+            compose.onNodeWithTag("reader_mode_PAGES").performClick()
+            compose.onNodeWithTag("font_size_increase").performScrollTo().performClick()
+            compose.onNodeWithTag("reader_settings_apply").performClick()
+            compose.waitUntil(15_000) { active.state.value.let { it.phase == TxtReaderPhase.READY &&
+                it.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES } }
+            assertEquals(before,saved(book));assertEquals(origin,active.state.value.targetOffset)
+            assertHighlight("reader_page",origin,edited)
+            val priorTarget = active.state.value.targetOffset
+            compose.readerControl("reader_next").performClick()
+            compose.waitUntil(10_000) { active.state.value.let { it.phase == TxtReaderPhase.READY && it.targetOffset != priorTarget } }
+            compose.readerControl("reader_annotations").performClick()
+            compose.onNodeWithTag("annotation_jump_${entry.id}").performClick()
+            compose.waitUntil(10_000) { active.state.value.let { it.phase == TxtReaderPhase.READY && it.targetOffset == edited.quote.start } }
+            compose.waitUntil(10_000) { saved(book)?.let { offset(it) == edited.quote.start } == true }
+            val jumped = requireNotNull(saved(book))
+            assertHighlight("reader_page",edited.quote.start,edited)
+            compose.readerControl("reader_back").performClick(); waitFor("library_content")
+            compose.activityRule.scenario.recreate(); waitFor("library_content")
+            compose.onNodeWithTag("read_${book.id}").performScrollTo().performClick(); waitFor("reader_ready")
+            compose.waitUntil(10_000) { reader().annotations.state.value.ready }
+            assertEquals(listOf(edited),reader().annotations.state.value.entries)
+            assertEquals(jumped,saved(book)); assertHighlight("reader_page",edited.quote.start,edited)
+            compose.readerControl("reader_annotations").performClick()
+            compose.onNodeWithTag("annotation_edit_${entry.id}").performClick()
+            compose.onNodeWithTag("annotation_delete").performScrollTo().performClick()
+            compose.waitUntil(10_000) { reader().annotations.state.value.let { it.ready && it.entries.isEmpty() } }
+            assertEquals(jumped,saved(book));assertEquals(hash,digest(file))
+        } finally { restoreReaderGlobalSettings(originalSettings) }
     }
 
     @Test fun txtTocEditsExclusionsManualEntryAndJumpSurviveReopeningWithoutMovingRecordsDuringEdits() {

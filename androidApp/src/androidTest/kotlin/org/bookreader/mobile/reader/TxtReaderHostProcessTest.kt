@@ -8,6 +8,9 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performSemanticsAction
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.lifecycle.ViewModelProvider
@@ -93,6 +96,20 @@ class TxtReaderHostProcessTest {
         assertEquals(expected, tocEdit.offset)
         assertEquals(committed, saved(controller.book))
         compose.onNodeWithTag("toc_close").performClick()
+        compose.waitUntil(10_000) { controller.annotations.state.value.ready }
+        compose.readerControl("reader_annotations").performClick()
+        compose.onNodeWithTag("annotation_add").performClick()
+        compose.waitUntil(10_000) { controller.annotations.state.value.window != null }
+        val selection = requireNotNull(controller.annotations.state.value.window)
+        compose.onNodeWithTag("annotation_selection").performSemanticsAction(SemanticsActions.SetSelection) { assertTrue(it(0,20,false)) }
+        compose.onNodeWithTag("annotation_note").performScrollTo().performTextInput("강제 종료 후 메모")
+        compose.onNodeWithTag("annotation_save").performClick()
+        compose.waitUntil(10_000) { controller.annotations.state.value.let { it.ready && it.savedVersion == 1L } }
+        val annotation = controller.annotations.state.value.entries.single()
+        assertEquals(expected,annotation.quote.start)
+        assertEquals(selection.text.substring(0,20),annotation.quote.text)
+        assertEquals(committed,saved(controller.book))
+        compose.onNodeWithTag("annotations_close").performClick()
         ReaderFixtureScreenshot.capture("txt-reader-generated-host.png")
         val properties = Properties().apply {
             setProperty("bookId", controller.book.id)
@@ -103,6 +120,9 @@ class TxtReaderHostProcessTest {
             setProperty("updatedAt", committed.updatedAt.toString())
             setProperty("createdByThisHostFlow", (controller.book.id !in initialIds).toString())
             setProperty("tocChangeId", tocEdit.changeId)
+            setProperty("annotationId",annotation.id)
+            setProperty("annotationChangeId",annotation.changeId)
+            setProperty("annotationQuote",annotation.quote.text)
         }
         // Proof is written only after the actual Room commit is observed.
         java.io.FileOutputStream(proof).use { output ->
@@ -138,6 +158,15 @@ class TxtReaderHostProcessTest {
         assertEquals(expectedOffset, tocEdit.offset)
         assertEquals("강제 종료 후 유지할 목차", tocEdit.title)
         assertEquals(properties.getProperty("tocChangeId"), tocEdit.changeId)
+        compose.onNodeWithTag("toc_close").performClick()
+        compose.waitUntil(10_000) { reader().annotations.state.value.ready }
+        val annotation = reader().annotations.state.value.entries.single()
+        assertEquals(properties.getProperty("annotationId"),annotation.id)
+        assertEquals(properties.getProperty("annotationChangeId"),annotation.changeId)
+        assertEquals(properties.getProperty("annotationQuote"),annotation.quote.text)
+        assertEquals("강제 종료 후 메모",annotation.note)
+        assertEquals(expectedOffset,annotation.quote.start)
+        assertEquals(expectedOffset+20,annotation.quote.end)
         assertEquals(before, saved(bookId, revision))
         compose.activityRule.scenario.close()
         if (properties.getProperty("createdByThisHostFlow") == "true") {

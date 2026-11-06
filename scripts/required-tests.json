@@ -299,6 +299,14 @@
     [
       "org.bookreader.mobile.reader.TxtReaderTocTest",
       "readFailureAndStaleWriteDisableEditsAndSurrogateBoundaryNeverChangesPosition"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderAnnotationsTest",
+      "cancelledLateLoadAndMismatchedQuoteCannotPaintOrJumpToAnotherOccurrence"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderAnnotationsTest",
+      "cancelledWindowSplitSurrogateChangedSourceAndStaleWritesCannotSaveOrMoveProgress"
     ]
   ],
   "shared-jvm": [
@@ -681,6 +689,42 @@
     [
       "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
       "staleSessionRevisionConcurrentEditAndDeletedBookCannotOverwriteData"
+    ],
+    [
+      "org.bookreader.mobile.annotation.TxtAnnotationsTest",
+      "repeatedQuotesUseExactSelectedUtf16CoordinatesIncludingEmojiAndReverseSelection"
+    ],
+    [
+      "org.bookreader.mobile.annotation.TxtAnnotationsTest",
+      "invalidRangesOverflowUnpairedSurrogatesAndSizeLimitsAreRejected"
+    ],
+    [
+      "org.bookreader.mobile.annotation.TxtAnnotationsTest",
+      "clippedHighlightSpansCheckExactTextAndNeverSearchForAnotherOccurrence"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomTxtAnnotationsRepositoryTest",
+      "selectionsEditsAndDeletesPersistWithoutChangingOtherRawRecords"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomTxtAnnotationsRepositoryTest",
+      "concurrentEditsStaleEpochRevisionAndDeletedOwnersCannotOverwriteSelections"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomTxtAnnotationsRepositoryTest",
+      "unknownVersionsColorsAndMalformedRangesBlockReplacementWithoutDataLoss"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomTxtAnnotationsRepositoryTest",
+      "entryLimitAndNativeStatementFailureRollBackAnnotationChanges"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionSevenPreservesRawTocAndAllExistingRecords"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "annotationMigrationValidationFailureRollsBackWithoutChangingVersionSevenRecords"
     ]
   ],
   "android-device": [
@@ -979,6 +1023,10 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "quickSettingsCancelAndApplyPreserveExactProgressAndUnrelatedBookPreferences"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "exactTxtHighlightsAndNotesSurviveReflowReopenAndDeletionWithoutEditingReadingRecords"
     ]
   ],
   "android-host": [

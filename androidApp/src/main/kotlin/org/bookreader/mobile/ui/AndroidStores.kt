@@ -57,7 +57,8 @@ fun androidReaderFactory(context: Context): (org.bookreader.mobile.model.Book, k
                 override suspend fun add(id: String, session: org.bookreader.mobile.repository.ProgressSession,
                     locator: org.bookreader.mobile.locator.TxtLocator, label: String?, now: Long) = repository().add(id, session, locator, label, now)
                 override suspend fun delete(bookId: String, id: String) = repository().delete(bookId, id)
-            }, org.bookreader.mobile.toc.RoomTxtTocRepository(AndroidDatabaseOwner.borrow(app)))
+            }, org.bookreader.mobile.toc.RoomTxtTocRepository(AndroidDatabaseOwner.borrow(app)),
+            org.bookreader.mobile.annotation.RoomTxtAnnotationsRepository(AndroidDatabaseOwner.borrow(app)))
     }
 }
 

@@ -31,6 +31,7 @@ data class PageStepRequest(val id: Long = 0, val direction: Int = 0)
 @Composable
 fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style: TextStyle,
     modifier: Modifier = Modifier, step: PageStepRequest = PageStepRequest(),
+    highlights: List<org.bookreader.mobile.annotation.TxtAnnotation> = emptyList(),
     onAvailability: (Boolean, Boolean) -> Unit = { _, _ -> }) {
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
@@ -98,7 +99,7 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
                 val displayed = rendered.page
                 // Very large accessibility fonts may exceed the viewport even for one line.
                 // A bounded page stays vertically scrollable instead of clipping that line.
-                androidx.compose.foundation.text.selection.SelectionContainer { Text(displayed.text, style = style, maxLines = displayed.lines,
+                androidx.compose.foundation.text.selection.SelectionContainer { Text(highlightedTxt(displayed.range.start, displayed.text, highlights), style = style, maxLines = displayed.lines,
                     modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
                         .testTag("reader_page"),
                     onTextLayout = { actual ->

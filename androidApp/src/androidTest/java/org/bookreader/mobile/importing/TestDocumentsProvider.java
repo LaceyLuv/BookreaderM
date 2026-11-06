@@ -170,6 +170,11 @@ public final class TestDocumentsProvider extends DocumentsProvider {
         }
         if (id.startsWith("batch-host-")) return (id + " generated batch fixture\n").getBytes(StandardCharsets.UTF_8);
         switch (id) {
+            case "reader-annotations":
+                StringBuilder selections = new StringBuilder();
+                for (int line = 0; line < 300; line++)
+                    selections.append("줄 ").append(line).append(" 😀 alpha same same 끝.\n");
+                return selections.toString().getBytes(StandardCharsets.UTF_8);
             case "reader-toc":
                 StringBuilder chapters = new StringBuilder();
                 for (String heading : new String[] { "프롤로그", "제1화 시작", "Chapter 2 Next" }) {
