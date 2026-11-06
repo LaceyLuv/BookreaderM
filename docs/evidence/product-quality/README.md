@@ -1,3 +1,11 @@
+## 2026-11-06 읽기 도구·빠른 설정
+
+제품/테스트19a8235, build41194371543 PASS189, device41194371545 API26/34/36 각 native74+host7 PASS.
+[원본 대조](verified-19a8235/summary.json), [시각 검토](verified-19a8235/visual-review.json), [로컬186/릴리스 컴파일](phase3-controls-local/summary.json).
+artifact SHA/CRC/source clean/필수 XML/실제 외부 force-stop PID 교체와 EPUB p179 확인, verifier exit0.
+API26 닫기 직후 tools 캡처의 검색/북마크 라벨 배치 이상은 원인을 확정하지 않았으며 정상 화면 증거로 쓰지 않는다.
+같은 실행의 일반 TXT/EPUB 도구와 세 API 빠른 설정 캡처는 확인했다. 원본을 수정하지 않았다.
+
 # 제품 완성도 개선 검증 원본
 
 [감사와 진행 상태](../../PRODUCT_IMPROVEMENT.md), [0.5.1 보고서](../../UX_POLISH_0_5_1.md)를 따른다.

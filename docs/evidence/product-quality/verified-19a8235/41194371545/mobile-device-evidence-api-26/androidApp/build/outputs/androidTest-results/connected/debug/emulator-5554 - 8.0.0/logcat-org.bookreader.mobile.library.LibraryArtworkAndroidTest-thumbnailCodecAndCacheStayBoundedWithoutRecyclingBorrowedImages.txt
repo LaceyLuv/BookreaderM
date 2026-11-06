@@ -1,0 +1,76 @@
+10-31 10:59:39.153  5440  5457 I TestRunner: started: thumbnailCodecAndCacheStayBoundedWithoutRecyclingBorrowedImages(org.bookreader.mobile.library.LibraryArtworkAndroidTest)
+10-31 10:59:39.153  1776  5767 E cklt    : *~*~*~ Channel {0} was not shutdown properly!!! ~*~*~*
+10-31 10:59:39.153  1776  5767 E cklt    :     Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
+10-31 10:59:39.153  1776  5767 E cklt    : java.lang.RuntimeException: ManagedChannel allocation site
+10-31 10:59:39.153  1776  5767 E cklt    : 	at ckls.<init>(:com.google.android.gms@202414023@20.24.14 (040800-319035315):3)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at cklt.<init>(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at ckfk.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):21)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):29)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):52)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at bjxj.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at bjvu.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):1)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-31 10:59:39.153  1776  5767 E cklt    : 	at java.lang.Thread.run(Thread.java:764)
+10-31 10:59:39.156  1776  6482 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.178  1776  6383 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+10-31 10:59:39.178  1776  6383 W Conscrypt: 	at com.google.android.gms.org.conscrypt.Platform.setSocketWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-31 10:59:39.178  1776  6383 W Conscrypt: 	at com.google.android.gms.org.conscrypt.ConscryptFileDescriptorSocket.setSoWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-31 10:59:39.196  2537  6380 E PlaceStateUpdater: Received no places
+10-31 10:59:39.224  1776  6383 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+10-31 10:59:39.226  1776  6383 W Conscrypt: 	at com.google.android.gms.org.conscrypt.Platform.setSocketWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):2)
+10-31 10:59:39.226  1776  6383 W Conscrypt: 	at com.google.android.gms.org.conscrypt.ConscryptFileDescriptorSocket.setSoWriteTimeout(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-31 10:59:39.230  2537  6473 E PlaceStateUpdater: Received no places
+10-31 10:59:39.252  1776  6383 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.261  1776  6480 I LogUtils: [Places]: ?: PlacesBleScanner start() with priority 2 [CONTEXT service_id=253 ]
+10-31 10:59:39.262  1776  6480 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 1 [CONTEXT service_id=253 ]
+10-31 10:59:39.271  1776  1776 I BeaconBle: Client requested scan, settings=BleSettings [scanMode=ZERO_POWER, callbackType=ALL_MATCHES, reportDelayMillis=0, 1 filters, 0 clients, callingClientName=Places] [CONTEXT service_id=111 ]
+10-31 10:59:39.271  1776  1776 I BeaconBle: Scan : No clients left, canceling alarm. [CONTEXT service_id=111 ]
+10-31 10:59:39.273  1776  1776 E BeaconBle: Scan couldn't start for Places [CONTEXT service_id=111 ]
+10-31 10:59:39.273  1776  1776 W Places  : BLE failure while scanning - code 5
+10-31 10:59:39.274  1776  6480 I Places  : Converted 0 out of 1 WiFi scans
+10-31 10:59:39.280  1776  6480 I PlacesLogger: [PlaceInferenceEngine]: [anon] Changed inference mode: 1 [CONTEXT service_id=253 ]
+10-31 10:59:39.281  1776  6431 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.281  1776  6382 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.281  1776  6480 W LogUtils: [Places]: ?: Failed to download inference model weights SLS
+10-31 10:59:39.281  1776  6480 W LogUtils: ckdr: NOT_FOUND: Requested entity was not found.
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at ckdq.c(:com.google.android.gms@202414023@20.24.14 (040800-319035315):3)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):57)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at bjxj.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at bjvu.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):1)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-31 10:59:39.281  1776  6480 W LogUtils: 	at java.lang.Thread.run(Thread.java:764)
+10-31 10:59:39.281  1776  6480 W LogUtils:
+10-31 10:59:39.281  1776  6480 W LogUtils: [CONTEXT service_id=253 ]
+10-31 10:59:39.282  1776  6480 W PlacesLogger: [PlaceInferenceEngine]: Failed to download model weights. Status code: 7 [CONTEXT service_id=253 ]
+10-31 10:59:39.284  1776  6382 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.287  1776  6480 I PlacesLogger: [PlaceInferenceEngine]: Too few candidate results: percentageOfMissingArea 100 [CONTEXT service_id=253 ]
+10-31 10:59:39.292  1776  5767 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.295  1776  6431 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.296  1776  6382 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.312  1776  6384 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.334  2537  6423 E PlaceStateUpdater: Received no places
+10-31 10:59:39.349  1776  6480 W LogUtils: [Places]: ?: getPlaceInfos (SLS) failure
+10-31 10:59:39.349  1776  6480 W LogUtils: ckdr: NOT_FOUND: Requested entity was not found.
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at ckdq.c(:com.google.android.gms@202414023@20.24.14 (040800-319035315):3)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at sjo.a(:com.google.android.gms@202414023@20.24.14 (040800-319035315):57)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at bjxl.call(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at bjvu.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):1)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at soy.b(:com.google.android.gms@202414023@20.24.14 (040800-319035315):12)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at soy.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):7)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at sux.run(:com.google.android.gms@202414023@20.24.14 (040800-319035315):0)
+10-31 10:59:39.349  1776  6480 W LogUtils: 	at java.lang.Thread.run(Thread.java:764)
+10-31 10:59:39.349  1776  6480 W LogUtils:
+10-31 10:59:39.349  1776  6480 W LogUtils: [CONTEXT service_id=253 ]
+10-31 10:59:39.350  1776  6487 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:59:39.788  5440  5525 D skia    : --- SkAndroidCodec::NewFromStream returned null
+10-31 10:59:39.789  5440  5457 I TestRunner: finished: thumbnailCodecAndCacheStayBoundedWithoutRecyclingBorrowedImages(org.bookreader.mobile.library.LibraryArtworkAndroidTest)

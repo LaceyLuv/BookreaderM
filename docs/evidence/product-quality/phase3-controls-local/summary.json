@@ -10,5 +10,9 @@
   },
   "room_schema": 7,
   "device": "PENDING",
-  "physical_device": "NOT_RUN"
+  "physical_device": "NOT_RUN",
+  "release_compile": {
+    "command": "./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain",
+    "exit_code": 0
+  }
 }

@@ -1,13 +1,27 @@
-## 2026-10-31 진행 중 — 읽기 도구·빠른 설정
+## 2026-11-06 최신 — 읽기 도구·빠른 설정 자동 검증 완료
 
-`/workspace/BookreaderM-reader-070`, `codex/reader-070`. [현재 단위와 검증 범위](READER_0_7.md).
-도구 아이콘/위치 이동 영역, 기존 draft 기반 빠른 설정/추가 설정 분리와 상속 시 다른 책별 옵션 보존을 구현했다.
-새 실제 UI1개를 포함한 native74+host7/API 검증 대기. 아직 기기 PASS가 아니다.
-환경 doctor/첫 컴파일/lint 및 전체 로컬 CI exit0. Android75/shared95/EPUB16=186 PASS, APK/test APK/lint/schema7 PASS.
-명령 `BOOKREADER_EVIDENCE_DIR=build/phase3-controls-local ./scripts/ci-check.sh`. [원본](evidence/product-quality/phase3-controls-local/summary.json).
-원본 로그 `/workspace/work/bookreaderm-product-quality/phase3-controls/`, 로컬 증거 `build/phase3-controls-local/`.
-DB7/진행도/원본/키/기존05ffd50 설치 APK를 유지한다. 형광펜/메모와 Phase4는 미완료다.
-매 shell `source /workspace/toolchains/mobile-env.sh`; 다음은 전체 CI/API26·34·36 결과·실제 화면 대조다.
+`/workspace/BookreaderM-reader-070`, `codex/reader-070`, 제품/테스트 소스 `19a82358746063d97826f04d992c16a30026319b`.
+[구현·전후 화면·한계](READER_0_7.md). 0.7.0-dev/code8/Room7이며 0.7.0 전체 완료는 아니다.
+TXT·EPUB·Comic 도구를 아이콘/이름으로 통일하고 하단 쪽수에 위치 이동을 모았다. 기존 설정 draft/저장을 재사용한
+빠른 설정과 추가 설정 구분, 책별/전체 범위 표시, 상속 복원 시 다른 책별 옵션 보존을 구현했다.
+
+build41194371543 PASS189(Android75/shared95/EPUB16/실제 ENOSPC3),
+device41194371545 API26/34/36 각각 native74+host7 PASS, 실패·오류·skip0.
+[원본636개와 대조 결과](evidence/product-quality/verified-19a8235/summary.json): artifact SHA/CRC, source clean,
+필수 XML, 실제 force-stop 뒤 PID 부재·교체, EPUB p179 가시성 PASS.
+`python3 /workspace/work/bookreaderm-product-quality/verify-phase3.py 19a82358746063d97826f04d992c16a30026319b 41194371543 41194371545` exit0.
+로컬 `BOOKREADER_EVIDENCE_DIR=build/phase3-controls-local ./scripts/ci-check.sh` exit0(186),
+`./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit0.
+[로컬 원본](evidence/product-quality/phase3-controls-local/summary.json). 재개 후 doctor와 키/기존 APK 보존을 재확인했다.
+
+세 API의 빠른 설정과 정상 도구 화면을 확인했다. API26의 설정을 닫은 직후 `phase3-reader-tools.png`에는
+검색/북마크 라벨 배치 이상이 있어 안정 화면 증거로 쓰지 않는다. 같은 실행 `txt-controls.png`/`epub-controls.png`는 정상이다.
+[시각 검토와 한계](evidence/product-quality/verified-19a8235/visual-review.json). 원인은 미확정이며 캡처 원본을 보존한다.
+실기기·TalkBack·성능·공개 배포는 NOT_RUN이다. 이전 Phase2 측정 재진입의 원인 미확정 기록도 유지한다.
+
+DB7/진행도/원본/키/main/기존05ffd50 설치 APK를 유지했다. 새 설치 파일은 전달하지 않았다.
+다음 단위: 정확한 TXT·EPUB 선택 범위 검증 후 형광펜/메모. Phase4는 미착수다.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 실행/증거 helper는 `phase3-controls/current.json`, `phase3-current.json`, `ci/`다.
 
 이하 이전 상태는 이력이다.
 

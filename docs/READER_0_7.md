@@ -1,6 +1,6 @@
 # 독서 경험 강화 / 0.7.0 개발 기록
 
-## 2026-10-31 진행 중: 도구 모음·빠른 읽기 설정
+## 2026-11-06: 도구 모음·빠른 읽기 설정 자동 검증 완료
 
 TXT·EPUB·Comic 도구에 직접 만든 벡터 아이콘과 짧은 이름을 적용했다. 하단 쪽수 영역의 위치 이동 버튼은
 기존 미리보기/취소 슬라이더를 연다. 상·하단 여백과 설명을 줄이고 overlay/본문 viewport는 유지한다.
@@ -17,11 +17,31 @@ DB·설정 codec·저장소·locator·진행도 writer·Readium host·TXT 본문
 상속 복원 시 만화 방향/맞춤 보존, Activity 재생성 및 서재 재열기 후 설정/진행도를 확인한다.
 기존 큰 글자 1.0/1.3/2.0·사용자 글꼴·EPUB p179/host 교체·TOC·Comic 회귀는 유지하고 추가 설정을 여는 단계만 맞췄다.
 로컬 CI exit0, Android75/shared95/EPUB16=186 및 APK/test APK/lint/schema7 PASS.
-[원본](evidence/product-quality/phase3-controls-local/summary.json). API26/34/36 native74+host7 원격 실행은 대기다. 아직 기기 PASS나 도구 단위 완료가 아니다.
-실제 캡처는 결과 수신 후 확인한다. 원본 로그는 `/workspace/work/bookreaderm-product-quality/phase3-controls/`.
+[원본](evidence/product-quality/phase3-controls-local/summary.json). 제품/테스트 소스 `19a82358746063d97826f04d992c16a30026319b`.
+[build41194371543](https://github.com/LaceyLuv/BookreaderM/actions/runs/41194371543) PASS189(ENOSPC3 포함),
+[device41194371545](https://github.com/LaceyLuv/BookreaderM/actions/runs/41194371545) API26/34/36 각 native74+host7 PASS.
+[원본636개·대조](evidence/product-quality/verified-19a8235/summary.json). digest/CRC/필수 XML/source clean/실제 PID 교체,
+EPUB p179의 실제 가시성 검증 exit0. 릴리스 APK/AAB 컴파일 exit0. 강제 종료와 Activity 재생성을 구분해 검사했다.
+원본 로그는 `/workspace/work/bookreaderm-product-quality/phase3-controls/`.
 
-기존 키와 배포된05ffd50 APK를 보존했다. 형광펜/메모·Phase4와 실기기 성능/접근성·공개 배포는 남아 있다.
-아래 TXT 목차 결과와 예전 설치 파일은 이 단위의 검증 결과를 대신하지 않는다.
+기존 키와 이전에 전달한05ffd50 APK를 보존했다. 형광펜/메모·Phase4와 실기기 성능/접근성·공개 배포는 남아 있다.
+다음은 정확한 TXT·EPUB 선택 범위를 바탕으로 한 형광펜/메모다. 기존 위치 북마크와 별도로 설계하며 원문과 진행도를 보존한다.
+
+전후 비교: 이전에는 5개 텍스트 도구와 별도 위치 이동 버튼을 나열했다. 이제 주요 4개 도구는 아이콘/이름으로,
+위치 이동은 쪽수와 묶었다. 설정은 같은 editor draft에서 자주 쓰는 값과 펼쳐 쓰는 추가 설정을 구분한다.
+책별 읽기 방식과 전체 글자/화면 기본값의 범위를 화면에 표시한다. 아래는 실제 API36 원본이다.
+
+![개선된 TXT 도구](evidence/product-quality/verified-19a8235/41194371545/mobile-device-evidence-api-36/build/device-evidence/fixture-screenshots/txt-controls.png)
+![빠른 설정](evidence/product-quality/verified-19a8235/41194371545/mobile-device-evidence-api-36/build/device-evidence/fixture-screenshots/phase3-reader-quick-settings.png)
+
+[이전 도구 화면](evidence/product-quality/verified-05ffd50/40892825193/mobile-device-evidence-api-36/build/device-evidence/fixture-screenshots/txt-controls.png).
+API26/34/36 빠른 설정, API34/36 새 도구, API26/36 TXT·EPUB 일반 도구, API36 Comic 도구 원본을 확인했다.
+API26 `phase3-reader-tools.png`에는 닫기 직후 검색/북마크 라벨 배치 이상이 있어 안정 화면 증거로 사용하지 않는다.
+같은 실행의 `txt-controls.png`와 `epub-controls.png`는 정상이나 캡처/렌더링 원인은 미확정이다.
+[시각 검토](evidence/product-quality/verified-19a8235/visual-review.json). 실기기 설치·TalkBack·성능은 NOT_RUN이다.
+Phase2의 API36 측정 재진입은 이번에 재발하지 않았지만 원인 해결로 기록하지 않는다.
+DB7 및 기존 설정 codec/저장소, locator/진행도/cache/본문 측정/Readium host 등84개 파일은 이전 검증 소스와 동일하다.
+기존 서명키의 크기·수정 시각과05ffd50 APK의 해시를 재확인했다. 새 설치 파일이나 공개 릴리스를 전달/게시하지 않았다.
 
 ## 2026-10-29 현재: TXT 목차 단위 자동 검증 완료
 
