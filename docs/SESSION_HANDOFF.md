@@ -1,3 +1,18 @@
+## 2026-11-06 최신 이어갈 위치 — 도구·빠른 설정 검증 완료
+
+개발은 `/workspace/BookreaderM-reader-070`, `codex/reader-070`에서 이어 간다.
+제품/테스트19a82358746063d97826f04d992c16a30026319b, 증거 문서5f9770c를 push했다.
+[구현·실제 화면·한계](https://github.com/LaceyLuv/BookreaderM/blob/codex/reader-070/docs/READER_0_7.md).
+build41194371543 PASS189, device41194371545 API26/34/36 각각 native74+host7 PASS.
+원본 SHA/CRC/XML/source clean/외부 force-stop PID 교체와 EPUB p179를 대조했다. 로컬186/릴리스 APK·AAB 컴파일도 PASS.
+아이콘 도구·위치 이동 영역과 기존 저장 경로의 빠른 설정을 구현했다. 설정 취소/적용/상속 시 독서 기록과 다른 책별 값 보존을 검사했다.
+API26 닫기 직후 캡처 한 장의 라벨 배치 이상은 미확정으로 보존했다. 같은 실행의 일반 TXT/EPUB 도구와 빠른 설정 캡처는 정상 확인했다.
+키·책·진행도·DB7·main과 이전05ffd50 설치 APK를 유지했다. 새 설치 파일이나 공개 릴리스는 전달/게시하지 않았다.
+다음: 정확한 TXT·EPUB 선택 구간에 기반한 형광펜/메모. Phase4·실기기·TalkBack·성능은 미완료다.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 상세 인수인계는 위 작업 위치의 `docs/SESSION_HANDOFF.md`를 먼저 읽는다.
+
+이하 이전 상태는 이력이다.
+
 ## 2026-10-30 APK 전달 준비
 
 사용자가 요청한 최신0.7.0-dev APK를 기존 키로 서명하고20MB 미만 ZIP으로 묶었다.
