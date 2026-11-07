@@ -48,3 +48,19 @@ SHA256 `b3f121026ccc4155d46ea0d01e146352eea5045385bfb49d26511d6e0dbbe3ea`.
 JSONKt.optNullableString 바이트코드에서도 확인했다(AAR SHA256
 `f04d5d109aefaae11c66c17483084dbe7bfb652b22851869aea23a1487edfd7f`).
 경계 단위 검사는 빈 필드 생략 허용과 비어 있지 않은 문맥 누락 거부를 함께 요구한다.
+
+## Android의 기존 XHTML 이모지 변환 결함
+
+새 반복 문장 fixture의 이모지가 세 API에서 첫 선택 검사 전에 사라졌다. API26의 별도
+소프트웨어 에뮬레이터에서 Android Xalan을 직접 실행해 기존 UTF-8 serializer가
+`😀`를 XML1.0에 유효하지 않은 `&#55357;&#56832;`로 출력함을 재현했다.
+Android의 XML parser는 이 출력을 다시 받아들이므로, 그 parser로 재파싱만 하는 검사는 충분하지 않다.
+실제 Chromium DOM과 선택 범위 검사로 검증한다.
+
+본문 표시용 CSP 주입에서 serializer에 Unicode 문자 출력을 요청하고, 별도의 엄격한 UTF-8 Writer로
+인코딩한다. serializer의 UTF-16 선언은 생략해 실제 wire encoding과 어긋나지 않게 한다.
+출력은 쓰기 전에 기존16MiB 한도를 검사한다. unpaired surrogate는 치환하지 않고 거부한다.
+CSP·금지 태그/URL 규칙·관리 원본·내용 버전·독서 진행도는 그대로다.
+기존 EPUB 처리 파일 중 EpubContentPolicy의 이 변환 부분만 의도적으로 변경했다.
+일반 문자/보조 평면 문자/속성/이스케이프된 literal entity의 roundtrip과 실제 WebView fixture를 검사한다.
+원본과 변형 실험은 `/workspace/work/bookreaderm-product-quality/phase3-epub-annotations/android-xml-*.log`에 있다.

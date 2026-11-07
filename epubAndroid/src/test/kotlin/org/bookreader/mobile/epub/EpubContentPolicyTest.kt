@@ -17,6 +17,21 @@ class EpubContentPolicyTest {
         assertTrue(directives.contains("connect-src 'none'"))
         assertEquals("script-src https://readium/assets/readium/scripts/", directives.single { it.startsWith("script-src ") })
     }
+    @Test fun supplementaryTextAndAttributesRemainValidUtf8AfterCspInjection() {
+        val text="한글😀𐀀"+String(Character.toChars(0x10ffff))+" & < > literal &#55357;"
+        val escaped=text.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
+        val output=EpubContentPolicy.protectXhtml(html("<p id=\"unicode\" title=\"$escaped\">$escaped</p>"))
+        val xml=output.toString(Charsets.UTF_8)
+        assertFalse(xml.contains("encoding=\"UTF-16\""))
+        assertFalse(xml.contains("&#55357;&#56832;"))
+        // Parse trusted engine output independently: the publication-input policy deliberately
+        // rejects a book's own HTTP directives, including the CSP added by this engine.
+        val parsed=javax.xml.parsers.DocumentBuilderFactory.newInstance().apply { isNamespaceAware=true }
+            .newDocumentBuilder().parse(java.io.ByteArrayInputStream(output))
+        val paragraph=parsed.getElementsByTagNameNS("*","p").item(0) as org.w3c.dom.Element
+        assertEquals(text,paragraph.textContent);assertEquals(text,paragraph.getAttribute("title"))
+        assertTrue(xml.contains("Content-Security-Policy"))
+    }
     @Test fun activeMarkupExternalImagesAndTraversalAreRejected() {
         for (body in listOf("<script>alert(1)</script>", "<p onclick=\"alert(1)\">x</p>", "<iframe src=\"x\"/>",
             "<a href=\"javascript:alert(1)\">x</a>", "<img src=\"https://example.invalid/track\"/>",

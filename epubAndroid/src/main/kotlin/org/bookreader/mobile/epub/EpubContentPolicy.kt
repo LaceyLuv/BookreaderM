@@ -91,8 +91,27 @@ object EpubContentPolicy {
         val meta = document.createElementNS(head.namespaceURI, "meta")
         meta.setAttribute("http-equiv", "Content-Security-Policy"); meta.setAttribute("content", CSP)
         head.insertBefore(meta, head.firstChild)
-        val output = ByteArrayOutputStream()
-        TransformerFactory.newInstance().newTransformer().transform(DOMSource(document), StreamResult(output))
-        return output.toByteArray().also { require(it.size <= MAX_MARKUP) }
+        val output = object : ByteArrayOutputStream() {
+            override fun write(value: Int) { require(count < MAX_MARKUP) { "Protected markup limit" }; super.write(value) }
+            override fun write(bytes: ByteArray, offset: Int, length: Int) {
+                require(length <= MAX_MARKUP - count) { "Protected markup limit" }
+                super.write(bytes, offset, length)
+            }
+        }
+        // Android Xalan's UTF-8 serializer emits separate numeric surrogate references
+        // (e.g. &#55357;&#56832;), which Chromium correctly rejects as invalid XML.
+        // Request Unicode characters from Xalan, then encode them with a strict UTF-8
+        // Writer. Omit its encoding declaration because the actual wire encoding is UTF-8.
+        val transformer = TransformerFactory.newInstance().newTransformer().apply {
+            setOutputProperty(javax.xml.transform.OutputKeys.ENCODING, "UTF-16")
+            setOutputProperty(javax.xml.transform.OutputKeys.OMIT_XML_DECLARATION, "yes")
+        }
+        val encoder = Charsets.UTF_8.newEncoder()
+            .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
+            .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT)
+        java.io.OutputStreamWriter(output, encoder).use { writer ->
+            transformer.transform(DOMSource(document), StreamResult(writer))
+        }
+        return output.toByteArray()
     }
 }
