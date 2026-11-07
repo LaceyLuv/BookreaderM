@@ -142,7 +142,28 @@ class EpubAnnotationsFlowTest {
         val list=if(report.exists())org.json.JSONArray(report.readText())else org.json.JSONArray()
         list.put(value!!.put("stage",stage));report.writeText(list.toString(2));assertEpubAnnotationBoxes(value!!,"selection")
     }
-    private fun open(){instrumentation.context.startActivity(Intent().apply{component=ComponentName(instrumentation.context,TestSenderActivity::class.java);putExtra("fixture","epub-annotations");addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)});ready()}
+    private fun open(){
+        instrumentation.context.startActivity(Intent().apply{component=ComponentName(instrumentation.context,TestSenderActivity::class.java);putExtra("fixture","epub-annotations");addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)})
+        ready()
+        val book=reader().book
+        assertEquals("../../epub-annotations.epub",book.originalDisplayName)
+        val expected=target.assets.open("epub-fixtures/annotations.epub").use{it.readBytes()}
+        assertArrayEquals(expected,File(target.filesDir,"managed/${book.managedRelativePath}").readBytes())
+        // READY/complete may precede the first visible content frame. Probe before dereferencing.
+        // Body diagnostics are allowed only after the managed file is proved to be our fixture.
+        val report=File(target.filesDir,"epub-annotation-fixture-observations.json")
+        var observation=JSONObject()
+        try {compose.waitUntil(15_000){
+            observation=JSONObject(evaluateLoadedChapter(compose.activityRule.scenario,"one","""
+                ({ready:document.readyState,selection:!!document.getElementById('selection'),ambiguous:!!document.getElementById('ambiguous'),
+                ids:Array.from(document.querySelectorAll('[id]')).slice(0,16).map(e=>e.id),body:document.body.innerText.slice(0,500)})
+            """.trimIndent()))
+            observation.getBoolean("selection") && observation.getBoolean("ambiguous")
+        }} finally {
+            val observations=if(report.exists())org.json.JSONArray(report.readText())else org.json.JSONArray()
+            observations.put(observation.put("fixtureBytes",expected.size));report.writeText(observations.toString(2))
+        }
+    }
     private fun ready(){waitFor("epub_ready");compose.waitUntil(20_000){reader().annotations.state.value.ready}}
     private fun reader():EpubReaderController{var owner:EpubReaderController?=null;compose.activityRule.scenario.onActivity{owner=ViewModelProvider(it)[AppViewModel::class.java].state.value.epubReader};return requireNotNull(owner)}
     private fun progress()=runBlocking{val b=reader().book;database.progressDao().findProgress(b.id,requireNotNull(b.currentRevision))}
