@@ -45,7 +45,7 @@ object EpubAnnotations {
             val value=it.jsonPrimitive.double;require(value.isFinite() && value in 0.0..1.0)
         }
         val text=l["text"]!!.jsonObject
-        require(text["highlight"]?.jsonPrimitive?.content==a.text && text["before"]?.jsonPrimitive?.content==a.before &&
-            text["after"]?.jsonPrimitive?.content==a.after)
+        require(text["highlight"]?.jsonPrimitive?.content==a.text && text["before"]?.jsonPrimitive?.content.orEmpty()==a.before &&
+            text["after"]?.jsonPrimitive?.content.orEmpty()==a.after)
     }
 }

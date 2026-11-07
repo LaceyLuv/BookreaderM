@@ -11,7 +11,8 @@ Readium Android 3.1.2의 `currentSelection()`은 현재 locator에 선택 문장
 엔진 소유 읽기 전용 스크립트는 실제 선택의 공통 조상에서 숫자 nth-child 경로,
 UTF-16 시작/끝, 정확한 인용과 전후256단위 문맥을 얻는다. 이 범위 안에서 문맥을 포함한 인용이
 유일해야 한다. SDK 선택 인용과도 동일해야 하며, 전체 SDK locator JSON의 다른 필드는 유지한다.
-SDK/본문을 패치하거나 HTML에 사용자 인용을 삽입하지 않는다. 출력 템플릿의 식별자는 검증된 ID다.
+Readium은 빈 앞/뒤 문맥을 JSON에서 생략하므로 빈 anchor 문맥과 생략 필드만 동등하게 처리한다.
+비어 있지 않은 문맥의 누락은 거부한다. SDK/본문을 패치하거나 HTML에 사용자 인용을 삽입하지 않는다. 출력 템플릿의 식별자는 검증된 ID다.
 
 공통 조상의 텍스트는65,536 UTF-16/4,096 text node, 경로64단계, 선택4,096단위,
 locator/anchor JSON 각각16,384단위로 제한한다. 일부 긴 조상·문맥 중복·선택 표현 차이는
@@ -42,3 +43,8 @@ SHA256 `b3f121026ccc4155d46ea0d01e146352eea5045385bfb49d26511d6e0dbbe3ea`.
 메모 변경·글자 크기·재생성·재열기·장 이동·삭제, 모호함/저장 전 변경 거부,
 외부 host force-stop 후 전체 anchor/locator/메모 복원으로 검증한다.
 실기기/TalkBack/모든 EPUB 레이아웃·성능을 검증한 것으로 확대하지 않는다.
+
+빈 문맥 생략은 공식 `readium-shared:3.1.2` AAR의 Locator.Text.fromJSON/toJSON과
+JSONKt.optNullableString 바이트코드에서도 확인했다(AAR SHA256
+`f04d5d109aefaae11c66c17483084dbe7bfb652b22851869aea23a1487edfd7f`).
+경계 단위 검사는 빈 필드 생략 허용과 비어 있지 않은 문맥 누락 거부를 함께 요구한다.
