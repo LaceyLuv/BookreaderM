@@ -29,6 +29,7 @@ import org.junit.Assert.*
 /** Real managed import, Room records, stable SDK Fragment and product UI; generated books only. */
 class EpubReaderFlowTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule val threadTrace = org.bookreader.mobile.reader.FixtureThreadTrace()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val target get() = instrumentation.targetContext
     private val database by lazy { createAndroidDatabase(target) }

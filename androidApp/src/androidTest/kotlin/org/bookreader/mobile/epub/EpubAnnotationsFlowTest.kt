@@ -25,6 +25,7 @@ import org.junit.Assert.*
 
 class EpubAnnotationsFlowTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
+    @get:Rule val threadTrace=FixtureThreadTrace()
     private val instrumentation get()=InstrumentationRegistry.getInstrumentation()
     private val target get()=instrumentation.targetContext
     private val database by lazy{createAndroidDatabase(target)}
@@ -88,7 +89,9 @@ class EpubAnnotationsFlowTest {
         assertEquals("same",entry.anchor.text);assertEquals(14,entry.anchor.start);assertEquals(18,entry.anchor.end)
         assertEquals(HighlightColor.PINK,entry.color);assertEquals("반복 문장 메모 😀",entry.note)
         assertEquals(original,progress())
-        compose.onNodeWithTag("epub_annotations_close").performClick();boxes("saved",entry)
+        compose.onNodeWithTag("epub_annotations_close").performClick()
+        compose.onNodeWithTag("epub_annotations_close").assertDoesNotExist()
+        boxes("saved",entry)
         ReaderFixtureScreenshot.capture("phase3-epub-highlight.png")
         compose.readerControl("epub_annotations").performClick();waitFor("epub_annotation_edit_${entry.id}")
         ReaderFixtureScreenshot.capture("phase3-epub-annotations.png")
