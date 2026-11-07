@@ -1,0 +1,85 @@
+name: BookReader EPUB API26 Diagnostic
+on:
+  push:
+    paths:
+      - '.github/workflows/epub-api26-diagnostic.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  instrumentation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [26]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          distribution: temurin
+          java-version: '17.0.16+8'
+      - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+        with:
+          cmdline-tools-version: '13114758' # command-line tools 19.0
+          packages: platform-tools
+      - name: Install compile SDK and build tools
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'platform-tools'
+      - name: Enable KVM and require acceleration
+        run: |
+          test -c /dev/kvm
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+          sudo udevadm settle --timeout=30
+          id
+          ls -l /dev/kvm
+          test -r /dev/kvm && test -w /dev/kvm
+      - name: Prepare bounded diagnostic command
+        run: |
+          cat > "$RUNNER_TEMP/bookreader-epub-api26-probe.sh" <<'BASH'
+          #!/usr/bin/env bash
+          mkdir -p build/epub-api26-diagnostic
+          git rev-parse HEAD > build/epub-api26-diagnostic/source.log
+          git status --short > build/epub-api26-diagnostic/source-status.log
+          adb shell getprop ro.build.fingerprint > build/epub-api26-diagnostic/device.log
+          adb shell mkdir -p /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence
+          set +e
+          set -o pipefail
+          timeout --signal=INT --kill-after=20s 8m ./gradlew --no-daemon --console=plain --stacktrace -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true -Pandroid.testInstrumentationRunnerArguments.class=org.bookreader.mobile.epub.EpubAnnotationsFlowTest,org.bookreader.mobile.epub.EpubProbeTest,org.bookreader.mobile.epub.EpubReaderFlowTest -Pandroid.testInstrumentationRunnerArguments.captureFixtureScreenshots=true -Pandroid.testInstrumentationRunnerArguments.additionalTestOutputDir=/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence :androidApp:connectedDebugAndroidTest 2>&1 | tee build/epub-api26-diagnostic/connected.log
+          result=${PIPESTATUS[0]}
+          printf 'selected EPUB classes only; not the full device gate; command_exit=%s\n' "$result" > build/epub-api26-diagnostic/result.txt
+          timeout 30s adb logcat -d -v threadtime > build/epub-api26-diagnostic/logcat.log
+          timeout 30s adb shell dumpsys meminfo org.bookreader.mobile > build/epub-api26-diagnostic/meminfo.log
+          timeout 30s adb pull /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence build/epub-api26-diagnostic/fixture-screenshots
+          exit "$result"
+          BASH
+      - name: Run actual Android instrumentation on API ${{ matrix.api }}
+        uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
+        env:
+          BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS: 'true'
+        with:
+          api-level: ${{ matrix.api }}
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          ram-size: 2048M
+          heap-size: 512M
+          emulator-build: '15917651' # stable 37.1.11, official repository2-3.xml
+          emulator-boot-timeout: 600
+          disable-linux-hw-accel: false
+          disable-animations: true
+          disable-spellchecker: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -camera-front none -accel on
+          script: bash "$RUNNER_TEMP/bookreader-epub-api26-probe.sh"
+      - name: Upload device identity, commands and instrumentation reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: epub-api26-diagnostic-evidence
+          if-no-files-found: error
+          path: |
+            build/epub-api26-diagnostic/
+            androidApp/build/outputs/androidTest-results/
+            androidApp/build/reports/androidTests/
