@@ -1,3 +1,22 @@
+## 2026-11-07 이어갈 위치 — EPUB 형광펜·메모, API26 정지 진단 중
+
+개발은 `/workspace/BookreaderM-reader-070`, `codex/reader-070`에서 이어 간다.
+위 작업트리의 [최신 SESSION_HANDOFF](https://github.com/LaceyLuv/BookreaderM/blob/codex/reader-070/docs/SESSION_HANDOFF.md)를 먼저 읽는다.
+0.7.0-dev/code10/Room9이며 EPUB 선택 형광펜4색·메모 CRUD/본문 이동을 구현했다.
+기존13개 테이블/책/진행도/서명키/기존 APK/main은 보존한다. 이0.6.0 작업트리의 제품 소스는 변경하지 않았다.
+
+65a57bc build42367624823 PASS210, device42367624851 API34/36 native77+host7 PASS.
+원본 SHA/CRC/XML/PID 교체/정확한 SDK 사각형 대조와 실제 native 메뉴·메모 화면을 확인했다.
+API26은 앞선 실행들이 기존 EPUB 검색 검사에서 멈추고 OOM/45분 timeout으로 끝났다. 원인 미확정이며 전체 완료로 보고하지 않는다.
+최신 테스트c141a99는 닫힌 dialog 확인 후 캡처와 bounded thread trace를 추가했다.
+build42368967920 PASS210, device42368968011 실행 중.977b092 진단 전용workflow의 run42369244168은 API26 EPUB 클래스만 검사한다.
+실패·부분 통과·로컬 결과와 인계는 개발브랜치21e58de에 저장했다. 최종 상태는 위 최신 인계와실행 기록을 따른다.
+실기기/TalkBack/성능/공개 배포는 NOT_RUN, Phase4 미착수. 새 설치 파일을 전달하지 않았다.
+매 shell `source /workspace/toolchains/mobile-env.sh`.
+실행 상태/helper: `/workspace/work/bookreaderm-product-quality/phase3-epub-annotations/current.json`, `ci/`.
+
+이하 이전 상태는 이력이다.
+
 ## 2026-11-06 최신 이어갈 위치 — TXT 형광펜·메모 검증 완료
 
 현재 개발은 `/workspace/BookreaderM-reader-070`, `codex/reader-070`에서 이어 간다.
