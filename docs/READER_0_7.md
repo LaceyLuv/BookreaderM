@@ -1,5 +1,30 @@
 # 독서 경험 강화 / 0.7.0 개발 기록
 
+## 2026-11-07 EPUB 형광펜·메모 — 구현 및 기기 검증 중
+
+현재 소스 `65a57bcff8388bdbacfe2ef7b3467cac887027ea`, 0.7.0-dev/code10/Room9.
+본문을 길게 누른 선택 메뉴에서4색 형광펜과 메모를 저장하고 목록에서 수정·삭제·본문 이동을 제공한다.
+Readium 공개 API와 정확한 DOM UTF-16 범위·문맥 대조를 함께 사용한다.
+[설계와 한도](adr/0011-exact-epub-annotations.md), [실행 상태·다음 작업](SESSION_HANDOFF.md).
+기존13개 테이블 정의를 유지하고 epub_annotations만 추가했다. 관리 원본·진행도·기존 키·이전 APK/main은 보존한다.
+[보존 대조](evidence/product-quality/phase3-epub-menu-local/preservation.json).
+
+이모지 포함 XHTML이 Android Xalan에서 invalid surrogate entity로 변환되던 기존 문제를 수정했다.
+별도 API26 Dalvik의 실제 앱 변환 검사와 독립 XML roundtrip17개 PASS. 소프트웨어 AVD UI 검사는
+System UI 응답 없음 때문에 BLOCKED_ENV이며 성공으로 사용하지 않는다.
+[원본·첫 실패·수정 후 결과](evidence/product-quality/phase3-epub-unicode-local/summary.json).
+3e10382 원격 build42366128291 PASS210(Android77/shared113/EPUB17/실제 ENOSPC3).
+API34/36은 새 거부 검사 PASS, 실제 선택 이후 메뉴 클릭1 FAIL. 기존75개 검사는 PASS다.
+[실패 원본](evidence/product-quality/failed-3e10382/summary.json). API26은 실행 중이다.
+
+65a57bc는 선택 전에 접근성 조회를 연결하고 native floating 창의 실제 메뉴를 누르도록 검사를 보완했다.
+로컬 `source /workspace/toolchains/mobile-env.sh; ./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug --console=plain` exit0.
+[컴파일·lint 원본](evidence/product-quality/phase3-epub-menu-local/summary.json).
+build42367624823/device42367624851 진행 중이며 전체 기기 PASS는 아직 아니다.
+이전 a259e0b/ec788cd/a46551a 실패 원본과 SDK 빈 문맥 생략 호환 수정도 보존한다.
+다음은 실제 메뉴·SDK 사각형·리플로·재열기·host force-stop 검증과 실패 수정이다.
+실기기/TalkBack/성능/공개 배포는 NOT_RUN, Phase4는 미착수다.
+
 ## 2026-11-06 최신 — TXT 형광펜·메모 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`, `codex/reader-070`, 제품/테스트 소스 `208f74caf788bf9a72d1640d4e30926ae0a29716`.

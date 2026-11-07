@@ -17,7 +17,7 @@ Android에서 오프라인으로 읽는 TXT·EPUB·만화 리더입니다. Andro
 사용 안내: [독서 화면](docs/READER_DESIGN_2026-10-23.md),
 [글꼴·전환·쪽수](docs/READER_FEATURES_0_4.md), [내 글꼴·굵기](docs/READER_FONTS_0_5.md).
 TXT 형광펜은 도구의 **형광펜 → 현재 구간에서 문장 선택**에서 저장합니다.
-EPUB 형광펜·백업은 [제품 개선 계획](docs/PRODUCT_IMPROVEMENT.md)의 후속 단계입니다.
+EPUB 형광펜·메모는 현재 기기 검증 중이며, 백업은 [제품 개선 계획](docs/PRODUCT_IMPROVEMENT.md)의 후속 단계입니다.
 
 ## 버전과 설치
 
@@ -26,9 +26,9 @@ EPUB 형광펜·백업은 [제품 개선 계획](docs/PRODUCT_IMPROVEMENT.md)의
 **0.6.0 / a22970b**의 build175개와 API26/34/36 각각 native72+host7단계가 PASS입니다.
 [검증 원본](docs/evidence/product-quality/verified-a22970b/summary.json)을 보존했습니다.
 기존 키로 서명한 시험용 APK를 생성했으며 이전0.5.1 설치 파일도 유지합니다.
-현재 브랜치의 **0.7.0-dev(versionCode 9, Room8)**는 TXT 목차·읽기 도구·빠른 설정·TXT 형광펜/메모를 구현했습니다.
-소스 `208f74c`의 원격 build200개/API26·34·36 각각 native75+host7 검사가 PASS입니다.
-[0.7.0 구현·실제 화면·남은 범위](docs/READER_0_7.md)를 확인하세요. EPUB 형광펜·백업은 후속 작업이며 0.7.0 전체 완료는 아닙니다.
+현재 브랜치의 **0.7.0-dev(versionCode 10, Room9)**는 TXT 목차·읽기 도구·빠른 설정·TXT/EPUB 형광펜·메모를 구현했습니다.
+직전 `208f74c`의 build200개/세 API native75+host7은 PASS입니다. 새 EPUB 기능은 build210개를 통과했으며, native 선택 메뉴를 포함한 기기 검증을 진행 중입니다.
+[0.7.0 구현·실제 화면·남은 범위](docs/READER_0_7.md)를 확인하세요. EPUB 형광펜의 기기 검증과 백업이 남아 있으며 0.7.0 전체 완료는 아닙니다.
 마지막 전달 APK는 이전 `05ffd50`(code8/Room7)이며 이번 소스의 새 설치 파일은 전달하지 않았습니다.
 
 [설치 APK 안내](docs/INSTALLABLE_APK.md)와 [다운로드 운영 방안](docs/APK_DISTRIBUTION.md)을 확인하세요.

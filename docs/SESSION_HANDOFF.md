@@ -1,3 +1,80 @@
+## 2026-11-07 진행 중 — API34/36 EPUB 형광펜·메모 검증 PASS, API26 정지 조사
+
+작업 `/workspace/BookreaderM-reader-070`, `codex/reader-070`, code10/Room9.
+제품/테스트 소스 `65a57bcff8388bdbacfe2ef7b3467cac887027ea`의 build42367624823 PASS210,
+device42367624851 API34/36 각각 native77+host7 PASS. artifact digest/CRC/source clean/필수 XML,
+외부 force-stop PID 부재·교체, 정확한 SDK 사각형5단계와 EPUB p179 가시성을 대조했다.
+[부분 matrix 원본과 검증](evidence/product-quality/partial-65a57bc/summary.json).
+실제 선택 메뉴/메모 목록 화면 확인. 저장 직후 본문 캡처에는 닫히기 전 목록 창이 남아 있어 한계를 기록했다.
+[원본 시각 검토](evidence/product-quality/partial-65a57bc/visual-review.json).
+
+최신 소스 `c141a99fe52126d9706a1d6eb135f98c2e403cac`는 캡처 전 dialog 부재를 검사하고,
+멈춘 EPUB fixture의 main/instrumentation 스레드를60초 간격 최대3회 logcat에 남긴다.
+검사의 결과/제한시간을 바꾸지 않고 개인정보/본문을 기록하지 않는다.
+compile/lint exit0. 최초 internal/public 가시성 컴파일 오류도 보존했다.
+[명령·결과](evidence/product-quality/phase3-epub-menu-local/diagnostics-summary.json).
+build42368967920/device42368968011 실행 중. 전체 세 API PASS는 아직 아니다.
+진단workflow만 추가한977b092의 별도run42369244168은 API26 EPUB 세 클래스만 실행한다.
+8분 command 제한 후 원래 exit code와 raw logcat/메모리/fixture를 수집하며 전체검증으로 대체하지 않는다.
+공식 pinned emulator-runner는 script의 각 줄을 별도sh로 실행하므로 RUNNER_TEMP에 준비한 bash스크립트를 한 번 호출한다.
+
+API26 이전 ec788cd/a46551a는 기존 EPUB 검색·재생성 검사18에서 진행이 멈춘 뒤 앱512MB OOM,
+45분 job 제한으로 CANCELLED다. XML이 완성되지 않아 partial runner/logcat만 보존했다.
+단순한 환경 문제나 해결된 현상으로 처리하지 않는다. ec788cd API34에는 기존 TXT 글자배율 검사에서도
+SnapshotStateObserver 다중 스레드 접근1 FAIL이 추가됐다(합계3 FAIL). 이후 실행의 해당검사는 PASS지만 원인 미확정이다.
+[ec788cd 원본](evidence/product-quality/failed-ec788cd/summary.json), [a46551a 원본](evidence/product-quality/failed-a46551a/summary.json).
+3e10382 API26도 기존검사18에서 멈춰45분 CANCELLED였다. partial17개 중 새메뉴1 FAIL, 모호함/본문변경 거부 PASS.
+[원본](evidence/product-quality/failed-3e10382/summary.json). 65a57bc API26은 결과 수집 대기다. 다음: API26 원본과 c141a99 thread trace 확인→실패 수정→전체 matrix/화면/문서 확정.
+
+기존13개 DB 테이블·책·진행도·키·05ffd50 APK/main을 보존한다. 기존 계약31개 중30개는 바이트 동일하며,
+EpubContentPolicy만 Android Xalan 이모지 변환 결함을 수정했다. [보존 대조](evidence/product-quality/phase3-epub-menu-local/preservation.json).
+실기기/TalkBack/성능/공개 배포는 NOT_RUN, Phase4 미착수. 매 shell `source /workspace/toolchains/mobile-env.sh`.
+현재/이전 실행ID와 helper는 `/workspace/work/bookreaderm-product-quality/phase3-epub-annotations/current.json`, `ci/`다.
+별도 소프트웨어 AVD는 정상 종료 상태이며 데이터는 남겼다. 자세한 설계·실패 수정 이력은 아래와 [ADR0011](adr/0011-exact-epub-annotations.md)을 따른다.
+
+## 2026-11-07 진행 중 — EPUB 형광펜·메모, Unicode 변환 수정 검증
+
+작업 `/workspace/BookreaderM-reader-070`, `codex/reader-070`. 최신 제품/테스트는 `65a57bcff8388bdbacfe2ef7b3467cac887027ea`, code10/Room9.
+[ADR0011](adr/0011-exact-epub-annotations.md): 공개 SDK 선택+정확한 DOM 범위/문맥 검증,4색/메모/목록 CRUD/이동.
+기존13개 DB 테이블/책 원본/진행도/서명키/main/기존05ffd50 APK는 보존한다.
+
+첫 소스a259e0b 로컬205/릴리스/원격 build208 PASS. 세 API native77 중 새2개 FAIL, 기존75 PASS,
+host는 NOT_RUN. [전체 실패 원본](evidence/product-quality/failed-a259e0b/summary.json).
+실패 지점은 선택 전 생성 EPUB 문단/텍스트 노드 부재. ec788cd는 SDK의 빈 문맥 필드 생략 호환성 수정(shared113 PASS).
+a46551a는 생성 fixture 관리복사본 일치와 실제 DOM 진단/준비 대기를 추가했다. 그 결과는 진행 중.
+
+별도 API26 소프트웨어 AVD에서 Android Xalan이 이모지를 invalid surrogate numeric references로
+내보내는 기존 EpubContentPolicy 결함을 재현했다. UTF-16 문자 출력을 엄격한 UTF-8 Writer로 받고
+XML encoding 선언을 생략하는 방식으로 수정했다. 출력16MiB를 쓰기 전에 제한한다.
+이 수정만 기존 EPUB 처리 코드를 의도적으로 변경했다. 이후 EPUB unit17/compile/lint PASS.
+첫 단위 재파싱 검사는 엔진 CSP를 publication-input policy에 잘못 전달해1 FAIL했다. 보안규칙은 유지하고
+독립 XML parser로 엔진 출력 roundtrip을 검사하도록 고쳤다. 실패 원본도 보존했다.
+
+현재 실행/누적 실행ID는 `/workspace/work/bookreaderm-product-quality/phase3-epub-annotations/current.json`.
+소프트웨어 AVD `bookreader_epub_api26_probe`/emulator-5580, own path `phase3-epub-annotations/isolated-avds`,
+실행 exec session74068(정상 종료함). `/dev/kvm` 없어 TCG이다. 기존 AVD/기기/앱 데이터는 건드리지 않는다.
+설치 전 빌드 산출물을 동시에 읽어 첫 로컬 install의 digest 검사 실패가 있었으므로, 이후 설치는
+`phase3-epub-annotations/local-probe-3e10382/{app,test}.apk`의 고정 복사본만 사용한다(서명 검사PASS).
+첫 설치 흐름은 종료했고 고정 APK 복사본 설치는 성공했다. 로컬 cold1+warm2 계측은 READY40초 timeout이다.
+실제 캡처에 Android System UI 응답 없음이 있어 BLOCKED_ENV로 별도 보존했다. 해당 AVD는 adb emu kill로
+정상 종료했고 데이터는 삭제하지 않았다. 실제 앱의 EpubContentPolicy를 API26 Dalvik에서 직접 호출한 Unicode/CSP 검사는 PASS다.
+
+현재3e10382 원격 build42366128291 원본 digest/CRC/XML PASS210(Android77/shared113/EPUB17/ENOSPC3).
+device42366128301 API34/36 native77 중1 FAIL: 실제 선택은 정확하나 메뉴 클릭 시간 초과. 모호함/본문 변경 거부는 PASS. API26 진행 중.
+65a57bc는 선택 전에 UiAutomation 연결/별도 창 조회 준비, 실제 보이는 메뉴 클릭과 원본 캡처/구조 진단을 추가했다.
+로컬 compile/lint exit0. build42367624823/device42367624851 진행 중.
+이전ec788cd/a46551a 원격 build209 PASS, API34/36 새2개 FAIL. ec788cd API34에는 기존 TXT 글자배율 검사에서도
+SnapshotStateObserver 다중 스레드 접근1 FAIL이 추가되어 합계3 FAIL이다. 이후a46551a/3e10382의 해당검사는 PASS이며 원인해결로 단정하지 않는다.
+ec788cd API26은45분 제한 CANCELLED, logcat17개 완료 중2 FAIL, 18번째 기존managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator에서 멈춤.
+완료 XML은 없고 이후앱512MB OOM 로그가 있다. 원인은 아직 미확정이며 환경 문제로 단정하지 않는다.
+원본/digest/CRC와partial counts는failed-ec788cd/summary.json에 보존했다.
+a46551a API26도같은기존검사18에서 OOM(WindowInsetsCompat.toWindowInsetsCompat)후45분 CANCELLED다.
+XML없이 runner test-results.log에추가실패가있고failed-a46551a에보존했다. 3e10382 API26은아직실행중.
+
+다음: 원격 실제 DOM·선택·그림 좌표 검사→실패 수정→전체 matrix 원본/화면/force-stop 대조→문서/증거 commit.
+`ci/`, `retain-artifact.py`, `verify-phase3.py`, `retain-verified-phase3.py` helper 사용.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 실기기/TalkBack/성능/공개 배포는 NOT_RUN, Phase4 미착수.
+
 ## 2026-11-06 최신 — TXT 형광펜·메모 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`, `codex/reader-070`, 제품/테스트 소스 `208f74caf788bf9a72d1640d4e30926ae0a29716`.

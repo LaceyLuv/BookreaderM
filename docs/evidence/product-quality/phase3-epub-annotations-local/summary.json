@@ -1,0 +1,35 @@
+{
+  "source_sha": "a259e0ba46b7b170ece9f86ee9e0dff0e28f52d6",
+  "scope": "EPUB exact highlights and notes",
+  "cases": {
+    "android-unit": {
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "shared-jvm": {
+      "tests": 112,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "epub-unit": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "ci_command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=build/phase3-epub-annotations-fixed-local ./scripts/ci-check.sh",
+  "release_command": "./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain",
+  "exit_code": 0,
+  "first_failure": "Lint AlwaysShowAction (reported twice); changed to SHOW_AS_ACTION_IF_ROOM. Original failure log retained.",
+  "room_schema": 9,
+  "version_code": 10,
+  "old_tables_unchanged": 13,
+  "old_signed_apk_unchanged": true,
+  "key_metadata_unchanged": true,
+  "remote_matrix": "RUNNING",
+  "physical_device": "NOT_RUN"
+}

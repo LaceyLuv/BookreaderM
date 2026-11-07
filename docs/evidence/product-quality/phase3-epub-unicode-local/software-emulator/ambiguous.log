@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+org.bookreader.mobile.epub.EpubAnnotationsFlowTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords
+INSTRUMENTATION_STATUS: class=org.bookreader.mobile.epub.EpubAnnotationsFlowTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+Error in ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(org.bookreader.mobile.epub.EpubAnnotationsFlowTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 40000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.waitFor(EpubAnnotationsFlowTest.kt:171)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ready(EpubAnnotationsFlowTest.kt:167)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.open(EpubAnnotationsFlowTest.kt:147)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:109)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords
+INSTRUMENTATION_STATUS: class=org.bookreader.mobile.epub.EpubAnnotationsFlowTest
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 40000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.waitFor(EpubAnnotationsFlowTest.kt:171)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ready(EpubAnnotationsFlowTest.kt:167)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.open(EpubAnnotationsFlowTest.kt:147)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:109)
+
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 60.852
+There was 1 failure:
+1) ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(org.bookreader.mobile.epub.EpubAnnotationsFlowTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 40000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.waitFor(EpubAnnotationsFlowTest.kt:171)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ready(EpubAnnotationsFlowTest.kt:167)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.open(EpubAnnotationsFlowTest.kt:147)
+	at org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:109)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

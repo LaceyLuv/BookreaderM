@@ -1,0 +1,132 @@
+{
+  "source_sha": "65a57bcff8388bdbacfe2ef7b3467cac887027ea",
+  "device": {
+    "34": {
+      "ordinary": 77,
+      "hosts": {
+        "reader": {
+          "cases": 2,
+          "old_pid": "8600",
+          "cold_pid": "8650",
+          "absent_after_force_stop": true
+        },
+        "epub": {
+          "cases": 2,
+          "old_pid": "8897",
+          "cold_pid": "8946",
+          "absent_after_force_stop": true
+        },
+        "comic": {
+          "cases": 2,
+          "old_pid": "9177",
+          "cold_pid": "9228",
+          "absent_after_force_stop": true
+        },
+        "library-batch": {
+          "cases": 1,
+          "old_pid": "9342",
+          "cold_pid": "9424",
+          "absent_after_force_stop": true,
+          "active_checkpoint_observed": true
+        }
+      },
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "observations": [
+        {
+          "stage": "search",
+          "font_size": "16px",
+          "progression": 0.9185718317809766,
+          "p179_visible": true
+        },
+        {
+          "stage": "recreation",
+          "font_size": "16px",
+          "progression": 0.9185718317809766,
+          "p179_visible": true
+        },
+        {
+          "stage": "font-size",
+          "font_size": "16.8896px",
+          "progression": 0.9521664640212225,
+          "p179_visible": true
+        },
+        {
+          "stage": "reopen",
+          "font_size": "16.8896px",
+          "progression": 0.9521664640212225,
+          "p179_visible": true
+        }
+      ]
+    },
+    "36": {
+      "ordinary": 77,
+      "hosts": {
+        "reader": {
+          "cases": 2,
+          "old_pid": "7235",
+          "cold_pid": "7284",
+          "absent_after_force_stop": true
+        },
+        "epub": {
+          "cases": 2,
+          "old_pid": "7498",
+          "cold_pid": "7546",
+          "absent_after_force_stop": true
+        },
+        "comic": {
+          "cases": 2,
+          "old_pid": "7742",
+          "cold_pid": "7786",
+          "absent_after_force_stop": true
+        },
+        "library-batch": {
+          "cases": 1,
+          "old_pid": "7887",
+          "cold_pid": "7963",
+          "absent_after_force_stop": true,
+          "active_checkpoint_observed": true
+        }
+      },
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "observations": [
+        {
+          "stage": "search",
+          "font_size": "16px",
+          "progression": 0.9185718317809766,
+          "p179_visible": true
+        },
+        {
+          "stage": "recreation",
+          "font_size": "16px",
+          "progression": 0.9185718317809766,
+          "p179_visible": true
+        },
+        {
+          "stage": "font-size",
+          "font_size": "16.8896px",
+          "progression": 0.9521743935458916,
+          "p179_visible": true
+        },
+        {
+          "stage": "reopen",
+          "font_size": "16.8896px",
+          "progression": 0.9521743935458916,
+          "p179_visible": true
+        }
+      ]
+    }
+  },
+  "build": {
+    "android-unit": 77,
+    "shared-jvm": 113,
+    "epub-unit": 17,
+    "shared-enospc": 3
+  },
+  "status": "PARTIAL_API34_API36_PASS_API26_RUNNING",
+  "build_run": 42367624823,
+  "device_run": 42367624851
+}

@@ -1,0 +1,66 @@
+{
+  "source_sha": "a259e0ba46b7b170ece9f86ee9e0dff0e28f52d6",
+  "build": {
+    "run": 42364076401,
+    "status": "PASS",
+    "cases": 208
+  },
+  "device": {
+    "26": {
+      "tests": 77,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationTestSupportKt.selectEpubFixture(EpubAnnotationTestSupport.kt:11)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:110)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:48)\n"
+        }
+      ]
+    },
+    "34": {
+      "tests": 77,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationTestSupportKt.selectEpubFixture(EpubAnnotationTestSupport.kt:11)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:110)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:48)\n"
+        }
+      ]
+    },
+    "36": {
+      "tests": 77,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationTestSupportKt.selectEpubFixture(EpubAnnotationTestSupport.kt:11)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:110)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:48)\n"
+        }
+      ]
+    }
+  },
+  "host": "NOT_RUN: native failures stop the host stage",
+  "known_context_edge_issue": "Found in official SDK inspection and fixed by ec788cd; not reached in this failing run."
+}

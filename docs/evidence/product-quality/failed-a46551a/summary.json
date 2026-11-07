@@ -1,0 +1,86 @@
+{
+  "source_sha": "a46551a1e0902930b7ca13312f9c441d10236b1e",
+  "build_run": "42365413541",
+  "device_run": "42365413608",
+  "device": {
+    "26": {
+      "status": "INCOMPLETE",
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [],
+      "host": "NOT_RUN",
+      "final_xml_available": false,
+      "partial_started_cases": 18,
+      "partial_finished_cases": 18,
+      "partial_failed_cases": 3,
+      "partial_failures": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "code": -2,
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "code": -2,
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "name": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator",
+          "code": -2,
+          "error": "java.lang.OutOfMemoryError: OutOfMemoryError thrown while trying to throw OutOfMemoryError; no stack trace available"
+        }
+      ],
+      "incomplete_cases": [],
+      "remaining_without_completion": 59
+    },
+    "34": {
+      "status": "FAIL",
+      "tests": 77,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.open(EpubAnnotationsFlowTest.kt:156)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:109)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.open(EpubAnnotationsFlowTest.kt:156)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:45)\n"
+        }
+      ],
+      "host": "NOT_RUN"
+    },
+    "36": {
+      "status": "FAIL",
+      "tests": 77,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.open(EpubAnnotationsFlowTest.kt:156)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:109)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.open(EpubAnnotationsFlowTest.kt:156)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:45)\n"
+        }
+      ],
+      "host": "NOT_RUN"
+    }
+  },
+  "reason": "See original logs/XML and fixture DOM observations. No failed case was removed or skipped."
+}
