@@ -46,6 +46,9 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
     var toc by remember(controller) { mutableStateOf(false) }
     var viewport by remember(controller) { mutableStateOf(IntSize.Zero) }
     val ready = progress.phase == ArchiveReaderPhase.READY
+    LaunchedEffect(controller, ready, state.hostVersion, state.currentPosition) {
+        if (ready) { controller.annotations.load(); controller.annotations.render() }
+    }
     val pageLabel = if (state.currentPosition != null && state.totalPositions != null)
         "${state.currentPosition} / ${state.totalPositions} 쪽 · EPUB 위치 기준" else "쪽수 계산 중"
     BackHandler {
@@ -62,7 +65,8 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
             ReaderToolButton("목차", R.drawable.ic_reader_toc, "epub_toc", ready) { toc = true; menu = false }
             ReaderToolButton("검색", R.drawable.ic_reader_search, "epub_search", ready) { search = true; menu = false }
             ReaderToolButton("북마크", R.drawable.ic_reader_bookmark, "epub_bookmarks", ready) { bookmarks = true; menu = false; controller.loadBookmarks() }
-            ReaderToolButton("읽기 설정", R.drawable.ic_reader_text, "epub_settings", ready) { settings = true; menu = false }
+            ReaderToolButton("설정", R.drawable.ic_reader_text, "epub_settings", ready) { settings = true; menu = false }
+            ReaderToolButton("형광펜", R.drawable.ic_reader_highlight, "epub_annotations", ready) { controller.annotations.open(); menu = false }
         }
     }
     Box(Modifier.fillMaxSize().background(state.settings.theme.paperColor()).testTag("epub_reader")) {
@@ -97,6 +101,7 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
         if (progress.saveError) Text("독서 위치를 저장하지 못했습니다. 마지막 저장 기록은 유지됩니다.",
             Modifier.align(Alignment.Center).padding(16.dp).testTag("epub_save_error"), color = MaterialTheme.colorScheme.error)
     }
+    EpubAnnotationsDialog(controller)
     if (menu) AlertDialog(onDismissRequest = { menu = false }, title = { Text("독서 메뉴") }, text = {
         Column {
             val current = (controller.initialLocator()?.locations?.totalProgression ?: 0.0).toFloat()

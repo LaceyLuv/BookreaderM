@@ -154,6 +154,7 @@ public final class TestDocumentsProvider extends DocumentsProvider {
             switch (id) {
                 case "comic-product": name = "comic-product"; break;
                 case "epub-product": name = "epub3"; break;
+                case "epub-annotations": name = "annotations"; break;
                 case "epub-unsafe": name = "active-script"; break;
                 case "epub-disguised": name = "disguised-markup"; break;
                 default: throw new IllegalArgumentException("Unknown EPUB fixture");

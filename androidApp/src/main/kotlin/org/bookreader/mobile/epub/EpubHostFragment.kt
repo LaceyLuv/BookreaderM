@@ -1,6 +1,14 @@
 package org.bookreader.mobile.epub
 
 import android.os.Bundle
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import org.readium.r2.navigator.Decoration
+import org.readium.r2.navigator.html.HtmlDecorationTemplate
+import org.readium.r2.navigator.html.HtmlDecorationTemplates
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -66,7 +74,50 @@ class EpubHostFragment : Fragment() {
         }
         childFragmentManager.fragmentFactory = EpubNavigatorFactory(publication).createFragmentFactory(
             current.initialLocator(), initialPreferences = current.preferences(),
-            configuration = EpubNavigatorFragment.Configuration(servedAssets = listOf("reader-fonts/.*")).apply {
+            configuration = EpubNavigatorFragment.Configuration(servedAssets = listOf("reader-fonts/.*"),
+                selectionActionModeCallback = object : ActionMode.Callback {
+                    override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+                        menu.add(0, 0x426d0001, 0, "형광펜 · 메모").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+                        menu.add(0, android.R.id.copy, 1, "복사")
+                        menu.add(0, android.R.id.selectAll, 2, "모두 선택")
+                        return true
+                    }
+                    override fun onPrepareActionMode(mode: ActionMode, menu: Menu) = false
+                    override fun onDestroyActionMode(mode: ActionMode) {}
+                    override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                        val live = navigator ?: return false
+                        when (item.itemId) {
+                            0x426d0001 -> current.annotations.capture { mode.finish() }
+                            android.R.id.copy -> viewLifecycleOwner.lifecycleScope.launch {
+                                try {
+                                val raw = live.evaluateJavascript("(() => { const s=window.getSelection(); if(!s || s.isCollapsed) return null; const r=s.getRangeAt(0); const t=r.toString(); return t.length<=262144?t:null; })()")
+                                val selected = raw?.let { org.json.JSONTokener(it).nextValue() as? String }
+                                if (!selected.isNullOrEmpty() && navigator === live) {
+                                    val clipboard = requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                                    clipboard.setPrimaryClip(android.content.ClipData.newPlainText("선택한 문장", selected))
+                                    live.clearSelection(); mode.finish()
+                                }
+                                } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+                                catch (_: Exception) {
+                                    if (isAdded) android.widget.Toast.makeText(requireContext(), "선택한 문장을 복사하지 못했습니다.", android.widget.Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                            android.R.id.selectAll -> viewLifecycleOwner.lifecycleScope.launch {
+                                live.evaluateJavascript("document.execCommand('selectAll');")
+                            }
+                            else -> return false
+                        }
+                        return true
+                    }
+                }, decorationTemplates = HtmlDecorationTemplates.defaultTemplates().apply {
+                    set(Decoration.Style.Highlight::class, HtmlDecorationTemplate(HtmlDecorationTemplate.Layout.BOXES,
+                        element = { decoration ->
+                            val tint = (decoration.style as Decoration.Style.Highlight).tint
+                            val rgb = "${android.graphics.Color.red(tint)},${android.graphics.Color.green(tint)},${android.graphics.Color.blue(tint)}"
+                            // Validated UUID only; publication text is never interpolated into HTML.
+                            """<div data-bookreader-annotation="${decoration.id}" style="background-color:rgba($rgb,0.55)!important;border-radius:2px;"/>"""
+                        }))
+                }).apply {
                 ReaderFont.entries.forEach { font -> font.assetPath?.let { path ->
                     addFontFamilyDeclaration(font.epubFamily()) { addFontFace { addSource(path, preload = font == current.state.value.settings.font) } }
                 } }

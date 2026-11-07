@@ -42,7 +42,8 @@ data class EpubReaderUi(val opened: Boolean = false, val error: String? = null,
 @OptIn(ExperimentalReadiumApi::class)
 class EpubReaderController(val book: Book, private val file: File, private val verifySource: suspend () -> Unit,
     access: ReaderProgressAccess, parent: CoroutineScope, private val settingsAccess: ReaderSettingsAccess,
-    private val bookmarkAccess: ArchiveBookmarkAccess, private val fontStore: UserFontStore) {
+    private val bookmarkAccess: ArchiveBookmarkAccess, private val fontStore: UserFontStore,
+    annotationsAccess: org.bookreader.mobile.annotation.EpubAnnotationsAccess? = null, annotationScript: String = "") {
     private val lifetime = SupervisorJob(parent.coroutineContext[Job])
     private val scope = CoroutineScope(parent.coroutineContext + lifetime)
     val progress = ArchiveProgressController(book, access, scope)
@@ -70,6 +71,9 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     private var settingsJob: Job? = null
     private var restoreTimeout: Job? = null
     private var queryGeneration = 0
+    val annotations = EpubReaderAnnotations(book, scope, progress::readySession,
+        { progress.state.value.phase == ArchiveReaderPhase.READY && !closing }, annotationsAccess,
+        EpubAnnotationBridge(annotationScript), ::validate, { navigate(it) })
     private val openJob = scope.launch {
         try {
             val initial = progress.state.first { it.phase != ArchiveReaderPhase.LOADING_PROGRESS }
@@ -122,6 +126,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         check(!closing)
         captureJob?.cancel()
         host = navigator; detachHost = detach
+        annotations.attach(navigator)
         // A replacement host can emit more than one page callback while it resolves the
         // initial text locator. Keep the explicit jump as the capture target after the
         // first callback consumes pendingJump, until the next actual user movement.
@@ -141,7 +146,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
         return generation
     }
     fun detach(navigator: EpubNavigatorFragment) {
-        if (host === navigator) { captureJob?.cancel(); restoreTimeout?.cancel(); host = null; detachHost = null; userMovement = false }
+        if (host === navigator) { annotations.detach(navigator); captureJob?.cancel(); restoreTimeout?.cancel(); host = null; detachHost = null; userMovement = false }
     }
     fun pageChanged(navigator: EpubNavigatorFragment, token: Int, locator: Locator) {
         if (closing || host !== navigator || token != generation || token != progress.state.value.generation) return
@@ -319,6 +324,7 @@ class EpubReaderController(val book: Book, private val file: File, private val v
     suspend fun close() {
         if (closing) return
         closing = true
+        annotations.close()
         seekJob?.cancel(); captureJob?.cancel(); restoreTimeout?.cancel()
         openJob.cancel(); searchJob?.cancel(); settingsJob?.cancel()
         detachHost?.invoke(); detachHost = null; host = null

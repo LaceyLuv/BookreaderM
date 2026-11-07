@@ -60,6 +60,23 @@ abstract class ArchiveReaderHostProcessTest {
             setProperty("updatedAt", committed.updatedAt.toString())
             setProperty("createdByThisHostFlow", (book.id !in initial).toString())
         }
+        if (format == "epub") {
+            val owner=epubReader()
+            compose.waitUntil(20_000){owner.annotations.state.value.ready}
+            org.bookreader.mobile.epub.selectEpubFixture(compose.activityRule.scenario,"two","p0",0,11)
+            compose.runOnIdle{owner.annotations.capture()}
+            compose.waitUntil(20_000){owner.annotations.state.value.draft!=null}
+            compose.runOnIdle{owner.annotations.save(org.bookreader.mobile.annotation.HighlightColor.BLUE,"강제 종료 EPUB 메모")}
+            compose.waitUntil(20_000){owner.annotations.state.value.let{it.ready && it.savedVersion==1L}}
+            val annotation=owner.annotations.state.value.entries.single()
+            properties.setProperty("annotationId",annotation.id)
+            properties.setProperty("annotationChangeId",annotation.changeId)
+            properties.setProperty("annotationLocator",annotation.locatorJson)
+            properties.setProperty("annotationAnchor",org.bookreader.mobile.annotation.EpubAnnotations.json.encodeToString(org.bookreader.mobile.annotation.EpubAnchor.serializer(),annotation.anchor))
+            assertEquals(committed,saved(book))
+            compose.runOnIdle{owner.annotations.dismiss()}
+            assertAnnotationPainted(annotation)
+        }
         java.io.FileOutputStream(proof).use { properties.store(it, "Generated archive fixture acknowledged position"); it.fd.sync() }
     }
     @Test fun verifyColdLibraryContinue() {
@@ -92,11 +109,32 @@ abstract class ArchiveReaderHostProcessTest {
             } else assertEquals((before.locator as ComicLocator).payload.entryKey,
                 state.comicReader!!.state.value.manifest!!.entryKeys[state.comicReader!!.state.value.index])
         }
+        if (format == "epub") {
+            val owner=epubReader();compose.waitUntil(20_000){owner.annotations.state.value.ready}
+            val annotation=owner.annotations.state.value.entries.single()
+            assertEquals(expected.getProperty("annotationId"),annotation.id)
+            assertEquals(expected.getProperty("annotationChangeId"),annotation.changeId)
+            assertEquals(expected.getProperty("annotationLocator"),annotation.locatorJson)
+            assertEquals(expected.getProperty("annotationAnchor"),org.bookreader.mobile.annotation.EpubAnnotations.json.encodeToString(org.bookreader.mobile.annotation.EpubAnchor.serializer(),annotation.anchor))
+            assertEquals("강제 종료 EPUB 메모",annotation.note)
+            assertEquals(org.bookreader.mobile.annotation.HighlightColor.BLUE,annotation.color)
+            assertAnnotationPainted(annotation);assertEquals(before,saved(book))
+        }
         compose.activityRule.scenario.close()
         if (expected.getProperty("createdByThisHostFlow") == "true") runBlocking {
             assertEquals(DeleteResult.Deleted, AndroidBookManagement(target).delete(book.id))
         }
         assertTrue(proof.delete())
+    }
+    private fun epubReader():org.bookreader.mobile.epub.EpubReaderController {
+        var owner:org.bookreader.mobile.epub.EpubReaderController?=null
+        compose.activityRule.scenario.onActivity{owner=ViewModelProvider(it)[AppViewModel::class.java].state.value.epubReader}
+        return requireNotNull(owner)
+    }
+    private fun assertAnnotationPainted(entry:org.bookreader.mobile.annotation.EpubAnnotation) {
+        var observation:org.json.JSONObject?=null
+        compose.waitUntil(20_000){observation=org.bookreader.mobile.epub.epubAnnotationBoxes(compose.activityRule.scenario,"two","p0",0,11,entry);observation!!.getJSONArray("actual").length()>0}
+        org.bookreader.mobile.epub.assertEpubAnnotationBoxes(observation!!,"p0")
     }
     private fun currentBook(): Book {
         var book: Book? = null

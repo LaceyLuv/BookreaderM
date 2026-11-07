@@ -45,7 +45,7 @@ interface ProgressDao {
 @Database(entities = [BookEntity::class, ReadingProgressEntity::class, ImportJobEntity::class, AppMetadataEntity::class,
     ReaderGlobalSettingsEntity::class, BookReaderPreferencesEntity::class, BookmarkEntity::class,
     LibraryBookDetailsEntity::class, ShelfEntity::class, ShelfMembershipEntity::class, LibraryPreferencesEntity::class,
-    TxtTocOverrideEntity::class, TxtAnnotationEntity::class], version = 8, exportSchema = true)
+    TxtTocOverrideEntity::class, TxtAnnotationEntity::class, EpubAnnotationEntity::class], version = 9, exportSchema = true)
 @ConstructedBy(BookReaderDatabaseConstructor::class)
 abstract class BookReaderDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
@@ -57,6 +57,7 @@ abstract class BookReaderDatabase : RoomDatabase() {
     abstract fun libraryDao(): LibraryDao
     abstract fun txtTocDao(): TxtTocDao
     abstract fun txtAnnotationDao(): TxtAnnotationDao
+    abstract fun epubAnnotationDao(): EpubAnnotationDao
 }
 
 @Suppress("KotlinNoActualForExpect")

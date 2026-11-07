@@ -725,6 +725,38 @@
     [
       "org.bookreader.mobile.database.MigrationTest",
       "annotationMigrationValidationFailureRollsBackWithoutChangingVersionSevenRecords"
+    ],
+    [
+      "org.bookreader.mobile.annotation.EpubAnnotationsTest",
+      "completeLocatorRetainsExactRepeatedQuoteScopeAndUnicode"
+    ],
+    [
+      "org.bookreader.mobile.annotation.EpubAnnotationsTest",
+      "malformedExternalAmbiguousShapeAndOversizeValuesFailClosed"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomEpubAnnotationsRepositoryTest",
+      "annotationCrudKeepsEveryExistingReadingRecordByteExact"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomEpubAnnotationsRepositoryTest",
+      "entryLimitAndAbortedSqlKeepExistingAnnotations"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomEpubAnnotationsRepositoryTest",
+      "futureMalformedAndEmbeddedNulOversizeRowsAreNeverRewritten"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomEpubAnnotationsRepositoryTest",
+      "staleSessionsConcurrentEditsRevisionChangesAndDeletedOwnersRejectWrites"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "epubAnnotationMigrationFailurePreservesEveryVersionEightRecord"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionEightPreservesRawTxtAnnotationsAndAllExistingRecords"
     ]
   ],
   "android-device": [
@@ -1027,6 +1059,14 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "exactTxtHighlightsAndNotesSurviveReflowReopenAndDeletionWithoutEditingReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+      "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+      "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration"
     ]
   ],
   "android-host": [

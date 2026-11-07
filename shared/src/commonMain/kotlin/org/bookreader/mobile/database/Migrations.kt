@@ -60,3 +60,10 @@ val MIGRATION_7_8: Migration = object : Migration(7, 8) {
         connection.execSQL("CREATE TABLE IF NOT EXISTS txt_annotations (bookId TEXT NOT NULL, contentRevision TEXT NOT NULL, id TEXT NOT NULL, schemaVersion INTEGER NOT NULL, startOffset INTEGER NOT NULL, endOffset INTEGER NOT NULL, quote TEXT NOT NULL, color TEXT NOT NULL, note TEXT NOT NULL, changeId TEXT NOT NULL, PRIMARY KEY(bookId, contentRevision, id), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
     }
 }
+
+/** EPUB annotations do not modify existing TXT annotations or reading records. */
+val MIGRATION_8_9: Migration = object : Migration(8, 9) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS epub_annotations (bookId TEXT NOT NULL, contentRevision TEXT NOT NULL, id TEXT NOT NULL, schemaVersion INTEGER NOT NULL, anchorJson TEXT NOT NULL, locatorJson TEXT NOT NULL, color TEXT NOT NULL, note TEXT NOT NULL, changeId TEXT NOT NULL, PRIMARY KEY(bookId, contentRevision, id), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+    }
+}

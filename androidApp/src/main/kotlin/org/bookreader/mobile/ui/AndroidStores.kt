@@ -151,7 +151,9 @@ fun androidEpubReaderFactory(context: Context): (org.bookreader.mobile.model.Boo
                 override suspend fun add(id: String, session: org.bookreader.mobile.repository.ProgressSession,
                     locator: org.bookreader.mobile.locator.ContentLocator, label: String?, now: Long) = repository().add(id, session, locator, label, now)
                 override suspend fun delete(bookId: String, id: String) = repository().delete(bookId, id)
-            }, org.bookreader.mobile.reader.UserFontStore(app))
+            }, org.bookreader.mobile.reader.UserFontStore(app),
+            org.bookreader.mobile.annotation.RoomEpubAnnotationsRepository(AndroidDatabaseOwner.borrow(app)),
+            app.assets.open("reader/epub-annotation-anchor.js").bufferedReader().use { it.readText() })
     }
 }
 

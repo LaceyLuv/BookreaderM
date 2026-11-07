@@ -93,6 +93,7 @@ for fixture in reader-query-error reader-locator-error reader-switch reader-reop
 done
 epub_report_exit=0
 run_logged epub-restore-observations adb shell run-as org.bookreader.mobile cat files/epub-restore-observations.json || epub_report_exit=$?
+run_logged epub-annotation-observations adb shell run-as org.bookreader.mobile cat files/epub-annotation-observations.json || epub_report_exit=$?
 run_logged epub-search-reflow-observations adb shell run-as org.bookreader.mobile cat files/epub-search-reflow-observations.json || epub_report_exit=$?
 if (( connected_exit != 0 )); then
   if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
@@ -210,7 +211,7 @@ for name in ('m02-library.png', 'm03-reader.png', 'txt-reader-generated-scroll.p
              'epub-immersive.png', 'epub-controls.png', 'epub-settings.png',
              'comic-immersive.png', 'comic-controls.png',
              'phase1-import-large-dark.png', 'phase1-library-large-dark.png',
-             'phase2-batch-results.png', 'phase2-book-editor.png', 'phase2-library.png', 'phase2-shelf-list.png', 'phase3-txt-toc.png', 'phase3-reader-tools.png', 'phase3-reader-quick-settings.png', 'phase3-txt-highlight.png', 'phase3-txt-annotations.png'):
+             'phase2-batch-results.png', 'phase2-book-editor.png', 'phase2-library.png', 'phase2-shelf-list.png', 'phase3-txt-toc.png', 'phase3-reader-tools.png', 'phase3-reader-quick-settings.png', 'phase3-txt-highlight.png', 'phase3-txt-annotations.png', 'phase3-epub-highlight.png', 'phase3-epub-annotations.png'):
     matches = list(root.rglob(name))
     if len(matches) != 1 or matches[0].read_bytes()[:8] != b'\x89PNG\r\n\x1a\n':
         raise SystemExit(f'FAIL missing or invalid generated-fixture screenshot: {name}')
