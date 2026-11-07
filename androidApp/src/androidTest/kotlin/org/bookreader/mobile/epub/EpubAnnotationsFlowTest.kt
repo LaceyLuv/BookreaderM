@@ -30,6 +30,7 @@ class EpubAnnotationsFlowTest {
     private val database by lazy{createAndroidDatabase(target)}
     private var existing:Set<String>?=null
     private var global:ReaderGlobalSettingsEntity?=null
+    private var automationFlags:Int?=null
     @Before fun preserve(){existing=runBlocking{database.bookDao().listBooks().map{it.id}.toSet()};global=runBlocking{database.readerSettingsDao().global()}}
     @After fun cleanup(){try {
         compose.activityRule.scenario.close()
@@ -38,9 +39,20 @@ class EpubAnnotationsFlowTest {
             assertEquals(DeleteResult.Deleted,AndroidBookManagement(target).delete(it.id))}
             if(global==null) database.useWriterConnection{it.execSQL("DELETE FROM reader_global_settings WHERE id='global'")}
             else database.readerSettingsDao().putGlobal(requireNotNull(global))}
-    } finally {database.close()}}
+    } finally {
+        automationFlags?.let{flags->instrumentation.uiAutomation.serviceInfo=instrumentation.uiAutomation.serviceInfo.apply{this.flags=flags}}
+        database.close()
+    }}
 
     @Test fun nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration() {
+        // Connect accessibility before selecting: enabling it afterwards can rebuild WebView's
+        // accessibility/selection UI. Floating ActionMode also owns a separate native window.
+        val automation=instrumentation.uiAutomation
+        automationFlags=automation.serviceInfo.flags
+        automation.serviceInfo=automation.serviceInfo.apply{
+            flags=flags or android.accessibilityservice.AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS or
+                android.accessibilityservice.AccessibilityServiceInfo.FLAG_INCLUDE_NOT_IMPORTANT_VIEWS
+        }
         File(target.filesDir,"epub-annotation-observations.json").writeText("[]")
         open();val owner=reader();val book=owner.book
         val source=File(target.filesDir,"managed/${book.managedRelativePath}").readBytes()
@@ -63,6 +75,7 @@ class EpubAnnotationsFlowTest {
             if(action==MotionEvent.ACTION_DOWN)SystemClock.sleep(ViewConfiguration.getLongPressTimeout()+400L)
         }
         compose.waitUntil(10_000){evaluateLoadedChapter(compose.activityRule.scenario,"one","getSelection().toString()") == "\"same\""}
+        ReaderFixtureScreenshot.capture("phase3-epub-selection-menu.png")
         clickNativeHighlight()
         waitFor("epub_annotation_note")
         assertEquals(14,owner.annotations.state.value.draft!!.anchor.start)
@@ -120,15 +133,52 @@ class EpubAnnotationsFlowTest {
         assertTrue(rows().isEmpty());assertEquals(before,progress())
     }
     private fun clickNativeHighlight(){
-        var clicked=false
-        compose.waitUntil(10_000){
+        val deadline=SystemClock.uptimeMillis()+10_000
+        var structure=""
+        while(SystemClock.uptimeMillis()<deadline){
             val roots=instrumentation.uiAutomation.windows.mapNotNull{it.root}+listOfNotNull(instrumentation.uiAutomation.rootInActiveWindow)
-            for(root in roots) for(node in root.findAccessibilityNodeInfosByText("형광펜 · 메모")) {
-                if(node.text?.toString()!="형광펜 · 메모")continue
-                var candidate:android.view.accessibility.AccessibilityNodeInfo?=node
-                repeat(3){val current=candidate;if(current!=null && !clicked){clicked=current.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK);candidate=current.parent}}
-            };clicked
+            val pending=java.util.ArrayDeque<android.view.accessibility.AccessibilityNodeInfo>()
+            roots.forEach{it.refresh();pending.add(it)}
+            val diagnostic=StringBuilder("roots=${roots.size}\n")
+            var inspected=0
+            while(pending.isNotEmpty() && inspected++<1000){
+                val node=pending.removeFirst()
+                val match=node.text?.toString()=="형광펜 · 메모" || node.contentDescription?.toString()=="형광펜 · 메모"
+                // Structural diagnostics only; never record unrelated accessibility text.
+                diagnostic.append(node.className).append('|').append(node.viewIdResourceName)
+                    .append("|target=").append(match).append("|visible=").append(node.isVisibleToUser)
+                    .append("|clickable=").append(node.isClickable).append('\n')
+                if(match && node.isVisibleToUser && node.isEnabled){
+                    var candidate:android.view.accessibility.AccessibilityNodeInfo?=node
+                    repeat(6){
+                        val current=candidate
+                        if(current!=null && current.isClickable && current.isEnabled && current.isVisibleToUser &&
+                            current.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK))return
+                        candidate=current?.parent
+                    }
+                    val bounds=android.graphics.Rect();node.getBoundsInScreen(bounds)
+                    check(!bounds.isEmpty)
+                    val started=SystemClock.uptimeMillis()
+                    for(action in listOf(MotionEvent.ACTION_DOWN,MotionEvent.ACTION_UP)){
+                        val event=MotionEvent.obtain(started,SystemClock.uptimeMillis(),action,bounds.exactCenterX(),bounds.exactCenterY(),0)
+                        event.source=InputDevice.SOURCE_TOUCHSCREEN
+                        try{assertTrue(instrumentation.uiAutomation.injectInputEvent(event,true))}finally{event.recycle()}
+                    }
+                    return
+                }
+                for(child in 0 until node.childCount)node.getChild(child)?.let(pending::addLast)
+            }
+            structure=diagnostic.toString()
+            SystemClock.sleep(100)
         }
+        val args=InstrumentationRegistry.getArguments()
+        if(args.getString("captureFixtureScreenshots")=="true"){
+            val directory=File(requireNotNull(args.getString("additionalTestOutputDir")))
+            check(directory.isDirectory || directory.mkdirs())
+            File(directory,"phase3-epub-selection-menu-structure.txt").writeText(structure)
+            ReaderFixtureScreenshot.capture("phase3-epub-selection-menu-failure.png")
+        }
+        fail("Visible native highlight menu action was not found; fixture menu screenshot and structural tree retained")
     }
     private fun hideIme(viewport:androidx.compose.ui.geometry.Size){
         var visible=false;compose.activityRule.scenario.onActivity{visible=androidx.core.view.ViewCompat.getRootWindowInsets(it.window.decorView)?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())==true}
