@@ -4,7 +4,27 @@
   "device_run": "44239853158",
   "device": {
     "26": {
-      "status": "PENDING_ARTIFACT"
+      "status": "INCOMPLETE",
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [],
+      "host": "NOT_RUN",
+      "final_xml_available": false,
+      "partial_started_cases": 9,
+      "partial_finished_cases": 8,
+      "partial_failed_cases": 0,
+      "partial_failures": [],
+      "incomplete_cases": [
+        [
+          "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration"
+        ]
+      ],
+      "remaining_without_completion": 69,
+      "reason": "Only eight cases completed before the 45-minute job limit. Thread trace captured Espresso idle waiting in performScrollTo on the note input at EpubAnnotationsFlowTest.kt:76. No OOM was observed in this run."
     },
     "34": {
       "status": "FAIL",
@@ -23,7 +43,14 @@
       "host": "NOT_RUN"
     },
     "36": {
-      "status": "PENDING_ARTIFACT"
+      "status": "NATIVE_PASS",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [],
+      "host": "SEE_RAW_HOST_RESULTS"
     }
   },
   "reason": "See original logs/XML and fixture DOM observations. No failed case was removed or skipped."

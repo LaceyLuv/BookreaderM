@@ -80,3 +80,16 @@ API 28 이상은 기존 설정을 사용한다. SDK의 페이지 모드 기본 �
 별도 API 26 진단에서 발견한 화면 밖 터치도 교정했다. 문서 로드 후 선택할 단어의 중심점이
 CSS 뷰포트와 실제 WebView의 보이는 영역에 들어올 때 길게 누른다. 직접 DOM 선택으로
 메뉴 검사를 대체하지 않는다. [진단 원본](../evidence/product-quality/api26-diagnostic-977b092/summary.json).
+
+첫 수정은 API 26에서 메모 입력 대기를 해소하지 못했다. 793e16be의 스레드 기록은
+메모 필드로 스크롤하는 검사에서 유휴 대기가 멈춘 사실을 보여 준다. 이 실행은
+메모리 부족 메시지 없이 45분 제한에 도달했다. 다음 수정은 Compose가 시스템 막대
+여백을 적용하는 EPUB 호스트 경계에서 Android 8.x의 하위 뷰로 여백을 중복 전달하지
+않는다. Readium과 AndroidX ViewPager는 내부에서 여백을 다시 요청할 수 있다.
+후속 API 26 전체 검사에서 메모 입력, 기존 검색과 강제 종료 복원이 통과했다.
+[첫 수정 원본](../evidence/product-quality/failed-793e16b/summary.json),
+[후속 원본 대조](../evidence/product-quality/failed-ea63114/api26-36-verified.json).
+
+오래된 WebView에서 시작 직후 단어가 계속 화면 밖인 경우도 있었다. 테스트는 제품 목차로
+첫 장을 연 뒤 실제로 표시된 단어를 길게 누른다. 준비 대기가 실패하면 숫자 좌표와 자체
+fixture 화면을 보존한다. [후속 API 26 EPUB 진단](../evidence/product-quality/api26-diagnostic-3188545/summary.json).

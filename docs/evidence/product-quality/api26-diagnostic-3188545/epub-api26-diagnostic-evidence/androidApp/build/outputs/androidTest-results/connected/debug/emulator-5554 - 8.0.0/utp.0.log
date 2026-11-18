@@ -1,0 +1,62 @@
+INFO: Constructing runner from config.
+INFO: Configuring Android Instrumentation driver: android_instrumentation_runtime {
+  instrumentation_info {
+    app_package: "org.bookreader.mobile"
+    test_package: "org.bookreader.mobile.test"
+    test_runner_class: "androidx.test.runner.AndroidJUnitRunner"
+  }
+  instrumentation_args {
+    args_map {
+      key: "additionalTestOutputDir"
+      value: "/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence"
+    }
+    args_map {
+      key: "captureFixtureScreenshots"
+      value: "true"
+    }
+    args_map {
+      key: "class"
+      value: "org.bookreader.mobile.epub.EpubAnnotationsFlowTest,org.bookreader.mobile.epub.EpubProbeTest,org.bookreader.mobile.epub.EpubReaderFlowTest"
+    }
+  }
+}
+am_instrument_timeout: 31536000
+
+INFO: Configuring AndroidTestApkInstallerPlugin: apks_to_install {
+  apk_paths: "/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk"
+  install_options {
+  }
+}
+apks_to_install {
+  apk_paths: "/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk"
+  install_options {
+  }
+}
+
+INFO: No installables found in test fixture. Nothing to install.
+INFO: Installing [/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/debug/androidApp-debug.apk] on device emulator-5554.
+INFO: Installing [/home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/apk/androidTest/debug/androidApp-debug-androidTest.apk] on device emulator-5554.
+INFO: Start logcat streaming.
+INFO: Running Android Instrumentation driver.
+INFO: Copying files from device to host: /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-controls.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/epub-controls.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-custom-font-bold.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/epub-custom-font-bold.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-immersive.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/epub-immersive.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/epub-settings.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/epub-settings.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/phase3-epub-annotations.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/phase3-epub-annotations.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/phase3-epub-highlight.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/phase3-epub-highlight.png
+INFO: Copying /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence/phase3-epub-selection-menu.png to /home/runner/work/BookreaderM/BookreaderM/androidApp/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/emulator-5554 - 8.0.0/phase3-epub-selection-menu.png
+INFO: Stop logcat streaming.
+INFO: Execute org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.sdkSearchReturnsFullLocatorAndContainerCannotReadOutsideBook: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.activePublicationContentIsRejectedBeforeCreatingAnyNavigator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.stableNavigatorLoadsEpubTwoAndThreeImagesTocAndRestoresCompleteLocator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.cspBlocksExternalCssResourcesWhileEngineCanNavigateOffline: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubProbeTest.searchResultsArePagedAndOversizedChaptersReportAnExplicitLimit: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.importedFontAndBoldLoadInWebViewAndSurviveReopenWithoutChangingLocator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.searchJumpSurvivesHostReplacementAfterRequestWithoutPrematureProgressWrite: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.negativeTxtLetterSpacingOpensEpubWithoutRewritingStoredDefaults: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.centerTogglesOverlayWithoutReflowAndSideTapsTurnRealEpubPages: PASSED
+INFO: Execute org.bookreader.mobile.epub.EpubReaderFlowTest.unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy: PASSED

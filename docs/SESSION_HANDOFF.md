@@ -1,3 +1,42 @@
+## 2026-11-18 EPUB 형광펜·메모 구현과 자동 검증 완료
+
+`/workspace/BookreaderM-reader-070`의 `codex/reader-070`에서 검증했다.
+제품·테스트 소스 `3188545e5a4bf04f859f3a7659eca777b50c7a8d`, 0.7.0-dev/versionCode 10/Room 9.
+EPUB 본문을 길게 누른 뒤 **형광펜 · 메모**를 선택하면 네 가지 색과 메모를 저장할 수 있다.
+형광펜 목록은 수정·삭제·본문 이동을 제공한다. [설계와 선택 제약](adr/0011-exact-epub-annotations.md).
+
+원격 빌드 44243688890의 210개와 기기 실행 44243688898의 API 26·34·36 각각
+UI 77개와 외부 강제 종료 검증 7단계가 통과했다. 실패·오류·skip은 0이다.
+원본 ZIP SHA-256·CRC, 동일 소스, 필수 XML, 실제 강제 종료 후 PID 교체를 대조했다.
+반복되는 두 번째 단어의 표시 좌표를 저장·Activity 재생성·글자 크기 변경·재열기·본문 이동
+각 단계에서 확인했다. 기존 EPUB 검색 대상 p179가 화면에 실제 표시되는지도 확인했다.
+[검증 원본](evidence/product-quality/verified-3188545/summary.json), [화면 검토](evidence/product-quality/verified-3188545/visual-review.json).
+
+API 26 메모 입력 중 메모리 부족을 조사해 Android 8.x에서 Readium 화면 잘림 여백 콜백을
+끄고 Compose가 적용한 시스템 여백의 중복 전달을 막았다. 터치 테스트는 목차에서 첫 장으로
+이동하고 선택할 단어가 보이는 것을 확인한 뒤 실제 길게 누르기를 수행한다.
+[메모리 부족·추적 원본](evidence/product-quality/failed-c141a99/summary.json),
+[화면 밖 터치 진단](evidence/product-quality/api26-diagnostic-977b092/summary.json).
+
+`source /workspace/toolchains/mobile-env.sh` 적용 후
+`./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug --console=plain` exit 0,
+`./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit 0.
+`python3 /workspace/work/bookreaderm-product-quality/verify-phase3.py 3188545e5a4bf04f859f3a7659eca777b50c7a8d 44243688890 44243688898` exit 0.
+[로컬 빌드 원본](evidence/product-quality/phase3-epub-api26-local/toc-test-summary.json).
+
+첫 수정 793e16be의 API 26은 메모 위치에서 대기한 뒤 45분 제한에 도달했다.
+같은 소스의 API 34 TXT 전체 쪽수 시간 초과는 최종 실행에서 재현되지 않았고 원인은 미확정이다.
+ea63114의 API 34는 고정 KSP 의존성을 받지 못해 테스트 시작 전 종료했다.
+[첫 수정 원본](evidence/product-quality/failed-793e16b/summary.json),
+[후속 원본](evidence/product-quality/failed-ea63114/summary.json).
+API 26 최신 EPUB 별도 진단도 13개 전부 통과했다.
+[진단 원본](evidence/product-quality/api26-diagnostic-3188545/summary.json).
+
+기존 13개 테이블 정의, 관리 원본·진행도, 서명키·이전 05ffd50 APK/ZIP을 보존했다.
+[보존 대조](evidence/product-quality/verified-3188545/preservation.json).
+실제 휴대전화·TalkBack·성능·공개 배포는 미실행이다. 마지막 전달 APK는 05ffd50이다.
+다음 단위는 Phase 4 백업·복원 설계와 데이터 보존 검증이다.
+
 ## 2026-11-18 현재 — Android 8 EPUB 여백 전달 보완
 
 최신 제품·테스트 `ea631148a1199dba8ec1a4f5f7a0d66a47d39d55`.
