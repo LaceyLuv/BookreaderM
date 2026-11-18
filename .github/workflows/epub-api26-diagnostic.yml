@@ -52,6 +52,7 @@ jobs:
           printf 'selected EPUB classes only; not the full device gate; command_exit=%s\n' "$result" > build/epub-api26-diagnostic/result.txt
           timeout 30s adb logcat -d -v threadtime > build/epub-api26-diagnostic/logcat.log
           timeout 30s adb shell dumpsys meminfo org.bookreader.mobile > build/epub-api26-diagnostic/meminfo.log
+          timeout 30s adb shell run-as org.bookreader.mobile cat files/epub-annotation-observations.json > build/epub-api26-diagnostic/annotation-boxes.json
           timeout 30s adb pull /sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence build/epub-api26-diagnostic/fixture-screenshots
           exit "$result"
           BASH

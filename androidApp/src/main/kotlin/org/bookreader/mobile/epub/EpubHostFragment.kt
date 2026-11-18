@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -147,6 +148,14 @@ class EpubHostFragment : Fragment() {
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         object : FrameLayout(requireContext()) {
+            override fun dispatchApplyWindowInsets(insets: WindowInsets): WindowInsets {
+                // The outer Compose reader already lays out inside system bars. On Android 8,
+                // forwarding these insets also lets nested legacy pagers request them again
+                // while the dialog's keyboard changes the visible area.
+                return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) insets
+                else super.dispatchApplyWindowInsets(insets)
+            }
+
             override fun dispatchTouchEvent(event: MotionEvent): Boolean {
                 if (event.actionMasked == MotionEvent.ACTION_DOWN) controller?.armMovement()
                 return super.dispatchTouchEvent(event)
