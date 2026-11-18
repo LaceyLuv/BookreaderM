@@ -1,3 +1,32 @@
+## 2026-11-18 진행 중 — EPUB 메모 입력 중 Android 8.x 정지 수정
+
+작업 위치 `/workspace/BookreaderM-reader-070`, `codex/reader-070`, 0.7.0-dev/code10/Room9.
+저장된 mobile-env.sh 적용 후 doctor exit 0. 개발 브랜치와 원격 main을 확인했고 기존
+서명키 파일 정보와 05ffd50 APK·ZIP SHA-256이 일치했다.
+
+API 26 전체 실행 42367624851과 42368968011은 처음 8개 완료 뒤 새 형광펜 테스트 중
+앱 메모리 부족으로 종료했다. c141a99의 스레드 기록에서 실제 메뉴 선택 후 메모 입력 대기와
+Readium 여백 콜백의 메모리 부족 스택을 확인했다.
+[65a57bc 원본](evidence/product-quality/failed-65a57bc/summary.json),
+[c141a99 원본](evidence/product-quality/failed-c141a99/summary.json).
+c141a99 API 34·36은 각각 native 77개와 host 7단계가 통과했고 본문 강조 화면도 확인했다.
+[부분 검증](evidence/product-quality/failed-c141a99/api34-36-verified.json).
+
+별도 API 26 EPUB 진단 42369244168은 13개 중 12개 통과. 선택 목표가 화면 밖인 순간
+터치 입력이 거부된 1개가 실패했다. 이전 검색·재생성 검사는 그 실행에서 통과했다.
+[진단 원본](evidence/product-quality/api26-diagnostic-977b092/summary.json).
+
+793e16be는 화면 잘림 보정이 필요 없는 Android 8.x에서 Readium 여백 콜백을 비활성화하고
+테스트가 실제로 보이는 단어를 길게 누르게 한다. [설계](adr/0011-exact-epub-annotations.md).
+로컬 테스트 APK compile·lint 및 릴리스 APK·AAB 빌드 exit 0.
+[명령과 로그](evidence/product-quality/phase3-epub-api26-local/summary.json).
+원격 build 44239853310 및 API 26·34·36 device 44239853158 실행 중.
+전체 증거 대조 후 현 상태를 확정한다. 실기기·TalkBack·성능·공개 배포는 미실행이다.
+
+매 shell에서 `source /workspace/toolchains/mobile-env.sh`을 적용한다.
+진행 상태와 검증 도우미는 `/workspace/work/bookreaderm-product-quality/`의
+`phase3-epub-annotations/current.json`, `ci/`, `verify-phase3.py`에 있다.
+
 ## 2026-11-07 진행 중 — API34/36 EPUB 형광펜·메모 검증 PASS, API26 정지 조사
 
 작업 `/workspace/BookreaderM-reader-070`, `codex/reader-070`, code10/Room9.

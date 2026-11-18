@@ -64,3 +64,19 @@ CSP·금지 태그/URL 규칙·관리 원본·내용 버전·독서 진행도는
 기존 EPUB 처리 파일 중 EpubContentPolicy의 이 변환 부분만 의도적으로 변경했다.
 일반 문자/보조 평면 문자/속성/이스케이프된 literal entity의 roundtrip과 실제 WebView fixture를 검사한다.
 원본과 변형 실험은 `/workspace/work/bookreaderm-product-quality/phase3-epub-annotations/android-xml-*.log`에 있다.
+
+## Android 8의 키보드 입력 중 여백 처리
+
+API 26 전체 계측 두 번에서 실제 길게 누르기와 형광펜 메뉴 선택을 마친 뒤 메모 입력 중
+앱 프로세스가 메모리 부족으로 종료됐다. c141a99의 스레드 기록은 메모 입력에 필요한
+Espresso 유휴 대기를 보여 주고, 이후 메모리 부족 스택에는 Readium의
+`R2EpubPageFragment` 여백 콜백이 있다. 이전 EPUB 검색 입력에서도 같은 스택이 관찰됐다.
+
+고정된 Readium 3.1.2 소스에서 이 콜백은 여백 갱신마다 View 생명주기에 코루틴을 등록한다.
+Android 8.x에는 화면 잘림 영역 API가 없으므로 공개 설정 `shouldApplyInsetsPadding`을 끈다.
+API 28 이상은 기존 설정을 사용한다. SDK의 페이지 모드 기본 세로 여백은 별도 계산을 유지한다.
+실제 키보드 입력과 재생성·글자 크기·재열기 검사는 기존대로 실행한다.
+
+별도 API 26 진단에서 발견한 화면 밖 터치도 교정했다. 문서 로드 후 선택할 단어의 중심점이
+CSS 뷰포트와 실제 WebView의 보이는 영역에 들어올 때 길게 누른다. 직접 DOM 선택으로
+메뉴 검사를 대체하지 않는다. [진단 원본](../evidence/product-quality/api26-diagnostic-977b092/summary.json).
