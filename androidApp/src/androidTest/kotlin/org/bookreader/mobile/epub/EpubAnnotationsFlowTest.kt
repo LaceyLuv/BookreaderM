@@ -57,6 +57,11 @@ class EpubAnnotationsFlowTest {
         File(target.filesDir,"epub-annotation-observations.json").writeText("[]")
         open();val owner=reader();val book=owner.book
         val source=File(target.filesDir,"managed/${book.managedRelativePath}").readBytes()
+        // Establish the first page through the product's TOC. The SDK may initially lay
+        // out the fixture at a different vertical offset on older WebView versions.
+        compose.readerControl("epub_toc").performClick()
+        compose.onAllNodesWithTag("epub_toc_item")[0].performClick()
+        compose.waitUntil(20_000) { progress()?.locatorJson?.contains("one.xhtml") == true }
         val original=progress();val viewport=compose.onNodeWithTag("epub_ready").fetchSemanticsNode().boundsInRoot.size
         val (x, y) = visibleSelectionPoint()
         val started=SystemClock.uptimeMillis()
@@ -134,37 +139,45 @@ class EpubAnnotationsFlowTest {
             else -> emptyList()
         }
         var screenPoint: Pair<Float, Float>? = null
+        var lastPoint: JSONObject? = null
         // A complete document can still be scrolled to a transient position while Readium
         // restores the page. Wait for the actual word to enter the visible WebView.
-        compose.waitUntil(10_000) {
-            val point = JSONObject(evaluateLoadedChapter(compose.activityRule.scenario, "one", """
+        try {
+            compose.waitUntil(10_000) {
+                val point = JSONObject(evaluateLoadedChapter(compose.activityRule.scenario, "one", """
                 (() => {
                     const range = document.createRange(), text = document.getElementById('selection').firstChild;
                     range.setStart(text, 14); range.setEnd(text, 18);
                     const rect = range.getBoundingClientRect();
                     return {x:(rect.left+rect.right)/2, y:(rect.top+rect.bottom)/2,
-                        width:innerWidth, height:innerHeight};
+                        width:innerWidth, height:innerHeight, scrollX, scrollY};
                 })()
-            """.trimIndent()))
-            val x = point.getDouble("x")
-            val y = point.getDouble("y")
-            val width = point.getDouble("width")
-            if (x !in 0.0..<width || y !in 0.0..<point.getDouble("height")) return@waitUntil false
-            compose.activityRule.scenario.onActivity { activity ->
-                val web = webViews(activity.window.decorView).firstOrNull {
-                    it.isShown && it.url?.endsWith("/one.xhtml") == true
-                } ?: return@onActivity
-                val scale = web.width / width
-                val viewX = (x * scale).toFloat()
-                val viewY = (y * scale).toFloat()
-                val visible = android.graphics.Rect()
-                if (web.getLocalVisibleRect(visible) && visible.contains(viewX.toInt(), viewY.toInt())) {
-                    val origin = IntArray(2)
-                    web.getLocationOnScreen(origin)
-                    screenPoint = (origin[0] + viewX) to (origin[1] + viewY)
+                """.trimIndent()))
+                lastPoint = point
+                val x = point.getDouble("x")
+                val y = point.getDouble("y")
+                val width = point.getDouble("width")
+                if (x !in 0.0..<width || y !in 0.0..<point.getDouble("height")) return@waitUntil false
+                compose.activityRule.scenario.onActivity { activity ->
+                    val web = webViews(activity.window.decorView).firstOrNull {
+                        it.isShown && it.url?.endsWith("/one.xhtml") == true
+                    } ?: return@onActivity
+                    val scale = web.width / width
+                    val viewX = (x * scale).toFloat()
+                    val viewY = (y * scale).toFloat()
+                    val visible = android.graphics.Rect()
+                    if (web.getLocalVisibleRect(visible) && visible.contains(viewX.toInt(), viewY.toInt())) {
+                        val origin = IntArray(2)
+                        web.getLocationOnScreen(origin)
+                        screenPoint = (origin[0] + viewX) to (origin[1] + viewY)
+                    }
                 }
+                screenPoint != null
             }
-            screenPoint != null
+        } catch (failure: ComposeTimeoutException) {
+            runCatching { ReaderFixtureScreenshot.capture("phase3-epub-selection-target-failure.png") }
+                .onFailure(failure::addSuppressed)
+            throw AssertionError("The fixture's second word never became visible after opening the TOC entry: $lastPoint", failure)
         }
         return requireNotNull(screenPoint)
     }
