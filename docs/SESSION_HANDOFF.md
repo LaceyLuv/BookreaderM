@@ -1,3 +1,21 @@
+## 2026-11-18 이어갈 위치 — EPUB 형광펜·메모 자동 검증 완료
+
+`/workspace/BookreaderM-reader-070`의 `codex/reader-070`에서 개발한다.
+제품·테스트 소스 `3188545e5a4bf04f859f3a7659eca777b50c7a8d`, 증거와 문서 `1cff263f`.
+[최신 인수인계](https://github.com/LaceyLuv/BookreaderM/blob/codex/reader-070/docs/SESSION_HANDOFF.md).
+
+0.7.0-dev/versionCode 10/Room 9에서 EPUB 형광펜 네 색, 메모 저장·수정·삭제·본문 이동을 제공한다.
+Android 8.x에서 키보드 입력을 지연시키던 Readium 여백 중복 전달을 차단했다.
+원격 빌드 44243688890의 210개와 기기 실행 44243688898의 API 26·34·36 각각
+UI 77개와 외부 강제 종료 7단계가 통과했다. 실제 화면, 형광펜 좌표, PID 교체를 대조했다.
+[검증 원본](https://github.com/LaceyLuv/BookreaderM/blob/codex/reader-070/docs/evidence/product-quality/verified-3188545/summary.json).
+
+기존 13개 테이블, 책·진행도·서명키와 기존 05ffd50 APK·ZIP을 보존했다.
+실제 휴대전화·TalkBack·성능·공개 배포는 미실행이다. 다음 단위는 Phase 4 백업·복원 설계다.
+매 shell에서 `source /workspace/toolchains/mobile-env.sh`을 적용한다.
+
+이전 상태는 아래 이력에 남긴다.
+
 ## 2026-11-07 이어갈 위치 — EPUB 형광펜·메모, API26 정지 진단 중
 
 개발은 `/workspace/BookreaderM-reader-070`, `codex/reader-070`에서 이어 간다.
