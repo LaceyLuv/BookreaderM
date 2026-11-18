@@ -1,3 +1,16 @@
+## 2026-11-18 현재 — Android 8 EPUB 여백 전달 보완
+
+최신 제품·테스트 `ea631148a1199dba8ec1a4f5f7a0d66a47d39d55`.
+API 26에서 화면 잘림 전용 콜백을 끈 첫 수정의 전체 실행은 아직 진행 중이다.
+793e16be의 API 36은 원본 대조까지 UI 77개, host 7단계 PASS.
+API 34는 EPUB 2개 PASS, 기존 TXT 나눔 글꼴/여백 변경 후 전체 쪽수 대기 1 FAIL.
+[첫 수정 실패 원본](evidence/product-quality/failed-793e16b/summary.json).
+
+후속 수정은 이미 시스템 여백을 적용한 Compose 화면에서 Android 8.x의 Readium 하위 뷰로
+같은 여백을 다시 전달하지 않는다. [검증 명령과 실행 ID](evidence/product-quality/phase3-epub-api26-local/host-insets-summary.json).
+테스트 APK 컴파일/lint exit 0. 전체 build 44242666959, device 44242666827 및
+API 26 EPUB 진단 44242666916 진행 중이다. 진단은 기존 13개 EPUB 검사와 스레드·좌표 로그를 수집한다.
+
 ## 2026-11-18 진행 중 — EPUB 메모 입력 중 Android 8.x 정지 수정
 
 작업 위치 `/workspace/BookreaderM-reader-070`, `codex/reader-070`, 0.7.0-dev/code10/Room9.
