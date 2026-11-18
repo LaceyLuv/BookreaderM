@@ -58,21 +58,13 @@ class EpubAnnotationsFlowTest {
         open();val owner=reader();val book=owner.book
         val source=File(target.filesDir,"managed/${book.managedRelativePath}").readBytes()
         val original=progress();val viewport=compose.onNodeWithTag("epub_ready").fetchSemanticsNode().boundsInRoot.size
-        val point=JSONObject(evaluateLoadedChapter(compose.activityRule.scenario,"one","""
-            (()=>{const r=document.createRange(),n=document.getElementById('selection').firstChild;r.setStart(n,14);r.setEnd(n,18);
-            const b=r.getBoundingClientRect();return {x:(b.left+b.right)/2,y:(b.top+b.bottom)/2,width:innerWidth};})()
-        """.trimIndent()))
-        var x=0f;var y=0f
-        compose.activityRule.scenario.onActivity{activity->
-            fun webs(v:View):List<WebView> = when(v){is WebView->listOf(v);is ViewGroup->(0 until v.childCount).flatMap{webs(v.getChildAt(it))};else->emptyList()}
-            val web=webs(activity.window.decorView).first{it.isShown && it.url?.endsWith("/one.xhtml")==true}
-            val location=IntArray(2);web.getLocationOnScreen(location);val scale=web.width/point.getDouble("width")
-            x=(location[0]+point.getDouble("x")*scale).toFloat();y=(location[1]+point.getDouble("y")*scale).toFloat()
-        }
+        val (x, y) = visibleSelectionPoint()
         val started=SystemClock.uptimeMillis()
         for(action in listOf(MotionEvent.ACTION_DOWN,MotionEvent.ACTION_UP)) {
             val event=MotionEvent.obtain(started,SystemClock.uptimeMillis(),action,x,y,0);event.source=InputDevice.SOURCE_TOUCHSCREEN
-            try{assertTrue(instrumentation.uiAutomation.injectInputEvent(event,true))}finally{event.recycle()}
+            try {
+                assertTrue("Native selection touch action $action at ($x, $y) was rejected", automation.injectInputEvent(event, true))
+            } finally { event.recycle() }
             if(action==MotionEvent.ACTION_DOWN)SystemClock.sleep(ViewConfiguration.getLongPressTimeout()+400L)
         }
         compose.waitUntil(10_000){evaluateLoadedChapter(compose.activityRule.scenario,"one","getSelection().toString()") == "\"same\""}
@@ -135,6 +127,48 @@ class EpubAnnotationsFlowTest {
         compose.waitUntil(20_000){owner.annotations.state.value.error}
         assertTrue(rows().isEmpty());assertEquals(before,progress())
     }
+    private fun visibleSelectionPoint(): Pair<Float, Float> {
+        fun webViews(view: View): List<WebView> = when (view) {
+            is WebView -> listOf(view)
+            is ViewGroup -> (0 until view.childCount).flatMap { webViews(view.getChildAt(it)) }
+            else -> emptyList()
+        }
+        var screenPoint: Pair<Float, Float>? = null
+        // A complete document can still be scrolled to a transient position while Readium
+        // restores the page. Wait for the actual word to enter the visible WebView.
+        compose.waitUntil(10_000) {
+            val point = JSONObject(evaluateLoadedChapter(compose.activityRule.scenario, "one", """
+                (() => {
+                    const range = document.createRange(), text = document.getElementById('selection').firstChild;
+                    range.setStart(text, 14); range.setEnd(text, 18);
+                    const rect = range.getBoundingClientRect();
+                    return {x:(rect.left+rect.right)/2, y:(rect.top+rect.bottom)/2,
+                        width:innerWidth, height:innerHeight};
+                })()
+            """.trimIndent()))
+            val x = point.getDouble("x")
+            val y = point.getDouble("y")
+            val width = point.getDouble("width")
+            if (x !in 0.0..<width || y !in 0.0..<point.getDouble("height")) return@waitUntil false
+            compose.activityRule.scenario.onActivity { activity ->
+                val web = webViews(activity.window.decorView).firstOrNull {
+                    it.isShown && it.url?.endsWith("/one.xhtml") == true
+                } ?: return@onActivity
+                val scale = web.width / width
+                val viewX = (x * scale).toFloat()
+                val viewY = (y * scale).toFloat()
+                val visible = android.graphics.Rect()
+                if (web.getLocalVisibleRect(visible) && visible.contains(viewX.toInt(), viewY.toInt())) {
+                    val origin = IntArray(2)
+                    web.getLocationOnScreen(origin)
+                    screenPoint = (origin[0] + viewX) to (origin[1] + viewY)
+                }
+            }
+            screenPoint != null
+        }
+        return requireNotNull(screenPoint)
+    }
+
     private fun clickNativeHighlight(){
         val deadline=SystemClock.uptimeMillis()+10_000
         var structure=""

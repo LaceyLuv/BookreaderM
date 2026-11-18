@@ -1,6 +1,7 @@
 package org.bookreader.mobile.epub
 
 import android.os.Bundle
+import android.os.Build
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
@@ -75,6 +76,9 @@ class EpubHostFragment : Fragment() {
         childFragmentManager.fragmentFactory = EpubNavigatorFactory(publication).createFragmentFactory(
             current.initialLocator(), initialPreferences = current.preferences(),
             configuration = EpubNavigatorFragment.Configuration(servedAssets = listOf("reader-fonts/.*"),
+                // Cutouts were introduced in API 28. On Android 8, repeated inset dispatches
+                // during IME input accumulate lifecycle jobs in Readium 3.1.2's padding listener.
+                shouldApplyInsetsPadding = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P,
                 selectionActionModeCallback = object : ActionMode.Callback {
                     override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
                         menu.add(0, 0x426d0001, 0, "형광펜 · 메모").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
