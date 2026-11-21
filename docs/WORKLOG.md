@@ -33,6 +33,12 @@ API 26·36 UI 78개와 host 7단계 PASS, API 34 UI 78개 중 기존 TXT 1개 FA
 새 백업 흐름은 API 34에서 통과했고 해당 시도의 host는 NOT_RUN이다. 동일 소스로 API 34만 재실행했다.
 [첫 시도 원본](evidence/product-quality/failed-4777199-api34/summary.json).
 
+API 34 재실행 136685106692에서 UI 78개 및 host 7단계가 통과했다. 같은 소스의 세 API 최종 검증 결과에서
+실패·오류·skip은 0이다. 각 기기의 미리보기와 복원 결과 화면을 확인했다.
+`python3 /workspace/work/bookreaderm-product-quality/verify-reading-backup.py 4777199e2a72d5766f14b251b4d6a511cae205ba 44850131358 44850131565` exit 0.
+[검증 로그](evidence/product-quality/verified-4777199/verification.log),
+[화면 대조](evidence/product-quality/verified-4777199/visual-review.json).
+
 Room 9의 14개 테이블 정의와 Android OS 백업 정책을 대조했다. 기존 서명키 정보와
 05ffd50 APK·ZIP의 해시 및 인증서가 일치했다. [보존 대조](evidence/product-quality/phase4-reading-backup-local/preservation.json).
 

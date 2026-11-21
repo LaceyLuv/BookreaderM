@@ -55,7 +55,7 @@ READER_FONTS_0_5/QA_MATRIX/TESTING과 Android/shared/epubAndroid 소스·테스�
 | Phase 1 / 0.5.1 | 구현·자동 검증 완료 | [결과·실제 화면](UX_POLISH_0_5_1.md). 5a8aad2 build166, native63+host6/API26/34/36 PASS. 실기기 미실행 |
 | Phase 2 / 0.6.0 | 구현·자동 검증 완료 | a22970b build175, native72+host7/API26/34/36 PASS. [결과](LIBRARY_0_6.md), 실기기 미실행 |
 | Phase 3 / 0.7.0 | 구현·자동 검증 완료 | 3188545의 API 26·34·36 각각 UI 77개와 외부 강제 종료 7단계 PASS. [결과·한계](READER_0_7.md) |
-| Phase 4 / 0.8.0-dev | 독서 기록 백업·복원 구현 | 다음 단위는 책·글꼴 원본의 선택 백업과 중단 복구다. 실기기 성능·접근성과 배포 검증이 남았다. |
+| Phase 4 / 0.8.0-dev | 독서 기록 백업·복원 구현 및 자동 검증 완료 | 다음 단위는 책·글꼴 원본의 선택 백업과 중단 복구다. 실기기 성능·접근성과 배포 검증이 남았다. |
 
 각 단계의 PASS는 실제 실행 범위만 의미한다. 구현만 끝난 항목이나 기기 실행 없이 compiled test를
 단계 전체 완료로 올리지 않는다. 실패·NOT_RUN·BLOCKED_ENV와 다음 착수 조건을 이 문서 및 TASKS/WORKLOG에 남긴다.

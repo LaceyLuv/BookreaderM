@@ -1,4 +1,4 @@
-## 2026-11-21 독서 기록 백업·복원
+## 2026-11-21 독서 기록 백업·복원 구현과 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`의 `codex/backup-080`에서 진행한다.
 제품·테스트 소스 `4777199e2a72d5766f14b251b4d6a511cae205ba`, 0.8.0-dev/versionCode 11/Room 9.
@@ -8,13 +8,15 @@
 동일 원본의 현재 진행도와 기존 기록을 우선한다. 새 책은 같은 원본을 다시 추가하면 읽을 수 있다.
 [사용 방법](../README.md#데이터와-지원-범위), [파일 형식과 병합 설계](adr/0012-portable-reading-records.md).
 
-원격 빌드 44850131358의 219개와 로컬 빌드 216개, 테스트 APK, lint, unsigned APK/AAB가 통과했다.
-기기 실행 44850131565의 첫 시도에서 API 26·36 각각 UI 78개와 강제 종료 7단계가 통과했다.
-API 34의 백업 테스트도 통과했다. 기존 TXT 전체 쪽수 표시 대기 1건이 시간 초과해 같은 소스의
-API 34만 재실행 중이다. 제품 코드가 동일한 `bf6cf98`은 세 API 전체 검증이 통과했다.
-[API 26·36 대조](evidence/product-quality/phase4-reading-backup-local/partial-final-26-36.json),
-[API 34 첫 실행](evidence/product-quality/failed-4777199-api34/summary.json),
-[앞선 세 API 검증](evidence/product-quality/phase4-reading-backup-local/prior-matrix-bf6cf98.json).
+원격 빌드 44850131358의 219개와 로컬 빌드 216개, 테스트 APK, lint, unsigned APK/AAB 빌드가 통과했다.
+기기 실행 44850131565에서 API 26·34·36 각각 UI 78개와 강제 종료 후 복원 7단계가 통과했다.
+같은 소스의 필수 XML, ZIP 해시·CRC, 강제 종료 후 PID 부재와 교체, 백업 화면을 대조했다.
+[최종 검증 원본](evidence/product-quality/verified-4777199/summary.json),
+[미리보기와 복원 결과 화면](evidence/product-quality/verified-4777199/visual-review.json).
+
+API 34 첫 시도는 백업 검사와 TXT 위치 대조를 통과한 뒤 기존 TXT 전체 쪽수 대기에서 시간 초과했다.
+같은 소스의 두 번째 시도에서 재현되지 않았고 원인은 미확정이다.
+[첫 실패 원본](evidence/product-quality/failed-4777199-api34/summary.json).
 
 API 26의 독서 기록 복원 테스트와 실제 시스템 파일 선택기의 빈 서재 저장·복원은 로컬에서도 통과했다.
 [로컬 명령과 결과](evidence/product-quality/phase4-reading-backup-local/summary.json),
