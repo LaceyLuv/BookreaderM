@@ -19,7 +19,8 @@ public final class TestPickerActivity extends Activity {
                 throw new IllegalStateException("Expected single-document backup request");
             }
             Uri file = Uri.parse("content://org.bookreader.mobile.tests.assets/" + backup);
-            Intent result = new Intent().setData(file).setClipData(ClipData.newRawUri("Generated backup fixture", file));
+            Intent result = new Intent().setData(file);
+            result.setClipData(ClipData.newRawUri("Generated backup fixture", file));
             result.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | (writing ? Intent.FLAG_GRANT_WRITE_URI_PERMISSION : 0));
             setResult(RESULT_OK, result);
             finish();
