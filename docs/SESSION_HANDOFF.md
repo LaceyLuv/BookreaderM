@@ -1,3 +1,33 @@
+## 2026-11-21 독서 기록 백업·복원
+
+`/workspace/BookreaderM-reader-070`의 `codex/backup-080`에서 진행한다.
+제품·테스트 소스 `4777199e2a72d5766f14b251b4d6a511cae205ba`, 0.8.0-dev/versionCode 11/Room 9.
+매 shell에서 `source /workspace/toolchains/mobile-env.sh`을 적용한다. doctor exit 0.
+
+**설정 → 데이터 보관 → 독서 기록 백업·복원**에서 파일을 저장하고 미리 본 뒤 적용할 수 있다.
+동일 원본의 현재 진행도와 기존 기록을 우선한다. 새 책은 같은 원본을 다시 추가하면 읽을 수 있다.
+[사용 방법](../README.md#데이터와-지원-범위), [파일 형식과 병합 설계](adr/0012-portable-reading-records.md).
+
+원격 빌드 44850131358의 219개와 로컬 빌드 216개, 테스트 APK, lint, unsigned APK/AAB가 통과했다.
+기기 실행 44850131565의 첫 시도에서 API 26·36 각각 UI 78개와 강제 종료 7단계가 통과했다.
+API 34의 백업 테스트도 통과했다. 기존 TXT 전체 쪽수 표시 대기 1건이 시간 초과해 같은 소스의
+API 34만 재실행 중이다. 제품 코드가 동일한 `bf6cf98`은 세 API 전체 검증이 통과했다.
+[API 26·36 대조](evidence/product-quality/phase4-reading-backup-local/partial-final-26-36.json),
+[API 34 첫 실행](evidence/product-quality/failed-4777199-api34/summary.json),
+[앞선 세 API 검증](evidence/product-quality/phase4-reading-backup-local/prior-matrix-bf6cf98.json).
+
+API 26의 독서 기록 복원 테스트와 실제 시스템 파일 선택기의 빈 서재 저장·복원은 로컬에서도 통과했다.
+[로컬 명령과 결과](evidence/product-quality/phase4-reading-backup-local/summary.json),
+[실제 파일 선택기](evidence/product-quality/phase4-reading-backup-local/system-picker-api26/summary.json).
+
+Room 9의 14개 테이블 정의, 사용자 책과 진행도, 서명키와 기존 05ffd50 APK·ZIP을 보존했다.
+최신 설치 파일은 이전에 전달한 05ffd50이다. 다음 단위는 책·글꼴 원본을 선택적으로 함께 담고
+중단된 파일 복원을 재개하는 기능이다. 실기기·TalkBack·성능·공개 배포 검증이 남아 있다.
+[보존 대조](evidence/product-quality/phase4-reading-backup-local/preservation.json).
+
+실행 상태와 검증 도우미는 `/workspace/work/bookreaderm-product-quality/`의
+`phase4-reading-backup/current.json`, `ci/`, `verify-reading-backup.py`에 있다.
+
 ## 2026-11-18 EPUB 형광펜·메모 구현과 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`의 `codex/reader-070`에서 검증했다.

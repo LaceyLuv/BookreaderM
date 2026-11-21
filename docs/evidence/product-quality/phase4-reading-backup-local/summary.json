@@ -1,0 +1,104 @@
+{
+  "source_sha": "4777199e2a72d5766f14b251b4d6a511cae205ba",
+  "environment_start": "source /workspace/toolchains/mobile-env.sh",
+  "status": "PASS",
+  "product": {
+    "version_name": "0.8.0-dev",
+    "version_code": 11,
+    "room_schema": 9
+  },
+  "checks": {
+    "android-unit": 81,
+    "shared-jvm": 118,
+    "epub-unit": 17
+  },
+  "new_backup_cases": 9,
+  "lint": "PASS",
+  "release_packages": {
+    "androidApp-release-unsigned.apk": {
+      "sha256": "b2e4fc3fd9e8d417e61e52437ce4fa9b4814c1fe4e396967beca4f5ebc6b0786",
+      "bytes": 22140829,
+      "signed": false
+    },
+    "androidApp-release.aab": {
+      "sha256": "c050913d4ad2bc477ec4672d8f1373c0edaa0d440a95c1536dbdcacb5372f440",
+      "bytes": 19026758,
+      "signed": false
+    }
+  },
+  "local_probe_packages": {
+    "app.apk": {
+      "sha256": "6d383fdef085b6de090e02eb1a4f9b12683c57b7b42726818a043199e21f613c",
+      "bytes": 28470422
+    },
+    "test.apk": {
+      "sha256": "1a99705fa7986b8e3892b7b98740cac29322b6ca87bbffeb0b1a41b4353cb73b",
+      "bytes": 1676374
+    }
+  },
+  "not_run_by_ci_check": [
+    "Android instrumentation",
+    "filesystem ENOSPC dedicated workflow"
+  ],
+  "earlier_checks": {
+    "source_sha": "bf6cf98f1146ad36196fc90f98c6721c82b93d26",
+    "commands": [
+      {
+        "command": "BOOKREADER_EVIDENCE_DIR=build/phase4-reading-backup-verified-local ./scripts/ci-check.sh",
+        "log": "phase4-backup-local-ci-bf6cf98.log",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "command": "./gradlew :androidApp:assembleDebug :androidApp:assembleDebugAndroidTest --console=plain",
+        "log": "phase4-backup-debug-packages.log",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "command": "./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain",
+        "log": "phase4-backup-local-release.log",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "command": "./scripts/ci-check.sh",
+        "log": "phase4-backup-local-ci-final.log",
+        "exit_code": 1,
+        "status": "FAIL"
+      },
+      {
+        "command": "./scripts/ci-check.sh",
+        "log": "phase4-backup-local-ci.log",
+        "exit_code": 1,
+        "status": "FAIL"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "command": "BOOKREADER_EVIDENCE_DIR=build/phase4-reading-backup-local-4777199 ./scripts/ci-check.sh",
+      "exit_code": 0,
+      "log": "phase4-backup-local-ci-4777199.log"
+    },
+    {
+      "command": "./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain",
+      "exit_code": 0,
+      "log": "phase4-backup-local-release-4777199.log"
+    }
+  ],
+  "api26_tcg": {
+    "status": "PASS",
+    "tests": 1,
+    "command": "adb -s emulator-5582 shell am instrument -w -r -e class org.bookreader.mobile.backup.ReadingBackupFlowTest org.bookreader.mobile.test/androidx.test.runner.AndroidJUnitRunner",
+    "log": "api26-tcg/local-api26-fixture-back-instrumentation.log",
+    "prior_attempt": {
+      "source_sha": "bf6cf98f1146ad36196fc90f98c6721c82b93d26",
+      "status": "FAIL",
+      "log": "api26-tcg/local-api26-bf6cf98-instrumentation.log",
+      "reason": "Reader controls did not become visible during test setup before backup."
+    },
+    "visual_status": "BLOCKED_ENV",
+    "visual_reason": "System UI ANR dialog overlays both fixture screenshots. Android Compose assertions completed."
+  }
+}

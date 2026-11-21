@@ -1,3 +1,19 @@
+## 2026-11-21 독서 기록 백업·복원
+
+독서 기록 검사는 `scripts/required-tests.json`에 등록했다. 파일 JVM 검사는 길이·버전·해시·UTF-8과
+중첩 한도를 확인한다. 실제 Room JVM 검사는 파일 DB를 재개방한 뒤 이전 TXT 해석별 기록,
+EPUB·만화 위치, 서재 분류와 설정을 확인한다. 충돌·쓰기 실패·한도 초과 시 원래 행을 비교한다.
+
+`ReadingBackupFlowTest`는 생성한 두 TXT 책을 전용 서재에 넣고 설정에서 백업을 저장한다.
+Android Activity 결과의 URI 권한을 별도 UID 제공자가 전달한다. 미리보기 이후 제공자 파일이
+바뀌어도 확인한 내용만 적용되는지, 기존 위치와 관리 파일이 같은지, 손상된 백업을 거부하는지 검사한다.
+같은 원본을 다시 가져와 새 책의 복원된 위치까지 확인한다. 미리보기와 복원 결과의 화면을 수집한다.
+이 검사에서 파일을 선택하는 창은 테스트용 Activity다. 별도 API 26 실행에서 Android 시스템
+파일 선택기로 빈 서재의 백업을 Downloads에 저장한 뒤 같은 파일을 열고 복원했다.
+[실제 선택기 화면과 백업 해시](evidence/product-quality/phase4-reading-backup-local/system-picker-api26/summary.json).
+
+검증 명령과 실행별 결과는 [인수인계](SESSION_HANDOFF.md)에 있다.
+
 ## 2026-11-18 EPUB 형광펜·메모 구현과 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`의 `codex/reader-070`에서 검증했다.

@@ -1,3 +1,41 @@
+## 2026-11-21 독서 기록 백업·복원
+
+`codex/backup-080`에서 `0.8.0-dev`/versionCode 11의 기록 백업을 구현했다.
+`shared/backup`의 스냅숏·복원 트랜잭션과 Android `backup`의 문서 권한·파일 헤더·설정 화면을 연결했다.
+신규 테스트 9개는 롤백, 중복 복원, 기존 기록 우선, 과대·손상 파일과 미래 형식을 검사한다.
+[ADR 0012](adr/0012-portable-reading-records.md).
+
+`source /workspace/toolchains/mobile-env.sh` 적용 후 `./scripts/doctor.sh` exit 0.
+`BOOKREADER_EVIDENCE_DIR=build/phase4-reading-backup-local-4777199 ./scripts/ci-check.sh` exit 0.
+Android JVM 81개, shared JVM 118개, EPUB JVM 17개와 테스트 APK 빌드·lint·Room 9 검사가 통과했다.
+`./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit 0. 생성한 APK/AAB는 검사용 unsigned 산출물이다.
+[로그와 해시](evidence/product-quality/phase4-reading-backup-local/summary.json).
+
+첫 원격 실행 44848426007/44848426018은 테스트 Activity의 `Intent.setClipData` 반환형 오류로
+테스트 APK 컴파일이 실패했다. 컴파일을 고친 뒤 로컬 API 26 소프트웨어 에뮬레이터에서
+준비용 책의 Reader 도구를 여는 동작이 시간 초과했다. 준비 단계에서 Reader의 뒤로 가기 처리를
+사용하고 진행도 fixture는 현재 행 여부에 맞게 저장하도록 바꿨다.
+같은 환경에서 새 테스트가 통과했으며, 로컬 캡처에는 Android System UI 응답 지연 창이 겹쳤다.
+[첫 원격 실패](evidence/product-quality/failed-08d4b43/summary.json),
+[로컬 두 실행](evidence/product-quality/phase4-reading-backup-local/api26-tcg).
+
+별도 API 26 에뮬레이터의 실제 Android 파일 선택기로 빈 서재의 144바이트 v1 백업을 Downloads에
+저장하고 같은 파일을 열어 복원했다. 실제 화면·UI 계층·페이로드 SHA-256을 확인했다.
+[DocumentsUI 검증](evidence/product-quality/phase4-reading-backup-local/system-picker-api26/summary.json).
+
+원격에서 준비용 Reader 제어를 바꾸기 전 소스 `bf6cf98`의 build 219개와 API 26·34·36의
+UI 78개 및 host 7단계가 통과했다. `4777199`는 해당 테스트의 준비 코드만 바꿨다.
+[앞선 원격 대조](evidence/product-quality/phase4-reading-backup-local/prior-matrix-bf6cf98.json).
+
+`4777199`의 원격 빌드 44850131358에서 219개 통과. 기기 실행 44850131565의 첫 시도는
+API 26·36 UI 78개와 host 7단계 PASS, API 34 UI 78개 중 기존 TXT 1개 FAIL이다.
+페이지 모드 설정 후 전체 쪽수 표시를 기다리다 30초가 지났으며 원인은 미확정이다.
+새 백업 흐름은 API 34에서 통과했고 해당 시도의 host는 NOT_RUN이다. 동일 소스로 API 34만 재실행했다.
+[첫 시도 원본](evidence/product-quality/failed-4777199-api34/summary.json).
+
+Room 9의 14개 테이블 정의와 Android OS 백업 정책을 대조했다. 기존 서명키 정보와
+05ffd50 APK·ZIP의 해시 및 인증서가 일치했다. [보존 대조](evidence/product-quality/phase4-reading-backup-local/preservation.json).
+
 ## 2026-11-18 EPUB 형광펜·메모 구현과 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`의 `codex/reader-070`에서 검증했다.

@@ -1,0 +1,47 @@
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+org.bookreader.mobile.backup.ReadingBackupFlowTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData
+INSTRUMENTATION_STATUS: class=org.bookreader.mobile.backup.ReadingBackupFlowTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+Error in settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData(org.bookreader.mobile.backup.ReadingBackupFlowTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:28)
+	at org.bookreader.mobile.backup.ReadingBackupFlowTest.importAndClose(ReadingBackupFlowTest.kt:152)
+	at org.bookreader.mobile.backup.ReadingBackupFlowTest.settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData(ReadingBackupFlowTest.kt:63)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData
+INSTRUMENTATION_STATUS: class=org.bookreader.mobile.backup.ReadingBackupFlowTest
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:28)
+	at org.bookreader.mobile.backup.ReadingBackupFlowTest.importAndClose(ReadingBackupFlowTest.kt:152)
+	at org.bookreader.mobile.backup.ReadingBackupFlowTest.settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData(ReadingBackupFlowTest.kt:63)
+
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 33.285
+There was 1 failure:
+1) settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData(org.bookreader.mobile.backup.ReadingBackupFlowTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at org.bookreader.mobile.reader.ReaderControlTestActionsKt.readerControl(ReaderControlTestActions.kt:28)
+	at org.bookreader.mobile.backup.ReadingBackupFlowTest.importAndClose(ReadingBackupFlowTest.kt:152)
+	at org.bookreader.mobile.backup.ReadingBackupFlowTest.settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData(ReadingBackupFlowTest.kt:63)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
