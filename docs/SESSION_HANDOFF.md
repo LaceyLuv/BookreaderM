@@ -1,3 +1,14 @@
+## 2026-11-21 이어갈 위치 — 독서 기록 백업·복원
+
+개발은 `/workspace/BookreaderM-reader-070`의 `codex/backup-080`에서 이어 간다.
+제품·테스트 소스 `4777199e2a72d5766f14b251b4d6a511cae205ba`, 0.8.0-dev/versionCode 11/Room 9.
+검증 결과와 다음 작업은 [개발 브랜치의 최신 인수인계](https://github.com/LaceyLuv/BookreaderM/blob/codex/backup-080/docs/SESSION_HANDOFF.md)를 따른다.
+
+설정의 **독서 기록 백업·복원**에서 독서 위치, 북마크, 형광펜·메모, 책장과 설정을
+저장하고 기존 값을 우선해 복원한다. 사용자 책과 진행도, 서명키, 기존 05ffd50 설치본을 보존했다.
+다음 단위는 책·글꼴 원본의 선택 백업과 중단된 파일 복원 재개다.
+매 shell에서 `source /workspace/toolchains/mobile-env.sh`을 적용한다.
+
 ## 2026-11-18 이어갈 위치 — EPUB 형광펜·메모 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`의 `codex/reader-070`에서 개발한다.
