@@ -11,6 +11,20 @@ import android.provider.DocumentsContract;
 public final class TestPickerActivity extends Activity {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String backup = getIntent().getStringExtra("backupFixture");
+        if (backup != null) {
+            boolean writing = Intent.ACTION_CREATE_DOCUMENT.equals(getIntent().getAction());
+            if (!backup.matches("backup-test-[0-9a-f]{32}") || !getIntent().hasCategory(Intent.CATEGORY_OPENABLE) ||
+                (!writing && !Intent.ACTION_OPEN_DOCUMENT.equals(getIntent().getAction()))) {
+                throw new IllegalStateException("Expected single-document backup request");
+            }
+            Uri file = Uri.parse("content://org.bookreader.mobile.tests.assets/" + backup);
+            Intent result = new Intent().setData(file).setClipData(ClipData.newRawUri("Generated backup fixture", file));
+            result.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | (writing ? Intent.FLAG_GRANT_WRITE_URI_PERMISSION : 0));
+            setResult(RESULT_OK, result);
+            finish();
+            return;
+        }
         if (!Intent.ACTION_OPEN_DOCUMENT.equals(getIntent().getAction()) ||
             !getIntent().hasCategory(Intent.CATEGORY_OPENABLE)) {
             throw new IllegalStateException("Expected SAF picker request");

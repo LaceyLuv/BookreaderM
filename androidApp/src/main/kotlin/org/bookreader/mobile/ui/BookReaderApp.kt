@@ -69,6 +69,7 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import org.bookreader.mobile.R
+import org.bookreader.mobile.backup.ReadingBackupDialog
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
@@ -169,7 +170,11 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover:
             dismissEditor = model::dismissEditor, chooseCover = onChooseCover, ensureArtwork = model::ensureArtwork,
             showShelves = model::showShelves, createShelf = model::createShelf, renameShelf = model::renameShelf,
             deleteShelf = model::deleteShelf, toggleSelected = model::toggleSelected, clearSelection = model::clearSelection,
-            classify = model::classifySelection, dismissBatch = model::dismissBatch))
+            classify = model::classifySelection, dismissBatch = model::dismissBatch),
+        onBackup = model.backupController?.let { model::openBackup })
+    }
+    model.backupController?.let { controller ->
+        BookReaderTheme(dark) { ReadingBackupDialog(controller) }
     }
 }
 
@@ -194,6 +199,7 @@ fun BookReaderScreen(
     onDismissBookEncoding: () -> Unit = {},
     onDismissNotice: () -> Unit = {},
     libraryActions: LibraryActions = LibraryActions(),
+    onBackup: (() -> Unit)? = null,
 ) {
     val dark = state.theme.isDark(isSystemInDarkTheme())
     val listScroll = rememberLazyListState()
@@ -275,7 +281,7 @@ fun BookReaderScreen(
                             onAdd = onAddTxt, canAdd = state.importing !is ImportUiState.Working && state.importing !is ImportUiState.SelectEncoding,
                             onClearQuery = { onQueryChanged("") }, catalog = state.catalog, selected = state.selectedBooks, actions = libraryActions, listScroll = listScroll, gridScroll = gridScroll)
                     }
-                    AppTab.SETTINGS -> SettingsBody(state, onThemeSelected)
+                    AppTab.SETTINGS -> SettingsBody(state, onThemeSelected, onBackup)
                 }
             }
         }
@@ -486,7 +492,7 @@ private fun StatusMessage(message: String, tag: String, detail: String? = null, 
 }
 
 @Composable
-private fun SettingsBody(state: AppUiState, onThemeSelected: (ThemeMode) -> Unit) {
+private fun SettingsBody(state: AppUiState, onThemeSelected: (ThemeMode) -> Unit, onBackup: (() -> Unit)?) {
     LazyColumn(
         modifier = Modifier.fillMaxSize().testTag("settings_content"),
         contentPadding = PaddingValues(bottom = 20.dp),
@@ -536,9 +542,11 @@ private fun SettingsBody(state: AppUiState, onThemeSelected: (ThemeMode) -> Unit
             Text("데이터 보관", style = MaterialTheme.typography.titleMedium)
             Text(
                 "책은 앱 내부 관리 복사본을 사용하며 원본은 변경하지 않습니다. " +
-                    "앱을 삭제하거나 앱 데이터를 지우면 내부 복사본과 독서 기록이 삭제될 수 있습니다. " +
-                    "앱 백업·복원 기능은 제공하지 않습니다.",
+                    "앱을 삭제하거나 앱 데이터를 지우면 내부 복사본과 독서 기록이 삭제될 수 있습니다.",
             )
+            if (onBackup != null) TextButton(onClick = onBackup, modifier = Modifier.testTag("settings_backup")) {
+                Text("독서 기록 백업·복원")
+            }
         }
     }
 }

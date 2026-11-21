@@ -13,8 +13,8 @@ android {
         applicationId = "org.bookreader.mobile"
         minSdk = 26
         targetSdk = 36
-        versionCode = 10
-        versionName = "0.7.0-dev"
+        versionCode = 11
+        versionName = "0.8.0-dev"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures { compose = true }

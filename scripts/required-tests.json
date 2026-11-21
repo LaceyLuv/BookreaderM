@@ -307,6 +307,22 @@
     [
       "org.bookreader.mobile.reader.TxtReaderAnnotationsTest",
       "cancelledWindowSplitSurrogateChangedSourceAndStaleWritesCannotSaveOrMoveProgress"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "portableEnvelopeRoundTripsUnicodeAndDoesNotDependOnFilename"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "modifiedTruncatedAndAppendedDataFailIntegrityBeforeRestore"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "futureVersionAndHugeDeclaredSizeRejectBeforePayloadAllocation"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "untrustedPayloadWithValidChecksumStillMustBeStrictAndBounded"
     ]
   ],
   "shared-jvm": [
@@ -761,6 +777,26 @@
     [
       "org.bookreader.mobile.annotation.EpubAnnotationsTest",
       "omittedEmptyEdgeContextsRoundTripButMissingNonemptyContextIsRejected"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "snapshotAndColdRestoreKeepEveryRecordKindAndHistoricalTxtRevision"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "duplicateModesKeepExistingBytesAndMergeOnlyMissingKeys"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "abortedInsertRollsBackNewBooksShelvesAndSettings"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "stalePreviewRefusesToApplyAndRestoreLimitPreservesLocalGroup"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "cannotBackUpFutureRecordOrLargeEmbeddedNulRow"
     ]
   ],
   "android-device": [
@@ -1071,6 +1107,10 @@
     [
       "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
       "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFlowTest",
+      "settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData"
     ]
   ],
   "android-host": [

@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 public final class TestAssetProvider extends ContentProvider {
     public static final String TEXT = "선택된 자산 영역의 TXT 본문입니다.\n";
     @Override public boolean onCreate() { return true; }
-    @Override public String getType(Uri uri) { return "text/plain"; }
+    @Override public String getType(Uri uri) { return backupName(uri) == null ? "text/plain" : "application/octet-stream"; }
     @Override public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         MatrixCursor cursor = new MatrixCursor(new String[] { OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE });
         cursor.addRow(new Object[] { "segment.txt", TEXT.getBytes(StandardCharsets.UTF_8).length });
@@ -28,16 +28,23 @@ public final class TestAssetProvider extends ContentProvider {
     // ContentResolver's read-only typed-open defaults to ContentProvider's TWO-argument method.
     @Override public AssetFileDescriptor openAssetFile(Uri uri, String mode)
         throws java.io.FileNotFoundException {
-        return fixtureAsset(mode, null);
+        return fixtureAsset(uri, mode, null);
     }
     @Override public AssetFileDescriptor openAssetFile(Uri uri, String mode, CancellationSignal signal)
         throws java.io.FileNotFoundException {
-        return fixtureAsset(mode, signal);
+        return fixtureAsset(uri, mode, signal);
     }
-    private AssetFileDescriptor fixtureAsset(String mode, CancellationSignal signal)
+    private AssetFileDescriptor fixtureAsset(Uri uri, String mode, CancellationSignal signal)
         throws java.io.FileNotFoundException {
-        if (!"r".equals(mode)) throw new IllegalArgumentException("Read-only fixture");
         if (signal != null) signal.throwIfCanceled();
+        String backup = backupName(uri);
+        if (backup != null) {
+            File generated = new File(getContext().getCacheDir(), backup);
+            if (!"r".equals(mode) && !"wt".equals(mode)) throw new IllegalArgumentException("Expected backup read or write");
+            return new AssetFileDescriptor(ParcelFileDescriptor.open(generated, ParcelFileDescriptor.parseMode(mode)),
+                0, "r".equals(mode) ? generated.length() : AssetFileDescriptor.UNKNOWN_LENGTH);
+        }
+        if (!"r".equals(mode)) throw new IllegalArgumentException("Read-only fixture");
         byte[] prefix = { 0x50, 0x4b, 0x03, 0x04 };
         byte[] body = TEXT.getBytes(StandardCharsets.UTF_8);
         File file = new File(getContext().getCacheDir(), "segment-fixture");
@@ -45,6 +52,10 @@ public final class TestAssetProvider extends ContentProvider {
             output.write(prefix); output.write(body); output.write(new byte[] { 0, 0, 0 });
         } catch (IOException failure) { throw new java.io.FileNotFoundException("Unable to create asset fixture"); }
         return new AssetFileDescriptor(ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY), prefix.length, body.length);
+    }
+    private String backupName(Uri uri) {
+        String name = uri.getLastPathSegment();
+        return uri.getPathSegments().size() == 1 && name != null && name.matches("backup-test-[0-9a-f]{32}") ? name : null;
     }
     @Override public Uri insert(Uri uri, ContentValues values) { throw new UnsupportedOperationException("Read-only fixture"); }
     @Override public int delete(Uri uri, String selection, String[] selectionArgs) { throw new UnsupportedOperationException("Read-only fixture"); }

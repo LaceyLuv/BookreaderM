@@ -58,6 +58,7 @@ abstract class BookReaderDatabase : RoomDatabase() {
     abstract fun txtTocDao(): TxtTocDao
     abstract fun txtAnnotationDao(): TxtAnnotationDao
     abstract fun epubAnnotationDao(): EpubAnnotationDao
+    abstract fun backupInsertDao(): BackupInsertDao
 }
 
 @Suppress("KotlinNoActualForExpect")

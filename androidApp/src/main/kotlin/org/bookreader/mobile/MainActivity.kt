@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import org.bookreader.mobile.backup.AndroidReadingBackup
 import org.bookreader.mobile.ui.AndroidThemeStore
 import org.bookreader.mobile.ui.AppViewModel
 import org.bookreader.mobile.ui.BookReaderApp
@@ -43,6 +44,7 @@ class MainActivity : FragmentActivity() {
                     epubFactory = org.bookreader.mobile.ui.androidEpubReaderFactory(applicationContext),
                     comicFactory = org.bookreader.mobile.ui.androidComicReaderFactory(applicationContext),
                     artwork = org.bookreader.mobile.library.AndroidLibraryArtwork(applicationContext),
+                    backups = AndroidReadingBackup(applicationContext),
                 ) as T
             }
         }

@@ -171,6 +171,9 @@ public final class TestDocumentsProvider extends DocumentsProvider {
         }
         if (id.startsWith("batch-host-")) return (id + " generated batch fixture\n").getBytes(StandardCharsets.UTF_8);
         switch (id) {
+            case "backup-local": case "backup-original":
+                return (id + " · 독서 기록 백업용 자체 생성 원본 😀\n" +
+                    "두 번째 문장에서 읽던 위치를 확인합니다.\n").getBytes(StandardCharsets.UTF_8);
             case "reader-annotations":
                 StringBuilder selections = new StringBuilder();
                 for (int line = 0; line < 300; line++)

@@ -17,6 +17,8 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.CoroutineScope
+import org.bookreader.mobile.backup.AndroidReadingBackup
+import org.bookreader.mobile.backup.BackupController
 import org.bookreader.mobile.reader.TxtReaderController
 import org.bookreader.mobile.model.BookAvailability
 import org.bookreader.mobile.importing.*
@@ -80,6 +82,7 @@ class AppViewModel(
     private val comicFactory: ((Book, CoroutineScope) -> org.bookreader.mobile.comic.ComicReaderController)? = null,
     private val epubFactory: ((Book, CoroutineScope) -> org.bookreader.mobile.epub.EpubReaderController)? = null,
     private val artwork: LibraryArtwork? = null,
+    backups: AndroidReadingBackup? = null,
 ) : ViewModel() {
     private val mutableState = MutableStateFlow(AppUiState())
     val state: StateFlow<AppUiState> = mutableState.asStateFlow()
@@ -89,6 +92,8 @@ class AppViewModel(
     private var encodingJob: Job? = null
     private val pendingInterpretations = mutableSetOf<String>()
     private val recoveryDone = kotlinx.coroutines.CompletableDeferred<Unit>()
+    internal val backupController = backups?.let { BackupController(it, viewModelScope, ::refreshLibrary) }
+    private val backupOpen get() = backupController?.state?.value != null
 
     init {
         // Navigation intentionally has no saved Reader/back-stack state. A new process starts here.
@@ -124,6 +129,26 @@ class AppViewModel(
 
     fun selectTab(tab: AppTab) { mutableState.update { it.copy(tab = tab) } }
     fun updateQuery(query: String) { mutableState.update { it.copy(query = query) } }
+
+    internal fun openBackup() {
+        val screen = state.value
+        if (!recoveryDone.isCompleted || importJob?.isActive == true || encodingJob?.isActive == true ||
+            screen.importing is ImportUiState.SelectEncoding || screen.importing is ImportUiState.ConfirmShare ||
+            pendingDeletions.isNotEmpty() || pendingInterpretations.isNotEmpty() || catalogWrites.isLocked ||
+            screen.editorSaving || screen.coverLoading || screen.reader != null || screen.epubReader != null ||
+            screen.comicReader != null || readerMutex.isLocked
+        ) {
+            mutableState.update { it.copy(notice = "진행 중인 책 작업이 끝난 뒤 백업을 열어 주세요.") }
+            return
+        }
+        backupController?.open()
+    }
+
+    private fun deferDuringBackup(): Boolean {
+        if (!backupOpen) return false
+        mutableState.update { it.copy(notice = "백업 창을 닫은 뒤 책을 선택해 주세요.") }
+        return true
+    }
 
     fun selectTheme(mode: ThemeMode) {
         viewModelScope.launch {
@@ -179,6 +204,7 @@ class AppViewModel(
     fun receiveDocument(document: IncomingDocument) {
         viewModelScope.launch {
             recoveryDone.await()
+            if (deferDuringBackup()) return@launch
             if (importJob?.isActive == true || state.value.importing is ImportUiState.SelectEncoding || state.value.importing is ImportUiState.ConfirmShare) {
                 mutableState.update { it.copy(notice = "진행 중인 가져오기를 완료하거나 취소한 뒤 새 파일을 선택해 주세요.") }
                 return@launch
@@ -198,6 +224,7 @@ class AppViewModel(
         }
         viewModelScope.launch {
             recoveryDone.await()
+            if (deferDuringBackup()) return@launch
             if (importJob?.isActive == true || state.value.importing is ImportUiState.SelectEncoding || state.value.importing is ImportUiState.ConfirmShare) {
                 mutableState.update { it.copy(notice = "진행 중인 가져오기를 완료하거나 취소한 뒤 새 파일을 선택해 주세요.") }; return@launch
             }
@@ -374,6 +401,7 @@ class AppViewModel(
         catalogWrite { it.classify(ids, shelf, add) }
     }
     private fun catalogWrite(action: suspend (RoomLibraryManager) -> Unit) {
+        if (backupOpen) return
         mutableState.update { it.copy(notice = null) }
         viewModelScope.launch {
             try {
@@ -406,6 +434,7 @@ class AppViewModel(
     }
 
     fun changeBookEncoding(encoding: String) {
+        if (backupOpen) return
         val service = management ?: return
         val pending = state.value.encodingChange ?: return
         if (pending.loading || pending.working || encodingJob?.isActive == true) return
@@ -463,7 +492,7 @@ class AppViewModel(
     private fun launchImport(origin: DocumentOrigin,
         action: suspend (BookManagement, suspend (ImportProgress) -> Unit) -> ImportResult,
     ) {
-        if (importJob?.isActive == true) return
+        if (importJob?.isActive == true || deferDuringBackup()) return
         val service = management ?: return
         mutableState.update { it.copy(importing = ImportUiState.Working(), batch = null) }
         importJob = viewModelScope.launch {
@@ -518,6 +547,7 @@ class AppViewModel(
     private val pendingDeletions = mutableSetOf<String>()
 
     fun confirmDelete() {
+        if (backupOpen) return
         val book = state.value.deletingBook ?: return
         if (!pendingDeletions.add(book.id)) return
         mutableState.update { it.copy(deletingBook = null, selectedBook = null) }
@@ -542,6 +572,7 @@ class AppViewModel(
     private val readerMutex = Mutex()
     private var readerObserver: Job? = null
     fun openBook(book: Book) {
+        if (deferDuringBackup()) return
         val unavailable = unavailableBookMessage(book.availability)
         if (unavailable != null) {
             mutableState.update { it.copy(notice = unavailable, selectedBook = null) }
@@ -560,6 +591,7 @@ class AppViewModel(
         viewModelScope.launch {
             try {
             readerMutex.withLock {
+                if (deferDuringBackup()) return@withLock
                 // A tap queued before confirmation must not reopen this book after deletion starts.
                 if (book.id in pendingDeletions || book.id in pendingInterpretations) {
                     mutableState.update { it.copy(notice = "책을 변경하는 중입니다. 작업이 끝나면 다시 열어 주세요.") }

@@ -74,7 +74,8 @@ if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
     "$fixture_output/txt-reader-generated-pages.png" "$fixture_output/txt-reader-generated-page-reflow.png" \
     "$fixture_output/txt-immersive.png" "$fixture_output/txt-controls.png" "$fixture_output/txt-settings.png" \
     "$fixture_output/epub-immersive.png" "$fixture_output/epub-controls.png" "$fixture_output/epub-settings.png" \
-    "$fixture_output/comic-immersive.png" "$fixture_output/comic-controls.png"
+    "$fixture_output/comic-immersive.png" "$fixture_output/comic-controls.png" \
+    "$fixture_output/phase4-backup-preview.png" "$fixture_output/phase4-backup-restored.png"
   test_arguments+=("-Pandroid.testInstrumentationRunnerArguments.captureFixtureScreenshots=true"
     "-Pandroid.testInstrumentationRunnerArguments.additionalTestOutputDir=$fixture_output")
 fi
@@ -212,7 +213,8 @@ for name in ('m02-library.png', 'm03-reader.png', 'txt-reader-generated-scroll.p
              'epub-immersive.png', 'epub-controls.png', 'epub-settings.png',
              'comic-immersive.png', 'comic-controls.png',
              'phase1-import-large-dark.png', 'phase1-library-large-dark.png',
-             'phase2-batch-results.png', 'phase2-book-editor.png', 'phase2-library.png', 'phase2-shelf-list.png', 'phase3-txt-toc.png', 'phase3-reader-tools.png', 'phase3-reader-quick-settings.png', 'phase3-txt-highlight.png', 'phase3-txt-annotations.png', 'phase3-epub-highlight.png', 'phase3-epub-annotations.png'):
+             'phase2-batch-results.png', 'phase2-book-editor.png', 'phase2-library.png', 'phase2-shelf-list.png', 'phase3-txt-toc.png', 'phase3-reader-tools.png', 'phase3-reader-quick-settings.png', 'phase3-txt-highlight.png', 'phase3-txt-annotations.png', 'phase3-epub-highlight.png', 'phase3-epub-annotations.png',
+             'phase4-backup-preview.png', 'phase4-backup-restored.png'):
     matches = list(root.rglob(name))
     if len(matches) != 1 or matches[0].read_bytes()[:8] != b'\x89PNG\r\n\x1a\n':
         raise SystemExit(f'FAIL missing or invalid generated-fixture screenshot: {name}')
