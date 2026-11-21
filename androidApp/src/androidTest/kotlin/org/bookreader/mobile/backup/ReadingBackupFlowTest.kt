@@ -23,7 +23,6 @@ import org.bookreader.mobile.locator.LocatorCodec
 import org.bookreader.mobile.locator.TxtLocator
 import org.bookreader.mobile.locator.TxtLocatorPayload
 import org.bookreader.mobile.reader.ReaderFixtureScreenshot
-import org.bookreader.mobile.reader.readerControl
 import org.bookreader.mobile.ui.AndroidBookManagement
 import org.bookreader.mobile.ui.AppViewModel
 import org.junit.After
@@ -149,7 +148,7 @@ class ReadingBackupFlowTest {
     private fun importAndClose(fixture: String): BookEntity {
         send(fixture)
         waitFor("reader_ready")
-        compose.readerControl("reader_back").performClick()
+        compose.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
         waitFor("library_content")
         return books().single { it.originalDisplayName == "../../$fixture.txt" }
     }
@@ -158,7 +157,12 @@ class ReadingBackupFlowTest {
         val revision = requireNotNull(book.currentRevision)
         val value = LocatorCodec().encode(TxtLocator(revision, TxtLocatorPayload(offset)))
         val progress = ReadingProgressEntity(book.id, revision, "txt", 1, value, 12.0, book.activeSessionEpoch, 1, 5)
-        database.progressDao().insertProgress(progress)
+        val writer = database.progressWriterDao()
+        if (database.progressDao().findProgress(book.id, revision) == null) {
+            writer.insertProgress(progress)
+        } else {
+            writer.updateProgress(progress)
+        }
         database.bookmarkDao().insert(BookmarkEntity("backup-${book.id}", book.id, revision, "txt", 1, value, "백업 북마크", 5, 5))
         progress
     }
