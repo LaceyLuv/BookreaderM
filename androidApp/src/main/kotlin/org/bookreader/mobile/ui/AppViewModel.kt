@@ -329,17 +329,20 @@ class AppViewModel(
             service.ensure(book, details)
             // Another owner may have committed before cancellation or while we waited for the decoder.
             val current = withCatalog { it.record(book.id) } ?: return
-            mutableState.update { value ->
-                val library = value.library as? LibraryState.Content ?: return@update value
-                val displayed = library.books.firstOrNull { it.id == book.id } ?: return@update value
-                val extracted = current.first
-                if (displayed.sourceSha256 != extracted.sourceSha256 || displayed.currentRevision != extracted.currentRevision ||
-                    displayed.updatedAt > extracted.updatedAt) return@update value
-                // Artwork never replaces an interpretation, availability, read order or writer epoch.
-                val merged = displayed.copy(title = extracted.title, author = extracted.author,
-                    coverKey = extracted.coverKey, updatedAt = extracted.updatedAt)
-                value.copy(library = library.copy(books = library.books.map { if (it.id == book.id) merged else it }),
-                    catalog = value.catalog.copy(details = value.catalog.details + (book.id to current.second)))
+            // The composition-owned caller can resume on the decoder thread.
+            withContext(Dispatchers.Main.immediate) {
+                mutableState.update { value ->
+                    val library = value.library as? LibraryState.Content ?: return@update value
+                    val displayed = library.books.firstOrNull { it.id == book.id } ?: return@update value
+                    val extracted = current.first
+                    if (displayed.sourceSha256 != extracted.sourceSha256 || displayed.currentRevision != extracted.currentRevision ||
+                        displayed.updatedAt > extracted.updatedAt) return@update value
+                    // Artwork never replaces an interpretation, availability, read order or writer epoch.
+                    val merged = displayed.copy(title = extracted.title, author = extracted.author,
+                        coverKey = extracted.coverKey, updatedAt = extracted.updatedAt)
+                    value.copy(library = library.copy(books = library.books.map { if (it.id == book.id) merged else it }),
+                        catalog = value.catalog.copy(details = value.catalog.details + (book.id to current.second)))
+                }
             }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { /* A decorative fallback remains readable; library data is not reset. */ }
