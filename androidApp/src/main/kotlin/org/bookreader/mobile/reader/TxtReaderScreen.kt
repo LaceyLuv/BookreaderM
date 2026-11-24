@@ -168,23 +168,23 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         if (!scrollMode) return@LaunchedEffect
         var userMovement = false
         snapshotFlow {
-            val first = list.layoutInfo.visibleItemsInfo.firstOrNull()
-            // LazyList reuses and mutates item info during small scrolls. Snapshot values,
-            // otherwise snapshotFlow sees the same item and suppresses movement updates.
-            Triple(first?.let { it.index to it.offset }, list.isScrollInProgress || requestedScroll, controller.state.value.phase)
-        }.collect { (item, moving, phase) ->
+            val listLayout = list.layoutInfo
+            // Read placement and text measurement in the same snapshot. A measured
+            // line can arrive after its item has already entered the viewport.
+            val anchor = listLayout.visibleItemsInfo.firstOrNull()?.let { item ->
+                layouts[item.index]?.let { layout ->
+                    val vertical = (listLayout.viewportStartOffset - item.offset).coerceAtLeast(0).toFloat()
+                    val line = layout.getLineForVerticalPosition(vertical)
+                    item.index to layout.getLineStart(line)
+                }
+            }
+            Triple(anchor, list.isScrollInProgress || requestedScroll, controller.state.value.phase)
+        }.collect { (anchor, moving, phase) ->
             if (phase != TxtReaderPhase.READY) { userMovement = false; return@collect }
             if (moving) userMovement = true
-            if (item == null) return@collect
-            val (index, offset) = item
-            val layout = layouts[index] ?: return@collect
+            val (index, lineStart) = anchor ?: return@collect
             val fragment = controller.state.value.cache.fragments.getOrNull(index) ?: return@collect
-            val vertical = (list.layoutInfo.viewportStartOffset - offset).coerceAtLeast(0).toFloat()
-            val line = layout.getLineForVerticalPosition(vertical)
-            controller.visibleAnchor(fragment.start + layout.getLineStart(line), userMovement)
-            // Measured layouts are bounded to the current window; there is no whole-book layout cache.
-            val keep = list.layoutInfo.visibleItemsInfo.map { it.index }.toSet()
-            layouts.keys.toList().filter { it !in keep }.forEach { layouts.remove(it) }
+            controller.visibleAnchor(fragment.start + lineStart, userMovement)
         }
     }
 
@@ -233,9 +233,20 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                             // the requested item measurable and visible until its real layout exists.
                             Spacer(Modifier.fillMaxWidth().height(with(density) { maxOf(1, viewport.height).toDp() }))
                         } else {
-                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(highlightedTxt(state.cache.fragments[index].start, requireNotNull(text), highlights), style = typography,
-                                onTextLayout = { result -> layouts[index] = result },
-                                modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index")) } }
+                            key(state.restoreGeneration) {
+                                // LazyColumn can place a prefetched item without another text layout.
+                                DisposableEffect(layouts, index) {
+                                    onDispose { layouts.remove(index) }
+                                }
+                                androidx.compose.foundation.text.selection.SelectionContainer {
+                                    Text(
+                                        highlightedTxt(state.cache.fragments[index].start, requireNotNull(text), highlights),
+                                        style = typography,
+                                        onTextLayout = { result -> layouts[index] = result },
+                                        modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index"),
+                                    )
+                                }
+                            }
                         }
                     }
                 }
