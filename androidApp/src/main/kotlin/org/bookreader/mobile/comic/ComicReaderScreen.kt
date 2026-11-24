@@ -1,12 +1,11 @@
 package org.bookreader.mobile.comic
 
 import org.bookreader.mobile.R
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
@@ -19,8 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.layout.onSizeChanged
@@ -69,11 +66,15 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
     }
     Box(Modifier.fillMaxSize().background(Color(0xFF101720)).testTag("comic_reader")) {
         if (state.fatalError || progress.phase == ArchiveReaderPhase.ERROR) {
-            Column(Modifier.fillMaxSize().padding(16.dp)) {
-                Text("압축파일 또는 저장 위치를 열지 못했습니다. 기존 기록은 보존됩니다.", Modifier.testTag("comic_error"))
-                Button(onClick = onRetry) { Text("다시 시도") }
-                TextButton(onClick = onClose) { Text("서재로") }
-            }
+            ReaderErrorStateCard(
+                formatLabel = "만화",
+                message = "압축파일 또는 저장 위치를 열지 못했습니다. 기존 기록은 보존됩니다.",
+                errorTag = "comic_error",
+                onRetry = onRetry,
+                onClose = onClose,
+                darkTheme = true,
+                modifier = Modifier.fillMaxSize(),
+            )
         } else Box(Modifier.fillMaxSize().padding(bottom = ReaderPageStatusHeight).onSizeChanged {
             if (viewport != IntSize.Zero && viewport != it) controller.reflow()
             viewport = it
@@ -83,49 +84,53 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
                 if (state.settings.readingMode == TxtReadingMode.SCROLL) key(controller, state.hostVersion) {
                     ComicContinuous(controller, manifest, viewport, exploration, zoomRequest, { zoomRequest = 0 }) { controlsVisible = !controlsVisible }
                 } else ComicSinglePage(controller, viewport, exploration) { controlsVisible = !controlsVisible }
-            } else CircularProgressIndicator(Modifier.align(Alignment.Center))
+            } else {
+                ReaderLoadingStateCard(
+                    title = "만화 페이지를 준비하는 중",
+                    detail = "압축 목록과 현재 페이지를 불러오고 있습니다.",
+                    darkTheme = true,
+                    modifier = Modifier.align(Alignment.Center),
+                )
+            }
         }
         ReaderPageStatus(pageLabel, "comic", Color(0xFF101720), Color(0xFFE8E8E8))
-        if (!chrome && !ready) ReaderLoadingExit("comic", onClose, Modifier.align(Alignment.TopStart))
-        if (chrome) ReaderChrome(controller.book.title, if (state.settings.readingMode == TxtReadingMode.SCROLL) "COMIC · 연속" else "COMIC · 한 장", "comic",
-            pageLabel, onClose, { controlsVisible = false }, !exploration,
-            ready && state.index > 0, ready && state.index + 1 < (state.manifest?.entryKeys?.size ?: 0),
-            { controller.move(-1) }, { controller.move(1) }, onSeek = { menu = true }) {
+        if (!chrome && !ready) ReaderLoadingExit("comic", onClose, Modifier.align(Alignment.TopStart), darkTheme = true)
+        ReaderChromeOverlay(visible = chrome, title = controller.book.title, format = if (state.settings.readingMode == TxtReadingMode.SCROLL) "COMIC · 연속" else "COMIC · 한 장", prefix = "comic",
+            progress = pageLabel, onClose = onClose, onHide = { controlsVisible = false }, canHide = !exploration,
+            previous = ready && state.index > 0, next = ready && state.index + 1 < (state.manifest?.entryKeys?.size ?: 0),
+            onPrevious = { controller.move(-1) }, onNext = { controller.move(1) },
+            onSeek = { menu = true }, darkTheme = true) {
             FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 Controls()
                 if (state.settings.readingMode == TxtReadingMode.SCROLL) ReaderToolButton("확대", R.drawable.ic_reader_zoom,
                     "comic_enlarge_${state.manifest?.entryKeys?.getOrNull(state.index)}", ready) { zoomRequest++ }
-                if (state.canReturn) ReaderToolButton("이전 위치", R.drawable.ic_reader_return, "comic_return", ready, controller::returnFromJump)
+                if (state.canReturn) ReaderToolButton("이전 위치", R.drawable.ic_reader_return,
+                    "comic_return", ready, controller::returnFromJump)
             }
             if (state.manifest?.legacyNames == true) Text("레거시 ZIP 이름을 고정 규칙으로 표시합니다.", style = MaterialTheme.typography.bodySmall)
         }
-        if (progress.saveError) Text("위치 저장에 실패했습니다. 마지막 저장 기록을 유지합니다.",
-            Modifier.align(Alignment.Center).padding(16.dp), color = MaterialTheme.colorScheme.error)
+        if (progress.saveError) {
+            ReaderInlineAlertBanner(
+                entries = listOf(ReaderInlineAlertEntry("위치 저장에 실패했습니다. 마지막 저장 기록을 유지합니다.")),
+                darkTheme = true,
+                modifier = Modifier.align(Alignment.TopCenter),
+            )
+        }
     }
-    if (menu) AlertDialog(onDismissRequest = { menu = false }, title = { Text("독서 메뉴") }, text = {
-        Column {
-            val count = state.manifest?.entryKeys?.size ?: 0
-            val current = if (count > 1) state.index.toFloat() / (count - 1) else 0f
-            Text("${if (seek.fraction == null) "현재" else "이동 미리보기"} ${((seek.fraction ?: current) * (count - 1).coerceAtLeast(0)).toInt() + 1} / $count")
-            ReaderPositionSlider(current, ready && count > 1, seek, "comic_seek")
-            FlowRow { Controls() }
-        }
-    }, confirmButton = { TextButton(onClick = { menu = false }, modifier = Modifier.testTag("comic_menu_close")) { Text("닫기 / 이동 취소") } })
+    if (menu) {
+        ComicMenuDialog(
+            state = state,
+            ready = ready,
+            seek = seek,
+            onSettings = { settings = true; menu = false },
+            onBookmarks = { bookmarks = true; menu = false; controller.loadBookmarks() },
+            onDismiss = { menu = false },
+        )
+    }
     if (settings) ComicSettingsDialog(controller) { settings = false }
-    if (bookmarks) AlertDialog(onDismissRequest = { bookmarks = false }, title = { Text("북마크") }, text = {
-        Column {
-            TextButton(onClick = controller::addBookmark, modifier = Modifier.testTag("comic_bookmark_add")) { Text("현재 위치 추가") }
-            if (state.bookmarkError) Text("북마크 오류입니다. 기존 기록은 유지됩니다.")
-            LazyColumn(Modifier.heightIn(max = 300.dp)) { itemsIndexed(state.bookmarks, key = { _, it -> it.id }) { _, bookmark ->
-                Row {
-                    TextButton(onClick = { controller.goBookmark(bookmark); bookmarks = false }, modifier = Modifier.weight(1f).testTag("comic_bookmark_item")) { Text(bookmark.label ?: "저장한 위치") }
-                    TextButton(onClick = { controller.deleteBookmark(bookmark.id) }) { Text("삭제") }
-                }
-            } }
-            if (state.bookmarkCursor != null) TextButton(onClick = { controller.loadBookmarks(true) }) { Text("다음 50개") }
-            TextButton(onClick = { controller.loadBookmarks() }) { Text("처음 / 다시 읽기") }
-        }
-    }, confirmButton = { TextButton(onClick = { bookmarks = false }) { Text("닫기") } })
+    if (bookmarks) {
+        ComicBookmarksDialog(controller = controller, state = state) { bookmarks = false }
+    }
 }
 
 @Composable
@@ -209,17 +214,31 @@ private fun ComicSinglePage(controller: ComicReaderController, viewport: IntSize
                 Box(Modifier.fillMaxSize().background(Color(0xFF101720))) {
                     ComicCanvas(controller, frame.image, viewport, false,
                         exploration || frame !== target || progress.phase != ArchiveReaderPhase.READY, onMenu)
-                    if (frame.image.limitedResolution) Text("메모리 보호를 위해 해상도를 낮춰 표시합니다.",
-                        Modifier.align(Alignment.BottomCenter).testTag("comic_resolution_limit"))
+                    if (frame.image.limitedResolution) {
+                        ReaderResolutionHintBanner(
+                            message = "메모리 보호를 위해 해상도를 낮춰 표시합니다.",
+                            tag = "comic_resolution_limit",
+                            modifier = Modifier.align(Alignment.BottomCenter),
+                        )
+                    }
                 }
             }
         }
-        if (failed) Column(Modifier.align(Alignment.Center).background(Color(0xFF202D3B)).padding(16.dp)) {
-            Text("이미지를 표시하지 못했습니다. 원본과 다른 페이지는 유지됩니다.", Modifier.testTag("comic_image_error"))
-            TextButton(onClick = { attempt++ }) { Text("다시 시도") }
-            TextButton(onClick = { controller.move(1) }, enabled = state.index + 1 < (state.manifest?.entryKeys?.size ?: 0),
-                modifier = Modifier.testTag("comic_skip")) { Text("다음 이미지로 건너뛰기") }
-        } else if (displayed == null) CircularProgressIndicator(Modifier.align(Alignment.Center))
+        if (failed) {
+            ComicImageErrorCard(
+                canSkip = state.index + 1 < (state.manifest?.entryKeys?.size ?: 0),
+                onRetry = { attempt++ },
+                onSkip = { controller.move(1) },
+                entryLabel = entry.substringAfterLast('/'),
+                modifier = Modifier.align(Alignment.Center),
+            )
+        } else if (displayed == null) {
+            ReaderLoadingStateCard(
+                title = "이미지를 불러오는 중",
+                darkTheme = true,
+                modifier = Modifier.align(Alignment.Center),
+            )
+        }
     }
 }
 
@@ -259,27 +278,39 @@ private fun ComicPage(controller: ComicReaderController, entry: String, viewport
     }).coerceIn(1f, 100000f)
     Box(Modifier.fillMaxWidth().height(with(density) { pageHeight.coerceIn(1f, 100000f).toDp() })
         .onSizeChanged { if (current != null) onHeight(it.height) }.testTag("comic_page")) {
-        if (failed) Column(Modifier.align(Alignment.Center).padding(16.dp)) {
-            Text("이미지를 표시하지 못했습니다. 원본과 다른 페이지는 유지됩니다.", Modifier.testTag("comic_image_error"))
-            TextButton(onClick = { attempt++ }) { Text("다시 시도") }
-            TextButton(onClick = { controller.move(1) }, enabled = state.index + 1 < (state.manifest?.entryKeys?.size ?: 0), modifier = Modifier.testTag("comic_skip")) { Text("다음 이미지로 건너뛰기") }
-        } else if (current == null) CircularProgressIndicator(Modifier.align(Alignment.Center))
-        else {
+        if (failed) {
+            ComicImageErrorCard(
+                canSkip = state.index + 1 < (state.manifest?.entryKeys?.size ?: 0),
+                onRetry = { attempt++ },
+                onSkip = { controller.move(1) },
+                entryLabel = entry.substringAfterLast('/'),
+                modifier = Modifier.align(Alignment.Center),
+            )
+        } else if (current == null) {
+            ReaderLoadingStateCard(
+                title = "이미지를 불러오는 중",
+                darkTheme = true,
+                modifier = Modifier.align(Alignment.Center),
+            )
+        } else {
             LaunchedEffect(current, pageHeight) { withFrameNanos { }; onHeight(pageHeight.roundToInt()); onReady(entry) }
             ComicCanvas(controller, current, IntSize(viewport.width, pageHeight.roundToInt().coerceAtLeast(1)), continuous, exploration, onMenu,
                 onContinuousTap = onPageTap, onEnlarge = { enlarged = true })
-            if (enlarged) Dialog(onDismissRequest = { enlarged = false; controller.reflow() },
-                properties = DialogProperties(usePlatformDefaultWidth = false)) {
-                Surface(Modifier.fillMaxSize().testTag("comic_zoom_dialog")) {
-                    Column {
-                        TextButton(onClick = { enlarged = false; controller.reflow() }, modifier = Modifier.testTag("comic_zoom_close")) { Text("확대 보기 닫기") }
-                        Box(Modifier.weight(1f).fillMaxWidth()) {
-                            ComicCanvas(controller, current, viewport, false, exploration, {}, navigation = false)
-                        }
-                    }
+            if (enlarged) {
+                ComicZoomOverlayDialog(
+                    entryLabel = entry.substringAfterLast('/'),
+                    onDismiss = { enlarged = false; controller.reflow() },
+                ) {
+                    ComicCanvas(controller, current, viewport, false, exploration, {}, navigation = false)
                 }
             }
-            if (current.limitedResolution) Text("메모리 보호를 위해 해상도를 낮춰 표시합니다.", Modifier.align(Alignment.BottomCenter).testTag("comic_resolution_limit"))
+            if (current.limitedResolution) {
+                ReaderResolutionHintBanner(
+                    message = "메모리 보호를 위해 해상도를 낮춰 표시합니다.",
+                    tag = "comic_resolution_limit",
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                )
+            }
         }
     }
 }
@@ -357,32 +388,4 @@ private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, vi
         drawImage(bitmap, dstOffset = IntOffset(origin.x.roundToInt(), origin.y.roundToInt()),
             dstSize = IntSize((bitmap.width * base * zoom).roundToInt().coerceAtLeast(1), (bitmap.height * base * zoom).roundToInt().coerceAtLeast(1)))
     }
-}
-
-@Composable
-private fun ComicSettingsDialog(controller: ComicReaderController, dismiss: () -> Unit) {
-    val state = controller.state.collectAsStateWithLifecycle().value
-    val loaded = controller.loadedSettings
-    var global by remember(loaded) { mutableStateOf(loaded?.global ?: ReaderSettings()) }
-    var book by remember(loaded) { mutableStateOf(loaded?.book ?: BookReaderPreferences()) }
-    AlertDialog(onDismissRequest = dismiss, title = { Text("만화 설정") }, text = { Column(Modifier.verticalScroll(rememberScrollState())) {
-        if (state.settingsError) { Text("설정 오류입니다. 기존 값을 유지합니다."); TextButton(onClick = controller::retrySettings) { Text("다시 읽기") } }
-        ReaderSettingsSection("읽기 방식") {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { TxtReadingMode.entries.forEach { mode -> FilterChip(selected = (book.readingMode ?: global.readingMode) == mode,
-            onClick = { book = book.copy(readingMode = mode) }, label = { Text(if (mode == TxtReadingMode.PAGES) "한 장 보기" else "연속 보기") }, modifier = Modifier.testTag("comic_mode_${mode.name}")) } }
-        TextButton(onClick = { book = book.copy(readingMode = TxtReadingMode.SCROLL, comicFit = ComicFit.WIDTH); global = global.copy(comicGapDp = 0) }, modifier = Modifier.testTag("comic_webtoon")) { Text("웹툰 · 연속 / 너비 / 간격 0") }
-        }
-        ReaderSettingsSection("넘기는 방향") {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { ComicDirection.entries.forEach { value -> FilterChip(selected = (book.comicDirection ?: global.comicDirection) == value,
-            onClick = { book = book.copy(comicDirection = value) }, label = { Text(if (value == ComicDirection.LTR) "왼쪽 → 오른쪽" else "오른쪽 → 왼쪽") }, modifier = Modifier.testTag("comic_direction_$value")) } }
-        }
-        ReaderSettingsSection("이미지 맞춤") {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) { ComicFit.entries.forEach { value -> FilterChip(selected = (book.comicFit ?: global.comicFit) == value,
-            onClick = { book = book.copy(comicFit = value) }, label = { Text(when (value) { ComicFit.WIDTH -> "너비"; ComicFit.HEIGHT -> "높이"; ComicFit.CONTAIN -> "전체" }) }, modifier = Modifier.testTag("comic_fit_$value")) } }
-        }
-        ReaderTransitionSettings(global.pageTransition) { global = global.copy(pageTransition = it) }
-        TextButton(onClick = { book = book.copy(readingMode = null, comicFit = null, comicDirection = null) }) { Text("기본값 상속") }
-    } }, confirmButton = { Button(enabled = loaded != null && !state.settingsError && !state.settingsSaving,
-        onClick = { controller.saveSettings(global, book); dismiss() }, modifier = Modifier.testTag("comic_settings_apply")) { Text("적용") } },
-        dismissButton = { TextButton(onClick = dismiss) { Text("닫기") } })
 }
