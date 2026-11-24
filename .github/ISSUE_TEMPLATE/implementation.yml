@@ -1,0 +1,59 @@
+name: 구현 작업
+description: 구현 담당자에게 넘길 작업의 범위와 완료 조건을 정의합니다.
+title: '[구현] '
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: 목표와 배경
+      description: 해결할 문제와 기대하는 결과를 적으세요.
+    validations:
+      required: true
+  - type: input
+    id: base_branch
+    attributes:
+      label: 기준 브랜치
+      placeholder: main
+    validations:
+      required: true
+  - type: input
+    id: base_sha
+    attributes:
+      label: 기준 커밋 (base SHA)
+      description: 작업을 시작할 커밋의 전체 40자리 SHA를 적으세요.
+    validations:
+      required: true
+  - type: textarea
+    id: allowed_scope
+    attributes:
+      label: 변경 허용 범위
+      description: 변경할 동작과 파일 또는 디렉터리를 적으세요.
+    validations:
+      required: true
+  - type: textarea
+    id: forbidden_scope
+    attributes:
+      label: 금지 사항
+      description: 보존할 동작, 데이터, 경로와 금지할 작업을 적으세요.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: 수락 기준
+      description: PR에서 항목별로 확인할 수 있는 조건을 적으세요.
+      placeholder: '- [ ] 기대 결과와 이를 확인하는 방법'
+    validations:
+      required: true
+  - type: textarea
+    id: required_tests
+    attributes:
+      label: 필수 검증과 테스트
+      description: 실행할 명령 또는 CI 작업, 필요한 환경 및 증거를 적으세요.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 선행 조건과 참고 링크
+      description: 먼저 반영되어야 할 Issue나 PR, 필요한 환경 또는 승인 조건을 적으세요.
