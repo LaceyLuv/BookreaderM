@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.gestures.scrollBy
@@ -18,8 +17,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -171,34 +168,39 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         if (!scrollMode) return@LaunchedEffect
         var userMovement = false
         snapshotFlow {
-            val first = list.layoutInfo.visibleItemsInfo.firstOrNull()
-            // LazyList reuses and mutates item info during small scrolls. Snapshot values,
-            // otherwise snapshotFlow sees the same item and suppresses movement updates.
-            Triple(first?.let { it.index to it.offset }, list.isScrollInProgress || requestedScroll, controller.state.value.phase)
-        }.collect { (item, moving, phase) ->
+            val listLayout = list.layoutInfo
+            // Read placement and text measurement in the same snapshot. A measured
+            // line can arrive after its item has already entered the viewport.
+            val anchor = listLayout.visibleItemsInfo.firstOrNull()?.let { item ->
+                layouts[item.index]?.let { layout ->
+                    val vertical = (listLayout.viewportStartOffset - item.offset).coerceAtLeast(0).toFloat()
+                    val line = layout.getLineForVerticalPosition(vertical)
+                    item.index to layout.getLineStart(line)
+                }
+            }
+            Triple(anchor, list.isScrollInProgress || requestedScroll, controller.state.value.phase)
+        }.collect { (anchor, moving, phase) ->
             if (phase != TxtReaderPhase.READY) { userMovement = false; return@collect }
             if (moving) userMovement = true
-            if (item == null) return@collect
-            val (index, offset) = item
-            val layout = layouts[index] ?: return@collect
+            val (index, lineStart) = anchor ?: return@collect
             val fragment = controller.state.value.cache.fragments.getOrNull(index) ?: return@collect
-            val vertical = (list.layoutInfo.viewportStartOffset - offset).coerceAtLeast(0).toFloat()
-            val line = layout.getLineForVerticalPosition(vertical)
-            controller.visibleAnchor(fragment.start + layout.getLineStart(line), userMovement)
-            // Measured layouts are bounded to the current window; there is no whole-book layout cache.
-            val keep = list.layoutInfo.visibleItemsInfo.map { it.index }.toSet()
-            layouts.keys.toList().filter { it !in keep }.forEach { layouts.remove(it) }
+            controller.visibleAnchor(fragment.start + lineStart, userMovement)
         }
     }
 
+    val darkChrome = settings.theme.isDarkBackground()
     Box(Modifier.fillMaxSize().background(background).testTag("txt_reader")) {
         if (state.phase == TxtReaderPhase.ERROR) {
-            Column(Modifier.fillMaxSize().padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center) {
-                Text(state.error.orEmpty(), modifier = Modifier.testTag("reader_error"), color = foreground)
-                Button(onClick = controller::retry, modifier = Modifier.testTag("reader_retry")) { Text("다시 시도") }
-            }
+            ReaderErrorStateCard(
+                formatLabel = "TXT",
+                message = state.error.orEmpty(),
+                errorTag = "reader_error",
+                retryTag = "reader_retry",
+                onRetry = controller::retry,
+                onClose = onClose,
+                darkTheme = darkChrome,
+                modifier = Modifier.fillMaxSize(),
+            )
         } else {
             Box(Modifier.fillMaxSize().padding(bottom = ReaderPageStatusHeight).onSizeChanged { bodyViewport = it }.readerGestures(
                 enabled = state.phase == TxtReaderPhase.READY && !touchExploration, pageMode = !scrollMode,
@@ -231,30 +233,45 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                             // the requested item measurable and visible until its real layout exists.
                             Spacer(Modifier.fillMaxWidth().height(with(density) { maxOf(1, viewport.height).toDp() }))
                         } else {
-                            key(state.restoreGeneration) { androidx.compose.foundation.text.selection.SelectionContainer { Text(highlightedTxt(state.cache.fragments[index].start, requireNotNull(text), highlights), style = typography,
-                                onTextLayout = { result -> layouts[index] = result },
-                                modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index")) } }
+                            key(state.restoreGeneration) {
+                                // LazyColumn can place a prefetched item without another text layout.
+                                DisposableEffect(layouts, index) {
+                                    onDispose { layouts.remove(index) }
+                                }
+                                androidx.compose.foundation.text.selection.SelectionContainer {
+                                    Text(
+                                        highlightedTxt(state.cache.fragments[index].start, requireNotNull(text), highlights),
+                                        style = typography,
+                                        onTextLayout = { result -> layouts[index] = result },
+                                        modifier = Modifier.fillMaxWidth().testTag("reader_fragment_$index"),
+                                    )
+                                }
+                            }
                         }
                     }
                 }
                 if (state.phase != TxtReaderPhase.READY && !hasDisplayed) {
-                    Column(Modifier.align(Alignment.Center).padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally) {
-                        CircularProgressIndicator()
-                        Text(if (state.targetOffset > state.cache.committedLength)
-                            "저장된 위치까지 본문을 준비하는 중" else "독서 위치를 복원하는 중", color = foreground)
-                    }
+                    ReaderLoadingStateCard(
+                        title = if (state.targetOffset > state.cache.committedLength) {
+                            "저장된 위치까지 본문을 준비하는 중"
+                        } else {
+                            "독서 위치를 복원하는 중"
+                        },
+                        detail = "마지막으로 읽은 문단 위치를 유지합니다.",
+                        darkTheme = darkChrome,
+                        modifier = Modifier.align(Alignment.Center),
+                    )
                 }
             }
         }
         ReaderPageStatus(pageLabel, "reader", background, foreground)
-        if (!showChrome && !hasDisplayed && state.phase != TxtReaderPhase.READY) ReaderLoadingExit("reader", onClose, Modifier.align(Alignment.TopStart))
-        if (showChrome) ReaderChrome(controller.book.title, if (scrollMode) "TXT · 스크롤" else "TXT · 페이지", "reader",
-            pageLabel,
-            onClose, { controlsVisible = false }, !touchExploration,
+        if (!showChrome && !hasDisplayed && state.phase != TxtReaderPhase.READY) ReaderLoadingExit("reader", onClose, Modifier.align(Alignment.TopStart), darkTheme = darkChrome)
+        ReaderChromeOverlay(visible = showChrome, title = controller.book.title, format = if (scrollMode) "TXT · 스크롤" else "TXT · 페이지", prefix = "reader",
+            progress = pageLabel,
+            onClose = onClose, onHide = { controlsVisible = false }, canHide = !touchExploration,
             previous = if (scrollMode) list.canScrollBackward && state.phase == TxtReaderPhase.READY else pageAvailability.first,
             next = if (scrollMode) list.canScrollForward && state.phase == TxtReaderPhase.READY else pageAvailability.second,
-            onPrevious = { move(-1) }, onNext = { move(1) }, onSeek = { showMenu = true }) {
+            onPrevious = { move(-1) }, onNext = { move(1) }, onSeek = { showMenu = true }, darkTheme = darkChrome) {
             FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 ReaderToolButton("목차", R.drawable.ic_reader_toc, "reader_toc",
                     state.phase == TxtReaderPhase.READY && state.cache.complete) { showToc = true }
@@ -269,14 +286,28 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                     "reader_search_return", state.phase == TxtReaderPhase.READY, controller.tools::returnFromSearch)
             }
         }
-        Column(Modifier.align(Alignment.Center).padding(16.dp)) {
-            if (state.saveError) Text("진행도를 저장하지 못했습니다. 다시 시도합니다.",
-                Modifier.testTag("reader_save_error"), color = MaterialTheme.colorScheme.error)
-            if (state.settingsError) Text("읽기 설정 오류: 기존 설정은 보존됩니다. 설정에서 다시 읽어 주세요.",
-                Modifier.testTag("reader_settings_error"), color = MaterialTheme.colorScheme.error)
+        val inlineAlerts = buildList {
+            if (state.saveError) {
+                add(ReaderInlineAlertEntry("진행도를 저장하지 못했습니다. 다시 시도합니다.", "reader_save_error"))
+            }
+            if (state.settingsError) {
+                add(
+                    ReaderInlineAlertEntry(
+                        "읽기 설정 오류: 기존 설정은 보존됩니다. 설정에서 다시 읽어 주세요.",
+                        "reader_settings_error",
+                    ),
+                )
+            }
+        }
+        if (inlineAlerts.isNotEmpty()) {
+            ReaderInlineAlertBanner(
+                entries = inlineAlerts,
+                darkTheme = darkChrome,
+                modifier = Modifier.align(Alignment.TopCenter),
+            )
         }
     }
-    if (showSettings) ReaderSettingsDialog(controller, state) { showSettings = false }
+    if (showSettings) ReaderControlTheme(darkTheme = settings.theme.isDarkBackground()) { ReaderSettingsDialog(controller, state) { showSettings = false } }
     if (showSearch) ReaderSearchDialog(controller) { showSearch = false }
     if (showBookmarks) ReaderBookmarksDialog(controller) { showBookmarks = false }
     if (showToc) ReaderTocDialog(controller) { showToc = false }

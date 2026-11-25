@@ -1,16 +1,39 @@
 package org.bookreader.mobile.ui
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,16 +43,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.Density
 import org.bookreader.mobile.R
 import org.bookreader.mobile.library.*
 import org.bookreader.mobile.model.Book
 import org.bookreader.mobile.model.BookAvailability
+import org.bookreader.mobile.model.BookFormat
 
 class LibraryActions(
     val preferences: ((LibraryPreferences) -> LibraryPreferences) -> Unit = {},
@@ -93,42 +123,374 @@ internal fun BookCover(book: Book, details: BookDetails, modifier: Modifier = Mo
     }
 }
 
+/**
+ * Dedicated bottom dock for resuming the last committed reading position.
+ * Preserves testTag("continue_reading") and single-tap onOpenBook(book).
+ */
 @Composable
-internal fun LibraryBookCard(book: Book, catalog: LibraryCatalog, selected: Boolean, selecting: Boolean,
-    wide: Boolean, actions: LibraryActions, onInfo: (Book)->Unit, onOpen: (Book)->Unit) {
-    LaunchedEffect(book.id,book.coverKey) { if(book.availability==BookAvailability.READY) actions.ensureArtwork(book) }
-    val details=catalog.details[book.id]?:BookDetails()
-    val modifier=Modifier.fillMaxWidth().testTag("book_${book.id}").clip(RoundedCornerShape(16.dp))
-        .combinedClickable(onClick={ if(selecting)actions.toggleSelected(book) else onOpen(book) },onLongClick={actions.toggleSelected(book)})
-        .then(if(selected) Modifier.border(2.dp,MaterialTheme.colorScheme.primary,RoundedCornerShape(16.dp)) else Modifier)
-    Surface(modifier,color=MaterialTheme.colorScheme.surfaceContainer,shape=RoundedCornerShape(16.dp)) {
-        if(wide) Row(Modifier.padding(12.dp),horizontalArrangement=Arrangement.spacedBy(12.dp)) {
-            BookCover(book,details,Modifier.width(82.dp).height(123.dp))
-            Column(Modifier.weight(1f)) { LibraryBookCaption(book,catalog,selected,selecting,actions,onInfo,onOpen) }
-        } else Column(Modifier.padding(12.dp)) {
-            BookCover(book,details,Modifier.fillMaxWidth().heightIn(max=240.dp).aspectRatio(2f/3f))
-            Spacer(Modifier.height(10.dp))
-            LibraryBookCaption(book,catalog,selected,selecting,actions,onInfo,onOpen)
+internal fun ContinueReadingDock(
+    book: Book,
+    percent: Double?,
+    onOpenBook: (Book) -> Unit,
+    details: BookDetails,
+    modifier: Modifier = Modifier,
+) {
+    val progressLabel = percent?.let { "${it.toInt().coerceIn(0, 100)}%" } ?: "진행률 확인 필요"
+    val progressFraction = percent?.div(100.0)?.toFloat()?.coerceIn(0f, 1f)
+
+    Surface(
+        onClick = { onOpenBook(book) },
+        modifier = modifier
+            .fillMaxWidth()
+            .testTag("continue_reading"),
+        color = MaterialTheme.colorScheme.surfaceContainer,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+    ) {
+        Column(Modifier.fillMaxWidth()) {
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            if (progressFraction != null) {
+                LinearProgressIndicator(
+                    progress = { progressFraction },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(2.5.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f),
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 56.dp)
+                    .padding(horizontal = 20.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                BookCover(book, details, Modifier.width(32.dp).height(48.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(
+                        text = "이어읽기 · ${book.format.displayName}",
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    Text(
+                        text = book.title,
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                ) {
+                    Text(
+                        text = progressLabel,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Icon(
+                        imageVector = LibraryIcons.ChevronRight,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier
+                            .size(18.dp)
+                            .clearAndSetSemantics { },
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * The format filter is local. The layout switches use the saved library preference.
+ */
+@Composable
+internal fun LibraryToolbarRow(
+    selectedFormat: BookFormat?,
+    isListLayout: Boolean,
+    onSelectFormat: (BookFormat?) -> Unit,
+    onToggleLayout: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Surface(
+            shape = RoundedCornerShape(10.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        ) {
+            Row(
+                modifier = Modifier.padding(3.dp),
+                horizontalArrangement = Arrangement.spacedBy(2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                FormatFilterSegment(
+                    label = "전체",
+                    selected = selectedFormat == null,
+                    onClick = { onSelectFormat(null) },
+                )
+                BookFormat.entries.forEach { format ->
+                    FormatFilterSegment(
+                        label = format.displayName,
+                        selected = selectedFormat == format,
+                        onClick = { onSelectFormat(format) },
+                    )
+                }
+            }
+        }
+
+        Spacer(Modifier.width(8.dp))
+
+        Surface(
+            shape = RoundedCornerShape(10.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        ) {
+            Row(
+                modifier = Modifier.padding(3.dp),
+                horizontalArrangement = Arrangement.spacedBy(2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                LayoutToggleSegment(
+                    contentDescription = "그리드 보기",
+                    selected = !isListLayout,
+                    onClick = { onToggleLayout(false) },
+                ) {
+                    Icon(
+                        imageVector = LibraryIcons.GridView,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp),
+                    )
+                }
+                LayoutToggleSegment(
+                    contentDescription = "리스트 보기",
+                    selected = isListLayout,
+                    onClick = { onToggleLayout(true) },
+                ) {
+                    Icon(
+                        imageVector = LibraryIcons.ListView,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp),
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun LibraryBookCaption(book: Book,catalog: LibraryCatalog,selected: Boolean,selecting: Boolean,
-    actions: LibraryActions,onInfo:(Book)->Unit,onOpen:(Book)->Unit) {
-    Text(book.title,style=MaterialTheme.typography.titleSmall,maxLines=3,overflow=TextOverflow.Ellipsis)
-    book.author?.let { Text(it,style=MaterialTheme.typography.bodySmall,maxLines=1,overflow=TextOverflow.Ellipsis,
-        modifier=Modifier.testTag("book_author_${book.id}")) }
-    val progress=catalog.progress[book.id]
-    Text(catalog.status(book).label+(progress?.let { " · ${it.toInt()}%" }?:""),style=MaterialTheme.typography.labelMedium,
-        color=MaterialTheme.colorScheme.primary,modifier=Modifier.testTag("reading_status_${book.id}"))
-    if(progress!=null) LinearProgressIndicator(progress={ (progress/100).toFloat() },modifier=Modifier.fillMaxWidth().padding(top=6.dp))
-    if(book.availability!=BookAvailability.READY) Text(book.availability.displayName,color=MaterialTheme.colorScheme.error,
-        style=MaterialTheme.typography.labelMedium,modifier=Modifier.testTag("availability_${book.id}"))
-    Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
-        if(selecting) Checkbox(selected,{actions.toggleSelected(book)},Modifier.weight(1f).testTag("select_${book.id}"))
-        else TextButton(onClick={onOpen(book)},modifier=Modifier.weight(1f).testTag("read_${book.id}")) { Text(if(book.availability==BookAvailability.READY)"읽기" else "확인") }
-        IconButton(onClick={onInfo(book)},modifier=Modifier.testTag("info_${book.id}")) { AppIcon(R.drawable.ic_info,description="책 정보") }
+private fun FormatFilterSegment(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
+    Surface(
+        onClick = onClick,
+        modifier = Modifier
+            .heightIn(min = 36.dp)
+            .semantics {
+                this.selected = selected
+                this.role = Role.Tab
+            },
+        shape = RoundedCornerShape(8.dp),
+        color = if (selected) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surfaceVariant,
+        contentColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+    ) {
+        Box(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,
+                maxLines = 1,
+            )
+        }
+    }
+}
+
+@Composable
+private fun LayoutToggleSegment(
+    contentDescription: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    icon: @Composable () -> Unit,
+) {
+    Surface(
+        onClick = onClick,
+        modifier = (if (selected) Modifier else Modifier.testTag("library_view"))
+            .size(40.dp)
+            .semantics {
+                this.contentDescription = contentDescription
+                this.selected = selected
+                this.role = Role.Tab
+            },
+        shape = RoundedCornerShape(8.dp),
+        color = if (selected) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surfaceVariant,
+        contentColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+    ) {
+        Box(contentAlignment = Alignment.Center) {
+            icon()
+        }
+    }
+}
+
+@Composable
+internal fun LibraryBookCard(
+    book: Book,
+    catalog: LibraryCatalog,
+    selected: Boolean,
+    selecting: Boolean,
+    wide: Boolean,
+    dark: Boolean,
+    actions: LibraryActions,
+    onInfo: (Book) -> Unit,
+    onOpen: (Book) -> Unit,
+) {
+    LaunchedEffect(book.id, book.coverKey) {
+        if (book.availability == BookAvailability.READY) actions.ensureArtwork(book)
+    }
+    val details = catalog.details[book.id] ?: BookDetails()
+    val shape = RoundedCornerShape(16.dp)
+    val spine = bookSpineColors(book.format, dark)
+    val open = { onOpen(book) }
+    val select = { actions.toggleSelected(book) }
+    Surface(
+        modifier = Modifier.fillMaxWidth().testTag("book_${book.id}").clip(shape)
+            .combinedClickable(
+                onClick = { if (selecting) select() else open() },
+                onLongClick = select,
+            ),
+        shape = shape,
+        color = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        border = BorderStroke(
+            if (selected) 2.dp else 1.dp,
+            if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+        ),
+    ) {
+        if (wide) {
+            Row(
+                Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                BookCover(book, details, Modifier.width(42.dp).height(63.dp))
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    LibraryCardCaption(book, catalog)
+                }
+                Column(horizontalAlignment = Alignment.End) {
+                    LibraryCardOpenButton(book, selected, selecting, select, open, Modifier)
+                    LibraryCardInfoButton(book, onInfo)
+                }
+            }
+        } else {
+            Column(Modifier.fillMaxWidth()) {
+                Row(
+                    Modifier.fillMaxWidth().background(spine.band).heightIn(min = 64.dp)
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    BookCover(book, details, Modifier.width(34.dp).height(51.dp))
+                    Text(
+                        book.format.displayName,
+                        color = spine.label,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.labelSmall,
+                    )
+                }
+                Column(
+                    Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 6.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    LibraryCardCaption(book, catalog)
+                }
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.65f))
+                Row(
+                    Modifier.fillMaxWidth().padding(horizontal = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    LibraryCardOpenButton(book, selected, selecting, select, open, Modifier.weight(1f))
+                    LibraryCardInfoButton(book, onInfo)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun LibraryCardCaption(book: Book, catalog: LibraryCatalog) {
+    Text(
+        book.title,
+        style = MaterialTheme.typography.titleSmall,
+        fontWeight = FontWeight.SemiBold,
+        maxLines = 3,
+        overflow = TextOverflow.Ellipsis,
+    )
+    Text(
+        book.author ?: book.originalDisplayName,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = if (book.author == null) Modifier else Modifier.testTag("book_author_${book.id}"),
+    )
+    val progress = catalog.progress[book.id]
+    Text(
+        catalog.status(book).label + (progress?.let { " · ${it.toInt()}%" } ?: ""),
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.testTag("reading_status_${book.id}"),
+    )
+    if (progress != null) {
+        LinearProgressIndicator(progress = { (progress / 100).toFloat() }, modifier = Modifier.fillMaxWidth())
+    }
+    if (book.availability != BookAvailability.READY) {
+        Text(
+            book.availability.displayName,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.error,
+            modifier = Modifier.testTag("availability_${book.id}"),
+        )
+    }
+    Text(
+        formatReadableByteSize(book.sourceByteSize),
+        style = MaterialTheme.typography.labelSmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+}
+
+@Composable
+private fun LibraryCardOpenButton(
+    book: Book,
+    selected: Boolean,
+    selecting: Boolean,
+    onSelect: () -> Unit,
+    onOpen: () -> Unit,
+    modifier: Modifier,
+) {
+    if (selecting) {
+        Checkbox(selected, { onSelect() }, modifier.testTag("select_${book.id}"))
+    } else {
+        TextButton(onClick = onOpen, modifier = modifier.heightIn(min = 44.dp).testTag("read_${book.id}")) {
+            Text(if (book.availability == BookAvailability.READY) "읽기" else "확인", fontWeight = FontWeight.SemiBold)
+        }
+    }
+}
+
+@Composable
+private fun LibraryCardInfoButton(book: Book, onInfo: (Book) -> Unit) {
+    IconButton(onClick = { onInfo(book) }, modifier = Modifier.testTag("info_${book.id}")) {
+        AppIcon(R.drawable.ic_info, description = "책 정보")
     }
 }
 
@@ -158,9 +520,6 @@ internal fun LibraryControls(state: AppUiState,actions: LibraryActions) {
                 DropdownMenuItem(text={Text("모든 책장")},onClick={actions.preferences { it.copy(shelfId=null) };menu=null})
                 state.catalog.shelves.forEach { shelf -> DropdownMenuItem(text={Text(shelf.name)},onClick={actions.preferences { it.copy(shelfId=shelf.id) };menu=null}) }
             }
-        }
-        TextButton(onClick={actions.preferences { it.copy(view=if(it.view==LibraryView.GRID)LibraryView.LIST else LibraryView.GRID) }},modifier=Modifier.testTag("library_view")) {
-            Text(if(preferences.view==LibraryView.GRID)"목록 보기" else "격자 보기")
         }
         TextButton(onClick={actions.showShelves(true)},modifier=Modifier.testTag("manage_shelves")) { Text("책장 관리") }
     }
@@ -286,4 +645,76 @@ internal fun BatchImportStatus(batch: BatchImportUi, onDismiss: () -> Unit) {
             batch.results.forEach { Text(it) }
         }
     },confirmButton={TextButton(onClick={details=false}){Text("닫기")}})
+}
+
+@Composable
+internal fun LibraryStatusCard(
+    message: String,
+    tag: String,
+    supporting: String? = null,
+    isError: Boolean = false,
+    @DrawableRes icon: Int? = null,
+    action: @Composable () -> Unit = {},
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp)
+            .testTag(tag),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(
+            1.dp,
+            if (isError) MaterialTheme.colorScheme.error.copy(alpha = 0.4f)
+            else MaterialTheme.colorScheme.outlineVariant,
+        ),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 20.dp, vertical = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            icon?.let { AppIcon(it) }
+            Text(
+                text = message,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
+            )
+            if (supporting != null) {
+                Text(
+                    text = supporting,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                )
+            }
+            action()
+        }
+    }
+}
+
+/**
+ * Locale-independent human-readable byte formatter (avoids Android Lint DefaultLocale warnings).
+ */
+internal fun formatReadableByteSize(bytes: Long): String {
+    if (bytes <= 0L) return "0 B"
+    if (bytes < 1024L) return "$bytes B"
+    val kbTenths = (bytes * 10L) / 1024L
+    if (kbTenths < 10_240L) {
+        return if (kbTenths < 100L) {
+            "${kbTenths / 10L}.${kbTenths % 10L} KB"
+        } else {
+            "${(kbTenths + 5L) / 10L} KB"
+        }
+    }
+    val mbTenths = (bytes * 10L) / (1024L * 1024L)
+    return if (mbTenths < 100L) {
+        "${mbTenths / 10L}.${mbTenths % 10L} MB"
+    } else {
+        "${(mbTenths + 5L) / 10L} MB"
+    }
 }
