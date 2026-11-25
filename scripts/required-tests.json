@@ -273,6 +273,14 @@
       "rejectsNonAdvancingRangesAndPropagatesCancellation"
     ],
     [
+      "org.bookreader.mobile.reader.TxtPageIndexTest",
+      "boundedWindowReaderReusesChunkAndPreservesSurrogateBoundaries"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtPageIndexTest",
+      "serializedPageIndexCancelsPreviousRunBeforeStartingReplacement"
+    ],
+    [
       "org.bookreader.mobile.reader.FontFilePolicyTest",
       "bundledKoreanFontsHaveValidBoundedSfntTables"
     ],
@@ -935,6 +943,10 @@
     [
       "org.bookreader.mobile.reader.TxtPageEngineTest",
       "actualMeasurementCoversLongParagraphsBlankLinesAndEmojiWithoutDrift"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtPageEngineTest",
+      "pageIndexWithBoundedWindowMatchesEngineBoundariesExactly"
     ],
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",

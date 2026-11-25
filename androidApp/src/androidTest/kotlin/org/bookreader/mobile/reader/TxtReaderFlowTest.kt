@@ -1286,10 +1286,27 @@ class TxtReaderFlowTest {
         ReaderFixtureScreenshot.capture("txt-reader-generated-pages.png")
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(before, saved(book))
-        compose.waitUntil(30_000) {
-            compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
-                androidx.compose.ui.semantics.SemanticsProperties.Text].single().text.contains(" / ")
+        fun waitForPageCount(stage: String) {
+            try {
+                compose.waitUntil(30_000) {
+                    compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
+                        androidx.compose.ui.semantics.SemanticsProperties.Text].single().text.contains(" / ")
+                }
+            } catch (failure: Throwable) {
+                runCatching {
+                    val label = compose.onAllNodesWithTag("reader_bottom_pages")
+                        .fetchSemanticsNodes(atLeastOneRootRequired = false)
+                        .firstOrNull()?.config?.get(androidx.compose.ui.semantics.SemanticsProperties.Text)
+                        ?.joinToString { it.text }
+                    val snapshot = active.state.value
+                    failure.addSuppressed(AssertionError("Page count timeout at $stage: label=$label, " +
+                        "phase=${snapshot.phase}, complete=${snapshot.cache.complete}, " +
+                        "length=${snapshot.cache.committedLength}, generation=${snapshot.restoreGeneration}"))
+                }.onFailure { failure.addSuppressed(it) }
+                throw failure
+            }
         }
+        waitForPageCount("initial-pages")
         val footer = compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
             androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
         val toolbar = compose.onNodeWithTag("reader_progress", useUnmergedTree = true).fetchSemanticsNode().config[
@@ -1325,10 +1342,7 @@ class TxtReaderFlowTest {
             assertEquals(anchor, active.state.value.targetOffset)
             assertEquals(returned, saved(book))
         }
-        compose.waitUntil(30_000) {
-            compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
-                androidx.compose.ui.semantics.SemanticsProperties.Text].single().text.contains(" / ")
-        }
+        waitForPageCount("after-typography")
         ReaderFixtureScreenshot.capture("txt-nanum-page-counts.png")
         val scale = if (kotlin.math.abs(initialScale - 1.3f) > .01f) 1.3f else 1.0f
         var generation = active.state.value.restoreGeneration
