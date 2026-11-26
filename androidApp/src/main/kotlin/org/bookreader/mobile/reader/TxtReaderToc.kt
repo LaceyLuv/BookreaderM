@@ -95,7 +95,7 @@ class TxtReaderToc(
                 val result = store.save(active, current.cache.committedLength, offset, expected, replacement)
                 ensureActive()
                 mutableState.update { it.copy(writing = false, writeError = result != TxtTocWrite.SAVED,
-                    ready = result == TxtTocWrite.SAVED && it.ready,
+                    ready = false,
                     savedVersion = it.savedVersion + if (result == TxtTocWrite.SAVED) 1 else 0) }
                 if (result == TxtTocWrite.SAVED) load()
             } catch (cancelled: CancellationException) { throw cancelled }

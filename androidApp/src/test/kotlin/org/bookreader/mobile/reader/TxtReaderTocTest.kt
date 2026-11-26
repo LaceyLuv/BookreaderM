@@ -7,6 +7,7 @@ import org.bookreader.mobile.repository.ProgressSession
 import org.bookreader.mobile.toc.*
 import org.junit.Assert.*
 import org.junit.Test
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
 class TxtReaderTocTest {
@@ -55,5 +56,56 @@ class TxtReaderTocTest {
             assertEquals(1,toc.state.value.entries.size);assertEquals(0,moves.get())
             current=current.copy(phase=TxtReaderPhase.ERROR);toc.clearEdit(3);assertEquals(1,writes.get())
         } finally { owner.cancel() }
+    }
+
+    @Test fun savedEditStaysNotReadyUntilAuthoritativeReloadCompletes() = runBlocking {
+        val owner = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        val body = "제1화 시작\n본문 한 줄\n제2화 다음\n"
+        val stored = mutableListOf<TxtTocOverride>()
+        val reloadStarted = CompletableDeferred<Unit>()
+        val allowReload = CompletableDeferred<Unit>()
+        val loadCount = AtomicInteger()
+        val staleReadyObserved = AtomicBoolean(false)
+        val access = object : TxtTocAccess {
+            override suspend fun load(bookId: String, revision: String, length: Long): TxtTocRead {
+                if (loadCount.incrementAndGet() == 2) {
+                    reloadStarted.complete(Unit)
+                    allowReload.await()
+                }
+                return TxtTocRead.Ready(stored.toList())
+            }
+            override suspend fun save(session: ProgressSession, length: Long, offset: Long, expected: TxtTocOverride?, replacement: TxtTocOverride?): TxtTocWrite {
+                stored.removeAll { it.offset == offset }
+                replacement?.let { stored += it }
+                return TxtTocWrite.SAVED
+            }
+        }
+        val manualOffset = body.indexOf("본문").toLong()
+        val toc = TxtReaderToc(book, owner, { ready(body.length) }, { ProgressSession("a", "r1", 4) },
+            { start, count -> body.substring(start.toInt(), minOf(body.length, start.toInt() + count)) }, {}, access)
+        val observer = owner.launch(Dispatchers.Unconfined, start = CoroutineStart.UNDISPATCHED) {
+            toc.state.collect { state ->
+                if (state.savedVersion > 0 && state.ready && state.entries.none { it.offset == manualOffset }) {
+                    staleReadyObserved.set(true)
+                }
+            }
+        }
+        try {
+            toc.load()
+            withTimeout(3000) { toc.state.first { it.ready } }
+            assertEquals(listOf(0L, body.indexOf("제2화").toLong()), toc.state.value.entries.map { it.offset })
+            toc.renameOrAdd(manualOffset, "내 위치")
+            withTimeout(3000) { reloadStarted.await() }
+            assertEquals(1L, toc.state.value.savedVersion)
+            assertFalse("TOC must stay not-ready until reload completes", toc.state.value.ready)
+            allowReload.complete(Unit)
+            withTimeout(3000) { toc.state.first { it.ready && it.savedVersion == 1L } }
+            assertFalse("TOC must never publish ready=true with stale entries after save", staleReadyObserved.get())
+            assertEquals(listOf(0L, manualOffset, body.indexOf("제2화").toLong()), toc.state.value.entries.map { it.offset })
+        } finally {
+            observer.cancel()
+            allowReload.complete(Unit)
+            owner.cancel()
+        }
     }
 }
