@@ -112,7 +112,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     }
     fun move(direction: Int) {
         if (controller.state.value.phase != TxtReaderPhase.READY) return
-        if (scrollMode) scope.launch {
+        if (scrollMode) scope.launch(Dispatchers.Main.immediate) {
             requestedScroll = true
             val distance = (list.layoutInfo.viewportEndOffset - list.layoutInfo.viewportStartOffset) * .9f * direction
             if (settings.pageTransition == org.bookreader.mobile.settings.PageTransition.NONE) list.scrollBy(distance)
@@ -223,7 +223,10 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                         }) {
                     items(count = state.cache.fragments.size, key = { it }) { index ->
                         val text by produceState<String?>(null, controller, index, state.restoreGeneration) {
-                            try { value = controller.fragment(index) }
+                            try {
+                                val loaded = controller.fragment(index)
+                                withContext(Dispatchers.Main.immediate) { value = loaded }
+                            }
                             catch (cancelled: CancellationException) { throw cancelled }
                             catch (_: Exception) { controller.contentReadFailed() }
                         }
