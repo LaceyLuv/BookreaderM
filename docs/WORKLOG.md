@@ -1,3 +1,51 @@
+## 2026-11-26 Issue #2 — API 34 TXT 전체 쪽수 계산 타임아웃 및 연계 경합 수정
+
+기준 `codex/backup-080` (`2855ca86697a03bb4fd2bed4c7ed13a38b7b2662`, PR #5 반영 직후)에서
+작업 브랜치 `gemini/fix-txt-pagecount-timeout`(PR #6)으로 Issue #2를 규명·수정했다.
+검증된 최종 코드 커밋은 `cdc72c70085ff07b2bb67a0d8e2a21a95d4db762`(0.8.0-dev/versionCode 11/Room 9)다.
+
+### 근본 원인 및 변경
+
+1. **TXT 전체 쪽수 계산 과다 I/O·중복 셰이핑·중첩 재계산(Issue #2):**
+   기존 `TxtPageIndex.build`는 페이지마다 `TxtPageEngine.next(offset)`를 호출해 매번 16,384 UTF-16 단위를
+   새 `RandomAccessFile` 읽기로 가져와 전체 셰이핑한 뒤, 경계 산출 후 `render(range)`로 두 번째 읽기와
+   두 번째 `StaticLayout` 생성까지 수행해 버렸다(6,000줄 기준 1,200회+ 파일 열기와 50–210MB LOS GC).
+   또한 연속 설정 변경 시 이전 `produceState` 백그라운드 측정기와 겹칠 수 있었다.
+   - `TxtPageEngine.kt`: `nextRange(start)` 분리 및 직전 페이지 길이 기반 2의 거듭제곱 적응형 읽기 예산(`1,024..16,384`, 필요 시 최대 `65,536`) 도입.
+   - `TxtPageIndex.kt`: 최대 `65,536` UTF-16 단위 순차 롤링 버퍼(`BoundedTxtWindowReader`)와 컨트롤러별 `Mutex` 직렬화, `Dispatchers.Main.immediate` 상태 게시 적용.
+   - 회귀 검증: `TxtPageIndexTest` 2건, `TxtPageEngineTest.pageIndexWithBoundedWindowMatchesEngineBoundariesExactly`(고정 16KiB 기준 엔진과 `LongArray` 경계 비트 동일성 검증) 추가 및 `scripts/required-tests.json` 등록.
+2. **Compose 1.9.3 `SnapshotStateObserver` 테스트 스레드 경합(기존 `dc06d3e`/`ec788cd` 동일 패턴):**
+   쪽수 계산 가속 후 `82b6ab07` Push API 34 job `139160872451`(아티팩트 `15015987904`)의
+   `TxtReaderFlowTest.alternatingBooksWaitForPendingNativeWritesAndKeepBackwardProgress`에서
+   `Detected multithreaded access to SnapshotStateObserver: previousThreadId=142, currentThread={id=2, name=main}`(45줄 스택)이 재발했다.
+   - `TxtReaderScreen.kt`, `TxtPageContent.kt`: IO 재개 후 Compose snapshot 상태 쓰기와 스크롤 이동을 `Dispatchers.Main.immediate`로 고정.
+   - `TxtReaderFlowTest.kt`: 기존 timeout(`30_000`ms 등)·assertion을 유지한 채 `waitFor`, `alternatingBooks...`, `pagesNavigate...`, `readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor`의 semantics 조회·클릭·스크롤을 `fetchSemanticsNodes()` + `compose.runOnIdle`로, 텍스트 스와이프를 실제 `UiAutomation` `MotionEvent` 주입으로 전환.
+3. **`TxtReaderToc` 저장 직후 `ready=true` 조기 유지 경합:**
+   `fe6c493c` Push API 36 job `139848741452`(아티팩트 `15109775310`)의
+   `txtTocEditsExclusionsManualEntryAndJumpSurviveReopeningWithoutMovingRecordsDuringEdits`에서
+   `TxtReaderToc.kt`가 저장 성공 시 `ready = true`를 유지한 채 `savedVersion`을 먼저 올리고 `load()`를 호출해
+   재조회 완료 전 구 `entries`(`[0, 2395, 4792]`)가 노출되는 실제 경합을 확인했다.
+   - `TxtReaderToc.kt`: 저장 성공 직후 `ready = false`로 먼저 내려 `load()` 완료 시점에만 최신 DB 항목과 함께 `ready = true`를 게시하도록 수정.
+   - `TxtReaderTocTest.savedEditStaysNotReadyUntilAuthoritativeReloadCompletes` 추가 및 `scripts/required-tests.json` 등록.
+
+### 검증 결과 및 보존된 중간 실패
+
+- **보존된 중간 실패 (`FAIL`):**
+  - `82b6ab07` Push Device `45601377593` API 34 (`139160872451`, 아티팩트 `15015987904`): 79건 중 `alternatingBooks...` 1 FAIL(`SnapshotStateObserver`), host NOT_RUN. 같은 소스의 PR Device `45601466254` API 26·34·36은 79/79 + host 7/7(4개 포맷/배치 PID 교체 확인) PASS.
+  - `fe6c493c` Push Device `45802404809` API 36 (`139848741452`, 아티팩트 `15109775310`): 79건 중 `txtTocEdits...` 1 FAIL(`expected:<[0, 2215, 2395, 4792]> but was:<[0, 2395, 4792]>`), host NOT_RUN. 같은 소스의 PR Device `45802412325` API 26·34·36 및 Push API 34(`15108858298`)는 79/79 + host 7/7 PASS, `pagesNavigate...` 소요 시간 19.778s / 20.783s / 21.445s / 22.1s, `alternatingBooks...` 4/4 PASS 및 4개 항목 `absent`→PID 교체 원본 대조 완료.
+- **최종 코드 `cdc72c70085ff07b2bb67a0d8e2a21a95d4db762` 1차 시도 원격 CI (`PASS`, metadata 기준):**
+  - `BookReader Mobile Checks` (222건: Android unit 84 / shared JVM 118 / EPUB unit 17 / ENOSPC 3 + compile·lint·Room 9):
+    - Push `45807324674` (`139865882627`, 아티팩트 `15110537979`, `sha256:5e0cf0813b876bdf413e4974753be1494944bdb41125cef052e041137f4d6554`) PASS
+    - PR `45807333634` (`139865911616`, 아티팩트 `15111075753`, `sha256:8ee4d0a5bd840af0c08e42bffaf3814cc778cc4eeff9e9b3b4f9109bd34fb9c3`) PASS
+  - `BookReader Mobile Device Tests` (API 26·34·36, 1차 시도 6/6 job PASS):
+    - Push `45807324504`: API 26 `139865882902` (`15111235875`), API 34 `139865882422` (`15111725270`), API 36 `139865883736` (`15114005017`)
+    - PR `45807333542`: API 26 `139865911882` (`15111610011`), API 34 `139865911447` (`15111476034`), API 36 `139865911803` (`15112630548`)
+- **로컬 / 미실행 / 환경 차단:**
+  - `git diff --check` 및 `scripts/required-tests.json` JSON 구문 검증: `PASS` (exit 0).
+  - 본 VM 로컬 `./scripts/doctor.sh`: `BLOCKED_ENV` (exit 78, JDK 21만 설치·JDK 17 미설치). 로컬 `./scripts/ci-check.sh`·`./scripts/device-check.sh`: `NOT_RUN`.
+  - 본 VM에서 Actions 아티팩트 ZIP 직접 다운로드(`cdc72c70` XML/PID 원본 대조): `BLOCKED_ENV`(`results-receiver.actions.githubusercontent.com` 차단).
+  - 실기기 성능·TalkBack·16KB OS·서명/출시 게이트: `NOT_RUN`.
+
 ## 2026-11-21 독서 기록 백업·복원
 
 `codex/backup-080`에서 `0.8.0-dev`/versionCode 11의 기록 백업을 구현했다.

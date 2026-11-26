@@ -16,17 +16,33 @@ class TxtPageEngine(
     private val read: suspend (Long, Int) -> String,
     private val measure: (String) -> TextLayoutResult,
 ) {
+    private var adaptiveBudget = true
+    private var hintBudget = MIN_BUDGET
+
+    internal constructor(
+        length: Long,
+        heightPx: Int,
+        read: suspend (Long, Int) -> String,
+        adaptiveBudget: Boolean,
+        measure: (String) -> TextLayoutResult,
+    ) : this(length, heightPx, read, measure) {
+        this.adaptiveBudget = adaptiveBudget
+        this.hintBudget = if (adaptiveBudget) MIN_BUDGET else INITIAL_MAX_BUDGET
+    }
+
     private val ranges = object : LinkedHashMap<Long, TxtPageRange>(128, .75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Long, TxtPageRange>?) = size > 128
     }
 
-    suspend fun next(start: Long): TxtMeasuredPage {
+    suspend fun next(start: Long): TxtMeasuredPage = render(nextRange(start))
+
+    suspend fun nextRange(start: Long): TxtPageRange {
         require(start in 0 until length && heightPx > 0)
-        ranges[start]?.let { range -> return render(range) }
+        ranges[start]?.let { return it }
         // An arbitrary jump creates a new local run. Keeping overlapping runs could
         // give the same end two different predecessors and make Back drift.
         if (ranges.isNotEmpty() && ranges.values.none { it.end == start }) ranges.clear()
-        var budget = 16_384
+        var budget = if (adaptiveBudget) hintBudget else INITIAL_MAX_BUDGET
         while (true) {
             currentCoroutineContext().ensureActive()
             val text = read(start, budget)
@@ -43,16 +59,24 @@ class TxtPageEngine(
                 if (layout.getLineBottom(line) > heightPx) break
             }
             if (lines > 0 && (eof || layout.getLineBottom(lines - 1) >= heightPx ||
-                    lines < layout.lineCount - 1 || budget == 65_536)) {
+                    lines < layout.lineCount - 1 || budget == MAX_BUDGET)) {
                 val end = start + layout.getLineEnd(lines - 1, visibleEnd = false)
                 check(end > start)
                 val range = TxtPageRange(start, end)
                 ranges[start] = range
-                return render(range)
+                hintBudget = nextPowerOfTwoBudget((end - start).toInt())
+                return range
             }
-            check(budget < 65_536) { "Text layout exceeds bounded page window" }
+            check(budget < MAX_BUDGET) { "Text layout exceeds bounded page window" }
             budget *= 2
         }
+    }
+
+    private fun nextPowerOfTwoBudget(pageChars: Int): Int {
+        val target = (pageChars.coerceAtLeast(1) * 2).coerceIn(MIN_BUDGET, INITIAL_MAX_BUDGET)
+        var budget = MIN_BUDGET
+        while (budget < target && budget < INITIAL_MAX_BUDGET) budget *= 2
+        return budget
     }
 
     suspend fun previous(end: Long): TxtMeasuredPage {
@@ -92,5 +116,11 @@ class TxtPageEngine(
         var lines = layout.lineCount
         while (lines > 1 && layout.getLineStart(lines - 1) == text.length) lines--
         return TxtMeasuredPage(range, text, lines)
+    }
+
+    companion object {
+        private const val MIN_BUDGET = 1_024
+        private const val INITIAL_MAX_BUDGET = 16_384
+        private const val MAX_BUDGET = 65_536
     }
 }

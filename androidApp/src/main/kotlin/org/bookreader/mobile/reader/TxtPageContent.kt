@@ -17,6 +17,8 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /** Style includes font/size/line/letter/locale/break/hyphenation/font-padding policy. */
 private data class TxtPageLayoutKey(
@@ -59,7 +61,7 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
         try {
             val page = if (state.targetOffset == state.cache.committedLength)
                 active.previous(state.targetOffset) else active.next(state.targetOffset)
-            value = LoadedPage(active, generation, page)
+            withContext(Dispatchers.Main.immediate) { value = LoadedPage(active, generation, page) }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { controller.contentReadFailed() }
     }
@@ -83,8 +85,10 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
                 engine?.previous(displayed.range.start)?.range?.start
             else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) displayed.range.end else null
             if (target != null && controller.state.value.restoreGeneration == generation) {
-                turnDirection = if (step.direction < 0) -1 else 1
-                turnGeneration = generation + 1
+                withContext(Dispatchers.Main.immediate) {
+                    turnDirection = if (step.direction < 0) -1 else 1
+                    turnGeneration = generation + 1
+                }
                 controller.navigateTo(target)
             }
         } catch (cancelled: CancellationException) { throw cancelled }

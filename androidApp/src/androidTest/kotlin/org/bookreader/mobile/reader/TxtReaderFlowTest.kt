@@ -930,8 +930,8 @@ class TxtReaderFlowTest {
             sendFixture(fixture)
             waitFor("reader_ready")
             val book = reader().book
-            repeat(4) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
-            compose.readerControl("reader_back").performClick()
+            repeat(4) { swipeReaderText(up = true) }
+            clickReaderControlOnMain("reader_back")
             waitFor("library_content")
             book
         }
@@ -946,7 +946,7 @@ class TxtReaderFlowTest {
                 val other = selected[(iteration + 1) % 2]
                 val previous = requireNotNull(expected[book.id])
                 val otherBook = books().single { it.id == other.id }
-                compose.onNodeWithTag("read_${book.id}").performClick()
+                clickOnMain("read_${book.id}")
                 waitFor("reader_ready")
                 val active = reader()
                 assertEquals(book.id, active.book.id)
@@ -956,9 +956,7 @@ class TxtReaderFlowTest {
                 val backward = iteration >= 2 && iteration < 4
                 var pending = -1L
                 withHeldNativeWriter { release ->
-                    compose.onNodeWithTag("reader_text").performTouchInput {
-                        if (backward) swipeDown() else swipeUp()
-                    }
+                    swipeReaderText(up = !backward)
                     compose.waitForIdle()
                     pending = measuredVisibleLine(active)
                     assertEquals(pending, active.state.value.stableOffset)
@@ -966,10 +964,10 @@ class TxtReaderFlowTest {
                     else assertTrue(pending > offset(previous))
                     // Real 250ms settled save reaches the occupied production Room writer.
                     SystemClock.sleep(350)
-                    compose.readerControl("reader_back").performClick()
+                    clickReaderControlOnMain("reader_back")
                     compose.waitForIdle()
                     // The library cannot expose another book before close's flush finishes.
-                    compose.onNodeWithTag("library_content").assertDoesNotExist()
+                    assertDoesNotExistOnMain("library_content")
                     assertSame(active, reader())
                     assertEquals(previous, saved(book))
                     assertEquals(expected[other.id], saved(other))
@@ -992,11 +990,11 @@ class TxtReaderFlowTest {
             }
             // Reopen both actual screens after all delayed writes and compare measured positions.
             for (book in selected) {
-                compose.onNodeWithTag("read_${book.id}").performClick()
+                clickOnMain("read_${book.id}")
                 waitFor("reader_ready")
                 assertEquals(offset(requireNotNull(expected[book.id])), measuredVisibleLine(reader()))
                 assertEquals(expected[book.id], saved(book))
-                compose.readerControl("reader_back").performClick()
+                clickReaderControlOnMain("reader_back")
                 waitFor("library_content")
             }
             passed = true
@@ -1256,7 +1254,7 @@ class TxtReaderFlowTest {
         val active = reader()
         val book = active.book
         val initialFontSize = active.state.value.settings.fontSizeSp
-        repeat(3) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+        repeat(3) { swipeReaderText(up = true) }
         compose.waitForIdle()
         val anchor = measuredVisibleLine(active)
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == anchor } == true }
@@ -1264,9 +1262,10 @@ class TxtReaderFlowTest {
         fun settings(action: () -> Unit) {
             val generation = active.state.value.restoreGeneration
             val loaded = active.state.value.settingsLoaded
-            compose.readerControl("reader_settings").performClick()
+            clickReaderControlOnMain("reader_settings")
             action()
-            compose.onNodeWithTag("reader_settings_apply").performClick()
+            compose.waitUntil(5_000) { isEnabledOnMain("reader_settings_apply") }
+            clickOnMain("reader_settings_apply")
             compose.waitUntil(15_000) {
                 active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY &&
                     !it.settingsSaving && it.settingsLoaded !== loaded }
@@ -1274,32 +1273,44 @@ class TxtReaderFlowTest {
             compose.waitForIdle()
         }
         settings {
-            compose.onNodeWithTag("reader_mode_PAGES").performClick()
-            compose.onNodeWithTag("reader_transition_SLIDE").performScrollTo().performClick()
+            clickOnMain("reader_mode_PAGES", scrollFirst = true)
+            clickOnMain("reader_transition_SLIDE", scrollFirst = true)
         }
         assertEquals(org.bookreader.mobile.settings.PageTransition.SLIDE, active.state.value.settings.pageTransition)
-        compose.onNodeWithTag("reader_page").assertIsDisplayed()
-        compose.onNodeWithTag("reader_ready").assertIsDisplayed()
-        compose.readerControl("reader_next").assertIsEnabled()
+        assertDisplayedOnMain("reader_page")
+        assertDisplayedOnMain("reader_ready")
+        revealReaderControlOnMain("reader_next")
+        assertEnabledOnMain("reader_next")
         instrumentation.waitForIdleSync()
         SystemClock.sleep(250) // Allow the ready frame to reach the screenshot surface.
         ReaderFixtureScreenshot.capture("txt-reader-generated-pages.png")
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(before, saved(book))
-        compose.waitUntil(30_000) {
-            compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
-                androidx.compose.ui.semantics.SemanticsProperties.Text].single().text.contains(" / ")
+        fun waitForPageCount(stage: String) {
+            try {
+                compose.waitUntil(30_000) {
+                    semanticsTextOnMain("reader_bottom_pages")?.contains(" / ") == true
+                }
+            } catch (failure: Throwable) {
+                runCatching {
+                    val label = semanticsTextOnMain("reader_bottom_pages")
+                    val snapshot = active.state.value
+                    failure.addSuppressed(AssertionError("Page count timeout at $stage: label=$label, " +
+                        "phase=${snapshot.phase}, complete=${snapshot.cache.complete}, " +
+                        "length=${snapshot.cache.committedLength}, generation=${snapshot.restoreGeneration}"))
+                }.onFailure { failure.addSuppressed(it) }
+                throw failure
+            }
         }
-        val footer = compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
-            androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
-        val toolbar = compose.onNodeWithTag("reader_progress", useUnmergedTree = true).fetchSemanticsNode().config[
-            androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
+        waitForPageCount("initial-pages")
+        val footer = requireNotNull(semanticsTextOnMain("reader_bottom_pages"))
+        val toolbar = requireNotNull(semanticsTextOnMain("reader_progress", useUnmergedTree = true))
         assertEquals(footer, toolbar)
         ReaderFixtureScreenshot.capture("txt-page-counts.png")
         val pageStarts = mutableListOf(anchor)
         repeat(12) {
             val generation = active.state.value.restoreGeneration
-            compose.readerControl("reader_next").performClick()
+            clickReaderControlOnMain("reader_next")
             compose.waitUntil(10_000) {
                 active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
             }
@@ -1308,7 +1319,7 @@ class TxtReaderFlowTest {
         }
         repeat(12) { index ->
             val generation = active.state.value.restoreGeneration
-            compose.readerControl("reader_previous").performClick()
+            clickReaderControlOnMain("reader_previous")
             compose.waitUntil(10_000) {
                 active.state.value.let { it.restoreGeneration > generation && it.phase == TxtReaderPhase.READY }
             }
@@ -1316,19 +1327,16 @@ class TxtReaderFlowTest {
         }
         compose.waitUntil(10_000) { saved(book)?.let { offset(it) == anchor } == true }
         val returned = requireNotNull(saved(book))
-        settings { compose.onNodeWithTag("font_size_increase").performScrollTo().performClick() }
+        settings { clickOnMain("font_size_increase", scrollFirst = true) }
         for (tag in listOf("reader_font_SERIF", "reader_font_NANUM_GOTHIC", "reader_font_NANUM_MYEONGJO", "line_height_increase", "letter_spacing_increase", "margin_increase")) {
             settings {
-                if (tag.startsWith("letter_spacing")) compose.advancedReaderSetting(tag).performClick()
-                else compose.onNodeWithTag(tag).performScrollTo().performClick()
+                if (tag.startsWith("letter_spacing")) openAdvancedReaderSettingOnMain(tag)
+                clickOnMain(tag, scrollFirst = true)
             }
             assertEquals(anchor, active.state.value.targetOffset)
             assertEquals(returned, saved(book))
         }
-        compose.waitUntil(30_000) {
-            compose.onNodeWithTag("reader_bottom_pages").fetchSemanticsNode().config[
-                androidx.compose.ui.semantics.SemanticsProperties.Text].single().text.contains(" / ")
-        }
+        waitForPageCount("after-typography")
         ReaderFixtureScreenshot.capture("txt-nanum-page-counts.png")
         val scale = if (kotlin.math.abs(initialScale - 1.3f) > .01f) 1.3f else 1.0f
         var generation = active.state.value.restoreGeneration
@@ -1352,19 +1360,20 @@ class TxtReaderFlowTest {
         assertSame(active, reader())
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(returned, saved(book))
-        compose.onNodeWithTag("reader_ready").assertIsDisplayed()
-        compose.readerControl("reader_next").assertIsEnabled()
+        assertDisplayedOnMain("reader_ready")
+        revealReaderControlOnMain("reader_next")
+        assertEnabledOnMain("reader_next")
         instrumentation.waitForIdleSync()
         SystemClock.sleep(250)
         ReaderFixtureScreenshot.capture("txt-reader-generated-page-reflow.png")
         assertEquals(anchor, active.state.value.targetOffset)
         assertEquals(returned, saved(book))
-        settings { compose.onNodeWithTag("reader_mode_SCROLL").performClick() }
+        settings { clickOnMain("reader_mode_SCROLL", scrollFirst = true) }
         assertAnchorInFirstMeasuredLine(active, anchor)
         assertEquals(returned, saved(book))
-        compose.readerControl("reader_back").performClick()
+        clickReaderControlOnMain("reader_back")
         waitFor("library_content")
-        compose.onNodeWithTag("read_${book.id}").performClick()
+        clickOnMain("read_${book.id}")
         waitFor("reader_ready")
         assertEquals(org.bookreader.mobile.settings.ReaderFont.NANUM_MYEONGJO, reader().state.value.settings.font)
         assertEquals(org.bookreader.mobile.settings.PageTransition.SLIDE, reader().state.value.settings.pageTransition)
@@ -1529,7 +1538,7 @@ class TxtReaderFlowTest {
             sendFixture("reader-pages")
             waitFor("reader_ready")
             val active = reader()
-            repeat(2) { compose.onNodeWithTag("reader_text").performTouchInput { swipeUp() } }
+            repeat(2) { swipeReaderText(up = true) }
             val anchor = measuredVisibleLine(active)
             compose.waitUntil(10_000) { saved(active.book)?.let { offset(it) == anchor } == true }
             val before = requireNotNull(saved(active.book))
@@ -1537,12 +1546,21 @@ class TxtReaderFlowTest {
                 uiShell("settings put system font_scale $scale")
                 compose.waitUntil(30_000) { kotlin.math.abs(compose.activity.resources.configuration.fontScale - scale) < .01f &&
                     active.state.value.phase == TxtReaderPhase.READY }
-                compose.readerControl("reader_menu").assertIsDisplayed().performClick()
-                compose.onNodeWithTag("reader_seek").assertIsDisplayed().assertIsEnabled()
-                compose.onNodeWithTag("reader_menu_close").performClick()
-                compose.readerControl("reader_settings").assertIsDisplayed().performClick()
-                compose.advancedReaderSetting("reader_rotation_lock_option").assertIsDisplayed()
-                compose.onNodeWithTag("reader_settings_apply").assertIsDisplayed().performClick()
+                revealReaderControlOnMain("reader_menu")
+                assertDisplayedOnMain("reader_menu")
+                clickOnMain("reader_menu")
+                assertDisplayedOnMain("reader_seek")
+                assertEnabledOnMain("reader_seek")
+                clickOnMain("reader_menu_close")
+                revealReaderControlOnMain("reader_settings")
+                assertDisplayedOnMain("reader_settings")
+                clickOnMain("reader_settings")
+                openAdvancedReaderSettingOnMain("reader_rotation_lock_option")
+                scrollToOnMain("reader_rotation_lock_option")
+                assertDisplayedOnMain("reader_rotation_lock_option")
+                compose.waitUntil(5_000) { isEnabledOnMain("reader_settings_apply") }
+                assertDisplayedOnMain("reader_settings_apply")
+                clickOnMain("reader_settings_apply")
                 waitFor("reader_ready")
                 assertEquals(anchor, active.state.value.stableOffset)
                 assertEquals(before, saved(active.book))
@@ -1810,7 +1828,160 @@ class TxtReaderFlowTest {
             }.onFailure { failure.addSuppressed(it) }
             throw failure
         }
-        compose.onNodeWithTag(tag).assertIsDisplayed()
+        assertDisplayedOnMain(tag)
+    }
+
+    // Compose 1.9.3 single-node fetchOneOrThrow/assertIsDisplayed/performScrollTo/performTouchInput
+    // read live SemanticsNode properties on the test thread, racing with Main's GlobalSnapshotManager
+    // semantics invalidation (see docs/NATIVE_UI_SYNCHRONIZATION.md). Fetch collections on Main,
+    // read properties/actions strictly inside runOnIdle, and inject real touch MotionEvents via UiAutomation.
+    private fun semanticsTextOnMain(tag: String, useUnmergedTree: Boolean = false): String? {
+        val node = compose.onAllNodesWithTag(tag, useUnmergedTree = useUnmergedTree)
+            .fetchSemanticsNodes(atLeastOneRootRequired = false)
+            .singleOrNull() ?: return null
+        return compose.runOnIdle {
+            if (!node.layoutInfo.isAttached) null
+            else node.config.getOrElseNullable(androidx.compose.ui.semantics.SemanticsProperties.Text) { null }
+                ?.joinToString("") { it.text }
+        }
+    }
+
+    private fun assertDisplayedOnMain(tag: String) {
+        val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().single()
+        val visible = compose.runOnIdle {
+            val rootView = (node.root as? androidx.compose.ui.platform.ViewRootForTest)?.view
+            val rootBounds = android.graphics.Rect()
+            val rootVisible = rootView == null || rootView.getGlobalVisibleRect(rootBounds)
+            val bounds = node.boundsInRoot
+            node.layoutInfo.isAttached && node.layoutInfo.isPlaced && rootVisible &&
+                bounds.width > 0f && bounds.height > 0f
+        }
+        assertTrue("Expected '$tag' to be displayed", visible)
+    }
+
+    private fun isEnabledOnMain(tag: String): Boolean {
+        val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).singleOrNull()
+            ?: return false
+        return compose.runOnIdle {
+            node.layoutInfo.isAttached &&
+                node.config.getOrElseNullable(androidx.compose.ui.semantics.SemanticsProperties.Disabled) { null } == null
+        }
+    }
+
+    private fun assertEnabledOnMain(tag: String) {
+        assertTrue("Expected '$tag' to be enabled", isEnabledOnMain(tag))
+    }
+
+    private fun assertDoesNotExistOnMain(tag: String) {
+        assertTrue(
+            "Expected '$tag' not to exist",
+            compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty(),
+        )
+    }
+
+    private fun scrollToOnMain(tag: String) {
+        repeat(3) {
+            val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().single()
+            val scrolled = compose.runOnIdle {
+                if (!node.layoutInfo.isAttached) return@runOnIdle false
+                val top = node.positionInRoot.y
+                val bottom = top + node.size.height
+                var parent = node.parent
+                while (parent != null) {
+                    val scrollBy = parent.config.getOrElseNullable(SemanticsActions.ScrollBy) { null }?.action
+                    if (scrollBy != null) {
+                        val vp = parent.boundsInRoot
+                        val dy = when {
+                            top > vp.top && bottom > vp.bottom -> minOf(bottom - vp.bottom, top - vp.top)
+                            top < vp.top && bottom < vp.bottom -> maxOf(top - vp.top, bottom - vp.bottom)
+                            else -> 0f
+                        }
+                        if (kotlin.math.abs(dy) >= 1f) {
+                            scrollBy.invoke(0f, dy)
+                            return@runOnIdle true
+                        }
+                    }
+                    parent = parent.parent
+                }
+                false
+            }
+            if (!scrolled) return
+            compose.waitForIdle()
+        }
+    }
+
+    private fun clickOnMain(tag: String, scrollFirst: Boolean = false) {
+        if (scrollFirst) scrollToOnMain(tag)
+        val node = compose.onAllNodesWithTag(tag).fetchSemanticsNodes().single()
+        compose.runOnIdle {
+            assertNull(
+                "Expected '$tag' to be enabled before click",
+                node.config.getOrElseNullable(androidx.compose.ui.semantics.SemanticsProperties.Disabled) { null },
+            )
+            val action = node.config[SemanticsActions.OnClick].action
+            assertTrue("Expected clickable '$tag'", requireNotNull(action).invoke())
+        }
+        compose.waitForIdle()
+    }
+
+    private fun revealReaderControlOnMain(tag: String) {
+        val prefix = tag.substringBefore('_')
+        if (compose.onAllNodesWithTag("${prefix}_chrome").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()) {
+            if (compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
+                scrollToOnMain(tag)
+                return
+            }
+            compose.tapReader(prefix, .5f)
+            compose.waitUntil(5_000) {
+                compose.onAllNodesWithTag("${prefix}_chrome").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            }
+        }
+        scrollToOnMain(tag)
+    }
+
+    private fun clickReaderControlOnMain(tag: String) {
+        revealReaderControlOnMain(tag)
+        clickOnMain(tag)
+    }
+
+    private fun openAdvancedReaderSettingOnMain(tag: String) {
+        if (compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()) {
+            clickOnMain("reader_settings_advanced", scrollFirst = true)
+            compose.waitUntil(5_000) {
+                compose.onAllNodesWithTag(tag).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            }
+        }
+        scrollToOnMain(tag)
+    }
+
+    private fun swipeReaderText(up: Boolean) {
+        val node = compose.onAllNodesWithTag("reader_text").fetchSemanticsNodes().single()
+        val bounds = compose.runOnIdle {
+            val view = (node.root as androidx.compose.ui.platform.ViewRootForTest).view
+            val screen = IntArray(2)
+            view.getLocationOnScreen(screen)
+            node.boundsInRoot.translate(androidx.compose.ui.geometry.Offset(screen[0].toFloat(), screen[1].toFloat()))
+        }
+        assertTrue("Expected visible reader_text viewport", bounds.width > 0f && bounds.height > 0f)
+        val x = bounds.center.x
+        val startY = if (up) bounds.bottom - bounds.height * 0.18f else bounds.top + bounds.height * 0.18f
+        val endY = if (up) bounds.top + bounds.height * 0.18f else bounds.bottom - bounds.height * 0.18f
+        val automation = instrumentation.uiAutomation
+        val downTime = SystemClock.uptimeMillis()
+        fun send(action: Int, y: Float) {
+            val event = MotionEvent.obtain(downTime, SystemClock.uptimeMillis(), action, x, y, 0)
+            event.source = InputDevice.SOURCE_TOUCHSCREEN
+            try { assertTrue("Android must accept reader_text swipe event", automation.injectInputEvent(event, true)) }
+            finally { event.recycle() }
+        }
+        send(MotionEvent.ACTION_DOWN, startY)
+        for (step in 1..16) {
+            SystemClock.sleep(16)
+            send(MotionEvent.ACTION_MOVE, startY + (endY - startY) * (step / 16f))
+        }
+        SystemClock.sleep(40)
+        send(MotionEvent.ACTION_UP, endY)
+        compose.waitForIdle()
     }
 
     private fun digest(file: File): String {
