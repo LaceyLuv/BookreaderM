@@ -1,3 +1,19 @@
+## 2026-11-26 0.8.0-dev 통합 준비 및 Issue #2 해결 인계
+
+- **현재 상태**: `codex/backup-080`(`e60d931f5b92c6345a371a6b63ea21ac86f06f69`)에 UI 통합 검증([PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5))과
+  Issue #2·연계 경합 수정([PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6))이 병합 완료됐고,
+  `main`(`cbe4e405`)의 협업 문서([PR #4](https://github.com/LaceyLuv/BookreaderM/pull/4))를 반영한 `main` 통합 PR(`gemini/integrate-080-to-main`)을 준비했다.
+- **검증된 코드 SHA**: `cdc72c70085ff07b2bb67a0d8e2a21a95d4db762` (`0.8.0-dev`/versionCode 11/Room 9, 14 테이블).
+  - 원격 `BookReader Mobile Checks`(222건: Android unit 84 / shared JVM 118 / EPUB unit 17 / ENOSPC 3 + compile·lint·Room 9): Push `45807324674` · PR `45807333634` **PASS** (metadata).
+  - 원격 `BookReader Mobile Device Tests`(API 26·34·36, native 79 + host 7): Push `45807324504` · PR `45807333542` 1차 시도 6/6 **PASS** (metadata).
+  - 직전 `fe6c493c` PR 26·34·36 + Push 34 XML/PID 원본 대조(79/79 + 7/7, 4개 항목 `absent`→PID 교체, `pagesNavigate...` 19.778s–22.1s) 및 중간 실패 2건(`82b6ab07` API 34 `139160872451`, `fe6c493c` API 36 `139848741452`) 원본 기록을 [작업 기록](WORKLOG.md)에 보존했다.
+- **보존 및 미실행 범위**: Room 9 14개 테이블 정의, 사용자 책·진행도·서명키·`05ffd50` 기준 산출물을 변경하지 않았다.
+  로컬 JDK 17 미설치(`doctor.sh` exit 78) 및 Actions 아티팩트 ZIP 다운로드(`results-receiver.actions.githubusercontent.com`)는 Antigravity VM 기준 `BLOCKED_ENV`,
+  실기기 성능·TalkBack·16KB OS·서명/출시 게이트는 `NOT_RUN`이다.
+- **다음 작업**:
+  1. 사용자가 `main` 통합 PR의 원격 CI 통과를 확인한 뒤 수동 병합(`Closes #2`).
+  2. `main` 반영 완료 후 확인한 전체 `main` SHA를 기준으로 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2: 책·글꼴 원본 선택 백업 + v1 호환 + 중단/ENOSPC 재개 커밋)을 착수한다.
+
 ## 2026-11-21 독서 기록 백업·복원 구현과 자동 검증 완료
 
 `/workspace/BookreaderM-reader-070`의 `codex/backup-080`에서 진행한다.

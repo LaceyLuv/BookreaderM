@@ -1,5 +1,13 @@
 # 입력·데이터 보호 검토 — 2026-10-17
 
+## 2026-11-26 최신 — 0.8.0-dev(Room 9, 14 테이블) 보안·데이터 경계 갱신
+
+- `0.8.0-dev`(versionCode 11, Room 9, 14 테이블, 코드 `cdc72c70`)는 기존 13개 테이블·관리 복사본·서명키·Android `allowBackup="false"` 정책을 유지하면서
+  수동 독서 기록 백업(`.brmbackup` v1, [ADR 0012](adr/0012-portable-reading-records.md))과 사용자 글꼴/형광펜/목차 편집 경계를 포함한다.
+- `.brmbackup` v1은 magic/버전/크기 한도/SHA-256 검증, 미리보기 후 단일 트랜잭션 복원(기존 기록 우선, 손상·과대·미래 형식 fail-closed)을 자동 테스트로 검증했다.
+- [PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5)(UI 20개 파일) 및 [PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6)(TXT 페이지/목차 경합 수정)에서 사용자 본문·개인 URI·비밀키 로그 누출 0건 및 Room 9 비파괴 스키마 유지를 확인했다.
+- 독립 보안 감사·침투 테스트·물리 기기 OEM 백업·16KB 실제 OS·최종 서명/출시 게이트는 여전히 `NOT_RUN`/`BLOCKED`다. 아래 절은 이전 시점 이력이다.
+
 ## 2026-10-22 현재: 검증된 소스 main 통합 및 unsigned 재생성 완료
 
 `bb0f537`의 build 66/74/16 + 실제 ENOSPC 3, API26/34/36 각각 native 54 + 세 포맷 host 6이 모두 PASS다.
