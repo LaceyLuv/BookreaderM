@@ -50,6 +50,13 @@ class PreparedReadingBackup internal constructor(
     internal val targets: List<BackupTarget?>,
 )
 
+data class ManagedBookExportFile(
+    val sha256: String,
+    val byteSize: Long,
+    val format: String,
+    val managedRelativePath: String,
+)
+
 /** The entire merge is one SQLite transaction. It never deletes rows or opens managed files. */
 class RoomReadingBackup(
     private val database: BookReaderDatabase,
@@ -62,6 +69,20 @@ class RoomReadingBackup(
         }
         BackupRules.validate(snapshot)
         return snapshot
+    }
+
+    suspend fun snapshotForAssetExport(): Pair<ReadingBackup, List<ManagedBookExportFile>> = withManagedBookOperations {
+        val result = database.useReaderConnection { connection ->
+            connection.deferredTransaction {
+                val snapshot = BackupSnapshotReader(this).read(now())
+                val files = database.bookDao().listBooks()
+                    .filter { it.availability == "READY" }
+                    .map { ManagedBookExportFile(it.sourceSha256, it.sourceByteSize, it.format, it.managedRelativePath) }
+                snapshot to files
+            }
+        }
+        BackupRules.validate(result.first)
+        result
     }
 
     suspend fun preview(snapshot: ReadingBackup): PreparedReadingBackup {

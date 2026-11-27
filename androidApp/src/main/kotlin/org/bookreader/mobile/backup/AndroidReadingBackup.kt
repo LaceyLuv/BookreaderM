@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import org.bookreader.mobile.database.AndroidDatabaseOwner
-import org.bookreader.mobile.importing.withManagedBookOperations
 import org.bookreader.mobile.reader.UserFontStore
 
 /** Handles transient system-picker grants and v1/v2 backup streaming. No path or URI is stored or logged. */
@@ -68,50 +67,46 @@ class AndroidReadingBackup(
                 val snapshot = repository.snapshot()
                 return@withContext ExportPlan.V1(ReadingBackupFile.encode(snapshot, request::ensureActive))
             }
-            withManagedBookOperations {
-                val snapshot = repository.snapshot()
-                val entries = ArrayList<BackupAssetEntry>()
-                val files = ArrayList<Pair<BackupAssetEntry, File>>()
-                if (options.includeBooks) {
-                    val readyByKey = database.bookDao().listBooks()
-                        .filter { it.availability == "READY" }
-                        .associateBy { BackupAssetRules.bookKey(it.sourceSha256, it.sourceByteSize) }
-                    for (book in snapshot.books) {
-                        request.ensureActive()
-                        val row = readyByKey[BackupAssetRules.bookKey(book.sha256, book.byteSize)] ?: continue
-                        val file = storage.managedBookFile(row.managedRelativePath)
-                        if (!file.isFile || file.length() != book.byteSize) continue
-                        val entry = BackupAssetEntry(
-                            kind = BackupAssetKind.BOOK,
-                            path = BackupAssetRules.canonicalPath(BackupAssetKind.BOOK, book.sha256),
-                            sha256 = book.sha256,
-                            byteSize = book.byteSize,
-                            format = book.format,
-                        )
-                        entries.add(entry)
-                        files.add(entry to file)
-                    }
+            val (snapshot, readyBooks) = repository.snapshotForAssetExport()
+            val entries = ArrayList<BackupAssetEntry>()
+            val files = ArrayList<Pair<BackupAssetEntry, File>>()
+            if (options.includeBooks) {
+                val readyByKey = readyBooks.associateBy { BackupAssetRules.bookKey(it.sha256, it.byteSize) }
+                for (book in snapshot.books) {
+                    request.ensureActive()
+                    val row = readyByKey[BackupAssetRules.bookKey(book.sha256, book.byteSize)] ?: continue
+                    val file = storage.managedBookFile(row.managedRelativePath)
+                    if (!file.isFile || file.length() != book.byteSize) continue
+                    val entry = BackupAssetEntry(
+                        kind = BackupAssetKind.BOOK,
+                        path = BackupAssetRules.canonicalPath(BackupAssetKind.BOOK, book.sha256),
+                        sha256 = book.sha256,
+                        byteSize = book.byteSize,
+                        format = book.format,
+                    )
+                    entries.add(entry)
+                    files.add(entry to file)
                 }
-                if (options.includeFonts) {
-                    for (font in UserFontStore(app).list()) {
-                        request.ensureActive()
-                        val size = font.file.length()
-                        if (!font.file.isFile || size !in BackupAssetRules.MIN_FONT_BYTES..BackupAssetRules.MAX_FONT_BYTES) continue
-                        val entry = BackupAssetEntry(
-                            kind = BackupAssetKind.FONT,
-                            path = BackupAssetRules.canonicalPath(BackupAssetKind.FONT, font.id),
-                            sha256 = font.id,
-                            byteSize = size,
-                            label = font.label,
-                        )
-                        entries.add(entry)
-                        files.add(entry to font.file)
-                    }
-                }
-                val bundle = BackupBundleV2(snapshot, entries)
-                BackupAssetRules.validateBundle(bundle)
-                ExportPlan.V2(bundle, files)
             }
+            if (options.includeFonts) {
+                for (font in UserFontStore(app).list()) {
+                    request.ensureActive()
+                    val size = font.file.length()
+                    if (!font.file.isFile || size !in BackupAssetRules.MIN_FONT_BYTES..BackupAssetRules.MAX_FONT_BYTES) continue
+                    val entry = BackupAssetEntry(
+                        kind = BackupAssetKind.FONT,
+                        path = BackupAssetRules.canonicalPath(BackupAssetKind.FONT, font.id),
+                        sha256 = font.id,
+                        byteSize = size,
+                        label = font.label,
+                    )
+                    entries.add(entry)
+                    files.add(entry to font.file)
+                }
+            }
+            val bundle = BackupBundleV2(snapshot, entries)
+            BackupAssetRules.validateBundle(bundle)
+            ExportPlan.V2(bundle, files)
         }
 
     internal suspend fun writeExport(uri: Uri, plan: ExportPlan) {
