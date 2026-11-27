@@ -62,7 +62,7 @@ for report in reports.rglob('TEST-*.xml'):
     removed += 1
 print(f'Removed {removed} old generated connected-test XML reports')
 PY
-host_class=org.bookreader.mobile.reader.TxtReaderHostProcessTest,org.bookreader.mobile.reader.EpubReaderHostProcessTest,org.bookreader.mobile.reader.ComicReaderHostProcessTest,org.bookreader.mobile.library.LibraryBatchHostProcessTest
+host_class=org.bookreader.mobile.reader.TxtReaderHostProcessTest,org.bookreader.mobile.reader.EpubReaderHostProcessTest,org.bookreader.mobile.reader.ComicReaderHostProcessTest,org.bookreader.mobile.library.LibraryBatchHostProcessTest,org.bookreader.mobile.backup.BackupAssetHostProcessTest
 fixture_output=/sdcard/Android/media/org.bookreader.mobile/bookreader-fixture-evidence
 test_arguments=("-Pandroid.testInstrumentationRunnerArguments.notClass=$host_class")
 if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
@@ -201,6 +201,8 @@ for archive_format in epub comic; do
 done
 run_logged library-batch-host-tests python3 scripts/library-batch-process-check.py "$evidence_dir/library-batch-host-process"
 run_logged verified-library-batch-host-results python3 scripts/check-test-results.py android-host-library "$evidence_dir/library-batch-host-process"
+run_logged backup-asset-host-tests python3 scripts/backup-asset-process-check.py "$evidence_dir/backup-asset-host-process"
+run_logged verified-backup-asset-host-results python3 scripts/check-test-results.py android-host-backup "$evidence_dir/backup-asset-host-process"
 if [[ "${BOOKREADER_CAPTURE_FIXTURE_SCREENSHOTS:-false}" == true ]]; then
   run_logged fixture-screenshots adb pull "$fixture_output" "$evidence_dir/fixture-screenshots"
   run_logged verified-fixture-screenshots python3 - "$evidence_dir/fixture-screenshots" <<'PY'

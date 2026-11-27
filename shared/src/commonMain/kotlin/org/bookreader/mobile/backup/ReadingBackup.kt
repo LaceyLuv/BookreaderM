@@ -86,7 +86,7 @@ data class BackupTocEdit(
     val revision: String, val offset: Long, val version: Int, val title: String?, val excluded: Boolean, val changeId: String,
 )
 
-enum class BackupProblem { FORMAT, VERSION, INTEGRITY, LIMIT, CHANGED_LIBRARY, DOCUMENT_IO }
+enum class BackupProblem { FORMAT, VERSION, INTEGRITY, LIMIT, CHANGED_LIBRARY, DOCUMENT_IO, DISK_FULL }
 class BackupFailure(val problem: BackupProblem) : Exception(problem.name)
 
 object BackupRules {
