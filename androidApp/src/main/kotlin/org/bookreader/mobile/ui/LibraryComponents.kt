@@ -55,6 +55,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.bookreader.mobile.R
 import org.bookreader.mobile.library.*
 import org.bookreader.mobile.model.Book
@@ -84,9 +86,11 @@ private val LibraryFilter.label: String get() = if(this==LibraryFilter.ALL) "모
 internal fun BookCover(book: Book, details: BookDetails, modifier: Modifier = Modifier) {
     val store=BookCoverStore.get(LocalContext.current)
     val bitmap by produceState<android.graphics.Bitmap?>(null, book.coverKey) {
-        value=try { store.bitmap(book.coverKey) }
-        catch(cancelled:kotlinx.coroutines.CancellationException){throw cancelled}
-        catch(_:Exception){null}
+        withContext(Dispatchers.Main.immediate) {
+            value=try { store.bitmap(book.coverKey) }
+            catch(cancelled:kotlinx.coroutines.CancellationException){throw cancelled}
+            catch(_:Exception){null}
+        }
     }
     val palettes=listOf(Color(0xFF265C53),Color(0xFF283F57),Color(0xFF735533),Color(0xFF67485D),Color(0xFF3A5366),Color(0xFF46574C))
     val preset=details.coverPreset
@@ -356,7 +360,9 @@ internal fun LibraryBookCard(
     onOpen: (Book) -> Unit,
 ) {
     LaunchedEffect(book.id, book.coverKey) {
-        if (book.availability == BookAvailability.READY) actions.ensureArtwork(book)
+        withContext(Dispatchers.Main.immediate) {
+            if (book.availability == BookAvailability.READY) actions.ensureArtwork(book)
+        }
     }
     val details = catalog.details[book.id] ?: BookDetails()
     val shape = RoundedCornerShape(16.dp)

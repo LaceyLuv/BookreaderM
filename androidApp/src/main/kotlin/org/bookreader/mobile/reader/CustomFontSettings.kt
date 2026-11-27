@@ -63,7 +63,11 @@ fun CustomFontSettings(
     var message by remember { mutableStateOf<String?>(null) }
     var remove by remember { mutableStateOf<UserFont?>(null) }
     val current by rememberUpdatedState(settings)
-    LaunchedEffect(store) { fonts = withContext(Dispatchers.IO) { store.list() } }
+    LaunchedEffect(store) {
+        withContext(Dispatchers.Main.immediate) {
+            fonts = withContext(Dispatchers.IO) { store.list() }
+        }
+    }
     fun select(id: String?) {
         onChange(
             current.copy(
@@ -80,7 +84,7 @@ fun CustomFontSettings(
     }
     val picker = rememberLauncherForActivityResult(documentContract) { uri ->
         if (uri != null && !busy) {
-            scope.launch {
+            scope.launch(Dispatchers.Main.immediate) {
                 busy = true
                 onBusy(true)
                 message = null
@@ -301,7 +305,7 @@ fun CustomFontSettings(
                     modifier = Modifier.testTag("reader_font_confirm_remove"),
                     onClick = {
                         remove = null
-                        scope.launch {
+                        scope.launch(Dispatchers.Main.immediate) {
                             busy = true
                             onBusy(true)
                             try {

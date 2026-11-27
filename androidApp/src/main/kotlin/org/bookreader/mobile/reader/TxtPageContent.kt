@@ -57,13 +57,15 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     LaunchedEffect(key) { controller.beginReflow() }
     val generation = state.restoreGeneration
     val loaded by produceState<LoadedPage?>(null, engine, generation, state.targetOffset) {
-        val active = engine ?: return@produceState
-        try {
-            val page = if (state.targetOffset == state.cache.committedLength)
-                active.previous(state.targetOffset) else active.next(state.targetOffset)
-            withContext(Dispatchers.Main.immediate) { value = LoadedPage(active, generation, page) }
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { controller.contentReadFailed() }
+        withContext(Dispatchers.Main.immediate) {
+            val active = engine ?: return@withContext
+            try {
+                val page = if (state.targetOffset == state.cache.committedLength)
+                    active.previous(state.targetOffset) else active.next(state.targetOffset)
+                value = LoadedPage(active, generation, page)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { controller.contentReadFailed() }
+        }
     }
     val visible = loaded?.takeIf { it.engine === engine }
     val page = visible?.page
@@ -78,21 +80,21 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     val canNext = state.phase == TxtReaderPhase.READY && page != null && page.range.end < state.cache.committedLength
     SideEffect { onAvailability(canPrevious, canNext) }
     LaunchedEffect(step.id) {
-        if (step.id == 0L || state.phase != TxtReaderPhase.READY) return@LaunchedEffect
-        val displayed = page ?: return@LaunchedEffect
-        try {
-            val target = if (step.direction < 0 && displayed.range.start > 0)
-                engine?.previous(displayed.range.start)?.range?.start
-            else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) displayed.range.end else null
-            if (target != null && controller.state.value.restoreGeneration == generation) {
-                withContext(Dispatchers.Main.immediate) {
+        withContext(Dispatchers.Main.immediate) {
+            if (step.id == 0L || state.phase != TxtReaderPhase.READY) return@withContext
+            val displayed = page ?: return@withContext
+            try {
+                val target = if (step.direction < 0 && displayed.range.start > 0)
+                    engine?.previous(displayed.range.start)?.range?.start
+                else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) displayed.range.end else null
+                if (target != null && controller.state.value.restoreGeneration == generation) {
                     turnDirection = if (step.direction < 0) -1 else 1
                     turnGeneration = generation + 1
+                    controller.navigateTo(target)
                 }
-                controller.navigateTo(target)
-            }
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { controller.contentReadFailed() }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { controller.contentReadFailed() }
+        }
     }
     Column(modifier) {
         Box(Modifier.weight(1f).fillMaxWidth().testTag("reader_page_viewport").onSizeChanged { size = it }) {

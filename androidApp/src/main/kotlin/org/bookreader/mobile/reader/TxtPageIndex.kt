@@ -91,25 +91,27 @@ fun txtPageLabel(controller: TxtReaderController, state: TxtReaderState, style: 
     val countMutex = remember(controller) { Mutex() }
     val result by produceState<Pair<TxtPageIndex?, Boolean>>(null to false, controller,
         listOf(length, style, viewport, density, direction, font)) {
-        withContext(Dispatchers.Main.immediate) { value = null to false }
-        if (length == 0L || viewport.width <= 0 || viewport.height <= 0) return@produceState
-        try {
-            // Serialize per controller so rapid typography changes cancel cleanly instead of
-            // stacking overlapping background measurers, and reuse one bounded sequential window.
-            val index = countMutex.withLock {
-                currentCoroutineContext().ensureActive()
-                withContext(Dispatchers.Default) {
-                    val measurer = TextMeasurer(resolver, density, direction, cacheSize = 0)
-                    val reader = BoundedTxtWindowReader(length, controller::range)
-                    val engine = TxtPageEngine(length, viewport.height, reader::read) { text ->
-                        measurer.measure(AnnotatedString(text), style, constraints = Constraints(maxWidth = viewport.width))
+        withContext(Dispatchers.Main.immediate) {
+            value = null to false
+            if (length == 0L || viewport.width <= 0 || viewport.height <= 0) return@withContext
+            try {
+                // Serialize per controller so rapid typography changes cancel cleanly instead of
+                // stacking overlapping background measurers, and reuse one bounded sequential window.
+                val index = countMutex.withLock {
+                    currentCoroutineContext().ensureActive()
+                    withContext(Dispatchers.Default) {
+                        val measurer = TextMeasurer(resolver, density, direction, cacheSize = 0)
+                        val reader = BoundedTxtWindowReader(length, controller::range)
+                        val engine = TxtPageEngine(length, viewport.height, reader::read) { text ->
+                            measurer.measure(AnnotatedString(text), style, constraints = Constraints(maxWidth = viewport.width))
+                        }
+                        TxtPageIndex.build(length) { engine.nextRange(it).end }
                     }
-                    TxtPageIndex.build(length) { engine.nextRange(it).end }
                 }
-            }
-            withContext(Dispatchers.Main.immediate) { value = index to false }
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { withContext(Dispatchers.Main.immediate) { value = null to true } }
+                value = index to false
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { value = null to true }
+        }
     }
     val index = result.first
     return when {

@@ -128,7 +128,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         // A retained controller returning to a newly measured screen restores its canonical anchor.
         if (controller.state.value.phase == TxtReaderPhase.READY) controller.beginReflow()
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP) scope.launch { controller.flush() }
+            if (event == Lifecycle.Event.ON_STOP) scope.launch(Dispatchers.Main.immediate) { controller.flush() }
         }
         lifecycle.addObserver(observer)
         onDispose { lifecycle.removeObserver(observer) }
@@ -223,12 +223,13 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                         }) {
                     items(count = state.cache.fragments.size, key = { it }) { index ->
                         val text by produceState<String?>(null, controller, index, state.restoreGeneration) {
-                            try {
-                                val loaded = controller.fragment(index)
-                                withContext(Dispatchers.Main.immediate) { value = loaded }
+                            withContext(Dispatchers.Main.immediate) {
+                                try {
+                                    value = controller.fragment(index)
+                                }
+                                catch (cancelled: CancellationException) { throw cancelled }
+                                catch (_: Exception) { controller.contentReadFailed() }
                             }
-                            catch (cancelled: CancellationException) { throw cancelled }
-                            catch (_: Exception) { controller.contentReadFailed() }
                         }
                         if (text == null) {
                             // A zero-height unloaded item lets LazyColumn collapse a far seek back

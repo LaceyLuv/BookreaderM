@@ -60,24 +60,26 @@ fun OpenSourceNotices() {
     if (open) {
         val context = LocalContext.current.applicationContext
         val text by produceState<String?>(null, context) {
-            value = try {
-                withContext(Dispatchers.IO) {
-                    context.assets.open("third-party-notices.txt").bufferedReader().use { reader ->
-                        val bounded = CharArray(128 * 1024)
-                        var count = 0
-                        while (count < bounded.size) {
-                            val read = reader.read(bounded, count, bounded.size - count)
-                            if (read == -1) break
-                            count += read
+            withContext(Dispatchers.Main.immediate) {
+                value = try {
+                    withContext(Dispatchers.IO) {
+                        context.assets.open("third-party-notices.txt").bufferedReader().use { reader ->
+                            val bounded = CharArray(128 * 1024)
+                            var count = 0
+                            while (count < bounded.size) {
+                                val read = reader.read(bounded, count, bounded.size - count)
+                                if (read == -1) break
+                                count += read
+                            }
+                            check(reader.read() == -1)
+                            String(bounded, 0, count)
                         }
-                        check(reader.read() == -1)
-                        String(bounded, 0, count)
                     }
+                } catch (cancelled: CancellationException) {
+                    throw cancelled
+                } catch (_: Exception) {
+                    "라이선스 안내를 읽지 못했습니다. 다시 열어 주세요."
                 }
-            } catch (cancelled: CancellationException) {
-                throw cancelled
-            } catch (_: Exception) {
-                "라이선스 안내를 읽지 못했습니다. 다시 열어 주세요."
             }
         }
         AlertDialog(

@@ -219,7 +219,9 @@ fun BookReaderScreen(
         .filter { it.format == BookFormat.EPUB && it.availability == BookAvailability.READY }
     // Process offscreen EPUB metadata before the user encounters it in search.
     LaunchedEffect(metadataBooks.map { it.id to it.sourceSha256 }) {
-        metadataBooks.forEach { libraryActions.ensureArtwork(it) }
+        withContext(Dispatchers.Main.immediate) {
+            metadataBooks.forEach { libraryActions.ensureArtwork(it) }
+        }
     }
     MaterialTheme(colorScheme = if (dark) BookReaderDarkColorScheme else BookReaderLightColorScheme) {
         Scaffold(

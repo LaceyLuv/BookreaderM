@@ -56,7 +56,9 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
     val pageLabel = state.manifest?.let { "${state.index + 1} / ${it.entryKeys.size} 쪽" } ?: "쪽수 계산 중"
     BackHandler { when { settings -> settings = false; bookmarks -> bookmarks = false; menu -> menu = false; controlsVisible -> controlsVisible = false; else -> onClose() } }
     DisposableEffect(controller, lifecycle) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) scope.launch { controller.progress.flush() } }
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) scope.launch(Dispatchers.Main.immediate) { controller.progress.flush() }
+        }
         lifecycle.addObserver(observer)
         onDispose { lifecycle.removeObserver(observer) }
     }
@@ -164,7 +166,7 @@ private fun ComicContinuous(controller: ComicReaderController, manifest: ComicMa
         itemsIndexed(manifest.entryKeys, key = { _, key -> key }) { index, entry ->
             ComicPage(controller, entry, viewport, true, exploration, onReady = {}, onMenu = onMenu,
                 zoomRequest = if (index == state.index) zoomRequest else 0, onZoomConsumed = onZoomConsumed, onPageTap = { fraction ->
-                    if (fraction < .25f || fraction > .75f) scope.launch {
+                    if (fraction < .25f || fraction > .75f) scope.launch(Dispatchers.Main.immediate) {
                         requestedScroll = true
                         val distance = viewport.height * .9f * if (fraction < .25f) -1 else 1
                         if (state.settings.pageTransition == PageTransition.NONE) list.scrollBy(distance) else list.animateScrollBy(distance)
@@ -190,21 +192,23 @@ private fun ComicSinglePage(controller: ComicReaderController, viewport: IntSize
     val leases = remember(controller) { mutableSetOf<ComicImage>() }
     DisposableEffect(controller) { onDispose { leases.forEach { it.close() }; leases.clear() } }
     LaunchedEffect(entry, viewport, state.hostVersion, attempt) {
-        val generation = controller.progress.state.value.generation
-        var decoded: ComicImage? = null
-        try {
-            failed = false
-            decoded = controller.decode(entry, viewport.width, viewport.height)
-            ensureActive()
-            val old = displayed
-            direction = (if (old != null && old.index > state.index) -1 else 1) *
-                (if (state.settings.comicDirection == ComicDirection.RTL) -1 else 1)
-            leases.add(decoded)
-            displayed = ComicFrame(decoded, state.index, generation)
-            decoded = null // The composition/transition now owns this lease.
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { failed = true }
-        finally { decoded?.close() }
+        withContext(Dispatchers.Main.immediate) {
+            val generation = controller.progress.state.value.generation
+            var decoded: ComicImage? = null
+            try {
+                failed = false
+                decoded = controller.decode(entry, viewport.width, viewport.height)
+                ensureActive()
+                val old = displayed
+                direction = (if (old != null && old.index > state.index) -1 else 1) *
+                    (if (state.settings.comicDirection == ComicDirection.RTL) -1 else 1)
+                leases.add(decoded)
+                displayed = ComicFrame(decoded, state.index, generation)
+                decoded = null // The composition/transition now owns this lease.
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { failed = true }
+            finally { decoded?.close() }
+        }
     }
     Box(Modifier.fillMaxSize().testTag("comic_page")) {
         displayed?.let { target ->
@@ -256,16 +260,18 @@ private fun ComicPage(controller: ComicReaderController, entry: String, viewport
     DisposableEffect(leases) { onDispose { leases.forEach { it.close() }; leases.clear() } }
     DisposableEffect(entry) { onDispose { onRelease() } }
     LaunchedEffect(controller, entry, viewport, attempt) {
-        var owned: ComicImage? = null
-        try {
-            failed = false
-            owned = controller.decode(entry, viewport.width, viewport.height)
-            leases.add(owned)
-            image = owned
-            awaitCancellation()
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { failed = true }
-        finally { image = null }
+        withContext(Dispatchers.Main.immediate) {
+            var owned: ComicImage? = null
+            try {
+                failed = false
+                owned = controller.decode(entry, viewport.width, viewport.height)
+                leases.add(owned)
+                image = owned
+                awaitCancellation()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { failed = true }
+            finally { image = null }
+        }
     }
     val current = image
     var enlarged by remember(entry) { mutableStateOf(false) }

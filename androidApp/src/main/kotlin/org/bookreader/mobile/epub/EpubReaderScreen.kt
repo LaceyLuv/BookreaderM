@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.bookreader.mobile.R
 import org.bookreader.mobile.reader.*
@@ -50,7 +51,9 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
             bookmarks -> bookmarks = false; toc -> toc = false; menu -> menu = false; controlsVisible -> controlsVisible = false; else -> onClose() }
     }
     DisposableEffect(controller, lifecycle) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) scope.launch { controller.progress.flush() } }
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) scope.launch(Dispatchers.Main.immediate) { controller.progress.flush() }
+        }
         lifecycle.addObserver(observer)
         onDispose { lifecycle.removeObserver(observer); controller.cancelSearch() }
     }
