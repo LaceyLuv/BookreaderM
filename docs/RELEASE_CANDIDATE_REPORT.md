@@ -1,10 +1,10 @@
 # 출시 후보 감사 — 진행 중, 2026-10-17
 
-## 2026-11-26 최신 — 0.8.0-dev 통합 후보 상태 (출시 판정: BLOCKED 유지)
+## 2026-11-27 최신 — 0.8.0-dev 통합 후보 상태 (출시 판정: BLOCKED 유지)
 
-- `0.8.0-dev`(versionCode 11, Room 9, 14 테이블) 기준 검증 코드 `cdc72c70085ff07b2bb67a0d8e2a21a95d4db762`에서
-  원격 빌드 222건(Push `45807324674` · PR `45807333634`)과 API 26·34·36 기기 테스트(native 79 + host 7, Push `45807324504` · PR `45807333542`)가 1차 시도 통과(metadata)했다.
-- [PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5)(UI 통합) 및 [PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6)(Issue #2 TXT 쪽수 타임아웃·`SnapshotStateObserver`·`TxtReaderToc` 경합 수정)을 반영해 `main` 통합 PR(`gemini/integrate-080-to-main`)을 준비했다.
+- `0.8.0-dev`(versionCode 11, Room 9, 14 테이블) 기준 검증 코드 `e8aa3c497785d7959845ee06ae0530016dddcb96`에서
+  원격 빌드 222/222(PR `46005087945` · Push `46005073120`)과 API 26·34·36 기기 테스트(connected 79/79 + host 7/7, PR `46005087973` 1차 시도 3/3 · Push `46005073162` 3/3)의 원본 XML·SHA-256·강제 종료 PID 교체를 직접 대조해 통과했다.
+- [PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5)(UI 통합), [PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6)(Issue #2 TXT 쪽수 타임아웃·`SnapshotStateObserver`·`TxtReaderToc` 경합 수정), [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(Compose IO 복귀 메인 스레드 고정 및 `main` 통합)이 준비 완료됐다.
 - **출시 판정은 `BLOCKED`를 유지한다.** 실기기 성능·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·최신 0.8.0-dev 서명 APK/AAB 재생성 및 정적 감사·공개 배포 승인은 `NOT_RUN`이며, 마지막 전달 APK는 이전 `05ffd50`이다.
 - 상세 근거와 미실행 항목은 [작업 기록](WORKLOG.md), [QA 매트릭스](QA_MATRIX.md), [보안 검토](SECURITY.md)를 따른다. 아래 절은 이전 시점 이력이다.
 

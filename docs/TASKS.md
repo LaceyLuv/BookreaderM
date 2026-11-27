@@ -1,15 +1,16 @@
-## 2026-11-26 최신 — 0.8.0-dev 통합 준비 및 Issue #2 해결
+## 2026-11-27 최신 — 0.8.0-dev `main` 통합 준비 및 Issue #2·Compose 스레드 경합 해결
 
 - `main`(`cbe4e405`)의 협업 문서·템플릿([PR #4](https://github.com/LaceyLuv/BookreaderM/pull/4), Issue #1 완료)과
   `codex/backup-080`(`e60d931f`)의 `0.5.1`→`0.8.0-dev`(versionCode 11, Room 9, 14 테이블)·UI 통합([PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5))·Issue #2 수정([PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6))을
-  `main` 통합 PR(`gemini/integrate-080-to-main`)로 정렬했다.
-- [PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6)에서 API 34 TXT 전체 쪽수 계산 30초 타임아웃(Issue #2),
-  기존 Compose 1.9.3 `SnapshotStateObserver` 테스트 스레드 경합(`dc06d3e`/`ec788cd` 동일 패턴),
-  `TxtReaderToc` 저장 직후 `ready=true` 조기 유지 경합을 함께 수정했다.
-- 검증된 코드 `cdc72c70085ff07b2bb67a0d8e2a21a95d4db762`에서 원격 빌드 222건(Android unit 84 / shared JVM 118 / EPUB unit 17 / ENOSPC 3 + compile·lint·Room 9)과
-  API 26·34·36 기기 테스트(Push·PR 각 3/3 job, native 79건 + host 7단계)가 1차 시도 통과(metadata 기준)했으며,
-  직전 `fe6c493c` 4개 실행의 XML/PID 원본 대조까지 기록했다([작업 기록](WORKLOG.md)).
-- 다음 단위는 사용자의 `main` 수동 병합 후 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2: 책·사용자 글꼴 원본 선택 백업, v1 읽기 호환, 중단/ENOSPC 재개 커밋)이다.
+  [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`gemini/integrate-080-to-main`, `Closes #2`)로 통합했다.
+- PR #7의 `d3612875` API 36 실행(`139880170365`, 아티팩트 `15114459850`)에서 확인된
+  `CustomFontSettings` IO 복귀 후 비메인 스레드 레이아웃 예외(`CalledFromWrongThreadException`)까지 수정해
+  9개 UI 파일의 IO/Default 복귀 Compose 코루틴을 `Dispatchers.Main.immediate`로 고정했다(`e8aa3c497785d7959845ee06ae0530016dddcb96`).
+- 검증된 코드 `e8aa3c497785d7959845ee06ae0530016dddcb96`의 원격 빌드 222건(PR `46005087945` · Push `46005073120`)과
+  API 26·34·36 기기 테스트(PR `46005087973` 1차 시도 3/3 · Push `46005073162` 3/3)의 원본 ZIP SHA-256,
+  연결 XML 79/79, host XML 7/7 및 4개 항목 `absent`→PID 교체를 직접 대조 완료했다([작업 기록](WORKLOG.md)).
+- 다음 단위는 사용자의 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7) `main` 수동 병합(`Closes #2`) 후
+  새 `main` SHA 기준으로 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2: 책·사용자 글꼴 원본 선택 백업, v1 읽기 호환, 중단/ENOSPC 재개 커밋) 착수다.
 - 실기기 성능·TalkBack·16KB OS·서명/공개 배포 검증은 `NOT_RUN`이며 전체 출시 판정은 `BLOCKED`를 유지한다.
 
 ## 2026-11-21 Phase 4 독서 기록 백업·복원

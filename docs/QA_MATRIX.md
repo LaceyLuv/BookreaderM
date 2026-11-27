@@ -1,12 +1,12 @@
 # Android 검증 매트릭스 — 2026-10-17
 
-## 2026-11-26 최신 — 0.8.0-dev(Room 9) + UI 통합(PR #5) + Issue #2(PR #6)
+## 2026-11-27 최신 — 0.8.0-dev(Room 9) + UI 통합(PR #5) + Issue #2(PR #6) + Compose 스레드 고정(PR #7)
 
 - [작업 기록](WORKLOG.md)과 [최신 인계](SESSION_HANDOFF.md)를 우선한다.
-- `0.8.0-dev`(versionCode 11, Room 9, 14 테이블) 기준 검증 코드 `cdc72c70085ff07b2bb67a0d8e2a21a95d4db762`:
-  - 원격 빌드·단위·ENOSPC(`BookReader Mobile Checks`): **222건** (`android-unit` 84, `shared-jvm` 118, `epub-unit` 17, `shared-enospc` 3 + compile·lint·Room 9) — Push `45807324674` · PR `45807333634` **PASS** (metadata).
-  - 원격 기기 매트릭스(`BookReader Mobile Device Tests`): API 26·34·36 각각 **native 79건 + host 7단계** — Push `45807324504` · PR `45807333542` 1차 시도 6/6 **PASS** (metadata); 직전 `fe6c493c` PR 26·34·36 + Push 34의 XML 79/79 + host 7/7(`absent`→PID 교체) 원본 대조 완료.
-  - 기존 미확정이던 API 34 TXT 전체 쪽수 30초 타임아웃(Issue #2), Compose 1.9.3 `SnapshotStateObserver` 테스트 스레드 경합, `TxtReaderToc` 저장 직후 `ready` 경합의 근본 원인을 규명·수정하고 회귀 테스트 4건을 추가했다.
+- `0.8.0-dev`(versionCode 11, Room 9, 14 테이블) 기준 검증 코드 `e8aa3c497785d7959845ee06ae0530016dddcb96`:
+  - 원격 빌드·단위·ENOSPC(`BookReader Mobile Checks`): 원본 XML **222/222 PASS** (`androidApp` 84, `shared` 118, `epubAndroid` 17, `enospc` 3 + compile·lint·Room 9) — PR `46005087945`(`15201536527`) 1차 시도 PASS · Push `46005073120`(KSP `BLOCKED_ENV` 후 재실행 `15201921818`) PASS.
+  - 원격 기기 매트릭스(`BookReader Mobile Device Tests`): API 26·34·36 각각 원본 XML **connected 79/79 + host 7/7 PASS**(4개 항목 `absent`→PID 교체 직접 확인, 실패·오류·건너뜀 0) — PR `46005087973` 1차 시도 3/3 PASS · Push `46005073162` 3/3 PASS(API 26 1차 시도 KSP `BLOCKED_ENV` 보존 후 재실행 PASS).
+  - 기존 미확정이던 API 34 TXT 전체 쪽수 30초 타임아웃(Issue #2), Compose 1.9.3 `SnapshotStateObserver` 테스트 스레드 경합, `TxtReaderToc` 저장 직후 `ready` 경합, `CustomFontSettings` 등 IO/Default 복귀 `CalledFromWrongThreadException`의 근본 원인을 모두 규명·수정하고 회귀 테스트 4건을 추가했다.
 - 실기기 성능·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·독립 보안/성능 리뷰·서명/공개 출시 게이트는 여전히 `NOT_RUN`/`BLOCKED`다. 아래 절은 이전 시점 이력이다.
 
 ## 2026-10-24 제품 완성도 개선

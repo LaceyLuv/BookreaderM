@@ -1,17 +1,15 @@
-## 2026-11-26 0.8.0-dev 통합 준비 및 Issue #2 해결 인계
+## 2026-11-27 PR #7 `main` 통합 인계 — `e8aa3c49` 원본 XML·PID 대조 완료
 
-- **현재 상태**: `codex/backup-080`(`e60d931f5b92c6345a371a6b63ea21ac86f06f69`)에 UI 통합 검증([PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5))과
-  Issue #2·연계 경합 수정([PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6))이 병합 완료됐고,
-  `main`(`cbe4e405`)의 협업 문서([PR #4](https://github.com/LaceyLuv/BookreaderM/pull/4))를 반영한 `main` 통합 PR(`gemini/integrate-080-to-main`)을 준비했다.
-- **검증된 코드 SHA**: `cdc72c70085ff07b2bb67a0d8e2a21a95d4db762` (`0.8.0-dev`/versionCode 11/Room 9, 14 테이블).
-  - 원격 `BookReader Mobile Checks`(222건: Android unit 84 / shared JVM 118 / EPUB unit 17 / ENOSPC 3 + compile·lint·Room 9): Push `45807324674` · PR `45807333634` **PASS** (metadata).
-  - 원격 `BookReader Mobile Device Tests`(API 26·34·36, native 79 + host 7): Push `45807324504` · PR `45807333542` 1차 시도 6/6 **PASS** (metadata).
-  - 직전 `fe6c493c` PR 26·34·36 + Push 34 XML/PID 원본 대조(79/79 + 7/7, 4개 항목 `absent`→PID 교체, `pagesNavigate...` 19.778s–22.1s) 및 중간 실패 2건(`82b6ab07` API 34 `139160872451`, `fe6c493c` API 36 `139848741452`) 원본 기록을 [작업 기록](WORKLOG.md)에 보존했다.
+- **현재 상태**: `codex/backup-080`(`e60d931f`)의 UI 통합([PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5))·Issue #2 해결([PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6))과 `main`(`cbe4e405`, [PR #4](https://github.com/LaceyLuv/BookreaderM/pull/4))을 통합한 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`gemini/integrate-080-to-main`, `Closes #2`)에서, `d3612875` API 36 실패(`139880170365`, `CustomFontSettings` IO 복귀 `CalledFromWrongThreadException`)까지 수정해 전체 원격 CI 통과 및 원본 XML·PID 직접 대조를 완료했다.
+- **검증된 코드 SHA**: `e8aa3c497785d7959845ee06ae0530016dddcb96` (`0.8.0-dev`/versionCode 11/Room 9, 14 테이블).
+  - 원격 `BookReader Mobile Checks`(원본 XML 222/222: `androidApp` 84 / `shared` 118 / `epubAndroid` 17 / `enospc` 3 + compile·lint·Room 9): PR `46005087945` (`15201536527`) 1차 시도 **PASS** · Push `46005073120` (1차 시도 KSP `BLOCKED_ENV` 보존 후 재실행 `140527309238` / `15201921818`) **PASS**.
+  - 원격 `BookReader Mobile Device Tests`(API 26·34·36, 원본 XML connected 79/79 + host 7/7, 4개 항목 `absent`→PID 교체 직접 확인): PR `46005087973` 1차 시도 3/3 **PASS**(`15200828210`·`15200998757`·`15201068772`) · Push `46005073162` 3/3 **PASS**(API 34 `15202592009`·API 36 `15202138802` 1차 시도 PASS, API 26 1차 시도 KSP `BLOCKED_ENV` `15200606943` 보존 후 재실행 `15203126737` PASS).
+  - 상세 SHA-256, PID 교체 수치, 핵심 소요 시간 및 보존된 중간 실패(`82b6ab07`, `fe6c493c`, `d3612875`) 원본 기록은 [작업 기록](WORKLOG.md)에 있다.
 - **보존 및 미실행 범위**: Room 9 14개 테이블 정의, 사용자 책·진행도·서명키·`05ffd50` 기준 산출물을 변경하지 않았다.
-  로컬 JDK 17 미설치(`doctor.sh` exit 78) 및 Actions 아티팩트 ZIP 다운로드(`results-receiver.actions.githubusercontent.com`)는 Antigravity VM 기준 `BLOCKED_ENV`,
+  본 VM의 Actions 아티팩트 다운로드·원본 대조는 정상 동작(`PASS`)하며, 로컬 JDK 17 미설치(`doctor.sh` exit 78)는 `BLOCKED_ENV`,
   실기기 성능·TalkBack·16KB OS·서명/출시 게이트는 `NOT_RUN`이다.
 - **다음 작업**:
-  1. 사용자가 `main` 통합 PR의 원격 CI 통과를 확인한 뒤 수동 병합(`Closes #2`).
+  1. 사용자가 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)을 `main`에 수동 병합(`Closes #2`).
   2. `main` 반영 완료 후 확인한 전체 `main` SHA를 기준으로 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2: 책·글꼴 원본 선택 백업 + v1 호환 + 중단/ENOSPC 재개 커밋)을 착수한다.
 
 ## 2026-11-21 독서 기록 백업·복원 구현과 자동 검증 완료

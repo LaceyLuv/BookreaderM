@@ -1,3 +1,50 @@
+## 2026-11-27 PR #7 `main` 통합 검증 — Compose IO 복귀 메인 스레드 고정 및 원본 XML·PID 직접 대조
+
+`main`(`cbe4e405`)과 `codex/backup-080`(`e60d931f`, PR #5·PR #6 병합)을 통합한
+[PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`gemini/integrate-080-to-main`, `Closes #2`)에서
+문서 동기화 커밋 `d361287525f23fd7483a1b66961536c56bdd69ab`의 원격 CI를 실행한 결과,
+PR API 36에서 비메인 스레드 레이아웃 예외 1건이 드러나 근본 원인을 수정하고
+최종 코드 `e8aa3c497785d7959845ee06ae0530016dddcb96`(`0.8.0-dev`/versionCode 11/Room 9, 14 테이블)의
+전체 원격 빌드·기기 아티팩트 원본 XML·SHA-256·강제 종료 PID 교체를 직접 대조해 검증했다.
+
+### 보존된 실패 및 환경 차단 이력
+
+- **`FAIL` (보존) — `d3612875` PR Device `45811479838` API 36 (`139880170365`, 아티팩트 `15114459850`):**
+  - `TxtReaderFlowTest.customFontPickerRejectsInvalidFilesAndPersistsWeightWithoutMovingAnchor` (31.639s, connected 79건 중 1 FAIL·0 ERROR·0 SKIP, host `NOT_RUN`).
+  - 직접 추출한 XML·logcat 스택: `android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views. Expected: main Calling: DefaultDispatcher-worker-3` (`DispatchedCoroutine.afterResume` → `ApplyingContinuationInterceptor$SendApplyContinuation.resumeWith` → `Snapshot.sendApplyNotifications()` → `TestMonotonicFrameClock.performFrame` → `ViewRootImpl.requestLayout`).
+  - 같은 커밋의 Push Checks(`45811393261`), PR Checks(`45811479860`), Push EPUB API 26 Diagnostic(`45811393350`), Push Device(`45811393242` API 26·34·36 3/3), PR Device API 26(`139880170733`)·API 34(`139880170714`)는 PASS였다.
+- **`BLOCKED_ENV` (보존) — `e8aa3c49` 1차 시도 업스트림 KSP 플러그인 조회 실패 (`com.google.devtools.ksp:2.2.20-2.0.3`):**
+  - Push Checks `46005073120` 1차 시도(`140526077812`, 아티팩트 `15202235258`, 21,140 bytes): `./gradlew projects` 단계에서 컴파일 이전 실패(exit 1).
+  - Push Device `46005073162` API 26 1차 시도(`140526077911`, 아티팩트 `15200606943`, 3,520 bytes): `android-tasks` 단계에서 테스트 시작 이전 실패(exit 1).
+
+### 근본 원인 및 수정 (`e8aa3c497785d7959845ee06ae0530016dddcb96`)
+
+Compose UI 테스트(1.9.3)에서 `rememberCoroutineScope().launch`·`LaunchedEffect`·`produceState` 코루틴이 `Dispatchers.IO`/`Dispatchers.Default`에서 중단됐다가 복귀할 때, 호출자의 `ContinuationInterceptor`가 메인 스레드 디스패처가 아닌 `ApplyingContinuationInterceptor`이면 워커 스레드(`DefaultDispatcher-worker-N`)에서 Compose 상태 쓰기와 `Snapshot.sendApplyNotifications()`가 실행돼 `ViewRootImpl.requestLayout()`이 비메인 스레드 예외를 일으킨다.
+
+- `CustomFontSettings.kt`: 초기 목록 `LaunchedEffect(store)`를 `withContext(Dispatchers.Main.immediate)`로 감싸고, 글꼴 가져오기(`picker`)와 삭제 확인(`reader_font_confirm_remove`)의 `scope.launch`를 `scope.launch(Dispatchers.Main.immediate)`로 고정.
+- 동일 패턴의 IO/Default 복귀 지점 8개 파일 일괄 고정: `TxtPageIndex.kt`(`txtPageLabel` `produceState`), `TxtPageContent.kt`(`produceState`·`LaunchedEffect(step.id)`), `TxtReaderScreen.kt`(`ON_STOP` flush·fragment `produceState`), `ComicReaderScreen.kt`(`ON_STOP` flush·탭 스크롤·`ComicSinglePage`/`ComicPage` 디코드 `LaunchedEffect`), `EpubReaderScreen.kt`(`ON_STOP` flush), `LibraryComponents.kt`(`BookCover` `produceState`·`ensureArtwork` `LaunchedEffect`), `BookReaderApp.kt`(오프스크린 EPUB 메타데이터 `LaunchedEffect`), `OpenSourceNotices.kt`(`produceState`).
+- 기존 테스트·timeout·assertion·Room 9 14개 테이블 스키마·서명키·사용자 데이터 계약 변경 없음.
+
+### 직접 대조한 최종 검증 결과 (`e8aa3c497785d7959845ee06ae0530016dddcb96`)
+
+본 VM에서 `gh api repos/LaceyLuv/BookreaderM/actions/artifacts/<id>/zip`으로 8개 통과 아티팩트를 직접 내려받아 ZIP SHA-256, JUnit XML 건수, 강제 종료 `absent` → 새 PID 교체 로그를 모두 검증했다.
+
+- **`BookReader Mobile Checks` (원본 XML 222/222 PASS: `androidApp` 84 / `shared` 118 / `epubAndroid` 17 / `enospc` 3, fail=0, error=0, skip=0 + compile·lint·Room 9):**
+  - PR `46005087945` (1차 시도 PASS, 아티팩트 `15201536527`, `26,876,161` bytes, `sha256:feb260ed366342d7a9a417b91681b32220ed8197765ae55a7f9351477103edfa`)
+  - Push `46005073120` (KSP 차단 후 재실행 `140527309238` PASS, 아티팩트 `15201921818`, `26,876,306` bytes, `sha256:2e1596c6fbc384db2c95b3c50ce5a7ac554d7a6624679a7ee1e81f3802a977c0`)
+- **`BookReader Mobile Device Tests` PR `46005087973` (병합 커밋 `47e80e649e59bb313dba93c137d136d9e0a3d3a9`, 1차 시도 3/3 PASS):**
+  - API 26 (`140526130814`, 아티팩트 `15200828210`, `sha256:7a9f0acf5fb6821ce47cc6d24f1e80a09066114383a46443c56dd62c6408abe5`): connected **79/79 PASS**, host **7/7 PASS** (TXT `6950→absent→6992`, EPUB `7186→absent→7228`, Comic `7409→absent→7451`, Batch `7553→absent→7613`), `pagesNavigate` `18.335s`, `customFontPicker` `7.774s`, `alternatingBooks` `25.021s`, `txtTocEdits` `6.432s`.
+  - API 34 (`140526131037`, 아티팩트 `15200998757`, `sha256:b2e6c83892c3be4d193744905877d8d9793ec8cf336ad804662c3c7652732f02`): connected **79/79 PASS**, host **7/7 PASS** (TXT `8452→absent→8503`, EPUB `8762→absent→8813`, Comic `9048→absent→9101`, Batch `9217→absent→9300`), `pagesNavigate` `22.361s`, `customFontPicker` `12.905s`, `alternatingBooks` `25.957s`, `txtTocEdits` `9.036s`.
+  - API 36 (`140526130532`, 아티팩트 `15201068772`, `sha256:5160c76f5adae8f1088a7152a13eaaacaf286be5025a5c0cc9e1721ae3f66458`): connected **79/79 PASS**, host **7/7 PASS** (TXT `7065→absent→7115`, EPUB `7329→absent→7375`, Comic `7576→absent→7624`, Batch `7726→absent→7803`), `pagesNavigate` `22.433s`, `customFontPicker` `11.869s`, `alternatingBooks` `26.017s`, `txtTocEdits` `8.934s`.
+- **`BookReader Mobile Device Tests` Push `46005073162` (`e8aa3c497785d7959845ee06ae0530016dddcb96`, API 34·36 1차 시도 PASS, API 26 KSP 차단 후 재실행 PASS):**
+  - API 26 (`140536029028`, 아티팩트 `15203126737`, `sha256:6a347a7e955957e6a258c7737ce3abceab62d91a6a80b696700f7ca1cbde9d2a`): connected **79/79 PASS**, host **7/7 PASS** (TXT `7384→absent→7432`, EPUB `7643→absent→7689`, Comic `7888→absent→7938`, Batch `8034→absent→8101`), `pagesNavigate` `19.807s`, `customFontPicker` `8.963s`.
+  - API 34 (`140536031242`, 아티팩트 `15202592009`, `sha256:4d04dc5017c27da5fcc37e63989234a2ff13468b84881148f5cdaf29689a79af`): connected **79/79 PASS**, host **7/7 PASS** (TXT `8327→absent→8378`, EPUB `8625→absent→8674`, Comic `8908→absent→8959`, Batch `9074→absent→9158`), `pagesNavigate` `22.246s`, `customFontPicker` `12.929s`.
+  - API 36 (`140536082385`, 아티팩트 `15202138802`, `sha256:72b3c51acf27b1526bfd12965fe938c5a4d6bf55aca15a4b89d3d62697ce0eb0`): connected **79/79 PASS**, host **7/7 PASS** (TXT `7187→absent→7236`, EPUB `7451→absent→7497`, Comic `7697→absent→7744`, Batch `7846→absent→7923`), `pagesNavigate` `23.79s`, `customFontPicker` `13.388s`.
+- **미실행 / 환경 차단:**
+  - `git diff --check`: `PASS` (exit 0).
+  - 본 VM 로컬 `./scripts/doctor.sh`: `BLOCKED_ENV` (exit 78, JDK 17 미설치). 로컬 `./scripts/ci-check.sh`·`./scripts/device-check.sh`: `NOT_RUN`.
+  - 실기기 성능·TalkBack·16KB OS·서명/출시 게이트: `NOT_RUN` (출시 판정 `BLOCKED` 유지).
+
 ## 2026-11-26 Issue #2 — API 34 TXT 전체 쪽수 계산 타임아웃 및 연계 경합 수정
 
 기준 `codex/backup-080` (`2855ca86697a03bb4fd2bed4c7ed13a38b7b2662`, PR #5 반영 직후)에서
