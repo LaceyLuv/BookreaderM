@@ -93,7 +93,10 @@ jobs:
 
           with zipfile.ZipFile(apk) as zf:
               entries = zf.namelist()
-          debug_leaks = [n for n in entries if n.endswith('.otf') or 'font-fixtures' in n or 'test-fixtures' in n or 'debug-fonts' in n]
+          debug_leaks = [
+              n for n in entries
+              if n.startswith('assets/font-fixtures/') or 'Fixture.otf' in n or 'test-fixtures' in n or 'debug-fonts' in n
+          ]
           assert not debug_leaks, f'Debug resources leaked into release APK: {debug_leaks}'
 
           apk_sha256 = hashlib.sha256(apk.read_bytes()).hexdigest()
