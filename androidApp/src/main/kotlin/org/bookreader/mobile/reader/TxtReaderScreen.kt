@@ -112,13 +112,14 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         previousTypography[0] = changed
     }
     fun move(direction: Int) {
-        val phase = controller.state.value.phase
-        if (scrollMode) {
+        val current = controller.state.value
+        val phase = current.phase
+        if (current.settings.readingMode == TxtReadingMode.SCROLL) {
             if (phase != TxtReaderPhase.READY) return
             scope.launch(Dispatchers.Main.immediate) {
                 requestedScroll = true
                 val distance = (list.layoutInfo.viewportEndOffset - list.layoutInfo.viewportStartOffset) * .9f * direction
-                if (settings.pageTransition == org.bookreader.mobile.settings.PageTransition.NONE) list.scrollBy(distance)
+                if (current.settings.pageTransition == org.bookreader.mobile.settings.PageTransition.NONE) list.scrollBy(distance)
                 else list.animateScrollBy(distance)
             }
         } else {
@@ -220,8 +221,11 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                     else -> controlsVisible = !controlsVisible
                 } },
                 onDoubleTap = { showMenu = !showMenu },
-                onPage = ::move,
-                onDragOffset = { dragOffsetPx.floatValue = if (!scrollMode) it else 0f },
+                onPage = { move(it) },
+                onDragOffset = {
+                    dragOffsetPx.floatValue =
+                        if (controller.state.value.settings.readingMode != TxtReadingMode.SCROLL) it else 0f
+                },
             ).testTag(
                 if (state.phase == TxtReaderPhase.READY) "reader_ready" else "reader_content")) {
                 if (!scrollMode) TxtPageContent(

@@ -1542,7 +1542,7 @@ class TxtReaderFlowTest {
                 throw AssertionError(
                     "Initial forward page swipe did not advance: phase=${observed.phase} mode=${observed.settings.readingMode} " +
                         "fullscreen=${observed.settings.window.fullscreen} start=$startOffset target=${observed.targetOffset} " +
-                        "stable=${observed.stableOffset} gen=${observed.restoreGeneration}",
+                        "stable=${observed.stableOffset} gen=${observed.restoreGeneration} gesture=$lastReaderGestureTrace",
                     failure,
                 )
             }
