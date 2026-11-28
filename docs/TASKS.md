@@ -1,3 +1,14 @@
+## 2026-11-28 최신 — Issue #3 (Phase 4-2) 책·사용자 글꼴 원본 선택 백업 및 재개 커밋 구현·자동 검증 완료
+
+- PR #7 검증 기준(`0ce19a0a`) 위 `gemini/phase4-2-asset-backup` 브랜치에서 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2)을 구현했다([ADR 0013](adr/0013-resumable-asset-backup.md)).
+- 기본 백업은 기존 v1 기록 전용을 유지하며, 사용자가 **책 원본 파일 함께 저장** / **등록한 사용자 글꼴 함께 저장**을 선택하면 v2 비압축 스트리밍 컨테이너로 저장하고, v1·v2 모두 읽기 호환 및 fail-closed 검증을 적용한다.
+- Room 9 14개 테이블 스키마를 유지한 채 `filesDir/backup-journal/active.json`과 전용 스테이징(`PLANNING → COMMITTING_ASSETS → CLEANUP`)으로 중단·ENOSPC 복원을 재개하며 기존 `READY` 책·진행도를 보호한다.
+- 검증된 최종 코드 `a835cf9b8c1bdabb2a06cb55d8f455360dcc46da`:
+  - `BookReader Mobile Checks` Push `46085838946` (`15238429512`): 원본 XML **229/229 PASS** (`androidApp` 86 / `shared` 121 / `epubAndroid` 17 / 실제 8 MiB tmpfs `ENOSPC` 5 포함 + compile·lint·Room 9).
+  - `BookReader Mobile Device Tests` Push `46085838933`: API 26(`15239536935`)·API 34(`15239079959`)·API 36(`15239831575`) 1차 시도 3/3 PASS — 각 기기 connected **80/80**, host **8/8** (TXT/EPUB/Comic/Batch/Backup Asset 5개 외부 `force-stop` `absent`→PID 교체 직접 확인).
+- 다음 단계: 사용자가 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`Closes #2`)을 `main`에 수동 병합한 뒤, 이어서 Phase 4-2 PR(`Closes #3`)을 `main`에 수동 병합한다.
+- 실기기 대용량 백업 성능·TalkBack·16KB OS·서명/공개 배포 검증은 `NOT_RUN`이며 전체 출시 판정은 `BLOCKED`를 유지한다.
+
 ## 2026-11-27 최신 — 0.8.0-dev `main` 통합 준비 및 Issue #2·Compose 스레드 경합 해결
 
 - `main`(`cbe4e405`)의 협업 문서·템플릿([PR #4](https://github.com/LaceyLuv/BookreaderM/pull/4), Issue #1 완료)과

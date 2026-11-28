@@ -1,5 +1,14 @@
 # Android 검증 매트릭스 — 2026-10-17
 
+## 2026-11-28 최신 — Phase 4-2 (Issue #3) 책·글꼴 원본 선택 백업 + 중단/ENOSPC 재개 커밋
+
+- [작업 기록](WORKLOG.md), [최신 인계](SESSION_HANDOFF.md), [ADR 0013](adr/0013-resumable-asset-backup.md)을 우선한다.
+- `0.8.0-dev`(versionCode 11, Room 9, 14 테이블 유지) 기준 검증 코드 `a835cf9b8c1bdabb2a06cb55d8f455360dcc46da`:
+  - 원격 빌드·단위·실제 ENOSPC(`BookReader Mobile Checks` Push `46085838946`, `15238429512`): 원본 XML **229/229 PASS** (`androidApp` 86, `shared` 121, `epubAndroid` 17, 실제 8 MiB tmpfs `enospc` 5 + compile·lint·Room 9; `ENOSPC_BACKUP_PASS` 2건 + `ENOSPC_PASS` 3건 확인).
+  - 원격 기기 매트릭스(`BookReader Mobile Device Tests` Push `46085838933`, 1차 시도 3/3 PASS): API 26(`15239536935`)·API 34(`15239079959`)·API 36(`15239831575`) 각각 원본 XML **connected 80/80 + host 8/8 PASS** (TXT/EPUB/Comic/Batch/Backup Asset 5개 외부 `force-stop` `absent`→PID 교체 직접 확인, 실패·오류·건너뜀 0).
+  - 신규 필수 검증 9건(`BackupAssetCoordinatorTest` 3, `BackupAssetEnospcTest` 2, `ReadingBackupFileTest` v2 2, `ReadingBackupFlowTest` v2 E2E 1, `BackupAssetHostProcessTest` 외부 `force-stop` 1)을 `scripts/required-tests.json`에 등록했다.
+- 실기기 대용량 백업 성능·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·독립 보안/성능 리뷰·서명/공개 출시 게이트는 여전히 `NOT_RUN`/`BLOCKED`다. 아래 절은 이전 시점 이력이다.
+
 ## 2026-11-27 최신 — 0.8.0-dev(Room 9) + UI 통합(PR #5) + Issue #2(PR #6) + Compose 스레드 고정(PR #7)
 
 - [작업 기록](WORKLOG.md)과 [최신 인계](SESSION_HANDOFF.md)를 우선한다.

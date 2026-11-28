@@ -1,5 +1,13 @@
 # 출시 후보 감사 — 진행 중, 2026-10-17
 
+## 2026-11-28 최신 — 0.8.0-dev + Phase 4-2 (Issue #3) 후보 상태 (출시 판정: BLOCKED 유지)
+
+- `0.8.0-dev`(versionCode 11, Room 9 14개 테이블 유지) 위 `gemini/phase4-2-asset-backup`의 최종 검증 코드 `a835cf9b8c1bdabb2a06cb55d8f455360dcc46da`에서
+  원격 `BookReader Mobile Checks` Push `46085838946`(`15238429512`, **229/229 PASS** — 실제 8 MiB tmpfs `ENOSPC` 5건 포함)과
+  `BookReader Mobile Device Tests` Push `46085838933`(API 26·34·36 1차 시도 3/3 PASS — 각 기기 connected **80/80** + host **8/8**, 5개 외부 `force-stop` `absent`→PID 교체)의 원본 ZIP SHA-256·XML·로그를 직접 대조해 통과했다.
+- **출시 판정은 `BLOCKED`를 유지한다.** 실기기 대용량 백업 성능·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·최신 0.8.0-dev 서명 APK/AAB 재생성 및 정적 감사·공개 배포 승인은 `NOT_RUN`이며, 마지막 전달 APK는 이전 `05ffd50`이다.
+- 상세 근거와 미실행 항목은 [작업 기록](WORKLOG.md), [QA 매트릭스](QA_MATRIX.md), [보안 검토](SECURITY.md), [ADR 0013](adr/0013-resumable-asset-backup.md)을 따른다. 아래 절은 이전 시점 이력이다.
+
 ## 2026-11-27 최신 — 0.8.0-dev 통합 후보 상태 (출시 판정: BLOCKED 유지)
 
 - `0.8.0-dev`(versionCode 11, Room 9, 14 테이블) 기준 검증 코드 `e8aa3c497785d7959845ee06ae0530016dddcb96`에서

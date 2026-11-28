@@ -1,3 +1,16 @@
+## 2026-11-28 Phase 4-2 (Issue #3) 인계 — `a835cf9b` 원본 XML·ENOSPC·PID 대조 완료
+
+- **현재 상태**: PR #7 검증 기준(`0ce19a0a`) 위의 `gemini/phase4-2-asset-backup` 브랜치에서 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2: 책 원본·사용자 글꼴 선택 백업, v1 읽기 호환, `PLANNING → COMMITTING_ASSETS → CLEANUP` 중단·ENOSPC 재개 커밋)을 구현하고 전체 원격 빌드·실제 8 MiB tmpfs ENOSPC·API 26/34/36 기기 및 외부 `force-stop` 검증을 완료했다([ADR 0013](adr/0013-resumable-asset-backup.md)).
+- **검증된 코드 SHA**: `a835cf9b8c1bdabb2a06cb55d8f455360dcc46da` (`0.8.0-dev`/versionCode 11/Room 9, 14 테이블 유지).
+  - 원격 `BookReader Mobile Checks` Push `46085838946` (`15238429512`, 1차 시도 **PASS**): 원본 XML **229/229 PASS** (`androidApp` 86 / `shared` 121 / `epubAndroid` 17 / 실제 8 MiB tmpfs `enospc` 5 + compile·lint·Room 9, `ENOSPC_BACKUP_PASS` 2건 + `ENOSPC_PASS` 3건 확인).
+  - 원격 `BookReader Mobile Device Tests` Push `46085838933` (1차 시도 3/3 **PASS**): API 26(`15239536935`)·API 34(`15239079959`)·API 36(`15239831575`) 각각 원본 XML connected **80/80** + host **8/8** (TXT/EPUB/Comic/Batch/Backup Asset 5개 외부 `force-stop` `absent`→PID 교체 직접 확인).
+  - 보존된 중간 실패(`c364a81b` 가시성 컴파일 오류, `6fdf1848` ENOSPC `Unit` 반환 오류) 및 상세 SHA-256·PID 수치는 [작업 기록](WORKLOG.md)에 있다.
+- **보존 및 미실행 범위**: Room 9 14개 테이블 정의, 기존 v1 `.brmbackup` 기본값·호환성, 사용자 책·진행도·서명키·`05ffd50` 산출물을 보존했다. 로컬 JDK 17 미설치(`doctor.sh` exit 78)는 `BLOCKED_ENV`, 실기기 대용량 백업 성능·TalkBack·16KB OS·서명/출시 게이트는 `NOT_RUN`이다.
+- **다음 작업**:
+  1. 사용자가 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`Closes #2`)을 `main`에 수동 병합하고 작업 브랜치를 정리한다.
+  2. 이어서 Phase 4-2 PR(`gemini/phase4-2-asset-backup`, `Closes #3`)의 대상 브랜치가 `main`인지 확인한 뒤 수동 병합한다.
+  3. 다음 후속은 실기기/성능/TalkBack/16KB OS·서명 APK 재생성 또는 사용자 우선순위에 따른 후속 Issue 착수다.
+
 ## 2026-11-27 PR #7 `main` 통합 인계 — `e8aa3c49` 원본 XML·PID 대조 완료
 
 - **현재 상태**: `codex/backup-080`(`e60d931f`)의 UI 통합([PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5))·Issue #2 해결([PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6))과 `main`(`cbe4e405`, [PR #4](https://github.com/LaceyLuv/BookreaderM/pull/4))을 통합한 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`gemini/integrate-080-to-main`, `Closes #2`)에서, `d3612875` API 36 실패(`139880170365`, `CustomFontSettings` IO 복귀 `CalledFromWrongThreadException`)까지 수정해 전체 원격 CI 통과 및 원본 XML·PID 직접 대조를 완료했다.

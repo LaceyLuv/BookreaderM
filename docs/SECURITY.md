@@ -1,5 +1,12 @@
 # 입력·데이터 보호 검토 — 2026-10-17
 
+## 2026-11-28 최신 — Phase 4-2 (Issue #3) v2 책·글꼴 선택 백업 보안·데이터 경계 갱신
+
+- `0.8.0-dev`(versionCode 11, Room 9 14개 테이블 유지, 코드 `a835cf9b`)는 기존 v1 `.brmbackup` 기본값·`allowBackup="false"`·네트워크 권한 미사용 정책을 그대로 유지하면서 선택적 책 원본·사용자 글꼴 패키징(`.brmbackup` v2, [ADR 0013](adr/0013-resumable-asset-backup.md))을 추가했다.
+- **v2 컨테이너 fail-closed 검증:** 비압축 순차 64 KiB 스트리밍(`BRMBKUP\n` v2 + `BRMAST\n`)으로 전체 파일 메모리 적재·압축 폭탄·seek 의존을 제거했다. 버전 `<= 0 || >= 3`, 비정규/심볼릭 링크 모드 바이트, 경로 탈출(`..`/절대 경로/정규 패턴 외 경로), 중복·고아 에셋, 개수·바이트 한도 초과, 개별 SHA-256 불일치, trailing bytes를 모두 커밋 전에 거부한다.
+- **미리보기 격리·원자적 승격·ENOSPC/강제 종료 보호:** SAF 스트림을 닫은 뒤 전용 스테이징(`filesDir/managed/backup-staging/<uuid>/`, 관리 책 디렉터리와 동일 `st_dev`)에서 포맷별 검증기(`TxtDecoder.validate`, `SafeEpub.open`, `ComicManifest.inspect`, `FontFilePolicy`+`Typeface`)를 통과한 파일만 승격하며, ADR-0002 no-replace `Files.move`(`NOFOLLOW_LINKS`, `fsync`)로 기존 `READY` 책·진행도를 절대 덮어쓰지 않는다. 실제 8 MiB tmpfs `ENOSPC`(5/5 PASS)와 API 26·34·36 외부 `force-stop` 재개(8/8 PASS)로 기존 서재 보존과 멱등 재개를 검증했다.
+- 독립 보안 감사·침투 테스트·물리 기기 OEM 백업·16KB 실제 OS·최종 서명/출시 게이트는 여전히 `NOT_RUN`/`BLOCKED`다. 아래 절은 이전 시점 이력이다.
+
 ## 2026-11-27 최신 — 0.8.0-dev(Room 9, 14 테이블) 보안·데이터 경계 갱신
 
 - `0.8.0-dev`(versionCode 11, Room 9, 14 테이블, 코드 `e8aa3c49`)는 기존 13개 테이블·관리 복사본·서명키·Android `allowBackup="false"` 정책을 유지하면서
