@@ -1,3 +1,14 @@
+## 2026-11-28 `0.8.2` 글자 굵기 세분화 조절(100~900 · 50 단위) 및 가변 글꼴
+
+신규 필수 테스트 4건을 `scripts/required-tests.json`에 등록했다(`shared-jvm` 121 → 122, `android-unit` 86 → 87, `android-device` 83 → 85).
+
+- **`ReaderSettingsRepositoryTest.granularFontWeightsRoundTripNormalizeCanonicalValuesAndRejectOutOfRange` (`shared-jvm`):** 기존 v1 JSON 하위 호환(`fontWeightValue` 생략), 표준 `400`/`700`의 `fontWeightValue = null` 정규화, 100~900 · 50 단위 17단계 전체의 코덱·실제 Room DB round-trip, 범위 밖 값(`0`, `50`, `950`)의 fail-closed 원본 보존을 검증한다.
+- **`FontFilePolicyTest.variableWeightRangeDetectsValidFvarWghtAndFailsClosedOnStaticOrMalformedFonts` (`android-unit`):** 번들 정적 글꼴(`NanumGothic-Regular.ttf`, `NanumMyeongjo-Regular.ttf`, `Fixture.otf`)에서 `null` 반환, 정상 `fvar` `wght`(100..900) SFNT 컨테이너 인식, `wght` 미포함/역전/절단 테이블 fail-closed 거부를 검증한다.
+- **`TxtReaderFlowTest.granularFontWeightStepperAndPresetsRenderAndPersistWithoutMovingAnchor` (`android-device`):** TXT 페이지 모드에서 `font_weight_increase` 3회(`400 → 550`) 적용 시 `TextLayoutResult.layoutInput.style.fontWeight == FontWeight(550)`·Activity 재생성 후 유지·`reader_weight_300` + `font_weight_decrease`(`250`)·`reader_weight_NORMAL`(`400`, `fontWeightValue == null`) 복귀 전 과정에서 독서 앵커(`stableOffset`) 및 DB 기록 불변을 API 26·34·36에서 검증한다.
+- **`EpubReaderFlowTest.granularFontWeightAppliesExactCssWeightInWebViewAndSurvivesReopen` (`android-device`):** EPUB 설정에서 50 단위 증가(`400 → 450 → 500`) 시 `450` 중간 표시, `preferences().fontWeight == 1.25`, WebView `getComputedStyle(p).fontWeight === '500'` 및 닫기·이어읽기 재개방 후 유지·locator 불변을 API 26·34·36에서 검증한다.
+
+실행별 아티팩트 SHA-256·XML·PID 근거는 [작업 기록](WORKLOG.md)과 [인수인계](SESSION_HANDOFF.md)에 있다.
+
 ## 2026-11-28 `0.8.1` 집중 모드·페이지 좌우 스와이프·프리페치 페이지 엔진
 
 신규 필수 Android 기기 테스트 3건을 `scripts/required-tests.json`에 등록했다(`android-device` 80 → 83).

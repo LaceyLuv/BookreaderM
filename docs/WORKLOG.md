@@ -1,3 +1,35 @@
+## 2026-11-28 `0.8.2` (code 14) 글자 굵기 세분화 조절(100~900 · 50 단위) 및 서명 APK 검증
+
+사용자 요청("글씨 굵기를 직접 세분화해서 조절할 수 있게 해줘")에 따라 [PR #15](https://github.com/LaceyLuv/BookreaderM/pull/15)(브랜치 `gemini/granular-font-weight`, 커밋 `faa4023b1a47abb88b01c1a6b04b9f7418b883a1` → `main` 병합 `3cf5558ff3914833c7e23cd14624b6b7a81a2195`, `0.8.2`/versionCode 14/Room 9 14개 테이블·`ReaderSettingsCodec` v1 유지)을 구현·검증·병합하고 동일 영구 서명키로 `BookreaderM-0.8.2-code14-signed.apk`를 빌드·재다운로드 검증했다.
+
+### 구현 요약
+
+- **설정 모델 및 하위 호환(`ReaderSettings.kt`):**
+  - 기존 `ReaderFontWeight { NORMAL(400), BOLD(700) }`와 `ReaderSettingsCodec.VERSION = 1`·Room 9 스키마를 유지한 채 선택 필드 `fontWeightValue: Int? = null`(검증 범위 `100..900`), `effectiveFontWeight`, `withFontWeight(weight)`(`400`/`700`은 `fontWeightValue = null`로 정규화해 기존 DB/v1·v2 백업 및 기존 테스트 계약과 100% 호환)를 추가했다.
+- **가변 글꼴(`fvar` `wght` 축) 경계 검증 및 실제 렌더링(`FontFilePolicy.kt`, `ReaderFonts.kt`, `EpubHostFragment.kt`, `EpubReaderController.kt`, `TxtReaderScreen.kt`):**
+  - `FontFilePolicy.variableWeightRange(file)`로 OpenType `fvar` 테이블(`MAX_FVAR_AXES = 64`, 128 테이블 한도, fail-closed)의 `wght` 축 범위를 안전하게 판별한다.
+  - Compose TXT 리더(`ReaderFonts.kt`)는 가변 사용자 글꼴에 `FontVariation.Settings(FontVariation.weight(variableWeight))`를 적용하고 정적 사용자 글꼴은 기존 `Font(file)` 정체성을 그대로 유지한다.
+  - EPUB 리더(`EpubReaderController.kt`, `EpubHostFragment.kt`)는 `effectiveFontWeight / 400.0`을 Readium `3.1.2` `EpubPreferences.fontWeight`로 전달하고(50 단위는 IEEE 754 정확 표현으로 `(400 * fontWeight).toInt()` 오차 0), 가변 사용자 글꼴 `@font-face`에 `setFontWeight(variableRange)`를 선언한다.
+- **세밀 조절 UI 및 실시간 미리보기(`CustomFontSettings.kt`, `ReaderSettingsDialog.kt`):**
+  - `ReaderFontWeightSettings`에 현재 수치·한글 단계 표시(`font_weight_value`), `−` / `+` 50 단위 미세 버튼(`font_weight_decrease`, `font_weight_increase`), 17단계 `Slider`(`reader_weight_slider`, `100..900`, `steps = 15`), 5종 빠른 프리셋(`가늘게 300`, `보통 400` [`reader_weight_NORMAL`], `중간 500`, `굵게 700` [`reader_weight_BOLD`], `아주 굵게 800`), 선택 글꼴의 가변/단일 굵기 안내 문구를 추가했다.
+  - `ReaderSettingsDialog` 상단 실시간 미리보기 배지와 본문에 `global.effectiveFontWeight`를 즉시 반영한다.
+- **신규 필수 테스트 4건 등록 (`scripts/required-tests.json`):**
+  - `shared-jvm` 121 → 122: `ReaderSettingsRepositoryTest.granularFontWeightsRoundTripNormalizeCanonicalValuesAndRejectOutOfRange`
+  - `android-unit` 86 → 87: `FontFilePolicyTest.variableWeightRangeDetectsValidFvarWghtAndFailsClosedOnStaticOrMalformedFonts`
+  - `android-device` 83 → 85: `TxtReaderFlowTest.granularFontWeightStepperAndPresetsRenderAndPersistWithoutMovingAnchor`, `EpubReaderFlowTest.granularFontWeightAppliesExactCssWeightInWebViewAndSurvivesReopen`
+
+### 직접 대조한 최종 검증 결과 (`faa4023b` / 병합 `3cf5558f`, 1차 시도 전체 PASS)
+
+- **`BookReader Mobile Checks` PR `46139684473` (아티팩트 `15261037677`, `PASS`) & Push `46139680555` (`PASS`):** 원본 XML **231/0/0/0 PASS**(`androidApp` 87, `shared` 122, `epubAndroid` 17, 실제 8 MiB tmpfs `enospc` 5 + `assembleDebug`·`lintDebug` `warningsAsErrors=true`·`assembleDebugAndroidTest`·Room 9).
+- **`BookReader Mobile Device Tests` PR `46139684489` (1차 시도 3/3 `PASS`) & Push `46139680540` (1차 시도 3/3 `PASS`):**
+  - API 26 (`140962623293`, 아티팩트 `15261846632`): connected **85/0/0/0**, host **8/0/0/0** (TXT `7519→absent→7572`, EPUB `7785→absent→7831`, Comic `8027→absent→8082`, Batch `8177→absent→8247`, Backup Asset `8311→absent→8377`; 신규 TXT `5.97s` / EPUB `7.164s`).
+  - API 34 (`140962623287`, 아티팩트 `15260904114`): connected **85/0/0/0**, host **8/0/0/0** (TXT `8616→absent→8667`, EPUB `8929→absent→8979`, Comic `9209→absent→9260`, Batch `9376→absent→9460`, Backup Asset `9529→absent→9611`; 신규 TXT `6.778s` / EPUB `6.06s`).
+  - API 36 (`140962623048`, 아티팩트 `15261594286`): connected **85/0/0/0**, host **8/0/0/0** (TXT `7436→absent→7484`, EPUB `7697→absent→7743`, Comic `7976→absent→8022`, Batch `8124→absent→8199`, Backup Asset `8257→absent→8330`; 신규 TXT `7.666s` / EPUB `6.184s`).
+- **서명 Release APK 실행 `46141382458` (`3cf5558ff3914833c7e23cd14624b6b7a81a2195`, job `140967869151`, `PASS`):**
+  - 아티팩트 `BookreaderM-signed-release-apk` (ID `15262215920`, ZIP `19,041,071` bytes, `sha256:81d3d86fbe0e1d77775397cdfa704e2e3cf29d50f52df78ce2114cf6ef70eb18`, 공개 Release 미게시).
+  - 재다운로드 직접 대조 PASS: `BookreaderM-0.8.2-code14-signed.apk` (`22,402,393` bytes, `sha256:bacd2ad3b3fe516097da3e80362eb833daa0fd259fc7d3b45fcdd428e444f830`), 인증서 SHA-256 `c86301d1b3556040d5d1edda2e5755514387ff7fea4a1954785fa1c178d62537`(`0.8.0`·`0.8.1`과 동일), v2/v3·4 ABI/8 ELF 및 ZIP 16KB 정렬·권한·비디버그 감사 모두 `PASS`.
+- **`NOT_RUN` / `BLOCKED_ENV`:** 본 VM 로컬 `./scripts/doctor.sh`는 JDK 17 미설치(`BLOCKED_ENV`). 실제 스마트폰 업데이트 설치·실기기 가변 글꼴 시각 렌더링/성능·TalkBack·16KB 실제 OS·공개 스토어 출시는 `NOT_RUN`(`BLOCKED` 유지).
+
 ## 2026-11-28 `0.8.1` (code 13) 집중 모드·페이지 좌우 스와이프·페이지 넘김 속도 개선 및 서명 APK 검증
 
 실제 스마트폰(`0.8.0`) 사용 피드백에 따라 [PR #13](https://github.com/LaceyLuv/BookreaderM/pull/13)(브랜치 `gemini/reader-focus-swipe-perf`, 병합 커밋 `75dbebebbae35f826f79ecd7dc361a40eda25c68`, `0.8.1`/versionCode 13/Room 9 14개 테이블·`ReaderSettingsCodec` v1 유지)을 구현·검증·병합하고 동일 영구 서명키로 `BookreaderM-0.8.1-code13-signed.apk`를 빌드·재다운로드 검증했다.
