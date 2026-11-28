@@ -1,11 +1,11 @@
 # 출시 후보 감사 — 진행 중, 2026-10-17
 
-## 2026-11-28 최신 — 0.8.0-dev + Phase 4-2 (Issue #3) 후보 상태 (출시 판정: BLOCKED 유지)
+## 2026-11-28 최신 — `0.8.0` (code 12, Room 9) 서명 Release APK 생성·감사 완료 (공개 출시 판정: BLOCKED 유지)
 
-- `0.8.0-dev`(versionCode 11, Room 9 14개 테이블 유지) 위 `gemini/phase4-2-asset-backup`의 최종 검증 코드 `a835cf9b8c1bdabb2a06cb55d8f455360dcc46da`에서
-  원격 `BookReader Mobile Checks` Push `46085838946`(`15238429512`, **229/229 PASS** — 실제 8 MiB tmpfs `ENOSPC` 5건 포함)과
-  `BookReader Mobile Device Tests` Push `46085838933`(API 26·34·36 1차 시도 3/3 PASS — 각 기기 connected **80/80** + host **8/8**, 5개 외부 `force-stop` `absent`→PID 교체)의 원본 ZIP SHA-256·XML·로그를 직접 대조해 통과했다.
-- **출시 판정은 `BLOCKED`를 유지한다.** 실기기 대용량 백업 성능·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·최신 0.8.0-dev 서명 APK/AAB 재생성 및 정적 감사·공개 배포 승인은 `NOT_RUN`이며, 마지막 전달 APK는 이전 `05ffd50`이다.
+- `main` 통합 소스 `9d17ea96a0544c5889a150ee97bfb6599044c725`(Phase 4-1·4-2 포함, `0.8.0`/versionCode 12/Room 9 14개 테이블 유지)에서
+  원격 빌드·실제 ENOSPC 229/229 PASS(`46092124341`·`46096452943`), API 26·34·36 기기 테스트 connected 80/80 + host 8/8 PASS(`46092124338`·`46096452969`),
+  그리고 수동 서명 워크플로우 `46098603675`(아티팩트 `15244029886`, `BookreaderM-0.8.0-code12-signed.apk`, `sha256:da04e525a2a3b9a28166f1f29d26e57fce2c7ce9e03094876e34ffd61d2ae99d`)의 `scripts/audit-apk.py` 서명 필수 정적 감사·v2/v3 서명·인증서 일치·16KB 정렬·재다운로드 해시 대조까지 모두 **PASS**했다([설치 안내](INSTALLABLE_APK.md)).
+- 공개 GitHub Release는 게시하지 않았으며, **공개 출시 판정은 `BLOCKED`를 유지한다.** 실제 스마트폰 설치·대용량 백업 성능·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·공개 배포 승인은 `NOT_RUN`이다.
 - 상세 근거와 미실행 항목은 [작업 기록](WORKLOG.md), [QA 매트릭스](QA_MATRIX.md), [보안 검토](SECURITY.md), [ADR 0013](adr/0013-resumable-asset-backup.md)을 따른다. 아래 절은 이전 시점 이력이다.
 
 ## 2026-11-27 최신 — 0.8.0-dev 통합 후보 상태 (출시 판정: BLOCKED 유지)

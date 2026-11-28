@@ -1,3 +1,13 @@
+## 2026-11-28 최신 — `main` 통합 완료 + `0.8.0` (code 12) 서명 APK 생성·재다운로드 검증 완료
+
+- **현재 상태**: PR #7(`b9015f81`, Issue #2), PR #9(`ee112d1a`, Issue #3), PR #10(`f07323fb`, `0.8.0`/code 12 + 선택 서명), PR #11(`9d17ea96`, 감사 필터 보정)이 모두 `main`에 병합 완료됐다. 열린 Issue·PR은 0건이다.
+- **최신 서명 Release APK (`46098603675`, 아티팩트 `15244029886`):**
+  - 파일: `BookreaderM-0.8.0-code12-signed.apk` (`22,369,021` bytes, `sha256:da04e525a2a3b9a28166f1f29d26e57fce2c7ce9e03094876e34ffd61d2ae99d`)
+  - 소스: `main` `9d17ea96a0544c5889a150ee97bfb6599044c725` (Room 9 14개 테이블 유지)
+  - 신규 영구 정식 서명 인증서 SHA-256: `c86301d1b3556040d5d1edda2e5755514387ff7fea4a1954785fa1c178d62537` (GitHub Repository Secrets `BOOKREADER_RELEASE_*` 암호화 보관)
+  - `scripts/audit-apk.py` 서명 필수 모드·v2/v3 서명·16KB 정렬·권한·비디버그·업로드 후 재다운로드 SHA-256 대조 모두 **PASS** ([설치 안내](INSTALLABLE_APK.md)). 공개 GitHub Release는 게시하지 않았다.
+- **미실행 / 다음 작업**: 실제 스마트폰 설치 및 대용량 책/글꼴 백업·복원 확인, 실기기 성능·TalkBack·16KB 실제 OS·공개 출시 승인은 `NOT_RUN`(`BLOCKED` 유지).
+
 ## 2026-11-28 Phase 4-2 (Issue #3) 인계 — `a835cf9b` 원본 XML·ENOSPC·PID 대조 완료
 
 - **현재 상태**: PR #7 검증 기준(`0ce19a0a`) 위의 `gemini/phase4-2-asset-backup` 브랜치에서 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2: 책 원본·사용자 글꼴 선택 백업, v1 읽기 호환, `PLANNING → COMMITTING_ASSETS → CLEANUP` 중단·ENOSPC 재개 커밋)을 구현하고 전체 원격 빌드·실제 8 MiB tmpfs ENOSPC·API 26/34/36 기기 및 외부 `force-stop` 검증을 완료했다([ADR 0013](adr/0013-resumable-asset-backup.md)).
