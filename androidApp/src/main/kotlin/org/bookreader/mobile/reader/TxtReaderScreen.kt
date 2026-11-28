@@ -88,7 +88,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     var showMenu by remember(controller) { mutableStateOf(false) }
     var requestedScroll by remember(controller, state.restoreGeneration) { mutableStateOf(false) }
     var pageStep by remember(controller) { mutableStateOf(PageStepRequest()) }
-    var dragOffsetPx by remember(controller) { androidx.compose.runtime.mutableFloatStateOf(0f) }
+    val dragOffsetPx = remember(controller) { androidx.compose.runtime.mutableFloatStateOf(0f) }
     var pageAvailability by remember(controller) { mutableStateOf(false to false) }
     val seek = remember(controller) { ReaderSeekPreview(controller::seekToFraction) }
     val touchExploration = readerWindowEffects(settings.window)
@@ -221,7 +221,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 } },
                 onDoubleTap = { showMenu = !showMenu },
                 onPage = ::move,
-                onDragOffset = { dragOffsetPx = if (!scrollMode) it else 0f },
+                onDragOffset = { dragOffsetPx.floatValue = if (!scrollMode) it else 0f },
             ).testTag(
                 if (state.phase == TxtReaderPhase.READY) "reader_ready" else "reader_content")) {
                 if (!scrollMode) TxtPageContent(
@@ -231,7 +231,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                     Modifier.fillMaxSize().background(background).padding(horizontal = settings.marginDp.dp, vertical = 12.dp),
                     step = pageStep,
                     highlights = highlights,
-                    dragOffsetPx = dragOffsetPx,
+                    dragOffsetPx = { dragOffsetPx.floatValue },
                     onAvailability = { previous, next -> pageAvailability = previous to next },
                 )
                 else LazyColumn(state = list, userScrollEnabled = state.phase == TxtReaderPhase.READY,

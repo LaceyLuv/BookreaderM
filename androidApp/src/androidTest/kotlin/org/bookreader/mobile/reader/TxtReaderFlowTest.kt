@@ -1532,9 +1532,19 @@ class TxtReaderFlowTest {
             // Move one page forward first so we have a non-zero stable offset before toggling Focus Mode.
             val startOffset = active.state.value.stableOffset ?: 0L
             swipePageHorizontal(forward = true)
-            compose.waitUntil(15_000) {
-                active.state.value.phase == TxtReaderPhase.READY &&
-                    (active.state.value.stableOffset ?: -1L) > startOffset
+            try {
+                compose.waitUntil(15_000) {
+                    active.state.value.phase == TxtReaderPhase.READY &&
+                        (active.state.value.stableOffset ?: -1L) > startOffset
+                }
+            } catch (failure: Throwable) {
+                val observed = active.state.value
+                throw AssertionError(
+                    "Initial forward page swipe did not advance: phase=${observed.phase} mode=${observed.settings.readingMode} " +
+                        "fullscreen=${observed.settings.window.fullscreen} start=$startOffset target=${observed.targetOffset} " +
+                        "stable=${observed.stableOffset} gen=${observed.restoreGeneration}",
+                    failure,
+                )
             }
             val pageTwoOffset = requireNotNull(active.state.value.stableOffset)
 
@@ -1595,8 +1605,36 @@ class TxtReaderFlowTest {
         val automation = instrumentation.uiAutomation
         val downTime = SystemClock.uptimeMillis()
         fun send(action: Int, x: Float, yPos: Float) {
-            val event = MotionEvent.obtain(downTime, SystemClock.uptimeMillis(), action, x, yPos, 0)
-            event.source = InputDevice.SOURCE_TOUCHSCREEN
+            val properties = arrayOf(
+                MotionEvent.PointerProperties().apply {
+                    id = 0
+                    toolType = MotionEvent.TOOL_TYPE_FINGER
+                },
+            )
+            val coords = arrayOf(
+                MotionEvent.PointerCoords().apply {
+                    this.x = x
+                    this.y = yPos
+                    pressure = 1f
+                    size = 1f
+                },
+            )
+            val event = MotionEvent.obtain(
+                downTime,
+                SystemClock.uptimeMillis(),
+                action,
+                1,
+                properties,
+                coords,
+                0,
+                0,
+                1f,
+                1f,
+                0,
+                0,
+                InputDevice.SOURCE_TOUCHSCREEN,
+                0,
+            )
             try { assertTrue("Android must accept reader_page swipe event", automation.injectInputEvent(event, true)) }
             finally { event.recycle() }
         }

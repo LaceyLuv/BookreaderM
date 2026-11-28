@@ -495,7 +495,7 @@ private fun AnimatedVisibilityScope.ReaderChromeContent(
                     actions()
                     if (canHide) {
                         Text(
-                            text = "좌우 탭으로 이동 · 가운데 탭으로 도구 열고 닫기",
+                            text = "좌우 스와이프·탭으로 이동 · 가운데 탭으로 도구 열고 닫기",
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
                             textAlign = TextAlign.Center,

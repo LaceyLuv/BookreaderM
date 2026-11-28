@@ -39,7 +39,7 @@ fun TxtPageContent(
     modifier: Modifier = Modifier,
     step: PageStepRequest = PageStepRequest(),
     highlights: List<org.bookreader.mobile.annotation.TxtAnnotation> = emptyList(),
-    dragOffsetPx: Float = 0f,
+    dragOffsetPx: () -> Float = { 0f },
     onAvailability: (Boolean, Boolean) -> Unit = { _, _ -> },
 ) {
     val density = LocalDensity.current
@@ -176,7 +176,7 @@ fun TxtPageContent(
                 .fillMaxWidth()
                 .testTag("reader_page_viewport")
                 .onSizeChanged { size = it }
-                .graphicsLayer { translationX = dragOffsetPx },
+                .graphicsLayer { translationX = dragOffsetPx() },
         ) {
             visible?.let { prepared ->
                 ReaderPageTransition(
@@ -188,8 +188,13 @@ fun TxtPageContent(
                 ) { rendered ->
                     val displayed = rendered.page
                     // Very large accessibility fonts may exceed the viewport even for one line.
-                    // Keep vertical scroll enabled only on genuinely overflowing pages so normal
-                    // pages never steal horizontal page-turn swipes.
+                    // Attach verticalScroll only on genuinely overflowing pages so normal pages
+                    // never allocate scroll state or interfere with horizontal page-turn swipes.
+                    val overflowScroll = if (displayed.overflowsVertical) {
+                        Modifier.verticalScroll(rememberScrollState())
+                    } else {
+                        Modifier
+                    }
                     androidx.compose.foundation.text.selection.SelectionContainer {
                         Text(
                             highlightedTxt(displayed.range.start, displayed.text, highlights),
@@ -197,7 +202,7 @@ fun TxtPageContent(
                             maxLines = displayed.lines,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .verticalScroll(rememberScrollState(), enabled = displayed.overflowsVertical)
+                                .then(overflowScroll)
                                 .testTag("reader_page"),
                             onTextLayout = { actual ->
                                 if (latestEngine !== rendered.engine || controller.state.value.restoreGeneration != rendered.generation) return@Text
