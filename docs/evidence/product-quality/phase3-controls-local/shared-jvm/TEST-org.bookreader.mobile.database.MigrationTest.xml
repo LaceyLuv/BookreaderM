@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.bookreader.mobile.database.MigrationTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-10-31T10:49:16.183Z" hostname="7d1550c1c71b" time="0.766">
+  <properties/>
+  <testcase name="exportedVersionSixPreservesCatalogAndAllReadingRecords[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.389"/>
+  <testcase name="catalogMigrationStatementFailurePreservesVersionFiveDatabase[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.05"/>
+  <testcase name="catalogMigrationValidationFailureRollsBackEveryCatalogTable[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.067"/>
+  <testcase name="migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.017"/>
+  <testcase name="tocMigrationValidationFailureRollsBackWithoutChangingVersionSixRecords[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.036"/>
+  <testcase name="exportedVersionFiveAddsCatalogWithoutRewritingAnyReadingData[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.024"/>
+  <testcase name="exportedVersionOneMigratesWithoutLosingBooksOrProgress[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.036"/>
+  <testcase name="exportedVersionTwoMigratesWithoutLosingBooksOrProgress[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.036"/>
+  <testcase name="migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.025"/>
+  <testcase name="exportedVersionThreePreservesSettingsBooksAndProgress[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.027"/>
+  <testcase name="exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt[jvm]" classname="org.bookreader.mobile.database.MigrationTest" time="0.032"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -34,3 +34,36 @@ val MIGRATION_4_5: Migration = object : Migration(4, 5) {
         connection.execSQL("ALTER TABLE import_jobs ADD COLUMN format TEXT NOT NULL DEFAULT 'TXT'")
     }
 }
+
+/** Catalog side tables only: every original row, including unknown locators/settings, is preserved. */
+val MIGRATION_5_6: Migration = object : Migration(5, 6) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS library_book_details (bookId TEXT NOT NULL, metadataEdits INTEGER NOT NULL, metadataScanned INTEGER NOT NULL, readingStatus TEXT, coverPreset INTEGER NOT NULL, PRIMARY KEY(bookId), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS library_shelves (id TEXT NOT NULL, name TEXT NOT NULL, nameKey TEXT NOT NULL, PRIMARY KEY(id))")
+        connection.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_library_shelves_nameKey ON library_shelves (nameKey)")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS library_memberships (bookId TEXT NOT NULL, shelfId TEXT NOT NULL, PRIMARY KEY(bookId, shelfId), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE, FOREIGN KEY(shelfId) REFERENCES library_shelves(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+        connection.execSQL("CREATE INDEX IF NOT EXISTS index_library_memberships_shelfId ON library_memberships (shelfId)")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS library_preferences (id TEXT NOT NULL, sort TEXT NOT NULL, view TEXT NOT NULL, filter TEXT NOT NULL, shelfId TEXT, PRIMARY KEY(id))")
+    }
+}
+
+/** User TOC edits only; automatic candidates are a disposable derived index. */
+val MIGRATION_6_7: Migration = object : Migration(6, 7) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS txt_toc_overrides (bookId TEXT NOT NULL, contentRevision TEXT NOT NULL, offset INTEGER NOT NULL, schemaVersion INTEGER NOT NULL, title TEXT, excluded INTEGER NOT NULL, changeId TEXT NOT NULL, PRIMARY KEY(bookId, contentRevision, offset), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+    }
+}
+
+/** Exact TXT selections are independent of TOC, bookmarks and reading progress. */
+val MIGRATION_7_8: Migration = object : Migration(7, 8) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS txt_annotations (bookId TEXT NOT NULL, contentRevision TEXT NOT NULL, id TEXT NOT NULL, schemaVersion INTEGER NOT NULL, startOffset INTEGER NOT NULL, endOffset INTEGER NOT NULL, quote TEXT NOT NULL, color TEXT NOT NULL, note TEXT NOT NULL, changeId TEXT NOT NULL, PRIMARY KEY(bookId, contentRevision, id), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+    }
+}
+
+/** EPUB annotations do not modify existing TXT annotations or reading records. */
+val MIGRATION_8_9: Migration = object : Migration(8, 9) {
+    override fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("CREATE TABLE IF NOT EXISTS epub_annotations (bookId TEXT NOT NULL, contentRevision TEXT NOT NULL, id TEXT NOT NULL, schemaVersion INTEGER NOT NULL, anchorJson TEXT NOT NULL, locatorJson TEXT NOT NULL, color TEXT NOT NULL, note TEXT NOT NULL, changeId TEXT NOT NULL, PRIMARY KEY(bookId, contentRevision, id), FOREIGN KEY(bookId) REFERENCES books(id) ON UPDATE NO ACTION ON DELETE CASCADE)")
+    }
+}

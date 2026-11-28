@@ -304,6 +304,42 @@ class AppViewModelTest {
         assertTrue(model.state.value.importing is ImportUiState.Error)
     }
 
+    @Test fun unavailableBooksExplainTheReasonWithoutOpeningOrChangingLibrary() = runTest(dispatcher) {
+        val reasons = mapOf(BookAvailability.MISSING to "파일을 찾을 수 없습니다",
+            BookAvailability.CORRUPT to "파일을 읽을 수 없습니다",
+            BookAvailability.UNSUPPORTED to "지원하지 않는 책",
+            BookAvailability.DELETING to "삭제 중")
+        for ((availability, reason) in reasons) {
+            val book = importBook().copy(availability = availability)
+            val expected = LibraryState.Content(listOf(book))
+            var calls = 0
+            val model = AppViewModel(LibrarySessionFactory { LibrarySession(repository { expected }) {} },
+                MemoryThemes(), dispatcher, readerFactory = { _, _ -> calls++; error("Must not open") }).also(::own)
+            advanceUntilIdle()
+            model.openBook(book)
+            advanceUntilIdle()
+            assertEquals(0, calls)
+            assertEquals(expected, model.state.value.library)
+            assertTrue("Expected an actionable reason for $availability", model.state.value.notice.orEmpty().contains(reason))
+            assertEquals(null, model.state.value.reader)
+            model.dismissNotice()
+            assertEquals(null, model.state.value.notice)
+        }
+    }
+
+    @Test fun missingReaderReportsAnErrorForEveryFormatWithoutMutatingTheBook() = runTest(dispatcher) {
+        for (format in BookFormat.entries) {
+            val book = importBook().copy(format = format)
+            val expected = LibraryState.Content(listOf(book))
+            val model = model { expected }
+            advanceUntilIdle()
+            model.openBook(book)
+            advanceUntilIdle()
+            assertTrue(model.state.value.notice.orEmpty().contains("읽기 화면"))
+            assertEquals(expected, model.state.value.library)
+        }
+    }
+
     private fun importBook() = Book(id = "book-1", format = BookFormat.TXT, title = "fixture",
         originalDisplayName = "fixture.txt", managedRelativePath = "books/book-1/original",
         sourceSha256 = "a".repeat(64), sourceByteSize = 3, currentRevision = "revision-1",

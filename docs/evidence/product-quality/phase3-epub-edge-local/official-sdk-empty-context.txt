@@ -1,0 +1,53 @@
+readium-shared:3.1.2 AAR SHA256 f04d5d109aefaae11c66c17483084dbe7bfb652b22851869aea23a1487edfd7f
+Official JSONKt.optNullableString bytecode: an empty string returns null.
+  public static final java.lang.String optNullableString(org.json.JSONObject, java.lang.String, boolean);
+    Code:
+       0: aload_0
+       1: ldc           #11                 // String <this>
+       3: invokestatic  #17                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: ldc           #192                // String name
+       9: invokestatic  #17                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+      12: iload_2
+      13: ifeq          24
+      16: aload_0
+      17: aload_1
+      18: invokevirtual #195                // Method org/json/JSONObject.remove:(Ljava/lang/String;)Ljava/lang/Object;
+      21: goto          29
+      24: aload_0
+      25: aload_1
+      26: invokevirtual #263                // Method org/json/JSONObject.opt:(Ljava/lang/String;)Ljava/lang/Object;
+      29: astore_3
+      30: aload_3
+      31: instanceof    #48                 // class java/lang/String
+      34: ifeq          44
+      37: aload_3
+      38: checkcast     #48                 // class java/lang/String
+      41: goto          45
+      44: aconst_null
+      45: astore        4
+      47: aload         4
+      49: dup
+      50: ifnull        93
+      53: astore        5
+      55: aload         5
+      57: astore        6
+      59: iconst_0
+      60: istore        7
+      62: aload         6
+      64: checkcast     #265                // class java/lang/CharSequence
+      67: invokeinterface #266,  1          // InterfaceMethod java/lang/CharSequence.length:()I
+      72: ifne          79
+      75: iconst_1
+      76: goto          80
+      79: iconst_0
+      80: nop
+      81: ifne          89
+      84: aload         5
+      86: goto          95
+      89: aconst_null
+      90: goto          95
+      93: pop
+      94: aconst_null
+      95: areturn
+

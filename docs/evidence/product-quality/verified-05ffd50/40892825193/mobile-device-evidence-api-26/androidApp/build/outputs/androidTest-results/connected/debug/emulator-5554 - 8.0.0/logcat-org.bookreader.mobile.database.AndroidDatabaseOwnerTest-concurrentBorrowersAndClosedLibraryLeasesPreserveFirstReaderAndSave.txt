@@ -1,0 +1,35 @@
+10-29 14:42:18.114  5446  5463 I TestRunner: started: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
+10-29 14:42:18.125  2559  2886 I MicroRecognitionRunner: Stopping hotword detection.
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-29 14:42:18.126  2559  2693 W ErrorProcessor: 	... 9 more
+10-29 14:42:18.128  1653  4439 I GnssLocationProvider: WakeLock acquired by sendMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@b9144a5)
+10-29 14:42:18.132  1653  1679 I GnssLocationProvider: WakeLock released by handleMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@b9144a5)
+10-29 14:42:18.145  2559  2693 I AudioController: internalShutdown
+10-29 14:42:18.178  2559  2559 I MicroDetector: Keeping mic open: false
+10-29 14:42:18.179  2559  2559 I MicroDetectionWorker: #onError(false)
+10-29 14:42:18.179  2559  2811 I DeviceStateChecker: DeviceStateChecker cancelled
+10-29 14:42:18.191  1802  1813 D         : HostConnection::get() New Host Connection established 0x7c1374da2680, tid 1813
+10-29 14:42:18.192  1802  1817 I zygote64: NativeAllocBackground concurrent copying GC freed 31717(1545KB) AllocSpace objects, 0(0B) LOS objects, 50% free, 4MB/9MB, paused 754us total 145.913ms
+10-29 14:42:18.194  1653  1663 I zygote64: NativeAllocBackground concurrent copying GC freed 13369(1045KB) AllocSpace objects, 1(20KB) LOS objects, 41% free, 8MB/14MB, paused 612us total 117.554ms
+10-29 14:42:18.231  1802  2141 D EGL_emulation: eglMakeCurrent: 0x7c1381c3d5e0: ver 3 0 (tinfo 0x7c1381c0dae0)
+10-29 14:42:18.318  2559  2692 E PlaceStateUpdater: Received no places
+10-29 14:42:18.322  1787  5113 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-29 14:42:18.329  5446  5463 I TestRunner: finished: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)

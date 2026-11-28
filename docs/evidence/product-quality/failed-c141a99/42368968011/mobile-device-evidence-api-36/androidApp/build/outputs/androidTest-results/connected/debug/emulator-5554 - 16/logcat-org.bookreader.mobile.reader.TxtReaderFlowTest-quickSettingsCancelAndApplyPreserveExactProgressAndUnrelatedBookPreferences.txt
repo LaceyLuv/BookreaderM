@@ -1,0 +1,431 @@
+11-07 11:52:09.997  5178  5192 I TestRunner: started: quickSettingsCancelAndApplyPreserveExactProgressAndUnrelatedBookPreferences(org.bookreader.mobile.reader.TxtReaderFlowTest)
+11-07 11:52:10.002  5178  5192 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@63407c7]
+11-07 11:52:10.009  5178  5192 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+11-07 11:52:10.014  5215  5215 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@45faf5e
+11-07 11:52:10.016   646  1254 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@b2d3153, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+11-07 11:52:10.041  5215  5215 D ViewRootImpl: Skipping stats log for color mode
+11-07 11:52:10.054  1023  1177 I ndroid.systemui: AssetManager2(0x78237ef4d838) locale list changing from [] to [en-US]
+11-07 11:52:10.055  1023  1180 D SplashScreenView: Build android.window.SplashScreenView{60a6bf0 V.E...... ......ID 0,0-0,0}
+11-07 11:52:10.055  1023  1180 D SplashScreenView: Icon: view: null drawable: null size: 0
+11-07 11:52:10.055  1023  1180 D SplashScreenView: Branding: view: android.view.View{af34569 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+11-07 11:52:10.058  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-07 11:52:10.059  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-07 11:52:10.061   646  1254 I ImeTracker: system_server:dd5280f7: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:10.065  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-07 11:52:10.066   646   679 I ImeTracker: system_server:dd5280f7: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:10.068  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-07 11:52:10.078  1284  1284 D InsetsController: hide(ime(), fromIme=false)
+11-07 11:52:10.078  1284  1284 I ImeTracker: com.google.android.apps.nexuslauncher:8ad58141: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-07 11:52:10.084  1284  1284 W SplitSelectStateCtor: Missing session instanceIds
+11-07 11:52:10.084  1284  1284 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+11-07 11:52:10.103  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: PRE_ON_CREATE
+11-07 11:52:10.103  5178  5178 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+11-07 11:52:10.121  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: CREATED
+11-07 11:52:10.124   530   530 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-07 11:52:10.128  5178  5178 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@36870b7
+11-07 11:52:10.130  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: STARTED
+11-07 11:52:10.135  5178  5178 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@36870b7
+11-07 11:52:10.136  5178  5178 D AutofillManager: Fill dialog is enabled:false, hints=[]
+11-07 11:52:10.136  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: RESUMED
+11-07 11:52:10.136  5178  5178 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@36870b7
+11-07 11:52:10.137   646   926 D WifiClientModeImpl[42193:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+11-07 11:52:10.137   646   926 D WifiDataStall: tx tput in kbps: 11000
+11-07 11:52:10.137   646   926 D WifiDataStall: rx tput in kbps: 11000
+11-07 11:52:10.137   646   926 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+11-07 11:52:10.137   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:10.137   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:10.137   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:10.137   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:10.138   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:10.138   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:10.138   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:10.138   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:10.145   646   926 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 138635344 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-07 11:52:10.147   530  1333 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-07 11:52:10.149   646   926 D WifiScoreCard: txRate: 1 txSpeed: 1
+11-07 11:52:10.150   646   926 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 2068924688 RSSI -50 txSpeed -1
+11-07 11:52:10.159   646   926 D WifiClientModeImpl[42193:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3015] from screen [on:0 period:-1243999578] score=60
+11-07 11:52:10.294  1284  1284 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+11-07 11:52:10.302  1284  1284 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+11-07 11:52:10.314   530   547 W TransactionTracing: Could not find layer id 2634
+11-07 11:52:10.314   530   547 W TransactionTracing: Could not find layer id 2635
+11-07 11:52:10.450  1284  1284 D RecentsView: onTaskRemoved: 138, not handling task stack changes
+11-07 11:52:10.467  1284  1284 D RecentsView: onTaskRemoved: 138, not handling task stack changes
+11-07 11:52:10.514   646   676 I ActivityTaskManager: Displayed org.bookreader.mobile/.MainActivity for user 0: +501ms
+11-07 11:52:10.516  1284  1284 D BaseDepthController: setSurface:
+11-07 11:52:10.516  1284  1284 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+11-07 11:52:10.516  1284  1284 D BaseDepthController: 	mBaseSurface: null
+11-07 11:52:10.516  1284  1284 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+11-07 11:52:10.517  1284  1284 D StateManager: goToState - fromState: Normal, toState: Normal, partial trace:
+11-07 11:52:10.517  1284  1284 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:4)
+11-07 11:52:10.517  1284  1284 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:1)
+11-07 11:52:10.517  1284  1284 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:34)
+11-07 11:52:10.517  1284  1284 D StatsLog: LAUNCHER_ONSTOP
+11-07 11:52:10.536  1284  1284 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+11-07 11:52:10.559   454   485 I netd    : tetherGetStats() -> {[]} <0.34ms>
+11-07 11:52:10.568  1522  1937 I ProtoXDBBufferWrapper: ProtoXDBBufferWrapper.flushToStorage():158 Flushed 12 data item(s) to storage.
+11-07 11:52:10.577   646   782 I ImeTracker: org.bookreader.mobile:49482afb: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-07 11:52:10.578  5178  5178 D InsetsController: hide(ime(), fromIme=false)
+11-07 11:52:10.578  5178  5178 I ImeTracker: org.bookreader.mobile:49482afb: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-07 11:52:10.595  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-07 11:52:10.595  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-07 11:52:10.596  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-07 11:52:10.597  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-07 11:52:10.606   646  2056 I ImeTracker: system_server:639a5920: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:10.606   646   679 I ImeTracker: system_server:639a5920: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:10.608   646  1201 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@b2d3153, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+11-07 11:52:10.615   530   621 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-07 11:52:10.620  1023  1180 D SplashScreenView: Build android.window.SplashScreenView{f6f937c V.E...... ......ID 0,0-0,0}
+11-07 11:52:10.620  1023  1180 D SplashScreenView: Icon: view: null drawable: null size: 0
+11-07 11:52:10.620  1023  1180 D SplashScreenView: Branding: view: android.view.View{f59c405 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+11-07 11:52:10.625  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: PAUSED
+11-07 11:52:10.626  5178  5178 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@36870b7
+11-07 11:52:10.627  1522  6586 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:10.633  1522  6707 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.633   530   530 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-07 11:52:10.635  1522  6708 I DownloadManager: DownloadManager.downloadInternal():412 Download for __SP_MANIFEST_handwriting_recognition scheduled with params DownloadParams{allowMetered=true, requireCharging=false, foreground=false, immediately=true, priority=0}
+11-07 11:52:10.635  1522  6709 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: emoticon_content_description
+11-07 11:52:10.636  1522  6708 I DownloadManager: DownloadManager.startDownload():495 start download of __SP_MANIFEST_handwriting_recognition
+11-07 11:52:10.646   646  2050 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@b2d3153, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+11-07 11:52:10.665  1522  6580 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.669  5215  5215 W HWUI    : Image decoding logging dropped!
+11-07 11:52:10.672  5215  5215 W HWUI    : Image decoding logging dropped!
+11-07 11:52:10.679  5215  5215 W HWUI    : Image decoding logging dropped!
+11-07 11:52:10.703  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: RESUMED
+11-07 11:52:10.703  5178  5178 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@36870b7
+11-07 11:52:10.731  1522  6708 I DownloadManager: DownloadManager$4.onSuccess():564 download for __KLP_manifest_delight__en-840 is finished with files # mxp@66c81b23
+11-07 11:52:10.736  1284  1284 D RecentsView: onTaskRemoved: 140, not handling task stack changes
+11-07 11:52:10.736  1284  1284 D RecentsView: onTaskRemoved: 140, not handling task stack changes
+11-07 11:52:10.748  1522  6708 I DownloadManager: DownloadManager.downloadInternal():412 Download for __SP_MANIFEST_emoticon_content_description scheduled with params DownloadParams{allowMetered=true, requireCharging=false, foreground=false, immediately=true, priority=0}
+11-07 11:52:10.778  1522  6708 I DownloadManager: DownloadManager.startDownload():495 start download of __SP_MANIFEST_emoticon_content_description
+11-07 11:52:10.779  1522  6701 W MDDSuperpacks: MDDSuperpacks.constructPackSet():578 file group is empty
+11-07 11:52:10.779  1522  6580 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [] got for superpack: handwriting_recognition_offline
+11-07 11:52:10.780  1522  6708 I DownloadManager: DownloadManager.downloadInternal():412 Download for __KLP_manifest_delight__en-840 scheduled with params DownloadParams{allowMetered=true, requireCharging=false, foreground=false, immediately=true, priority=0}
+11-07 11:52:10.788  1522  6708 I DownloadManager: DownloadManager.startDownload():495 start download of __KLP_manifest_delight__en-840
+11-07 11:52:10.799  1522  6584 E HandwritingSuperpacksUtil: HandwritingSuperpacksUtil.getPackMappingPackName():40 No pack mapping pack found in []
+11-07 11:52:10.799  1522  6584 I HandwritingSuperpacks: HandwritingSuperpacks.reloadCache():237 updatePackMappingsCache(): pack mapping pack unavailable [OFFLINE]
+11-07 11:52:10.799  1522  6584 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:10.805   646   782 I ImeTracker: org.bookreader.mobile:3a4e616e: onRequestHide at ORIGIN_SERVER reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR fromUser false
+11-07 11:52:10.813  5178  5178 D InsetsController: hide(ime(), fromIme=false)
+11-07 11:52:10.813  5178  5178 I ImeTracker: org.bookreader.mobile:3a4e616e: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-07 11:52:10.825  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-07 11:52:10.829  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-07 11:52:10.830  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-07 11:52:10.834  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-07 11:52:10.847  1522  6709 I HandwritingSlicingStrategy: HandwritingSlicingStrategy.getSlices():44 getSlices(): handwriting_recognition.86 useForeground=true
+11-07 11:52:10.848  1522  6709 I HandwritingSlicingStrategy: HandwritingSlicingStrategy.getSlices():103 getSlices(): result {slices=[{handwriting_recognition:pack_mapping_v1_lstm_20231127, m:*:*:*, fg}, {handwriting_recognition:transformer_latin_tflite_20231010_zip, m:*:*:*, fg}, {handwriting_recognition:qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, m:*:*:*, fg}, {handwriting_recognition:transformer_latin_conf_tflite_20231010_zip, m:*:*:*, fg}, {handwriting_recognition:transformer_latin_seg_tflite_20231010_zip, m:*:*:*, fg}, {handwriting_recognition:en_us_20230613_compact_fst_zip, m:*:*:*, fg}, {handwriting_recognition:scribe_latin_20231123_tflite_zip, m:*:*:*, fg}, {handwriting_recognition:scribe_latin_20231123_recospec_zip, m:*:*:*, fg}], last batch=true, sync metadata=false}
+11-07 11:52:10.850  1522  6580 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:10.850  1522  6701 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.860  1522  6708 I DownloadManager: DownloadManager$4.onFailure():573 download for __SP_MANIFEST_handwriting_recognition is cancelled
+11-07 11:52:10.860  1522  6708 I DownloadManager: DownloadManager.downloadInternal():410 Previous download for __SP_MANIFEST_handwriting_recognition is cancelled
+11-07 11:52:10.860  1522  6708 I DownloadManager: DownloadManager.downloadInternal():412 Download for __SP_MANIFEST_handwriting_recognition scheduled with params DownloadParams{allowMetered=true, requireCharging=false, foreground=false, immediately=true, priority=0}
+11-07 11:52:10.863  1522  6708 I DownloadManager: DownloadManager.startDownload():495 start download of __SP_MANIFEST_handwriting_recognition
+11-07 11:52:10.890  1522  6708 I DownloadManager: DownloadManager$4.onSuccess():564 download for __SP_MANIFEST_emoticon_content_description is finished with files # mxp@54db20a0
+11-07 11:52:10.890  1522  6708 I DownloadManager: DownloadManager$4.onSuccess():564 download for __KLP_manifest_delight__en-840 is finished with files # mxp@66c81b23
+11-07 11:52:10.911  1522  6584 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:10.912  1522  6708 I DownloadManager: DownloadManager$4.onSuccess():564 download for __SP_MANIFEST_handwriting_recognition is finished with files # mxp@65970e99
+11-07 11:52:10.912  1522  6700 I MDDSuperpacks: MDDSuperpacks.sync():223 sync requested for emoticon_content_description
+11-07 11:52:10.913  1522  6732 I MDDSuperpacks: MDDSuperpacks$2.onFailure():281 Sync for emoticon_content_description cancelled
+11-07 11:52:10.915  1522  6581 I ManifestedDataDownloader: ManifestedDataDownloader.checkVersionAndDownload():91 filegroup __KLP_delight__en-840 with version 2025031300 is already downloaded
+11-07 11:52:10.915  1522  6581 I ManifestedDataDownloader: ManifestedDataDownloader.checkVersionAndDownload():91 filegroup __KLP_delight__en-840 with version 2025031300 is already downloaded
+11-07 11:52:10.916  1522  6709 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: emoticon_content_description
+11-07 11:52:10.916  1522  6581 I DelightKLPDownloader: DelightKLPDownloader$2.onSuccess():222 klp en_840 downloaded with version 2025031300
+11-07 11:52:10.917  1522  6581 I DelightKLPDownloader: DelightKLPDownloader$2.onSuccess():222 klp en_840 downloaded with version 2025031300
+11-07 11:52:10.917  1522  6729 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.917  1522  6582 I HandwritingOnlineSuperpacks: HandwritingOnlineSuperpacks.syncInternal():187 syncInternal(): syncing packs
+11-07 11:52:10.917  1522  6582 I HandwritingOnlineSuperpacks: HandwritingOnlineSuperpacks$2.onSyncSuccess():225 syncInternal(): complete {old=[en_us_20230613_compact_fst_zip, pack_mapping_v1_lstm_20231127, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, scribe_latin_20231123_recospec_zip, scribe_latin_20231123_tflite_zip, transformer_latin_conf_tflite_20231010_zip, transformer_latin_seg_tflite_20231010_zip, transformer_latin_tflite_20231010_zip], new=[en_us_20230613_compact_fst_zip, pack_mapping_v1_lstm_20231127, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, scribe_latin_20231123_recospec_zip, scribe_latin_20231123_tflite_zip, transformer_latin_conf_tflite_20231010_zip, transformer_latin_seg_tflite_20231010_zip, transformer_latin_tflite_20231010_zip], metadata=false, last batch=true}
+11-07 11:52:10.917  1522  6582 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:10.918  1522  6734 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [7a635888cb828dfa2fc744b7b9b50f04] got for superpack: emoticon_content_description
+11-07 11:52:10.918  1522  6735 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.921  1522  6733 I MDDSuperpacks: MDDSuperpacks$2.onSuccess():274 Sync success for handwriting_recognition with result: {old=[en_us_20230613_compact_fst_zip, pack_mapping_v1_lstm_20231127, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, scribe_latin_20231123_recospec_zip, scribe_latin_20231123_tflite_zip, transformer_latin_conf_tflite_20231010_zip, transformer_latin_seg_tflite_20231010_zip, transformer_latin_tflite_20231010_zip], new=[en_us_20230613_compact_fst_zip, pack_mapping_v1_lstm_20231127, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, scribe_latin_20231123_recospec_zip, scribe_latin_20231123_tflite_zip, transformer_latin_conf_tflite_20231010_zip, transformer_latin_seg_tflite_20231010_zip, transformer_latin_tflite_20231010_zip], metadata=false, last batch=true}
+11-07 11:52:10.921  1522  6703 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.935  1522  6707 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.939  1522  6707 E MDDSuperpacks: MDDSuperpacks.parseManifest():476 cannot find metadata for delight_overrides
+11-07 11:52:10.939  1522  6703 I SuperDelight: SuperDelightBundledMetadataParser.addSystemLms():202 system lm dir /system/usr/share/ime/google/d3_lms does not exist or is not readable
+11-07 11:52:10.940  1522  6732 E MDDSuperpacks: MDDSuperpacks.parseManifest():476 cannot find metadata for delight_overrides
+11-07 11:52:10.940  1522  6582 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:10.940  1522  6709 I SuperDelight: SuperDelightBundledMetadataParser.addSystemLms():202 system lm dir /system/usr/share/ime/google/d3_lms does not exist or is not readable
+11-07 11:52:10.942  1522  6707 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.942  1522  6709 I SuperDelight: SuperDelightBundledMetadataParser.parse():192 SuperDelightBundledMetadataParser#parse(): manifest parsed with 1 packs
+11-07 11:52:10.950  1522  6708 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [7a635888cb828dfa2fc744b7b9b50f04] got for superpack: emoticon_content_description
+11-07 11:52:10.950  1522  6586 I HandwritingOnlineSuperpacks: HandwritingOnlineSuperpacks.syncInternal():168 syncPackMapping()
+11-07 11:52:10.951  1522  6586 I MDDSuperpacks: MDDSuperpacks.sync():223 sync requested for handwriting_recognition
+11-07 11:52:10.951  1522  6703 I SuperDelight: SuperDelightBundledMetadataParser.parse():192 SuperDelightBundledMetadataParser#parse(): manifest parsed with 1 packs
+11-07 11:52:10.952  1522  6582 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition_offline
+11-07 11:52:10.952  1522  6703 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.953  1522  6709 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: emoticon_content_description
+11-07 11:52:10.955  1522  6733 W MDDSuperpacks: MDDSuperpacks.constructPackSet():578 file group is empty
+11-07 11:52:10.955  1522  6581 E HandwritingSuperpacksUtil: HandwritingSuperpacksUtil.getPackMappingPackName():40 No pack mapping pack found in []
+11-07 11:52:10.956  1522  6581 I HandwritingSuperpacks: HandwritingSuperpacks.reloadCache():237 updatePackMappingsCache(): pack mapping pack unavailable [OFFLINE]
+11-07 11:52:10.956  1522  6581 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:10.969  1522  6709 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [] got for superpack: handwriting_recognition_offline
+11-07 11:52:10.977  1522  6732 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [7a635888cb828dfa2fc744b7b9b50f04] got for superpack: emoticon_content_description
+11-07 11:52:10.978  1522  6707 I MDDSuperpacks: MDDSuperpacks$2.onSuccess():274 Sync success for emoticon_content_description with result: {old=[7a635888cb828dfa2fc744b7b9b50f04], new=[7a635888cb828dfa2fc744b7b9b50f04], metadata=false, last batch=true}
+11-07 11:52:10.982  1522  6705 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:10.989  1522  6586 I HandwritingOnlineSuperpacks: HandwritingOnlineSuperpacks.syncInternal():168 syncPackMapping()
+11-07 11:52:10.989  1522  6586 I MDDSuperpacks: MDDSuperpacks.sync():223 sync requested for handwriting_recognition
+11-07 11:52:10.999  1522  6586 I AbstractSyncResultCallback: AbstractSyncResultCallback.onFailure():38 onFailure(): handwriting_recognition.sync cancelled; expected if new request supersedes pending one.
+11-07 11:52:10.999  1522  6730 I MDDSuperpacks: MDDSuperpacks$2.onFailure():281 Sync for handwriting_recognition cancelled
+11-07 11:52:10.999  1522  6581 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:11.071  1522  6703 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:11.148  1522  6703 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:11.155  1522  6703 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:11.155  1522  6732 I HandwritingSlicingStrategy: HandwritingSlicingStrategy.getSlices():44 getSlices(): handwriting_recognition.86 useForeground=true
+11-07 11:52:11.156  1522  6732 I HandwritingSlicingStrategy: HandwritingSlicingStrategy.getSlices():103 getSlices(): result {slices=[{handwriting_recognition:pack_mapping_v1_lstm_20231127, m:*:*:*, fg}, {handwriting_recognition:transformer_latin_tflite_20231010_zip, m:*:*:*, fg}, {handwriting_recognition:qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, m:*:*:*, fg}, {handwriting_recognition:transformer_latin_conf_tflite_20231010_zip, m:*:*:*, fg}, {handwriting_recognition:transformer_latin_seg_tflite_20231010_zip, m:*:*:*, fg}, {handwriting_recognition:en_us_20230613_compact_fst_zip, m:*:*:*, fg}, {handwriting_recognition:scribe_latin_20231123_tflite_zip, m:*:*:*, fg}, {handwriting_recognition:scribe_latin_20231123_recospec_zip, m:*:*:*, fg}], last batch=true, sync metadata=false}
+11-07 11:52:11.160  1522  6703 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:11.227  1522  6586 I HandwritingOnlineSuperpacks: HandwritingOnlineSuperpacks.syncInternal():187 syncInternal(): syncing packs
+11-07 11:52:11.228  1522  6586 I HandwritingOnlineSuperpacks: HandwritingOnlineSuperpacks$2.onSyncSuccess():225 syncInternal(): complete {old=[en_us_20230613_compact_fst_zip, pack_mapping_v1_lstm_20231127, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, scribe_latin_20231123_recospec_zip, scribe_latin_20231123_tflite_zip, transformer_latin_conf_tflite_20231010_zip, transformer_latin_seg_tflite_20231010_zip, transformer_latin_tflite_20231010_zip], new=[en_us_20230613_compact_fst_zip, pack_mapping_v1_lstm_20231127, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, scribe_latin_20231123_recospec_zip, scribe_latin_20231123_tflite_zip, transformer_latin_conf_tflite_20231010_zip, transformer_latin_seg_tflite_20231010_zip, transformer_latin_tflite_20231010_zip], metadata=false, last batch=true}
+11-07 11:52:11.228  1522  6586 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:11.229  1522  6705 I MDDSuperpacks: MDDSuperpacks$2.onSuccess():274 Sync success for handwriting_recognition with result: {old=[en_us_20230613_compact_fst_zip, pack_mapping_v1_lstm_20231127, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, scribe_latin_20231123_recospec_zip, scribe_latin_20231123_tflite_zip, transformer_latin_conf_tflite_20231010_zip, transformer_latin_seg_tflite_20231010_zip, transformer_latin_tflite_20231010_zip], new=[en_us_20230613_compact_fst_zip, pack_mapping_v1_lstm_20231127, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, scribe_latin_20231123_recospec_zip, scribe_latin_20231123_tflite_zip, transformer_latin_conf_tflite_20231010_zip, transformer_latin_seg_tflite_20231010_zip, transformer_latin_tflite_20231010_zip], metadata=false, last batch=true}
+11-07 11:52:11.238  1522  6707 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:11.248  1522  6586 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:11.249  1522  6703 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:11.302  1522  6586 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition_offline
+11-07 11:52:11.323  1522  6707 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:11.324  1522  6707 W MDDSuperpacks: MDDSuperpacks.constructPackSet():578 file group is empty
+11-07 11:52:11.324  1522  6584 E HandwritingSuperpacksUtil: HandwritingSuperpacksUtil.getPackMappingPackName():40 No pack mapping pack found in []
+11-07 11:52:11.324  1522  6584 I HandwritingSuperpacks: HandwritingSuperpacks.reloadCache():237 updatePackMappingsCache(): pack mapping pack unavailable [OFFLINE]
+11-07 11:52:11.324  1522  6584 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:11.333  1522  6703 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [] got for superpack: handwriting_recognition_offline
+11-07 11:52:11.346  1522  6584 I MDDSuperpacks: MDDSuperpacks.getPacks():548 getting packs for superpack: handwriting_recognition
+11-07 11:52:11.352  1522  6703 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:11.353  1522  6732 I MDDSuperpacks: MDDSuperpacks$3.onSuccess():558 packs [transformer_latin_tflite_20231010_zip, scribe_latin_20231123_tflite_zip, qrnn_en_us_reco_20231010_fst_20230613_recospec_zip, transformer_latin_conf_tflite_20231010_zip, pack_mapping_v1_lstm_20231127, transformer_latin_seg_tflite_20231010_zip, scribe_latin_20231123_recospec_zip, en_us_20230613_compact_fst_zip] got for superpack: handwriting_recognition
+11-07 11:52:11.752  5178  5183 I okreader.mobile: Background concurrent mark compact GC freed 12MB AllocSpace bytes, 508(16MB) LOS objects, 49% free, 21MB/43MB, paused 1.086ms,5.026ms total 187.442ms
+11-07 11:52:12.409  5178  5183 I okreader.mobile: Background concurrent mark compact GC freed 20MB AllocSpace bytes, 174(5440KB) LOS objects, 50% free, 21MB/43MB, paused 2.929ms,4.419ms total 116.531ms
+11-07 11:52:12.993   646   782 I ImeTracker: org.bookreader.mobile:815039e2: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-07 11:52:12.994   646  2050 I ImeTracker: system_server:3b0a3032: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:12.995   646   679 I ImeTracker: system_server:3b0a3032: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:12.996  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-07 11:52:12.996  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-07 11:52:13.002  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-07 11:52:13.006  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-07 11:52:13.019  5178  5178 D InsetsController: hide(ime(), fromIme=false)
+11-07 11:52:13.020  5178  5178 I ImeTracker: org.bookreader.mobile:815039e2: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-07 11:52:13.153   646   926 D WifiClientModeImpl[42193:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+11-07 11:52:13.155   646   926 D WifiDataStall: tx tput in kbps: 11000
+11-07 11:52:13.155   646   926 D WifiDataStall: rx tput in kbps: 11000
+11-07 11:52:13.155   646   926 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+11-07 11:52:13.155   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:13.155   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:13.155   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:13.155   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:13.155   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:13.155   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:13.155   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:13.155   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:13.157   646   926 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 138635344 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-07 11:52:13.157   646   926 D WifiScoreCard: txRate: 1 txSpeed: 1
+11-07 11:52:13.157   646   926 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 2068924688 RSSI -50 txSpeed -1
+11-07 11:52:13.158   646   926 D WifiClientModeImpl[42193:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:2994] from screen [on:0 period:-1243996571] score=60
+11-07 11:52:13.965  1744  1744 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.mdd.service.START dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+11-07 11:52:14.001   454   485 I netd    : tetherGetStats() -> {[]} <0.38ms>
+11-07 11:52:14.099  5178  5183 I okreader.mobile: Background concurrent mark compact GC freed 21MB AllocSpace bytes, 152(4720KB) LOS objects, 49% free, 22MB/44MB, paused 3.721ms,11.911ms total 602.763ms
+11-07 11:52:14.205  1744  1744 D BoundBrokerSvc: onUnbind: Intent { act=com.google.firebase.dynamiclinks.service.START xflg=0x4 pkg=com.google.android.gms }
+11-07 11:52:14.384  1023  1177 E FrameTracker: force finish cuj, time out: J<SPLASHSCREEN_EXIT_ANIM>
+11-07 11:52:14.688  5178  5178 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@93fdd8
+11-07 11:52:14.798   646   680 I ImeTracker: system_server:510eec5e: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:14.799   646   679 I ImeTracker: system_server:510eec5e: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:14.800   646   680 W WindowManager: container Window{5dd3d3b u0 org.bookreader.mobile/org.bookreader.mobile.MainActivity}does not have a surface
+11-07 11:52:14.856   646   782 I ImeTracker: org.bookreader.mobile:fb763e9e: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-07 11:52:14.866  5178  5178 D InsetsController: hide(ime(), fromIme=false)
+11-07 11:52:14.866  5178  5178 I ImeTracker: org.bookreader.mobile:fb763e9e: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-07 11:52:14.873  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-07 11:52:14.877  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-07 11:52:14.878  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-07 11:52:14.878   646   748 I ImeTracker: system_server:5787cc22: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:14.879  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-07 11:52:14.885   646   679 I ImeTracker: system_server:5787cc22: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:15.225  1641  3348 V MediaProvider: calling app has PERMISSION_READ_IMAGES? false
+11-07 11:52:15.225  1641  3348 W MediaProvider: Forgot to handle a top level directory in getContentUriForFile?
+11-07 11:52:15.226  1641  3348 W MediaProvider: isAppCloneUserPair for user 0: false
+11-07 11:52:15.663   646   782 I ImeTracker: org.bookreader.mobile:2411f8e7: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-07 11:52:15.666  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-07 11:52:15.667  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-07 11:52:15.667  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-07 11:52:15.667  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-07 11:52:15.669   646  2050 I ImeTracker: system_server:ef27130e: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:15.678   646   679 I ImeTracker: system_server:ef27130e: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:15.828  5178  5178 D InsetsController: hide(ime(), fromIme=false)
+11-07 11:52:15.828  5178  5178 I ImeTracker: org.bookreader.mobile:2411f8e7: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-07 11:52:15.944   454   485 I netd    : tetherGetStats() -> {[]} <2.76ms>
+11-07 11:52:16.203   646   926 D WifiClientModeImpl[42193:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+11-07 11:52:16.203   646   926 D WifiDataStall: tx tput in kbps: 11000
+11-07 11:52:16.203   646   926 D WifiDataStall: rx tput in kbps: 11000
+11-07 11:52:16.203   646   926 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+11-07 11:52:16.203   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:16.203   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:16.203   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:16.203   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:16.203   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:16.203   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:16.203   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:16.203   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:16.204   646   926 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 138635344 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-07 11:52:16.204   646   926 D WifiScoreCard: txRate: 1 txSpeed: 1
+11-07 11:52:16.204   646   926 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 2068924688 RSSI -50 txSpeed -1
+11-07 11:52:16.204   646   926 D WifiClientModeImpl[42193:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3046] from screen [on:0 period:-1243993524] score=60
+11-07 11:52:16.312  5178  5183 I okreader.mobile: Background concurrent mark compact GC freed 23MB AllocSpace bytes, 190(5876KB) LOS objects, 49% free, 24MB/48MB, paused 1.928ms,17.762ms total 955.781ms
+11-07 11:52:16.429  1262  1262 D wpa_supplicant: nl80211: Drv Event 64 (NL80211_CMD_NOTIFY_CQM) received for wlan0
+11-07 11:52:16.429  1262  1262 D wpa_supplicant: nl80211: Beacon loss event
+11-07 11:52:16.429  1262  1262 D wpa_supplicant: wlan0: Event BEACON_LOSS (53) received
+11-07 11:52:16.429  1262  1262 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS
+11-07 11:52:16.967   454   485 I netd    : tetherGetStats() -> {[]} <0.52ms>
+11-07 11:52:19.196  5178  5183 I okreader.mobile: Background concurrent mark compact GC freed 23MB AllocSpace bytes, 168(5228KB) LOS objects, 50% free, 22MB/44MB, paused 3.238ms,5.013ms total 209.149ms
+11-07 11:52:19.205   646   926 D WifiClientModeImpl[42193:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2447 RxLinkSpeed=2
+11-07 11:52:19.205   646   926 D WifiDataStall: tx tput in kbps: 11000
+11-07 11:52:19.205   646   926 D WifiDataStall: rx tput in kbps: 11000
+11-07 11:52:19.205   646   926 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
+11-07 11:52:19.205   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:19.205   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:19.205   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:19.205   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:19.205   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:19.205   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:19.205   646   926 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-07 11:52:19.205   646   926 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 11
+11-07 11:52:19.206   646   926 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 138635344 SSID: "AndroidWifi", BSSID: 00:13:10:85:fe:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 11Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 11Mbps, Frequency: 2447MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-07 11:52:19.206   646   926 D WifiScoreCard: txRate: 1 txSpeed: 1
+11-07 11:52:19.206   646   926 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 2068924688 RSSI -50 txSpeed -1
+11-07 11:52:19.206   646   926 D WifiClientModeImpl[42193:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 00:13:10:85:fe:01 rssi=-50 f=2447 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3002] from screen [on:0 period:-1243990522] score=60
+11-07 11:52:19.369  1641  3348 V MediaProvider: calling app has PERMISSION_READ_IMAGES? false
+11-07 11:52:19.369  1641  3348 W MediaProvider: Forgot to handle a top level directory in getContentUriForFile?
+11-07 11:52:19.371  1641  3348 W MediaProvider: isAppCloneUserPair for user 0: false
+11-07 11:52:19.492  5178  5178 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@976eb18
+11-07 11:52:19.509  1143  1424 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+11-07 11:52:19.518   646   680 I ImeTracker: system_server:8963ff6b: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:19.525   646   679 I ImeTracker: system_server:8963ff6b: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:19.528   646   680 W WindowManager: container Window{3115fce u0 org.bookreader.mobile/org.bookreader.mobile.MainActivity}does not have a surface
+11-07 11:52:19.600   499   499 I lights_service_example_rust: main::lights: Lights setting state for id=1 to color ff999999
+11-07 11:52:19.625   646   782 I ImeTracker: org.bookreader.mobile:44569299: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-07 11:52:19.627  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-07 11:52:19.628  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-07 11:52:19.628   646  2050 I ImeTracker: system_server:1b74302a: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:19.629  1522  1522 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=org.bookreader.mobile, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-07 11:52:19.629  1522  1522 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-07 11:52:19.631   646   679 I ImeTracker: system_server:1b74302a: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:19.646  5178  5178 D InsetsController: hide(ime(), fromIme=false)
+11-07 11:52:19.646  5178  5178 I ImeTracker: org.bookreader.mobile:44569299: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-07 11:52:19.868  5178  5178 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@ea7f7d
+11-07 11:52:19.916   499   499 I lights_service_example_rust: main::lights: Lights setting state for id=1 to color ff666666
+11-07 11:52:20.001  5178  5178 I ActivityThread: Schedule relaunch activity: org.bookreader.mobile.MainActivity
+11-07 11:52:20.004  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: PAUSED
+11-07 11:52:20.004  5178  5178 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@36870b7
+11-07 11:52:20.005  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: STOPPED
+11-07 11:52:20.005  5178  5178 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@36870b7
+11-07 11:52:20.011  5178  5178 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@7fd4543
+11-07 11:52:20.011  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@36870b7 in: DESTROYED
+11-07 11:52:20.011  5178  5178 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+11-07 11:52:20.013  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@8d4e0c0 in: PRE_ON_CREATE
+11-07 11:52:20.013  5178  5178 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was DESTROYED
+11-07 11:52:20.017  5178  5178 D AutofillManager: Fill dialog is enabled:false, hints=[]
+11-07 11:52:20.021  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@8d4e0c0 in: CREATED
+11-07 11:52:20.021  5178  5178 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@8d4e0c0
+11-07 11:52:20.022  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@8d4e0c0 in: STARTED
+11-07 11:52:20.022  5178  5178 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@8d4e0c0
+11-07 11:52:20.022  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@8d4e0c0 in: RESUMED
+11-07 11:52:20.023  5178  5178 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@8d4e0c0
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.089   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.090   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.092   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.093   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.093   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.093   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.093   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.093   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.093   646   679 W IPCThreadState: Sending oneway calls to frozen process.
+11-07 11:52:20.317   499   499 I lights_service_example_rust: main::lights: Lights setting state for id=1 to color ff999999
+11-07 11:52:20.323  1522  1522 I VoiceInputManagerWrapper: VoiceInputManagerWrapper.shutdownVoiceInternal():139 shutdownVoiceInternal()
+11-07 11:52:20.324  1522  1522 W NotificationCenter: NotificationCenter.unregisterListener():480 Listener guw@2ad16a0 was not registered for notification class luj
+11-07 11:52:20.369  1023  1177 E FrameTracker: force finish cuj, time out: J<SPLASHSCREEN_EXIT_ANIM>
+11-07 11:52:20.520   646  2030 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@b2d3153, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+11-07 11:52:20.523   530   619 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-07 11:52:20.525  1023  1180 D SplashScreenView: Build android.window.SplashScreenView{d10812d V.E...... ......ID 0,0-0,0}
+11-07 11:52:20.525  1023  1180 D SplashScreenView: Icon: view: null drawable: null size: 0
+11-07 11:52:20.525  1023  1180 D SplashScreenView: Branding: view: android.view.View{d30e662 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+11-07 11:52:20.529  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@8d4e0c0 in: PAUSED
+11-07 11:52:20.529  5178  5178 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@8d4e0c0
+11-07 11:52:20.531  5215  5229 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+11-07 11:52:20.532  5215  5229 I EGL_emulation: Opening libGLESv2_emulation.so
+11-07 11:52:20.533   530   530 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-07 11:52:20.548  5215  5229 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-07 11:52:20.555   454   485 I netd    : tetherGetStats() -> {[]} <0.30ms>
+11-07 11:52:20.557  5215  5215 I der.mobile.test: AssetManager2(0x78237ef163d8) locale list changing from [] to [en-US]
+11-07 11:52:20.580  5215  5215 D AutofillManager: Fill dialog is enabled:false, hints=[]
+11-07 11:52:20.626   530   545 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-07 11:52:20.674  5178  5178 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@ed81922
+11-07 11:52:20.684   499   499 I lights_service_example_rust: main::lights: Lights setting state for id=1 to color ff666666
+11-07 11:52:20.812  1284  1284 D ViewRootImpl: Skipping stats log for color mode
+11-07 11:52:20.813  1284  1284 D StatsLog: LAUNCHER_ONRESUME
+11-07 11:52:20.818  1284  1284 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=6}
+11-07 11:52:20.824  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@8d4e0c0 in: STOPPED
+11-07 11:52:20.825  1284  1311 D QuickstepModelDelegate: notifyAppTargetEvent action=1 launchLocation=workspace/0/[-1,-1]/[1,1]
+11-07 11:52:20.827  5178  5178 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@8d4e0c0
+11-07 11:52:20.837  1284  1284 D BaseDepthController: setSurface:
+11-07 11:52:20.837  1284  1284 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+11-07 11:52:20.837  1284  1284 D BaseDepthController: 	mBaseSurface: Surface(name=com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity)/@0x9d0e917
+11-07 11:52:20.839  1654  1822 I AiAiEcho: Predicting[0]:  [CONTEXT sampling_count=5 ]
+11-07 11:52:20.839  1654  1822 I AiAiEcho: EchoTargets:
+11-07 11:52:20.839  1654  1822 I AiAiEcho: Filtered by AiAi flag check:
+11-07 11:52:20.839  1654  1822 I AiAiEcho: [CONTEXT ratelimit_period="10 SECONDS" ]
+11-07 11:52:20.839  1654  1822 I AiAiEcho: #remoteViewsTwiddler: feature disabled.
+11-07 11:52:20.858  1654  1822 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+11-07 11:52:20.860  5178  5178 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@8540f9f
+11-07 11:52:20.874  5178  5178 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@8d4e0c0 in: DESTROYED
+11-07 11:52:20.880  1284  1284 D SsBaseTemplateCard: No text view can be set up
+11-07 11:52:20.880  1284  1284 D SsBaseTemplateCard: Passed-in item info is null
+11-07 11:52:20.880  1284  1284 D SsBaseTemplateCard: Passed-in item info is null
+11-07 11:52:20.880  1284  1284 D SsBaseTemplateCard: Passed-in item info is null
+11-07 11:52:20.880  1284  1284 I SsBaseTemplateCard: Secondary card pane is null
+11-07 11:52:20.880  5178  5178 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+11-07 11:52:20.905  5178  5178 D ViewRootImpl: Skipping stats log for color mode
+11-07 11:52:20.934   646   934 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-07 11:52:20.935   646   934 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-07 11:52:20.935   646   934 D InetDiagMessage: Destroyed live tcp sockets for uids={10214} in 3ms
+11-07 11:52:20.938   646   934 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-07 11:52:20.939   646   934 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-07 11:52:20.939   646   934 D InetDiagMessage: Destroyed live tcp sockets for uids={20214} in 4ms
+11-07 11:52:20.946   646  2052 I ImeTracker: system_server:4e7b3820: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-07 11:52:20.979   646   679 I ImeTracker: system_server:4e7b3820: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-07 11:52:21.001  1284  1284 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+11-07 11:52:21.001  1284  1284 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:22)
+11-07 11:52:21.001  1284  1284 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:11)
+11-07 11:52:21.001  1284  1284 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:339)
+11-07 11:52:21.002  1284  1284 D b/311077782: LauncherAnimationRunner.setAnimation
+11-07 11:52:21.003  1284  1284 D WorkspaceRevealAnim: onAnimationEnd: workspace alpha = 1.0
+11-07 11:52:21.012  5178  5192 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@63407c7]
+11-07 11:52:21.081  5215  5215 D VRI[InstrumentationActivityInvoker$EmptyActivity]: visibilityChanged oldVisibility=true newVisibility=false
+11-07 11:52:21.084  5178  5192 I TestRunner: finished: quickSettingsCancelAndApplyPreserveExactProgressAndUnrelatedBookPreferences(org.bookreader.mobile.reader.TxtReaderFlowTest)

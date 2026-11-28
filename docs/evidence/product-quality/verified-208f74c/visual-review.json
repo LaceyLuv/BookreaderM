@@ -1,0 +1,67 @@
+{
+  "source_sha": "208f74caf788bf9a72d1640d4e30926ae0a29716",
+  "reviewed_apis": [
+    26,
+    34,
+    36
+  ],
+  "screenshots": [
+    {
+      "api": 26,
+      "path": "42210038417/mobile-device-evidence-api-26/build/device-evidence/fixture-screenshots/phase3-txt-highlight.png",
+      "sha256": "07cd55d5177c6b87017dc25c81bd7eaad1d47951e2f930ee05c29f19380b82ab"
+    },
+    {
+      "api": 26,
+      "path": "42210038417/mobile-device-evidence-api-26/build/device-evidence/fixture-screenshots/phase3-txt-annotations.png",
+      "sha256": "aea7ee7ee9684b831dc2b60ecf8a581cf76a0234cbf8ee27a7bf92936e95fb30"
+    },
+    {
+      "api": 26,
+      "path": "42210038417/mobile-device-evidence-api-26/build/device-evidence/fixture-screenshots/txt-controls.png",
+      "sha256": "708dfe05098ad4aa8158200b82797b80b1f00de69bc338ef3e4dfd176b2e1ddd"
+    },
+    {
+      "api": 34,
+      "path": "42210038417/mobile-device-evidence-api-34/build/device-evidence/fixture-screenshots/phase3-txt-highlight.png",
+      "sha256": "4ea773c2cbfce9eb8fd61a45ef39c1d4db162c1571675ca6f5ed8479f96f4e66"
+    },
+    {
+      "api": 34,
+      "path": "42210038417/mobile-device-evidence-api-34/build/device-evidence/fixture-screenshots/phase3-txt-annotations.png",
+      "sha256": "1e0dede2d7e6184606673db4045929b9df1b162b1c527a5ed23d06bb118e2e1c"
+    },
+    {
+      "api": 34,
+      "path": "42210038417/mobile-device-evidence-api-34/build/device-evidence/fixture-screenshots/txt-controls.png",
+      "sha256": "e2a1e236100c1f9a15afbe85b855d2d08b3660a5960908bd948650b336542cc3"
+    },
+    {
+      "api": 36,
+      "path": "42210038417/mobile-device-evidence-api-36/build/device-evidence/fixture-screenshots/phase3-txt-highlight.png",
+      "sha256": "a46a878af599335813c8658c592998e935a2af107b416e5146f622e2db714f8f"
+    },
+    {
+      "api": 36,
+      "path": "42210038417/mobile-device-evidence-api-36/build/device-evidence/fixture-screenshots/phase3-txt-annotations.png",
+      "sha256": "d0a98308485ca0e7d40de14a4e918f60a65d37f2ae3aaa5d4c812e283d3673f4"
+    },
+    {
+      "api": 36,
+      "path": "42210038417/mobile-device-evidence-api-36/build/device-evidence/fixture-screenshots/txt-controls.png",
+      "sha256": "cf617257c8c718383dddadb3d930dfd3f5b04b822aa2c3c50c4a7e827c9a7975"
+    }
+  ],
+  "observations": [
+    "All three unobscured page captures show the complete selected same token with pink highlight; following duplicate tokens remain unmarked.",
+    "All three lists show the pink quote, edited note, jump/edit/close actions.",
+    "All three TXT controls captures show five readable labels, including the shortened 설정 label."
+  ],
+  "limitations": [
+    "The controls captures show total-page calculation in progress; they are used to review control labels, not completed page-count accuracy.",
+    "Physical device selection handles, TalkBack and performance remain NOT_RUN.",
+    "Prior Phase2 measurement reentry and 19a8235 API26 transient toolbar-capture causes remain unresolved."
+  ],
+  "originals_preserved": true,
+  "documentation_summary": "세 API의 실제 본문·메모 목록·도구 화면을 확인했다. 선택한 단어 전체의 분홍 표시와 짧아진 설정 라벨이 잘리지 않는다.\n[원본 시각 검토·한계](evidence/product-quality/verified-208f74c/visual-review.json). 도구 캡처의 쪽수 계산 중 표시는 최종 쪽수 정확성 증거로 사용하지 않는다."
+}

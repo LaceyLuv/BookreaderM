@@ -1,0 +1,75 @@
+11-18 04:55:22.007  5070  5084 I TestRunner: started: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
+11-18 04:55:22.023  3979  4003 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TIKTOK_WORK_EXECUTION_MONITOR_ON_WORK_FINISHED, function parameters: [f1ea97f3-2744-4025-96e0-1f7047d047d4,com.android.dialer.voicemail.service.impl.VvmTaskWorker], return value: Retry
+11-18 04:55:22.028  3979  3998 I WM-WorkerWrapper: Worker result RETRY for Work [ id=f1ea97f3-2744-4025-96e0-1f7047d047d4, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker,1,SYNC,TikTokWorker#com.android.dialer.voicemail.service.impl.VvmTaskWorker } ]
+11-18 04:55:22.092  3979  4003 I DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.execute:229 Beginning VVM action: UPDATE_STATUS with retryCount: 3 for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0} [CONTEXT enable_persistent_logger=true ]
+11-18 04:55:22.095  3979  4003 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-18 04:55:22.097  3979  4006 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-18 04:55:22.106  3979  3979 D WM-Processor: fgy f1ea97f3-2744-4025-96e0-1f7047d047d4 executed; reschedule = true
+11-18 04:55:22.118  3979  3979 D WM-GreedyScheduler: Stopping tracking for WorkGenerationalId(workSpecId=f1ea97f3-2744-4025-96e0-1f7047d047d4, generation=0)
+11-18 04:55:22.119  3979  3979 D WM-SystemJobService: f1ea97f3-2744-4025-96e0-1f7047d047d4 executed on JobScheduler
+11-18 04:55:22.120  3979  4002 D WM-GreedyScheduler: Cancelling work ID f1ea97f3-2744-4025-96e0-1f7047d047d4
+11-18 04:55:22.120  3979  4002 D WM-GreedyScheduler: Ignoring {WorkSpec: a7e73a8b-0f1f-41b1-a1c0-401ec897bc7c}. Requires device idle.
+11-18 04:55:22.131  3979  4002 D WM-GreedyScheduler: Ignoring {WorkSpec: ba18a29c-708a-46d5-bde9-867aaf688e79}. Requires device idle.
+11-18 04:55:22.131  3979  4002 D WM-GreedyScheduler: Ignoring {WorkSpec: 9e464bb3-2282-4de1-aa42-36174ab529dd}. Requires device idle.
+11-18 04:55:22.132  3979  4002 D WM-GreedyScheduler: Ignoring {WorkSpec: 0482f7cf-ac79-4454-bbbb-a3e73a75b41d}. Requires device idle.
+11-18 04:55:22.132  3979  4002 D WM-GreedyScheduler: Ignoring {WorkSpec: 725be14c-e932-42c2-9d5f-69d2acdc46ef}. Requires device idle.
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: com.android.dialer.voicemail.service.impl.vvmclients.rest.RestVvmCarrierService.getMsisdn:420 Retrieved phone number in an unexpected format: +15551234567 [CONTEXT disable_client_error_logging=true ]
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: zxo: MEDIUM
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at a.cN(PG:15)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at pxq.apply(PG:489)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at zcp.apply(PG:13)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at aaka.d(PG:3)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at aakb.run(PG:38)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at umz.run(PG:7)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at aadu.run(PG:44)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at tdt.run(PG:78)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at cp.run(PG:143)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at java.lang.Thread.run(Thread.java:1119)
+11-18 04:55:22.166  3979  4003 E DialerRestVvmCarrierService: 	at uoe.run(PG:61)
+11-18 04:55:22.172  3979  4003 I DialerLogcatLoggingBindings: com.android.dialer.logging.logcat.LogcatLoggingBindings.logImpression:54 Impression: ANDROID_API_UNEXPECTED_PHONE_NUMBER_FORMAT
+11-18 04:55:22.174  3979  4006 I DialerStatusCheck: com.android.dialer.voicemail.service.impl.vvmclients.rest.StatusCheck.updateStatus:55 updateStatus
+11-18 04:55:22.185  3979  4003 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-18 04:55:22.190  3979  4006 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TELEPHONY_BOOTSTRAP_AUTHENTICATION_REQUEST, function parameters: [], return value: Default
+11-18 04:55:22.191  3979  4006 W DialerGbaCredentialProvider: com.android.dialer.voicemail.service.impl.vvmclients.rest.GbaCredentialProvider$1.onAuthenticationFailure:93 GBA failed with reason: 1 [CONTEXT disable_client_error_logging=true ]
+11-18 04:55:22.191  3979  4006 W DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.executeWorkOnCarrierService:444 Could not complete vvm work with action: UPDATE_STATUS. Error: [GeneralFailureReason: UNSPECIFIED, RestFailureReason: GBA_AUTHENTICATION_FAILURE_FEATURE_NOT_SUPPORTED, OmtpFailureReason: OMTP_UNSPECIFIED] for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0} [CONTEXT disable_client_error_logging=true enable_persistent_logger=true ]
+11-18 04:55:22.194  3979  4003 I DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.executeWork:194 VvmResult is: # pug@1db0ddb for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0}
+11-18 04:55:22.197  3979  4006 I DialerVvmTaskWorkerDelegate: com.android.dialer.voicemail.service.impl.scheduler.VvmTaskWorker$VvmTaskWorkerDelegate.executeVvmJob:191 Beginning execution of job ID: 0
+11-18 04:55:22.197  3979  4006 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:66 event: VVM_TASK_WORKER_EXECUTE_VVM_JOB, function parameters: [0], return value: <empty> [CONTEXT enable_persistent_logger=true ]
+11-18 04:55:22.198  3979  4006 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TIKTOK_WORK_EXECUTION_MONITOR_ON_WORK_FINISHED, function parameters: [f9a2d3e6-361e-405c-bedb-40eee863bdd8,com.android.dialer.voicemail.service.impl.VvmTaskWorker], return value: Failure
+11-18 04:55:22.198  3979  4007 I WM-WorkerWrapper: Worker result FAILURE for Work [ id=f9a2d3e6-361e-405c-bedb-40eee863bdd8, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker,1,UPDATE_STATUS,TikTokWorker#com.android.dialer.voicemail.service.impl.VvmTaskWorker } ]
+11-18 04:55:22.203  3979  3979 D WM-Processor: fgy f9a2d3e6-361e-405c-bedb-40eee863bdd8 executed; reschedule = false
+11-18 04:55:22.203  3979  3979 D WM-GreedyScheduler: Stopping tracking for WorkGenerationalId(workSpecId=f9a2d3e6-361e-405c-bedb-40eee863bdd8, generation=0)
+11-18 04:55:22.203  3979  3979 D WM-SystemJobService: f9a2d3e6-361e-405c-bedb-40eee863bdd8 executed on JobScheduler
+11-18 04:55:22.212  3979  4013 D WM-GreedyScheduler: Cancelling work ID f9a2d3e6-361e-405c-bedb-40eee863bdd8
+11-18 04:55:22.224  3979  4013 D WM-SystemJobScheduler: Scheduling work ID f1ea97f3-2744-4025-96e0-1f7047d047d4Job ID 30
+11-18 04:55:22.233   443   481 I netd    : tetherGetStats() -> {[]} <2.00ms>
+11-18 04:55:22.233  3979  4003 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-18 04:55:22.234  3979  4003 I DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.execute:229 Beginning VVM action: ACTIVATE with retryCount: 3 for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0} [CONTEXT enable_persistent_logger=true ]
+11-18 04:55:22.250  3979  4013 D WM-GreedyScheduler: Ignoring {WorkSpec: a7e73a8b-0f1f-41b1-a1c0-401ec897bc7c}. Requires device idle.
+11-18 04:55:22.250  3979  4013 D WM-GreedyScheduler: Ignoring {WorkSpec: ba18a29c-708a-46d5-bde9-867aaf688e79}. Requires device idle.
+11-18 04:55:22.250  3979  4013 D WM-GreedyScheduler: Ignoring {WorkSpec: 9e464bb3-2282-4de1-aa42-36174ab529dd}. Requires device idle.
+11-18 04:55:22.250  3979  4013 D WM-GreedyScheduler: Ignoring {WorkSpec: 0482f7cf-ac79-4454-bbbb-a3e73a75b41d}. Requires device idle.
+11-18 04:55:22.250  3979  4013 D WM-GreedyScheduler: Ignoring {WorkSpec: 725be14c-e932-42c2-9d5f-69d2acdc46ef}. Requires device idle.
+11-18 04:55:22.263  3979  4006 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: com.android.dialer.voicemail.service.impl.vvmclients.rest.RestVvmCarrierService.getMsisdn:420 Retrieved phone number in an unexpected format: +15551234567 [CONTEXT disable_client_error_logging=true ]
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: zxo: MEDIUM
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at a.cN(PG:15)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at pxq.apply(PG:489)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at zcp.apply(PG:13)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at aaka.d(PG:3)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at aakb.run(PG:38)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at umz.run(PG:7)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at aadu.run(PG:44)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at tdt.run(PG:78)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at cp.run(PG:143)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at java.lang.Thread.run(Thread.java:1119)
+11-18 04:55:22.275  3979  4006 E DialerRestVvmCarrierService: 	at uoe.run(PG:61)
+11-18 04:55:22.276  3979  4003 I DialerLogcatLoggingBindings: com.android.dialer.logging.logcat.LogcatLoggingBindings.logImpression:54 Impression: ANDROID_API_UNEXPECTED_PHONE_NUMBER_FORMAT
+11-18 04:55:22.277  3979  4003 I DialerVvmActivation: com.android.dialer.voicemail.service.impl.vvmclients.rest.VvmActivation.activate:73 activate
+11-18 04:55:22.282  3979  4003 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TELEPHONY_BOOTSTRAP_AUTHENTICATION_REQUEST, function parameters: [], return value: Default
+11-18 04:55:22.283  3979  4003 W DialerGbaCredentialProvider: com.android.dialer.voicemail.service.impl.vvmclients.rest.GbaCredentialProvider$1.onAuthenticationFailure:93 GBA failed with reason: 1 [CONTEXT disable_client_error_logging=true ]
+11-18 04:55:22.283  3979  4003 I DialerVoicemailStatusDataServiceImpl: com.android.dialer.voicemailstatus.dataservice.impl.VoicemailStatusDataServiceImpl.insertOrUpdateVoicemailStatus:247 enter
+11-18 04:55:22.290   579   917 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-18 04:55:22.291   579   917 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-18 04:55:22.291   579   917 D InetDiagMessage: Destroyed live tcp sockets for uids={10205} in 1ms
+11-18 04:55:22.292  5070  5084 I TestRunner: finished: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)

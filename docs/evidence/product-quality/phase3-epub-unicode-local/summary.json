@@ -1,0 +1,21 @@
+{
+  "source_sha": "3e10382b326d8d85aabd305114c2d2b418d9f340",
+  "scope": "Android Xalan supplementary Unicode CSP serialization fix",
+  "epub_unit": 17,
+  "commands": [
+    "source /workspace/toolchains/mobile-env.sh; ./gradlew :epubAndroid:testDebugUnitTest :epubAndroid:lintDebug :androidApp:assembleDebug :androidApp:assembleDebugAndroidTest :androidApp:lintDebug --console=plain",
+    "./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain"
+  ],
+  "exit_codes": [
+    0,
+    0
+  ],
+  "original_android_probe": "API26 software emulator, real org.apache.xalan.processor.TransformerFactoryImpl emits illegal surrogate references. UTF-16 character output preserves the emoji.",
+  "original_webview": "a46551a API36 managed fixture byte exact; DOM stops at first emoji: only selection id exists with no text, body is one.",
+  "first_test_failure": "Engine-added CSP was fed to the publication-input policy. Kept the policy and used an independent parser to check trusted output. Raw failure preserved.",
+  "device_matrix": "RUNNING",
+  "actual_production_android_probe": "PASS actual production EpubContentPolicy from frozen APK, API26 Dalvik, UTF-8 supplementary text and full CSP preserved",
+  "software_ui": "BLOCKED_ENV: cold targeted1 + warm targeted2 fail READY 40s; screenshot shows System UI is not responding; not claimed as native PASS",
+  "first_local_install": "Mutable Gradle output changed during transfer; installer rejected v2 digest. Retried immutable APK copy after apksigner verify PASS.",
+  "immutable_debug_apk_sha256": "5e9b3a88559a25d53fdaf7227ffd4f0d5f5caa865db2416fb5337cc26fa2dc18"
+}

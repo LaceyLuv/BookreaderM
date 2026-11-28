@@ -273,6 +273,14 @@
       "rejectsNonAdvancingRangesAndPropagatesCancellation"
     ],
     [
+      "org.bookreader.mobile.reader.TxtPageIndexTest",
+      "boundedWindowReaderReusesChunkAndPreservesSurrogateBoundaries"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtPageIndexTest",
+      "serializedPageIndexCancelsPreviousRunBeforeStartingReplacement"
+    ],
+    [
       "org.bookreader.mobile.reader.FontFilePolicyTest",
       "bundledKoreanFontsHaveValidBoundedSfntTables"
     ],
@@ -283,12 +291,88 @@
     [
       "org.bookreader.mobile.reader.FontFilePolicyTest",
       "rejectsEscapingOverlappingAndDuplicateTableDirectories"
+    ],
+    [
+      "org.bookreader.mobile.ui.AppViewModelTest",
+      "missingReaderReportsAnErrorForEveryFormatWithoutMutatingTheBook"
+    ],
+    [
+      "org.bookreader.mobile.ui.AppViewModelTest",
+      "unavailableBooksExplainTheReasonWithoutOpeningOrChangingLibrary"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderTocTest",
+      "cancelledLateScanCannotPublishOrNavigateAndCanBeRetried"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderTocTest",
+      "readFailureAndStaleWriteDisableEditsAndSurrogateBoundaryNeverChangesPosition"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderTocTest",
+      "savedEditStaysNotReadyUntilAuthoritativeReloadCompletes"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderAnnotationsTest",
+      "cancelledLateLoadAndMismatchedQuoteCannotPaintOrJumpToAnotherOccurrence"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderAnnotationsTest",
+      "cancelledWindowSplitSurrogateChangedSourceAndStaleWritesCannotSaveOrMoveProgress"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "portableEnvelopeRoundTripsUnicodeAndDoesNotDependOnFilename"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "modifiedTruncatedAndAppendedDataFailIntegrityBeforeRestore"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "futureVersionAndHugeDeclaredSizeRejectBeforePayloadAllocation"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "untrustedPayloadWithValidChecksumStillMustBeStrictAndBounded"
     ]
   ],
   "shared-jvm": [
     [
       "org.bookreader.mobile.database.MigrationTest",
+      "catalogMigrationStatementFailurePreservesVersionFiveDatabase"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "catalogMigrationValidationFailureRollsBackEveryCatalogTable"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionFiveAddsCatalogWithoutRewritingAnyReadingData"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
       "exportedVersionOneMigratesWithoutLosingBooksOrProgress"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionThreePreservesSettingsBooksAndProgress"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionTwoMigratesWithoutLosingBooksOrProgress"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords"
     ],
     [
       "org.bookreader.mobile.database.RoomDatabaseSmokeTest",
@@ -344,6 +428,14 @@
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "archiveFailureMutationAndCancellationCannotCommitOrChangeExistingBook"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "archiveJournalsRecoverEveryCommitBoundaryWithoutChangingExistingTxt"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "cancellationDuringCopyKeepsPreviouslyCommittedBookAndCleansStage"
     ],
     [
@@ -353,6 +445,10 @@
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "cancelledEncodingChoiceRemovesOnlyItsStaging"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "cancelledInterpretationTransactionRollsBackItsBookUpdate"
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
@@ -376,11 +472,23 @@
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "duplicateArchiveKeepsIdentityAndCannotSilentlyChangeFormat"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "durableCopyDoesNotDependOnSourceAndDuplicateKeepsProgress"
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "encodingChoiceResumesPrivateStagingAfterTemporarySourceDisappears"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "encodingRoundTripPreservesEachRevisionsProgressAndBookmarks"
+    ],
+    [
+      "org.bookreader.mobile.importing.ImportCoordinatorTest",
+      "failedAndCancelledEncodingValidationLeaveOriginalInterpretationUntouched"
     ],
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
@@ -401,6 +509,30 @@
     [
       "org.bookreader.mobile.importing.ImportCoordinatorTest",
       "readyRowWithDefinitelyAbsentCopyRelinksIdempotentlyAndKeepsProgress"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "catalogSortSearchStatusAndShelfFiltersAreStableAndRevisionScoped"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "editsSurviveReopenAndLateExtractionWithoutChangingReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "extractionUsesCurrentOverridesAndRejectsWrongSourceOrDeletedBook"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "failedBulkClassificationRollsBackAndDeletingShelfKeepsBooksAndProgress"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "invalidEditsLeaveAllMetadataAndMembershipsUntouched"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryCatalogTest",
+      "unknownCatalogValuesCannotBeSilentlyRewrittenByEditingOrExtraction"
     ],
     [
       "org.bookreader.mobile.locator.LocatorCodecTest",
@@ -433,6 +565,30 @@
     [
       "org.bookreader.mobile.repository.DatabaseFailureDiagnosticTest",
       "causeSnapshotIsBoundedAndExcludesMessages"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "bookmarksPersistCanonicalLocatorsWithBoundedPagesAndProtectOtherBooks"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "malformedAndQueryFailurePreserveOriginalBookmarkAndProgressRows"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
+      "oldRevisionAndSessionWritesAreRejectedAndDeletionCannotRecreateBookmarks"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullActivationRollsBackEpochAndReadOrderThenRestoresExistingRecord"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullFirstSaveDoesNotInventProgressAndCanRetryAfterCapacityReturns"
+    ],
+    [
+      "org.bookreader.mobile.repository.RoomProgressFullTest",
+      "fullUpdatePreservesLastCommitAcrossReopenAndSameEventCanRetry"
     ],
     [
       "org.bookreader.mobile.repository.RoomProgressRaceTest",
@@ -487,32 +643,8 @@
       "verifiedAvailabilityRestoreCannotReviveDeletingOrChangedRevisionAndPreservesProgress"
     ],
     [
-      "org.bookreader.mobile.repository.RoomProgressFullTest",
-      "fullUpdatePreservesLastCommitAcrossReopenAndSameEventCanRetry"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomProgressFullTest",
-      "fullFirstSaveDoesNotInventProgressAndCanRetryAfterCapacityReturns"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomProgressFullTest",
-      "fullActivationRollsBackEpochAndReadOrderThenRestoresExistingRecord"
-    ],
-    [
-      "org.bookreader.mobile.database.MigrationTest",
-      "exportedVersionTwoMigratesWithoutLosingBooksOrProgress"
-    ],
-    [
-      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
-      "settingsRoundTripInheritAndRejectStaleEditorsWithoutChangingProgress"
-    ],
-    [
-      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
-      "malformedFutureAndOutOfRangeSettingsStayByteExactAndPreventStaleSave"
-    ],
-    [
-      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
-      "deletionCascadesOnlyBookOverridesAndLateSaveCannotRecreateBook"
+      "org.bookreader.mobile.search.TxtLiteralSearchTest",
+      "batchesPreserveOverlapsAndOnlyAsciiCaseIsFolded"
     ],
     [
       "org.bookreader.mobile.search.TxtLiteralSearchTest",
@@ -520,67 +652,163 @@
     ],
     [
       "org.bookreader.mobile.search.TxtLiteralSearchTest",
-      "batchesPreserveOverlapsAndOnlyAsciiCaseIsFolded"
-    ],
-    [
-      "org.bookreader.mobile.search.TxtLiteralSearchTest",
       "invalidQueriesAndCancelledScanNeverReadUnboundedBody"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
-      "bookmarksPersistCanonicalLocatorsWithBoundedPagesAndProtectOtherBooks"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
-      "oldRevisionAndSessionWritesAreRejectedAndDeletionCannotRecreateBookmarks"
-    ],
-    [
-      "org.bookreader.mobile.repository.RoomBookmarkRepositoryTest",
-      "malformedAndQueryFailurePreserveOriginalBookmarkAndProgressRows"
-    ],
-    [
-      "org.bookreader.mobile.database.MigrationTest",
-      "exportedVersionThreePreservesSettingsBooksAndProgress"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "encodingRoundTripPreservesEachRevisionsProgressAndBookmarks"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "failedAndCancelledEncodingValidationLeaveOriginalInterpretationUntouched"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "cancelledInterpretationTransactionRollsBackItsBookUpdate"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "archiveJournalsRecoverEveryCommitBoundaryWithoutChangingExistingTxt"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "archiveFailureMutationAndCancellationCannotCommitOrChangeExistingBook"
-    ],
-    [
-      "org.bookreader.mobile.importing.ImportCoordinatorTest",
-      "duplicateArchiveKeepsIdentityAndCannotSilentlyChangeFormat"
-    ],
-    [
-      "org.bookreader.mobile.database.MigrationTest",
-      "exportedVersionFourPreservesRawBookmarksAndDefaultsExistingJournalsToTxt"
     ],
     [
       "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
       "comicOnlyOverridesRoundTripWithoutErasingInheritedReadingModeOrProgress"
     ],
     [
-      "org.bookreader.mobile.database.MigrationTest",
-      "migrationSqlFailurePreservesExistingDatabaseAcrossTwoOpenAttempts"
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "deletionCascadesOnlyBookOverridesAndLateSaveCannotRecreateBook"
+    ],
+    [
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "malformedFutureAndOutOfRangeSettingsStayByteExactAndPreventStaleSave"
+    ],
+    [
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "settingsRoundTripInheritAndRejectStaleEditorsWithoutChangingProgress"
+    ],
+    [
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "cancellationAndInvalidReadersCannotProduceACompletedIndex"
+    ],
+    [
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "handlesWindowBoundariesSurrogatesCrLfAndRepeatedTitlesWithoutDeduplicatingOffsets"
+    ],
+    [
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "limitsCandidatesAndStopsReadingAfterFirstExcessHeading"
+    ],
+    [
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "longLinesNeverBecomeTruncatedHeadingsAndNextLineStillWorks"
+    ],
+    [
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "recognizesStandaloneKoreanEnglishAndBookendsAtExactUtf16Offsets"
+    ],
+    [
+      "org.bookreader.mobile.toc.TxtTocScannerTest",
+      "rejectsNumbersEmbeddedMentionsAndSentenceLikeCandidates"
     ],
     [
       "org.bookreader.mobile.database.MigrationTest",
-      "migrationValidationFailureRollsBackAddedColumnWithoutResettingRecords"
+      "exportedVersionSixPreservesCatalogAndAllReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "tocMigrationValidationFailureRollsBackWithoutChangingVersionSixRecords"
+    ],
+    [
+      "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
+      "editLimitAndStatementFailurePreserveExistingRows"
+    ],
+    [
+      "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
+      "editsExclusionsAndRestorationPersistWithoutChangingRawReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
+      "futureOrMalformedRowsAndInvalidInputsFailClosedWithoutReplacingRecords"
+    ],
+    [
+      "org.bookreader.mobile.toc.RoomTxtTocRepositoryTest",
+      "staleSessionRevisionConcurrentEditAndDeletedBookCannotOverwriteData"
+    ],
+    [
+      "org.bookreader.mobile.annotation.TxtAnnotationsTest",
+      "repeatedQuotesUseExactSelectedUtf16CoordinatesIncludingEmojiAndReverseSelection"
+    ],
+    [
+      "org.bookreader.mobile.annotation.TxtAnnotationsTest",
+      "invalidRangesOverflowUnpairedSurrogatesAndSizeLimitsAreRejected"
+    ],
+    [
+      "org.bookreader.mobile.annotation.TxtAnnotationsTest",
+      "clippedHighlightSpansCheckExactTextAndNeverSearchForAnotherOccurrence"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomTxtAnnotationsRepositoryTest",
+      "selectionsEditsAndDeletesPersistWithoutChangingOtherRawRecords"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomTxtAnnotationsRepositoryTest",
+      "concurrentEditsStaleEpochRevisionAndDeletedOwnersCannotOverwriteSelections"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomTxtAnnotationsRepositoryTest",
+      "unknownVersionsColorsAndMalformedRangesBlockReplacementWithoutDataLoss"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomTxtAnnotationsRepositoryTest",
+      "entryLimitAndNativeStatementFailureRollBackAnnotationChanges"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionSevenPreservesRawTocAndAllExistingRecords"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "annotationMigrationValidationFailureRollsBackWithoutChangingVersionSevenRecords"
+    ],
+    [
+      "org.bookreader.mobile.annotation.EpubAnnotationsTest",
+      "completeLocatorRetainsExactRepeatedQuoteScopeAndUnicode"
+    ],
+    [
+      "org.bookreader.mobile.annotation.EpubAnnotationsTest",
+      "malformedExternalAmbiguousShapeAndOversizeValuesFailClosed"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomEpubAnnotationsRepositoryTest",
+      "annotationCrudKeepsEveryExistingReadingRecordByteExact"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomEpubAnnotationsRepositoryTest",
+      "entryLimitAndAbortedSqlKeepExistingAnnotations"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomEpubAnnotationsRepositoryTest",
+      "futureMalformedAndEmbeddedNulOversizeRowsAreNeverRewritten"
+    ],
+    [
+      "org.bookreader.mobile.annotation.RoomEpubAnnotationsRepositoryTest",
+      "staleSessionsConcurrentEditsRevisionChangesAndDeletedOwnersRejectWrites"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "epubAnnotationMigrationFailurePreservesEveryVersionEightRecord"
+    ],
+    [
+      "org.bookreader.mobile.database.MigrationTest",
+      "exportedVersionEightPreservesRawTxtAnnotationsAndAllExistingRecords"
+    ],
+    [
+      "org.bookreader.mobile.annotation.EpubAnnotationsTest",
+      "omittedEmptyEdgeContextsRoundTripButMissingNonemptyContextIsRejected"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "snapshotAndColdRestoreKeepEveryRecordKindAndHistoricalTxtRevision"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "duplicateModesKeepExistingBytesAndMergeOnlyMissingKeys"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "abortedInsertRollsBackNewBooksShelvesAndSettings"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "stalePreviewRefusesToApplyAndRestoreLimitPreservesLocalGroup"
+    ],
+    [
+      "org.bookreader.mobile.backup.RoomReadingBackupTest",
+      "cannotBackUpFutureRecordOrLargeEmbeddedNulRow"
     ]
   ],
   "android-device": [
@@ -721,6 +949,10 @@
       "actualMeasurementCoversLongParagraphsBlankLinesAndEmojiWithoutDrift"
     ],
     [
+      "org.bookreader.mobile.reader.TxtPageEngineTest",
+      "pageIndexWithBoundedWindowMatchesEngineBoundariesExactly"
+    ],
+    [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "pagesNavigateAndTypographyAndModeChangesPreserveCommittedAnchor"
     ],
@@ -823,6 +1055,78 @@
     [
       "org.bookreader.mobile.epub.EpubReaderFlowTest",
       "importedFontAndBoldLoadInWebViewAndSurviveReopenWithoutChangingLocator"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "emptySearchAndUnavailableBookOfferActionsWithoutChangingStoredMetadata"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "importedFormatsAndDuplicateHaveAccurateMessagesAndSeparateReadDismissActions"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "largeTextAndDarkThemeKeepImportAndBookActionsReachable"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryArtworkAndroidTest",
+      "epubAndComicArtworkPreserveManagedBytesAndEveryReadingRecord"
+    ],
+    [
+      "org.bookreader.mobile.library.LibraryArtworkAndroidTest",
+      "thumbnailCodecAndCacheStayBoundedWithoutRecyclingBorrowedImages"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "batchPickerCommitsMixedFormatsCountsDuplicateAndContinuesPastBadFile"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "cancellingBatchKeepsCommittedBookAndRemovesOnlyPendingStaging"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "batchEncodingChoiceResumesRemainingFilesAndRejectsAmbiguousExternalBatch"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "metadataAndChosenCoverPersistAcrossRecreationWithoutChangingManagedBook"
+    ],
+    [
+      "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+      "shelfClassificationViewSortAndFilterSurviveActivityRecreation"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "thousandBookGridAndListScrollAndIntegratedSearchUseBoundedVisibleCards"
+    ],
+    [
+      "org.bookreader.mobile.ui.BookReaderScreenTest",
+      "metadataSearchFindsAnEpubOutsideTheVisibleLibraryCards"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "txtTocEditsExclusionsManualEntryAndJumpSurviveReopeningWithoutMovingRecordsDuringEdits"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "quickSettingsCancelAndApplyPreserveExactProgressAndUnrelatedBookPreferences"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "exactTxtHighlightsAndNotesSurviveReflowReopenAndDeletionWithoutEditingReadingRecords"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+      "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+      "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFlowTest",
+      "settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData"
     ]
   ],
   "android-host": [
@@ -913,6 +1217,10 @@
     [
       "org.bookreader.mobile.epub.EpubResourceBudgetTest",
       "protectedOutputAndTinyRepeatedSpineAreAlsoBounded"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubContentPolicyTest",
+      "supplementaryTextAndAttributesRemainValidUtf8AfterCspInjection"
     ]
   ],
   "android-host-epub": [
@@ -933,6 +1241,12 @@
     [
       "org.bookreader.mobile.reader.ComicReaderHostProcessTest",
       "verifyColdLibraryContinue"
+    ]
+  ],
+  "android-host-library": [
+    [
+      "org.bookreader.mobile.library.LibraryBatchHostProcessTest",
+      "coldStartKeepsCatalogAndRecordsThenResumesPendingEncoding"
     ]
   ]
 }

@@ -1,0 +1,90 @@
+{
+  "source_sha": "ec788cd9ec3c6b54cc5dc3e69a293fc4d329e73d",
+  "build_run": "42364789647",
+  "device_run": "42364789627",
+  "device": {
+    "26": {
+      "status": "INCOMPLETE",
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [],
+      "host": "NOT_RUN",
+      "final_xml_available": false,
+      "partial_started_cases": 18,
+      "partial_finished_cases": 17,
+      "partial_failed_cases": 2,
+      "partial_failures": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "code": -2,
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "code": -2,
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null"
+        }
+      ],
+      "incomplete_cases": [
+        [
+          "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator"
+        ]
+      ],
+      "remaining_without_completion": 60
+    },
+    "34": {
+      "status": "FAIL",
+      "tests": 77,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationTestSupportKt.selectEpubFixture(EpubAnnotationTestSupport.kt:11)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:110)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:48)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "name": "readerControlsRemainReachableAtSystemFontScalesWithoutMovingAnchor",
+          "error": "java.lang.IllegalArgumentException: Detected multithreaded access to SnapshotStateObserver: previousThreadId=61), currentThread={id=2, name=main}. Note that observation on multiple threads in layout/draw is not supported. Make sure your measure/layout/draw for each Owner (AndroidComposeView) is executed on the same thread.\nat androidx.compose.runtime.PreconditionsKt.throwIllegalArgumentException(Preconditions.kt:26)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads(SnapshotStateObserver.kt:649)\nat androidx.compose.ui.node.OwnerSnapshotObserver.observeReads$ui_release(OwnerSnapshotObserver.kt:124)\nat androidx.compose.ui.node.OwnerSnapshotObserver.observeSemanticsReads$ui_release(OwnerSnapshotObserver.kt:112)\nat androidx.compose.ui.node.LayoutNode.calculateSemanticsConfiguration(LayoutNode.kt:480)\nat androidx.compose.ui.node.LayoutNode.invalidateSemantics$ui_release(LayoutNode.kt:445)\nat androidx.compose.ui.node.OwnerSnapshotObserver$onCommitAffectingSemantics$1.invoke(OwnerSnapshotObserver.kt:44)\nat androidx.compose.ui.node.OwnerSnapshotObserver$onCommitAffectingSemantics$1.invoke(OwnerSnapshotObserver.kt:42)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver$ObservedScopeMap.notifyInvalidatedScopes(SnapshotStateObserver.kt:1085)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.sendNotifications$lambda$5(SnapshotStateObserver.kt:90)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver.$r8$lambda$ixPG648P5-VaQ02MYRr6d3rd0Xo(Unknown Source:0)\nat androidx.compose.runtime.snapshots.SnapshotStateObserver$$ExternalSyntheticLambda0."
+        }
+      ],
+      "host": "NOT_RUN"
+    },
+    "36": {
+      "status": "FAIL",
+      "tests": 77,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationTestSupportKt.selectEpubFixture(EpubAnnotationTestSupport.kt:11)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.ambiguousSelectionAndChangedDomRejectWithoutRewritingRecords(EpubAnnotationsFlowTest.kt:110)\n"
+        },
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "java.lang.IllegalStateException: Chapter one JavaScript evaluation failed: null\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter(EpubWebViewTestSupport.kt:57)\nat org.bookreader.mobile.epub.EpubWebViewTestSupportKt.evaluateLoadedChapter$default(EpubWebViewTestSupport.kt:15)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:48)\n"
+        }
+      ],
+      "host": "NOT_RUN"
+    }
+  },
+  "reason": "See original logs/XML and fixture DOM observations. No failed case was removed or skipped."
+}

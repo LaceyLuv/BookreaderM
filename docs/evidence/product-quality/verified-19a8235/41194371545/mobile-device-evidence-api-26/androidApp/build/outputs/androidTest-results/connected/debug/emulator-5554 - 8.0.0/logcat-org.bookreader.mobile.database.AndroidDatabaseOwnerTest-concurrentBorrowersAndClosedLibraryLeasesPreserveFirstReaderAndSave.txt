@@ -1,0 +1,44 @@
+10-31 10:58:05.867  5440  5457 I TestRunner: started: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
+10-31 10:58:05.869  1511  5524 I AudioFlinger: AudioFlinger's thread 0xe40033c0 tid=5524 ready to run
+10-31 10:58:05.870  2537  2713 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+10-31 10:58:05.870  2537  2713 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+10-31 10:58:05.870  2537  2713 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@3d89c98
+10-31 10:58:05.871  2537  2713 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@3d89c98
+10-31 10:58:05.872  1615  5493 D EGL_emulation: eglCreateContext: 0x7caeeb291b00: maj 3 min 0 rcv 3
+10-31 10:58:05.873  2537  2646 I MicroRecognitionRunner: Detection finished
+10-31 10:58:05.873  2537  2646 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: onFatalError, processing error from engine(4)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+10-31 10:58:05.874  2537  2646 W ErrorProcessor: 	... 9 more
+10-31 10:58:05.874  2537  2847 I MicroRecognitionRunner: Stopping hotword detection.
+10-31 10:58:05.874  2537  2646 I AudioController: internalShutdown
+10-31 10:58:05.874  1615  5493 D EGL_emulation: eglMakeCurrent: 0x7caeeb291b00: ver 3 0 (tinfo 0x7caeeb1779a0)
+10-31 10:58:05.882  2537  2537 I MicroDetectionWorker: onReady
+10-31 10:58:05.882  2537  5514 I zygote  : Deoptimizing void com.google.android.gms.internal.te.d(com.google.android.gms.common.api.u) due to JIT inline cache
+10-31 10:58:05.919  1615  1625 I zygote64: NativeAllocBackground concurrent copying GC freed 14082(1245KB) AllocSpace objects, 6(120KB) LOS objects, 40% free, 8MB/14MB, paused 10.373ms total 98.162ms
+10-31 10:58:05.933  2537  2537 I MicroDetectionWorker: onReady
+10-31 10:58:05.933  2537  2537 I MicroDetector: Keeping mic open: false
+10-31 10:58:05.933  2537  2537 I MicroDetectionWorker: #onError(false)
+10-31 10:58:05.934  2537  2776 I DeviceStateChecker: DeviceStateChecker cancelled
+10-31 10:58:05.948  1615  1648 I GnssLocationProvider: WakeLock acquired by sendMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@65c8157)
+10-31 10:58:05.949  1615  1660 I GnssLocationProvider: WakeLock released by handleMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@65c8157)
+10-31 10:58:06.033  1776  3364 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+10-31 10:58:06.055  1820  2126 D EGL_emulation: eglMakeCurrent: 0x7caeee6c9a80: ver 3 0 (tinfo 0x7caef6f8a240)
+10-31 10:58:06.089  5440  5457 I TestRunner: finished: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)

@@ -1,5 +1,21 @@
 # Android 검증 매트릭스 — 2026-10-17
 
+## 2026-11-27 최신 — 0.8.0-dev(Room 9) + UI 통합(PR #5) + Issue #2(PR #6) + Compose 스레드 고정(PR #7)
+
+- [작업 기록](WORKLOG.md)과 [최신 인계](SESSION_HANDOFF.md)를 우선한다.
+- `0.8.0-dev`(versionCode 11, Room 9, 14 테이블) 기준 검증 코드 `e8aa3c497785d7959845ee06ae0530016dddcb96`:
+  - 원격 빌드·단위·ENOSPC(`BookReader Mobile Checks`): 원본 XML **222/222 PASS** (`androidApp` 84, `shared` 118, `epubAndroid` 17, `enospc` 3 + compile·lint·Room 9) — PR `46005087945`(`15201536527`) 1차 시도 PASS · Push `46005073120`(KSP `BLOCKED_ENV` 후 재실행 `15201921818`) PASS.
+  - 원격 기기 매트릭스(`BookReader Mobile Device Tests`): API 26·34·36 각각 원본 XML **connected 79/79 + host 7/7 PASS**(4개 항목 `absent`→PID 교체 직접 확인, 실패·오류·건너뜀 0) — PR `46005087973` 1차 시도 3/3 PASS · Push `46005073162` 3/3 PASS(API 26 1차 시도 KSP `BLOCKED_ENV` 보존 후 재실행 PASS).
+  - 기존 미확정이던 API 34 TXT 전체 쪽수 30초 타임아웃(Issue #2), Compose 1.9.3 `SnapshotStateObserver` 테스트 스레드 경합, `TxtReaderToc` 저장 직후 `ready` 경합, `CustomFontSettings` 등 IO/Default 복귀 `CalledFromWrongThreadException`의 근본 원인을 모두 규명·수정하고 회귀 테스트 4건을 추가했다.
+- 실기기 성능·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·독립 보안/성능 리뷰·서명/공개 출시 게이트는 여전히 `NOT_RUN`/`BLOCKED`다. 아래 절은 이전 시점 이력이다.
+
+## 2026-10-24 제품 완성도 개선
+
+[새 단계별 감사](PRODUCT_IMPROVEMENT.md)와 [최신 인계](SESSION_HANDOFF.md)를 우선한다.
+0.5.0/4449f1e는 build164, API26/34/36 native60+host6 PASS다.
+0.5.1/5a8aad2는 build166 및 API26/34/36 각각 native63+host6 PASS다. [원본·실제 화면·범위](UX_POLISH_0_5_1.md)를 따른다.
+실기기·전체 corpus·TalkBack·16KB OS·공개 출시 gate는 유지한다. 아래 표와 건수는 각 시점의 이력이다.
+
 ## 2026-10-22 현재: 검증된 소스 main 통합 및 unsigned 재생성 완료
 
 `bb0f537`의 build 66/74/16 + 실제 ENOSPC 3, API26/34/36 각각 native 54 + 세 포맷 host 6이 모두 PASS다.

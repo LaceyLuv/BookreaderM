@@ -10,6 +10,14 @@ import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertTrue
 
+/** Open the visible advanced disclosure before operating controls moved there. */
+fun AndroidComposeTestRule<*, *>.advancedReaderSetting(tag: String): SemanticsNodeInteraction {
+    if (onAllNodesWithTag(tag).fetchSemanticsNodes().isEmpty()) {
+        onNodeWithTag("reader_settings_advanced").performScrollTo().performClick()
+    }
+    return onNodeWithTag(tag).performScrollTo()
+}
+
 /** Open hidden tools through the same physical tap used by readers, including Readium's WebView. */
 fun AndroidComposeTestRule<*, *>.readerControl(tag: String): SemanticsNodeInteraction {
     val prefix = tag.substringBefore('_')

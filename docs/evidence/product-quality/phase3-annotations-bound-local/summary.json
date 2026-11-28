@@ -1,0 +1,12 @@
+{
+  "scope": "Embedded-NUL-safe SQL byte bounds for TXT annotations",
+  "cases": {
+    "android-unit": 77,
+    "shared-jvm": 104,
+    "epub-unit": 16
+  },
+  "ci_command": "BOOKREADER_EVIDENCE_DIR=build/phase3-annotations-bound-local ./scripts/ci-check.sh",
+  "release_command": "./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain",
+  "exit_code": 0,
+  "device": "PENDING"
+}

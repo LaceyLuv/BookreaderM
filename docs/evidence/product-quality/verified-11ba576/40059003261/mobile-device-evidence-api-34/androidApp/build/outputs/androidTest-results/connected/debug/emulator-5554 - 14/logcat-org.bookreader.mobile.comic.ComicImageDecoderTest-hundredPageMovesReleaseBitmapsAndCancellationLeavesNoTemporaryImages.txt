@@ -1,0 +1,16 @@
+10-24 03:43:04.241  6086  6106 I TestRunner: started: hundredPageMovesReleaseBitmapsAndCancellationLeavesNoTemporaryImages(org.bookreader.mobile.comic.ComicImageDecoderTest)
+10-24 03:43:04.244  6086  6106 I okreader.mobile: Using smaps_rollup for pss collection
+10-24 03:43:04.962  1749  2549 W A       : [Download] response code: 400
+10-24 03:43:05.344  5058  6043 I ChimeraConfigurator: Starting update, reason: 4 urgentFeatures: vision.ocr:-1
+10-24 03:43:05.359  5058  6043 I ChimeraConfigurator: Detected pending changes for urgent request: [vision.ocr]. Pending module sets: container:2318189190800+mlkit.ocr.common,tflite_dynamite:2627305025100800+tflite_dynamite,vision_ocr:2316024025100000+vision.ocr
+10-24 03:43:05.365  5058  6043 I GmsDebugLogger: [73] 1801
+10-24 03:43:05.368  5058  6043 W ZappDownloader: No successful module downloads for requested features [vision.ocr].
+10-24 03:43:05.369  5058  6043 I GmsDebugLogger: [30] [VisionOcrDynamite.integ:231602402100000],[TfliteDynamiteDynamite.integ:262730502100800],[MlkitOcrCommon.optional:231818100800]
+10-24 03:43:05.374  5058  6043 W ChimeraConfigService: Retry attempt was throttled. [CONTEXT service_id=264 ]
+10-24 03:43:05.374  5058  6043 I GmsDebugLogger: [83] 1 [vision.ocr]
+10-24 03:43:05.375  5058  6050 W Vision  : Request for optional module download of ocr failed. Request again.
+10-24 03:43:05.376  5058  6050 W Vision  : Would have logged:
+10-24 03:43:05.376  5058  6050 W Vision  : # dsae@37884fe7
+10-24 03:43:05.376  5058  6050 I Vision  : Schedule retrying download ocr at 298586 with backoff 80 seconds
+10-24 03:43:06.550  6086  6106 I System.out: COMIC_MEMORY {"moves":100,"maximum_bitmap_bytes":1728000,"budget_bytes":13421772,"initial_pss_kib":123674,"maximum_pss_kib":147807,"physical_performance":"NOT_RUN"}
+10-24 03:43:06.552  6086  6106 I TestRunner: finished: hundredPageMovesReleaseBitmapsAndCancellationLeavesNoTemporaryImages(org.bookreader.mobile.comic.ComicImageDecoderTest)

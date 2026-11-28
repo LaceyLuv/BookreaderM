@@ -17,6 +17,8 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /** Style includes font/size/line/letter/locale/break/hyphenation/font-padding policy. */
 private data class TxtPageLayoutKey(
@@ -31,6 +33,7 @@ data class PageStepRequest(val id: Long = 0, val direction: Int = 0)
 @Composable
 fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style: TextStyle,
     modifier: Modifier = Modifier, step: PageStepRequest = PageStepRequest(),
+    highlights: List<org.bookreader.mobile.annotation.TxtAnnotation> = emptyList(),
     onAvailability: (Boolean, Boolean) -> Unit = { _, _ -> }) {
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
@@ -54,13 +57,15 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     LaunchedEffect(key) { controller.beginReflow() }
     val generation = state.restoreGeneration
     val loaded by produceState<LoadedPage?>(null, engine, generation, state.targetOffset) {
-        val active = engine ?: return@produceState
-        try {
-            val page = if (state.targetOffset == state.cache.committedLength)
-                active.previous(state.targetOffset) else active.next(state.targetOffset)
-            value = LoadedPage(active, generation, page)
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { controller.contentReadFailed() }
+        withContext(Dispatchers.Main.immediate) {
+            val active = engine ?: return@withContext
+            try {
+                val page = if (state.targetOffset == state.cache.committedLength)
+                    active.previous(state.targetOffset) else active.next(state.targetOffset)
+                value = LoadedPage(active, generation, page)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { controller.contentReadFailed() }
+        }
     }
     val visible = loaded?.takeIf { it.engine === engine }
     val page = visible?.page
@@ -75,19 +80,21 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     val canNext = state.phase == TxtReaderPhase.READY && page != null && page.range.end < state.cache.committedLength
     SideEffect { onAvailability(canPrevious, canNext) }
     LaunchedEffect(step.id) {
-        if (step.id == 0L || state.phase != TxtReaderPhase.READY) return@LaunchedEffect
-        val displayed = page ?: return@LaunchedEffect
-        try {
-            val target = if (step.direction < 0 && displayed.range.start > 0)
-                engine?.previous(displayed.range.start)?.range?.start
-            else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) displayed.range.end else null
-            if (target != null && controller.state.value.restoreGeneration == generation) {
-                turnDirection = if (step.direction < 0) -1 else 1
-                turnGeneration = generation + 1
-                controller.navigateTo(target)
-            }
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { controller.contentReadFailed() }
+        withContext(Dispatchers.Main.immediate) {
+            if (step.id == 0L || state.phase != TxtReaderPhase.READY) return@withContext
+            val displayed = page ?: return@withContext
+            try {
+                val target = if (step.direction < 0 && displayed.range.start > 0)
+                    engine?.previous(displayed.range.start)?.range?.start
+                else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) displayed.range.end else null
+                if (target != null && controller.state.value.restoreGeneration == generation) {
+                    turnDirection = if (step.direction < 0) -1 else 1
+                    turnGeneration = generation + 1
+                    controller.navigateTo(target)
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { controller.contentReadFailed() }
+        }
     }
     Column(modifier) {
         Box(Modifier.weight(1f).fillMaxWidth().testTag("reader_page_viewport").onSizeChanged { size = it }) {
@@ -98,7 +105,7 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
                 val displayed = rendered.page
                 // Very large accessibility fonts may exceed the viewport even for one line.
                 // A bounded page stays vertically scrollable instead of clipping that line.
-                androidx.compose.foundation.text.selection.SelectionContainer { Text(displayed.text, style = style, maxLines = displayed.lines,
+                androidx.compose.foundation.text.selection.SelectionContainer { Text(highlightedTxt(displayed.range.start, displayed.text, highlights), style = style, maxLines = displayed.lines,
                     modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
                         .testTag("reader_page"),
                     onTextLayout = { actual ->

@@ -71,10 +71,10 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 switch (columns[index]) {
                     case DocumentsContract.Document.COLUMN_DOCUMENT_ID: values[index] = id; break;
                     case DocumentsContract.Document.COLUMN_DISPLAY_NAME:
-                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.equals("font-otf") ? ".otf" : id.startsWith("font-") ? ".ttf" : id.startsWith("epub-") ? ".epub" : id.startsWith("comic-") ? ".cbz" : ".txt");
+                        values[index] = "system-picker".equals(id) ? "System picker fixture.txt" : "../../" + id + (id.equals("cover-image") ? ".png" : id.equals("font-otf") ? ".otf" : id.startsWith("font-") ? ".ttf" : id.startsWith("epub-") ? ".epub" : id.startsWith("comic-") ? ".cbz" : ".txt");
                         break;
                     case DocumentsContract.Document.COLUMN_MIME_TYPE:
-                        values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : id.startsWith("epub-") ? "application/epub+zip" : id.startsWith("comic-") ? "application/zip" : "text/plain";
+                        values[index] = "fixtures".equals(id) ? DocumentsContract.Document.MIME_TYPE_DIR : id.equals("cover-image") ? "image/png" : id.startsWith("epub-") ? "application/epub+zip" : id.startsWith("comic-") ? "application/zip" : "text/plain";
                         break;
                     case DocumentsContract.Document.COLUMN_SIZE:
                         if ("unknown".equals(id) || "stalled".equals(id)) values[index] = null;
@@ -137,6 +137,16 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 throw new IllegalStateException("Unable to read licensed font fixture", failure);
             }
         }
+        if (id.equals("cover-image")) {
+            android.graphics.Bitmap image = android.graphics.Bitmap.createBitmap(96, 144, android.graphics.Bitmap.Config.ARGB_8888);
+            try {
+                image.eraseColor(android.graphics.Color.rgb(37, 112, 93));
+                java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
+                if (!image.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, output))
+                    throw new IllegalStateException("Generated image failed");
+                return output.toByteArray();
+            } finally { image.recycle(); }
+        }
         if (id.equals("font-invalid")) return "this is not a font".getBytes(StandardCharsets.UTF_8);
 
         if (id.startsWith("epub-") || id.equals("comic-product")) {
@@ -144,6 +154,7 @@ public final class TestDocumentsProvider extends DocumentsProvider {
             switch (id) {
                 case "comic-product": name = "comic-product"; break;
                 case "epub-product": name = "epub3"; break;
+                case "epub-annotations": name = "annotations"; break;
                 case "epub-unsafe": name = "active-script"; break;
                 case "epub-disguised": name = "disguised-markup"; break;
                 default: throw new IllegalArgumentException("Unknown EPUB fixture");
@@ -158,7 +169,24 @@ public final class TestDocumentsProvider extends DocumentsProvider {
                 throw new IllegalStateException("Unable to read generated EPUB fixture", failure);
             }
         }
+        if (id.startsWith("batch-host-")) return (id + " generated batch fixture\n").getBytes(StandardCharsets.UTF_8);
         switch (id) {
+            case "backup-local": case "backup-original":
+                return (id + " · 독서 기록 백업용 자체 생성 원본 😀\n" +
+                    "두 번째 문장에서 읽던 위치를 확인합니다.\n").getBytes(StandardCharsets.UTF_8);
+            case "reader-annotations":
+                StringBuilder selections = new StringBuilder();
+                for (int line = 0; line < 300; line++)
+                    selections.append("줄 ").append(line).append(" 😀 alpha same same 끝.\n");
+                return selections.toString().getBytes(StandardCharsets.UTF_8);
+            case "reader-toc":
+                StringBuilder chapters = new StringBuilder();
+                for (String heading : new String[] { "프롤로그", "제1화 시작", "Chapter 2 Next" }) {
+                    chapters.append(heading).append('\n');
+                    for (int line = 0; line < 80; line++)
+                        chapters.append("회차 이동 검증용 자체 생성 문장 😀 ").append(line).append(" 입니다.\n");
+                }
+                return chapters.toString().getBytes(StandardCharsets.UTF_8);
             case "reader-scroll": case "reader-host": case "reader-failure": case "reader-continuous":
             case "reader-full": case "reader-full-other":
             case "reader-reflow-stop": case "reader-pages": case "reader-tools":

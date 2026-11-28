@@ -1,0 +1,23 @@
+Process: org.bookreader.mobile.test, PID: 5165
+java.lang.RuntimeException: Unable to start activity ComponentInfo{org.bookreader.mobile.test/org.bookreader.mobile.importing.TestPickerActivity}: java.lang.IllegalStateException: Expected SAF picker request
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:4280)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:4467)
+	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:222)
+	at android.app.servertransaction.TransactionExecutor.executeNonLifecycleItem(TransactionExecutor.java:133)
+	at android.app.servertransaction.TransactionExecutor.executeTransactionItems(TransactionExecutor.java:103)
+	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:80)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2823)
+	at android.os.Handler.dispatchMessage(Handler.java:110)
+	at android.os.Looper.loopOnce(Looper.java:248)
+	at android.os.Looper.loop(Looper.java:338)
+	at android.app.ActivityThread.main(ActivityThread.java:9067)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+Caused by: java.lang.IllegalStateException: Expected SAF picker request
+	at org.bookreader.mobile.importing.TestPickerActivity.onCreate(TestPickerActivity.java:16)
+	at android.app.Activity.performCreate(Activity.java:9155)
+	at android.app.Activity.performCreate(Activity.java:9133)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1521)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:4262)
+	... 13 more

@@ -1,0 +1,16 @@
+{
+  "scope": "TXT highlights and notes; EPUB pending",
+  "command": "source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=build/phase3-annotations-local ./scripts/ci-check.sh",
+  "exit_code": 0,
+  "cases": {
+    "android-unit": 77,
+    "shared-jvm": 104,
+    "epub-unit": 16
+  },
+  "room_schema": 8,
+  "version": "0.7.0-dev",
+  "version_code": 9,
+  "device": "PENDING",
+  "first_failure": "1 of 104 JVM tests: direct lone-surrogate SQLite fixture changed during native binding. Validate production write rejection before binding instead; original XML retained.",
+  "physical_device": "NOT_RUN"
+}

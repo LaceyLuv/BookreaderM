@@ -1,0 +1,14 @@
+{
+  "source_sha": "65a57bcff8388bdbacfe2ef7b3467cac887027ea",
+  "apis": [
+    34,
+    36
+  ],
+  "observed": [
+    "Native floating menu has visible highlight/copy/select-all labels and selects only second same after emoji",
+    "Saved pink decoration covers only the intended second same; independently verified five DOM box stages",
+    "Note list shows correct quote, pink color, emoji note, edit/jump/close controls without clipping"
+  ],
+  "limitation": "phase3-epub-highlight.png still includes the list dialog because native screenshot capture ran before Compose dismissal committed; c141a99 asserts dialog absence first. These raw images are not a clean unobscured-reading screenshot.",
+  "physical_device": "NOT_RUN"
+}

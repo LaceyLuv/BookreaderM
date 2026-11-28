@@ -11,6 +11,21 @@ import android.provider.DocumentsContract;
 public final class TestPickerActivity extends Activity {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String backup = getIntent().getStringExtra("backupFixture");
+        if (backup != null) {
+            boolean writing = Intent.ACTION_CREATE_DOCUMENT.equals(getIntent().getAction());
+            if (!backup.matches("backup-test-[0-9a-f]{32}") || !getIntent().hasCategory(Intent.CATEGORY_OPENABLE) ||
+                (!writing && !Intent.ACTION_OPEN_DOCUMENT.equals(getIntent().getAction()))) {
+                throw new IllegalStateException("Expected single-document backup request");
+            }
+            Uri file = Uri.parse("content://org.bookreader.mobile.tests.assets/" + backup);
+            Intent result = new Intent().setData(file);
+            result.setClipData(ClipData.newRawUri("Generated backup fixture", file));
+            result.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | (writing ? Intent.FLAG_GRANT_WRITE_URI_PERMISSION : 0));
+            setResult(RESULT_OK, result);
+            finish();
+            return;
+        }
         if (!Intent.ACTION_OPEN_DOCUMENT.equals(getIntent().getAction()) ||
             !getIntent().hasCategory(Intent.CATEGORY_OPENABLE)) {
             throw new IllegalStateException("Expected SAF picker request");
@@ -19,9 +34,19 @@ public final class TestPickerActivity extends Activity {
         if (fixture == null) fixture = "utf8";
         Uri uri = "segment".equals(fixture) ? Uri.parse("content://org.bookreader.mobile.tests.assets/segment")
             : DocumentsContract.buildDocumentUri("org.bookreader.mobile.tests.documents", fixture);
+        String[] fixtures = getIntent().getStringArrayExtra("fixtures");
+        ClipData clips = ClipData.newRawUri("Generated test fixture", uri);
+        if (fixtures != null) {
+            if (!getIntent().getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false))
+                throw new IllegalStateException("Picker did not allow multiple files");
+            uri = DocumentsContract.buildDocumentUri("org.bookreader.mobile.tests.documents", fixtures[0]);
+            clips = ClipData.newRawUri("Generated batch fixtures", uri);
+            for (int index = 1; index < fixtures.length; index++) clips.addItem(new ClipData.Item(
+                DocumentsContract.buildDocumentUri("org.bookreader.mobile.tests.documents", fixtures[index])));
+        }
         Intent result = new Intent();
         result.setData(uri);
-        result.setClipData(ClipData.newRawUri("TXT fixture", uri));
+        result.setClipData(clips);
         result.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         setResult(RESULT_OK, result);
         finish();

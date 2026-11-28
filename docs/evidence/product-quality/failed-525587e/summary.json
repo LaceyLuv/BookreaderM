@@ -1,0 +1,49 @@
+{
+  "source_sha": "525587e7f284f857e4c328bf1e9c73565263ff15",
+  "build": {
+    "run": 40879962358,
+    "status": "PASS",
+    "android-unit": 73,
+    "shared-jvm": 83,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device_run": 40879962440,
+  "device": {
+    "26": {
+      "tests": 72,
+      "failed": [],
+      "host": {
+        "reader": "PASS",
+        "epub": "PASS",
+        "comic": "PASS",
+        "library-batch": "PASS"
+      }
+    },
+    "34": {
+      "tests": 72,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.importing.ManagedImportAndroidTest",
+          "method": "metadataAndChosenCoverPersistAcrossRecreationWithoutChangingManagedBook"
+        }
+      ],
+      "host": {
+        "reader": "NOT_RUN",
+        "epub": "NOT_RUN",
+        "comic": "NOT_RUN",
+        "library-batch": "NOT_RUN"
+      }
+    },
+    "36": {
+      "tests": 72,
+      "failed": [],
+      "host": {
+        "reader": "PASS",
+        "epub": "PASS",
+        "comic": "PASS",
+        "library-batch": "PASS"
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "source_sha": "abee6a136dcdba049c33b4d4642ebf4f815111d8",
+  "build": {
+    "run": 40875430022,
+    "status": "PASS",
+    "android-unit": 73,
+    "shared-jvm": 83,
+    "epub-unit": 16,
+    "shared-enospc": 3
+  },
+  "device_run": 40875430229,
+  "device": {
+    "26": {
+      "tests": 72,
+      "expected": 72,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "method": "manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark"
+        },
+        {
+          "class": "org.bookreader.mobile.ui.BookReaderScreenTest",
+          "method": "metadataSearchFindsAnEpubOutsideTheVisibleLibraryCards"
+        }
+      ],
+      "not_run": 0,
+      "host": "NOT_RUN"
+    },
+    "34": {
+      "tests": 72,
+      "expected": 72,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "method": "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator"
+        },
+        {
+          "class": "org.bookreader.mobile.reader.TxtReaderFlowTest",
+          "method": "manualEncodingRoundTripRestoresEachInterpretationAndItsBookmark"
+        },
+        {
+          "class": "org.bookreader.mobile.ui.BookReaderScreenTest",
+          "method": "metadataSearchFindsAnEpubOutsideTheVisibleLibraryCards"
+        }
+      ],
+      "not_run": 0,
+      "host": "NOT_RUN"
+    },
+    "36": {
+      "tests": 3,
+      "expected": 72,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.comic.ComicReaderFlowTest",
+          "method": "managedComicModesSkipZoomBookmarksAndReopenKeepEntryIdentity"
+        }
+      ],
+      "not_run": 69,
+      "host": "NOT_RUN"
+    }
+  }
+}

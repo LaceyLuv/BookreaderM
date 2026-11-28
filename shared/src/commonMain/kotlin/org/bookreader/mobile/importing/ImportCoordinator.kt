@@ -16,6 +16,10 @@ import org.bookreader.mobile.model.BookFormat
 // All import/recovery/deletion instances in this process share file ownership and serialization.
 private val managedOperations = Mutex()
 
+/** An additive restore may create a missing book, which an import can relink by fingerprint. */
+internal suspend fun <T> withManagedBookOperations(action: suspend () -> T): T =
+    managedOperations.withLock { action() }
+
 class ImportCoordinator(
     private val database: BookReaderDatabase,
     private val files: ManagedImportFiles,

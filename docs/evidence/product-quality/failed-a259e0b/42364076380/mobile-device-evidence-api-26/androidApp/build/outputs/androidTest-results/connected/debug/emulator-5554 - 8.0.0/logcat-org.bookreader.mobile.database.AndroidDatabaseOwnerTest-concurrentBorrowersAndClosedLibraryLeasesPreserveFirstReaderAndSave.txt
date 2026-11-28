@@ -1,0 +1,35 @@
+11-07 10:36:14.196  5375  5392 I TestRunner: started: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)
+11-07 10:36:14.201  2631  5408 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@2fe03f2
+11-07 10:36:14.203  2631  2865 I MicroRecognitionRunner: Detection finished
+11-07 10:36:14.203  2631  2865 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+11-07 10:36:14.204  2631  2878 I MicroRecognitionRunner: Stopping hotword detection.
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: onFatalError, processing error from engine(4)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+11-07 10:36:14.224  2631  2865 W ErrorProcessor: 	... 9 more
+11-07 10:36:14.224  2631  2865 I AudioController: internalShutdown
+11-07 10:36:14.226  2631  2631 I MicroDetector: Keeping mic open: false
+11-07 10:36:14.226  2631  2767 I DeviceStateChecker: DeviceStateChecker cancelled
+11-07 10:36:14.226  2631  2631 I MicroDetectionWorker: #onError(false)
+11-07 10:36:14.250  1585  3644 I GnssLocationProvider: WakeLock acquired by sendMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@a3d7d4e)
+11-07 10:36:14.254  1585  1662 I GnssLocationProvider: WakeLock released by handleMessage(SET_REQUEST, 0, com.android.server.location.GnssLocationProvider$GpsRequest@a3d7d4e)
+11-07 10:36:14.299  1808  2094 D EGL_emulation: eglMakeCurrent: 0x744222ebb360: ver 3 0 (tinfo 0x744222eaea40)
+11-07 10:36:14.356  5413  5461 D EGL_emulation: eglMakeCurrent: 0x744230a349a0: ver 3 0 (tinfo 0x744230a182e0)
+11-07 10:36:14.399  1771  2308 I LogUtils: [Places]: ?: Couldn't find platform key file. [CONTEXT service_id=253 ]
+11-07 10:36:14.444  5375  5392 I TestRunner: finished: concurrentBorrowersAndClosedLibraryLeasesPreserveFirstReaderAndSave(org.bookreader.mobile.database.AndroidDatabaseOwnerTest)

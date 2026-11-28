@@ -1,0 +1,42 @@
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:kspKotlinJvm
+> Task :shared:compileKotlinJvm UP-TO-DATE
+> Task :shared:compileJvmMainJava NO-SOURCE
+> Task :shared:jvmProcessResources NO-SOURCE
+> Task :shared:processJvmMainResources SKIPPED
+> Task :shared:jvmMainClasses UP-TO-DATE
+> Task :shared:kspTestKotlinJvm SKIPPED
+> Task :shared:copyRoomSchemas NO-SOURCE
+> Task :shared:jvmJar UP-TO-DATE
+> Task :shared:jvmTestProcessResources NO-SOURCE
+> Task :shared:processJvmTestResources SKIPPED
+> Task :shared:compileTestKotlinJvm
+> Task :shared:compileJvmTestJava NO-SOURCE
+> Task :shared:jvmTestClasses
+
+> Task :shared:jvmTest
+
+LibraryCatalogTest[jvm] > failedBulkClassificationRollsBackAndDeletingShelfKeepsBooksAndProgress[jvm] FAILED
+    androidx.sqlite.SQLiteException at BundledSQLiteStatement.jvmAndroid.kt:-2
+        Caused by: androidx.sqlite.SQLiteException at BundledSQLiteStatement.jvmAndroid.kt:-2
+
+LibraryCatalogTest[jvm] > catalogSortSearchStatusAndShelfFiltersAreStableAndRevisionScoped[jvm] FAILED
+    androidx.sqlite.SQLiteException at BundledSQLiteStatement.jvmAndroid.kt:-2
+        Caused by: androidx.sqlite.SQLiteException at BundledSQLiteStatement.jvmAndroid.kt:-2
+
+82 tests completed, 2 failed
+
+> Task :shared:jvmTest FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':shared:jvmTest'.
+> There were failing tests. See the report at: file:///workspace/BookreaderM/shared/build/reports/tests/jvmTest/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 15s
+6 actionable tasks: 4 executed, 2 up-to-date

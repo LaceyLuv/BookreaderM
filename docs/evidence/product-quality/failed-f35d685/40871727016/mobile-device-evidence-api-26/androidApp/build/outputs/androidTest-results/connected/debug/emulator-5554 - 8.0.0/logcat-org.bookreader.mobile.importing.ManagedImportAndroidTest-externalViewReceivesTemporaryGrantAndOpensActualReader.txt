@@ -1,0 +1,116 @@
+10-29 12:25:46.280  5211  5228 I TestRunner: started: externalViewReceivesTemporaryGrantAndOpensActualReader(org.bookreader.mobile.importing.ManagedImportAndroidTest)
+10-29 12:25:46.282  5211  5228 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@5679423]
+10-29 12:25:46.285  5211  5228 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-29 12:25:46.383  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 12:25:46.845  5211  5211 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5d6a44d in: PRE_ON_CREATE
+10-29 12:25:46.845  5211  5211 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-29 12:25:46.850  5211  5211 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5d6a44d in: CREATED
+10-29 12:25:46.850  5211  5211 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=org.bookreader.mobile.MainActivity@5d6a44d
+10-29 12:25:46.851  5211  5211 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5d6a44d in: STARTED
+10-29 12:25:46.851  5211  5211 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=org.bookreader.mobile.MainActivity@5d6a44d
+10-29 12:25:46.853  5211  5211 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5d6a44d in: RESUMED
+10-29 12:25:46.853  5211  5211 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=org.bookreader.mobile.MainActivity@5d6a44d
+10-29 12:25:47.017  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 12:25:47.031  1389  1389 I chatty  : uid=1000(system) allocator@2.0-s identical 1 line
+10-29 12:25:47.034  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 12:25:47.093  5211  5238 D EGL_emulation: eglMakeCurrent: 0x785fcb8395e0: ver 3 0 (tinfo 0x785fcb818a80)
+10-29 12:25:47.156  1649  1684 I ActivityManager: Displayed org.bookreader.mobile/.MainActivity: +340ms (total +1m6s49ms)
+10-29 12:25:47.196  5211  5211 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5d6a44d in: PAUSED
+10-29 12:25:47.197  5211  5211 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=org.bookreader.mobile.MainActivity@5d6a44d
+10-29 12:25:50.321  1774  1779 I zygote64: Compiler allocated 4MB to compile void ckif.run()
+10-29 12:25:52.253  5211  5238 D EGL_emulation: eglMakeCurrent: 0x785fcb8395e0: ver 3 0 (tinfo 0x785fcb818a80)
+10-29 12:25:52.281  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 12:25:52.282  1649  1684 D         : HostConnection::get() New Host Connection established 0x785fb40be4a0, tid 1684
+10-29 12:25:52.315  1810  1870 D         : HostConnection::get() New Host Connection established 0x785fcb839240, tid 1870
+10-29 12:25:57.214  1649  1670 E memtrack: Couldn't load memtrack module
+10-29 12:25:57.214  1649  1670 W android.os.Debug: failed to get memory consumption info: -1
+10-29 12:25:57.219  1649  1670 E memtrack: Couldn't load memtrack module
+10-29 12:25:57.219  1649  1670 W android.os.Debug: failed to get memory consumption info: -1
+10-29 12:26:00.012  1390  1407 D hwcomposer: hw_composer sent 27 syncs in 69s
+10-29 12:26:07.215  1389  1389 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 8298496
+10-29 12:26:17.447  1397  1397 I boot-pipe: done populating /dev/random
+10-29 12:26:52.332  5211  5211 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5d6a44d in: STOPPED
+10-29 12:26:52.332  5211  5211 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=org.bookreader.mobile.MainActivity@5d6a44d
+10-29 12:26:52.335  5211  5211 D LifecycleMonitor: Lifecycle status change: org.bookreader.mobile.MainActivity@5d6a44d in: DESTROYED
+10-29 12:26:52.335  5211  5211 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-29 12:26:52.373  5211  5228 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@5679423]
+10-29 12:26:52.373  5211  5228 E TestRunner: failed: externalViewReceivesTemporaryGrantAndOpensActualReader(org.bookreader.mobile.importing.ManagedImportAndroidTest)
+10-29 12:26:52.374  5211  5228 E TestRunner: ----- begin exception -----
+10-29 12:26:52.374  5211  5228 E TestRunner: java.lang.AssertionError: Expected reader_ready; lifecycle=STARTED, import=Idle, errorCode=null, phase=null, library=Empty, readerPhase=null, readerError=null, sourceAvailability=null, readerFailure=null, cacheComplete=null, restoreGeneration=null, targetOffset=null
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:524)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.bookreader.mobile.importing.ManagedImportAndroidTest.externalViewReceivesTemporaryGrantAndOpensActualReader(ManagedImportAndroidTest.kt:205)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunBefores.evaluate(RunBefores.java:80)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.test.internal.runner.junit4.statement.RunAfters.evaluate(RunAfters.java:61)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:61)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$testWithDisposal$1.evaluate(AndroidComposeTestRule.android.kt:306)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invokeSuspend(AndroidComposeTestRule.android.kt:318)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:8)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(Unknown Source:4)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invokeSuspend(ComposeUiTest.android.kt:569)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:8)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(Unknown Source:2)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:69)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invokeSuspend(ComposeUiTest.android.kt:566)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:8)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(Unknown Source:4)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$1.invokeSuspend(TestBuilders.kt:317)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestDispatcher.processEvent$kotlinx_coroutines_test(TestDispatcher.kt:24)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestCoroutineScheduler.tryRunNextTaskUnless$kotlinx_coroutines_test(TestCoroutineScheduler.kt:99)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt$runTest$2$1$workRunner$1.invokeSuspend(TestBuilders.kt:326)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestBuildersJvmKt.createTestResult(TestBuildersJvm.kt:10)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:309)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestBuildersKt__TestBuildersKt.runTest-8Mi8wO0(TestBuilders.kt:167)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at kotlinx.coroutines.test.TestBuildersKt.runTest-8Mi8wO0(Unknown Source:1)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:549)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:318)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:467)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)
+10-29 12:26:52.374  5211  5228 E TestRunner: Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	at org.bookreader.mobile.importing.ManagedImportAndroidTest.waitFor(ManagedImportAndroidTest.kt:506)
+10-29 12:26:52.374  5211  5228 E TestRunner: 	... 69 more
+10-29 12:26:52.374  5211  5228 E TestRunner: ----- end exception -----
+10-29 12:26:52.379  5211  5228 I TestRunner: finished: externalViewReceivesTemporaryGrantAndOpensActualReader(org.bookreader.mobile.importing.ManagedImportAndroidTest)

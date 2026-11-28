@@ -1,4 +1,350 @@
+## 2026-11-27 최신 — 0.8.0-dev `main` 통합 준비 및 Issue #2·Compose 스레드 경합 해결
+
+- `main`(`cbe4e405`)의 협업 문서·템플릿([PR #4](https://github.com/LaceyLuv/BookreaderM/pull/4), Issue #1 완료)과
+  `codex/backup-080`(`e60d931f`)의 `0.5.1`→`0.8.0-dev`(versionCode 11, Room 9, 14 테이블)·UI 통합([PR #5](https://github.com/LaceyLuv/BookreaderM/pull/5))·Issue #2 수정([PR #6](https://github.com/LaceyLuv/BookreaderM/pull/6))을
+  [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`gemini/integrate-080-to-main`, `Closes #2`)로 통합했다.
+- PR #7의 `d3612875` API 36 실행(`139880170365`, 아티팩트 `15114459850`)에서 확인된
+  `CustomFontSettings` IO 복귀 후 비메인 스레드 레이아웃 예외(`CalledFromWrongThreadException`)까지 수정해
+  9개 UI 파일의 IO/Default 복귀 Compose 코루틴을 `Dispatchers.Main.immediate`로 고정했다(`e8aa3c497785d7959845ee06ae0530016dddcb96`).
+- 검증된 코드 `e8aa3c497785d7959845ee06ae0530016dddcb96`의 원격 빌드 222건(PR `46005087945` · Push `46005073120`)과
+  API 26·34·36 기기 테스트(PR `46005087973` 1차 시도 3/3 · Push `46005073162` 3/3)의 원본 ZIP SHA-256,
+  연결 XML 79/79, host XML 7/7 및 4개 항목 `absent`→PID 교체를 직접 대조 완료했다([작업 기록](WORKLOG.md)).
+- 다음 단위는 사용자의 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7) `main` 수동 병합(`Closes #2`) 후
+  새 `main` SHA 기준으로 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2: 책·사용자 글꼴 원본 선택 백업, v1 읽기 호환, 중단/ENOSPC 재개 커밋) 착수다.
+- 실기기 성능·TalkBack·16KB OS·서명/공개 배포 검증은 `NOT_RUN`이며 전체 출시 판정은 `BLOCKED`를 유지한다.
+
+## 2026-11-21 Phase 4 독서 기록 백업·복원
+
+- `0.8.0-dev`에서 수동 파일 저장, 검증된 미리보기, 복원 방식 선택과 결과 화면을 구현했다.
+  [사용 방법](../README.md#데이터와-지원-범위), [형식과 병합 설계](adr/0012-portable-reading-records.md).
+- 같은 원본은 SHA-256과 크기로 대조한다. 기존 책의 관리 파일과 기록을 보존하면서 빠진 행을 추가한다.
+  원본이 없는 책은 다시 연결할 수 있도록 기록과 함께 복원된다.
+- 같은 소스의 빌드 검사 219개와 API 26·34·36 각각 UI 78개 및 강제 종료 검증 7단계를 통과했다.
+  [최종 검증 원본](evidence/product-quality/verified-4777199/summary.json).
+- 결과와 실행 명령, 실패 원본, 환경 시작 경로는 [인수인계](SESSION_HANDOFF.md)와 [작업 기록](WORKLOG.md)에 있다.
+- 다음 단위는 책과 사용자 글꼴 원본의 선택 백업이다. v1 읽기 호환, 대상 경로 및 개별 파일 무결성 확인,
+  공간 부족이나 중단 후 재개할 수 있는 파일 커밋을 함께 검증한다. 실기기·TalkBack·성능·배포 검증이 남아 있다.
+
+## 2026-11-18 EPUB 형광펜·메모 구현과 자동 검증 완료
+
+`/workspace/BookreaderM-reader-070`의 `codex/reader-070`에서 검증했다.
+제품·테스트 소스 `3188545e5a4bf04f859f3a7659eca777b50c7a8d`, 0.7.0-dev/versionCode 10/Room 9.
+EPUB 본문을 길게 누른 뒤 **형광펜 · 메모**를 선택하면 네 가지 색과 메모를 저장할 수 있다.
+형광펜 목록은 수정·삭제·본문 이동을 제공한다. [설계와 선택 제약](adr/0011-exact-epub-annotations.md).
+
+원격 빌드 44243688890의 210개와 기기 실행 44243688898의 API 26·34·36 각각
+UI 77개와 외부 강제 종료 검증 7단계가 통과했다. 실패·오류·skip은 0이다.
+원본 ZIP SHA-256·CRC, 동일 소스, 필수 XML, 실제 강제 종료 후 PID 교체를 대조했다.
+반복되는 두 번째 단어의 표시 좌표를 저장·Activity 재생성·글자 크기 변경·재열기·본문 이동
+각 단계에서 확인했다. 기존 EPUB 검색 대상 p179가 화면에 실제 표시되는지도 확인했다.
+[검증 원본](evidence/product-quality/verified-3188545/summary.json), [화면 검토](evidence/product-quality/verified-3188545/visual-review.json).
+
+API 26 메모 입력 중 메모리 부족을 조사해 Android 8.x에서 Readium 화면 잘림 여백 콜백을
+끄고 Compose가 적용한 시스템 여백의 중복 전달을 막았다. 터치 테스트는 목차에서 첫 장으로
+이동하고 선택할 단어가 보이는 것을 확인한 뒤 실제 길게 누르기를 수행한다.
+[메모리 부족·추적 원본](evidence/product-quality/failed-c141a99/summary.json),
+[화면 밖 터치 진단](evidence/product-quality/api26-diagnostic-977b092/summary.json).
+
+`source /workspace/toolchains/mobile-env.sh` 적용 후
+`./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug --console=plain` exit 0,
+`./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit 0.
+`python3 /workspace/work/bookreaderm-product-quality/verify-phase3.py 3188545e5a4bf04f859f3a7659eca777b50c7a8d 44243688890 44243688898` exit 0.
+[로컬 빌드 원본](evidence/product-quality/phase3-epub-api26-local/toc-test-summary.json).
+
+기존 13개 테이블 정의, 관리 원본·진행도, 서명키·이전 05ffd50 APK/ZIP을 보존했다.
+실제 휴대전화·TalkBack·성능·공개 배포는 미실행이다. 마지막 전달 APK는 05ffd50이다.
+다음 단위는 Phase 4 백업·복원 설계와 데이터 보존 검증이다.
+
+## 2026-11-07 진행 중 — API34/36 EPUB 형광펜·메모 검증 PASS, API26 정지 조사
+
+작업 `/workspace/BookreaderM-reader-070`, `codex/reader-070`, code10/Room9.
+제품/테스트 소스 `65a57bcff8388bdbacfe2ef7b3467cac887027ea`의 build42367624823 PASS210,
+device42367624851 API34/36 각각 native77+host7 PASS. artifact digest/CRC/source clean/필수 XML,
+외부 force-stop PID 부재·교체, 정확한 SDK 사각형5단계와 EPUB p179 가시성을 대조했다.
+[부분 matrix 원본과 검증](evidence/product-quality/partial-65a57bc/summary.json).
+실제 선택 메뉴/메모 목록 화면 확인. 저장 직후 본문 캡처에는 닫히기 전 목록 창이 남아 있어 한계를 기록했다.
+[원본 시각 검토](evidence/product-quality/partial-65a57bc/visual-review.json).
+
+최신 소스 `c141a99fe52126d9706a1d6eb135f98c2e403cac`는 캡처 전 dialog 부재를 검사하고,
+멈춘 EPUB fixture의 main/instrumentation 스레드를60초 간격 최대3회 logcat에 남긴다.
+검사의 결과/제한시간을 바꾸지 않고 개인정보/본문을 기록하지 않는다.
+compile/lint exit0. 최초 internal/public 가시성 컴파일 오류도 보존했다.
+[명령·결과](evidence/product-quality/phase3-epub-menu-local/diagnostics-summary.json).
+build42368967920/device42368968011 실행 중. 전체 세 API PASS는 아직 아니다.
+
+API26 이전 ec788cd/a46551a는 기존 EPUB 검색·재생성 검사18에서 진행이 멈춘 뒤 앱512MB OOM,
+45분 job 제한으로 CANCELLED다. XML이 완성되지 않아 partial runner/logcat만 보존했다.
+단순한 환경 문제나 해결된 현상으로 처리하지 않는다. ec788cd API34에는 기존 TXT 글자배율 검사에서도
+SnapshotStateObserver 다중 스레드 접근1 FAIL이 추가됐다(합계3 FAIL). 이후 실행의 해당검사는 PASS지만 원인 미확정이다.
+[ec788cd 원본](evidence/product-quality/failed-ec788cd/summary.json), [a46551a 원본](evidence/product-quality/failed-a46551a/summary.json).
+3e10382/65a57bc API26도 결과 수집 대기다. 다음: API26 원본과 c141a99 thread trace 확인→실패 수정→전체 matrix/화면/문서 확정.
+
+기존13개 DB 테이블·책·진행도·키·05ffd50 APK/main을 보존한다. 기존 계약31개 중30개는 바이트 동일하며,
+EpubContentPolicy만 Android Xalan 이모지 변환 결함을 수정했다. [보존 대조](evidence/product-quality/phase3-epub-menu-local/preservation.json).
+실기기/TalkBack/성능/공개 배포는 NOT_RUN, Phase4 미착수. 매 shell `source /workspace/toolchains/mobile-env.sh`.
+현재/이전 실행ID와 helper는 `/workspace/work/bookreaderm-product-quality/phase3-epub-annotations/current.json`, `ci/`다.
+별도 소프트웨어 AVD는 정상 종료 상태이며 데이터는 남겼다. 자세한 설계·실패 수정 이력은 아래와 [ADR0011](adr/0011-exact-epub-annotations.md)을 따른다.
+
+## 2026-11-07 EPUB 형광펜·메모 — 구현 및 기기 검증 중
+
+현재 소스 `65a57bcff8388bdbacfe2ef7b3467cac887027ea`, 0.7.0-dev/code10/Room9.
+본문을 길게 누른 선택 메뉴에서4색 형광펜과 메모를 저장하고 목록에서 수정·삭제·본문 이동을 제공한다.
+Readium 공개 API와 정확한 DOM UTF-16 범위·문맥 대조를 함께 사용한다.
+[설계와 한도](adr/0011-exact-epub-annotations.md), [실행 상태·다음 작업](SESSION_HANDOFF.md).
+기존13개 테이블 정의를 유지하고 epub_annotations만 추가했다. 관리 원본·진행도·기존 키·이전 APK/main은 보존한다.
+[보존 대조](evidence/product-quality/phase3-epub-menu-local/preservation.json).
+
+이모지 포함 XHTML이 Android Xalan에서 invalid surrogate entity로 변환되던 기존 문제를 수정했다.
+별도 API26 Dalvik의 실제 앱 변환 검사와 독립 XML roundtrip17개 PASS. 소프트웨어 AVD UI 검사는
+System UI 응답 없음 때문에 BLOCKED_ENV이며 성공으로 사용하지 않는다.
+[원본·첫 실패·수정 후 결과](evidence/product-quality/phase3-epub-unicode-local/summary.json).
+3e10382 원격 build42366128291 PASS210(Android77/shared113/EPUB17/실제 ENOSPC3).
+API34/36은 새 거부 검사 PASS, 실제 선택 이후 메뉴 클릭1 FAIL. 기존75개 검사는 PASS다.
+[실패 원본](evidence/product-quality/failed-3e10382/summary.json). API26은 실행 중이다.
+
+65a57bc는 선택 전에 접근성 조회를 연결하고 native floating 창의 실제 메뉴를 누르도록 검사를 보완했다.
+로컬 `source /workspace/toolchains/mobile-env.sh; ./gradlew :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug --console=plain` exit0.
+[컴파일·lint 원본](evidence/product-quality/phase3-epub-menu-local/summary.json).
+build42367624823/device42367624851 진행 중이며 전체 기기 PASS는 아직 아니다.
+이전 a259e0b/ec788cd/a46551a 실패 원본과 SDK 빈 문맥 생략 호환 수정도 보존한다.
+다음은 실제 메뉴·SDK 사각형·리플로·재열기·host force-stop 검증과 실패 수정이다.
+실기기/TalkBack/성능/공개 배포는 NOT_RUN, Phase4는 미착수다.
+
+## 2026-11-06 최신 — TXT 형광펜·메모 자동 검증 완료
+
+`/workspace/BookreaderM-reader-070`, `codex/reader-070`, 제품/테스트 소스 `208f74caf788bf9a72d1640d4e30926ae0a29716`.
+0.7.0-dev/code9/Room8. [결정·범위](adr/0010-exact-txt-annotations.md).
+TXT의 **형광펜 → 현재 구간에서 문장 선택**에서 실제 선택 좌표로 저장한다. 네 가지 색상, 선택적 메모,
+목록에서 수정/삭제/정확한 본문 이동을 제공한다. 같은 문장을 검색해 위치를 추정하지 않는다.
+현재 위치부터 최대4,096 UTF-16 단위의 읽기 전용 선택 창이며, 본문의 기본 복사 선택은 유지한다.
+최대500개/내용 버전, 메모2,000 UTF-16 단위다. EPUB 형광펜은 다음 단위이며 Phase3 전체 완료는 아니다.
+
+기존12개 테이블 정의를 그대로 두고 txt_annotations만 추가했다. 실제1–7→8 migration/rollback과
+raw 책·진행도·북마크·설정·목차 보존, stale session/CAS/미래 값/한도/SQL 오류를 검사했다.
+표시·저장 전에 원문의 정확한 구간을 대조하며, 불일치한 기록을 다른 문장에 붙이지 않는다.
+SQLite TEXT 길이와 BLOB 바이트 길이를 함께 검사해 NUL 뒤의 과대 기록도 읽기 전에 거부한다.
+기존 진행도/locator/캐시/페이지/Readium 계약28개 파일과 서명키/이전 설치 APK/main을 보존했다.
+
+build42210038416 PASS200(Android77/shared104/EPUB16/실제 ENOSPC3),
+device42210038417 API26/34/36 각각 native75+host7 PASS. 실패·오류·skip0.
+[필수 XML·원본·대조](evidence/product-quality/verified-208f74c/summary.json): artifact SHA/CRC/source clean,
+외부 force-stop 뒤 PID 부재·교체, EPUB p179 실제 가시성까지 확인했다.
+`python3 /workspace/work/bookreaderm-product-quality/verify-phase3.py 208f74caf788bf9a72d1640d4e30926ae0a29716 42210038416 42210038417` exit0.
+실제 길게 누르기와 두 번째 반복 문장 선택, TextLayoutResult의 정확한 형광펜 범위,
+메모 수정·리플로·페이지 전환·재열기·삭제·외부 강제 종료 복원을 검사했다.
+
+로컬 전체197 및 APK/test APK/lint/schema8 PASS. 마지막 화면 보완의 compile/lint/릴리스 APK·AAB exit0.
+[로컬 원본](evidence/product-quality/phase3-annotations-bound-local/summary.json),
+[최초 잘못된 surrogate fixture 실패와 수정](evidence/product-quality/phase3-annotations-local/summary.json),
+[초기 전체 기기 결과](evidence/product-quality/verified-ae4453d/summary.json),
+[바이트 한도 보완본 전체 결과](evidence/product-quality/verified-242ae6b/summary.json)를 보존한다.
+초기 긴 설정 라벨/가장자리 캡처는 [원본 시각 검토](evidence/product-quality/annotations-visual-ae4453d/review.json)에 남겼다.
+세 API의 실제 본문·메모 목록·도구 화면을 확인했다. 선택한 단어 전체의 분홍 표시와 짧아진 설정 라벨이 잘리지 않는다.
+[원본 시각 검토·한계](evidence/product-quality/verified-208f74c/visual-review.json). 도구 캡처의 쪽수 계산 중 표시는 최종 쪽수 정확성 증거로 사용하지 않는다.
+이전 Phase2 측정 재진입과19a8235 API26 도구 캡처의 원인 미확정 기록도 유지한다.
+
+실기기 설치·TalkBack·성능·공개 배포는 NOT_RUN. 이번에는 새 설치 파일을 전달하지 않았다.
+다음 단위는 Readium 공개 선택 locator/Decoration에 기반한 EPUB 형광펜·메모다. Phase4 백업·복원은 미착수다.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 실행 상태/helper는 `phase3-annotations/current.json`, `ci/`다.
+
+
+## 2026-11-06 최신 — 읽기 도구·빠른 설정 자동 검증 완료
+
+`/workspace/BookreaderM-reader-070`, `codex/reader-070`, 제품/테스트 소스 `19a82358746063d97826f04d992c16a30026319b`.
+[구현·전후 화면·한계](READER_0_7.md). 0.7.0-dev/code8/Room7이며 0.7.0 전체 완료는 아니다.
+TXT·EPUB·Comic 도구를 아이콘/이름으로 통일하고 하단 쪽수에 위치 이동을 모았다. 기존 설정 draft/저장을 재사용한
+빠른 설정과 추가 설정 구분, 책별/전체 범위 표시, 상속 복원 시 다른 책별 옵션 보존을 구현했다.
+
+build41194371543 PASS189(Android75/shared95/EPUB16/실제 ENOSPC3),
+device41194371545 API26/34/36 각각 native74+host7 PASS, 실패·오류·skip0.
+[원본636개와 대조 결과](evidence/product-quality/verified-19a8235/summary.json): artifact SHA/CRC, source clean,
+필수 XML, 실제 force-stop 뒤 PID 부재·교체, EPUB p179 가시성 PASS.
+`python3 /workspace/work/bookreaderm-product-quality/verify-phase3.py 19a82358746063d97826f04d992c16a30026319b 41194371543 41194371545` exit0.
+로컬 `BOOKREADER_EVIDENCE_DIR=build/phase3-controls-local ./scripts/ci-check.sh` exit0(186),
+`./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit0.
+[로컬 원본](evidence/product-quality/phase3-controls-local/summary.json). 재개 후 doctor와 키/기존 APK 보존을 재확인했다.
+
+세 API의 빠른 설정과 정상 도구 화면을 확인했다. API26의 설정을 닫은 직후 `phase3-reader-tools.png`에는
+검색/북마크 라벨 배치 이상이 있어 안정 화면 증거로 쓰지 않는다. 같은 실행 `txt-controls.png`/`epub-controls.png`는 정상이다.
+[시각 검토와 한계](evidence/product-quality/verified-19a8235/visual-review.json). 원인은 미확정이며 캡처 원본을 보존한다.
+실기기·TalkBack·성능·공개 배포는 NOT_RUN이다. 이전 Phase2 측정 재진입의 원인 미확정 기록도 유지한다.
+
+DB7/진행도/원본/키/main/기존05ffd50 설치 APK를 유지했다. 새 설치 파일은 전달하지 않았다.
+다음 단위: 정확한 TXT·EPUB 선택 범위 검증 후 형광펜/메모. Phase4는 미착수다.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 실행/증거 helper는 `phase3-controls/current.json`, `phase3-current.json`, `ci/`다.
+
+이하 이전 상태는 이력이다.
+
+## 2026-10-30 요청한 설치 시험용 APK — 0.7.0-dev
+
+TXT 목차를 포함한 검증 소스05ffd50을 기존 키로 서명했다. 코드8/Room7이며 0.7.0 전체 기능 완료는 아니다.
+사용자 요청에 따라 임시 ZIP 전달을 준비했다. 장기 GitHub Releases 경로는 아직 미완료이고 기존 HTTP400 업로드를 재시도하지 않았다.
+
+- APK: `/workspace/artifacts/BookreaderM/05ffd50/installable/BookreaderM-0.7.0-dev-test-signed.apk` (21,982,367 bytes).
+- SHA256: `b58061b17b41335c17ac7d662be1d325092ab19db49e3284570eabd1e44454bc`.
+- ZIP: `/workspace/artifacts/BookreaderM/05ffd50/installable/BookreaderM-0.7.0-dev-test-signed.zip` (18,521,140 bytes,20MB 미만).
+- ZIP SHA256: `dae06ad079607fc1fa4f89b0d6fc6ac1e8048a3f47dc8bc6a697b26574f565d2`.
+- 기존 인증서/v2/v3/16KB 정적 감사, 서명 전후612 entry 동일성, ZIP CRC·추출 APK 동일성 PASS.
+- 제품 source `05ffd50ab8213ec9563a92149b6ed1930c510c3b`: build189/API26·34·36 native73+host7 PASS.
+
+[패키지 증거](evidence/product-quality/package-05ffd50/summary.json). 실제 휴대전화 설치와 대화 다운로드 성공은 미확인이다.
+기존0.5.1/0.6.0 APK 및 서명키를 보존했다. 앱을 삭제하거나 데이터를 지우지 않고 같은 키 업데이트로 설치한다.
+공개 릴리스를 게시하지 않았다. 다음 개발은 도구/빠른 설정·형광펜/메모이며 인계의 기존 작업 순서를 유지한다.
+
+명령: `source /workspace/toolchains/mobile-env.sh; ./gradlew -I /workspace/work/bookreaderm-product-quality/test-signing.gradle :androidApp:assembleRelease --console=plain` exit0.
+`python3 /workspace/work/bookreaderm-product-quality/finalize-package-05ffd50.py` exit0.
+검증 source와 현재 제품 소스 차이 없음. 코드 변경 없이 패키지만 생성해 전체 테스트는 반복하지 않았다.
+
+## 2026-10-29 최신: TXT 목차 단위 구현·자동 검증 완료
+
+작업 위치 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`, source `05ffd50ab8213ec9563a92149b6ed1930c510c3b`.
+0.7.0-dev/code8/Room7. [구현·화면·남은 범위](READER_0_7.md).
+build40892825363 PASS189(Android75/shared95/EPUB16/실제 ENOSPC3),
+device40892825193 API26/34/36 각각 native73+host7 PASS, 실패·오류·skip0.
+[원본 대조](evidence/product-quality/verified-05ffd50/summary.json): digest/CRC/XML/source clean/필수 사례,
+외부 force-stop 뒤 PID 부재·교체와 EPUB 실제 p179 확인, `verify-phase3.py` exit0.
+새 TXT 목차의 수정/제외/복구/수동 추가/정확한 이동/재열기와 host 강제 종료 복원을 검사했다.
+로컬 CI186 및 릴리스 APK/AAB 컴파일 PASS. 키와 기존0.5.1/0.6.0 APK/main은 보존했다.
+API36 실제 목차 목록 캡처 확인. API26/34 이미지에는 닫히는 추가 창이 남아 최종 목록의 시각 증거로 사용하지 않는다.
+
+다음 작업은 도구 UI/빠른 설정, 정확한 TXT·EPUB 선택 범위에 기반한 형광펜·메모다.
+현재 책별 override는 읽기 방식/만화 방향/맞춤이며, 글자/색상/밝기는 전체 기본값이다. 기존 저장·복원 경로를 재사용한다.
+형광펜/메모·Phase4 백업/복원·실기기 성능/접근성·공개 배포는 미완료다. 0.7.0 전체 완료가 아니다.
+이 버전의 설치 배포는 하지 않았다. 0.6.0의 기존 키 설치 파일은 `codex/library-060`과 INSTALLABLE_APK에 보존한다.
+매 shell `source /workspace/toolchains/mobile-env.sh`. 현재 소스/증거를 reset/clean하거나 앱 데이터를 삭제하지 않는다.
+실행 ID/helper는 `/workspace/work/bookreaderm-product-quality/phase3-current.json`, `ci/`, `verify-phase3.py`다.
+
+아래는 당시 상태를 보존한 이력이다. 다음 세션은 이 최신 절을 먼저 따른다.
+
+## 2026-10-29 현재 Phase3: TXT 목차 구현·로컬186 PASS, 기기 검증 대기
+
+작업 위치 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`, `0.7.0-dev`/code8/Room7.
+[구현·남은 범위](READER_0_7.md), [ADR0009](adr/0009-txt-toc-overrides.md), [로컬 원본](evidence/product-quality/phase3-toc-local/summary.json).
+자동 감지/현재 회차/이동·제목 수정·제외/복구·현재 위치 수동 추가와 revision별 저장을 연결했다.
+`source /workspace/toolchains/mobile-env.sh; BOOKREADER_EVIDENCE_DIR=build/phase3-toc-local ./scripts/ci-check.sh` exit0.
+Android unit75/shared95/EPUB16, APK/test APK/lint/schema7 PASS. 최초95개 중 migration fixture1 FAIL도 원본 보존.
+새 실제 UI1개를 포함한 native73+host7/API26/34/36과 ENOSPC는 원격 실행 대기다.
+기존 TXT host 검사는 목차 추가 후 실제 force-stop 복원과 원본 진행도 불변도 검사하도록 확장했다.
+자동 검사 실패·미실행 범위를 기기 PASS로 올리지 않는다. 형광펜/메모·독서 도구/빠른 설정 및 Phase4는 미완료다.
+0.6.0 확정 source a22970b·같은 키 패키지는 `/workspace/BookreaderM`의 `codex/library-060`에 보존한다.
+main·키·기존 설치 파일·사용자 책과 독서 기록을 삭제/초기화하지 않는다.
+다음: 원격 전체 matrix와 실제 목차 화면 확인 → 실패 수정/증거 → 다음 Phase3 기능.
+
+아래는 이전 단위의 이력이다.
+
+## 2026-10-29 Phase3: TXT 목차 분석기 단위 PASS
+
+`codex/reader-070`, `/workspace/BookreaderM-reader-070`. [개발 상태](READER_0_7.md).
+6개 추가 포함 shared89 PASS, [원본](evidence/product-quality/phase3-toc-scanner-local/summary.json).
+필수 사례 목록에6개를 등록했다. DB/UI는 아직 연결 전, 다음 단위에서 구현한다.
+0.6.0 확정 결과는 아래와 별도 `codex/library-060`에 보존한다.
+
+# 현재 작업표
+
+## 2026-10-29 현재 상태 — 0.6.0 자동 검증 완료
+
+`codex/library-060`, 제품/테스트 소스 `a22970b1e40eaf06c47acaa683b9d754eb66f2b4`. [결과·소스·실제 화면](LIBRARY_0_6.md).
+build40885971844 PASS175, device40885971811 API26/34/36 각각 native72+host7 PASS.
+[원본 대조](evidence/product-quality/verified-a22970b/summary.json): artifact SHA/CRC/XML/source clean/PID 교체 확인, exit0.
+[같은 키 패키지](evidence/product-quality/package-a22970b/summary.json): 서명/v2/v3/정적16KB/ZIP 동일성 PASS.
+기존 서명키·0.5.1 APK·main을 보존했다. 실제 휴대전화 설치·공개 배포는 NOT_RUN이다.
+API26의 저장 후 캡처는 이전 편집 창 프레임이며 시각 증거로 채택하지 않는다. API34/36 실제 서재는 확인했다.
+abee6a1의 API36 Compose 측정 재진입은 후속 실행에서 재발하지 않았으나 원인은 미확정이다.
+
+Phase3 작업 위치는 `/workspace/BookreaderM-reader-070`, 브랜치 `codex/reader-070`이다.
+UTF-16·메모리 한도를 지키는 TXT 목차 분석기6개 포함 JVM89 PASS, DB/UI 연결은 진행 전이다.
+다음은 목차의 revision별 수정/제외 저장과 실제 Reader 이동 검증이다. Phase3/4 전체 완료가 아니다.
+각 shell은 `source /workspace/toolchains/mobile-env.sh`; 기존 도구를 사용하며 reset/clean·키 교체·앱 데이터 삭제를 하지 않는다.
+
+아래는 당시 상태를 보존한 개발 이력이다. 최신 상태는 이 절과 위 최종 보고서를 따른다.
+
 # BookReader Mobile — Codex 작업표
+
+fe29dea 제품 자동 검증 완료: build175/세 API native72+host7 PASS.
+마지막 테스트 캡처 동기화 확인과 최종0.6.0 문서/패키지 정리를 진행한다. [근거](LIBRARY_0_6.md).
+
+현재 d93a268의 build175/세 API native72+host7은 모두 PASS다.
+후속525587e에서 API34 동일 표지 재선택1 FAIL을 보존하고 선택 성공 번호를 추가했다.
+[분석과 원본](LIBRARY_0_6.md). 수정 소스의 최종 matrix/화면/같은 키 APK 보고가 남아 있다.
+
+## 2026-10-29 현재: Phase2 회귀 수정
+
+abee6a1 build40875430022 PASS175, device40875430229 FAIL(API26 2/72, API34 3/72, API36 1/3 후69 NOT_RUN).
+host는 모두 NOT_RUN. [증거](evidence/product-quality/failed-abee6a1/summary.json), [수정 범위](LIBRARY_0_6.md).
+다음: 수정 소스의 전체 native72/host7, 원본 화면/기록 보존 확인 후에만 Phase2 완료 및 Phase3로 이동한다.
+
+## 2026-10-29 Phase2 첫 기기 결과와 후속 수정
+
+후보 `f35d6857358501f87c3c15339b57f71bb6e7cc8c`: build40871727052 원본 XML/필수 사례/digest PASS175.
+Device40871727016은 native71개 중 API26 8 FAIL, API34/36 각각3 FAIL, host는 NOT_RUN.
+[실패 원본과 기기별 목록](evidence/product-quality/failed-f35d685/summary.json)을 보존했다.
+
+- batch 취소의 IO 정리 후 취소된 Main으로 복귀하면서 마지막 UI 갱신이 실행되지 않았다. UI 게시까지 NonCancellable 경계에 포함했다.
+- 표지 picker의 OPENABLE 누락으로 테스트 provider Activity가 실패했다. 실제 picker 요청을 OPENABLE/단일 content URI 검증으로 통일했다.
+- TXT 인코딩 변경 직후 재열기 timeout을 확인했다. 늦은 artwork 결과가 Book 전체를 바꾸던 경합 가능성을 제거했다.
+  현재 revision/timestamp를 확인해 표지 관련 필드만 병합하고, 인코딩 성공 시 commit된 Book을 즉시 UI에 게시한다. 기존 위치 assertion은 유지했다.
+- API26 Window의 CalledFromWrongThreadException을 확인했다. catalog/진행률을 IO 안에서 따로 게시하지 않고
+  책 목록과 함께 Main에서 단일 snapshot으로 게시한다. 시스템 바 효과도 명시적으로 Main에서 실행한다.
+- 같은 표지 재선택, Reader/설정 왕복 스크롤 유지, 화면 밖 EPUB 메타데이터 검색을 보완했다. native 필수 사례는72개다.
+
+후속 `./gradlew :androidApp:testDebugUnitTest :androidApp:compileDebugAndroidTestKotlin :androidApp:lintDebug --console=plain` exit0.
+로그 `phase2-coherent-library-state.log`, `phase2-native-fixes*.log`, `phase2-offscreen-metadata.log`.
+새 소스의 API26/34/36 전체 회귀와 기존host6/새host1은 아직 대기다. 첫 실패를 이전 PASS로 덮어쓰지 않는다.
+원본 캡처에서 책장/목록과 일괄 결과 UI를 확인했다. 1,000권 두 보기의 끝/처음/검색 탐색과24개 표지 캐시 제한은
+세 API에서 PASS지만 전체 suite는 FAIL이다. 물리 FPS/성능이나 사용자 데이터 검증으로 확대하지 않는다.
+
+
+## 2026-10-29 진행 중: 서재 2.0 / 0.6.0
+
+`codex/library-060`에서 [Phase2 구현과 검증 기록](LIBRARY_0_6.md)을 이어 간다. [ADR0008](adr/0008-library-catalog-and-covers.md).
+메타데이터·실제/생성/사용자 표지·정보 편집·읽기 상태·책장·정렬/필터·검색 통합·다중 선택/분류·일괄 가져오기를 연결했다.
+Room6은 별도 테이블을 추가하고 기존 책/진행도/북마크/설정과 키를 보존한다. main/0.5.1 설치 파일은 유지한다.
+
+`source /workspace/toolchains/mobile-env.sh` 후 doctor PASS. `./gradlew :androidApp:compileDebugAndroidTestKotlin
+:androidApp:lintDebug :androidApp:testDebugUnitTest :shared:jvmTest --console=plain` exit0, Android unit73/shared83 PASS.
+원본 `/workspace/work/bookreaderm-product-quality/phase2-catalog-tests-fixed.log`.
+이후 추가한 active-batch host 준비/검증은 전체 빌드와 실제 API26/34/36 실행을 기다린다.
+필수 사례는 native71 + 기존host6 + 새host검증1이며, 강제 종료할 준비 단계를 PASS로 세지 않는다.
+`BOOKREADER_EVIDENCE_DIR=build/phase2-local ./scripts/ci-check.sh` exit0, 전체172개/APK/test APK/lint/schema6 PASS. [원본](evidence/product-quality/phase2-local/summary.json). 실제 기기/UI/강제 종료 결과는 아직 NOT_RUN.
+다음: 로컬 검사 완료 → 원격 matrix → 실패 수정/원본 증거와 화면 확인 → 동일 키 패키지/문서 갱신.
+
+
+## 2026-10-24 완료: 제품 개선 Phase 1 / 0.5.1
+
+제품/테스트 source `5a8aad2ebb35359740a2fe18bec0c3731d6e9072`, 브랜치 `codex/product-quality-051`.
+[사용자 경험·주요 소스·실제 전후 화면·남은 범위](UX_POLISH_0_5_1.md)를 기록했다.
+build40060195353 PASS166(73/74/16/실제 ENOSPC3), device40060195360 API26/34/36 각각 native63+host6 PASS.
+원본 ZIP SHA-256/CRC, source clean, 필수 XML, force-stop 후 PID 교체와 EPUB 실제 문단 복원을 대조했다.
+[최종 검증](evidence/product-quality/verified-5a8aad2/summary.json), [중간 후보·실패](evidence/product-quality/README.md)를 보존한다.
+
+정확 명령은 각 artifact의 results.txt/로그와 로컬 commands.json을 따른다. 최종 증거 검사:
+`python /workspace/work/bookreaderm-product-quality/verify.py 5a8aad2ebb35359740a2fe18bec0c3731d6e9072 40060195353 40060195360` exit0.
+각 shell에서 `source /workspace/toolchains/mobile-env.sh` 후 `./gradlew :androidApp:assembleRelease :androidApp:bundleRelease --console=plain` exit0.
+기존 키를 확인한 작업 폴더의 임시 init script로 `./gradlew -I /workspace/work/bookreaderm-product-quality/test-signing.gradle :androidApp:assembleRelease --console=plain` exit0.
+`python scripts/audit-apk.py androidApp/build/outputs/apk/release/androidApp-release.apk --source-sha 5a8aad2ebb35359740a2fe18bec0c3731d6e9072 --output /workspace/work/bookreaderm-product-quality/package-5a8aad2/audit.json` exit0.
+패키지/서명 로그와 체크섬은 [패키지 원본](evidence/product-quality/package-5a8aad2/summary.json)에 보존했다.
+
+Room schema5/관리 원본/진행도/북마크/글꼴/설정/서명키를 유지했다. main 통합이나 공개 배포는 하지 않았다.
+실기기 설치·TalkBack·성능·16KB OS는 NOT_RUN/BLOCKED_ENV다. GitHub 다운로드·배포 자동화는 Phase4 미완료 항목이다.
+다음 작업은 [Phase2 서재2.0 순서](PRODUCT_IMPROVEMENT.md#phase-2-착수-순서와-완료-기준)다. Phase2–4 구현은 아직 미완료다.
+
+
+## 2026-10-24 제품 완성도 개선 — Phase 1 검증 후보
+
+사용자 [개발 지침](reference/BookReaderM_Product_Improvement_Request_2026-10-24.md)을 보존하고
+[코드 감사·단계별 상태](PRODUCT_IMPROVEMENT.md)를 기록했다. 먼저 v0.5.1/code6 UX 정리를 구현했다.
+잘못된 TXT 고정 문구, unavailable 책의 무응답, 빈 화면/검색 복귀, import 상태/크기 표시,
+벡터 아이콘·색상·하단 이어읽기·책 정보 가독성 및 README를 개선한다.
+기존 Room schema5/책/진행도/북마크/글꼴/설정/서명키와 세 Reader의 viewport·locator 계약은 유지한다.
+
+주요 소스: AppViewModel/BookReaderApp/BookReaderTheme/LibraryUi/LibraryPresentation,
+ReaderChrome의 기존 팔레트 공유, 벡터 drawable, versionCode 및 unit/native 회귀.
+기존 필수 사례를 유지하고 unit2/native3을 추가했다(73/74/16, native63+host6/API).
+수정 전 새 unit2 FAIL 재현, 첫 수정 빌드는 ModifierParameter lint1 FAIL, 인자 순서 수정 후
+`BOOKREADER_EVIDENCE_DIR=/workspace/work/bookreaderm-product-quality/phase1-ci ./scripts/ci-check.sh` exit0.
+실제 XML 기준 unit163 PASS, APK/test APK·lint·schema5 PASS. [로컬 원본](evidence/product-quality/phase1-local/summary.json).
+명령은 모두 `source /workspace/toolchains/mobile-env.sh` 뒤 실행했다. 기기 검증은 후보 커밋의 API26/34/36 CI로 이어간다.
+이 시점 native/host는 NOT_RUN이며 Phase1 전체 완료나 Phase2 구현 완료로 보고하지 않는다.
 
 ## 2026-10-24 완료: 사용자 글꼴·굵기 및 APK 배포 문서
 

@@ -1,0 +1,58 @@
+{
+  "source_sha": "65a57bcff8388bdbacfe2ef7b3467cac887027ea",
+  "build_run": "42367624823",
+  "device_run": "42367624851",
+  "device": {
+    "26": {
+      "status": "INCOMPLETE",
+      "tests": 9,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": ""
+        }
+      ],
+      "host": "NOT_RUN",
+      "final_xml_available": true,
+      "partial_started_cases": 9,
+      "partial_finished_cases": 8,
+      "partial_failed_cases": 0,
+      "partial_failures": [],
+      "incomplete_cases": [
+        [
+          "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration"
+        ]
+      ],
+      "remaining_without_completion": 69,
+      "reason": "The test APK process crashed during the native annotation case. Eight earlier cases completed and the runner reported one failed, incomplete case. Host force-stop checks did not run."
+    },
+    "34": {
+      "status": "NATIVE_PASS",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [],
+      "host": "SEE_RAW_HOST_RESULTS"
+    },
+    "36": {
+      "status": "NATIVE_PASS",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [],
+      "host": "SEE_RAW_HOST_RESULTS"
+    }
+  },
+  "reason": "See original logs/XML and fixture DOM observations. No failed case was removed or skipped.",
+  "build_and_passed_api_originals": "../partial-65a57bc"
+}

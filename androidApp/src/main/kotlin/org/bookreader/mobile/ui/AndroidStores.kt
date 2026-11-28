@@ -31,6 +31,7 @@ fun androidLibrarySessionFactory(context: Context): LibrarySessionFactory {
         val database = AndroidDatabaseOwner.borrow(appContext)
         LibrarySession(RoomBookRepository(database), close = {}).apply {
             progressRepository = org.bookreader.mobile.repository.RoomProgressRepository(database)
+            libraryManager = org.bookreader.mobile.library.RoomLibraryManager(database, System::currentTimeMillis)
         }
     }
 }
@@ -56,7 +57,8 @@ fun androidReaderFactory(context: Context): (org.bookreader.mobile.model.Book, k
                 override suspend fun add(id: String, session: org.bookreader.mobile.repository.ProgressSession,
                     locator: org.bookreader.mobile.locator.TxtLocator, label: String?, now: Long) = repository().add(id, session, locator, label, now)
                 override suspend fun delete(bookId: String, id: String) = repository().delete(bookId, id)
-            })
+            }, org.bookreader.mobile.toc.RoomTxtTocRepository(AndroidDatabaseOwner.borrow(app)),
+            org.bookreader.mobile.annotation.RoomTxtAnnotationsRepository(AndroidDatabaseOwner.borrow(app)))
     }
 }
 
@@ -149,7 +151,9 @@ fun androidEpubReaderFactory(context: Context): (org.bookreader.mobile.model.Boo
                 override suspend fun add(id: String, session: org.bookreader.mobile.repository.ProgressSession,
                     locator: org.bookreader.mobile.locator.ContentLocator, label: String?, now: Long) = repository().add(id, session, locator, label, now)
                 override suspend fun delete(bookId: String, id: String) = repository().delete(bookId, id)
-            }, org.bookreader.mobile.reader.UserFontStore(app))
+            }, org.bookreader.mobile.reader.UserFontStore(app),
+            org.bookreader.mobile.annotation.RoomEpubAnnotationsRepository(AndroidDatabaseOwner.borrow(app)),
+            app.assets.open("reader/epub-annotation-anchor.js").bufferedReader().use { it.readText() })
     }
 }
 

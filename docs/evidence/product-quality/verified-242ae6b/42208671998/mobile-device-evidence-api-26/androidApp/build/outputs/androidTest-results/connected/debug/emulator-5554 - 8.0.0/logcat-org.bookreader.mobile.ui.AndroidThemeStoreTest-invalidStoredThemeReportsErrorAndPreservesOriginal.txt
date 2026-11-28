@@ -1,0 +1,57 @@
+11-06 11:30:09.290  5544  5561 I TestRunner: started: invalidStoredThemeReportsErrorAndPreservesOriginal(org.bookreader.mobile.ui.AndroidThemeStoreTest)
+11-06 11:30:09.294  1540  7083 I AudioFlinger: AudioFlinger's thread 0xf1483640 tid=7083 ready to run
+11-06 11:30:09.299  1540  4772 E AudioFlinger: not enough memory for AudioTrack size=131296
+11-06 11:30:09.299  1540  4772 D MemoryDealer:   AudioTrack (0xf55372e0, size=4194304)
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     0: 0xf55372f0 | 0x00000000 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     1: 0xf5537310 | 0x000200E0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     2: 0xf55374a0 | 0x000401C0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     3: 0xf5537650 | 0x000602A0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     4: 0xf55377c0 | 0x00080380 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     5: 0xf5537500 | 0x000A0460 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     6: 0xf5537b10 | 0x000C0540 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     7: 0xf5537cc0 | 0x000E0620 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     8: 0xf5537e30 | 0x00100700 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:     9: 0xf5537ff0 | 0x001207E0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    10: 0xf42ff110 | 0x001408C0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    11: 0xf42ff180 | 0x001609A0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    12: 0xf42ff450 | 0x00180A80 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    13: 0xf42ff630 | 0x001A0B60 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    14: 0xf42ff770 | 0x001C0C40 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    15: 0xf55370a0 | 0x001E0D20 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    16: 0xf4f7c4c0 | 0x00200E00 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    17: 0xf4f7c560 | 0x00220EE0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    18: 0xf42ffb90 | 0x00240FC0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:    19: 0xf4f7c5d0 | 0x002610A0 | 0x000200E0 | A
+11-06 11:30:09.299  1540  4772 D MemoryDealer:
+11-06 11:30:09.299  1540  4772 E AudioFlinger: createRecordTrack_l() initCheck failed -12; no control block?
+11-06 11:30:09.299  2528  5631 E AudioRecord: AudioFlinger could not create record track, status: -12
+11-06 11:30:09.302  2528  5631 E AudioRecord-JNI: Error creating AudioRecord instance: initialization check failed with status -12.
+11-06 11:30:09.302  2528  5631 E android.media.AudioRecord: Error code -20 when initializing native AudioRecord object.
+11-06 11:30:09.302  2528  5631 I MicrophoneInputStream: mic_started com.google.android.apps.gsa.staticplugins.aa.c@6a199a5
+11-06 11:30:09.304  2528  2528 I MicroDetectionWorker: onReady
+11-06 11:30:09.306  2528  5631 I MicrophoneInputStream: mic_close com.google.android.apps.gsa.staticplugins.aa.c@6a199a5
+11-06 11:30:09.307  2528  6176 I MicroRecognitionRunner: Detection finished
+11-06 11:30:09.307  2528  6176 W ErrorReporter: reportError [type: 211, code: 524300]: Error reading from input stream
+11-06 11:30:09.309  2528  2969 I MicroRecognitionRunner: Stopping hotword detection.
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: onFatalError, processing error from engine(4)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: com.google.android.apps.gsa.shared.speech.b.g: Error reading from input stream
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.a.a(SourceFile:28)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.staticplugins.recognizer.j.b.run(SourceFile:15)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ax.run(SourceFile:14)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.bl.run(SourceFile:4)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at java.lang.Thread.run(Thread.java:764)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.shared.util.concurrent.a.ai.run(SourceFile:6)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: Caused by: com.google.android.apps.gsa.shared.exception.GsaIOException: Error code: 393238 | Buffer overflow, no available space.
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.Tee.f(SourceFile:103)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.au.read(SourceFile:2)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at java.io.InputStream.read(InputStream.java:101)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.ao.run(SourceFile:18)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	at com.google.android.apps.gsa.speech.audio.an.run(SourceFile:2)
+11-06 11:30:09.309  2528  6176 W ErrorProcessor: 	... 9 more
+11-06 11:30:09.309  2528  6176 I AudioController: internalShutdown
+11-06 11:30:09.311  5544  5561 I TestRunner: finished: invalidStoredThemeReportsErrorAndPreservesOriginal(org.bookreader.mobile.ui.AndroidThemeStoreTest)

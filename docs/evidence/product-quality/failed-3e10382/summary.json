@@ -1,0 +1,69 @@
+{
+  "source_sha": "3e10382b326d8d85aabd305114c2d2b418d9f340",
+  "build_run": "42366128291",
+  "device_run": "42366128301",
+  "device": {
+    "26": {
+      "status": "INCOMPLETE",
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [],
+      "host": "NOT_RUN",
+      "final_xml_available": false,
+      "partial_started_cases": 18,
+      "partial_finished_cases": 17,
+      "partial_failed_cases": 1,
+      "partial_failures": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "code": -2,
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+        }
+      ],
+      "incomplete_cases": [
+        [
+          "org.bookreader.mobile.epub.EpubReaderFlowTest",
+          "managedEpubTocSearchBookmarksAndRecreationPreserveFullLocator"
+        ]
+      ],
+      "remaining_without_completion": 60
+    },
+    "34": {
+      "status": "FAIL",
+      "tests": 77,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.clickNativeHighlight(EpubAnnotationsFlowTest.kt:124)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:66)\n"
+        }
+      ],
+      "host": "NOT_RUN"
+    },
+    "36": {
+      "status": "FAIL",
+      "tests": 77,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "expected_native_cases": 77,
+      "failed": [
+        {
+          "class": "org.bookreader.mobile.epub.EpubAnnotationsFlowTest",
+          "name": "nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration",
+          "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.clickNativeHighlight(EpubAnnotationsFlowTest.kt:124)\nat org.bookreader.mobile.epub.EpubAnnotationsFlowTest.nativeSelectionRepeatedQuoteNotesReflowAndReopenUseExactDecoration(EpubAnnotationsFlowTest.kt:66)\n"
+        }
+      ],
+      "host": "NOT_RUN"
+    }
+  },
+  "reason": "See original logs/XML and fixture DOM observations. No failed case was removed or skipped."
+}

@@ -79,6 +79,8 @@ class TxtReaderController(
     parentScope: CoroutineScope,
     private val settingsAccess: ReaderSettingsAccess? = null,
     bookmarkAccess: ReaderBookmarkAccess? = null,
+    tocAccess: org.bookreader.mobile.toc.TxtTocAccess? = null,
+    annotationsAccess: org.bookreader.mobile.annotation.TxtAnnotationsAccess? = null,
 ) {
     private val lifetime = SupervisorJob(parentScope.coroutineContext[Job])
     private val scope = CoroutineScope(parentScope.coroutineContext + lifetime)
@@ -102,11 +104,15 @@ class TxtReaderController(
     private var navigationGeneration: Int? = null
     private var seekJob: Job? = null
     val tools = TxtReaderTools(book, scope, { state.value }, { session }, ::range, ::navigateTo, bookmarkAccess)
+    val toc = TxtReaderToc(book, scope, { state.value }, { session }, ::range, ::navigateTo, tocAccess)
+    val annotations = TxtReaderAnnotations(book, scope, { state.value }, { session }, ::range, ::navigateTo, annotationsAccess)
 
     init { retry() }
 
     fun retry() {
         if (closing) return
+        toc.reset()
+        annotations.reset()
         seekJob?.cancel()
         navigationGeneration = null
         val previousOpen = openJob
@@ -395,6 +401,8 @@ class TxtReaderController(
         val pending = synchronized(this) {
             if (closing) return
             closing = true
+            toc.close()
+            annotations.close()
             settleJob?.cancel()
             sampler?.cancel()
             listOfNotNull(openJob, restoringJob, settingsJob, seekJob).also { jobs -> jobs.forEach { it.cancel() } }
