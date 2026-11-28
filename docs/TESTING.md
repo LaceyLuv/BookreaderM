@@ -1,3 +1,13 @@
+## 2026-11-28 `0.8.1` 집중 모드·페이지 좌우 스와이프·프리페치 페이지 엔진
+
+신규 필수 Android 기기 테스트 3건을 `scripts/required-tests.json`에 등록했다(`android-device` 80 → 83).
+
+- **`ReaderGestureSurfaceTest.horizontalSwipesTurnPagesInBothDirectionsEvenAtRelaxedSpeedAndNaturalAngle`:** 느린 스와이프(550ms)와 자연스러운 대각선 각도에서도 좌·우 스와이프가 각각 다음/이전 페이지로 이동하고, 드래그 중 실시간 오프셋이 전달됐다가 손가락을 떼면 `0f`로 복귀함을 검증한다. 기존 `20*density` 시스템 가장자리 뒤로가기 보호 및 길게 눌러 텍스트 선택 무간섭 계약도 유지한다.
+- **`TxtPageEngineTest.prefetchedPagesHitCacheWithoutExtraReadsAndPreserveExactBoundaries`:** `prefetchAround` 호출 후 앞 2쪽(`peekPage`/`next`)과 뒤 1쪽(`peekPrevious`/`previous`)이 추가 디스크 읽기 0회로 캐시 적중하고, `overflowsVertical == false` 및 정확한 UTF-16 경계를 보존함을 검증한다.
+- **`TxtReaderFlowTest.focusModeToolbarToggleAndHorizontalPageSwipesPreserveProgress`:** 스크롤 모드에서 페이지 모드로 전환한 뒤 실제 `MotionEvent.TOOL_TYPE_FINGER` 좌·우 스와이프로 앞/뒤 페이지를 이동하고, 원터치 `집중 모드`(`reader_focus_mode`) 토글 시 도구 자동 숨김 및 독서 위치(`stableOffset`) 불변을 API 26·34·36에서 검증한다.
+
+실행별 아티팩트 SHA-256·XML·PID 근거는 [작업 기록](WORKLOG.md)과 [인수인계](SESSION_HANDOFF.md)에 있다.
+
 ## 2026-11-28 Phase 4-2 (Issue #3) 책·사용자 글꼴 원본 선택 백업 및 재개 커밋
 
 신규 필수 테스트 9건을 `scripts/required-tests.json`과 `scripts/device-check.sh`에 등록했다([ADR 0013](adr/0013-resumable-asset-backup.md)).

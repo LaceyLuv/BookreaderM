@@ -1,6 +1,14 @@
 # 출시 후보 감사 — 진행 중, 2026-10-17
 
-## 2026-11-28 최신 — `0.8.0` (code 12, Room 9) 서명 Release APK 생성·감사 완료 (공개 출시 판정: BLOCKED 유지)
+## 2026-11-28 최신 — `0.8.1` (code 13, Room 9) 집중 모드·스와이프·페이지 전환 개선 서명 Release APK 감사 완료 (공개 출시 판정: BLOCKED 유지)
+
+- `main` 통합 소스 `75dbebebbae35f826f79ecd7dc361a40eda25c68`([PR #13](https://github.com/LaceyLuv/BookreaderM/pull/13), `0.8.1`/versionCode 13/Room 9 14개 테이블 유지)에서
+  원격 빌드·실제 ENOSPC **229/229 PASS**(`46107229772`·`46107225533`), API 26·34·36 기기 테스트 **connected 83/83 + host 8/8 PASS**(`46107229837`·`46107225513`),
+  그리고 수동 서명 워크플로우 `46108752293`(아티팩트 `15248324741`, `BookreaderM-0.8.1-code13-signed.apk`, `sha256:44ffe0ec36b6e97a5c101ce5662eedbce2e537e032925708a605c1be7ca0e4e6`)의 `scripts/audit-apk.py` 서명 필수 정적 감사·v2/v3 서명·인증서(`c86301d1...`) 일치·16KB ELF/ZIP 정렬·재다운로드 해시 대조까지 모두 **PASS**했다([설치 안내](INSTALLABLE_APK.md)).
+- 공개 GitHub Release는 게시하지 않았으며, **공개 출시 판정은 `BLOCKED`를 유지한다.** 실제 스마트폰 업데이트 설치·실기기 성능/프레임·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·공개 배포 승인은 `NOT_RUN`이다.
+- 상세 근거와 보존된 중간 실패는 [작업 기록](WORKLOG.md), [QA 매트릭스](QA_MATRIX.md), [보안 검토](SECURITY.md)를 따른다. 아래 절은 이전 시점 이력이다.
+
+## 2026-11-28 이전 — `0.8.0` (code 12, Room 9) 서명 Release APK 생성·감사 완료 (공개 출시 판정: BLOCKED 유지)
 
 - `main` 통합 소스 `9d17ea96a0544c5889a150ee97bfb6599044c725`(Phase 4-1·4-2 포함, `0.8.0`/versionCode 12/Room 9 14개 테이블 유지)에서
   원격 빌드·실제 ENOSPC 229/229 PASS(`46092124341`·`46096452943`), API 26·34·36 기기 테스트 connected 80/80 + host 8/8 PASS(`46092124338`·`46096452969`),

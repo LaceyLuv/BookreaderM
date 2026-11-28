@@ -1,6 +1,16 @@
 # Android 검증 매트릭스 — 2026-10-17
 
-## 2026-11-28 최신 — Phase 4-2 (Issue #3) 책·글꼴 원본 선택 백업 + 중단/ENOSPC 재개 커밋
+## 2026-11-28 최신 — `0.8.1` (code 13) 집중 모드·페이지 좌우 스와이프·페이지 넘김 속도 개선
+
+- [작업 기록](WORKLOG.md), [최신 인계](SESSION_HANDOFF.md), [설치 안내](INSTALLABLE_APK.md)를 우선한다.
+- `0.8.1`(versionCode 13, Room 9, 14 테이블 유지) 기준 검증 코드 `4e312ca59a47d1082383f8ae8efa575d46630686` → `main` 병합 `75dbebebbae35f826f79ecd7dc361a40eda25c68`([PR #13](https://github.com/LaceyLuv/BookreaderM/pull/13)):
+  - 원격 빌드·단위·실제 ENOSPC(`BookReader Mobile Checks` PR `46107229772`, `15248506638` · Push `46107225533`): 원본 XML **229/0/0/0 PASS**(`androidApp` 86, `shared` 121, `epubAndroid` 17, 실제 8 MiB tmpfs `enospc` 5 + `assembleDebug`·`lintDebug` `warningsAsErrors=true`·`assembleDebugAndroidTest`·Room 9).
+  - 원격 기기 매트릭스(`BookReader Mobile Device Tests` PR `46107229837` · Push `46107225513`, 3/3 PASS): API 26(`15248212952`)·API 34(`15248586278`)·API 36(`15248786346`) 각각 원본 XML **connected 83/0/0/0 + host 8/0/0/0 PASS**(5개 외부 `force-stop` `absent` 확인, 실패·오류·건너뜀 0).
+  - 신규 필수 기기 검증 3건(`ReaderGestureSurfaceTest.horizontalSwipesTurnPagesInBothDirectionsEvenAtRelaxedSpeedAndNaturalAngle`, `TxtPageEngineTest.prefetchedPagesHitCacheWithoutExtraReadsAndPreserveExactBoundaries`, `TxtReaderFlowTest.focusModeToolbarToggleAndHorizontalPageSwipesPreserveProgress`)을 `scripts/required-tests.json`에 등록했다(`android-device` 80 → 83).
+  - 서명 Release APK(`46108752293`, 아티팩트 `15248324741`, `BookreaderM-0.8.1-code13-signed.apk`, `sha256:44ffe0ec36b6e97a5c101ce5662eedbce2e537e032925708a605c1be7ca0e4e6`)의 v2/v3·동일 인증서(`c86301d1...`)·16KB ELF/ZIP·권한 정적 감사 및 재다운로드 대조 PASS.
+- 실제 스마트폰 업데이트 설치·실기기 체감 프레임/지연·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·독립 리뷰·공개 출시 승인은 여전히 `NOT_RUN`/`BLOCKED`다. 아래 절은 이전 시점 이력이다.
+
+## 2026-11-28 이전 — Phase 4-2 (Issue #3) 책·글꼴 원본 선택 백업 + 중단/ENOSPC 재개 커밋
 
 - [작업 기록](WORKLOG.md), [최신 인계](SESSION_HANDOFF.md), [ADR 0013](adr/0013-resumable-asset-backup.md)을 우선한다.
 - `0.8.0-dev`(versionCode 11, Room 9, 14 테이블 유지) 기준 검증 코드 `a835cf9b8c1bdabb2a06cb55d8f455360dcc46da`:
