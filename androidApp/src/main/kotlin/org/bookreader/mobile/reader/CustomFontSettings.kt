@@ -11,15 +11,21 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -35,7 +41,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
@@ -43,8 +52,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.bookreader.mobile.settings.ReaderFont
 import org.bookreader.mobile.settings.ReaderFontWeight
 import org.bookreader.mobile.settings.ReaderSettings
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -340,54 +351,235 @@ fun CustomFontSettings(
 }
 
 
+private data class FontWeightPreset(val weight: Int, val label: String, val tag: String)
+
+private val FONT_WEIGHT_PRESETS = listOf(
+    FontWeightPreset(300, "가늘게", "reader_weight_300"),
+    FontWeightPreset(ReaderFontWeight.NORMAL.value, "보통", "reader_weight_${ReaderFontWeight.NORMAL.name}"),
+    FontWeightPreset(500, "중간", "reader_weight_500"),
+    FontWeightPreset(ReaderFontWeight.BOLD.value, "굵게", "reader_weight_${ReaderFontWeight.BOLD.name}"),
+    FontWeightPreset(800, "아주 굵게", "reader_weight_800"),
+)
+
+private fun readerFontWeightLabel(weight: Int): String = when {
+    weight < 200 -> "아주 가늘게"
+    weight < 300 -> "매우 가늘게"
+    weight < 400 -> "가늘게"
+    weight == 400 -> "보통"
+    weight < 500 -> "약간 굵게"
+    weight < 600 -> "중간"
+    weight < 700 -> "반굵게"
+    weight < 800 -> "굵게"
+    weight < 900 -> "아주 굵게"
+    else -> "가장 굵게"
+}
+
+private fun stepDownFontWeight(weight: Int): Int {
+    val step = ReaderSettings.FONT_WEIGHT_STEP
+    val target = if (weight % step == 0) weight - step else (weight / step) * step
+    return target.coerceIn(ReaderSettings.MIN_FONT_WEIGHT, ReaderSettings.MAX_FONT_WEIGHT)
+}
+
+private fun stepUpFontWeight(weight: Int): Int {
+    val step = ReaderSettings.FONT_WEIGHT_STEP
+    val target = if (weight % step == 0) weight + step else ((weight / step) + 1) * step
+    return target.coerceIn(ReaderSettings.MIN_FONT_WEIGHT, ReaderSettings.MAX_FONT_WEIGHT)
+}
+
 @Composable
 fun ReaderFontWeightSettings(settings: ReaderSettings, epubMode: Boolean, onChange: (ReaderSettings) -> Unit) {
+    val weight = settings.effectiveFontWeight
+    val context = LocalContext.current
+    val customVariableRange = remember(settings.customFontId, context) {
+        UserFontStore(context).find(settings.customFontId)?.let { FontFilePolicy.variableWeightRange(it.file) }
+    }
     val chipColors = FilterChipDefaults.filterChipColors(
         selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
         selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
     )
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        Text(
-            text = "글자 굵기",
-            style = MaterialTheme.typography.labelLarge,
-            fontWeight = FontWeight.SemiBold,
+    fun applyWeight(target: Int) {
+        val updated = settings.withFontWeight(target)
+        onChange(
+            if (epubMode) updated.copy(epubPublisherStyles = false) else updated,
         )
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+    }
+    val supportNote = when {
+        settings.customFontId != null && customVariableRange != null ->
+            "가변 글꼴 적용 중 (${customVariableRange.first}~${customVariableRange.last} 범위 세밀 조절 지원)"
+        settings.customFontId != null ->
+            "단일 굵기 사용자 글꼴입니다. 보통·굵게 단계 중심으로 표시됩니다."
+        settings.font == ReaderFont.SANS || settings.font == ReaderFont.SERIF ->
+            "기본 고딕·기본 명조는 50 단위로 세밀하게 조절됩니다."
+        else ->
+            "나눔고딕·나눔명조는 단일 굵기 글꼴이라 보통·굵게 중심으로 표시됩니다. 세밀한 조절은 기본 글꼴이나 가변 글꼴을 사용하세요."
+    }
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(14.dp),
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 10.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            ReaderFontWeight.entries.forEach { weight ->
-                val selected = settings.fontWeight == weight
-                FilterChip(
-                    selected = selected,
-                    colors = chipColors,
-                    border = FilterChipDefaults.filterChipBorder(
-                        enabled = true,
-                        selected = selected,
-                        borderColor = MaterialTheme.colorScheme.outlineVariant,
-                        selectedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.55f),
-                    ),
-                    modifier = Modifier.testTag("reader_weight_${weight.name}"),
-                    onClick = {
-                        onChange(
-                            settings.copy(
-                                fontWeight = weight,
-                                epubPublisherStyles = if (epubMode) false else settings.epubPublisherStyles,
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                ) {
+                    Text(
+                        text = "글자 굵기",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium,
+                    )
+                    Text(
+                        text = "$weight · ${readerFontWeightLabel(weight)}",
+                        modifier = Modifier.testTag("font_weight_value"),
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                }
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainer,
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                ) {
+                    Row(
+                        modifier = Modifier.padding(3.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
+                    ) {
+                        FilledTonalButton(
+                            onClick = { applyWeight(stepDownFontWeight(weight)) },
+                            enabled = weight > ReaderSettings.MIN_FONT_WEIGHT,
+                            shape = RoundedCornerShape(9.dp),
+                            colors = ButtonDefaults.filledTonalButtonColors(
+                                containerColor = MaterialTheme.colorScheme.surface,
+                                contentColor = MaterialTheme.colorScheme.onSurface,
                             ),
-                        )
-                    },
-                    label = {
+                            modifier = Modifier
+                                .defaultMinSize(minWidth = 36.dp, minHeight = 36.dp)
+                                .testTag("font_weight_decrease")
+                                .semantics { contentDescription = "글자 굵기 줄이기" },
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        ) {
+                            Text("−", fontWeight = FontWeight.Bold)
+                        }
                         Text(
-                            text = if (weight == ReaderFontWeight.NORMAL) "보통" else "굵게",
-                            fontWeight = FontWeight(weight.value),
+                            text = "$weight",
+                            modifier = Modifier
+                                .widthIn(min = 44.dp)
+                                .padding(horizontal = 4.dp),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight(weight),
+                            color = MaterialTheme.colorScheme.primary,
+                            maxLines = 1,
                         )
-                    },
-                )
+                        FilledTonalButton(
+                            onClick = { applyWeight(stepUpFontWeight(weight)) },
+                            enabled = weight < ReaderSettings.MAX_FONT_WEIGHT,
+                            shape = RoundedCornerShape(9.dp),
+                            colors = ButtonDefaults.filledTonalButtonColors(
+                                containerColor = MaterialTheme.colorScheme.surface,
+                                contentColor = MaterialTheme.colorScheme.onSurface,
+                            ),
+                            modifier = Modifier
+                                .defaultMinSize(minWidth = 36.dp, minHeight = 36.dp)
+                                .testTag("font_weight_increase")
+                                .semantics { contentDescription = "글자 굵기 늘리기" },
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        ) {
+                            Text("+", fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
             }
+
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Slider(
+                    value = weight.toFloat(),
+                    onValueChange = { raw ->
+                        val step = ReaderSettings.FONT_WEIGHT_STEP
+                        val snapped = ((raw / step).roundToInt() * step)
+                            .coerceIn(ReaderSettings.MIN_FONT_WEIGHT, ReaderSettings.MAX_FONT_WEIGHT)
+                        if (snapped != weight) applyWeight(snapped)
+                    },
+                    valueRange = ReaderSettings.MIN_FONT_WEIGHT.toFloat()..ReaderSettings.MAX_FONT_WEIGHT.toFloat(),
+                    steps = (ReaderSettings.MAX_FONT_WEIGHT - ReaderSettings.MIN_FONT_WEIGHT) / ReaderSettings.FONT_WEIGHT_STEP - 1,
+                    colors = SliderDefaults.colors(
+                        thumbColor = MaterialTheme.colorScheme.primary,
+                        activeTrackColor = MaterialTheme.colorScheme.primary,
+                        inactiveTrackColor = MaterialTheme.colorScheme.outlineVariant,
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("reader_weight_slider")
+                        .semantics { contentDescription = "글자 굵기 조절" },
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = "100 가늘게",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Text(
+                        text = "400 보통",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Text(
+                        text = "900 가장 굵게",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                FONT_WEIGHT_PRESETS.forEach { preset ->
+                    val selected = weight == preset.weight
+                    FilterChip(
+                        selected = selected,
+                        colors = chipColors,
+                        border = FilterChipDefaults.filterChipBorder(
+                            enabled = true,
+                            selected = selected,
+                            borderColor = MaterialTheme.colorScheme.outlineVariant,
+                            selectedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.55f),
+                        ),
+                        modifier = Modifier.testTag(preset.tag),
+                        onClick = { applyWeight(preset.weight) },
+                        label = {
+                            Text(
+                                text = preset.label,
+                                fontWeight = FontWeight(preset.weight),
+                            )
+                        },
+                    )
+                }
+            }
+
+            Text(
+                text = supportNote,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

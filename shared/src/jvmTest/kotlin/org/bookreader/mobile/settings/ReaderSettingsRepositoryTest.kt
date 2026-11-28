@@ -82,6 +82,41 @@ class ReaderSettingsRepositoryTest {
         assertEquals(ReaderSettings(), ReaderSettingsCodec.readGlobal(1, "{}"))
     }
 
+    @Test fun granularFontWeightsRoundTripNormalizeCanonicalValuesAndRejectOutOfRange() = fixture { db ->
+        val repository = ReaderSettingsRepository(db)
+        var current = assertIs<ReaderSettingsRead.Ready>(repository.load("a")).value
+        val progress = db.progressDao().findProgress("a", "revision")
+
+        // Legacy v1 JSON without fontWeightValue still decodes cleanly to effective weight.
+        val legacyBold = ReaderSettingsCodec.readGlobal(1, "{\"fontWeight\":\"BOLD\"}")
+        assertEquals(ReaderFontWeight.BOLD, legacyBold.fontWeight)
+        assertNull(legacyBold.fontWeightValue)
+        assertEquals(700, legacyBold.effectiveFontWeight)
+
+        // Canonical weights (400 and 700) normalize fontWeightValue to null for exact compatibility.
+        assertEquals(ReaderSettings(fontWeight = ReaderFontWeight.NORMAL, fontWeightValue = null), ReaderSettings().withFontWeight(400))
+        assertEquals(ReaderSettings(fontWeight = ReaderFontWeight.BOLD, fontWeightValue = null), ReaderSettings().withFontWeight(700))
+
+        // All 17 fine steps (100..900 by 50) round-trip cleanly through codec and Room DB.
+        for (weight in ReaderSettings.MIN_FONT_WEIGHT..ReaderSettings.MAX_FONT_WEIGHT step ReaderSettings.FONT_WEIGHT_STEP) {
+            val expected = ReaderSettings().withFontWeight(weight)
+            assertEquals(weight, expected.effectiveFontWeight)
+            assertEquals(ReaderSettingsWrite.SAVED, repository.save(current, expected, BookReaderPreferences()))
+            current = assertIs<ReaderSettingsRead.Ready>(repository.load("a")).value
+            assertEquals(expected, current.global)
+            assertEquals(weight, current.effective.effectiveFontWeight)
+        }
+
+        // Out-of-range fontWeightValue fails closed without modifying stored bytes or progress.
+        for (badJson in listOf("{\"fontWeightValue\":50}", "{\"fontWeightValue\":950}", "{\"fontWeightValue\":0}")) {
+            val raw = ReaderGlobalSettingsEntity(schemaVersion = 1, settingsJson = badJson)
+            db.readerSettingsDao().putGlobal(raw)
+            assertEquals(ReaderSettingsRead.Error, repository.load("a"))
+            assertEquals(raw, db.readerSettingsDao().global())
+            assertEquals(progress, db.progressDao().findProgress("a", "revision"))
+        }
+    }
+
     private fun fixture(block: suspend (BookReaderDatabase) -> Unit) = runBlocking {
         val folder = Files.createTempDirectory("reader-settings-")
         val db = createJvmDatabase(folder.resolve("reader.db"))

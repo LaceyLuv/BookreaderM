@@ -183,18 +183,23 @@ fun ReaderSettingsDialog(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(horizontal = 14.dp, vertical = 8.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
                                 Text(
                                     text = "실시간 미리보기",
                                     style = MaterialTheme.typography.labelSmall,
                                     color = global.theme.inkColor().copy(alpha = 0.62f),
+                                    maxLines = 1,
                                 )
                                 Text(
-                                    text = "$fontSizeLabel · $lineHeightLabel · $marginLabel",
+                                    text = "$fontSizeLabel · 굵기 ${global.effectiveFontWeight} · $lineHeightLabel · $marginLabel",
+                                    modifier = Modifier.weight(1f),
+                                    textAlign = TextAlign.End,
                                     style = MaterialTheme.typography.labelSmall,
                                     color = global.theme.inkColor().copy(alpha = 0.68f),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
                                 )
                             }
                             HorizontalDivider(
@@ -213,7 +218,7 @@ fun ReaderSettingsDialog(
                                 lineHeight = (global.fontSizeSp * global.lineHeight).sp,
                                 letterSpacing = effectiveLetterSpacing.em,
                                 fontFamily = global.composeFamily(),
-                                fontWeight = FontWeight(global.fontWeight.value),
+                                fontWeight = FontWeight(global.effectiveFontWeight),
                             )
                         }
                     }

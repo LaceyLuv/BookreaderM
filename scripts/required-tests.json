@@ -293,6 +293,10 @@
       "rejectsEscapingOverlappingAndDuplicateTableDirectories"
     ],
     [
+      "org.bookreader.mobile.reader.FontFilePolicyTest",
+      "variableWeightRangeDetectsValidFvarWghtAndFailsClosedOnStaticOrMalformedFonts"
+    ],
+    [
       "org.bookreader.mobile.ui.AppViewModelTest",
       "missingReaderReportsAnErrorForEveryFormatWithoutMutatingTheBook"
     ],
@@ -677,6 +681,10 @@
     [
       "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
       "settingsRoundTripInheritAndRejectStaleEditorsWithoutChangingProgress"
+    ],
+    [
+      "org.bookreader.mobile.settings.ReaderSettingsRepositoryTest",
+      "granularFontWeightsRoundTripNormalizeCanonicalValuesAndRejectOutOfRange"
     ],
     [
       "org.bookreader.mobile.toc.TxtTocScannerTest",
@@ -1163,6 +1171,14 @@
     [
       "org.bookreader.mobile.reader.TxtReaderFlowTest",
       "focusModeToolbarToggleAndHorizontalPageSwipesPreserveProgress"
+    ],
+    [
+      "org.bookreader.mobile.reader.TxtReaderFlowTest",
+      "granularFontWeightStepperAndPresetsRenderAndPersistWithoutMovingAnchor"
+    ],
+    [
+      "org.bookreader.mobile.epub.EpubReaderFlowTest",
+      "granularFontWeightAppliesExactCssWeightInWebViewAndSurvivesReopen"
     ]
   ],
   "android-host": [
