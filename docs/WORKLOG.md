@@ -1,3 +1,45 @@
+## 2026-11-28 `0.8.1` (code 13) 집중 모드·페이지 좌우 스와이프·페이지 넘김 속도 개선 및 서명 APK 검증
+
+실제 스마트폰(`0.8.0`) 사용 피드백에 따라 [PR #13](https://github.com/LaceyLuv/BookreaderM/pull/13)(브랜치 `gemini/reader-focus-swipe-perf`, 병합 커밋 `75dbebebbae35f826f79ecd7dc361a40eda25c68`, `0.8.1`/versionCode 13/Room 9 14개 테이블·`ReaderSettingsCodec` v1 유지)을 구현·검증·병합하고 동일 영구 서명키로 `BookreaderM-0.8.1-code13-signed.apk`를 빌드·재다운로드 검증했다.
+
+### 구현 요약
+
+- **집중 모드(상단·하단 시스템바 숨김):**
+  - `ReaderWindowEffects.kt`: API 28+ `LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES` 적용·종료 복원, `OnWindowFocusChangeListener` 및 `ON_RESUME` 리스너로 대화상자·알림창 복귀 시 시스템바 자동 재숨김.
+  - `BookReaderApp.kt`: 리더 외부 `Surface`에 실제 본문 종이 색상(`paperColor()`) 적용, 상태바·하단바 아이콘 밝기(`isAppearanceLightStatusBars`/`NavigationBars`) 동기화, 집중 모드에서 `windowInsetsPadding`을 `displayCutout` 전용으로 전환.
+  - `TxtReaderScreen.kt` / `EpubReaderScreen.kt` / `ComicReaderScreen.kt` + `ic_reader_focus.xml` + 각 Controller `toggleFullscreen()`: 도구 모음 원터치 `집중 모드 / 집중 해제` 버튼(`reader_focus_mode`, `epub_focus_mode`, `comic_focus_mode`, 켤 때 도구 오버레이 자동 숨김) 추가. `ReaderSettingsDialog.kt`의 `reader_fullscreen_option`을 `추가 설정` 밖 `화면 · 집중 모드`로 승격하고 `ComicReaderDialogs.kt`에 `comic_fullscreen_option` 추가.
+- **페이지 모드 좌우 스와이프:**
+  - `TxtPageContent.kt`: 넘치지 않는 일반 페이지(`!displayed.overflowsVertical`)에는 `verticalScroll`을 부착하지 않아 가로 스와이프 간섭을 제거하고, `dragOffsetPx: () -> Float`를 `graphicsLayer { translationX = dragOffsetPx() }` 드로우 단계에서만 읽어 드래그 중 불필요한 recomposition을 제거.
+  - `ReaderGestureSurface.kt`: `pointerInput(pageMode)`로 `READY ↔ REFLOWING` 중 제스처 재설정을 없애고 스와이프의 400ms 시간 제한 제거·각도(`2.0x → 1.2x`) 및 거리(`maxOf(3*slop, 15%) → maxOf(2*slop, 8%)`) 완화(`20*density` 시스템 뒤로가기 보호 유지).
+  - `TxtReaderScreen.kt`: 스크롤→페이지 모드 전환 후 Kotlin 2.2 Compose strong skipping으로 `onPage = ::move`가 이전 `scrollMode = true`를 캡처해 스와이프가 무시되던 결함을 `controller.state.value` 직접 조회 및 명시적 람다(`onPage = { move(it) }`)로 수정.
+  - `ComicReaderScreen.kt`: `zoom == 1f` 세로 미세 흔들림 오판 방지 및 스와이프 임계값 정렬. `ReaderChrome.kt` 하단 안내 문구에 스와이프 안내 반영.
+- **페이지 넘김 지연 해결:**
+  - `TxtCanonicalCache.kt`: `readRange`에 64 KiB(32,768 UTF-16 단위) 순차 읽기 버퍼 추가(`openOrBuild` 시 초기화, 서로게이트 경계 검증 유지).
+  - `TxtPageEngine.kt`: `Mutex` + `cacheLock` 동기화, 8쪽 LRU `pages` 캐시, UI 0ms 조회용 `peekPage`/`peekPrevious`, 중복 디스크 읽기 제거, 앞 2쪽·뒤 1쪽 백그라운드 `prefetchAround` 추가.
+  - `TxtPageContent.kt` / `ReaderPageTransition.kt` / `ReaderGestureSurface.kt`: 엔진별 전용 `TextMeasurer(cacheSize = 8)`로 `Dispatchers.Default` 오프-메인 측정, 캐시 적중 시 즉시 표시 + 빠른 연속 넘김 세대 가드, 단일 탭 확인 대기 `300ms → minOf(210L, doubleTapTimeoutMillis)`, `PageTransition.NONE`의 불필요한 `withFrameNanos` 생략, `SLIDE` `180ms → 140ms`(`FastOutSlowInEasing`).
+- **신규 필수 테스트 3건 등록 (`scripts/required-tests.json`, `android-device` 80 → 83):**
+  - `ReaderGestureSurfaceTest.horizontalSwipesTurnPagesInBothDirectionsEvenAtRelaxedSpeedAndNaturalAngle`
+  - `TxtPageEngineTest.prefetchedPagesHitCacheWithoutExtraReadsAndPreserveExactBoundaries`
+  - `TxtReaderFlowTest.focusModeToolbarToggleAndHorizontalPageSwipesPreserveProgress`
+
+### 보존된 중간 실패 및 환경 차단
+
+- **`FAIL` (보존) — `418541ae` PR Checks `46102705240` / PR Device `46102705257`:** `:androidApp:compileDebugKotlin`·단위 테스트는 통과했으나 `TxtReaderFlowTest.kt:1516`의 존재하지 않는 헬퍼명 `readReaderGlobalSettings()` 참조로 테스트 컴파일 실패 → `3759612a`에서 `runBlocking { observerDatabase.readerSettingsDao().global() }`로 수정.
+- **`BLOCKED_ENV` (보존) — `3759612a` PR Device `46103442388` API 36 (`140850809566`, 아티팩트 `15246314125`) & Push Device `46103437747` API 34 (`140850793213`, 아티팩트 `15246314108`):** `android-tasks` 단계에서 업스트림 KSP(`com.google.devtools.ksp:2.2.20-2.0.3`) 조회 실패(51~53초).
+- **`FAIL` (보존) — `3759612a` (`46103442388`/`46103437747`) 및 `3ac5d802` (`46105209525` API 26 `15246869642`·API 34 `15247399065`·API 36 `15247314334`):** 83건 중 82건은 PASS였으나 `TxtReaderFlowTest.focusModeToolbarToggleAndHorizontalPageSwipesPreserveProgress`가 첫 가로 스와이프에서 `phase=READY mode=PAGES start=0 target=0 stable=null gen=2`로 타임아웃. 실제 원인 규명 결과 스크롤→페이지 전환 후 `TxtReaderScreen.kt:223`의 `onPage = ::move` 로컬 함수 참조가 이전 `scrollMode = true`를 유지하던 제품 결함을 발견해 `4e312ca5`에서 해결.
+
+### 직접 대조한 최종 검증 결과 (`4e312ca5` / 병합 `75dbebeb`)
+
+- **`BookReader Mobile Checks` PR `46107229772` (아티팩트 `15248506638`, `PASS`) & Push `46107225533` (`PASS`):** 43 XML, 원본 **229/0/0/0 PASS**(`shared` 121, `androidApp` 86, `epubAndroid` 17, 실제 8 MiB tmpfs `enospc` 5 + `assembleDebug`·`lintDebug` `warningsAsErrors=true`·`assembleDebugAndroidTest`·Room 9).
+- **`BookReader Mobile Device Tests` PR `46107229837` (merge checkout `64c9c594`, 3/3 `PASS`) & Push `46107225513` (3/3 `PASS`):**
+  - API 26 (`140862584299`, 아티팩트 `15248212952`): connected **83/0/0/0**, host **8/0/0/0** (TXT `7154→absent`, EPUB `7406→absent`, Comic `7644→absent`, Batch `absent`, Backup Asset `absent`; 신규 3건 `4.517s` / `0.538s` / `0.454s`).
+  - API 34 (`140862584202`, 아티팩트 `15248586278`): connected **83/0/0/0**, host **8/0/0/0** (TXT `8758→absent`, EPUB `9069→absent`, Comic `9356→absent`, Batch `absent`, Backup Asset `absent`; 신규 3건 `6.461s` / `1.258s` / `1.072s`).
+  - API 36 (`140862584387`, 아티팩트 `15248786346`): connected **83/0/0/0**, host **8/0/0/0** (TXT `7063→absent`, EPUB `7319→absent`, Comic `7565→absent`, Batch `absent`, Backup Asset `absent`; 신규 3건 `6.413s` / `1.422s` / `0.700s`).
+- **서명 Release APK 실행 `46108752293` (`75dbebebbae35f826f79ecd7dc361a40eda25c68`, job `140867325451`, `PASS`):**
+  - 아티팩트 `BookreaderM-signed-release-apk` (ID `15248324741`, ZIP `19,032,513` bytes, `sha256:623987dc57c71a174c192caee1a163ea470cc3e59d0e25651066789be3cfc527`, 공개 Release 미게시).
+  - 재다운로드 직접 대조 PASS: `BookreaderM-0.8.1-code13-signed.apk` (`22,386,009` bytes, `sha256:44ffe0ec36b6e97a5c101ce5662eedbce2e537e032925708a605c1be7ca0e4e6`), 인증서 SHA-256 `c86301d1b3556040d5d1edda2e5755514387ff7fea4a1954785fa1c178d62537`(`0.8.0`과 동일), v2/v3·4 ABI/8 ELF 및 ZIP 16KB 정렬·권한·비디버그 감사 모두 `PASS`.
+- **`NOT_RUN` / `BLOCKED_ENV`:** 본 VM 로컬 `./scripts/doctor.sh`는 JDK 17 미설치(`BLOCKED_ENV`). 실제 스마트폰 설치·실기기 프레임/지연 체감·TalkBack·16KB 실제 OS·공개 스토어 출시는 `NOT_RUN`(`BLOCKED` 유지).
+
 ## 2026-11-28 `main` 통합 완료 및 서명된 `0.8.0` (code 12) Release APK 빌드·감사
 
 사용자 명시적 승인에 따라 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`b9015f81`, Issue #2 종료)과

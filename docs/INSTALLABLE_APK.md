@@ -1,3 +1,18 @@
+## 2026-11-28 서명된 설치용 APK — 0.8.1 (versionCode 13, Room 9)
+
+`main` 검증 소스 `75dbebebbae35f826f79ecd7dc361a40eda25c68`([PR #13](https://github.com/LaceyLuv/BookreaderM/pull/13) 병합: 집중 모드 상단·하단 시스템바 숨김, 페이지 모드 좌우 스와이프 + 실시간 GPU 드래그, 백그라운드 프리페치·비동기 측정 페이지 전환 속도 개선, Room 9 14개 테이블 유지)에서
+GitHub Actions 수동 워크플로우(`.github/workflows/build-signed-apk.yml`)로 빌드·서명·감사한 설치용 Release APK다.
+
+- **바로 내려받기(로그인된 Chrome 등 브라우저에서 클릭):** [BookreaderM-0.8.1-code13-signed.apk ZIP](https://github.com/LaceyLuv/BookreaderM/actions/runs/46108752293/artifacts/15248324741)
+- **Actions 실행:** [BookReader Mobile Signed Release APK #46108752293](https://github.com/LaceyLuv/BookreaderM/actions/runs/46108752293)
+- **아티팩트:** `BookreaderM-signed-release-apk` (ID `15248324741`, ZIP `19,032,513` bytes, `sha256:623987dc57c71a174c192caee1a163ea470cc3e59d0e25651066789be3cfc527`, 공개 GitHub Release 미게시)
+- **APK 파일:** `BookreaderM-0.8.1-code13-signed.apk` (`22,386,009` bytes)
+- **APK SHA-256:** `44ffe0ec36b6e97a5c101ce5662eedbce2e537e032925708a605c1be7ca0e4e6` (업로드 후 재다운로드 바이트·SHA-256 대조 PASS)
+- **앱 정보:** `applicationId = org.bookreader.mobile`, `versionCode = 13`, `versionName = 0.8.1`, Android 8.0(API 26) 이상
+- **영구 정식 서명 인증서 SHA-256:** `c86301d1b3556040d5d1edda2e5755514387ff7fea4a1954785fa1c178d62537` (`0.8.0`과 동일 키 — **기존 `0.8.0` 앱을 삭제하지 않고 그대로 덮어쓰기 업데이트 가능, 책·독서 기록·설정 유지**)
+- **정적 감사(`scripts/audit-apk.py`, 서명 필수 모드):** `PASS` — v2/v3 서명 PASS, 인증서 SHA-256 일치, `android:debuggable` 부재, 디버그 fixture 미포함, 권한 `ACCESS_NETWORK_STATE` 단독, `allowBackup=false`, `usesCleartextTraffic=false`, 4 ABI(`arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64`) / 8 ELF 및 ZIP 16KB 정렬(`zipalign -c -P 16 4`) PASS.
+- **미실행 범위(`NOT_RUN`):** 실제 스마트폰 설치·실기기 체감 프레임/성능·TalkBack·16KB 실제 OS 실행·공개 스토어 출시는 미실행(`BLOCKED` 유지).
+
 ## 2026-11-28 서명된 설치용 APK — 0.8.0 (versionCode 12, Room 9)
 
 사용자 승인(새 영구 정식 서명키 + 공개 릴리스 미게시·GitHub Actions 로그인 아티팩트 다운로드)에 따라
