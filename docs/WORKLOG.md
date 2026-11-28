@@ -1,3 +1,53 @@
+## 2026-11-28 Issue #3 (Phase 4-2) — 책·사용자 글꼴 원본 선택 백업 및 중단/ENOSPC 재개 커밋 구현·검증
+
+PR #7의 검증 완료 기준 `0ce19a0a01d5d9d254819eba9722bdca04b40f69`(`0.8.0-dev`/versionCode 11/Room 9, 14 테이블)에서
+작업 브랜치 `gemini/phase4-2-asset-backup`으로 [Issue #3](https://github.com/LaceyLuv/BookreaderM/issues/3)(Phase 4-2)을 구현·검증했다.
+설계·포맷·저널 상태 머신은 [ADR 0013](adr/0013-resumable-asset-backup.md)에 기록했다.
+검증된 최종 코드 커밋은 `a835cf9b8c1bdabb2a06cb55d8f455360dcc46da`다(20개 파일, +3,006/-110, Room 9 14개 테이블 스키마 변경 없음).
+
+### 구현 요약
+
+- **v1 완전 호환 + v2 비압축 스트리밍 컨테이너(`ReadingBackupFile.kt`, `BackupAssets.kt`):**
+  - 기본 내보내기는 기존 v1 기록 전용(`.brmbackup`, 체크박스 2종 기본 `false`)을 그대로 유지한다.
+  - "책 원본 파일 함께 저장" / "등록한 사용자 글꼴 함께 저장" 선택 시 v2(`BRMBKUP\n` v2 + `BRMAST\n` 정규 파일 프레임, 64 KiB 스트리밍)로 저장해 전체 파일 메모리 적재와 압축 폭탄·seek 의존을 배제한다.
+  - 읽기 시 v1·v2 모두 지원하며, 버전 `<= 0 || >= 3`, 비정규/심볼릭 링크 모드 바이트, 경로 탈출(`..`/절대 경로/정규 패턴 위반), 중복/고아 에셋, 크기·개수 한도 초과, 개별 SHA-256 불일치, trailing bytes를 모두 fail-closed로 거부한다.
+- **내구적 재개 저널 + 안전한 파일 승격(`BackupAssetRestoreCoordinator.kt`, `AndroidBackupAssetStorage.kt`, `RoomReadingBackup.kt`):**
+  - Room 9 14개 테이블 스키마를 유지한 채 `filesDir/backup-journal/active.json`과 `filesDir/managed/backup-staging/<uuid>/`(관리 책 디렉터리와 동일 `st_dev`)로 `PLANNING → COMMITTING_ASSETS → CLEANUP` 상태 머신을 구현하고 `withManagedBookOperations` 아래에서 직렬화한다.
+  - 미리보기 시 SAF 스트림을 닫은 뒤 스테이징 파일을 포맷별 검증기(`TxtDecoder.validate`, `SafeEpub.open`, `ComicManifest.inspect`, `FontFilePolicy`+`Typeface`)로 검증하므로 미리보기 후 외부 제공자 파일이 변조돼도 커밋은 검증된 스테이징 사본만 사용한다.
+  - 책 승격은 ADR-0002 no-replace `Files.move`(`NOFOLLOW_LINKS`, 동일 `st_dev`, 부모 디렉터리 `fsync`) 후 `BookDao.restoreVerifiedAvailability(...)`로 `READY` 전환하며, 기존 `READY` 책·진행도는 절대 덮어쓰지 않는다.
+  - 사용자 글꼴은 임시 디렉터리 복사·검증·이동으로 재시도 안전하게 등록하며 기존 12개/100 MiB 한도를 준수한다.
+  - 앱 재시작(`AppViewModel` 초기화)과 백업 대화상자(`BackupDialog.kt`)에서 중단된 복원을 자동 이어하기 또는 수동 재개·임시 파일 정리할 수 있다.
+- **필수 테스트 9건 추가 (`scripts/required-tests.json` 갱신):**
+  - `shared-jvm` +3 (`BackupAssetCoordinatorTest`: 121건), `shared-enospc` +2 (`BackupAssetEnospcTest`: 5건), `android-unit` +2 (`ReadingBackupFileTest` v2 코덱/보안: 86건), `android-device` +1 (`ReadingBackupFlowTest` v2 E2E: 80건), `android-host-backup` +1 (`BackupAssetHostProcessTest` + `scripts/backup-asset-process-check.py`: host 8건).
+
+### 보존된 중간 실패 (`FAIL`)
+
+- **`FAIL` (보존) — `c364a81be7d27e8c84de4560fec261047615cfe5` Push Checks `46083696017` (`140788288847`):**
+  - `AndroidReadingBackup.kt:71` `Cannot access 'withManagedBookOperations': it is internal in file.` → `6fdf1848`에서 `RoomReadingBackup.snapshotForAssetExport()`로 캡슐화해 해결. (구 기기 실행 `46083696007` 취소.)
+- **`FAIL` (보존) — `6fdf1848b2d0cddcd98ab94af21d3ebcf4f3d85e` Push Checks `46084272036` (`140790060387`):**
+  - `Validate environment and run mandatory checks`(224건 + compile·lint·Room 9)는 1차 시도 PASS였으나, `Verify progress preservation under real filesystem ENOSPC`의 `:shared:compileEnospcTestKotlinJvm`에서 `BackupAssetEnospcTest.kt:219,226,249`의 expression-body `= mapIo { ... }`가 `Path`/`Boolean`으로 추론되어 컴파일 실패 → `a835cf9b`에서 명시적 `Unit` 블록으로 수정.
+  - 같은 커밋 `6fdf1848`의 Push Device `46084272051`은 API 26(`15238614600`)·API 34(`15238804360`)·API 36(`15239096470`) 3/3 1차 시도 PASS(connected 80/80, host 8/8, backup-asset PID 교체 API 26 `8139→absent→8204`, API 34 `9442→absent→9522`, API 36 `8061→absent→8133`).
+
+### 직접 대조한 최종 검증 결과 (`a835cf9b8c1bdabb2a06cb55d8f455360dcc46da`)
+
+본 VM에서 `gh api repos/LaceyLuv/BookreaderM/actions/artifacts/<id>/zip`으로 빌드·기기 4개 통과 아티팩트를 직접 내려받아 ZIP SHA-256, JUnit XML 건수, 실제 `ENOSPC` 표준출력, 5개 host 프로세스 `absent`→PID 교체를 모두 검증했다.
+
+- **`BookReader Mobile Checks` Push `46085838946` (`140795063930`, 1차 시도 PASS):**
+  - 아티팩트 `15238429512` (`mobile-build-evidence`, `26,987,604` bytes, `sha256:3684ba8f4dbe3ffe204d1030b6b1e49b3e1d4228d7393b93130f941b2087b188`)
+  - 원본 XML **229/229 PASS** (`androidApp` 86/0/0/0, `shared` 121/0/0/0, `epubAndroid` 17/0/0/0, `enospc` 5/0/0/0) + `assembleDebug`·`lintDebug`·`assembleDebugAndroidTest`·Room 9 스키마 일치 확인.
+  - 실제 8 MiB Linux tmpfs `ENOSPC` (`errno 28`, `available_bytes=0`) 원본 표준출력 확인:
+    - `ENOSPC_BACKUP_PASS mid_commit_disk_full=true existing_preserved=true idempotent_resume=true`
+    - `ENOSPC_BACKUP_PASS planning_rollback=true existing_preserved=true staging_cleaned=true`
+    - 기존 `RoomProgressEnospcTest` 3건(`ENOSPC_PASS` insert/activation/update) 모두 PASS.
+- **`BookReader Mobile Device Tests` Push `46085838933` (1차 시도 3/3 PASS):**
+  - API 26 (`140795063631`, 아티팩트 `15239536935`, `5,733,283` bytes, `sha256:60bb0913a10c3c360c5efabbaffcbd03f2068573fb4423a90ba839b465d1f007`): connected **80/80 PASS**, host **8/8 PASS** (TXT `6997→absent→7045`, EPUB `7259→absent→7304`, Comic `7497→absent→7543`, Batch `7647→absent→7725`, Backup Asset `7781→absent→7845`), `v2AssetBackup` `6.825s`, `settingsBackupPreview` `5.453s`.
+  - API 34 (`140795063811`, 아티팩트 `15239079959`, `6,958,980` bytes, `sha256:5b26324b620d06e52260dd9e14ac55866d4c54e0edfc7fea667777bf58059662`): connected **80/80 PASS**, host **8/8 PASS** (TXT `8718→absent→8767`, EPUB `9033→absent→9083`, Comic `9317→absent→9366`, Batch `9489→absent→9579`, Backup Asset `9653→absent→9734`), `v2AssetBackup` `13.595s`, `settingsBackupPreview` `10.639s`.
+  - API 36 (`140795063762`, 아티팩트 `15239831575`, `7,109,879` bytes, `sha256:cc4716fa76eeabea608bf2a39d6625dc6721ee90eaf94300fb3ebe5413f0be3f`): connected **80/80 PASS**, host **8/8 PASS** (TXT `7321→absent→7368`, EPUB `7584→absent→7635`, Comic `7836→absent→7882`, Batch `8008→absent→8089`, Backup Asset `8153→absent→8229`), `v2AssetBackup` `16.448s`, `settingsBackupPreview` `12.286s`.
+- **미실행 / 환경 차단:**
+  - `git diff --check`: `PASS` (exit 0).
+  - 본 VM 로컬 `./scripts/doctor.sh`: `BLOCKED_ENV` (exit 78, JDK 17 미설치). 로컬 `./scripts/ci-check.sh`·`./scripts/device-check.sh`: `NOT_RUN`.
+  - 실기기 대용량 백업 성능·TalkBack·16KB OS·서명/출시 게이트: `NOT_RUN` (출시 판정 `BLOCKED` 유지).
+
 ## 2026-11-27 PR #7 `main` 통합 검증 — Compose IO 복귀 메인 스레드 고정 및 원본 XML·PID 직접 대조
 
 `main`(`cbe4e405`)과 `codex/backup-080`(`e60d931f`, PR #5·PR #6 병합)을 통합한

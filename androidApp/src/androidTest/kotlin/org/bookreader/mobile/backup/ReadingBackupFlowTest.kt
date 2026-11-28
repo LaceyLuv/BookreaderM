@@ -7,6 +7,8 @@ import android.net.Uri
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.execSQL
+import androidx.room.useWriterConnection
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import java.util.UUID
@@ -143,6 +145,125 @@ class ReadingBackupFlowTest {
             assertEquals(keptProgress, progress(local))
             assertEquals(1, bookmarks(verifiedOriginal))
         } finally { instrumentation.removeMonitor(picker) }
+    }
+
+    @Test fun v2AssetBackupRestoresBooksAndFontsDirectlyToReadyAndRejectsTamperedBundle() {
+        waitFor("library_empty")
+        val originalSettings = runBlocking { database.readerSettingsDao().global() }
+        val fontStore = org.bookreader.mobile.reader.UserFontStore(app)
+        val existingFonts = fontStore.list().map { it.id }.toSet()
+        val fontBytes = app.assets.open("reader-fonts/NanumGothic-Regular.ttf").use { it.readBytes() }
+        val fontId = java.security.MessageDigest.getInstance("SHA-256").digest(fontBytes)
+            .joinToString("") { "%02x".format(it.toInt() and 255) }
+        var installedByTest = false
+        ownsFixtures = true
+        val backupName = "backup-test-" + UUID.randomUUID().toString().replace("-", "")
+        val backupUri = Uri.parse("content://org.bookreader.mobile.tests.assets/$backupName")
+        val picker = BackupPicker(backupName)
+        instrumentation.addMonitor(picker)
+        try {
+            val local = importAndClose("backup-local")
+            val original = importAndClose("backup-original")
+            val originalBytes = managed(original).readBytes()
+            val localBytes = managed(local).readBytes()
+            val originalProgress = seed(original, 15L)
+            val localProgress = seed(local, 4L)
+
+            if (fontStore.find(fontId) == null) {
+                val fontDir = File(app.filesDir, "reader-fonts/$fontId").apply { mkdirs() }
+                File(fontDir, "font").writeBytes(fontBytes)
+                File(fontDir, "label").writeText("NanumGothic-Backup.ttf")
+                installedByTest = true
+            }
+            assertNotNull(fontStore.find(fontId))
+
+            // Export v2 bundle containing both managed book originals and user font.
+            backupMenu()
+            compose.onNodeWithTag("backup_include_books").performScrollTo().performClick()
+            compose.onNodeWithTag("backup_include_fonts").performScrollTo().performClick()
+            compose.onNodeWithTag("backup_export").performClick()
+            waitFor("backup_exported")
+            compose.onNodeWithTag("backup_close").performClick()
+
+            // Remove one book and the user font to simulate restoring onto a library missing both.
+            runBlocking {
+                assertEquals(DeleteResult.Deleted, AndroidBookManagement(app).delete(original.id))
+                fontStore.remove(fontId)
+            }
+            assertFalse(managed(original).exists())
+            assertNull(fontStore.find(fontId))
+
+            // Preview v2 bundle and verify asset summary is displayed before committing.
+            backupMenu()
+            compose.onNodeWithTag("backup_restore_pick").performClick()
+            waitFor("backup_preview")
+            compose.onNodeWithTag("backup_preview_assets").assertExists()
+            assertNull(rowByHash(original.sourceSha256))
+            assertNull(fontStore.find(fontId))
+
+            // Tamper with the external provider bytes after preview: restore must commit only verified staged data.
+            val rawV2 = requireNotNull(app.contentResolver.openInputStream(backupUri)).use { it.readBytes() }
+            val tampered = rawV2.copyOf().also { it[it.lastIndex] = (it[it.lastIndex].toInt() xor 0xff).toByte() }
+            requireNotNull(app.contentResolver.openOutputStream(backupUri, "wt")).use { it.write(tampered) }
+
+            compose.onNodeWithTag("backup_mode_NEW_BOOKS_ONLY").performScrollTo().performClick()
+            compose.onNodeWithTag("backup_commit").performClick()
+            waitFor("backup_restored")
+            compose.onNodeWithTag("backup_close").performClick()
+
+            // Book must already be READY with fresh UUID and exact original bytes; user font re-registered.
+            val restored = requireNotNull(rowByHash(original.sourceSha256))
+            assertNotEquals(original.id, restored.id)
+            assertEquals("READY", restored.availability)
+            assertTrue(managed(restored).isFile)
+            assertArrayEquals(originalBytes, managed(restored).readBytes())
+            assertEquals(originalProgress.locatorJson, progress(restored)?.locatorJson)
+            assertEquals(1, bookmarks(restored))
+            assertEquals(local, rowByHash(local.sourceSha256))
+            assertEquals(localProgress, progress(local))
+            assertArrayEquals(localBytes, managed(local).readBytes())
+            val restoredFont = requireNotNull(fontStore.find(fontId))
+            assertArrayEquals(fontBytes, restoredFont.file.readBytes())
+
+            // Re-opening the tampered v2 bundle must fail closed with zero DB/file/font mutation.
+            val booksBeforeInvalid = books().associateBy { it.id }
+            backupMenu()
+            compose.onNodeWithTag("backup_restore_pick").performClick()
+            waitFor("backup_failed")
+            compose.onNodeWithTag("backup_commit").assertDoesNotExist()
+            assertEquals(booksBeforeInvalid, books().associateBy { it.id })
+            assertArrayEquals(localBytes, managed(local).readBytes())
+            assertArrayEquals(originalBytes, managed(restored).readBytes())
+            assertNotNull(fontStore.find(fontId))
+            compose.onNodeWithTag("backup_close").performClick()
+
+            // Open the restored book directly from Library without re-importing the original file.
+            compose.onNodeWithTag("tab_LIBRARY").performClick()
+            waitFor("library_content")
+            compose.onNodeWithTag("read_${restored.id}").performScrollTo().performClick()
+            waitFor("reader_ready")
+            var openedBook: String? = null
+            var targetOffset: Long? = null
+            compose.activityRule.scenario.onActivity {
+                val opened = requireNotNull(ViewModelProvider(it)[AppViewModel::class.java].state.value.reader)
+                openedBook = opened.book.id
+                targetOffset = opened.state.value.targetOffset
+            }
+            assertEquals(restored.id, openedBook)
+            assertEquals(15L, targetOffset)
+        } finally {
+            instrumentation.removeMonitor(picker)
+            runBlocking {
+                if (installedByTest && fontId !in existingFonts && fontStore.find(fontId) != null) {
+                    runCatching { fontStore.remove(fontId) }
+                }
+                if (originalSettings == null) {
+                    database.useWriterConnection { it.execSQL("DELETE FROM reader_global_settings WHERE id = 'global'") }
+                } else {
+                    database.readerSettingsDao().putGlobal(originalSettings)
+                }
+            }
+        }
     }
 
     private fun importAndClose(fixture: String): BookEntity {

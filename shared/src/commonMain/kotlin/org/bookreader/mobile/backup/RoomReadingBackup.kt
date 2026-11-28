@@ -50,6 +50,13 @@ class PreparedReadingBackup internal constructor(
     internal val targets: List<BackupTarget?>,
 )
 
+data class ManagedBookExportFile(
+    val sha256: String,
+    val byteSize: Long,
+    val format: String,
+    val managedRelativePath: String,
+)
+
 /** The entire merge is one SQLite transaction. It never deletes rows or opens managed files. */
 class RoomReadingBackup(
     private val database: BookReaderDatabase,
@@ -62,6 +69,20 @@ class RoomReadingBackup(
         }
         BackupRules.validate(snapshot)
         return snapshot
+    }
+
+    suspend fun snapshotForAssetExport(): Pair<ReadingBackup, List<ManagedBookExportFile>> = withManagedBookOperations {
+        val result = database.useReaderConnection { connection ->
+            connection.deferredTransaction {
+                val snapshot = BackupSnapshotReader(this).read(now())
+                val files = database.bookDao().listBooks()
+                    .filter { it.availability == "READY" }
+                    .map { ManagedBookExportFile(it.sourceSha256, it.sourceByteSize, it.format, it.managedRelativePath) }
+                snapshot to files
+            }
+        }
+        BackupRules.validate(result.first)
+        result
     }
 
     suspend fun preview(snapshot: ReadingBackup): PreparedReadingBackup {
@@ -77,9 +98,17 @@ class RoomReadingBackup(
     }
 
     suspend fun restore(prepared: PreparedReadingBackup, mode: BackupRestoreMode): BackupRestoreResult = withManagedBookOperations {
+        restoreLocked(prepared, mode, emptyMap())
+    }
+
+    internal suspend fun restoreLocked(
+        prepared: PreparedReadingBackup,
+        mode: BackupRestoreMode,
+        plannedBookIds: Map<String, String>,
+    ): BackupRestoreResult {
         val request = currentCoroutineContext()
         request.ensureActive()
-        database.useWriterConnection { connection -> connection.immediateTransaction {
+        return database.useWriterConnection { connection -> connection.immediateTransaction {
             val snapshot = prepared.snapshot
             val sameTargets = targets(snapshot)
             if (sameTargets != prepared.targets) throw BackupFailure(BackupProblem.CHANGED_LIBRARY)
@@ -102,7 +131,7 @@ class RoomReadingBackup(
             for ((book, target) in snapshot.books.zip(sameTargets)) {
                 request.ensureActive()
                 if (target != null && (!target.isCompatible(book) || mode == BackupRestoreMode.NEW_BOOKS_ONLY)) continue
-                val id = target?.id ?: checkedId().also { id ->
+                val id = target?.id ?: plannedOrNewId(plannedBookIds, book).also { id ->
                     database.bookDao().insertBook(book.asMissingBook(id, now()))
                     newBooks++
                 }
@@ -113,6 +142,15 @@ class RoomReadingBackup(
             request.ensureActive()
             BackupRestoreResult(newBooks, updatedBooks, addedShelves, addedRecords)
         } }
+    }
+
+    private fun plannedOrNewId(plannedBookIds: Map<String, String>, book: BackupBook): String {
+        val planned = plannedBookIds[BackupAssetRules.bookKey(book.sha256, book.byteSize)]
+        if (planned != null) {
+            require(bookIdPattern.matches(planned))
+            return planned
+        }
+        return checkedId()
     }
 
     private suspend fun targets(snapshot: ReadingBackup): List<BackupTarget?> {

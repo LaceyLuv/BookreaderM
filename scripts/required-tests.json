@@ -335,6 +335,14 @@
     [
       "org.bookreader.mobile.backup.ReadingBackupFileTest",
       "untrustedPayloadWithValidChecksumStillMustBeStrictAndBounded"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "v2BundleRoundTripsBooksAndFontsAndKeepsV1Compatible"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFileTest",
+      "v2BundleRejectsFutureVersionTraversalSymlinkTamperingSizeMismatchAndTrailingBytes"
     ]
   ],
   "shared-jvm": [
@@ -809,6 +817,18 @@
     [
       "org.bookreader.mobile.backup.RoomReadingBackupTest",
       "cannotBackUpFutureRecordOrLargeEmbeddedNulRow"
+    ],
+    [
+      "org.bookreader.mobile.backup.BackupAssetCoordinatorTest",
+      "bundleValidationRejectsTraversalDuplicatesOrphansAndLimitViolations"
+    ],
+    [
+      "org.bookreader.mobile.backup.BackupAssetCoordinatorTest",
+      "coldAndMergeRestorePromoteBooksToReadyPreserveExistingOriginalsAndDeduplicateFonts"
+    ],
+    [
+      "org.bookreader.mobile.backup.BackupAssetCoordinatorTest",
+      "crashCheckpointsAcrossPlanningCommitAndPromotionResumeIdempotently"
     ]
   ],
   "android-device": [
@@ -1127,6 +1147,10 @@
     [
       "org.bookreader.mobile.backup.ReadingBackupFlowTest",
       "settingsBackupPreviewMergeRelinkAndCorruptionPreserveManagedData"
+    ],
+    [
+      "org.bookreader.mobile.backup.ReadingBackupFlowTest",
+      "v2AssetBackupRestoresBooksAndFontsDirectlyToReadyAndRejectsTamperedBundle"
     ]
   ],
   "android-host": [
@@ -1151,6 +1175,14 @@
     [
       "org.bookreader.mobile.repository.RoomProgressEnospcTest",
       "walActivationPreservesEpochAndReadOrderThenRetries"
+    ],
+    [
+      "org.bookreader.mobile.repository.BackupAssetEnospcTest",
+      "assetCommitEnospcPreservesExistingLibraryThenResumesIdempotentlyAfterSpaceRelease"
+    ],
+    [
+      "org.bookreader.mobile.repository.BackupAssetEnospcTest",
+      "planningEnospcRollsBackDatabaseAndCleansStagingWithoutTouchingLibrary"
     ]
   ],
   "epub-unit": [
@@ -1247,6 +1279,12 @@
     [
       "org.bookreader.mobile.library.LibraryBatchHostProcessTest",
       "coldStartKeepsCatalogAndRecordsThenResumesPendingEncoding"
+    ]
+  ],
+  "android-host-backup": [
+    [
+      "org.bookreader.mobile.backup.BackupAssetHostProcessTest",
+      "coldStartResumesInterruptedAssetRestoreAndPreservesLibrary"
     ]
   ]
 }

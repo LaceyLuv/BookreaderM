@@ -1,3 +1,15 @@
+## 2026-11-28 Phase 4-2 (Issue #3) 책·사용자 글꼴 원본 선택 백업 및 재개 커밋
+
+신규 필수 테스트 9건을 `scripts/required-tests.json`과 `scripts/device-check.sh`에 등록했다([ADR 0013](adr/0013-resumable-asset-backup.md)).
+
+- **JVM 코덱/보안(`ReadingBackupFileTest` +2 → `android-unit` 86):** v1·v2 공존 읽기, 64 KiB 스트리밍 round-trip, 버전 `<=0 || >=3`, 비정규/심볼릭 링크 모드 바이트, 경로 탈출, 중복·고아 에셋, 크기 한도 초과, 개별 SHA-256 불일치, trailing bytes 거부를 검사한다.
+- **실제 Room JVM 코디네이터(`BackupAssetCoordinatorTest` +3 → `shared-jvm` 121):** `PLANNING → COMMITTING_ASSETS → CLEANUP` 상태 전이, 기존 `READY` 책 무변경 보호, 중간 중단 후 멱등 재개, `PLANNING` 중 실패 시 DB 롤백 및 스테이징 정리를 검사한다.
+- **실제 8 MiB Linux tmpfs `ENOSPC`(`BackupAssetEnospcTest` +2 → `shared-enospc` 5):** `scripts/enospc-check.sh` 아래에서 Book 1 `READY` 직후 및 `PLANNING` 직후 실제 `errno 28`(`available_bytes=0`)을 발생시켜 기존 서재·파일 해시 보존, 공간 확보 후 멱등 재개(`ENOSPC_BACKUP_PASS`)를 검사한다.
+- **Android UI E2E(`ReadingBackupFlowTest.v2AssetBackupRestoresBooksAndFontsDirectlyToReadyAndRejectsTamperedBundle` +1 → `android-device` 80):** 책 원본+사용자 글꼴 선택 v2 내보내기, 책·글꼴 삭제 후 미리보기, 미리보기 직후 외부 제공자 변조에도 검증된 스테이징 사본만으로 즉시 `READY` 복원·글꼴 재등록·바로 읽기, 변조된 파일 재오픈 시 fail-closed 무변경을 검사한다.
+- **외부 `adb shell am force-stop` 호스트 검증(`BackupAssetHostProcessTest` + `scripts/backup-asset-process-check.py` +1 → host 8):** Book 1 승격 직후 내구 체크포인트에서 호스트가 외부 `am force-stop`으로 프로세스를 종료(`absent`)한 뒤, 새 OS 프로세스 콜드 스타트 시 서재로 시작하면서 Book 2·사용자 글꼴이 자동 이어하기 완료되고 기존 `READY` 책·진행도·파일 해시가 불변인지 API 26·34·36에서 검증한다.
+
+실행별 아티팩트 SHA-256·XML·PID 교체 근거는 [작업 기록](WORKLOG.md)과 [인수인계](SESSION_HANDOFF.md)에 있다.
+
 ## 2026-11-21 독서 기록 백업·복원
 
 독서 기록 검사는 `scripts/required-tests.json`에 등록했다. 파일 JVM 검사는 길이·버전·해시·UTF-8과

@@ -52,6 +52,121 @@ class ReadingBackupFileTest {
         }
     }.toByteArray()
 
+    @Test fun v2BundleRoundTripsBooksAndFontsAndKeepsV1Compatible() {
+        val v1Bytes = envelope()
+        val decodedV1 = ReadingBackupFile.decodeBundle(v1Bytes.inputStream(), { error("v1 must not stage") })
+        assertTrue(decodedV1 is ReadingBackupFile.DecodedBackup.V1)
+        assertEquals(snapshot, (decodedV1 as ReadingBackupFile.DecodedBackup.V1).snapshot)
+
+        val bookBytes = "Hello Phase 4-2 v2 streaming backup!\n".toByteArray()
+        val fontBytes = ByteArray(64) { (it + 1).toByte() }
+        val (bundle, raw) = v2Envelope(bookBytes, fontBytes)
+        val stageDir = java.nio.file.Files.createTempDirectory("v2-roundtrip-").toFile()
+        try {
+            val decoded = ReadingBackupFile.decodeBundle(raw.inputStream(), { stageDir })
+            assertTrue(decoded is ReadingBackupFile.DecodedBackup.V2)
+            val v2 = decoded as ReadingBackupFile.DecodedBackup.V2
+            assertEquals(bundle, v2.bundle)
+            assertEquals(2, v2.staged.size)
+            assertArrayEquals(bookBytes, java.io.File(stageDir, v2.staged[0].stagingName).readBytes())
+            assertArrayEquals(fontBytes, java.io.File(stageDir, v2.staged[1].stagingName).readBytes())
+        } finally {
+            stageDir.deleteRecursively()
+        }
+    }
+
+    @Test fun v2BundleRejectsFutureVersionTraversalSymlinkTamperingSizeMismatchAndTrailingBytes() {
+        val bookBytes = "Book payload for security verification\n".toByteArray()
+        val fontBytes = ByteArray(48) { (it * 5 and 0xff).toByte() }
+        val (_, validRaw) = v2Envelope(bookBytes, fontBytes)
+
+        fun rejectsV2(expected: BackupProblem, input: ByteArray) {
+            val stageDir = java.nio.file.Files.createTempDirectory("v2-reject-").toFile()
+            try {
+                val failure = assertThrows(BackupFailure::class.java) {
+                    ReadingBackupFile.decodeBundle(input.inputStream(), { stageDir })
+                }
+                assertEquals(expected, failure.problem)
+            } finally {
+                stageDir.deleteRecursively()
+            }
+        }
+
+        // Future version 3 rejected before manifest allocation
+        rejectsV2(BackupProblem.VERSION, validRaw.copyOf().also { it[11] = 3 })
+
+        // Trailing garbage after final asset rejected
+        rejectsV2(BackupProblem.INTEGRITY, validRaw + byteArrayOf(0x42))
+
+        // Truncated asset payload rejected
+        rejectsV2(BackupProblem.INTEGRITY, validRaw.copyOf(validRaw.size - 1))
+
+        // Corrupted asset byte fails per-asset SHA-256
+        val corruptedAsset = validRaw.copyOf().also { it[it.lastIndex] = (it[it.lastIndex].toInt() xor 0xff).toByte() }
+        rejectsV2(BackupProblem.INTEGRITY, corruptedAsset)
+
+        // Non-regular file mode (e.g., symlink flag 0x01) in first asset frame rejected
+        val frameMagic = "BRMAST\n".toByteArray()
+        val frameOffset = indexOfSubarray(validRaw, frameMagic)
+        assertTrue(frameOffset > 0)
+        val symlinkFrame = validRaw.copyOf().also { it[frameOffset + frameMagic.size] = 0x01 }
+        rejectsV2(BackupProblem.FORMAT, symlinkFrame)
+
+        // Path traversal injected into frame path rejected
+        val pathStart = frameOffset + frameMagic.size + 1 + 4
+        val traversalFrame = validRaw.copyOf().also {
+            it[pathStart] = '.'.code.toByte()
+            it[pathStart + 1] = '.'.code.toByte()
+            it[pathStart + 2] = '/'.code.toByte()
+        }
+        rejectsV2(BackupProblem.FORMAT, traversalFrame)
+
+        // Declared size tampered in asset frame header rejected
+        val pathLen = java.nio.ByteBuffer.wrap(validRaw, frameOffset + frameMagic.size + 1, 4).int
+        val sizeOffset = pathStart + pathLen
+        val sizeMismatch = validRaw.copyOf().also { it[sizeOffset + 7] = (it[sizeOffset + 7].toInt() xor 0x01).toByte() }
+        rejectsV2(BackupProblem.INTEGRITY, sizeMismatch)
+    }
+
+    private fun v2Envelope(bookBytes: ByteArray, fontBytes: ByteArray): Pair<BackupBundleV2, ByteArray> {
+        val bookHash = sha256Hex(bookBytes)
+        val fontHash = sha256Hex(fontBytes)
+        val revision = org.bookreader.mobile.importing.txtContentRevision(bookHash, "utf-8", 1)
+        val bookRecord = BackupBook(
+            sha256 = bookHash, byteSize = bookBytes.size.toLong(), format = "TXT", title = "V2 Book",
+            displayName = "v2.txt", author = null, revision = revision, encoding = "utf-8",
+            normalizationVersion = 1, addedAt = 1L, lastReadAt = null, details = null, preferences = null,
+            shelves = emptyList(), progress = emptyList(), bookmarks = emptyList(),
+            txtHighlights = emptyList(), epubHighlights = emptyList(), tocEdits = emptyList(),
+        )
+        val records = snapshot.copy(books = listOf(bookRecord))
+        val bookEntry = BackupAssetEntry(BackupAssetKind.BOOK, "books/$bookHash.bin", bookHash, bookBytes.size.toLong(), "TXT", null)
+        val fontEntry = BackupAssetEntry(BackupAssetKind.FONT, "fonts/$fontHash.bin", fontHash, fontBytes.size.toLong(), null, "V2Font.ttf")
+        val bundle = BackupBundleV2(records, listOf(bookEntry, fontEntry))
+        val raw = ByteArrayOutputStream().also { out ->
+            ReadingBackupFile.writeBundleV2(
+                bundle = bundle,
+                sources = listOf(
+                    ReadingBackupFile.AssetSource(bookEntry) { bookBytes.inputStream() },
+                    ReadingBackupFile.AssetSource(fontEntry) { fontBytes.inputStream() },
+                ),
+                output = out,
+            )
+        }.toByteArray()
+        return bundle to raw
+    }
+
+    private fun indexOfSubarray(haystack: ByteArray, needle: ByteArray): Int {
+        outer@ for (i in 0..(haystack.size - needle.size)) {
+            for (j in needle.indices) if (haystack[i + j] != needle[j]) continue@outer
+            return i
+        }
+        return -1
+    }
+
+    private fun sha256Hex(bytes: ByteArray): String =
+        MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
+
     private fun rejects(problem: BackupProblem, bytes: ByteArray) {
         val failure = assertThrows(BackupFailure::class.java) { ReadingBackupFile.decode(bytes.inputStream()) }
         assertEquals(problem, failure.problem)

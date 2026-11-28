@@ -119,6 +119,12 @@ class AppViewModel(
                 else if (recovered.any { it is ImportResult.Failure }) {
                     mutableState.update { it.copy(importing = ImportUiState.Error("중단된 가져오기를 정리했습니다. 임시 권한이 만료된 파일은 다시 선택해 주세요.")) }
                 }
+                val backupRecovery = withContext(ioDispatcher) { backups?.recoverInterruptedRestore() }
+                if (backupRecovery?.resumed == true) {
+                    mutableState.update { it.copy(notice = "중단된 백업 복원을 이어서 완료했습니다.") }
+                } else if (backupRecovery?.pendingRetry == true) {
+                    mutableState.update { it.copy(notice = "저장 공간 부족으로 중단된 백업 복원이 남아 있습니다. 설정의 백업에서 이어하거나 정리해 주세요.") }
+                }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
                 mutableState.update { it.copy(importing = ImportUiState.Error("이전 파일 작업을 복구하지 못했습니다. 다시 시도해 주세요.")) }
