@@ -278,6 +278,39 @@ class EpubReaderFlowTest {
         assertEquals(before, saved(active.book))
     }
 
+    @Test fun granularFontWeightAppliesExactCssWeightInWebViewAndSurvivesReopen() {
+        send("epub-product"); waitFor("epub_ready")
+        val active = reader()
+        compose.readerControl("epub_next").performClick()
+        compose.waitUntil(20_000) { saved(active.book) != null }
+        val before = requireNotNull(saved(active.book))
+        val chapter = org.json.JSONObject(before.payload.locator.toString()).getString("href").substringAfterLast('/').removeSuffix(".xhtml")
+        val previous = active.state.value
+        compose.readerControl("epub_settings").performClick()
+        // Step twice: 400 -> 450 -> 500 (verifies intermediate 50-step UI label and CSS weight valid on API 26..36 WebView).
+        compose.onNodeWithTag("font_weight_increase").performScrollTo().performClick()
+        val midLabel = compose.onAllNodesWithTag("font_weight_value").fetchSemanticsNodes().single()
+            .config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString { it.text }
+        assertTrue("Expected 450 after first step, got: $midLabel", midLabel.contains("450"))
+        compose.onNodeWithTag("font_weight_increase").performScrollTo().performClick()
+        compose.onNodeWithTag("reader_settings_apply").performClick()
+        val expected = previous.settings.withFontWeight(500).copy(epubPublisherStyles = false)
+        waitForSettingsApplied(previous.hostVersion, expected)
+        assertEquals(1.25, requireNotNull(active.preferences().fontWeight), 0.0001)
+        fun hasWeight500(): Boolean = evaluateLoadedChapter(
+            compose.activityRule.scenario,
+            chapter,
+            "getComputedStyle(document.querySelector('p')).fontWeight === '500'",
+        ) == "true"
+        compose.waitUntil(20_000) { hasWeight500() }
+        assertEquals(before, saved(active.book))
+        compose.readerControl("epub_back").performClick(); waitFor("continue_reading")
+        compose.onNodeWithTag("continue_reading").performClick(); waitFor("epub_ready")
+        compose.waitUntil(20_000) { hasWeight500() }
+        assertEquals(expected, reader().state.value.settings)
+        assertEquals(before, saved(active.book))
+    }
+
     @Test fun unsafeEpubImportCannotReplaceExistingProgressOrManagedCopy() {
         send("epub-product"); waitFor("epub_ready")
         val book = reader().book

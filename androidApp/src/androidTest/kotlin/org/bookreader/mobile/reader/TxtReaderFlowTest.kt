@@ -1590,6 +1590,105 @@ class TxtReaderFlowTest {
         } finally { restoreReaderGlobalSettings(originalSettings) }
     }
 
+    @Test fun granularFontWeightStepperAndPresetsRenderAndPersistWithoutMovingAnchor() {
+        val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
+        try {
+            sendFixture("reader-pages")
+            waitFor("reader_ready")
+            val active = reader()
+            clickReaderControlOnMain("reader_settings")
+            waitFor("reader_settings_dialog")
+            clickOnMain("reader_mode_PAGES", scrollFirst = true)
+            clickOnMain("reader_settings_apply")
+            compose.waitUntil(15_000) {
+                active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
+                    active.state.value.phase == TxtReaderPhase.READY
+            }
+            waitFor("reader_page")
+
+            // Move to page 2 so we have a durable non-zero reading anchor.
+            swipePageHorizontal(forward = true)
+            compose.waitUntil(15_000) {
+                active.state.value.phase == TxtReaderPhase.READY &&
+                    (active.state.value.stableOffset ?: 0L) > 0L &&
+                    saved(active.book)?.let { offset(it) == active.state.value.stableOffset } == true
+            }
+            val anchor = requireNotNull(active.state.value.stableOffset)
+            val before = requireNotNull(saved(active.book))
+
+            // Step fine weight 3x: 400 -> 450 -> 500 -> 550.
+            clickReaderControlOnMain("reader_settings")
+            waitFor("reader_settings_dialog")
+            repeat(3) { clickOnMain("font_weight_increase", scrollFirst = true) }
+            val valueLabel = compose.onAllNodesWithTag("font_weight_value").fetchSemanticsNodes().single()
+                .config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString { it.text }
+            assertTrue("Expected fine weight label 550, got: $valueLabel", valueLabel.contains("550"))
+            val generation = active.state.value.restoreGeneration
+            clickOnMain("reader_settings_apply")
+            compose.waitUntil(20_000) {
+                active.state.value.let {
+                    it.restoreGeneration > generation &&
+                        it.phase == TxtReaderPhase.READY &&
+                        !it.settingsSaving &&
+                        it.settings.effectiveFontWeight == 550 &&
+                        it.settings.fontWeightValue == 550
+                }
+            }
+            assertEquals(anchor, active.state.value.targetOffset)
+            assertEquals(before, saved(active.book))
+
+            val layouts550 = mutableListOf<TextLayoutResult>()
+            compose.onNodeWithTag("reader_page").performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts550) }
+            assertEquals(androidx.compose.ui.text.font.FontWeight(550), layouts550.single().layoutInput.style.fontWeight)
+
+            // Persist exact 550 weight across Activity recreate without changing reading record.
+            compose.activityRule.scenario.recreate()
+            waitFor("reader_ready")
+            waitFor("reader_page")
+            assertEquals(550, reader().state.value.settings.effectiveFontWeight)
+            assertEquals(550, reader().state.value.settings.fontWeightValue)
+            assertEquals(before, saved(active.book))
+
+            // Select 300 preset then decrease once to 250.
+            clickReaderControlOnMain("reader_settings")
+            waitFor("reader_settings_dialog")
+            clickOnMain("reader_weight_300", scrollFirst = true)
+            clickOnMain("font_weight_decrease", scrollFirst = true)
+            val gen250 = reader().state.value.restoreGeneration
+            clickOnMain("reader_settings_apply")
+            compose.waitUntil(20_000) {
+                reader().state.value.let {
+                    it.restoreGeneration > gen250 &&
+                        it.phase == TxtReaderPhase.READY &&
+                        !it.settingsSaving &&
+                        it.settings.effectiveFontWeight == 250 &&
+                        it.settings.fontWeightValue == 250
+                }
+            }
+            val layouts250 = mutableListOf<TextLayoutResult>()
+            compose.onNodeWithTag("reader_page").performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts250) }
+            assertEquals(androidx.compose.ui.text.font.FontWeight(250), layouts250.single().layoutInput.style.fontWeight)
+            assertEquals(before, saved(active.book))
+
+            // Return to canonical 400 normal weight (clears fontWeightValue).
+            clickReaderControlOnMain("reader_settings")
+            waitFor("reader_settings_dialog")
+            clickOnMain("reader_weight_NORMAL", scrollFirst = true)
+            val gen400 = reader().state.value.restoreGeneration
+            clickOnMain("reader_settings_apply")
+            compose.waitUntil(20_000) {
+                reader().state.value.let {
+                    it.restoreGeneration > gen400 &&
+                        it.phase == TxtReaderPhase.READY &&
+                        !it.settingsSaving &&
+                        it.settings.effectiveFontWeight == 400 &&
+                        it.settings.fontWeightValue == null
+                }
+            }
+            assertEquals(before, saved(active.book))
+        } finally { restoreReaderGlobalSettings(originalSettings) }
+    }
+
     private fun swipePageHorizontal(forward: Boolean) {
         val node = compose.onAllNodesWithTag("reader_page_viewport").fetchSemanticsNodes().single()
         val bounds = compose.runOnIdle {

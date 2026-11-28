@@ -127,8 +127,12 @@ class EpubHostFragment : Fragment() {
                     addFontFamilyDeclaration(font.epubFamily()) { addFontFace { addSource(path, preload = font == current.state.value.settings.font) } }
                 } }
                 current.customFont()?.let { font ->
+                    val variableRange = org.bookreader.mobile.reader.FontFilePolicy.variableWeightRange(font.file)
                     addFontFamilyDeclaration(org.readium.r2.navigator.preferences.FontFamily("USER_${font.id}")) {
-                        addFontFace { addSource(requireNotNull(Url("https://readium/publication/_bookreader_fonts/${font.id}.ttf")), preload = true) }
+                        addFontFace {
+                            addSource(requireNotNull(Url("https://readium/publication/_bookreader_fonts/${font.id}.ttf")), preload = true)
+                            if (variableRange != null) setFontWeight(variableRange)
+                        }
                     }
                 }
             },

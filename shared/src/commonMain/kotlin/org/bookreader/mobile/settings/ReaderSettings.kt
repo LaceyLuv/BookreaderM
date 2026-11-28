@@ -38,6 +38,7 @@ data class ReaderSettings(
     val pageTransition: PageTransition = PageTransition.NONE,
     val customFontId: String? = null,
     val fontWeight: ReaderFontWeight = ReaderFontWeight.NORMAL,
+    val fontWeightValue: Int? = null,
 ) {
     init {
         require(customFontId == null || customFontId.matches(Regex("[0-9a-f]{64}")))
@@ -46,6 +47,28 @@ data class ReaderSettings(
         require(letterSpacingEm.isFinite() && letterSpacingEm in -0.02f..0.10f)
         require(marginDp in 8..40)
         require(comicGapDp in 0..32)
+        require(fontWeightValue == null || fontWeightValue in MIN_FONT_WEIGHT..MAX_FONT_WEIGHT)
+    }
+
+    val effectiveFontWeight: Int
+        get() = fontWeightValue ?: fontWeight.value
+
+    fun withFontWeight(weight: Int): ReaderSettings {
+        val clamped = weight.coerceIn(MIN_FONT_WEIGHT, MAX_FONT_WEIGHT)
+        return when (clamped) {
+            ReaderFontWeight.NORMAL.value -> copy(fontWeight = ReaderFontWeight.NORMAL, fontWeightValue = null)
+            ReaderFontWeight.BOLD.value -> copy(fontWeight = ReaderFontWeight.BOLD, fontWeightValue = null)
+            else -> copy(
+                fontWeight = if (clamped >= 600) ReaderFontWeight.BOLD else ReaderFontWeight.NORMAL,
+                fontWeightValue = clamped,
+            )
+        }
+    }
+
+    companion object {
+        const val MIN_FONT_WEIGHT = 100
+        const val MAX_FONT_WEIGHT = 900
+        const val FONT_WEIGHT_STEP = 50
     }
 }
 
