@@ -13,9 +13,40 @@ android {
         applicationId = "org.bookreader.mobile"
         minSdk = 26
         targetSdk = 36
-        versionCode = 11
-        versionName = "0.8.0-dev"
+        versionCode = 12
+        versionName = "0.8.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    val releaseKeystorePath = System.getenv("BOOKREADER_KEYSTORE_PATH").orEmpty()
+    val releaseStorePassword = System.getenv("BOOKREADER_STORE_PASSWORD").orEmpty()
+    val releaseKeyAlias = System.getenv("BOOKREADER_KEY_ALIAS").orEmpty()
+    val releaseKeyPassword = System.getenv("BOOKREADER_KEY_PASSWORD").orEmpty()
+    val hasReleaseSigning =
+        releaseKeystorePath.isNotBlank() &&
+            releaseStorePassword.isNotBlank() &&
+            releaseKeyAlias.isNotBlank() &&
+            releaseKeyPassword.isNotBlank()
+    if (hasReleaseSigning) {
+        signingConfigs {
+            create("release") {
+                val keystoreFile = file(releaseKeystorePath)
+                require(keystoreFile.isFile) { "Release keystore file is missing" }
+                storeFile = keystoreFile
+                storePassword = releaseStorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+                enableV1Signing = false
+                enableV2Signing = true
+                enableV3Signing = true
+            }
+        }
+    }
+    buildTypes {
+        release {
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
     }
     buildFeatures { compose = true }
     compileOptions {

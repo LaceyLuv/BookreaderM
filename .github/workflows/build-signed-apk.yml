@@ -1,0 +1,132 @@
+name: BookReader Mobile Signed Release APK
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  signed-release-apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          distribution: temurin
+          java-version: '17.0.16+8'
+      - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+        with:
+          cmdline-tools-version: '13114758' # command-line tools 19.0
+          packages: platform-tools
+      - name: Install pinned Android SDK
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'platform-tools'
+      - name: Decode release keystore into temporary runner directory
+        env:
+          KEYSTORE_B64: ${{ secrets.BOOKREADER_RELEASE_KEYSTORE_BASE64 }}
+          STORE_PW: ${{ secrets.BOOKREADER_RELEASE_STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.BOOKREADER_RELEASE_KEY_ALIAS }}
+          KEY_PW: ${{ secrets.BOOKREADER_RELEASE_KEY_PASSWORD }}
+          EXPECTED_CERT: ${{ secrets.BOOKREADER_RELEASE_CERT_SHA256 }}
+        run: |
+          set -euo pipefail
+          if [ -z "$KEYSTORE_B64" ] || [ -z "$STORE_PW" ] || [ -z "$KEY_ALIAS" ] || [ -z "$KEY_PW" ] || [ -z "$EXPECTED_CERT" ]; then
+            echo "Missing required BOOKREADER_RELEASE_* repository secrets" >&2
+            exit 78
+          fi
+          mkdir -p -m 700 "$RUNNER_TEMP/bookreader-ks"
+          printf '%s' "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/bookreader-ks/release.p12"
+          chmod 600 "$RUNNER_TEMP/bookreader-ks/release.p12"
+      - name: Build signed release APK and verify lint
+        env:
+          BOOKREADER_KEYSTORE_PATH: ${{ runner.temp }}/bookreader-ks/release.p12
+          BOOKREADER_STORE_PASSWORD: ${{ secrets.BOOKREADER_RELEASE_STORE_PASSWORD }}
+          BOOKREADER_KEY_ALIAS: ${{ secrets.BOOKREADER_RELEASE_KEY_ALIAS }}
+          BOOKREADER_KEY_PASSWORD: ${{ secrets.BOOKREADER_RELEASE_KEY_PASSWORD }}
+        run: ./gradlew :androidApp:assembleRelease :androidApp:lintDebug --console=plain
+      - name: Remove temporary keystore immediately
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/bookreader-ks"
+      - name: Audit signed release APK (v2/v3 signature, cert SHA-256, 16KB ELF/ZIP, permissions)
+        env:
+          EXPECTED_CERT_SHA256: ${{ secrets.BOOKREADER_RELEASE_CERT_SHA256 }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib, re, shutil, subprocess, zipfile
+
+          raw_apk = pathlib.Path('androidApp/build/outputs/apk/release/androidApp-release.apk')
+          assert raw_apk.is_file(), f'Expected signed APK missing: {raw_apk}'
+
+          gradle_text = pathlib.Path('androidApp/build.gradle.kts').read_text(encoding='utf-8')
+          vname = re.search(r'versionName\s*=\s*"([^"]+)"', gradle_text).group(1)
+          vcode = int(re.search(r'versionCode\s*=\s*(\d+)', gradle_text).group(1))
+
+          out_dir = pathlib.Path('build/release-apk')
+          out_dir.mkdir(parents=True, exist_ok=True)
+          apk_name = f'BookreaderM-{vname}-code{vcode}-signed.apk'
+          apk = out_dir / apk_name
+          shutil.copy2(raw_apk, apk)
+
+          audit_path = out_dir / 'apk-audit.json'
+          subprocess.run([
+              'python3', 'scripts/audit-apk.py', str(apk),
+              '--source-sha', os.environ['GITHUB_SHA'],
+              '--output', str(audit_path),
+          ], check=True)
+          audit = json.loads(audit_path.read_text(encoding='utf-8'))
+          assert audit['status'] == 'PASS', audit
+          assert audit['signature_status'] == 'PASS', audit
+
+          sdk = pathlib.Path(os.environ.get('ANDROID_HOME', os.environ.get('ANDROID_SDK_ROOT', '')))
+          build_tools = sdk / 'build-tools' / '35.0.0'
+          verify_out = subprocess.check_output([
+              str(build_tools / 'apksigner'), 'verify', '--verbose', '--print-certs', str(apk)
+          ], text=True, stderr=subprocess.STDOUT)
+          assert 'Verified using v2 scheme (APK Signature Scheme v2): true' in verify_out, verify_out
+          assert 'Verified using v3 scheme (APK Signature Scheme v3): true' in verify_out, verify_out
+          cert_match = re.search(r'Signer #1 certificate SHA-256 digest:\s*([0-9a-fA-F]{64})', verify_out)
+          assert cert_match, verify_out
+          cert_sha256 = cert_match.group(1).lower()
+          expected = os.environ['EXPECTED_CERT_SHA256'].strip().lower()
+          assert cert_sha256 == expected, f'Cert mismatch: actual={cert_sha256}'
+
+          manifest_out = audit['commands']['manifest']['output']
+          assert 'android:debuggable' not in manifest_out, 'Release APK must not be debuggable'
+
+          with zipfile.ZipFile(apk) as zf:
+              entries = zf.namelist()
+          debug_leaks = [n for n in entries if n.endswith('.otf') or 'font-fixtures' in n or 'test-fixtures' in n or 'debug-fonts' in n]
+          assert not debug_leaks, f'Debug resources leaked into release APK: {debug_leaks}'
+
+          apk_sha256 = hashlib.sha256(apk.read_bytes()).hexdigest()
+          assert apk_sha256 == audit['sha256']
+          (out_dir / f'{apk_name}.sha256').write_text(f'{apk_sha256}  {apk_name}\n', encoding='utf-8')
+
+          summary = {
+              'status': 'PASS',
+              'source_sha': os.environ['GITHUB_SHA'],
+              'version_name': vname,
+              'version_code': vcode,
+              'application_id': 'org.bookreader.mobile',
+              'apk_filename': apk_name,
+              'apk_bytes': apk.stat().st_size,
+              'apk_sha256': apk_sha256,
+              'certificate_sha256': cert_sha256,
+              'signature_v2': True,
+              'signature_v3': True,
+              'audit_status': audit['status'],
+              'abis': audit['abis'],
+              'permissions': audit['permissions'],
+              'backup_disabled': audit['backup_disabled'],
+              'cleartext_disabled': audit['cleartext_disabled'],
+              'published_public_release': False,
+              'physical_installation': 'NOT_RUN',
+          }
+          (out_dir / 'release-summary.json').write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps(summary, indent=2))
+          PY
+      - name: Upload signed APK and audit evidence to GitHub Actions Artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: BookreaderM-signed-release-apk
+          retention-days: 90
+          if-no-files-found: error
+          path: build/release-apk/
