@@ -216,26 +216,32 @@ class BackupAssetEnospcTest {
         override suspend fun readJournal(): BackupRestoreJournal? =
             if (Files.isRegularFile(journalFile)) BackupRules.json.decodeFromString(BackupRestoreJournal.serializer(), Files.readString(journalFile)) else null
 
-        override suspend fun writeJournal(journal: BackupRestoreJournal) = mapIo {
-            Files.createDirectories(journalDir)
-            val tmp = journalDir.resolve("active.json.tmp")
-            Files.writeString(tmp, BackupRules.json.encodeToString(BackupRestoreJournal.serializer(), journal))
-            Files.move(tmp, journalFile, StandardCopyOption.REPLACE_EXISTING)
+        override suspend fun writeJournal(journal: BackupRestoreJournal) {
+            mapIo {
+                Files.createDirectories(journalDir)
+                val tmp = journalDir.resolve("active.json.tmp")
+                Files.writeString(tmp, BackupRules.json.encodeToString(BackupRestoreJournal.serializer(), journal))
+                Files.move(tmp, journalFile, StandardCopyOption.REPLACE_EXISTING)
+            }
         }
 
-        override suspend fun clearJournal() = mapIo {
-            Files.deleteIfExists(journalFile)
-            Files.deleteIfExists(journalDir.resolve("active.json.tmp"))
+        override suspend fun clearJournal() {
+            mapIo {
+                Files.deleteIfExists(journalFile)
+                Files.deleteIfExists(journalDir.resolve("active.json.tmp"))
+            }
         }
 
         override suspend fun listStagingSessions(): List<String> =
             if (!Files.isDirectory(staging)) emptyList()
             else Files.list(staging).use { s -> s.filter(Files::isDirectory).map { it.fileName.toString() }.toList().sorted() }
 
-        override suspend fun deleteStagingSession(sessionId: String) = mapIo {
-            val dir = staging.resolve(sessionId)
-            if (Files.exists(dir)) {
-                Files.walk(dir).use { it.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) }
+        override suspend fun deleteStagingSession(sessionId: String) {
+            mapIo {
+                val dir = staging.resolve(sessionId)
+                if (Files.exists(dir)) {
+                    Files.walk(dir).use { it.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) }
+                }
             }
         }
 
@@ -246,12 +252,14 @@ class BackupAssetEnospcTest {
             return FileFingerprint(sha256(bytes), bytes.size.toLong())
         }
 
-        override suspend fun promoteBookAsset(sessionId: String, asset: StagedBackupAsset, finalRelativePath: String) = mapIo {
-            val source = staging.resolve(sessionId).resolve(asset.stagingName)
-            val target = managed.resolve(finalRelativePath)
-            Files.createDirectories(target.parent)
-            check(!Files.exists(target))
-            Files.move(source, target)
+        override suspend fun promoteBookAsset(sessionId: String, asset: StagedBackupAsset, finalRelativePath: String) {
+            mapIo {
+                val source = staging.resolve(sessionId).resolve(asset.stagingName)
+                val target = managed.resolve(finalRelativePath)
+                Files.createDirectories(target.parent)
+                check(!Files.exists(target))
+                Files.move(source, target)
+            }
         }
 
         override suspend fun installFontAsset(sessionId: String, asset: StagedBackupAsset): FontInstallOutcome = mapIo {
