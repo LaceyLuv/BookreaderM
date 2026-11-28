@@ -1,6 +1,16 @@
 # Android 검증 매트릭스 — 2026-10-17
 
-## 2026-11-28 최신 — `0.8.1` (code 13) 집중 모드·페이지 좌우 스와이프·페이지 넘김 속도 개선
+## 2026-11-28 최신 — `0.8.2` (code 14) 글자 굵기 세분화 조절(100~900 · 50 단위)
+
+- [작업 기록](WORKLOG.md), [최신 인계](SESSION_HANDOFF.md), [설치 안내](INSTALLABLE_APK.md)를 우선한다.
+- `0.8.2`(versionCode 14, Room 9, 14 테이블 유지) 기준 검증 코드 `faa4023b1a47abb88b01c1a6b04b9f7418b883a1` → `main` 병합 `3cf5558ff3914833c7e23cd14624b6b7a81a2195`([PR #15](https://github.com/LaceyLuv/BookreaderM/pull/15)):
+  - 원격 빌드·단위·실제 ENOSPC(`BookReader Mobile Checks` PR `46139684473`, `15261037677` · Push `46139680555`): 원본 XML **231/0/0/0 PASS**(`androidApp` 87, `shared` 122, `epubAndroid` 17, 실제 8 MiB tmpfs `enospc` 5 + `assembleDebug`·`lintDebug` `warningsAsErrors=true`·`assembleDebugAndroidTest`·Room 9).
+  - 원격 기기 매트릭스(`BookReader Mobile Device Tests` PR `46139684489` · Push `46139680540`, 1차 시도 3/3 PASS): API 26(`15261846632`)·API 34(`15260904114`)·API 36(`15261594286`) 각각 원본 XML **connected 85/0/0/0 + host 8/0/0/0 PASS**(5개 외부 `force-stop` `absent`→PID 교체 확인, 실패·오류·건너뜀 0).
+  - 신규 필수 검증 4건(`ReaderSettingsRepositoryTest` +1, `FontFilePolicyTest` +1, `TxtReaderFlowTest` +1, `EpubReaderFlowTest` +1)을 `scripts/required-tests.json`에 등록했다(`shared-jvm` 122, `android-unit` 87, `android-device` 85).
+  - 서명 Release APK(`46141382458`, 아티팩트 `15262215920`, `BookreaderM-0.8.2-code14-signed.apk`, `sha256:bacd2ad3b3fe516097da3e80362eb833daa0fd259fc7d3b45fcdd428e444f830`)의 v2/v3·동일 인증서(`c86301d1...`)·16KB ELF/ZIP·권한 정적 감사 및 재다운로드 대조 PASS.
+- 실제 스마트폰 업데이트 설치·실기기 가변 글꼴 체감/성능·TalkBack·16KB 실제 OS·OEM 백업·전체 corpus·독립 리뷰·공개 출시 승인은 여전히 `NOT_RUN`/`BLOCKED`다. 아래 절은 이전 시점 이력이다.
+
+## 2026-11-28 이전 — `0.8.1` (code 13) 집중 모드·페이지 좌우 스와이프·페이지 넘김 속도 개선
 
 - [작업 기록](WORKLOG.md), [최신 인계](SESSION_HANDOFF.md), [설치 안내](INSTALLABLE_APK.md)를 우선한다.
 - `0.8.1`(versionCode 13, Room 9, 14 테이블 유지) 기준 검증 코드 `4e312ca59a47d1082383f8ae8efa575d46630686` → `main` 병합 `75dbebebbae35f826f79ecd7dc361a40eda25c68`([PR #13](https://github.com/LaceyLuv/BookreaderM/pull/13)):

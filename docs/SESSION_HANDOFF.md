@@ -1,4 +1,15 @@
-## 2026-11-28 최신 — `0.8.1` (code 13) 집중 모드·페이지 좌우 스와이프·페이지 넘김 속도 개선 병합 및 서명 APK 검증 완료
+## 2026-11-28 최신 — `0.8.2` (code 14) 글자 굵기 세분화 조절(100~900 · 50 단위) 병합 및 서명 APK 검증 완료
+
+- **현재 상태**: [PR #15](https://github.com/LaceyLuv/BookreaderM/pull/15)(`faa4023b` → `main` 병합 `3cf5558f`, `0.8.2`/versionCode 14/Room 9 14개 테이블·`ReaderSettingsCodec` v1 유지)이 `BookReader Mobile Checks` **231/231 PASS**(`46139684473`, 아티팩트 `15261037677`) 및 `BookReader Mobile Device Tests` API 26·34·36 각각 **connected 85/85 + host 8/8 PASS**(`46139684489`, Push `46139680540`도 3/3 PASS)를 1차 시도 통과해 `main`에 병합 완료됐다. 열린 Issue·PR은 0건이다.
+- **최신 서명 Release APK (`46141382458`, 아티팩트 `15262215920`):**
+  - 바로 내려받기(로그인된 브라우저): `https://github.com/LaceyLuv/BookreaderM/actions/runs/46141382458/artifacts/15262215920`
+  - 파일: `BookreaderM-0.8.2-code14-signed.apk` (`22,402,393` bytes, `sha256:bacd2ad3b3fe516097da3e80362eb833daa0fd259fc7d3b45fcdd428e444f830`)
+  - 소스: `main` `3cf5558ff3914833c7e23cd14624b6b7a81a2195` (Room 9 14개 테이블·`ReaderSettingsCodec` v1 유지)
+  - 영구 정식 서명 인증서 SHA-256: `c86301d1b3556040d5d1edda2e5755514387ff7fea4a1954785fa1c178d62537` (`0.8.0`·`0.8.1`과 동일 키 — 기존 앱 삭제 없이 덮어쓰기 업데이트 가능)
+  - `scripts/audit-apk.py` 서명 필수 모드·v2/v3 서명·16KB ELF/ZIP 정렬·권한·비디버그·재다운로드 해시 대조 모두 **PASS** ([설치 안내](INSTALLABLE_APK.md)). 공개 GitHub Release 미게시.
+- **미실행 / 다음 작업**: 실제 스마트폰 업데이트 설치 및 실기기 굵기 세분화·가변 글꼴 체감 확인, 실기기 성능·TalkBack·16KB 실제 OS·공개 출시 승인은 `NOT_RUN`(`BLOCKED` 유지).
+
+## 2026-11-28 이전 — `0.8.1` (code 13) 집중 모드·페이지 좌우 스와이프·페이지 넘김 속도 개선 병합 및 서명 APK 검증 완료
 
 - **현재 상태**: [PR #13](https://github.com/LaceyLuv/BookreaderM/pull/13)(`4e312ca5` → `main` 병합 `75dbebeb`, `0.8.1`/versionCode 13/Room 9 14개 테이블 유지)이 `BookReader Mobile Checks` **229/229 PASS**(`46107229772`, 아티팩트 `15248506638`) 및 `BookReader Mobile Device Tests` API 26·34·36 각각 **connected 83/83 + host 8/8 PASS**(`46107229837`, Push `46107225513`도 3/3 PASS)를 모두 통과해 `main`에 병합 완료됐다. 열린 Issue·PR은 0건이다.
 - **최신 서명 Release APK (`46108752293`, 아티팩트 `15248324741`):**

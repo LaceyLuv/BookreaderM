@@ -1,3 +1,18 @@
+## 2026-11-28 서명된 설치용 APK — 0.8.2 (versionCode 14, Room 9)
+
+`main` 검증 소스 `3cf5558ff3914833c7e23cd14624b6b7a81a2195`([PR #15](https://github.com/LaceyLuv/BookreaderM/pull/15) 병합: 글자 굵기 100~900 · 50 단위 17단계 세밀 조절 슬라이더/미세 버튼/5종 프리셋, 실시간 미리보기, TXT/EPUB 적용 및 OpenType `fvar` `wght` 가변 글꼴 지원, Room 9 14개 테이블·`ReaderSettingsCodec` v1 유지)에서
+GitHub Actions 수동 워크플로우(`.github/workflows/build-signed-apk.yml`)로 빌드·서명·감사한 설치용 Release APK다.
+
+- **바로 내려받기(로그인된 Chrome 등 브라우저에서 클릭):** [BookreaderM-0.8.2-code14-signed.apk ZIP](https://github.com/LaceyLuv/BookreaderM/actions/runs/46141382458/artifacts/15262215920)
+- **Actions 실행:** [BookReader Mobile Signed Release APK #46141382458](https://github.com/LaceyLuv/BookreaderM/actions/runs/46141382458)
+- **아티팩트:** `BookreaderM-signed-release-apk` (ID `15262215920`, ZIP `19,041,071` bytes, `sha256:81d3d86fbe0e1d77775397cdfa704e2e3cf29d50f52df78ce2114cf6ef70eb18`, 공개 GitHub Release 미게시)
+- **APK 파일:** `BookreaderM-0.8.2-code14-signed.apk` (`22,402,393` bytes)
+- **APK SHA-256:** `bacd2ad3b3fe516097da3e80362eb833daa0fd259fc7d3b45fcdd428e444f830` (업로드 후 재다운로드 바이트·SHA-256 대조 PASS)
+- **앱 정보:** `applicationId = org.bookreader.mobile`, `versionCode = 14`, `versionName = 0.8.2`, Android 8.0(API 26) 이상
+- **영구 정식 서명 인증서 SHA-256:** `c86301d1b3556040d5d1edda2e5755514387ff7fea4a1954785fa1c178d62537` (`0.8.0`·`0.8.1`과 동일 키 — **기존 `0.8.0`/`0.8.1` 앱을 삭제하지 않고 그대로 덮어쓰기 업데이트 가능, 책·독서 기록·설정 유지**)
+- **정적 감사(`scripts/audit-apk.py`, 서명 필수 모드):** `PASS` — v2/v3 서명 PASS, 인증서 SHA-256 일치, `android:debuggable` 부재, 디버그 fixture 미포함, 권한 `ACCESS_NETWORK_STATE` 단독, `allowBackup=false`, `usesCleartextTraffic=false`, 4 ABI(`arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64`) / 8 ELF 및 ZIP 16KB 정렬(`zipalign -c -P 16 4`) PASS.
+- **미실행 범위(`NOT_RUN`):** 실제 스마트폰 설치·실기기 가변 글꼴 렌더링/성능·TalkBack·16KB 실제 OS 실행·공개 스토어 출시는 미실행(`BLOCKED` 유지).
+
 ## 2026-11-28 서명된 설치용 APK — 0.8.1 (versionCode 13, Room 9)
 
 `main` 검증 소스 `75dbebebbae35f826f79ecd7dc361a40eda25c68`([PR #13](https://github.com/LaceyLuv/BookreaderM/pull/13) 병합: 집중 모드 상단·하단 시스템바 숨김, 페이지 모드 좌우 스와이프 + 실시간 GPU 드래그, 백그라운드 프리페치·비동기 측정 페이지 전환 속도 개선, Room 9 14개 테이블 유지)에서
