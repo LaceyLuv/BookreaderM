@@ -1,6 +1,7 @@
 package org.bookreader.mobile.reader
 
 import androidx.compose.animation.*
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Box
@@ -16,16 +17,16 @@ fun <T> ReaderPageTransition(value: T, transition: PageTransition, direction: In
     modifier: Modifier = Modifier, onSettled: (T) -> Unit = {}, content: @Composable (T) -> Unit) {
     val movement = updateTransition(value, label = "readerPageTurn")
     val settled by rememberUpdatedState(onSettled)
-    LaunchedEffect(movement.currentState, movement.targetState, movement.isRunning) {
+    LaunchedEffect(movement.currentState, movement.targetState, movement.isRunning, transition) {
         if (!movement.isRunning && movement.currentState == movement.targetState) {
-            withFrameNanos { }
+            if (transition != PageTransition.NONE) withFrameNanos { }
             settled(movement.currentState)
         }
     }
     movement.AnimatedContent(modifier.clipToBounds(), transitionSpec = {
         if (transition == PageTransition.SLIDE) {
-            (slideInHorizontally(tween(180)) { it * direction } togetherWith
-                slideOutHorizontally(tween(180)) { -it * direction }).using(SizeTransform(clip = true))
+            (slideInHorizontally(tween(140, easing = FastOutSlowInEasing)) { it * direction } togetherWith
+                slideOutHorizontally(tween(140, easing = FastOutSlowInEasing)) { -it * direction }).using(SizeTransform(clip = true))
         } else (EnterTransition.None togetherWith ExitTransition.None).using(null)
     }) { page ->
         Box(Modifier.fillMaxSize()) { content(page) }

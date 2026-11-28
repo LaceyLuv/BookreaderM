@@ -62,4 +62,54 @@ class ReaderGestureSurfaceTest {
         compose.mainClock.advanceTimeBy(400)
         compose.runOnIdle { assertEquals(0, actions) }
     }
+
+    @Test fun horizontalSwipesTurnPagesInBothDirectionsEvenAtRelaxedSpeedAndNaturalAngle() {
+        var page by mutableIntStateOf(5)
+        val dragHistory = mutableListOf<Float>()
+        compose.setContent {
+            val renderedPage = page
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .testTag("surface")
+                    .readerGestures(
+                        enabled = true,
+                        pageMode = true,
+                        onTap = {},
+                        onDoubleTap = {},
+                        onPage = { page = renderedPage + it },
+                        onDragOffset = { dragHistory += it },
+                    ),
+            ) {
+                SelectionContainer { Text("좌우 스와이프 본문 ".repeat(500), Modifier.fillMaxSize()) }
+            }
+        }
+        compose.onNodeWithTag("surface").performTouchInput {
+            swipe(
+                start = Offset(width * .78f, height * .42f),
+                end = Offset(width * .28f, height * .56f),
+                durationMillis = 550L,
+            )
+        }
+        compose.waitForIdle()
+        compose.runOnIdle {
+            assertEquals(6, page)
+            assertTrue("Expected negative drag preview during next-page swipe", dragHistory.any { it < -10f })
+            assertEquals(0f, dragHistory.last(), 0.001f)
+        }
+        dragHistory.clear()
+        compose.onNodeWithTag("surface").performTouchInput {
+            swipe(
+                start = Offset(width * .22f, height * .54f),
+                end = Offset(width * .72f, height * .44f),
+                durationMillis = 550L,
+            )
+        }
+        compose.waitForIdle()
+        compose.runOnIdle {
+            assertEquals(5, page)
+            assertTrue("Expected positive drag preview during previous-page swipe", dragHistory.any { it > 10f })
+            assertEquals(0f, dragHistory.last(), 0.001f)
+        }
+    }
 }

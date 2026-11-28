@@ -113,4 +113,50 @@ class TxtPageEngineTest {
             assertTrue("Expected <= $maxExpectedReads bounded reads, got $sourceReads", sourceReads <= maxExpectedReads)
         }
     }
+
+    @Test fun prefetchedPagesHitCacheWithoutExtraReadsAndPreserveExactBoundaries() = runBlocking {
+        lateinit var measurer: TextMeasurer
+        compose.setContent { MaterialTheme { measurer = rememberTextMeasurer(cacheSize = 8) } }
+        compose.waitForIdle()
+        val style = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 18.sp, lineHeight = 29.sp)
+        val body = buildString {
+            for (line in 0 until 400) {
+                if (line != 0) append('\n')
+                append("prefetch-page ").append(line.toString().padStart(4, '0'))
+                    .append(" · 빠른 페이지 전환 캐시와 앞뒤 경계 일치를 검증합니다.")
+            }
+        }
+        var reads = 0
+        val engine = TxtPageEngine(body.length.toLong(), 800, { start, count ->
+            reads++
+            body.substring(start.toInt(), minOf(body.length, start.toInt() + count))
+        }) { text ->
+            measurer.measure(AnnotatedString(text), style, constraints = Constraints(maxWidth = 700))
+        }
+
+        val p0 = engine.next(0)
+        assertFalse(p0.overflowsVertical)
+        engine.prefetchAround(p0)
+        val readsAfterP0 = reads
+
+        val peek1 = engine.peekPage(p0.range.end)
+        assertNotNull(peek1)
+        val p1 = engine.next(p0.range.end)
+        assertEquals(peek1, p1)
+        assertEquals(p0.range.end, p1.range.start)
+        assertFalse(p1.overflowsVertical)
+        assertEquals("Prefetched next page must not trigger extra disk reads", readsAfterP0, reads)
+
+        val peek2 = engine.peekPage(p1.range.end)
+        assertNotNull(peek2)
+        val p2 = engine.next(p1.range.end)
+        assertEquals(peek2, p2)
+        assertEquals("Second prefetched page ahead must hit cache", readsAfterP0, reads)
+
+        engine.prefetchAround(p1)
+        val readsAfterP1Prefetch = reads
+        assertEquals(p0, engine.peekPrevious(p1.range.start))
+        assertEquals(p0, engine.previous(p1.range.start))
+        assertEquals("Prefetched previous page must hit cache", readsAfterP1Prefetch, reads)
+    }
 }

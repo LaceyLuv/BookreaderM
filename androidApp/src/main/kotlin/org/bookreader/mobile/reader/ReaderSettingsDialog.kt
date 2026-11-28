@@ -425,8 +425,18 @@ fun ReaderSettingsDialog(
                         global = global.copy(pageTransition = it)
                     }
 
-                    ReaderSettingsSection("화면 밝기") {
+                    ReaderSettingsSection("화면 · 집중 모드") {
                         SettingsControlGroup {
+                            WindowToggle(
+                                label = "집중 모드 (상단·하단 시스템바 숨김)",
+                                tag = "reader_fullscreen_option",
+                                checked = global.window.fullscreen,
+                            ) {
+                                global = global.copy(window = global.window.copy(fullscreen = it))
+                            }
+                            HorizontalDivider(
+                                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f),
+                            )
                             SettingStepper(
                                 label = "창 밝기",
                                 value = global.window.brightness?.let { "${(it * 100).roundToInt()}%" } ?: "시스템 기본값",
@@ -566,16 +576,6 @@ fun ReaderSettingsDialog(
                             )
 
                             SettingsControlGroup {
-                                WindowToggle(
-                                    label = "전체화면",
-                                    tag = "reader_fullscreen_option",
-                                    checked = global.window.fullscreen,
-                                ) {
-                                    global = global.copy(window = global.window.copy(fullscreen = it))
-                                }
-                                HorizontalDivider(
-                                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f),
-                                )
                                 WindowToggle(
                                     label = "읽는 동안 화면 켜짐 유지",
                                     tag = "reader_keep_screen_on_option",

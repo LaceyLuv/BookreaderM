@@ -309,6 +309,14 @@ class EpubReaderController(val book: Book, private val file: File, private val v
             finally { mutableState.update { it.copy(settingsSaving = false) } }
         }
     }
+    fun toggleFullscreen() {
+        val loaded = settingsLoaded ?: return
+        val nextFullscreen = !loaded.global.window.fullscreen
+        saveSettings(
+            loaded.global.copy(window = loaded.global.window.copy(fullscreen = nextFullscreen)),
+            loaded.book,
+        )
+    }
     private fun sdk(locator: EpubLocator): Locator = requireNotNull(Locator.fromJSON(JSONObject(locator.payload.locator.toString())))
     private fun canonical(locator: Locator): EpubLocator {
         validate(locator)

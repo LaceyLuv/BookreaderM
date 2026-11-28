@@ -233,6 +233,15 @@ class TxtReaderController(
         }
     }
 
+    fun toggleFullscreen() {
+        val loaded = state.value.settingsLoaded ?: return
+        val nextFullscreen = !loaded.global.window.fullscreen
+        saveSettings(
+            loaded.global.copy(window = loaded.global.window.copy(fullscreen = nextFullscreen)),
+            loaded.book,
+        )
+    }
+
     /** Navigation freezes the old anchor until the target's actual measured layout is visible. */
     fun navigateTo(offset: Long) {
         val current = state.value

@@ -543,6 +543,54 @@ internal fun ComicSettingsDialog(
                         global = global.copy(pageTransition = it)
                     }
 
+                    Surface(
+                        onClick = {
+                            global = global.copy(window = global.window.copy(fullscreen = !global.window.fullscreen))
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag("comic_fullscreen_option"),
+                        shape = RoundedCornerShape(14.dp),
+                        color = if (global.window.fullscreen) colors.primaryContainer else colors.surfaceContainerHigh,
+                        border = BorderStroke(
+                            1.dp,
+                            if (global.window.fullscreen) colors.primary else colors.outlineVariant,
+                        ),
+                        tonalElevation = 0.dp,
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 14.dp, vertical = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                Text(
+                                    text = "집중 모드 (상단·하단바 숨김)",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = if (global.window.fullscreen) colors.onPrimaryContainer else colors.onSurface,
+                                )
+                                Text(
+                                    text = "안드로이드 상태바와 하단 바를 숨겨 전체 화면으로 봅니다.",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = if (global.window.fullscreen) {
+                                        colors.onPrimaryContainer.copy(alpha = 0.85f)
+                                    } else {
+                                        colors.onSurfaceVariant
+                                    },
+                                )
+                            }
+                            Text(
+                                text = if (global.window.fullscreen) "켜짐" else "꺼짐",
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = if (global.window.fullscreen) colors.onPrimaryContainer else colors.onSurfaceVariant,
+                            )
+                        }
+                    }
+
                     OutlinedButton(
                         onClick = { book = book.copy(readingMode = null, comicFit = null, comicDirection = null) },
                         modifier = Modifier
