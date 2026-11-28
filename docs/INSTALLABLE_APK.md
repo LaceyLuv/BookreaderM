@@ -1,3 +1,19 @@
+## 2026-11-28 서명된 설치용 APK — 0.8.0 (versionCode 12, Room 9)
+
+사용자 승인(새 영구 정식 서명키 + 공개 릴리스 미게시·GitHub Actions 로그인 아티팩트 다운로드)에 따라
+`main` 검증 소스 `9d17ea96a0544c5889a150ee97bfb6599044c725`(Phase 4-1·4-2 전체 포함, Room 9 14개 테이블 유지)에서
+GitHub Actions 수동 워크플로우(`.github/workflows/build-signed-apk.yml`)로 빌드·서명·감사한 설치용 Release APK다.
+
+- **Actions 실행(로그인 후 Artifacts에서 다운로드):** [BookReader Mobile Signed Release APK #46098603675](https://github.com/LaceyLuv/BookreaderM/actions/runs/46098603675)
+- **아티팩트:** `BookreaderM-signed-release-apk` (ID `15244029886`, ZIP `19,015,918` bytes, `sha256:24a04de8abad29918337b533de44b97a03eae80887ef855415b8e1e154daa7f3`, 90일 보관, 공개 GitHub Release 미게시)
+- **APK 파일:** `BookreaderM-0.8.0-code12-signed.apk` (`22,369,021` bytes)
+- **APK SHA-256:** `da04e525a2a3b9a28166f1f29d26e57fce2c7ce9e03094876e34ffd61d2ae99d` (업로드 후 재다운로드 바이트·SHA-256 대조 PASS)
+- **앱 정보:** `applicationId = org.bookreader.mobile`, `versionCode = 12`, `versionName = 0.8.0`, Android 8.0(API 26) 이상
+- **신규 영구 정식 서명 인증서 SHA-256:** `c86301d1b3556040d5d1edda2e5755514387ff7fea4a1954785fa1c178d62537` (4096-bit RSA PKCS12, 암호화된 GitHub Repository Secrets `BOOKREADER_RELEASE_*`에만 보관, 코드·로그·아티팩트 미포함)
+  - 주의: 기존 Codex 개발용 인증서(`605d7f79...`)와 다른 신규 정식 서명키이므로, 기존 개발용 앱(`0.7.0-dev` 이하) 위에 덮어쓰기 업데이트는 불가하며 신규 설치 기준이다. 향후 `0.8.0` 이후 모든 업데이트는 이 키로 계속 호환된다.
+- **정적 감사(`scripts/audit-apk.py`, 서명 필수 모드):** `PASS` — v2/v3 서명 PASS, 인증서 SHA-256 일치, `android:debuggable` 부재, 디버그 fixture(`assets/font-fixtures/`, `Fixture.otf`) 미포함, 권한 `ACCESS_NETWORK_STATE` 단독, `allowBackup=false`, `usesCleartextTraffic=false`, 4 ABI(`arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64`) / 8 ELF 및 ZIP 16KB 정렬 PASS.
+- **미실행 범위(`NOT_RUN`):** 실제 스마트폰 설치·대용량 백업 성능·TalkBack·16KB 실제 OS 실행·공개 스토어 출시는 미실행(`BLOCKED` 유지).
+
 ## 2026-10-30 요청한 설치 시험용 APK — 0.7.0-dev
 
 TXT 목차를 포함한 검증 소스05ffd50을 기존 키로 서명했다. 코드8/Room7이며 0.7.0 전체 기능 완료는 아니다.

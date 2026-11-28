@@ -27,10 +27,10 @@ EPUB에서는 본문을 길게 누른 뒤 선택 메뉴의 **형광펜 · 메모
 **0.6.0 / a22970b**의 build175개와 API26/34/36 각각 native72+host7단계가 PASS입니다.
 [검증 원본](docs/evidence/product-quality/verified-a22970b/summary.json)을 보존했습니다.
 기존 키로 서명한 시험용 APK를 생성했으며 이전0.5.1 설치 파일도 유지합니다.
-현재 개발 브랜치는 독서 기록 백업·복원을 포함한 **0.8.0-dev(versionCode 11, Room 9)**입니다.
+현재 `main` 최신 버전은 독서 기록 및 선택적 책 원본·사용자 글꼴 백업·복원을 포함한 **0.8.0(versionCode 12, Room 9)**입니다.
 [최신 검증 결과](docs/SESSION_HANDOFF.md).
 TXT 목차·읽기 도구·빠른 설정·TXT/EPUB 형광펜·메모의 화면과 검증 결과는 [0.7.0 보고서](docs/READER_0_7.md)에 있습니다.
-마지막 전달 APK는 이전 `05ffd50`(code8/Room7)이며 이번 소스의 새 설치 파일은 전달하지 않았습니다.
+최신 서명된 설치용 APK(`BookreaderM-0.8.0-code12-signed.apk`)의 체크섬·인증서·다운로드 안내와 이전 `05ffd50` 이력은 [설치 APK 안내](docs/INSTALLABLE_APK.md)에 있습니다.
 
 [설치 APK 안내](docs/INSTALLABLE_APK.md)와 [다운로드 운영 방안](docs/APK_DISTRIBUTION.md)을 확인하세요.
 GitHub 릴리스 첨부와 공개 배포는 아직 완료되지 않았습니다. unsigned APK/AAB는 직접 설치용이 아닙니다.

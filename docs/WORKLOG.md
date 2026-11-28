@@ -1,3 +1,22 @@
+## 2026-11-28 `main` 통합 완료 및 서명된 `0.8.0` (code 12) Release APK 빌드·감사
+
+사용자 명시적 승인에 따라 [PR #7](https://github.com/LaceyLuv/BookreaderM/pull/7)(`b9015f81`, Issue #2 종료)과
+[PR #9](https://github.com/LaceyLuv/BookreaderM/pull/9)(`ee112d1a`, Issue #3 종료; PR #7 브랜치 삭제로 닫힌 PR #8을 트리 바이트 동일 기준으로 승계)을 `main`에 병합하고,
+신규 영구 정식 서명키(GitHub Repository Secrets `BOOKREADER_RELEASE_*` 5종, 공개 인증서 SHA-256 `c86301d1b3556040d5d1edda2e5755514387ff7fea4a1954785fa1c178d62537`)와
+수동 워크플로우(`.github/workflows/build-signed-apk.yml`)를 [PR #10](https://github.com/LaceyLuv/BookreaderM/pull/10)(`f07323fb`)·[PR #11](https://github.com/LaceyLuv/BookreaderM/pull/11)(`9d17ea96`)로 반영한 뒤
+`BookreaderM-0.8.0-code12-signed.apk`를 빌드·재다운로드 검증했다.
+
+### 검증 결과 및 보존된 중간 실패
+
+- **`PASS` — `main` 병합 후 검증 (`ee112d1a`):** `BookReader Mobile Checks` `46092124341` PASS, `BookReader Mobile Device Tests` `46092124338` API 26·34·36 3/3 PASS.
+- **`PASS` — PR #10 (`0.8.0`/code 12 + 선택 서명 DSL):** `BookReader Mobile Checks` PR `46096452943`·Push `46096447556` PASS, `BookReader Mobile Device Tests` PR `46096452969` API 26·34·36 3/3 PASS.
+- **`BLOCKED_ENV` (보존) — PR #10 Push Device `46096447605` API 26 (`140828763147`, 아티팩트 `15242753949`, `3,520` bytes):** `android-tasks` 46초 실패(업스트림 KSP 조회 실패, 기존 `15200606943`과 동일 패턴). 같은 커밋 PR `46096452969` API 26·34·36은 3/3 PASS.
+- **`FAIL` (보존) — 1차 서명 APK 실행 `46097937063` (`f07323fb`, job `140833533563`):** `scripts/audit-apk.py` PASS, v2/v3 서명·인증서 SHA-256 일치·`android:debuggable` 부재 PASS 후, 워크플로우의 `.otf` 전역 필터가 Readium 3.1.2 기본 접근성 글꼴(`OpenDyslexic-Regular.otf`, `AccessibleDfA.otf`)에 오탐 → [PR #11](https://github.com/LaceyLuv/BookreaderM/pull/11)(`9d17ea96`)에서 `assets/font-fixtures/`·`Fixture.otf`·`test-fixtures`·`debug-fonts` 대상으로 좁혀 해결.
+- **`PASS` — 최종 서명 APK 실행 `46098603675` (`9d17ea96a0544c5889a150ee97bfb6599044c725`, job `140835638423`):**
+  - Actions 아티팩트 `BookreaderM-signed-release-apk` (ID `15244029886`, ZIP `19,015,918` bytes, `sha256:24a04de8abad29918337b533de44b97a03eae80887ef855415b8e1e154daa7f3`, 공개 Release 미게시).
+  - 재다운로드 직접 대조 완료: `BookreaderM-0.8.0-code12-signed.apk` (`22,369,021` bytes, `sha256:da04e525a2a3b9a28166f1f29d26e57fce2c7ce9e03094876e34ffd61d2ae99d`), `apk-audit.json` `PASS`(v2/v3 서명·인증서 `c86301d1...` 일치·권한 `ACCESS_NETWORK_STATE` 단독·`allowBackup=false`·`usesCleartextTraffic=false`·4 ABI/8 ELF 및 ZIP 16KB 정렬 PASS).
+- **`NOT_RUN`:** 실제 스마트폰 설치·대용량 백업 성능·TalkBack·16KB 실제 OS·공개 스토어 배포(출시 판정 `BLOCKED` 유지).
+
 ## 2026-11-28 Issue #3 (Phase 4-2) — 책·사용자 글꼴 원본 선택 백업 및 중단/ENOSPC 재개 커밋 구현·검증
 
 PR #7의 검증 완료 기준 `0ce19a0a01d5d9d254819eba9722bdca04b40f69`(`0.8.0-dev`/versionCode 11/Room 9, 14 테이블)에서
