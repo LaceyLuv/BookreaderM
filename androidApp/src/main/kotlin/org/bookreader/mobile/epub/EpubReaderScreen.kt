@@ -64,6 +64,16 @@ fun EpubReaderScreen(controller: EpubReaderController, onClose: () -> Unit, onRe
             ReaderToolButton("북마크", R.drawable.ic_reader_bookmark, "epub_bookmarks", ready) { bookmarks = true; menu = false; controller.loadBookmarks() }
             ReaderToolButton("설정", R.drawable.ic_reader_text, "epub_settings", ready) { settings = true; menu = false }
             ReaderToolButton("형광펜", R.drawable.ic_reader_highlight, "epub_annotations", ready) { controller.annotations.open(); menu = false }
+            ReaderToolButton(
+                if (state.settings.window.fullscreen) "집중 해제" else "집중 모드",
+                R.drawable.ic_reader_focus,
+                "epub_focus_mode",
+                ready && controller.loadedSettings != null && !state.settingsSaving && !state.settingsError,
+            ) {
+                if (!state.settings.window.fullscreen) controlsVisible = false
+                menu = false
+                controller.toggleFullscreen()
+            }
         }
     }
     val darkChrome = state.settings.theme.isDarkBackground()

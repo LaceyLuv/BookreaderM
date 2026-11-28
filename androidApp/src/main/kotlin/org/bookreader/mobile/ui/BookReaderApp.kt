@@ -84,6 +84,8 @@ import org.bookreader.mobile.model.BookAvailability
 import org.bookreader.mobile.model.BookFormat
 import org.bookreader.mobile.reader.ReaderControlTheme
 import org.bookreader.mobile.reader.TxtReaderScreen
+import org.bookreader.mobile.reader.isDarkBackground
+import org.bookreader.mobile.reader.paperColor
 import org.bookreader.mobile.repository.LibraryState
 
 @Composable
@@ -93,7 +95,16 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover:
     val librarySavedState = rememberSaveableStateHolder()
     val dark = state.theme.isDark(isSystemInDarkTheme())
     val view = LocalView.current
+    val comicSettings = state.comicReader?.state?.collectAsStateWithLifecycle()?.value?.settings
+    val epubSettings = state.epubReader?.state?.collectAsStateWithLifecycle()?.value?.settings
+    val txtSettings = state.reader?.state?.collectAsStateWithLifecycle()?.value?.settings
     val reading = state.reader != null || state.epubReader != null || state.comicReader != null
+    val activeReaderDark = when {
+        state.comicReader != null -> true
+        epubSettings != null -> epubSettings.theme.isDarkBackground()
+        txtSettings != null -> txtSettings.theme.isDarkBackground()
+        else -> dark
+    }
     DisposableEffect(view, reading) {
         val window = (view.context as? Activity)?.window
         val legacy = reading && android.os.Build.VERSION.SDK_INT < 29 && window != null
@@ -110,20 +121,23 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover:
             if (reading && previousInputMode != null) window?.setSoftInputMode(previousInputMode)
         }
     }
-    LaunchedEffect(view, dark, reading) {
+    LaunchedEffect(view, dark, reading, activeReaderDark) {
         withContext(Dispatchers.Main.immediate) {
             (view.context as? Activity)?.let { activity ->
                 WindowCompat.getInsetsController(activity.window, view).apply {
-                    isAppearanceLightStatusBars = !dark && !reading
-                    isAppearanceLightNavigationBars = !dark && !reading
+                    val useLightBars = if (reading) !activeReaderDark else !dark
+                    isAppearanceLightStatusBars = useLightBars
+                    isAppearanceLightNavigationBars = useLightBars
                 }
             }
         }
     }
     state.comicReader?.let { reader ->
+        val fullscreen = comicSettings?.window?.fullscreen == true
+        val insets = if (fullscreen) WindowInsets.displayCutout else WindowInsets.systemBars.union(WindowInsets.displayCutout)
         ReaderControlTheme(darkTheme = true) {
-            Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
-                Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
+            Surface(color = androidx.compose.ui.graphics.Color(0xFF101720), contentColor = MaterialTheme.colorScheme.onBackground) {
+                Column(Modifier.fillMaxSize().windowInsetsPadding(insets)) {
                     if (state.batch?.active != true && state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
                         model::dismissImport, model::cancelImport, model::selectImportEncoding, model::openBook)
                     androidx.compose.runtime.key(reader) { org.bookreader.mobile.comic.ComicReaderScreen(reader, model::leaveReader) { model.openBook(reader.book) } }
@@ -133,9 +147,12 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover:
         return
     }
     state.epubReader?.let { reader ->
-        ReaderControlTheme(darkTheme = true) {
-            Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
-                Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
+        val fullscreen = epubSettings?.window?.fullscreen == true
+        val paper = epubSettings?.theme?.paperColor() ?: MaterialTheme.colorScheme.background
+        val insets = if (fullscreen) WindowInsets.displayCutout else WindowInsets.systemBars.union(WindowInsets.displayCutout)
+        ReaderControlTheme(darkTheme = epubSettings?.theme?.isDarkBackground() ?: true) {
+            Surface(color = paper, contentColor = MaterialTheme.colorScheme.onBackground) {
+                Column(Modifier.fillMaxSize().windowInsetsPadding(insets)) {
                     if (state.batch?.active != true && state.importing !is ImportUiState.Idle) ImportStatus(state.importing, model::confirmShare,
                         model::dismissImport, model::cancelImport, model::selectImportEncoding, model::openBook)
                     androidx.compose.runtime.key(reader) { org.bookreader.mobile.epub.EpubReaderScreen(reader, model::leaveReader) { model.openBook(reader.book) } }
@@ -145,9 +162,12 @@ fun BookReaderApp(model: AppViewModel, onAddTxt: () -> Unit = {}, onChooseCover:
         return
     }
     state.reader?.let { reader ->
-        ReaderControlTheme(darkTheme = true) {
-            Surface(color = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground) {
-            Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout))) {
+        val fullscreen = txtSettings?.window?.fullscreen == true
+        val paper = txtSettings?.theme?.paperColor() ?: MaterialTheme.colorScheme.background
+        val insets = if (fullscreen) WindowInsets.displayCutout else WindowInsets.systemBars.union(WindowInsets.displayCutout)
+        ReaderControlTheme(darkTheme = txtSettings?.theme?.isDarkBackground() ?: true) {
+            Surface(color = paper, contentColor = MaterialTheme.colorScheme.onBackground) {
+            Column(Modifier.fillMaxSize().windowInsetsPadding(insets)) {
                 state.notice?.let { Text(it, modifier = Modifier.testTag("import_notice"), color = MaterialTheme.colorScheme.error) }
                 if (state.batch?.active != true && (state.importing is ImportUiState.ConfirmShare || state.importing is ImportUiState.SelectEncoding ||
                     state.importing is ImportUiState.Working || state.importing is ImportUiState.Complete || state.importing is ImportUiState.Error)) {

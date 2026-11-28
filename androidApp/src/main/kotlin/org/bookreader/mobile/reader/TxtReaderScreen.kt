@@ -88,6 +88,7 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
     var showMenu by remember(controller) { mutableStateOf(false) }
     var requestedScroll by remember(controller, state.restoreGeneration) { mutableStateOf(false) }
     var pageStep by remember(controller) { mutableStateOf(PageStepRequest()) }
+    var dragOffsetPx by remember(controller) { androidx.compose.runtime.mutableFloatStateOf(0f) }
     var pageAvailability by remember(controller) { mutableStateOf(false to false) }
     val seek = remember(controller) { ReaderSeekPreview(controller::seekToFraction) }
     val touchExploration = readerWindowEffects(settings.window)
@@ -111,13 +112,19 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
         previousTypography[0] = changed
     }
     fun move(direction: Int) {
-        if (controller.state.value.phase != TxtReaderPhase.READY) return
-        if (scrollMode) scope.launch(Dispatchers.Main.immediate) {
-            requestedScroll = true
-            val distance = (list.layoutInfo.viewportEndOffset - list.layoutInfo.viewportStartOffset) * .9f * direction
-            if (settings.pageTransition == org.bookreader.mobile.settings.PageTransition.NONE) list.scrollBy(distance)
-            else list.animateScrollBy(distance)
-        } else pageStep = PageStepRequest(pageStep.id + 1, direction)
+        val phase = controller.state.value.phase
+        if (scrollMode) {
+            if (phase != TxtReaderPhase.READY) return
+            scope.launch(Dispatchers.Main.immediate) {
+                requestedScroll = true
+                val distance = (list.layoutInfo.viewportEndOffset - list.layoutInfo.viewportStartOffset) * .9f * direction
+                if (settings.pageTransition == org.bookreader.mobile.settings.PageTransition.NONE) list.scrollBy(distance)
+                else list.animateScrollBy(distance)
+            }
+        } else {
+            if (phase != TxtReaderPhase.READY && !(phase == TxtReaderPhase.REFLOWING && hasDisplayed)) return
+            pageStep = PageStepRequest(pageStep.id + 1, direction)
+        }
     }
     BackHandler {
         if (showMenu || seek.fraction != null) { seek.cancel(); showMenu = false }
@@ -202,17 +209,31 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 modifier = Modifier.fillMaxSize(),
             )
         } else {
+            val gesturesEnabled = !touchExploration &&
+                (state.phase == TxtReaderPhase.READY || (!scrollMode && state.phase == TxtReaderPhase.REFLOWING && hasDisplayed))
             Box(Modifier.fillMaxSize().padding(bottom = ReaderPageStatusHeight).onSizeChanged { bodyViewport = it }.readerGestures(
-                enabled = state.phase == TxtReaderPhase.READY && !touchExploration, pageMode = !scrollMode,
+                enabled = gesturesEnabled,
+                pageMode = !scrollMode,
                 onTap = { fraction -> when {
                     fraction < .25f -> move(-1)
                     fraction > .75f -> move(1)
                     else -> controlsVisible = !controlsVisible
-                } }, onDoubleTap = { showMenu = !showMenu }, onPage = ::move).testTag(
+                } },
+                onDoubleTap = { showMenu = !showMenu },
+                onPage = ::move,
+                onDragOffset = { dragOffsetPx = if (!scrollMode) it else 0f },
+            ).testTag(
                 if (state.phase == TxtReaderPhase.READY) "reader_ready" else "reader_content")) {
-                if (!scrollMode) TxtPageContent(controller, state, typography,
+                if (!scrollMode) TxtPageContent(
+                    controller,
+                    state,
+                    typography,
                     Modifier.fillMaxSize().background(background).padding(horizontal = settings.marginDp.dp, vertical = 12.dp),
-                    step = pageStep, highlights = highlights, onAvailability = { previous, next -> pageAvailability = previous to next })
+                    step = pageStep,
+                    highlights = highlights,
+                    dragOffsetPx = dragOffsetPx,
+                    onAvailability = { previous, next -> pageAvailability = previous to next },
+                )
                 else LazyColumn(state = list, userScrollEnabled = state.phase == TxtReaderPhase.READY,
                     contentPadding = PaddingValues(horizontal = settings.marginDp.dp, vertical = 12.dp),
                     modifier = Modifier.fillMaxSize().testTag("reader_text")
@@ -286,6 +307,15 @@ fun TxtReaderScreen(controller: TxtReaderController, onClose: () -> Unit) {
                 ReaderToolButton("설정", R.drawable.ic_reader_text, "reader_settings") { showSettings = true }
                 ReaderToolButton("형광펜", R.drawable.ic_reader_highlight, "reader_annotations",
                     state.phase == TxtReaderPhase.READY && state.cache.complete) { showAnnotations = true }
+                ReaderToolButton(
+                    if (settings.window.fullscreen) "집중 해제" else "집중 모드",
+                    R.drawable.ic_reader_focus,
+                    "reader_focus_mode",
+                    state.phase == TxtReaderPhase.READY && state.settingsLoaded != null && !state.settingsSaving && !state.settingsError,
+                ) {
+                    if (!settings.window.fullscreen) controlsVisible = false
+                    controller.toggleFullscreen()
+                }
                 if (toolsState.returnOffset != null) ReaderToolButton("검색 전 위치", R.drawable.ic_reader_return,
                     "reader_search_return", state.phase == TxtReaderPhase.READY, controller.tools::returnFromSearch)
             }

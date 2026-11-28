@@ -149,6 +149,14 @@ class ComicReaderController(val book: Book, private val file: File, private val 
             finally { mutableState.update { it.copy(settingsSaving = false) } }
         }
     }
+    fun toggleFullscreen() {
+        val loaded = loadedSettings ?: return
+        val nextFullscreen = !loaded.global.window.fullscreen
+        saveSettings(
+            loaded.global.copy(window = loaded.global.window.copy(fullscreen = nextFullscreen)),
+            loaded.book,
+        )
+    }
     fun retrySettings() { scope.launch {
         when (val read = settingsAccess.load(book.id)) {
             is ReaderSettingsRead.Ready -> { loadedSettings = read.value; reflow(); mutableState.update { it.copy(settings = read.value.effective, settingsError = false) } }

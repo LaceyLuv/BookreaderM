@@ -1512,6 +1512,105 @@ class TxtReaderFlowTest {
         } finally { restoreReaderGlobalSettings(originalSettings) }
     }
 
+    @Test fun focusModeToolbarToggleAndHorizontalPageSwipesPreserveProgress() {
+        val originalSettings = readReaderGlobalSettings()
+        try {
+            sendFixture("reader-pages")
+            waitFor("reader_ready")
+            val active = reader()
+            clickReaderControlOnMain("reader_settings")
+            waitFor("reader_settings_dialog")
+            clickOnMain("reader_mode_PAGES", scrollFirst = true)
+            clickOnMain("reader_settings_apply")
+            compose.waitUntil(15_000) {
+                active.state.value.settings.readingMode == org.bookreader.mobile.settings.TxtReadingMode.PAGES &&
+                    active.state.value.phase == TxtReaderPhase.READY
+            }
+            waitFor("reader_page")
+            assertFalse(active.state.value.settings.window.fullscreen)
+
+            // Move one page forward first so we have a non-zero stable offset before toggling Focus Mode.
+            val startOffset = active.state.value.stableOffset ?: 0L
+            swipePageHorizontal(forward = true)
+            compose.waitUntil(15_000) {
+                active.state.value.phase == TxtReaderPhase.READY &&
+                    (active.state.value.stableOffset ?: -1L) > startOffset
+            }
+            val pageTwoOffset = requireNotNull(active.state.value.stableOffset)
+
+            // One-tap Focus Mode toolbar button enables fullscreen, hides chrome, and preserves offset.
+            clickReaderControlOnMain("reader_focus_mode")
+            compose.waitUntil(15_000) {
+                active.state.value.settings.window.fullscreen && active.state.value.phase == TxtReaderPhase.READY
+            }
+            compose.waitUntil(5_000) {
+                compose.onAllNodesWithTag("reader_chrome").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+            }
+            compose.waitForIdle()
+            compose.waitUntil(15_000) {
+                active.state.value.settings.window.fullscreen && active.state.value.phase == TxtReaderPhase.READY
+            }
+            assertEquals(pageTwoOffset, active.state.value.stableOffset)
+
+            // Swipe forward to page 3, then swipe backward to return to page 2.
+            swipePageHorizontal(forward = true)
+            compose.waitUntil(15_000) {
+                active.state.value.phase == TxtReaderPhase.READY &&
+                    (active.state.value.stableOffset ?: -1L) > pageTwoOffset
+            }
+            val pageThreeOffset = requireNotNull(active.state.value.stableOffset)
+            assertTrue(pageThreeOffset > pageTwoOffset)
+
+            swipePageHorizontal(forward = false)
+            compose.waitUntil(15_000) {
+                active.state.value.phase == TxtReaderPhase.READY &&
+                    active.state.value.stableOffset == pageTwoOffset
+            }
+
+            // Toggle Focus Mode OFF via toolbar and verify exact reading anchor stays intact.
+            clickReaderControlOnMain("reader_focus_mode")
+            compose.waitUntil(15_000) {
+                !active.state.value.settings.window.fullscreen && active.state.value.phase == TxtReaderPhase.READY
+            }
+            compose.waitForIdle()
+            compose.waitUntil(15_000) {
+                !active.state.value.settings.window.fullscreen && active.state.value.phase == TxtReaderPhase.READY
+            }
+            assertEquals(pageTwoOffset, active.state.value.stableOffset)
+        } finally { restoreReaderGlobalSettings(originalSettings) }
+    }
+
+    private fun swipePageHorizontal(forward: Boolean) {
+        val node = compose.onAllNodesWithTag("reader_page_viewport").fetchSemanticsNodes().single()
+        val bounds = compose.runOnIdle {
+            val view = (node.root as androidx.compose.ui.platform.ViewRootForTest).view
+            val screen = IntArray(2)
+            view.getLocationOnScreen(screen)
+            node.boundsInRoot.translate(androidx.compose.ui.geometry.Offset(screen[0].toFloat(), screen[1].toFloat()))
+        }
+        assertTrue("Expected visible reader_page_viewport", bounds.width > 0f && bounds.height > 0f)
+        val startX = if (forward) bounds.right - bounds.width * 0.22f else bounds.left + bounds.width * 0.22f
+        val endX = if (forward) bounds.left + bounds.width * 0.22f else bounds.right - bounds.width * 0.22f
+        val y = bounds.center.y
+        val automation = instrumentation.uiAutomation
+        val downTime = SystemClock.uptimeMillis()
+        fun send(action: Int, x: Float, yPos: Float) {
+            val event = MotionEvent.obtain(downTime, SystemClock.uptimeMillis(), action, x, yPos, 0)
+            event.source = InputDevice.SOURCE_TOUCHSCREEN
+            try { assertTrue("Android must accept reader_page swipe event", automation.injectInputEvent(event, true)) }
+            finally { event.recycle() }
+        }
+        send(MotionEvent.ACTION_DOWN, startX, y)
+        for (step in 1..14) {
+            SystemClock.sleep(16)
+            val fraction = step / 14f
+            send(MotionEvent.ACTION_MOVE, startX + (endX - startX) * fraction, y + 18f * fraction)
+        }
+        SystemClock.sleep(24)
+        send(MotionEvent.ACTION_UP, endX, y + 18f)
+        compose.waitForIdle()
+    }
+
     @Test fun sliderSeeksRestoreUncomposedDistantScrollFragmentsInBothDirections() {
         sendFixture("reader-pages")
         waitFor("reader_ready")

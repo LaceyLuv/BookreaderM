@@ -38,6 +38,8 @@ class TxtCanonicalCache(private val book: Book, private val directory: File) {
     private val textLru = object : LinkedHashMap<Int, String>(8, 0.75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Int, String>?): Boolean = size > 8
     }
+    private var rangeWindowStart = 0L
+    private var rangeWindowText = ""
 
     @Synchronized fun snapshot(): TxtCacheSnapshot = current
 
@@ -57,12 +59,32 @@ class TxtCanonicalCache(private val book: Book, private val directory: File) {
     @Synchronized fun readRange(start: Long, maxUnits: Int): String {
         require(maxUnits in 1..65_536 && start in 0..current.committedLength)
         val count = minOf(maxUnits.toLong(), current.committedLength - start).toInt()
-        val bytes = ByteArray(count * 2)
+        if (count == 0) return ""
+        if (current.complete && rangeWindowText.isNotEmpty() &&
+            start >= rangeWindowStart && start + count <= rangeWindowStart + rangeWindowText.length
+        ) {
+            val local = (start - rangeWindowStart).toInt()
+            val slice = rangeWindowText.substring(local, local + count)
+            require(!slice.first().isLowSurrogate()) { "Invalid canonical boundary" }
+            return if (slice.last().isHighSurrogate()) slice.substring(0, slice.length - 1) else slice
+        }
+        val fetch = if (current.complete) {
+            minOf(maxOf(count, 32_768).toLong(), current.committedLength - start).toInt()
+        } else {
+            count
+        }
+        val bytes = ByteArray(fetch * 2)
         RandomAccessFile(readable, "r").use { file -> file.seek(start * 2); file.readFully(bytes) }
-        val chars = CharArray(count) { i -> ((bytes[i * 2].toInt() and 255) or
+        val chars = CharArray(fetch) { i -> ((bytes[i * 2].toInt() and 255) or
             ((bytes[i * 2 + 1].toInt() and 255) shl 8)).toChar() }
         require(chars.isEmpty() || !chars.first().isLowSurrogate()) { "Invalid canonical boundary" }
-        return String(chars, 0, if (chars.lastOrNull()?.isHighSurrogate() == true) count - 1 else count)
+        val loaded = String(chars)
+        if (current.complete) {
+            rangeWindowStart = start
+            rangeWindowText = loaded
+        }
+        val end = if (chars[count - 1].isHighSurrogate()) count - 1 else count
+        return loaded.substring(0, end)
     }
 
     @Synchronized fun readFragment(index: Int): String {
@@ -128,7 +150,13 @@ class TxtCanonicalCache(private val book: Book, private val directory: File) {
         val canonicalDigest = MessageDigest.getInstance("SHA-256")
         try {
             RandomAccessFile(temporary, "rw").use { output ->
-                synchronized(this) { readable = temporary; current = TxtCacheSnapshot(); textLru.clear() }
+                synchronized(this) {
+                    readable = temporary
+                    current = TxtCacheSnapshot()
+                    textLru.clear()
+                    rangeWindowStart = 0L
+                    rangeWindowText = ""
+                }
                 fun commit(length: Int) {
                     checkCancellation()
                     val bytes = ByteArray(length * 2)

@@ -65,6 +65,16 @@ fun ComicReaderScreen(controller: ComicReaderController, onClose: () -> Unit, on
     @Composable fun Controls() {
         ReaderToolButton("북마크", R.drawable.ic_reader_bookmark, "comic_bookmarks", ready) { bookmarks = true; menu = false; controller.loadBookmarks() }
         ReaderToolButton("읽기 설정", R.drawable.ic_reader_settings, "comic_settings", ready) { settings = true; menu = false }
+        ReaderToolButton(
+            if (state.settings.window.fullscreen) "집중 해제" else "집중 모드",
+            R.drawable.ic_reader_focus,
+            "comic_focus_mode",
+            ready && controller.loadedSettings != null && !state.settingsSaving && !state.settingsError,
+        ) {
+            if (!state.settings.window.fullscreen) controlsVisible = false
+            menu = false
+            controller.toggleFullscreen()
+        }
     }
     Box(Modifier.fillMaxSize().background(Color(0xFF101720)).testTag("comic_reader")) {
         if (state.fatalError || progress.phase == ArchiveReaderPhase.ERROR) {
@@ -372,18 +382,23 @@ private fun ComicCanvas(controller: ComicReaderController, image: ComicImage, vi
                 if (event.changes.count { it.pressed } > 1) multiple = true
                 val pan = event.calculatePan(); val scale = event.calculateZoom()
                 total += pan
-                if (multiple || zoom > 1f || abs(total.y) > viewConfiguration.touchSlop && abs(total.y) > abs(total.x)) {
+                if (multiple || zoom > 1f || (abs(total.y) > viewConfiguration.touchSlop && abs(total.y) > abs(total.x))) {
                     if (pan != Offset.Zero || scale != 1f) {
                         val next = (zoom * scale).coerceIn(1f, 6f)
                         val center = event.calculateCentroid(useCurrent = false)
-                        origin = clamp(center - (center - origin) * (next / zoom) + pan, next)
-                        zoom = next; transformed = true
-                        event.changes.forEach { it.consume() }
-                        save()
+                        val nextOrigin = clamp(center - (center - origin) * (next / zoom) + pan, next)
+                        if (multiple || next != zoom || nextOrigin != origin) {
+                            origin = nextOrigin
+                            zoom = next
+                            transformed = true
+                            event.changes.forEach { it.consume() }
+                            save()
+                        }
                     }
                 }
             } while (event.changes.any { it.pressed })
-            if (navigation && !multiple && !transformed && zoom == 1f && abs(total.x) > 64.dp.toPx() && abs(total.x) > abs(total.y))
+            val swipeThreshold = maxOf(viewConfiguration.touchSlop * 2f, canvasViewport.width * 0.08f)
+            if (navigation && !multiple && !transformed && zoom == 1f && abs(total.x) > swipeThreshold && abs(total.x) > abs(total.y) * 1.2f)
                 controller.move(if (total.x < 0) direction else -direction)
         }
     }

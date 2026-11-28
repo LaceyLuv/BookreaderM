@@ -6,14 +6,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFontFamilyResolver
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
 import kotlinx.coroutines.CancellationException
@@ -31,44 +32,102 @@ private data class LoadedPage(val engine: TxtPageEngine, val generation: Int, va
 data class PageStepRequest(val id: Long = 0, val direction: Int = 0)
 
 @Composable
-fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style: TextStyle,
-    modifier: Modifier = Modifier, step: PageStepRequest = PageStepRequest(),
+fun TxtPageContent(
+    controller: TxtReaderController,
+    state: TxtReaderState,
+    style: TextStyle,
+    modifier: Modifier = Modifier,
+    step: PageStepRequest = PageStepRequest(),
     highlights: List<org.bookreader.mobile.annotation.TxtAnnotation> = emptyList(),
-    onAvailability: (Boolean, Boolean) -> Unit = { _, _ -> }) {
+    dragOffsetPx: Float = 0f,
+    onAvailability: (Boolean, Boolean) -> Unit = { _, _ -> },
+) {
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
-    val font = LocalFontFamilyResolver.current.resolve(style.fontFamily, fontWeight = style.fontWeight ?: androidx.compose.ui.text.font.FontWeight.Normal).value
-    val insets = WindowInsets.systemBars.union(WindowInsets.displayCutout)
+    val fontResolver = LocalFontFamilyResolver.current
+    val font = fontResolver.resolve(style.fontFamily, fontWeight = style.fontWeight ?: androidx.compose.ui.text.font.FontWeight.Normal).value
+    val insets = if (state.settings.window.fullscreen) {
+        WindowInsets.displayCutout
+    } else {
+        WindowInsets.systemBars.union(WindowInsets.displayCutout)
+    }
     val direction = androidx.compose.ui.platform.LocalLayoutDirection.current
-    val measurer = rememberTextMeasurer(cacheSize = 4)
     var size by remember(controller) { mutableStateOf(IntSize.Zero) }
-    val key = TxtPageLayoutKey(requireNotNull(controller.book.currentRevision), style = style,
-        resolvedFont = font, density = density.density, fontScale = density.fontScale, viewport = size,
-        margin = state.settings.marginDp, insets = listOf(insets.getLeft(density, direction),
-            insets.getTop(density), insets.getRight(density, direction), insets.getBottom(density)),
-        locale = configuration.locales.toLanguageTags(), direction = direction)
+    val key = TxtPageLayoutKey(
+        requireNotNull(controller.book.currentRevision),
+        style = style,
+        resolvedFont = font,
+        density = density.density,
+        fontScale = density.fontScale,
+        viewport = size,
+        margin = state.settings.marginDp,
+        insets = listOf(
+            insets.getLeft(density, direction),
+            insets.getTop(density),
+            insets.getRight(density, direction),
+            insets.getBottom(density),
+        ),
+        locale = configuration.locales.toLanguageTags(),
+        direction = direction,
+    )
     val engine = remember(key, state.cache.complete) {
-        if (size.width > 0 && size.height > 0 && state.cache.complete)
+        if (size.width > 0 && size.height > 0 && state.cache.complete) {
+            val engineMeasurer = TextMeasurer(fontResolver, density, direction, cacheSize = 8)
             TxtPageEngine(state.cache.committedLength, size.height, controller::range) { text ->
-                measurer.measure(AnnotatedString(text), style, constraints = Constraints(maxWidth = size.width))
-            } else null
+                engineMeasurer.measure(AnnotatedString(text), style, constraints = Constraints(maxWidth = size.width))
+            }
+        } else {
+            null
+        }
     }
     val latestEngine by rememberUpdatedState(engine)
     LaunchedEffect(key) { controller.beginReflow() }
     val generation = state.restoreGeneration
-    val loaded by produceState<LoadedPage?>(null, engine, generation, state.targetOffset) {
-        withContext(Dispatchers.Main.immediate) {
-            val active = engine ?: return@withContext
-            try {
-                val page = if (state.targetOffset == state.cache.committedLength)
-                    active.previous(state.targetOffset) else active.next(state.targetOffset)
-                value = LoadedPage(active, generation, page)
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { controller.contentReadFailed() }
+    val cached = remember(engine, generation, state.targetOffset, state.cache.committedLength) {
+        val active = engine ?: return@remember null
+        val hit = if (state.targetOffset == state.cache.committedLength) {
+            active.peekPrevious(state.targetOffset)
+        } else {
+            active.peekPage(state.targetOffset)
+        }
+        hit?.let { LoadedPage(active, generation, it) }
+    }
+    val asyncLoaded by produceState<LoadedPage?>(null, engine, generation, state.targetOffset) {
+        if (cached != null) {
+            withContext(Dispatchers.Main.immediate) { value = cached }
+            return@produceState
+        }
+        val active = engine ?: return@produceState
+        val loaded = try {
+            withContext(Dispatchers.Default) {
+                val page = if (state.targetOffset == state.cache.committedLength) {
+                    active.previous(state.targetOffset)
+                } else {
+                    active.next(state.targetOffset)
+                }
+                LoadedPage(active, generation, page)
+            }
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            withContext(Dispatchers.Main.immediate) { controller.contentReadFailed() }
+            return@produceState
+        }
+        withContext(Dispatchers.Main.immediate) { value = loaded }
+    }
+    val visible = (cached ?: asyncLoaded)?.takeIf { it.engine === engine }
+    val page = visible?.page
+    LaunchedEffect(engine, page?.range) {
+        val active = engine ?: return@LaunchedEffect
+        val current = page ?: return@LaunchedEffect
+        try {
+            withContext(Dispatchers.Default) { active.prefetchAround(current) }
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            // Prefetch is best-effort; an explicit navigation will surface any real read error.
         }
     }
-    val visible = loaded?.takeIf { it.engine === engine }
-    val page = visible?.page
     var turnGeneration by remember(controller) { mutableIntStateOf(-1) }
     var turnDirection by remember(controller) { mutableIntStateOf(1) }
     var measuredGeneration by remember(engine) { mutableIntStateOf(-1) }
@@ -81,40 +140,77 @@ fun TxtPageContent(controller: TxtReaderController, state: TxtReaderState, style
     SideEffect { onAvailability(canPrevious, canNext) }
     LaunchedEffect(step.id) {
         withContext(Dispatchers.Main.immediate) {
-            if (step.id == 0L || state.phase != TxtReaderPhase.READY) return@withContext
-            val displayed = page ?: return@withContext
+            if (step.id == 0L) return@withContext
+            val phase = controller.state.value.phase
+            if (phase != TxtReaderPhase.READY && phase != TxtReaderPhase.REFLOWING) return@withContext
+            val activeGen = controller.state.value.restoreGeneration
+            val prepared = visible ?: return@withContext
+            if (prepared.generation != activeGen) return@withContext
+            val displayed = prepared.page
+            val active = engine ?: return@withContext
             try {
-                val target = if (step.direction < 0 && displayed.range.start > 0)
-                    engine?.previous(displayed.range.start)?.range?.start
-                else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) displayed.range.end else null
-                if (target != null && controller.state.value.restoreGeneration == generation) {
+                val target = if (step.direction < 0 && displayed.range.start > 0) {
+                    active.peekPrevious(displayed.range.start)?.range?.start
+                        ?: withContext(Dispatchers.Default) { active.previous(displayed.range.start).range.start }
+                } else if (step.direction > 0 && displayed.range.end < state.cache.committedLength) {
+                    displayed.range.end
+                } else {
+                    null
+                }
+                if (target != null && controller.state.value.restoreGeneration == activeGen) {
                     turnDirection = if (step.direction < 0) -1 else 1
-                    turnGeneration = generation + 1
+                    turnGeneration = activeGen + 1
                     controller.navigateTo(target)
                 }
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { controller.contentReadFailed() }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                controller.contentReadFailed()
+            }
         }
     }
     Column(modifier) {
-        Box(Modifier.weight(1f).fillMaxWidth().testTag("reader_page_viewport").onSizeChanged { size = it }) {
+        Box(
+            Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .testTag("reader_page_viewport")
+                .onSizeChanged { size = it }
+                .graphicsLayer { translationX = dragOffsetPx },
+        ) {
             visible?.let { prepared ->
-                ReaderPageTransition(prepared,
+                ReaderPageTransition(
+                    prepared,
                     if (prepared.generation == turnGeneration) state.settings.pageTransition else org.bookreader.mobile.settings.PageTransition.NONE,
-                    turnDirection, Modifier.fillMaxSize(), onSettled = { settledGeneration = it.generation }) { rendered ->
-                val displayed = rendered.page
-                // Very large accessibility fonts may exceed the viewport even for one line.
-                // A bounded page stays vertically scrollable instead of clipping that line.
-                androidx.compose.foundation.text.selection.SelectionContainer { Text(highlightedTxt(displayed.range.start, displayed.text, highlights), style = style, maxLines = displayed.lines,
-                    modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
-                        .testTag("reader_page"),
-                    onTextLayout = { actual ->
-                        if (latestEngine !== rendered.engine || controller.state.value.restoreGeneration != rendered.generation) return@Text
-                        if (actual.lineCount == displayed.lines &&
-                            actual.getLineEnd(actual.lineCount - 1, visibleEnd = false) == displayed.text.length)
-                            measuredGeneration = rendered.generation
-                        else controller.restoreFailed()
-                    }) }
+                    turnDirection,
+                    Modifier.fillMaxSize(),
+                    onSettled = { settledGeneration = it.generation },
+                ) { rendered ->
+                    val displayed = rendered.page
+                    // Very large accessibility fonts may exceed the viewport even for one line.
+                    // Keep vertical scroll enabled only on genuinely overflowing pages so normal
+                    // pages never steal horizontal page-turn swipes.
+                    androidx.compose.foundation.text.selection.SelectionContainer {
+                        Text(
+                            highlightedTxt(displayed.range.start, displayed.text, highlights),
+                            style = style,
+                            maxLines = displayed.lines,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .verticalScroll(rememberScrollState(), enabled = displayed.overflowsVertical)
+                                .testTag("reader_page"),
+                            onTextLayout = { actual ->
+                                if (latestEngine !== rendered.engine || controller.state.value.restoreGeneration != rendered.generation) return@Text
+                                if (actual.lineCount == displayed.lines &&
+                                    actual.getLineEnd(actual.lineCount - 1, visibleEnd = false) == displayed.text.length
+                                ) {
+                                    measuredGeneration = rendered.generation
+                                } else {
+                                    controller.restoreFailed()
+                                }
+                            },
+                        )
+                    }
                 }
             }
         }
