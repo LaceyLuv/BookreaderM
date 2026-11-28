@@ -1513,7 +1513,7 @@ class TxtReaderFlowTest {
     }
 
     @Test fun focusModeToolbarToggleAndHorizontalPageSwipesPreserveProgress() {
-        val originalSettings = readReaderGlobalSettings()
+        val originalSettings = runBlocking { observerDatabase.readerSettingsDao().global() }
         try {
             sendFixture("reader-pages")
             waitFor("reader_ready")
